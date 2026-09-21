@@ -1,1 +1,11 @@
-{}
+{
+  "baseFontSize": 14,
+  "enabledCssSnippets": [
+    "mermain",
+    "bold",
+    "more-callout",
+    "code-style",
+    "image-grid",
+    "list-spacing"
+  ]
+}

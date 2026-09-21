@@ -4,5 +4,12 @@
   "open-in-terminal",
   "templater-obsidian",
   "obsidian-outliner",
-  "editing-toolbar"
+  "editing-toolbar",
+  "better-live-preview-image",
+  "image-grid",
+  "obsidian-excalidraw-plugin",
+  "pdf-plus",
+  "hover-reveal",
+  "link-mention",
+  "code-styler"
 ]

@@ -1,9 +1,0 @@
-.markdown-rendered .mermaid {
-    overflow-x: hidden;
-    text-align: center;
-}
-
-.markdown-rendered .mermaid svg {
-    max-width: 100% !important;
-    height: auto !important;
-}
