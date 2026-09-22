@@ -18,10 +18,12 @@ tags:
 현재 canonical main:
 
 ~~~text
-b669c5a8e0a5d5bf61a20331216003a2a404cb85
+cd883cf6a954d7f82e7bf72af9254aa9e64e5493
 ~~~
 
-다음 상위 작업은 [PERF-V7-002 Issue #302](https://github.com/guseoh/pawcycle-commerce/issues/302)이며, 그 안의 Catalog Core 10K repository-preparation 세부 작업은 [Issue #303](https://github.com/guseoh/pawcycle-commerce/issues/303) / PR #304로 분리돼 있다.
+현재 상위 작업은 [PERF-V7-002 Issue #302](https://github.com/guseoh/pawcycle-commerce/issues/302)다.
+
+Catalog Core 10K repository preparation은 [Issue #303](https://github.com/guseoh/pawcycle-commerce/issues/303) / PR #304로 분리해 완료했다.
 
 2026-09-22 현재:
 
@@ -29,16 +31,22 @@ b669c5a8e0a5d5bf61a20331216003a2a404cb85
 Production diagnostic = READY
 Observability diagnostic = NORMAL
 Prometheus backend target = up
-latest SHA runtime provenance = PASS
 same-host calibration = PASS
-runtime 측면 Performance Measurement Ready = PASS
+Performance Measurement Ready = PASS
 
 deploy.lock recurrence prevention = MERGED (#301)
+Catalog Core 10K repository preparation = MERGED (#304)
 PERF-V7-001 = COMPLETE
 
-Production workload baseline = 아직 미실행
-10K Production import/load = 아직 미실행
+10K dataset repository contract = READY
+OCI dataset isolation boundary = 사용자 승인 대기
+Production DB/schema mutation = 미실행
+Production load / 10K Re-baseline = 미실행
 ~~~
+
+PR #304는 Repository Validation과 correction 검증은 통과했지만, 최종 correction HEAD에 대한 별도 CodeRabbit review submission `commit_id`가 생성되지 않은 채 merge됐다. request/status만으로 review 완료를 주장하지 않는 최신 Harness 규칙을 다시 확인한 뒤 이 차이를 Issue #303과 PR #304에 process evidence gap으로 정정 기록했다.
+
+다음 설계 후보는 live Catalog를 오염시키지 않기 위해 **같은 OCI MySQL DB System 안의 별도 performance schema/account + 별도 loopback-only Backend runtime**으로 격리하는 방식이다. 실제 DB/schema/user/runtime/load 실행은 아직 승인하지 않았다.
 
 문서:
 
