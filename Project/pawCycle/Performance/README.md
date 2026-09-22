@@ -13,7 +13,7 @@ tags:
 
 일반 개념과 깊은 학습은 [[../../../Study/Performance/README|Study/Performance]]에서 분리한다. 여기서는 실제 환경, 실행 조건, 실패, correction, 수치, Before/After와 의사결정에 집중한다.
 
-현재 canonical 작업은 [PERF-V7-001 Issue #300](https://github.com/guseoh/pawcycle-commerce/issues/300)이다.
+현재 canonical Gate는 [PERF-V7-001 Issue #300](https://github.com/guseoh/pawcycle-commerce/issues/300)이고, 다음 작업은 [PERF-V7-002 Issue #302](https://github.com/guseoh/pawcycle-commerce/issues/302)로 handoff했다. #302는 #300이 닫히기 전까지 blocked 상태다.
 
 2026-09-22 현재:
 
