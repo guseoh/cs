@@ -42,6 +42,8 @@ tags:
 8. [[08. Observer Effect와 Same-host Calibration]]
 9. [[09. Before After와 성능 실험의 인과관계]]
 10. [[10. 대규모 데이터 Volume Cardinality Distribution Skew]]
+11. [[11. 국내 기술 블로그 성능 사례 지도]]
+12. [[12. 성능 문제 분석 플레이북]]
 
 실제 PawCycle 적용 과정은 [[../../Project/pawCycle/Performance/README|Project/pawCycle/Performance]]에서 분리해서 기록한다.
 
