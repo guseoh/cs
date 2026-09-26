@@ -15,46 +15,48 @@ tags:
 
 첫 OCI 성능 Gate인 [PERF-V7-001 Issue #300](https://github.com/guseoh/pawcycle-commerce/issues/300)은 2026-09-22 완료됐다.
 
-현재 canonical main:
+2026-09-26 작업 시점 PawCycle canonical main:
 
 ~~~text
-7d2cf59c77fb0ed3d112aed62fe0830251d5e5e3
+9d2db627486b2940a7c357aefe66ebe927c974af
 ~~~
 
 현재 상위 작업은 [PERF-V7-002 Issue #302](https://github.com/guseoh/pawcycle-commerce/issues/302)다.
 
-Catalog Core 10K repository preparation은 [Issue #303](https://github.com/guseoh/pawcycle-commerce/issues/303) / PR #304로 분리해 완료했다.
+Catalog Core 10K repository preparation은 [Issue #303](https://github.com/guseoh/pawcycle-commerce/issues/303) / PR #304로 완료했다. live Production Catalog를 오염시키지 않고 I0와 I10K를 비교하기 위한 격리 실행 계약은 [PR #306](https://github.com/guseoh/pawcycle-commerce/pull/306)에서 구현했다. 이후 isolated Catalog stage evidence collector까지 [PR #308](https://github.com/guseoh/pawcycle-commerce/pull/308)에서 main에 반영됐다.
 
-그 다음 live Production Catalog를 오염시키지 않고 I0와 I10K를 비교하기 위한 격리 실행 계약을 [PR #306](https://github.com/guseoh/pawcycle-commerce/pull/306)에서 구현했고, 2026-09-23 squash merge했다. 상세 설계와 correction 과정은 [[05. Isolated Catalog Runtime과 10K Scale 실행 계약]]에 정리한다.
+상세 설계와 repository contract는 [[05. Isolated Catalog Runtime과 10K Scale 실행 계약]]에 정리한다. 실제 OCI 실행을 시작하면서 수행한 Preflight와 DB 접근 Troubleshooting은 [[06. OCI Re-baseline Preflight 기록]]에 분리해서 기록한다.
 
-2026-09-23 현재:
+2026-09-26 현재:
 
 ~~~text
 Production diagnostic = READY
+release coordination = stable
 Observability diagnostic = NORMAL
 Prometheus backend target = up
-same-host calibration = PASS
-Performance Measurement Ready = PASS
+Clock Gate = PASS
+OCI MySQL required metric availability = PASS
+exact approved source = PASS
 
-deploy.lock recurrence prevention = MERGED (#301)
-Catalog Core 10K repository preparation = MERGED (#304)
-PERF-V7-001 = COMPLETE
+DB administrator identity recovery = PASS
+administrator credential rotation = 수행됨
+DB lifecycle after rotation = ACTIVE
+administrator authentication = PASS
+schema/user provisioning authority = CONFIRMED
 
-10K dataset repository contract = MERGED (#304)
-isolated Catalog runtime/import/k6 repository contract = MERGED (#306)
-repository validation = VERIFIED
-
-performance schema/account = 미생성
+performance DB account = 현재 조회에서 미발견
+contract performance schema 2개 = 정확한 이름으로 재검증 필요
+performance schema/account provisioning = 미실행
 isolated Backend runtime = 미실행
 I0 / I10K OCI 측정 = 미실행
 Production Verified = 아님
 ~~~
 
-PR #304는 Repository Validation과 correction 검증은 통과했지만, 최종 correction HEAD에 대한 별도 CodeRabbit review submission `commit_id`가 생성되지 않은 채 merge됐다. request/status만으로 review 완료를 주장하지 않는 최신 Harness 규칙을 다시 확인한 뒤 이 차이를 Issue #303과 PR #304에 process evidence gap으로 정정 기록했다.
+이번 Preflight에서는 Secret-safe 입력만으로 충분하지 않고 실패 응답에서도 제출 값이 다시 노출될 수 있다는 운영 문제를 확인했다. 잘못된 credential update 가설은 OCI API에서 거부됐고 Cloud-side mutation은 발생하지 않았으며, 당시 제출 값은 폐기했다. 이후 변경 범위를 필요한 단일 속성으로 줄이고 오류 출력 경계를 보강한 뒤 rotation과 실제 MySQL 인증을 다시 검증했다. 실제 credential 값, endpoint, resource identifier, 전체 관리자 grant 원문은 기록하지 않는다.
 
-격리 설계는 이제 저장소 계약으로 구현·병합됐다. 같은 OCI MySQL DB System을 사용하되 **별도 performance schema/account + 별도 loopback-only Backend runtime + Production network 비가입**으로 데이터를 분리한다. 다만 실제 schema/account 생성, dataset import, isolated runtime 실행, SSH tunnel, k6 load는 여전히 별도 고위험 승인 대상이다.
+또한 첫 performance schema 확인 SQL이 repository contract의 정확한 이름이 아니라 `core`가 빠진 다른 schema 이름을 조회한 사실을 재검토에서 발견했다. 따라서 해당 `Empty set`을 실제 contract schema 미존재 근거로 사용하지 않는다. 정확한 schema 이름으로 read-only 재검증한 뒤 provisioning으로 넘어간다.
 
-PR #306의 최신 HEAD에 대한 CodeRabbit review submission 객체는 생성되지 않았지만, manual review 요청 완료 응답, CodeRabbit success, unresolved thread 0, 최신 HEAD CI 전체 성공과 독립 검토를 근거로 사용자가 **이번 PR에 한해 review evidence 예외를 명시 승인**했다. 이는 향후 PR의 일반 review 규칙을 완화한 것이 아니다.
+격리 설계는 같은 OCI MySQL DB System을 사용하되 **별도 performance schema/account + 별도 loopback-only Backend runtime + Production network 비가입**으로 데이터를 분리한다. 이는 data isolation이며 resource isolation은 아니다.
 
 문서:
 
@@ -63,6 +65,7 @@ PR #306의 최신 HEAD에 대한 CodeRabbit review submission 객체는 생성�
 - [[03. Performance Gate Troubleshooting]]
 - [[04. Evidence Inventory와 다음 단계]]
 - [[05. Isolated Catalog Runtime과 10K Scale 실행 계약]]
+- [[06. OCI Re-baseline Preflight 기록]]
 
 학습 연결:
 
@@ -71,5 +74,6 @@ PR #306의 최신 HEAD에 대한 CodeRabbit review submission 객체는 생성�
 - [[../../../Study/Performance/08. Observer Effect와 Same-host Calibration]]
 - [[../../../Study/Performance/10. 대규모 데이터 Volume Cardinality Distribution Skew]]
 - [[../../../Study/Performance/12. 성능 문제 분석 플레이북]]
+- [[../../../Study/Performance/13. 재현 가능한 성능 실험과 안전한 격리]]
 
 과거 AWS 성능 한계는 [[../AWS/08. 250 RPS Production 장애 분석|250 RPS Production 장애 분석]]에 Historical Evidence로 별도 보존한다.
