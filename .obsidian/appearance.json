@@ -1,11 +1,9 @@
 {
   "baseFontSize": 14,
   "enabledCssSnippets": [
-    "mermain",
-    "bold",
-    "more-callout",
-    "code-style",
     "image-grid",
-    "list-spacing"
+    "list-spacing",
+    "more-callout",
+    "obsidian-readability-style-settings"
   ]
 }

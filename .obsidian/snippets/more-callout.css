@@ -1,0 +1,90 @@
+.callout[data-callout="more"] {
+    --callout-color: 120, 120, 120;
+    --callout-icon: lucide-chevron-right;
+
+    background: transparent;
+    border: none;
+
+    padding: 0;
+    margin: 10px 0;
+}
+
+.callout[data-callout="more"] .callout-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 0;
+    color: var(--text-muted);
+}
+
+.callout[data-callout="more"] .callout-title-inner {
+    color: var(--text-normal);
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.callout[data-callout="more"] .callout-icon {
+    color: var(--text-muted);
+    width: 14px;
+    height: 14px;
+
+    transition: transform 0.15s ease;
+}
+
+.callout[data-callout="more"] .callout-fold {
+    display: none;
+}
+
+.callout[data-callout="more"]:not(.is-collapsed) .callout-icon {
+    transform: rotate(90deg);
+}
+
+.callout[data-callout="more"] .callout-content {
+    padding: 8px 0 0 20px;
+    margin: 0;
+
+    color: var(--text-normal);
+}
+
+.callout[data-callout="more"] .callout-content > :first-child {
+    margin-top: 0;
+}
+
+.callout[data-callout="more"] .callout-content > :last-child {
+    margin-bottom: 0;
+}
+
+.callout[data-callout="more"] .callout-content p {
+    margin-top: 0.65em;
+    margin-bottom: 0.65em;
+    line-height: 1.6;
+}
+
+.callout[data-callout="more"] .callout-content pre {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.callout[data-callout="more"] .callout-content pre + p {
+    margin-top: 10px;
+}
+
+.callout[data-callout="more"] .callout-content pre + ul,
+.callout[data-callout="more"] .callout-content pre + ol {
+    margin-top: 4px;
+}
+
+.callout[data-callout="more"] .callout-content ul,
+.callout[data-callout="more"] .callout-content ol {
+    margin-top: 0.45em;
+    margin-bottom: 0.45em;
+}
+
+.callout[data-callout="more"] .callout-content li {
+    line-height: 1.55;
+}

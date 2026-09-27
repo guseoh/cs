@@ -11,5 +11,9 @@
   "pdf-plus",
   "hover-reveal",
   "link-mention",
-  "code-styler"
+  "obsidian-style-settings",
+  "url-into-selection",
+  "callout-integrator",
+  "image-captions",
+  "obsidian-linter"
 ]
