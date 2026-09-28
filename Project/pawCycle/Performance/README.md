@@ -15,46 +15,64 @@ tags:
 
 첫 OCI 성능 Gate인 [PERF-V7-001 Issue #300](https://github.com/guseoh/pawcycle-commerce/issues/300)은 2026-09-22 완료됐다.
 
-현재 canonical main:
+2026-09-28 확인한 PawCycle canonical main:
 
 ~~~text
-7d2cf59c77fb0ed3d112aed62fe0830251d5e5e3
+9d2db627486b2940a7c357aefe66ebe927c974af
 ~~~
 
 현재 상위 작업은 [PERF-V7-002 Issue #302](https://github.com/guseoh/pawcycle-commerce/issues/302)다.
 
-Catalog Core 10K repository preparation은 [Issue #303](https://github.com/guseoh/pawcycle-commerce/issues/303) / PR #304로 분리해 완료했다.
+Catalog Core 10K repository preparation은 [Issue #303](https://github.com/guseoh/pawcycle-commerce/issues/303) / PR #304로 완료했다. live Production Catalog를 오염시키지 않고 I0와 I10K를 비교하기 위한 격리 실행 계약은 [PR #306](https://github.com/guseoh/pawcycle-commerce/pull/306)에서 구현했다. 이후 isolated Catalog stage evidence collector까지 [PR #308](https://github.com/guseoh/pawcycle-commerce/pull/308)에서 main에 반영됐다.
 
-그 다음 live Production Catalog를 오염시키지 않고 I0와 I10K를 비교하기 위한 격리 실행 계약을 [PR #306](https://github.com/guseoh/pawcycle-commerce/pull/306)에서 구현했고, 2026-09-23 squash merge했다. 상세 설계와 correction 과정은 [[05. Isolated Catalog Runtime과 10K Scale 실행 계약]]에 정리한다.
+상세 repository contract는 [[05. Isolated Catalog Runtime과 10K Scale 실행 계약]], 실제 OCI Preflight와 administrator 접근 Troubleshooting은 [[06. OCI Re-baseline Preflight 기록]], performance schema/account의 실제 provisioning과 재검증은 [[07. OCI Performance DB Provisioning과 재검증]], I0 dataset provenance와 host path ownership drift는 [[08. I0 Dataset Provenance와 Root-owned 경로 Drift]]에 기록한다.
 
-2026-09-23 현재:
+2026-09-28 현재:
 
 ~~~text
 Production diagnostic = READY
+release coordination = stable
 Observability diagnostic = NORMAL
 Prometheus backend target = up
-same-host calibration = PASS
-Performance Measurement Ready = PASS
+Clock Gate = PASS
+OCI MySQL required metric availability = PASS
+exact approved source = PASS
 
-deploy.lock recurrence prevention = MERGED (#301)
-Catalog Core 10K repository preparation = MERGED (#304)
-PERF-V7-001 = COMPLETE
+DB administrator identity recovery = PASS
+administrator credential rotation = 수행됨
+DB lifecycle after rotation = ACTIVE
+administrator authentication = PASS
+schema/user provisioning authority = CONFIRMED
 
-10K dataset repository contract = MERGED (#304)
-isolated Catalog runtime/import/k6 repository contract = MERGED (#306)
-repository validation = VERIFIED
+pawcycle_perf_core_control = 준비됨 / empty / utf8mb4_0900_ai_ci
+pawcycle_perf_core_10k = 준비됨 / empty / utf8mb4_0900_ai_ci
+pawcycle_perf_catalog = 준비됨
+performance account actual authentication = PASS
+performance grant boundary = PASS
+Production schema privilege = 없음
+post-provision Runtime Gate = PASS
 
-performance schema/account = 미생성
-isolated Backend runtime = 미실행
-I0 / I10K OCI 측정 = 미실행
-Production Verified = 아님
+I0 dataset generation = PASS / 32 Product / 0 synthetic / 42 SKU
+initial I0 provenance = FAIL-CLOSED / parent ownership drift
+Production shared parent ownership change = 하지 않음
+dedicated performance root = /opt/pawcycle-performance
+I0 dataset provenance = PASS
+
+isolated Backend runtime preflight = 미실행
+I0 import/runtime/load = 미실행
+I10K OCI 측정 = 미실행
+전체 2-C Production Verified = 아님
 ~~~
 
-PR #304는 Repository Validation과 correction 검증은 통과했지만, 최종 correction HEAD에 대한 별도 CodeRabbit review submission `commit_id`가 생성되지 않은 채 merge됐다. request/status만으로 review 완료를 주장하지 않는 최신 Harness 규칙을 다시 확인한 뒤 이 차이를 Issue #303과 PR #304에 process evidence gap으로 정정 기록했다.
+이번 Actual Re-baseline 준비에서는 Secret-safe 입력만으로 충분하지 않고 실패 응답까지 Secret-safe해야 한다는 점, read-only SQL도 exact identity를 잘못 조회하면 부재 근거가 될 수 없다는 점, password 생성은 DBMS의 실제 policy를 따라야 한다는 점, 실패한 provisioning은 `IF NOT EXISTS`로 덮지 말고 부분 적용 상태를 read-only로 재구성해야 한다는 점을 확인했다.
 
-격리 설계는 이제 저장소 계약으로 구현·병합됐다. 같은 OCI MySQL DB System을 사용하되 **별도 performance schema/account + 별도 loopback-only Backend runtime + Production network 비가입**으로 데이터를 분리한다. 다만 실제 schema/account 생성, dataset import, isolated runtime 실행, SSH tunnel, k6 load는 여전히 별도 고위험 승인 대상이다.
+또한 I0 dataset 생성 뒤 provenance validator가 `/opt/pawcycle`의 실제 ownership과 Runbook 권장 경로의 security contract가 맞지 않아 fail-closed하는 drift를 발견했다. Production 공용 parent를 `chown`하는 대신 root-owned sibling `/opt/pawcycle-performance`를 분리했고, exact source와 이미 생성된 I0 manifest/report를 secure tree로 옮겨 provenance 재생성을 통과시켰다. validator를 약화하거나 Production 공용 경로 ownership을 바꾸지 않은 것이 핵심이다.
 
-PR #306의 최신 HEAD에 대한 CodeRabbit review submission 객체는 생성되지 않았지만, manual review 요청 완료 응답, CodeRabbit success, unresolved thread 0, 최신 HEAD CI 전체 성공과 독립 검토를 근거로 사용자가 **이번 PR에 한해 review evidence 예외를 명시 승인**했다. 이는 향후 PR의 일반 review 규칙을 완화한 것이 아니다.
+performance account의 grant는 두 performance schema에만 제한됐고 실제 runtime secret file을 사용한 인증도 통과했다. schema/account mutation 뒤 Production READY / Observability NORMAL을 다시 확인했다. 실제 Secret 값, DB endpoint, resource identifier, raw Production DB row, 전체 administrator grant 원문은 기록하지 않는다.
+
+격리 설계는 같은 OCI MySQL DB System을 사용하되 **별도 performance schema/account + 별도 loopback-only Backend runtime + Production network 비가입**으로 데이터를 분리한다. 이는 data isolation이며 resource isolation은 아니다.
+
+다음 실제 Gate는 I0 runtime config를 root-owned secure tree에 준비하고 Production과 같은 Backend RepoDigest를 고정한 뒤 isolated runtime preflight를 통과시키는 것이다. actual import/runtime/load는 아직 시작하지 않았다.
 
 문서:
 
@@ -63,6 +81,9 @@ PR #306의 최신 HEAD에 대한 CodeRabbit review submission 객체는 생성�
 - [[03. Performance Gate Troubleshooting]]
 - [[04. Evidence Inventory와 다음 단계]]
 - [[05. Isolated Catalog Runtime과 10K Scale 실행 계약]]
+- [[06. OCI Re-baseline Preflight 기록]]
+- [[07. OCI Performance DB Provisioning과 재검증]]
+- [[08. I0 Dataset Provenance와 Root-owned 경로 Drift]]
 
 학습 연결:
 
@@ -71,5 +92,6 @@ PR #306의 최신 HEAD에 대한 CodeRabbit review submission 객체는 생성�
 - [[../../../Study/Performance/08. Observer Effect와 Same-host Calibration]]
 - [[../../../Study/Performance/10. 대규모 데이터 Volume Cardinality Distribution Skew]]
 - [[../../../Study/Performance/12. 성능 문제 분석 플레이북]]
+- [[../../../Study/Performance/13. 재현 가능한 성능 실험과 안전한 격리]]
 
 과거 AWS 성능 한계는 [[../AWS/08. 250 RPS Production 장애 분석|250 RPS Production 장애 분석]]에 Historical Evidence로 별도 보존한다.
