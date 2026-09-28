@@ -914,3 +914,427 @@ body {
         width: min(100%, 300px);
     }
 }
+
+/* ==================================================
+   Image Grid + PDF++ Static Image
+   Desktop only
+
+   - PNG / WebP Grid 동일한 크기
+   - 2열 균등 배치
+   - 이미지 원본 비율 유지
+   - 작은 이미지를 억지로 확대하지 않음
+   - 캡션은 이미지 아래 별도 표시
+   - PDF++ 단독 WebP는 별도 크기 + 가운데 정렬
+   - PDF++ 원본 rect 링크는 화면에서 숨김
+   ================================================== */
+
+:root {
+    /* PDF++ 단독 캡처 */
+    --pdf-plus-image-width: 360px;
+
+    /* Image Grid 전체 폭 */
+    --image-grid-width: 720px;
+
+    /* Grid 사이 간격 */
+    --image-grid-gap: 8px;
+
+    /* 각 Grid 이미지 표시 영역 높이 */
+    --image-grid-image-height: 190px;
+
+    /* 이미지와 캡션 사이 간격 */
+    --image-grid-caption-gap: 4px;
+}
+
+
+/* ==================================================
+   1. Image Grid Callout
+   ================================================== */
+
+.callout[data-callout="image-grid"] {
+    background: transparent !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    padding: 0 !important;
+    margin: 16px 0 20px !important;
+
+    overflow: visible !important;
+}
+
+
+/* Callout 제목 숨김 */
+.callout[data-callout="image-grid"] > .callout-title {
+    display: none !important;
+}
+
+
+/* 2열 Grid */
+.callout[data-callout="image-grid"] > .callout-content {
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: var(--image-grid-gap) !important;
+
+    width: min(100%, var(--image-grid-width)) !important;
+    max-width: var(--image-grid-width) !important;
+
+    padding: 0 !important;
+    margin: 0 auto !important;
+
+    overflow: visible !important;
+}
+
+
+/* 각 Grid 셀 */
+.callout[data-callout="image-grid"]
+.callout-content > p {
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: visible !important;
+}
+
+
+/* ==================================================
+   2. Image Captions Figure
+   ================================================== */
+
+/*
+   Image Captions 실제 구조:
+
+   .internal-embed
+   └─ figure.image-captions-figure
+      ├─ img
+      └─ figcaption
+*/
+
+.callout[data-callout="image-grid"]
+figure.image-captions-figure {
+    display: grid !important;
+
+    grid-template-rows:
+        var(--image-grid-image-height)
+        auto !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: auto !important;
+
+    position: static !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    /*
+     * 흰 배경은 이미지 영역에만 표시.
+     * 캡션 부분은 Obsidian 배경 사용.
+     */
+    background:
+        linear-gradient(#fff, #fff)
+        top / 100% var(--image-grid-image-height)
+        no-repeat !important;
+
+    border: none !important;
+    border-radius: 3px !important;
+    box-shadow: none !important;
+
+    overflow: visible !important;
+}
+
+
+/* ==================================================
+   3. Grid 이미지
+   PNG / WebP 공통
+   ================================================== */
+
+.callout[data-callout="image-grid"]
+figure.image-captions-figure > img {
+    grid-row: 1 !important;
+
+    align-self: center !important;
+    justify-self: center !important;
+
+    display: block !important;
+
+    /*
+     * 중요:
+     * 무조건 width: 100%로 늘리지 않는다.
+     *
+     * 원본 크기를 우선 사용하고,
+     * Grid보다 클 때만 축소한다.
+     */
+    width: auto !important;
+    height: auto !important;
+
+    max-width: 100% !important;
+    max-height: var(--image-grid-image-height) !important;
+
+    object-fit: contain !important;
+
+    /*
+     * 브라우저 기본 보간 사용.
+     * pixelated 같은 처리는 하지 않는다.
+     */
+    image-rendering: auto !important;
+
+    position: static !important;
+    transform: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: none !important;
+    border-radius: 3px !important;
+    box-shadow: none !important;
+}
+
+
+/* ==================================================
+   4. Grid Caption
+   ================================================== */
+
+.callout[data-callout="image-grid"]
+figure.image-captions-figure
+> figcaption.image-captions-caption {
+    grid-row: 2 !important;
+
+    display: block !important;
+
+    width: 100% !important;
+    height: auto !important;
+
+    position: static !important;
+
+    inset: auto !important;
+
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    transform: none !important;
+
+    margin: var(--image-grid-caption-gap) 0 0 !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    color: var(--text-muted) !important;
+
+    font-size: 0.82em !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+
+    text-align: center !important;
+
+    border: none !important;
+    box-shadow: none !important;
+
+    opacity: 1 !important;
+
+    overflow: visible !important;
+}
+
+
+/* ==================================================
+   5. Image Grid 내부 Embed 공통
+   ================================================== */
+
+/*
+   Grid 안에서는 PNG / WebP를 구분하지 않는다.
+
+   단독 PDF++ 이미지용 위치/크기 규칙이
+   Grid까지 넘어오지 않도록 모두 해제.
+*/
+.callout[data-callout="image-grid"]
+.internal-embed.image-embed {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: auto !important;
+
+    position: static !important;
+
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+
+    transform: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    overflow: visible !important;
+}
+
+
+/* ==================================================
+   6. Caption 없는 이미지
+   ================================================== */
+
+.callout[data-callout="image-grid"]
+.internal-embed.image-embed:not(
+    :has(figure.image-captions-figure)
+) {
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: var(--image-grid-image-height) !important;
+
+    background: #fff !important;
+
+    border-radius: 3px !important;
+
+    overflow: hidden !important;
+}
+
+
+.callout[data-callout="image-grid"]
+.internal-embed.image-embed:not(
+    :has(figure.image-captions-figure)
+) > img {
+    display: block !important;
+
+    width: auto !important;
+    height: auto !important;
+
+    max-width: 100% !important;
+    max-height: 100% !important;
+
+    object-fit: contain !important;
+    image-rendering: auto !important;
+
+    margin: 0 !important;
+}
+
+
+/* ==================================================
+   7. PDF++ 단독 WebP
+   ==================================================
+
+   기존 PDF++ WebP용.
+   Image Grid 밖에서만 400px 가운데 정렬.
+
+   새 PDF++ PNG는 아래 Grid에서는 정상 동작하고,
+   단독 PNG 자동 크기 규칙은 별도로 잡지 않는다.
+   ================================================== */
+
+
+/* Live Preview */
+.markdown-source-view.mod-cm6
+.internal-embed.image-embed[src*=".webp"] {
+    display: block !important;
+
+    width: var(--pdf-plus-image-width) !important;
+    max-width: var(--pdf-plus-image-width) !important;
+
+    position: relative !important;
+
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+
+    margin-top: 18px !important;
+    margin-bottom: 18px !important;
+}
+
+
+/* Reading View */
+.markdown-preview-view
+.internal-embed.image-embed[src*=".webp"],
+.markdown-rendered
+.internal-embed.image-embed[src*=".webp"] {
+    display: block !important;
+
+    width: var(--pdf-plus-image-width) !important;
+    max-width: var(--pdf-plus-image-width) !important;
+
+    position: relative !important;
+
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+
+    margin-top: 18px !important;
+    margin-bottom: 18px !important;
+}
+
+
+/* 실제 WebP */
+.markdown-source-view.mod-cm6
+.internal-embed.image-embed[src*=".webp"] img,
+.markdown-preview-view
+.internal-embed.image-embed[src*=".webp"] img,
+.markdown-rendered
+.internal-embed.image-embed[src*=".webp"] img {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: auto !important;
+
+    margin: 0 !important;
+}
+
+
+/* ==================================================
+   8. Image Grid 안에서는 WebP 단독 규칙 해제
+   ================================================== */
+
+.callout[data-callout="image-grid"]
+.internal-embed.image-embed[src*=".webp"] {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: auto !important;
+
+    position: static !important;
+
+    left: auto !important;
+    transform: none !important;
+
+    margin: 0 !important;
+}
+
+
+/* ==================================================
+   9. PDF++ 원본 rect 링크 숨김
+   ================================================== */
+
+
+/* Reading View */
+.markdown-preview-view
+p:has(
+    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
+),
+.markdown-rendered
+p:has(
+    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
+) {
+    display: none !important;
+}
+
+
+/* Live Preview */
+.markdown-source-view.mod-cm6
+.cm-line:has(
+    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
+) {
+    display: none !important;
+}

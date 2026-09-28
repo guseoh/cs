@@ -49,5 +49,14 @@
       ],
       "key": "L"
     }
+  ],
+  "editor:toggle-source": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "Q"
+    }
   ]
 }

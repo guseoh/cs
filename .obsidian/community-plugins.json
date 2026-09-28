@@ -8,12 +8,12 @@
   "better-live-preview-image",
   "image-grid",
   "obsidian-excalidraw-plugin",
-  "pdf-plus",
   "hover-reveal",
   "link-mention",
   "obsidian-style-settings",
   "url-into-selection",
   "callout-integrator",
   "image-captions",
-  "obsidian-linter"
+  "obsidian-linter",
+  "pdf-plus"
 ]

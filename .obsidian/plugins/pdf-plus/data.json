@@ -14,7 +14,7 @@
     },
     {
       "name": "Emoji",
-      "template": "📖"
+      "template": "?뱰"
     },
     {
       "name": "None",
@@ -263,12 +263,12 @@
   "newFileTemplatePath": "",
   "newPDFLocation": "current",
   "newPDFFolderPath": "",
-  "rectEmbedStaticImage": false,
+  "rectEmbedStaticImage": true,
   "rectImageFormat": "file",
-  "rectImageExtension": "webp",
+  "rectImageExtension": "png",
   "zoomToFitRect": false,
-  "rectFollowAdaptToTheme": true,
-  "rectEmbedResolution": 100,
+  "rectFollowAdaptToTheme": false,
+  "rectEmbedResolution": 160,
   "includeColorWhenCopyingRectLink": true,
   "backlinkIconSize": 50,
   "showBacklinkIconForSelection": false,
