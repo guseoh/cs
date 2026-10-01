@@ -191,7 +191,7 @@ Product-SKU joined rows = 19,977
 
 관련 Product/SKU 컬럼의 Histogram은 존재하지 않았다. 그러나 통계 오차만 고치는 것보다 먼저 **20개 결과를 위해 전체 19,977 join row를 집계하는 SQL 구조 자체**를 확인했다.
 
-상세 진단은 [[10. I10K 25 RPS Warm-up 실패와 Product 목록 SQL 실행 계획 진단]]에 기록한다.
+상세 해석은 [[10. I10K 25 RPS Warm-up 실패와 Product 목록 SQL 실행 계획 진단]]에 기록하고, 실제 `SHOW INDEX`, 값 분포 조회, 기존 `EXPLAIN FORMAT=TREE`, subquery 제거 계획, page-first 계획, `PRIMARY (reverse)` counterfactual, full page-first 계획 원문은 [[11. PERF-V7-008 MySQL 실행 계획 Evidence]]에 별도로 보존한다.
 
 ## 현재 최소 개선 결정
 
@@ -247,6 +247,7 @@ I10K isolated runtime                  = 준비/실행 확인
 I10K 25 RPS 정상 baseline              = 없음
 I10K 25 RPS warm-up failure evidence   = 있음
 Read-only SQL diagnosis                 = 완료
+MySQL raw execution-plan evidence       = 보존 완료
 page-first correction                   = 구현 진행 중
 동일 조건 재측정                        = 미실행
 전체 성능 단계 Production Verified      = 아님
@@ -264,6 +265,7 @@ page-first correction                   = 구현 진행 중
 - [[08. I0 Dataset Provenance와 Root-owned 경로 Drift]]
 - [[09. I0 25-150 RPS Re-baseline과 첫 처리 용량 경계 구간]]
 - [[10. I10K 25 RPS Warm-up 실패와 Product 목록 SQL 실행 계획 진단]]
+- [[11. PERF-V7-008 MySQL 실행 계획 Evidence]]
 
 ## 학습 연결
 
