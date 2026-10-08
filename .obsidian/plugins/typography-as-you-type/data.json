@@ -1,0 +1,15 @@
+{
+  "quoteStyle": "english",
+  "smartApostrophes": true,
+  "dashes": true,
+  "ellipsis": true,
+  "arrows": true,
+  "mathSymbols": true,
+  "skipClosingQuote": true,
+  "excludedFolders": "",
+  "customRules": "",
+  "capitalizeSentences": false,
+  "tabOut": true,
+  "wrapSelection": true,
+  "presetPrompted": true
+}

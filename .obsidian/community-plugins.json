@@ -1,7 +1,6 @@
 [
   "dataview",
   "obsidian-git",
-  "open-in-terminal",
   "templater-obsidian",
   "obsidian-outliner",
   "editing-toolbar",
@@ -15,5 +14,6 @@
   "callout-integrator",
   "image-captions",
   "obsidian-linter",
-  "pdf-plus"
+  "pdf-plus",
+  "typography-as-you-type"
 ]

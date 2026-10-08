@@ -1,0 +1,149 @@
+
+.markdown-rendered .el-table {
+    margin-top: 12px !important;
+    margin-bottom: 10px !important;
+}
+
+.markdown-rendered .table-wrapper {
+    width: 100%;
+    margin: 0 !important;
+}
+
+.markdown-rendered table {
+    width: 100% !important;
+    min-width: 600px;
+    table-layout: fixed;
+    margin: 0 !important;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.96em;
+    line-height: 1.4;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.markdown-rendered th,
+.markdown-rendered td {
+    padding: 7px 14px !important;
+    vertical-align: middle !important;
+    text-align: center !important;
+    border-right: 1px solid var(--background-modifier-border);
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.markdown-rendered thead th {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    background-color: var(--background-secondary) !important;
+    color: var(--text-normal) !important;
+    font-weight: 650 !important;
+    text-align: center !important;
+    border-bottom: 1px solid var(--background-modifier-border-hover) !important;
+}
+
+.markdown-rendered th:first-child,
+.markdown-rendered td:first-child {
+    text-align: left !important;
+}
+
+.markdown-rendered th:nth-child(1),
+.markdown-rendered td:nth-child(1) {
+    width: 28%;
+}
+
+.markdown-rendered th:nth-child(2),
+.markdown-rendered td:nth-child(2) {
+    width: 26%;
+    text-align: center !important;
+}
+
+.markdown-rendered th:nth-child(3),
+.markdown-rendered td:nth-child(3) {
+    width: 46%;
+    text-align: center !important;
+}
+
+.markdown-rendered th:last-child,
+.markdown-rendered td:last-child {
+    border-right: none;
+}
+
+.markdown-rendered tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.markdown-rendered tbody tr:hover td {
+    background-color: var(--background-modifier-hover);
+}
+
+.markdown-rendered table code {
+    white-space: nowrap;
+    font-size: 0.92em;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.markdown-rendered td p,
+.markdown-rendered th p {
+    margin: 0;
+    padding: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    font-size: 0.96em;
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget th,
+.markdown-source-view.mod-cm6 .cm-table-widget td {
+    vertical-align: middle;
+    text-align: center;
+    border-right: 1px solid var(--background-modifier-border);
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget thead th {
+    background-color: var(--background-secondary);
+    color: var(--text-normal);
+    font-weight: 650;
+    border-bottom: 1px solid var(--background-modifier-border-hover);
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget th:first-child,
+.markdown-source-view.mod-cm6 .cm-table-widget td:first-child {
+    text-align: left;
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget th:last-child,
+.markdown-source-view.mod-cm6 .cm-table-widget td:last-child {
+    border-right: none;
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget tbody tr:hover td {
+    background-color: var(--background-modifier-hover);
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget td p,
+.markdown-source-view.mod-cm6 .cm-table-widget th p {
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 700px) {
+    .markdown-rendered table {
+        min-width: 520px;
+    }
+
+    .markdown-rendered th,
+    .markdown-rendered td {
+        padding: 6px 10px !important;
+    }
+}

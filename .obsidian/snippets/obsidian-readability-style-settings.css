@@ -1,3 +1,4 @@
+
 /* @settings
 
 name: Jihun Obsidian Readability
@@ -79,7 +80,6 @@ settings:
     max: 0.5
     step: 0.05
     format: em
-
   -
     id: inline-code-heading
     title: 인라인 코드
@@ -111,7 +111,6 @@ settings:
     max: 10
     step: 1
     format: px
-
   -
     id: text-heading
     title: 본문과 제목
@@ -222,7 +221,6 @@ settings:
     min: 0.3
     max: 1
     step: 0.05
-
   -
     id: diagram-heading
     title: 도식과 이미지
@@ -316,10 +314,7 @@ body {
 }
 
 .markdown-rendered strong,
-.markdown-rendered b {
-    font-weight: var(--body-bold-weight);
-}
-
+.markdown-rendered b,
 .markdown-source-view.mod-cm6 .cm-strong {
     font-weight: var(--body-bold-weight);
 }
@@ -364,6 +359,8 @@ body {
     color: #d8d8d8;
     font-size: 0.9em;
     font-weight: 500;
+    font-family: "JetBrains Mono", monospace !important;
+    font-feature-settings: "calt" 1, "liga" 1;
 }
 
 .cm-s-obsidian span.cm-inline-code {
@@ -374,6 +371,11 @@ body {
     color: #d8d8d8;
     font-size: 0.9em;
     font-weight: 400;
+}
+
+.markdown-source-view.mod-cm6 .cm-inline-code {
+    font-family: "JetBrains Mono", monospace !important;
+    font-feature-settings: "calt" 1, "liga" 1;
 }
 
 .markdown-rendered pre {
@@ -394,13 +396,13 @@ body {
     position: absolute;
     top: 9px;
     right: 12px;
-    color: var(--text-faint);
+    color: #b2b7bf !important;
     font-family: var(--font-interface);
-    font-size: 0.7em;
-    font-weight: 500;
+    font-size: 12px !important;
+    font-weight: 600 !important;
     line-height: 1;
     letter-spacing: 0.01em;
-    opacity: 0.75;
+    opacity: 0.95 !important;
     pointer-events: none;
     user-select: none;
 }
@@ -556,13 +558,32 @@ body {
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
     border-top-left-radius: var(--code-block-radius);
     border-top-right-radius: var(--code-block-radius);
-    padding-top: 6px;
 }
 
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
     border-bottom-left-radius: var(--code-block-radius);
     border-bottom-right-radius: var(--code-block-radius);
-    padding-bottom: 6px;
+}
+
+.markdown-rendered .el-p + .el-pre {
+    margin-top: 20px !important;
+}
+
+.markdown-rendered .el-p + .el-pre pre {
+    margin-top: 0 !important;
+}
+
+.markdown-rendered .el-pre pre {
+    margin-bottom: 3px !important;
+}
+
+.markdown-rendered .el-pre + .el-p {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.markdown-rendered .el-pre + .el-p p {
+    margin-top: 0 !important;
 }
 
 .markdown-rendered .el-pre + .el-ul,
@@ -572,57 +593,222 @@ body {
 
 .markdown-rendered pre code .token.keyword,
 .markdown-rendered pre code .token.atrule {
-    color: #d89a76 !important;
+    color: var(--syntax-keyword, #b98c77) !important;
 }
 
 .markdown-rendered pre code .token.class-name,
 .markdown-rendered pre code .token.builtin,
 .markdown-rendered pre code .token.type {
-    color: #a9c7e6 !important;
+    color: var(--syntax-type, #8faed0) !important;
 }
 
 .markdown-rendered pre code .token.function,
 .markdown-rendered pre code .token.method {
-    color: #8fb8d8 !important;
+    color: var(--syntax-function, #90abc4) !important;
 }
 
 .markdown-rendered pre code .token.variable {
-    color: #d2d2d2 !important;
+    color: var(--syntax-variable, #d2d5db) !important;
 }
 
 .markdown-rendered pre code .token.property,
-.markdown-rendered pre code .token.constant {
-    color: #c89fbd !important;
+.markdown-rendered pre code .token.constant,
+.markdown-rendered pre code .token.key {
+    color: var(--syntax-property, #ae94b5) !important;
 }
 
 .markdown-rendered pre code .token.number,
 .markdown-rendered pre code .token.boolean {
-    color: #c3a6d8 !important;
+    color: var(--syntax-number, #b99bc4) !important;
 }
 
 .markdown-rendered pre code .token.string,
-.markdown-rendered pre code .token.char {
-    color: #93b88b !important;
+.markdown-rendered pre code .token.char,
+.markdown-rendered pre code .token.template-string {
+    color: var(--syntax-string, #8dad84) !important;
 }
 
 .markdown-rendered pre code .token.operator {
-    color: #cccccc !important;
+    color: var(--syntax-operator, #bfc4c9) !important;
 }
 
 .markdown-rendered pre code .token.punctuation {
-    color: #bdbdbd !important;
+    color: var(--syntax-punctuation, #b8bec6) !important;
 }
 
 .markdown-rendered pre code .token.annotation {
-    color: #c7b65b !important;
+    color: var(--syntax-annotation, #c1a16b) !important;
 }
 
 .markdown-rendered pre code .token.comment,
 .markdown-rendered pre code .token.prolog,
 .markdown-rendered pre code .token.doctype,
 .markdown-rendered pre code .token.cdata {
-    color: #777f87 !important;
+    color: var(--syntax-comment, #818b92) !important;
     font-style: italic;
+}
+
+.markdown-rendered pre > code.language-sql {
+    --syntax-keyword: #55a9b4;
+    --syntax-type: #79a1d0;
+    --syntax-function: #79a1d0;
+    --syntax-variable: #d1d5dc;
+    --syntax-property: #8ba6cf;
+    --syntax-number: #ca9f69;
+    --syntax-string: #85ae7e;
+    --syntax-operator: #c5c5c5;
+    --syntax-punctuation: #b8bec7;
+    --syntax-comment: #818d94;
+}
+
+.markdown-rendered pre > code:is(
+    .language-java,
+    .language-kotlin,
+    .language-groovy,
+    .language-gradle
+) {
+    --syntax-keyword: #cf8665;
+    --syntax-type: #81a6d8;
+    --syntax-function: #af91ca;
+    --syntax-variable: #d2d5db;
+    --syntax-property: #ba99b9;
+    --syntax-number: #be94c3;
+    --syntax-string: #86ae7e;
+    --syntax-operator: #bfc5cc;
+    --syntax-punctuation: #b8bdc5;
+    --syntax-comment: #818b91;
+    --syntax-annotation: #c6a05d;
+}
+
+.markdown-rendered pre > code:is(
+    .language-javascript,
+    .language-js,
+    .language-typescript,
+    .language-ts
+) {
+    --syntax-keyword: #c6a34f;
+    --syntax-type: #a58bc7;
+    --syntax-function: #70a7c7;
+    --syntax-variable: #d4d0c4;
+    --syntax-property: #81a8d0;
+    --syntax-number: #b68fc2;
+    --syntax-string: #85ad7d;
+    --syntax-operator: #bfc5cb;
+    --syntax-punctuation: #b8bec7;
+    --syntax-comment: #828c92;
+}
+
+.markdown-rendered pre > code:is(
+    .language-python,
+    .language-py
+) {
+    --syntax-keyword: #79a4d8;
+    --syntax-type: #68aaa7;
+    --syntax-function: #c7a15e;
+    --syntax-variable: #d1d5db;
+    --syntax-property: #83a6cd;
+    --syntax-number: #b68ec1;
+    --syntax-string: #86ac7b;
+    --syntax-operator: #bdc4cc;
+    --syntax-punctuation: #b7bec6;
+    --syntax-comment: #818e92;
+}
+
+.markdown-rendered pre > code.language-json {
+    --syntax-keyword: #ac8cbd;
+    --syntax-type: #7da4d0;
+    --syntax-function: #7da4d0;
+    --syntax-property: #7da4d0;
+    --syntax-number: #b992c3;
+    --syntax-string: #86ac7e;
+    --syntax-operator: #bdc2c8;
+    --syntax-punctuation: #aeb6c2;
+}
+
+.markdown-rendered pre > code:is(
+    .language-yaml,
+    .language-yml
+) {
+    --syntax-keyword: #ad90bf;
+    --syntax-type: #7da4d0;
+    --syntax-function: #7da4d0;
+    --syntax-property: #7da4d0;
+    --syntax-number: #b992c3;
+    --syntax-string: #86ac7e;
+    --syntax-operator: #bdc2c8;
+    --syntax-punctuation: #aeb6c2;
+}
+
+.markdown-rendered pre > code:is(
+    .language-html,
+    .language-xml
+) {
+    --syntax-keyword: #bf819e;
+    --syntax-type: #82a6d1;
+    --syntax-function: #82a6d1;
+    --syntax-property: #c19d68;
+    --syntax-number: #b68fc1;
+    --syntax-string: #86ad80;
+    --syntax-punctuation: #b8bec6;
+}
+
+.markdown-rendered pre > code.language-css {
+    --syntax-keyword: #a189c3;
+    --syntax-type: #78a6cf;
+    --syntax-function: #c19d64;
+    --syntax-property: #81a3d0;
+    --syntax-number: #b78fc1;
+    --syntax-string: #86ac80;
+    --syntax-punctuation: #b7bdc6;
+}
+
+.markdown-rendered pre > code:is(
+    .language-bash,
+    .language-shell,
+    .language-sh,
+    .language-powershell
+) {
+    --syntax-keyword: #78a886;
+    --syntax-type: #83a5cc;
+    --syntax-function: #c2a16b;
+    --syntax-variable: #a68dc3;
+    --syntax-property: #83a5ce;
+    --syntax-number: #b58dbf;
+    --syntax-string: #8caf80;
+    --syntax-operator: #bcc3cb;
+}
+
+.markdown-rendered pre > code:is(
+    .language-c,
+    .language-cpp,
+    .language-go,
+    .language-rust
+) {
+    --syntax-keyword: #a58ac5;
+    --syntax-type: #79a4d2;
+    --syntax-function: #c49e64;
+    --syntax-variable: #d1d5dc;
+    --syntax-property: #82a6ce;
+    --syntax-number: #b58ebf;
+    --syntax-string: #85ac7c;
+    --syntax-operator: #bdc4cc;
+}
+
+.markdown-rendered pre > code:is(
+    .language-dockerfile,
+    .language-docker,
+    .language-nginx,
+    .language-toml,
+    .language-ini,
+    .language-properties,
+    .language-http
+) {
+    --syntax-keyword: #87a783;
+    --syntax-type: #7da3cf;
+    --syntax-function: #c29e67;
+    --syntax-property: #82a6d0;
+    --syntax-number: #b591c1;
+    --syntax-string: #85ad80;
 }
 
 .markdown-source-view.mod-cm6 .cm-keyword {
@@ -838,503 +1024,254 @@ body {
     text-decoration-color: var(--link-color);
 }
 
-.callout[data-callout="image-grid"] {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin: 14px 0 20px !important;
-}
-
-.callout[data-callout="image-grid"] > .callout-title {
-    display: none !important;
-}
-
-.callout[data-callout="image-grid"] > .callout-content {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    width: min(100%, 590px);
-    padding: 0 !important;
-    margin: 0 auto !important;
-}
-
-.callout[data-callout="image-grid"] .callout-content > p {
-    min-width: 0;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.callout[data-callout="image-grid"] .image-captions-figure {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.callout[data-callout="image-grid"] .image-captions-figure img {
-    display: block;
-    width: 100% !important;
-    height: auto !important;
-    aspect-ratio: 4 / 3;
-    object-fit: contain;
-    margin: 0 !important;
-    background: #ffffff;
-    border: none !important;
-    border-radius: 3px;
-    box-shadow: none !important;
-}
-
-.callout[data-callout="image-grid"] .image-captions-caption,
-.callout[data-callout="image-grid"] figcaption {
-    display: block;
-    width: 100%;
-    margin: 6px 0 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    color: var(--text-muted) !important;
-    font-size: 0.8em !important;
-    font-weight: 400 !important;
-    line-height: 1.4 !important;
-    text-align: center !important;
-}
-
-@media (max-width: 700px) {
-    .callout[data-callout="image-grid"] > .callout-content {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        width: min(100%, 300px);
-    }
-}
-
-/* ==================================================
-   Image Grid + PDF++ Static Image
-   Desktop only
-
-   - PNG / WebP Grid 동일한 크기
-   - 2열 균등 배치
-   - 이미지 원본 비율 유지
-   - 작은 이미지를 억지로 확대하지 않음
-   - 캡션은 이미지 아래 별도 표시
-   - PDF++ 단독 WebP는 별도 크기 + 가운데 정렬
-   - PDF++ 원본 rect 링크는 화면에서 숨김
-   ================================================== */
-
 :root {
-    /* PDF++ 단독 캡처 */
     --pdf-plus-image-width: 360px;
-
-    /* Image Grid 전체 폭 */
     --image-grid-width: 720px;
-
-    /* Grid 사이 간격 */
     --image-grid-gap: 8px;
-
-    /* 각 Grid 이미지 표시 영역 높이 */
     --image-grid-image-height: 190px;
-
-    /* 이미지와 캡션 사이 간격 */
     --image-grid-caption-gap: 4px;
 }
 
-
-/* ==================================================
-   1. Image Grid Callout
-   ================================================== */
-
 .callout[data-callout="image-grid"] {
     background: transparent !important;
-
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-
     padding: 0 !important;
     margin: 16px 0 20px !important;
-
     overflow: visible !important;
 }
 
-
-/* Callout 제목 숨김 */
 .callout[data-callout="image-grid"] > .callout-title {
     display: none !important;
 }
 
-
-/* 2열 Grid */
 .callout[data-callout="image-grid"] > .callout-content {
     display: grid !important;
-
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: var(--image-grid-gap) !important;
-
     width: min(100%, var(--image-grid-width)) !important;
     max-width: var(--image-grid-width) !important;
-
     padding: 0 !important;
     margin: 0 auto !important;
-
     overflow: visible !important;
 }
 
-
-/* 각 Grid 셀 */
-.callout[data-callout="image-grid"]
-.callout-content > p {
+.callout[data-callout="image-grid"] .callout-content > p {
     min-width: 0 !important;
-
     margin: 0 !important;
     padding: 0 !important;
-
     overflow: visible !important;
 }
 
-
-/* ==================================================
-   2. Image Captions Figure
-   ================================================== */
-
-/*
-   Image Captions 실제 구조:
-
-   .internal-embed
-   └─ figure.image-captions-figure
-      ├─ img
-      └─ figcaption
-*/
-
-.callout[data-callout="image-grid"]
-figure.image-captions-figure {
+.callout[data-callout="image-grid"] figure.image-captions-figure {
     display: grid !important;
-
     grid-template-rows:
         var(--image-grid-image-height)
         auto !important;
-
     width: 100% !important;
     max-width: 100% !important;
-
     height: auto !important;
-
     position: static !important;
-
     margin: 0 !important;
     padding: 0 !important;
-
-    /*
-     * 흰 배경은 이미지 영역에만 표시.
-     * 캡션 부분은 Obsidian 배경 사용.
-     */
     background:
         linear-gradient(#fff, #fff)
         top / 100% var(--image-grid-image-height)
         no-repeat !important;
-
     border: none !important;
     border-radius: 3px !important;
     box-shadow: none !important;
-
     overflow: visible !important;
 }
 
-
-/* ==================================================
-   3. Grid 이미지
-   PNG / WebP 공통
-   ================================================== */
-
-.callout[data-callout="image-grid"]
-figure.image-captions-figure > img {
+.callout[data-callout="image-grid"] figure.image-captions-figure > img {
     grid-row: 1 !important;
-
     align-self: center !important;
     justify-self: center !important;
-
     display: block !important;
-
-    /*
-     * 중요:
-     * 무조건 width: 100%로 늘리지 않는다.
-     *
-     * 원본 크기를 우선 사용하고,
-     * Grid보다 클 때만 축소한다.
-     */
     width: auto !important;
     height: auto !important;
-
     max-width: 100% !important;
     max-height: var(--image-grid-image-height) !important;
-
     object-fit: contain !important;
-
-    /*
-     * 브라우저 기본 보간 사용.
-     * pixelated 같은 처리는 하지 않는다.
-     */
     image-rendering: auto !important;
-
     position: static !important;
     transform: none !important;
-
     margin: 0 !important;
     padding: 0 !important;
-
     border: none !important;
     border-radius: 3px !important;
     box-shadow: none !important;
 }
 
-
-/* ==================================================
-   4. Grid Caption
-   ================================================== */
-
-.callout[data-callout="image-grid"]
-figure.image-captions-figure
-> figcaption.image-captions-caption {
+.callout[data-callout="image-grid"] figure.image-captions-figure > figcaption.image-captions-caption {
     grid-row: 2 !important;
-
     display: block !important;
-
-    width: 100% !important;
+    width: 100%;
     height: auto !important;
-
     position: static !important;
-
     inset: auto !important;
-
-    top: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-
     transform: none !important;
-
     margin: var(--image-grid-caption-gap) 0 0 !important;
     padding: 0 !important;
-
     background: transparent !important;
-
     color: var(--text-muted) !important;
-
     font-size: 0.82em !important;
     font-weight: 400 !important;
     line-height: 1.4 !important;
-
     text-align: center !important;
-
     border: none !important;
     box-shadow: none !important;
-
     opacity: 1 !important;
-
     overflow: visible !important;
 }
 
-
-/* ==================================================
-   5. Image Grid 내부 Embed 공통
-   ================================================== */
-
-/*
-   Grid 안에서는 PNG / WebP를 구분하지 않는다.
-
-   단독 PDF++ 이미지용 위치/크기 규칙이
-   Grid까지 넘어오지 않도록 모두 해제.
-*/
-.callout[data-callout="image-grid"]
-.internal-embed.image-embed {
+.callout[data-callout="image-grid"] .internal-embed.image-embed {
     display: block !important;
-
     width: 100% !important;
     max-width: 100% !important;
-
     height: auto !important;
-
     position: static !important;
-
     left: auto !important;
     right: auto !important;
     top: auto !important;
     bottom: auto !important;
-
     transform: none !important;
-
     margin: 0 !important;
     padding: 0 !important;
-
     background: transparent !important;
-
     overflow: visible !important;
 }
 
-
-/* ==================================================
-   6. Caption 없는 이미지
-   ================================================== */
-
-.callout[data-callout="image-grid"]
-.internal-embed.image-embed:not(
-    :has(figure.image-captions-figure)
-) {
+.callout[data-callout="image-grid"] .internal-embed.image-embed:not(:has(figure.image-captions-figure)) {
     display: flex !important;
-
     align-items: center !important;
     justify-content: center !important;
-
     width: 100% !important;
     max-width: 100% !important;
-
     height: var(--image-grid-image-height) !important;
-
     background: #fff !important;
-
     border-radius: 3px !important;
-
     overflow: hidden !important;
 }
 
-
-.callout[data-callout="image-grid"]
-.internal-embed.image-embed:not(
-    :has(figure.image-captions-figure)
-) > img {
+.callout[data-callout="image-grid"] .internal-embed.image-embed:not(:has(figure.image-captions-figure)) > img {
     display: block !important;
-
     width: auto !important;
     height: auto !important;
-
     max-width: 100% !important;
     max-height: 100% !important;
-
     object-fit: contain !important;
     image-rendering: auto !important;
-
     margin: 0 !important;
 }
 
-
-/* ==================================================
-   7. PDF++ 단독 WebP
-   ==================================================
-
-   기존 PDF++ WebP용.
-   Image Grid 밖에서만 400px 가운데 정렬.
-
-   새 PDF++ PNG는 아래 Grid에서는 정상 동작하고,
-   단독 PNG 자동 크기 규칙은 별도로 잡지 않는다.
-   ================================================== */
-
-
-/* Live Preview */
-.markdown-source-view.mod-cm6
-.internal-embed.image-embed[src*=".webp"] {
+.markdown-source-view.mod-cm6 .internal-embed.image-embed[src*=".webp"] {
     display: block !important;
-
     width: var(--pdf-plus-image-width) !important;
     max-width: var(--pdf-plus-image-width) !important;
-
     position: relative !important;
-
     left: 50% !important;
     transform: translateX(-50%) !important;
-
     margin-top: 18px !important;
     margin-bottom: 18px !important;
 }
 
-
-/* Reading View */
-.markdown-preview-view
-.internal-embed.image-embed[src*=".webp"],
-.markdown-rendered
-.internal-embed.image-embed[src*=".webp"] {
+.markdown-preview-view .internal-embed.image-embed[src*=".webp"],
+.markdown-rendered .internal-embed.image-embed[src*=".webp"] {
     display: block !important;
-
     width: var(--pdf-plus-image-width) !important;
     max-width: var(--pdf-plus-image-width) !important;
-
     position: relative !important;
-
     left: 50% !important;
     transform: translateX(-50%) !important;
-
     margin-top: 18px !important;
     margin-bottom: 18px !important;
 }
 
-
-/* 실제 WebP */
-.markdown-source-view.mod-cm6
-.internal-embed.image-embed[src*=".webp"] img,
-.markdown-preview-view
-.internal-embed.image-embed[src*=".webp"] img,
-.markdown-rendered
-.internal-embed.image-embed[src*=".webp"] img {
+.markdown-source-view.mod-cm6 .internal-embed.image-embed[src*=".webp"] img,
+.markdown-preview-view .internal-embed.image-embed[src*=".webp"] img,
+.markdown-rendered .internal-embed.image-embed[src*=".webp"] img {
     display: block !important;
-
     width: 100% !important;
     max-width: 100% !important;
-
     height: auto !important;
-
     margin: 0 !important;
 }
 
-
-/* ==================================================
-   8. Image Grid 안에서는 WebP 단독 규칙 해제
-   ================================================== */
-
-.callout[data-callout="image-grid"]
-.internal-embed.image-embed[src*=".webp"] {
+.callout[data-callout="image-grid"] .internal-embed.image-embed[src*=".webp"] {
     display: block !important;
-
     width: 100% !important;
     max-width: 100% !important;
-
     height: auto !important;
-
     position: static !important;
-
     left: auto !important;
     transform: none !important;
-
     margin: 0 !important;
 }
 
-
-/* ==================================================
-   9. PDF++ 원본 rect 링크 숨김
-   ================================================== */
-
-
-/* Reading View */
-.markdown-preview-view
-p:has(
-    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
-),
-.markdown-rendered
-p:has(
-    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
-) {
+.markdown-preview-view p:has(a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]),
+.markdown-rendered p:has(a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]) {
     display: none !important;
 }
 
-
-/* Live Preview */
-.markdown-source-view.mod-cm6
-.cm-line:has(
-    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
-) {
+.markdown-source-view.mod-cm6 .cm-line:has(a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]) {
     display: none !important;
+}
+
+.theme-dark .markdown-rendered .link-favicon[data-host="github.com"],
+.theme-dark .markdown-rendered .link-favicon[data-target*="github.com"],
+.theme-dark .markdown-rendered .link-favicon[src*="github"],
+.theme-dark .markdown-rendered .link-favicon[style*="github"],
+.theme-dark .markdown-rendered a.external-link[href*="github.com"] .link-favicon {
+    filter: brightness(0) invert(0.78) !important;
+    opacity: 1 !important;
+}
+
+
+body {
+    --link-mention-favicon-size: 1.05em;
+    --link-mention-gap: 0.4em;
+    --link-mention-text-color: var(--text-normal);
+    --link-mention-underline-color: #8b939e;
+}
+
+.markdown-rendered .link-mention {
+    border-radius: 5px;
+    transition:
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.markdown-rendered .link-mention-title {
+    color: #d9dfe8 !important;
+    font-weight: 500;
+    text-decoration-color: #69737f !important;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+.theme-dark .link-mention[href*="github.com"] .link-mention-favicon {
+    filter: brightness(0) invert(0.82) !important;
+    opacity: 1 !important;
+}
+
+.theme-dark .link-mention[href*="github.com"] .link-mention-default-icon {
+    color: #cbd2da !important;
+    opacity: 1 !important;
+}
+
+.markdown-rendered .link-mention:hover {
+    background-color: rgba(255, 255, 255, 0.055) !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.055) !important;
+}
+
+.markdown-rendered .link-mention:hover .link-mention-title {
+    color: #ffffff !important;
+    text-decoration-color: #a0b3ca !important;
+}
+
+.markdown-rendered .link-mention-favicon {
+    vertical-align: -0.15em;
 }
