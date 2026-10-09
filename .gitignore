@@ -5,3 +5,7 @@
 /Resources/PDF/
 .DS_Store
 Thumbs.db
+
+# Machine-local / generated Obsidian plugin artifacts
+.obsidian/plugins/obsidian-git/obsidian_askpass.sh
+.obsidian/plugins/code-styler/reference-files/cache.json
