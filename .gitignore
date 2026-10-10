@@ -9,3 +9,7 @@ Thumbs.db
 # Machine-local / generated Obsidian plugin artifacts
 .obsidian/plugins/obsidian-git/obsidian_askpass.sh
 .obsidian/plugins/code-styler/reference-files/cache.json
+
+# PDF Plus manual settings snapshots (recoverable from Git history)
+.obsidian/plugins/pdf-plus/data.json.backup
+.obsidian/plugins/pdf-plus/data.json.before-fix

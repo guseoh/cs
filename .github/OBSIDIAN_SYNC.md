@@ -40,3 +40,30 @@
 Git의 버전 이력 외에도 Vault 전체를 주기적으로 독립적인 저장소나 디스크에 백업한다. 복구 연습으로 노트, 첨부 이미지 및 설정이 정상적으로 열리는지 확인한다.
 
 > 이 문서는 운영 가이드이며, 로컬 데스크탑·노트북의 현재 작업 상태를 자동으로 확인하거나 동기화하지 않는다.
+
+## 데스크탑 적용 보류 — 재개 시 체크리스트
+
+현재 GitHub에서 실행한 변경은 **노트북 기준으로만 검토**했다. 데스크탑은 사용 가능할 때 별도로 다음 순서로 점검한다.
+
+1. Obsidian에서 진행 중인 노트를 모두 저장하고 로컬 Vault 전체를 별도 위치에 백업한다.
+2. Vault 루트에서 `git status --short --branch`, `git fetch origin`, `git rev-list --left-right --count HEAD...origin/main`, `git status --porcelain=v1 -uall`을 실행하여 커밋되지 않은 변경과 원격 divergence를 확인한다.
+3. 로컬 파일을 보존하면서 미반영 커밋/노트를 순서대로 정리한다. 충돌이 있으면 파일별 수동 병합한다.
+4. 깨끗하고 Fast-forward 가능한 상태에서만 `git pull --ff-only origin main` 실행, Obsidian을 다시 열어 CSS/플러그인 동작 확인.
+5. **현재 단계에서 삭제 보류된 중복 이미지**가 데스크탑의 미반영 노트에서도 미사용인지 확인한다.
+
+### 중복 이미지 정리 후보 (GitHub 추적 노트에서는 직접 참조 발견 안 됨)
+
+다음 파일들은 동일 SHA의 다른 이미지와 내용이 겹친다. **데스크탑 미반영 노트의 참조를 아직 확인하지 않았으므로 삭제하지 않는다.**
+
+- `Attachments/Pasted image 20260916153247.png` (보존 후보: `Pasted image 20260916153258.png`)
+- `Attachments/Pasted image 20261007151056.png` (보존 후보: `Pasted image 20261007151412.png`)
+- `Attachments/Pasted image 20261007151059.png` (보존 후보: `Pasted image 20261007151422.png`)
+- `Attachments/Pasted image 20261007162444.png` (보존 후보: `Pasted image 20261007162447.png`)
+- `Attachments/스크린샷 2026-09-28 143003.png` 및 `Attachments/스크린샷 2026-09-28 143003 1.png` (보존 후보: `스크린샷 2026-09-28 143003 2.png`)
+- `Attachments/스크린샷 2026-09-28 143007.png` (보존 후보: `스크린샷 2026-09-28 143007 1.png`)
+
+노트와 플러그인이 사용하는 첨부 파일은 보존한다. 파일명 변경/삭제 전에는 해당 파일의 Wikilink, Markdown 링크 및 기기별 미반영 노트를 함께 검사한다.
+
+### PDF Plus 임시 설정
+
+`data.json.backup` 및 `data.json.before-fix`는 활성 설정이 아닌 과거 수동 백업이다. Git 기록에 원본 blob이 남아 있어 복구 가능하며, 현재 `data.json`은 수정하지 않는다.
