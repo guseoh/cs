@@ -84,7 +84,9 @@ try {
         ).Count -gt 0
         $appConfigCandidates = @(
             $zip.Entries | Where-Object {
-                $_.FullName -match 'app[.]json
+                $_.FullName -match 'app[.]json$'
+            } | Select-Object -First 5 -ExpandProperty FullName
+        )
     }
     finally {
         $zip.Dispose()
@@ -100,41 +102,6 @@ try {
             'no app.json entries found'
         }
         throw "Backup validation failed: .obsidian/app.json was not found in ZIP. Matching candidates: $examples"
-    }
-
-    $hash = (Get-FileHash -LiteralPath $archivePath -Algorithm SHA256).Hash
-    $checksumContent = "{0}  {1}" -f $hash, [System.IO.Path]::GetFileName($archivePath)
-    [System.IO.File]::WriteAllText($checksumPath, $checksumContent + [Environment]::NewLine,
-                                  (New-Object System.Text.UTF8Encoding($false)))
-
-    Write-Output "Backup: $archivePath"
-    Write-Output "SHA256: $hash"
-    Write-Output "Files: $filesInArchive"
-    Write-Output "Checksum file: $checksumPath"
-    Write-Output 'Copy this backup to a separate drive or storage location for independent protection.'
-}
-catch {
-    if (Test-Path -LiteralPath $archivePath) {
-        Remove-Item -LiteralPath $archivePath -Force
-    }
-    if (Test-Path -LiteralPath $checksumPath) {
-        Remove-Item -LiteralPath $checksumPath -Force
-    }
-    throw
-}
-
-            } | Select-Object -First 5 -ExpandProperty FullName
-        )
-    }
-    finally {
-        $zip.Dispose()
-    }
-
-    if ($filesInArchive -ne $expectedFiles) {
-        throw "Archive file count mismatch: source=$expectedFiles, ZIP=$filesInArchive"
-    }
-    if (-not $appConfigFound) {
-        throw 'Backup validation failed: .obsidian/app.json is missing.'
     }
 
     $hash = (Get-FileHash -LiteralPath $archivePath -Algorithm SHA256).Hash
