@@ -24,7 +24,7 @@
 
 ## Windows ZIP 내부 경로 검증 문제
 
-Windows PowerShell 5.1/.NET 환경에서는 ZIP 내부 항목의 경로가 `obsidian-vault\\.obsidian\\app.json`처럼 백슬래시(`\\`)로 기록될 수 있다. 백업 스크립트는 ZIP 검증 시 `\\`와 `/`를 동일하게 처리한다.
+Windows PowerShell 5.1/.NET 환경에서는 ZIP 내부 항목의 경로가 `obsidian-vault\.obsidian\app.json`처럼 백슬래시(`\`)로 기록될 수 있다. 백업 스크립트는 ZIP 검증 시 `\`와 `/`를 동일하게 처리한다.
 
 백업 명령이 `Backup validation failed`로 실패하면 **백업 성공으로 간주하지 않는다**. 실패한 ZIP과 체크섬은 스크립트가 정리하며, Vault 파일은 수정하지 않는다. 스크립트를 갱신한 뒤 재실행하고 성공 메시지의 `Backup:`, `SHA256:`, `Files:` 항목을 확인한다. 여전히 실패한다면 표시된 `Matching candidates`를 함께 전달한다.
 
