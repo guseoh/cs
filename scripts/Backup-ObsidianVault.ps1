@@ -30,6 +30,10 @@ $source = (Resolve-Path -LiteralPath $VaultPath).ProviderPath
 if (-not (Test-Path -LiteralPath (Join-Path $source '.obsidian') -PathType Container)) {
     throw "Vault directory does not contain .obsidian: $source"
 }
+$appConfigPath = Join-Path (Join-Path $source '.obsidian') 'app.json'
+if (-not (Test-Path -LiteralPath $appConfigPath -PathType Leaf)) {
+    throw "Vault is missing its .obsidian/app.json configuration file: $appConfigPath"
+}
 
 $destination = [System.IO.Path]::GetFullPath($DestinationDirectory)
 $trimCharacters = [char[]]@('\', '/')
@@ -67,12 +71,60 @@ try {
     $zip = [System.IO.Compression.ZipFile]::OpenRead($archivePath)
     try {
         $filesInArchive = @($zip.Entries | Where-Object { $_.Name -ne '' }).Count
+        # Windows/.NET Framework may put backslashes in ZIP entry names.
+        # Normalize separators before checking the path, including the Vault root folder.
         $appConfigFound = @(
             $zip.Entries | Where-Object {
-                $_.FullName.EndsWith('/.obsidian/app.json',
-                                    [System.StringComparison]::OrdinalIgnoreCase)
+                $normalized = $_.FullName.Replace([char]92, [char]47).TrimStart([char]47)
+                $normalized.Equals('.obsidian/app.json',
+                                   [System.StringComparison]::OrdinalIgnoreCase) -or
+                $normalized.EndsWith('/.obsidian/app.json',
+                                     [System.StringComparison]::OrdinalIgnoreCase)
             }
         ).Count -gt 0
+        $appConfigCandidates = @(
+            $zip.Entries | Where-Object {
+                $_.FullName -match 'app[.]json
+    }
+    finally {
+        $zip.Dispose()
+    }
+
+    if ($filesInArchive -ne $expectedFiles) {
+        throw "Archive file count mismatch: source=$expectedFiles, ZIP=$filesInArchive"
+    }
+    if (-not $appConfigFound) {
+        $examples = if ($appConfigCandidates.Count -gt 0) {
+            $appConfigCandidates -join '; '
+        } else {
+            'no app.json entries found'
+        }
+        throw "Backup validation failed: .obsidian/app.json was not found in ZIP. Matching candidates: $examples"
+    }
+
+    $hash = (Get-FileHash -LiteralPath $archivePath -Algorithm SHA256).Hash
+    $checksumContent = "{0}  {1}" -f $hash, [System.IO.Path]::GetFileName($archivePath)
+    [System.IO.File]::WriteAllText($checksumPath, $checksumContent + [Environment]::NewLine,
+                                  (New-Object System.Text.UTF8Encoding($false)))
+
+    Write-Output "Backup: $archivePath"
+    Write-Output "SHA256: $hash"
+    Write-Output "Files: $filesInArchive"
+    Write-Output "Checksum file: $checksumPath"
+    Write-Output 'Copy this backup to a separate drive or storage location for independent protection.'
+}
+catch {
+    if (Test-Path -LiteralPath $archivePath) {
+        Remove-Item -LiteralPath $archivePath -Force
+    }
+    if (Test-Path -LiteralPath $checksumPath) {
+        Remove-Item -LiteralPath $checksumPath -Force
+    }
+    throw
+}
+
+            } | Select-Object -First 5 -ExpandProperty FullName
+        )
     }
     finally {
         $zip.Dispose()
