@@ -54,7 +54,8 @@ Get-ChildItem -LiteralPath $restoreTo -Force
 
 - 압축을 풀면 ZIP을 만들 때 사용한 Vault 폴더가 안에 포함된다.
 - 복원한 폴더에서 \`.obsidian/app.json\`, \`Study/\`, \`Attachments/\` 및 \`.git/\`이 있는지 확인한다.
-- Obsidian에서 **현재 사용 중인 Vault를 열지 말고**, 임시로 복원한 폴더를 별도 Vault로 열어 주요 노트·이미지·CSS를 확인한다. 두 Vault를 동시에 편집·동기화하지 않도록 주의한다.
+- 우선 파일 탐색기와 텍스트 편집기로 주요 노트·이미지·CSS 파일이 존재하는지 확인한다.
+- **주의:** 복원본에는 `.git`과 `Obsidian Git`의 자동 Pull/Push 설정도 들어 있다. 검증용 복원본을 곧바로 Obsidian에서 열면 자동 동기화가 실행될 위험이 있다. 별도 Vault로 열어 렌더링을 검사하려면 먼저 **복원본에서만** Obsidian Git 플러그인을 비활성화하고 Git 작업이 실행되지 않는 상태를 만들어야 한다. 실제 Vault나 GitHub의 설정은 변경하지 않는다.
 - 복구 연습이 끝나면 검증에 사용한 임시 Vault를 닫고, 필요할 때 직접 삭제한다. 스크립트는 임시 폴더도 자동 삭제하지 않는다.
 
 ## 실수로 지웠거나 깨졌을 때
