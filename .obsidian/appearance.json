@@ -1,8 +1,6 @@
 {
   "baseFontSize": 14,
   "enabledCssSnippets": [
-    "image-grid",
-    "list-spacing",
     "obsidian-readability-style-settings",
     "more-callout",
     "table-style"
