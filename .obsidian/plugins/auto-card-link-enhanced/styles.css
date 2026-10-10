@@ -1,0 +1,527 @@
+.markdown-reading-view .block-language-cardlink {
+    margin: var(--p-spacing) 0;
+}
+
+.auto-card-link-container {
+    container-type: inline-size;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    margin: 6px 0px;
+
+    --auto-card-link-button-width: calc(var(--icon-size) + var(--size-2-3));
+
+    --auto-card-link-indent-size: 2.5em;
+
+    &[data-auto-card-link-depth="0"] {
+        margin-left: calc(var(--auto-card-link-indent-size) * 0);
+    }
+
+    &[data-auto-card-link-depth="1"] {
+        margin-left: calc(var(--auto-card-link-indent-size) * 1);
+    }
+
+    &[data-auto-card-link-depth="2"] {
+        margin-left: calc(var(--auto-card-link-indent-size) * 2);
+    }
+
+    &[data-auto-card-link-depth="3"] {
+        margin-left: calc(var(--auto-card-link-indent-size) * 3);
+    }
+
+    &[data-auto-card-link-depth="4"] {
+        margin-left: calc(var(--auto-card-link-indent-size) * 4);
+    }
+
+    &[data-auto-card-link-depth="5"] {
+        margin-left: calc(var(--auto-card-link-indent-size) * 5);
+    }
+
+    &[data-auto-card-link-depth="6"] {
+        margin-left: calc(var(--auto-card-link-indent-size) * 6);
+    }
+
+    &[data-auto-card-link-depth="7"] {
+        margin-left: calc(var(--auto-card-link-indent-size) * 7);
+    }
+}
+
+@container (max-width: 300px) {
+    .auto-card-link-thumbnail-wrap {
+        display: none;
+    }
+}
+
+@container (max-width: 500px) {
+    .auto-card-link-description {
+        display: none;
+    }
+
+    .auto-card-link-container .auto-card-link-title {
+        white-space: normal;
+        --lh: 1.5em;
+        line-height: var(--lh);
+        height: calc(var(--lh) * 3);
+    }
+}
+
+.auto-card-link-error-container {
+    max-width: 780px;
+    margin: 1em auto;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--background-modifier-error);
+    padding: 10px;
+    font-family: var(--font-text);
+
+    &:hover {
+        background: var(--background-modifier-error-hover);
+    }
+}
+
+.auto-card-link-thumbnail-right .auto-card-link-card {
+    flex-direction: row;
+}
+
+.auto-card-link-card {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 8em;
+    transition: 20ms ease-in 0s;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--link-external-color);
+    background: var(--background-primary-alt);
+    border: solid var(--border-width) var(--divider-color);
+    border-radius: var(--radius-m);
+
+    &:hover {
+        background: var(--background-modifier-hover);
+        border-color: var(--background-modifier-hover);
+        text-decoration: none;
+    }
+}
+
+.auto-card-link-main {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.18em;
+    padding: 0.5em 0.6em;
+    overflow: hidden;
+    text-align: left;
+    /* necessary for ellipsis to work */
+}
+
+/* A link the site says is not there (field rule J4). */
+.auto-card-link-title-not-found {
+    text-decoration: line-through;
+}
+
+.auto-card-link-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+
+    &:hover {
+        color: var(--link-external-color-hover)
+    }
+
+    /* Prevent clash with edit block button. Obsidian wraps it in .embed-actions now,
+       rather than making it a direct sibling - matched as a descendant so this keeps
+       working if that nesting changes again. */
+    .is-live-preview .auto-card-link-container:hover &,
+    .is-live-preview .block-language-cardlink:has(+ .embed-actions .edit-block-button:hover) & {
+        margin-right: var(--auto-card-link-button-width);
+    }
+}
+
+.auto-card-link-description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    --lh: 1.4em;
+    line-height: var(--lh);
+    max-height: calc(var(--lh) * 3);
+    color: var(--text-muted);
+    font-size: var(--font-smallest);
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+
+.auto-card-link-host {
+    font-size: var(--font-smallest);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.4em;
+    flex-shrink: 0;
+
+    & span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Prevent clash with copy url button */
+    .auto-card-link-container:hover &,
+    .is-mobile .auto-card-link-container & {
+        margin-right: var(--auto-card-link-button-width);
+    }
+
+    &:hover {
+        color: var(--link-external-color-hover)
+    }
+}
+
+
+/* High specificity (element + 3 classes) so themes, which load after plugin CSS,
+   can't override the favicon size and blow it up to its natural dimensions. */
+.auto-card-link-container .auto-card-link-host img.auto-card-link-favicon {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    max-width: 16px;
+    flex-shrink: 0;
+    object-fit: contain;
+    margin-right: 0.5em;
+}
+
+.auto-card-link-container .auto-card-link-thumbnail-wrap {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    overflow: hidden;
+    width: min(200px, 40%);
+}
+
+/* High specificity (element + 3 classes), matching the favicon rule above, so themes
+   (e.g. Minimal) can't override sizing or corner rounding with their own image rules. */
+.auto-card-link-container .auto-card-link-thumbnail-wrap img.auto-card-link-thumbnail {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-m);
+    object-fit: cover;
+    padding: 4px;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.auto-card-link-duration {
+    position: absolute;
+    bottom: 7px;
+    right: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 11px;
+    line-height: initial;
+    font-weight: 600;
+    padding: 2px 4px 1px 4px;
+    border-radius: 4px;
+    pointer-events: none;
+    letter-spacing: 0.3px;
+    isolation: isolate;
+}
+
+.auto-card-link-duration::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: -1;
+}
+
+.auto-card-link-thumbnail-right .auto-card-link-duration {
+    right: auto;
+    left: 8px;
+}
+
+.auto-card-link-copy-url {
+    position: absolute;
+    right: var(--size-2-2);
+    bottom: var(--size-2-2);
+    z-index: 1;
+    border-radius: var(--radius-s);
+
+    /* Show copy button only on hover on desktop.
+       Also keep it visible when the adjacent edit-block-button is hovered,
+       since that moves the cursor outside the container. */
+    .obsidian-app:not(.is-mobile) .block-language-cardlink:not(:has(+ .embed-actions .edit-block-button:hover)) .auto-card-link-container:not(:hover) & {
+        display: none;
+    }
+}
+
+.auto-card-link-copy-url:hover {
+    color: var(--icon-color-active);
+}
+
+.auto-card-link-thumbnail-right .auto-card-link-copy-url {
+    background-color: var(--background-secondary);
+}
+
+.auto-card-link-thumbnail-right .auto-card-link-copy-url:hover {
+    background-color: var(--interactive-hover);
+    color: var(--icon-color-active);
+}
+
+/* Edit block button in cardlink. Obsidian wraps it in .embed-actions, a positioned
+   flex container that can hold more than one action button - .embed-actions is what
+   carries top/right, .edit-block-button inside it is what carries the visible chrome. */
+.is-live-preview .block-language-cardlink+.embed-actions {
+    top: 10px !important;
+}
+
+/* Thumbnail left: no background, color-only hover */
+.is-live-preview .block-language-cardlink+.embed-actions .edit-block-button {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.is-live-preview .block-language-cardlink+.embed-actions .edit-block-button:hover {
+    background-color: var(--background-modifier-hover) !important;
+    color: var(--icon-color-active) !important;
+}
+
+/* Thumbnail right: background with proper hover */
+body.auto-card-link-thumbnail-right .is-live-preview .block-language-cardlink+.embed-actions .edit-block-button {
+    background-color: var(--background-secondary) !important;
+    box-shadow: var(--shadow-s) !important;
+}
+
+body.auto-card-link-thumbnail-right .is-live-preview .block-language-cardlink+.embed-actions .edit-block-button:hover {
+    background-color: var(--interactive-hover) !important;
+    color: var(--icon-color-active) !important;
+}
+
+/* --- MODERN STYLE --- */
+.auto-card-link-style-modern .auto-card-link-card {
+    border: solid var(--border-width) var(--divider-color);
+    border-color: transparent;
+    border-radius: 12px;
+    height: 8em;
+    overflow: hidden;
+    position: relative;
+    background: var(--background-primary-alt);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 280ms ease, box-shadow 280ms ease, background 280ms ease;
+}
+
+.auto-card-link-style-modern .auto-card-link-card:hover {
+    border-color: var(--background-modifier-hover);
+    background: var(--background-modifier-hover);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
+    /* transform: translateY(-1px); */
+}
+
+.auto-card-link-style-modern .auto-card-link-container .auto-card-link-thumbnail-wrap img.auto-card-link-thumbnail {
+    padding: 0;
+    border-radius: 0;
+    height: 100%;
+    object-fit: cover;
+}
+
+.auto-card-link-style-modern .auto-card-link-main {
+    padding: 0.6em 0.9em;
+}
+
+.auto-card-link-style-modern .auto-card-link-title {
+    font-weight: 600;
+}
+
+.auto-card-link-style-modern .auto-card-link-duration {
+    bottom: 6px;
+    right: 4px;
+    border-radius: 8px;
+    color: #fff;
+    padding: 2px 6px 1px 6px;
+    font-weight: 500;
+}
+
+.auto-card-link-style-modern .auto-card-link-duration::before {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* --- COMPACT STYLE --- */
+.auto-card-link-style-compact .auto-card-link-card {
+    height: 5em;
+}
+
+.auto-card-link-style-compact .auto-card-link-description {
+    display: none;
+}
+
+.auto-card-link-style-compact .auto-card-link-thumbnail-wrap {
+    width: min(130px, 40%);
+}
+
+.auto-card-link-style-compact .auto-card-link-container .auto-card-link-thumbnail-wrap img.auto-card-link-thumbnail {
+    padding: 2px;
+    object-fit: cover;
+}
+
+/* .auto-card-link-style-compact .auto-card-link-title {
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+} */
+
+.auto-card-link-style-compact .auto-card-link-main {
+    padding: 0.35em 0.5em;
+    gap: 0.1em;
+}
+
+/* --- GLASS STYLE --- */
+
+/* Fix backdrop-filter border-radius bleed: clip the container at the same radius */
+.auto-card-link-style-glass .auto-card-link-container {
+    border-radius: 14px;
+}
+
+.auto-card-link-style-glass .auto-card-link-card {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    height: 8em;
+    overflow: hidden;
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: box-shadow 300ms ease, background 300ms ease, border-color 300ms ease;
+}
+
+/* Light theme overrides using Obsidian variables */
+body.theme-light.auto-card-link-style-glass .auto-card-link-card {
+    background: color-mix(in srgb, var(--background-primary-alt) 60%, transparent);
+    border-color: var(--divider-color);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+}
+
+.auto-card-link-style-glass .auto-card-link-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.06) 50%,
+            transparent 100%);
+    transform: skewX(-15deg);
+    transition: left 900ms ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Shimmer is white-on-white in light mode — use a more opaque highlight */
+body.theme-light.auto-card-link-style-glass .auto-card-link-card::before {
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.45) 50%,
+            transparent 100%);
+}
+
+.auto-card-link-style-glass .auto-card-link-card:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+body.theme-light.auto-card-link-style-glass .auto-card-link-card:hover {
+    background: color-mix(in srgb, var(--background-modifier-hover) 80%, transparent);
+    border-color: var(--background-modifier-border-hover);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.auto-card-link-style-glass .auto-card-link-card:hover::before {
+    left: 130%;
+}
+
+.auto-card-link-style-glass .auto-card-link-container .auto-card-link-thumbnail-wrap img.auto-card-link-thumbnail {
+    padding: 0;
+    border-radius: 0;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.88;
+}
+
+.auto-card-link-style-glass .auto-card-link-card:hover .auto-card-link-thumbnail-wrap img.auto-card-link-thumbnail {
+    opacity: 1;
+}
+
+.auto-card-link-style-glass .auto-card-link-main {
+    padding: 0.75em 1em;
+}
+
+.auto-card-link-style-glass .auto-card-link-title {
+    font-weight: 600;
+}
+
+.auto-card-link-style-glass .auto-card-link-description {
+    color: var(--text-muted);
+}
+
+.auto-card-link-style-glass .auto-card-link-duration {
+    bottom: 6px;
+    right: 4px;
+    border-radius: 8px;
+    color: #fff;
+    padding: 2px 6px 1px 6px;
+    font-weight: 500;
+}
+
+/* Settings tab: option list inside a setting description */
+.auto-card-link-option-list {
+    margin: 0.4em 0;
+    padding-left: 1.4em;
+}
+
+.auto-card-link-option-list li {
+    margin: 0.1em 0;
+}
+
+/* Settings tab: separates groups inside one section, e.g. paste/drop from the card options */
+.auto-card-link-settings-divider {
+    border: none;
+    border-top: 1px solid var(--background-modifier-border);
+    margin: 1.2em 0;
+}
+
+/* Settings tab: coexistence warning when another plugin handles the same paste */
+.auto-card-link-warning .setting-item-name {
+    color: var(--text-warning);
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+}
+
+.auto-card-link-warning-icon {
+    display: flex;
+}
+
+/* Same specificity as the per-style object-fit rules above, placed last so it wins
+   regardless of card style, and wins over themes since it matches their specificity. */
+body.auto-card-link-thumbnail-fit-contain .auto-card-link-container .auto-card-link-thumbnail-wrap img.auto-card-link-thumbnail {
+    object-fit: contain;
+}
+
+.auto-card-link-style-glass .auto-card-link-duration::before {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}

@@ -1,4 +1,3 @@
-
 /* @settings
 
 name: Jihun Obsidian Readability
@@ -255,6 +254,10 @@ settings:
 
 */
 
+/* =========================================
+   기본 변수
+   ========================================= */
+
 body {
     --code-block-bg-alpha: 0.025;
     --code-block-border-alpha: 0.035;
@@ -287,6 +290,10 @@ body {
     --text-block-border-alpha: 0.025;
     --mermaid-max-width: 90%;
 }
+
+/* =========================================
+   본문과 리스트
+   ========================================= */
 
 .markdown-rendered p {
     line-height: var(--body-line-height);
@@ -340,7 +347,8 @@ body {
 .markdown-rendered li li::marker {
     color: color-mix(
         in srgb,
-        var(--text-muted) calc(var(--nested-list-marker-opacity) * 100%),
+        var(--text-muted)
+            calc(var(--nested-list-marker-opacity) * 100%),
         transparent
     );
 }
@@ -351,9 +359,17 @@ body {
     margin-bottom: 0.1em;
 }
 
+/* =========================================
+   인라인 코드
+   ========================================= */
+
 .markdown-rendered :not(pre) > code {
-    background: rgba(255, 255, 255, var(--inline-code-bg-alpha));
-    border: 1px solid rgba(255, 255, 255, var(--inline-code-border-alpha));
+    background: rgba(
+        255, 255, 255, var(--inline-code-bg-alpha)
+    );
+    border: 1px solid rgba(
+        255, 255, 255, var(--inline-code-border-alpha)
+    );
     border-radius: var(--inline-code-radius);
     padding: 1px 5px;
     color: #d8d8d8;
@@ -364,8 +380,12 @@ body {
 }
 
 .cm-s-obsidian span.cm-inline-code {
-    background: rgba(255, 255, 255, var(--inline-code-bg-alpha));
-    border: 1px solid rgba(255, 255, 255, var(--inline-code-border-alpha));
+    background: rgba(
+        255, 255, 255, var(--inline-code-bg-alpha)
+    );
+    border: 1px solid rgba(
+        255, 255, 255, var(--inline-code-border-alpha)
+    );
     border-radius: var(--inline-code-radius);
     padding: 1px 5px;
     color: #d8d8d8;
@@ -378,13 +398,26 @@ body {
     font-feature-settings: "calt" 1, "liga" 1;
 }
 
+/* =========================================
+   코드 블록
+   ========================================= */
+
 .markdown-rendered pre {
     position: relative;
-    background: rgba(255, 255, 255, var(--code-block-bg-alpha)) !important;
-    border: 1px solid rgba(255, 255, 255, var(--code-block-border-alpha)) !important;
+    background: rgba(
+        255, 255, 255, var(--code-block-bg-alpha)
+    ) !important;
+    border: 1px solid rgba(
+        255, 255, 255, var(--code-block-border-alpha)
+    ) !important;
     border-radius: var(--code-block-radius) !important;
-    padding: var(--code-block-padding-y) var(--code-block-padding-x);
-    margin: var(--code-block-margin-top) 0 var(--code-block-margin-bottom);
+    padding:
+        var(--code-block-padding-y)
+        var(--code-block-padding-x);
+    margin:
+        var(--code-block-margin-top)
+        0
+        var(--code-block-margin-bottom);
     box-shadow: none !important;
 }
 
@@ -406,6 +439,8 @@ body {
     pointer-events: none;
     user-select: none;
 }
+
+/* 코드 블록 언어명 */
 
 .markdown-rendered pre > code.language-java::before {
     content: "Java";
@@ -528,11 +563,17 @@ body {
     content: none;
 }
 
+/* 설명용 일반 코드 블록 */
+
 .markdown-rendered pre:has(> code.language-text),
 .markdown-rendered pre:has(> code.language-plaintext),
 .markdown-rendered pre:has(> code.language-txt) {
-    background: rgba(255, 255, 255, var(--text-block-bg-alpha)) !important;
-    border-color: rgba(255, 255, 255, var(--text-block-border-alpha)) !important;
+    background: rgba(
+        255, 255, 255, var(--text-block-bg-alpha)
+    ) !important;
+    border-color: rgba(
+        255, 255, 255, var(--text-block-border-alpha)
+    ) !important;
     padding-right: var(--code-block-padding-x);
 }
 
@@ -551,19 +592,27 @@ body {
     line-height: 1.55;
 }
 
+/* Live Preview 코드 블록 */
+
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
-    background: rgba(255, 255, 255, var(--code-block-bg-alpha));
+    background: rgba(
+        255, 255, 255, var(--code-block-bg-alpha)
+    );
 }
 
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
+.markdown-source-view.mod-cm6
+.cm-line.HyperMD-codeblock-begin {
     border-top-left-radius: var(--code-block-radius);
     border-top-right-radius: var(--code-block-radius);
 }
 
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
+.markdown-source-view.mod-cm6
+.cm-line.HyperMD-codeblock-end {
     border-bottom-left-radius: var(--code-block-radius);
     border-bottom-right-radius: var(--code-block-radius);
 }
+
+/* 코드와 설명 사이 간격 */
 
 .markdown-rendered .el-p + .el-pre {
     margin-top: 20px !important;
@@ -590,6 +639,10 @@ body {
 .markdown-rendered .el-pre + .el-ol {
     margin-top: var(--code-list-gap) !important;
 }
+
+/* =========================================
+   코드 구문 색상
+   ========================================= */
 
 .markdown-rendered pre code .token.keyword,
 .markdown-rendered pre code .token.atrule {
@@ -648,6 +701,8 @@ body {
     font-style: italic;
 }
 
+/* SQL */
+
 .markdown-rendered pre > code.language-sql {
     --syntax-keyword: #55a9b4;
     --syntax-type: #79a1d0;
@@ -660,6 +715,8 @@ body {
     --syntax-punctuation: #b8bec7;
     --syntax-comment: #818d94;
 }
+
+/* Java 계열 */
 
 .markdown-rendered pre > code:is(
     .language-java,
@@ -680,6 +737,8 @@ body {
     --syntax-annotation: #c6a05d;
 }
 
+/* JavaScript / TypeScript */
+
 .markdown-rendered pre > code:is(
     .language-javascript,
     .language-js,
@@ -698,6 +757,8 @@ body {
     --syntax-comment: #828c92;
 }
 
+/* Python */
+
 .markdown-rendered pre > code:is(
     .language-python,
     .language-py
@@ -714,6 +775,8 @@ body {
     --syntax-comment: #818e92;
 }
 
+/* JSON */
+
 .markdown-rendered pre > code.language-json {
     --syntax-keyword: #ac8cbd;
     --syntax-type: #7da4d0;
@@ -724,6 +787,8 @@ body {
     --syntax-operator: #bdc2c8;
     --syntax-punctuation: #aeb6c2;
 }
+
+/* YAML */
 
 .markdown-rendered pre > code:is(
     .language-yaml,
@@ -739,6 +804,8 @@ body {
     --syntax-punctuation: #aeb6c2;
 }
 
+/* HTML / XML */
+
 .markdown-rendered pre > code:is(
     .language-html,
     .language-xml
@@ -752,6 +819,8 @@ body {
     --syntax-punctuation: #b8bec6;
 }
 
+/* CSS */
+
 .markdown-rendered pre > code.language-css {
     --syntax-keyword: #a189c3;
     --syntax-type: #78a6cf;
@@ -761,6 +830,8 @@ body {
     --syntax-string: #86ac80;
     --syntax-punctuation: #b7bdc6;
 }
+
+/* Shell / PowerShell */
 
 .markdown-rendered pre > code:is(
     .language-bash,
@@ -778,6 +849,8 @@ body {
     --syntax-operator: #bcc3cb;
 }
 
+/* C / C++ / Go / Rust */
+
 .markdown-rendered pre > code:is(
     .language-c,
     .language-cpp,
@@ -793,6 +866,8 @@ body {
     --syntax-string: #85ac7c;
     --syntax-operator: #bdc4cc;
 }
+
+/* 설정 파일 계열 */
 
 .markdown-rendered pre > code:is(
     .language-dockerfile,
@@ -810,6 +885,8 @@ body {
     --syntax-number: #b591c1;
     --syntax-string: #85ad80;
 }
+
+/* Live Preview 구문 색상 */
 
 .markdown-source-view.mod-cm6 .cm-keyword {
     color: #d89a76 !important;
@@ -865,6 +942,10 @@ body {
     color: #a9c7e6 !important;
 }
 
+/* =========================================
+   Mermaid
+   ========================================= */
+
 .markdown-rendered .mermaid {
     width: var(--mermaid-max-width);
     max-width: var(--mermaid-max-width);
@@ -878,8 +959,13 @@ body {
     height: auto !important;
 }
 
+/* =========================================
+   Image Grid
+   ========================================= */
+
 .image-grid:has(.image-grid-cell:nth-child(2):last-child) {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
     width: min(66.666%, 720px);
     margin-inline: auto;
 }
@@ -892,7 +978,12 @@ body {
     cursor: zoom-in;
 }
 
-.callout:not([data-callout="more"]):not([data-callout="image-grid"]) {
+/* =========================================
+   Callout
+   ========================================= */
+
+.callout:not([data-callout="more"])
+:not([data-callout="image-grid"]) {
     background: rgba(255, 255, 255, 0.022);
     border: 1px solid rgba(255, 255, 255, 0.035);
     border-left: 2px solid rgba(var(--callout-color), 0.45);
@@ -901,7 +992,8 @@ body {
     margin: 12px 0;
 }
 
-.callout:not([data-callout="more"]):not([data-callout="image-grid"]) .callout-title {
+.callout:not([data-callout="more"])
+:not([data-callout="image-grid"]) .callout-title {
     display: flex;
     align-items: flex-start;
     gap: 7px;
@@ -909,14 +1001,16 @@ body {
     color: var(--text-normal);
 }
 
-.callout:not([data-callout="more"]):not([data-callout="image-grid"]) .callout-title-inner {
+.callout:not([data-callout="more"])
+:not([data-callout="image-grid"]) .callout-title-inner {
     color: var(--text-normal);
     font-size: 0.96em;
     font-weight: 500;
     line-height: 1.5;
 }
 
-.callout:not([data-callout="more"]):not([data-callout="image-grid"]) .callout-icon {
+.callout:not([data-callout="more"])
+:not([data-callout="image-grid"]) .callout-icon {
     color: rgb(var(--callout-color));
     opacity: 0.8;
     width: 16px;
@@ -924,89 +1018,71 @@ body {
     margin-top: 2px;
 }
 
-.callout:not([data-callout="more"]):not([data-callout="image-grid"]) .callout-fold {
+.callout:not([data-callout="more"])
+:not([data-callout="image-grid"]) .callout-fold {
     color: var(--text-muted);
     opacity: 0.65;
 }
 
-.callout:not([data-callout="more"]):not([data-callout="image-grid"]) .callout-content {
+.callout:not([data-callout="more"])
+:not([data-callout="image-grid"]) .callout-content {
     padding-top: 5px;
     color: var(--text-normal);
 }
 
-.callout:not([data-callout="more"]):not([data-callout="image-grid"]) .callout-content > :first-child {
+.callout:not([data-callout="more"])
+:not([data-callout="image-grid"])
+.callout-content > :first-child {
     margin-top: 0;
 }
 
-.callout:not([data-callout="more"]):not([data-callout="image-grid"]) .callout-content > :last-child {
+.callout:not([data-callout="more"])
+:not([data-callout="image-grid"])
+.callout-content > :last-child {
     margin-bottom: 0;
 }
 
+/* =========================================
+   단일 이미지 + 캡션 개선
+   ========================================= */
+
 .image-captions-figure {
-    margin-top: 16px;
-    margin-bottom: 18px;
+    margin: 16px auto 18px !important;
+    max-width: 100%;
+
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
 }
 
-.image-captions-caption {
-    margin-top: 6px;
-    color: var(--text-muted);
-    font-size: 0.82em;
-    font-weight: 400;
+.image-captions-figure > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.image-captions-figure > .image-captions-caption {
+    display: block;
+
+    margin: 0 !important;
+    padding: 6px 4px 0 !important;
+
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    color: var(--text-muted) !important;
+    font-size: 0.8em !important;
+    font-weight: 400 !important;
     line-height: 1.45;
     text-align: center;
 }
 
-.markdown-rendered .table-wrapper {
-    overflow-x: auto;
-    margin: 16px 0 20px;
-}
-
-.markdown-rendered table {
-    width: auto;
-    max-width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    font-size: 0.94em;
-    line-height: 1.5;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-.markdown-rendered table th {
-    background: rgba(255, 255, 255, 0.025);
-    color: var(--text-normal);
-    font-weight: 600;
-    padding: 7px 10px;
-    white-space: nowrap;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    border-right: 1px solid rgba(255, 255, 255, 0.035);
-}
-
-.markdown-rendered table td {
-    padding: 7px 10px;
-    vertical-align: middle;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-    border-right: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.markdown-rendered table th:first-child,
-.markdown-rendered table td:first-child {
-    white-space: nowrap;
-}
-
-.markdown-rendered table th:last-child,
-.markdown-rendered table td:last-child {
-    border-right: none;
-}
-
-.markdown-rendered table tr:last-child td {
-    border-bottom: none;
-}
-
-.markdown-rendered table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.012);
-}
+/* =========================================
+   URL 기본 스타일
+   ========================================= */
 
 .markdown-rendered a.external-link {
     color: var(--text-normal);
@@ -1014,6 +1090,7 @@ body {
     text-decoration-color: var(--text-faint);
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
+
     transition:
         color 0.15s ease,
         text-decoration-color 0.15s ease;
@@ -1024,6 +1101,10 @@ body {
     text-decoration-color: var(--link-color);
 }
 
+/* =========================================
+   이미지 / PDF Plus / 그리드 변수
+   ========================================= */
+
 :root {
     --pdf-plus-image-width: 360px;
     --image-grid-width: 720px;
@@ -1032,11 +1113,14 @@ body {
     --image-grid-caption-gap: 4px;
 }
 
+/* 이미지 그리드 Callout */
+
 .callout[data-callout="image-grid"] {
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+
     padding: 0 !important;
     margin: 16px 0 20px !important;
     overflow: visible !important;
@@ -1048,10 +1132,15 @@ body {
 
 .callout[data-callout="image-grid"] > .callout-content {
     display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr)) !important;
+
     gap: var(--image-grid-gap) !important;
+
     width: min(100%, var(--image-grid-width)) !important;
     max-width: var(--image-grid-width) !important;
+
     padding: 0 !important;
     margin: 0 auto !important;
     overflow: visible !important;
@@ -1064,171 +1153,263 @@ body {
     overflow: visible !important;
 }
 
-.callout[data-callout="image-grid"] figure.image-captions-figure {
+.callout[data-callout="image-grid"]
+figure.image-captions-figure {
     display: grid !important;
+
     grid-template-rows:
         var(--image-grid-image-height)
         auto !important;
+
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+
     position: static !important;
     margin: 0 !important;
     padding: 0 !important;
+
     background:
         linear-gradient(#fff, #fff)
         top / 100% var(--image-grid-image-height)
         no-repeat !important;
+
     border: none !important;
     border-radius: 3px !important;
     box-shadow: none !important;
     overflow: visible !important;
 }
 
-.callout[data-callout="image-grid"] figure.image-captions-figure > img {
+.callout[data-callout="image-grid"]
+figure.image-captions-figure > img {
     grid-row: 1 !important;
+
     align-self: center !important;
     justify-self: center !important;
+
     display: block !important;
+
     width: auto !important;
     height: auto !important;
     max-width: 100% !important;
     max-height: var(--image-grid-image-height) !important;
+
     object-fit: contain !important;
     image-rendering: auto !important;
+
     position: static !important;
     transform: none !important;
+
     margin: 0 !important;
     padding: 0 !important;
+
     border: none !important;
     border-radius: 3px !important;
     box-shadow: none !important;
 }
 
-.callout[data-callout="image-grid"] figure.image-captions-figure > figcaption.image-captions-caption {
+.callout[data-callout="image-grid"]
+figure.image-captions-figure
+> figcaption.image-captions-caption {
     grid-row: 2 !important;
+
     display: block !important;
     width: 100%;
     height: auto !important;
+
     position: static !important;
     inset: auto !important;
     transform: none !important;
-    margin: var(--image-grid-caption-gap) 0 0 !important;
+
+    margin:
+        var(--image-grid-caption-gap)
+        0 0 !important;
+
     padding: 0 !important;
     background: transparent !important;
+
     color: var(--text-muted) !important;
     font-size: 0.82em !important;
     font-weight: 400 !important;
     line-height: 1.4 !important;
     text-align: center !important;
+
     border: none !important;
     box-shadow: none !important;
     opacity: 1 !important;
     overflow: visible !important;
 }
 
-.callout[data-callout="image-grid"] .internal-embed.image-embed {
+/* 이미지 그리드 내부 */
+
+.callout[data-callout="image-grid"]
+.internal-embed.image-embed {
     display: block !important;
+
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+
     position: static !important;
+
     left: auto !important;
     right: auto !important;
     top: auto !important;
     bottom: auto !important;
+
     transform: none !important;
+
     margin: 0 !important;
     padding: 0 !important;
+
     background: transparent !important;
     overflow: visible !important;
 }
 
-.callout[data-callout="image-grid"] .internal-embed.image-embed:not(:has(figure.image-captions-figure)) {
+.callout[data-callout="image-grid"]
+.internal-embed.image-embed:not(
+    :has(figure.image-captions-figure)
+) {
     display: flex !important;
+
     align-items: center !important;
     justify-content: center !important;
+
     width: 100% !important;
     max-width: 100% !important;
     height: var(--image-grid-image-height) !important;
+
     background: #fff !important;
     border-radius: 3px !important;
     overflow: hidden !important;
 }
 
-.callout[data-callout="image-grid"] .internal-embed.image-embed:not(:has(figure.image-captions-figure)) > img {
+.callout[data-callout="image-grid"]
+.internal-embed.image-embed:not(
+    :has(figure.image-captions-figure)
+) > img {
     display: block !important;
+
     width: auto !important;
     height: auto !important;
+
     max-width: 100% !important;
     max-height: 100% !important;
+
     object-fit: contain !important;
     image-rendering: auto !important;
     margin: 0 !important;
 }
 
-.markdown-source-view.mod-cm6 .internal-embed.image-embed[src*=".webp"] {
+/* =========================================
+   PDF Plus 이미지
+   ========================================= */
+
+.markdown-source-view.mod-cm6
+.internal-embed.image-embed[src*=".webp"] {
     display: block !important;
+
     width: var(--pdf-plus-image-width) !important;
     max-width: var(--pdf-plus-image-width) !important;
+
     position: relative !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
+
     margin-top: 18px !important;
     margin-bottom: 18px !important;
 }
 
-.markdown-preview-view .internal-embed.image-embed[src*=".webp"],
-.markdown-rendered .internal-embed.image-embed[src*=".webp"] {
+.markdown-preview-view
+.internal-embed.image-embed[src*=".webp"],
+.markdown-rendered
+.internal-embed.image-embed[src*=".webp"] {
     display: block !important;
+
     width: var(--pdf-plus-image-width) !important;
     max-width: var(--pdf-plus-image-width) !important;
+
     position: relative !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
+
     margin-top: 18px !important;
     margin-bottom: 18px !important;
 }
 
-.markdown-source-view.mod-cm6 .internal-embed.image-embed[src*=".webp"] img,
-.markdown-preview-view .internal-embed.image-embed[src*=".webp"] img,
-.markdown-rendered .internal-embed.image-embed[src*=".webp"] img {
+.markdown-source-view.mod-cm6
+.internal-embed.image-embed[src*=".webp"] img,
+.markdown-preview-view
+.internal-embed.image-embed[src*=".webp"] img,
+.markdown-rendered
+.internal-embed.image-embed[src*=".webp"] img {
     display: block !important;
+
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+
     margin: 0 !important;
 }
 
-.callout[data-callout="image-grid"] .internal-embed.image-embed[src*=".webp"] {
+/* 그리드 내부에서는 PDF Plus 정렬 초기화 */
+
+.callout[data-callout="image-grid"]
+.internal-embed.image-embed[src*=".webp"] {
     display: block !important;
+
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+
     position: static !important;
     left: auto !important;
     transform: none !important;
+
     margin: 0 !important;
 }
 
-.markdown-preview-view p:has(a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]),
-.markdown-rendered p:has(a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]) {
+/* PDF Plus 좌표 링크 숨김 */
+
+.markdown-preview-view
+p:has(
+    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
+),
+.markdown-rendered
+p:has(
+    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
+) {
     display: none !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-line:has(a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]) {
+.markdown-source-view.mod-cm6
+.cm-line:has(
+    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
+) {
     display: none !important;
 }
 
-.theme-dark .markdown-rendered .link-favicon[data-host="github.com"],
-.theme-dark .markdown-rendered .link-favicon[data-target*="github.com"],
-.theme-dark .markdown-rendered .link-favicon[src*="github"],
-.theme-dark .markdown-rendered .link-favicon[style*="github"],
-.theme-dark .markdown-rendered a.external-link[href*="github.com"] .link-favicon {
+/* =========================================
+   GitHub 링크 아이콘
+   ========================================= */
+
+.theme-dark .markdown-rendered
+.link-favicon[data-host="github.com"],
+.theme-dark .markdown-rendered
+.link-favicon[data-target*="github.com"],
+.theme-dark .markdown-rendered
+.link-favicon[src*="github"],
+.theme-dark .markdown-rendered
+.link-favicon[style*="github"],
+.theme-dark .markdown-rendered
+a.external-link[href*="github.com"] .link-favicon {
     filter: brightness(0) invert(0.78) !important;
     opacity: 1 !important;
 }
 
+/* =========================================
+   Link Mention
+   ========================================= */
 
 body {
     --link-mention-favicon-size: 1.05em;
@@ -1239,6 +1420,7 @@ body {
 
 .markdown-rendered .link-mention {
     border-radius: 5px;
+
     transition:
         background-color 0.15s ease,
         box-shadow 0.15s ease;
@@ -1247,27 +1429,36 @@ body {
 .markdown-rendered .link-mention-title {
     color: #d9dfe8 !important;
     font-weight: 500;
+
     text-decoration-color: #69737f !important;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
 }
 
-.theme-dark .link-mention[href*="github.com"] .link-mention-favicon {
+.theme-dark
+.link-mention[href*="github.com"]
+.link-mention-favicon {
     filter: brightness(0) invert(0.82) !important;
     opacity: 1 !important;
 }
 
-.theme-dark .link-mention[href*="github.com"] .link-mention-default-icon {
+.theme-dark
+.link-mention[href*="github.com"]
+.link-mention-default-icon {
     color: #cbd2da !important;
     opacity: 1 !important;
 }
 
 .markdown-rendered .link-mention:hover {
-    background-color: rgba(255, 255, 255, 0.055) !important;
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.055) !important;
+    background-color:
+        rgba(255, 255, 255, 0.055) !important;
+
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.055) !important;
 }
 
-.markdown-rendered .link-mention:hover .link-mention-title {
+.markdown-rendered
+.link-mention:hover .link-mention-title {
     color: #ffffff !important;
     text-decoration-color: #a0b3ca !important;
 }

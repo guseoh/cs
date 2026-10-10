@@ -1,0 +1,18 @@
+{
+  "pasteAs": "card",
+  "dropAs": "card",
+  "showInMenuItem": true,
+  "showPlainUrlMenuItems": true,
+  "blankLineBeforeCard": false,
+  "thumbnailPosition": "left",
+  "downloadImages": false,
+  "imageFolder": "AutoCardLink/images",
+  "downloadFavicons": false,
+  "faviconFolder": "AutoCardLink/favicons",
+  "cardStyle": "classic",
+  "thumbnailQuality": "better-preview",
+  "useExternalFallback": false,
+  "thumbnailFit": "cover",
+  "notFoundMarker": "strikethrough",
+  "notFoundPrefix": "Not found:"
+}
