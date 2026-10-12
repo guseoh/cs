@@ -982,102 +982,102 @@ body {
    Callout
    ========================================= */
 
-.callout:not([data-callout="more"])
-:not([data-callout="image-grid"]) {
+/*
+ * 일반 Callout에만 적용
+ * more 및 image-grid 전용 Callout 제외
+ */
+
+.callout:not([data-callout="more"]):not([data-callout="image-grid"]) {
     background: rgba(255, 255, 255, 0.022);
     border: 1px solid rgba(255, 255, 255, 0.035);
     border-left: 2px solid rgba(var(--callout-color), 0.45);
     border-radius: 6px;
     padding: 9px 12px;
     margin: 12px 0;
+    box-shadow: none;
 }
 
-.callout:not([data-callout="more"])
-:not([data-callout="image-grid"]) .callout-title {
+/* Callout 제목 */
+
+.callout:not([data-callout="more"]):not([data-callout="image-grid"])
+> .callout-title {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 7px;
     padding: 0;
+    margin: 0;
     color: var(--text-normal);
+    background: transparent;
+    border: none;
 }
 
-.callout:not([data-callout="more"])
-:not([data-callout="image-grid"]) .callout-title-inner {
+/* 제목 텍스트 */
+
+.callout:not([data-callout="more"]):not([data-callout="image-grid"])
+> .callout-title .callout-title-inner {
     color: var(--text-normal);
     font-size: 0.96em;
     font-weight: 500;
     line-height: 1.5;
 }
 
-.callout:not([data-callout="more"])
-:not([data-callout="image-grid"]) .callout-icon {
+/* Callout 아이콘 */
+
+.callout:not([data-callout="more"]):not([data-callout="image-grid"])
+> .callout-title .callout-icon {
     color: rgb(var(--callout-color));
     opacity: 0.8;
     width: 16px;
     height: 16px;
-    margin-top: 2px;
+    margin-top: 0;
+    flex-shrink: 0;
 }
 
-.callout:not([data-callout="more"])
-:not([data-callout="image-grid"]) .callout-fold {
+/* 접기 아이콘 */
+
+.callout:not([data-callout="more"]):not([data-callout="image-grid"])
+> .callout-title .callout-fold {
     color: var(--text-muted);
     opacity: 0.65;
 }
 
-.callout:not([data-callout="more"])
-:not([data-callout="image-grid"]) .callout-content {
-    padding-top: 5px;
+/* Callout 본문 */
+
+.callout:not([data-callout="more"]):not([data-callout="image-grid"])
+> .callout-content {
+    padding: 5px 0 0;
+    margin: 0;
     color: var(--text-normal);
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
-.callout:not([data-callout="more"])
-:not([data-callout="image-grid"])
-.callout-content > :first-child {
+/* 첫 번째 요소 여백 제거 */
+
+.callout:not([data-callout="more"]):not([data-callout="image-grid"])
+> .callout-content > :first-child {
     margin-top: 0;
 }
 
-.callout:not([data-callout="more"])
-:not([data-callout="image-grid"])
-.callout-content > :last-child {
+/* 마지막 요소 여백 제거 */
+
+.callout:not([data-callout="more"]):not([data-callout="image-grid"])
+> .callout-content > :last-child {
     margin-bottom: 0;
 }
 
-/* =========================================
-   단일 이미지 + 캡션 개선
-   ========================================= */
+/* 단일 문단 간격 */
 
-.image-captions-figure {
-    margin: 16px auto 18px !important;
-    max-width: 100%;
-
-    background: transparent !important;
-    border: 0 !important;
-    box-shadow: none !important;
+.callout:not([data-callout="more"]):not([data-callout="image-grid"])
+> .callout-content > p {
+    line-height: var(--body-line-height);
 }
 
-.image-captions-figure > img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
+/* 접힌 Callout은 본문 숨김 */
 
-.image-captions-figure > .image-captions-caption {
-    display: block;
-
-    margin: 0 !important;
-    padding: 6px 4px 0 !important;
-
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-
-    color: var(--text-muted) !important;
-    font-size: 0.8em !important;
-    font-weight: 400 !important;
-    line-height: 1.45;
-    text-align: center;
+.callout.is-collapsed > .callout-content {
+    display: none;
 }
 
 /* =========================================
