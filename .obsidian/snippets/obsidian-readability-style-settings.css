@@ -1,6 +1,5 @@
 
 /* @settings
-
 name: Jihun Obsidian Readability
 id: jihun-obsidian-readability
 settings:
@@ -80,7 +79,6 @@ settings:
     max: 0.5
     step: 0.05
     format: em
-
   -
     id: inline-code-heading
     title: 인라인 코드
@@ -112,7 +110,6 @@ settings:
     max: 10
     step: 1
     format: px
-
   -
     id: text-heading
     title: 본문과 제목
@@ -223,7 +220,6 @@ settings:
     min: 0.3
     max: 1
     step: 0.05
-
   -
     id: diagram-heading
     title: 도식과 이미지
@@ -250,7 +246,7 @@ settings:
     id: mermaid-max-width
     title: Mermaid 영역 최대 너비
     type: variable-number
-    default: 90
+    default: 95
     min: 60
     max: 100
     step: 5
@@ -260,11 +256,21 @@ settings:
     title: Mermaid 다이어그램 크기
     description: 실제 SVG 다이어그램의 너비를 조절합니다.
     type: variable-number
-    default: 65
+    default: 85
     min: 50
     max: 100
     step: 5
     format: "%"
+  -
+    id: mermaid-diagram-max-width
+    title: Mermaid 그림 최대 너비
+    description: 너무 넓은 다이어그램의 폭을 제한합니다.
+    type: variable-number
+    default: 740
+    min: 440
+    max: 1100
+    step: 20
+    format: px
 
 */
 
@@ -303,8 +309,9 @@ body {
     --text-block-bg-alpha: 0.018;
     --text-block-border-alpha: 0.025;
 
-    --mermaid-max-width: 90%;
-    --mermaid-diagram-size: 65%;
+    --mermaid-max-width: 95%;
+    --mermaid-diagram-size: 85%;
+    --mermaid-diagram-max-width: 740px;
 }
 
 /* =========================================
@@ -962,28 +969,80 @@ body {
    Mermaid
    ========================================= */
 
-/* 다이어그램 컨테이너 */
+/* SVG 너비를 직접 조절하되 740px을 초과하지 않음 */
 
 .markdown-rendered .mermaid {
     width: var(--mermaid-max-width);
     max-width: var(--mermaid-max-width);
-    margin: 18px auto;
+    margin: 20px auto 24px;
     overflow-x: auto;
     text-align: center;
 }
 
-/* 실제 SVG 다이어그램 크기 */
-
 .markdown-rendered .mermaid svg {
     display: block;
-    width: var(--mermaid-diagram-size) !important;
+    width: min(
+        var(--mermaid-diagram-size),
+        var(--mermaid-diagram-max-width)
+    ) !important;
     max-width: 100% !important;
     height: auto !important;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline: auto;
+    text-rendering: geometricPrecision;
 }
 
-/* 모바일 및 좁은 화면에서 가독성 확보 */
+/* 시퀀스 다이어그램: 차분한 블루 + 선명한 글씨 */
+
+.theme-dark .markdown-rendered .mermaid svg rect.actor,
+.theme-dark .markdown-rendered .mermaid svg .actor rect {
+    fill: #0c2443 !important;
+    stroke: #4a85cc !important;
+    stroke-width: 1.5px !important;
+}
+
+.theme-dark .markdown-rendered .mermaid svg text.actor,
+.theme-dark .markdown-rendered .mermaid svg .actor text,
+.theme-dark .markdown-rendered .mermaid svg .actor text tspan {
+    fill: #f3f7ff !important;
+    font-weight: 600 !important;
+}
+
+.theme-dark .markdown-rendered .mermaid svg .actor-line {
+    stroke: #6d88a9 !important;
+    stroke-width: 1.4px !important;
+    opacity: 0.95;
+}
+
+.theme-dark .markdown-rendered .mermaid svg .messageText,
+.theme-dark .markdown-rendered .mermaid svg .messageText tspan {
+    fill: #f0f5ff !important;
+    font-weight: 500 !important;
+}
+
+.theme-dark .markdown-rendered .mermaid svg .messageLine0,
+.theme-dark .markdown-rendered .mermaid svg .messageLine1 {
+    stroke: #bdcbdf !important;
+    stroke-width: 1.6px !important;
+}
+
+.theme-dark .markdown-rendered .mermaid svg .arrowheadPath,
+.theme-dark .markdown-rendered .mermaid svg marker path {
+    fill: #bdcbdf !important;
+    stroke: #bdcbdf !important;
+}
+
+.theme-dark .markdown-rendered .mermaid svg rect.note,
+.theme-dark .markdown-rendered .mermaid svg rect.labelBox {
+    fill: #142c4d !important;
+    stroke: #608cbb !important;
+}
+
+.theme-dark .markdown-rendered .mermaid svg .noteText,
+.theme-dark .markdown-rendered .mermaid svg .labelText {
+    fill: #eaf2ff !important;
+}
+
+/* 좁은 보기 영역에서는 축소보다 공간 확보 */
 
 @media (max-width: 700px) {
     .markdown-rendered .mermaid {
@@ -1453,4 +1512,204 @@ body {
 
 .markdown-rendered .link-mention-favicon {
     vertical-align: -0.15em;
+}
+
+
+
+/* =========================================
+   Mermaid 시퀀스 다이어그램 색상 반전 방지
+   ========================================= */
+
+.theme-dark .mermaid > svg:has(.messageLine0),
+.theme-dark .mermaid > svg:has(.messageLine1) {
+    filter: none !important;
+}
+
+/* =========================================
+   Mermaid sequence diagram override
+   - 박스 글씨 흰색
+   - 다크모드 반전 제거
+   - 전체는 조금 더 작게, 가로 폭은 더 넓게
+   ========================================= */
+
+/* 전체 크기/폭 */
+body {
+    --mermaid-max-width: 100%;
+    --mermaid-diagram-size: 78%;
+    --mermaid-diagram-max-width: 920px;
+}
+
+/* Obsidian 다크모드의 Mermaid 색상 반전 해제 */
+.theme-dark .mermaid > svg:has(.messageLine0),
+.theme-dark .mermaid > svg:has(.messageLine1) {
+    filter: none !important;
+}
+
+/* Mermaid 컨테이너 */
+.markdown-rendered .mermaid {
+    width: var(--mermaid-max-width);
+    max-width: var(--mermaid-max-width);
+    margin: 18px auto 22px;
+    overflow-x: auto;
+    text-align: center;
+}
+
+/* 실제 SVG 크기
+   - 전체 크기는 줄이되
+   - 최대 폭은 넓혀서 답답하지 않게 */
+.markdown-rendered .mermaid svg {
+    display: block;
+    width: min(var(--mermaid-diagram-size), var(--mermaid-diagram-max-width)) !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin-inline: auto;
+    text-rendering: geometricPrecision;
+}
+
+/* 참여자 박스 */
+.theme-dark .markdown-rendered .mermaid svg rect.actor,
+.theme-dark .markdown-rendered .mermaid svg .actor rect {
+    fill: #0d2b4f !important;
+    stroke: #4e90e6 !important;
+    stroke-width: 1.35px !important;
+}
+
+/* 참여자 박스 안 글씨 - 흰색으로 강제 */
+.theme-dark .markdown-rendered .mermaid svg text.actor,
+.theme-dark .markdown-rendered .mermaid svg .actor text,
+.theme-dark .markdown-rendered .mermaid svg .actor text tspan {
+    fill: #f7fbff !important;
+    color: #f7fbff !important;
+    font-weight: 700 !important;
+}
+
+/* 생명선 */
+.theme-dark .markdown-rendered .mermaid svg .actor-line {
+    stroke: #87a8d6 !important;
+    stroke-width: 1.2px !important;
+    opacity: 0.95 !important;
+}
+
+/* 메시지 텍스트 */
+.theme-dark .markdown-rendered .mermaid svg .messageText,
+.theme-dark .markdown-rendered .mermaid svg .messageText tspan {
+    fill: #eef4ff !important;
+    color: #eef4ff !important;
+    font-weight: 600 !important;
+}
+
+/* 메시지 선 */
+.theme-dark .markdown-rendered .mermaid svg .messageLine0,
+.theme-dark .markdown-rendered .mermaid svg .messageLine1 {
+    stroke: #dde7f7 !important;
+    stroke-width: 1.55px !important;
+}
+
+/* 화살표 머리 */
+.theme-dark .markdown-rendered .mermaid svg .arrowheadPath,
+.theme-dark .markdown-rendered .mermaid svg marker path {
+    fill: #dde7f7 !important;
+    stroke: #dde7f7 !important;
+}
+
+/* note / label */
+.theme-dark .markdown-rendered .mermaid svg rect.note,
+.theme-dark .markdown-rendered .mermaid svg rect.labelBox {
+    fill: #132b49 !important;
+    stroke: #5b8dc9 !important;
+}
+
+.theme-dark .markdown-rendered .mermaid svg .noteText,
+.theme-dark .markdown-rendered .mermaid svg .labelText,
+.theme-dark .markdown-rendered .mermaid svg .noteText tspan,
+.theme-dark .markdown-rendered .mermaid svg .labelText tspan {
+    fill: #eef4ff !important;
+    color: #eef4ff !important;
+}
+
+/* 좁은 화면 */
+@media (max-width: 700px) {
+    .markdown-rendered .mermaid {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .markdown-rendered .mermaid svg {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+
+/* =========================================
+   Mermaid Sequence - Global Appearance
+   ========================================= */
+
+/* SVG 색상 반전 방지 */
+.theme-dark .mermaid > svg:has(.actor-line) {
+    filter: none !important;
+}
+
+/* 참여자 박스 */
+.theme-dark .mermaid svg rect.actor {
+    fill: #172638 !important;
+    stroke: #587a9c !important;
+    stroke-width: 1.25px !important;
+}
+
+/* 참여자 텍스트 */
+.theme-dark .mermaid svg text.actor,
+.theme-dark .mermaid svg text.actor-box,
+.theme-dark .mermaid svg text.actor-man,
+.theme-dark .mermaid svg text.actor tspan,
+.theme-dark .mermaid svg text.actor-box tspan,
+.theme-dark .mermaid svg text.actor-man tspan {
+    fill: #edf1f6 !important;
+    stroke: none !important;
+    font-weight: 600 !important;
+}
+
+/* 메시지 텍스트 */
+.theme-dark .mermaid svg .messageText,
+.theme-dark .mermaid svg .messageText tspan {
+    fill: #e2e8f0 !important;
+    stroke: none !important;
+    font-weight: 500 !important;
+}
+
+/* 화살표 */
+.theme-dark .mermaid svg .messageLine0,
+.theme-dark .mermaid svg .messageLine1 {
+    stroke: #a7b3c2 !important;
+    stroke-width: 1.4px !important;
+}
+
+/* 화살표 머리 */
+.theme-dark .mermaid svg .arrowheadPath,
+.theme-dark .mermaid svg marker path {
+    fill: #a7b3c2 !important;
+    stroke: #a7b3c2 !important;
+}
+
+/* 생명선 */
+.theme-dark .mermaid svg .actor-line {
+    stroke: #71849b !important;
+    stroke-width: 1.1px !important;
+}
+
+/* 전체 영역 */
+.markdown-rendered .mermaid {
+    width: 100%;
+    max-width: 100%;
+    margin: 18px auto 22px;
+    text-align: center;
+}
+
+/* 실제 시퀀스 다이어그램 크기 */
+.markdown-rendered .mermaid > svg:has(.actor-line) {
+    display: block;
+    width: min(85%, 800px) !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin-inline: auto;
 }
