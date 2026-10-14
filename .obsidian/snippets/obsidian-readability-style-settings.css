@@ -1708,7 +1708,7 @@ body {
 /* 실제 시퀀스 다이어그램 크기 */
 .markdown-rendered .mermaid > svg:has(.actor-line) {
     display: block;
-    width: min(85%, 800px) !important;
+    width: min(72%, 680px) !important;
     max-width: 100% !important;
     height: auto !important;
     margin-inline: auto;

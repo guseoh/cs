@@ -1,0 +1,5 @@
+{
+  "configJson": "\n{\n  \"theme\": \"base\",\n  \"themeVariables\": {\n    \"fontFamily\": \"Inter, Pretendard, sans-serif\",\n    \"primaryColor\": \"#172638\",\n    \"primaryBorderColor\": \"#587A9C\",\n    \"primaryTextColor\": \"#EDF1F6\",\n    \"lineColor\": \"#A7B3C2\",\n    \"textColor\": \"#E2E8F0\",\n    \"signalColor\": \"#A7B3C2\",\n    \"signalTextColor\": \"#E2E8F0\",\n    \"actorBkg\": \"#172638\",\n    \"actorBorder\": \"#587A9C\",\n    \"actorTextColor\": \"#EDF1F6\",\n    \"labelTextColor\": \"#EDF1F6\",\n    \"loopTextColor\": \"#E2E8F0\",\n    \"noteBkgColor\": \"#1E3045\",\n    \"noteBorderColor\": \"#587A9C\",\n    \"noteTextColor\": \"#E2E8F0\"\n  },\n  \"sequence\": {\n    \"useMaxWidth\": true,\n    \"width\": 105,\n    \"height\": 40,\n    \"actorMargin\": 95,\n    \"messageMargin\": 26,\n    \"diagramMarginX\": 18,\n    \"diagramMarginY\": 12,\n    \"boxTextMargin\": 4,\n    \"mirrorActors\": false,\n    \"actorFontSize\": 16,\n    \"actorFontWeight\": 500,\n    \"messageFontSize\": 16,\n    \"messageFontWeight\": 500\n  }\n}\n",
+  "openTrigger": "single",
+  "showExpandButton": true
+}
