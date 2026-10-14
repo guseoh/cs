@@ -1102,6 +1102,12 @@
         "Mod"
       ],
       "key": "G"
+    },
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "x"
     }
   ],
   "showSplashscreen": true,
