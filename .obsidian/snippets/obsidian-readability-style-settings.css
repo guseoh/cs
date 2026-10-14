@@ -1,3 +1,4 @@
+
 /* @settings
 
 name: Jihun Obsidian Readability
@@ -79,6 +80,7 @@ settings:
     max: 0.5
     step: 0.05
     format: em
+
   -
     id: inline-code-heading
     title: 인라인 코드
@@ -110,6 +112,7 @@ settings:
     max: 10
     step: 1
     format: px
+
   -
     id: text-heading
     title: 본문과 제목
@@ -220,6 +223,7 @@ settings:
     min: 0.3
     max: 1
     step: 0.05
+
   -
     id: diagram-heading
     title: 도식과 이미지
@@ -244,10 +248,20 @@ settings:
     step: 0.002
   -
     id: mermaid-max-width
-    title: Mermaid 최대 너비
+    title: Mermaid 영역 최대 너비
     type: variable-number
     default: 90
     min: 60
+    max: 100
+    step: 5
+    format: "%"
+  -
+    id: mermaid-diagram-size
+    title: Mermaid 다이어그램 크기
+    description: 실제 SVG 다이어그램의 너비를 조절합니다.
+    type: variable-number
+    default: 65
+    min: 50
     max: 100
     step: 5
     format: "%"
@@ -288,7 +302,9 @@ body {
 
     --text-block-bg-alpha: 0.018;
     --text-block-border-alpha: 0.025;
+
     --mermaid-max-width: 90%;
+    --mermaid-diagram-size: 65%;
 }
 
 /* =========================================
@@ -946,6 +962,8 @@ body {
    Mermaid
    ========================================= */
 
+/* 다이어그램 컨테이너 */
+
 .markdown-rendered .mermaid {
     width: var(--mermaid-max-width);
     max-width: var(--mermaid-max-width);
@@ -954,9 +972,29 @@ body {
     text-align: center;
 }
 
+/* 실제 SVG 다이어그램 크기 */
+
 .markdown-rendered .mermaid svg {
+    display: block;
+    width: var(--mermaid-diagram-size) !important;
     max-width: 100% !important;
     height: auto !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 모바일 및 좁은 화면에서 가독성 확보 */
+
+@media (max-width: 700px) {
+    .markdown-rendered .mermaid {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .markdown-rendered .mermaid svg {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 }
 
 /* =========================================
@@ -1090,7 +1128,6 @@ body {
     text-decoration-color: var(--text-faint);
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
-
     transition:
         color 0.15s ease,
         text-decoration-color 0.15s ease;
@@ -1120,7 +1157,6 @@ body {
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-
     padding: 0 !important;
     margin: 16px 0 20px !important;
     overflow: visible !important;
@@ -1132,15 +1168,11 @@ body {
 
 .callout[data-callout="image-grid"] > .callout-content {
     display: grid !important;
-
     grid-template-columns:
         repeat(2, minmax(0, 1fr)) !important;
-
     gap: var(--image-grid-gap) !important;
-
     width: min(100%, var(--image-grid-width)) !important;
     max-width: var(--image-grid-width) !important;
-
     padding: 0 !important;
     margin: 0 auto !important;
     overflow: visible !important;
@@ -1156,24 +1188,19 @@ body {
 .callout[data-callout="image-grid"]
 figure.image-captions-figure {
     display: grid !important;
-
     grid-template-rows:
         var(--image-grid-image-height)
         auto !important;
-
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
-
     position: static !important;
     margin: 0 !important;
     padding: 0 !important;
-
     background:
         linear-gradient(#fff, #fff)
         top / 100% var(--image-grid-image-height)
         no-repeat !important;
-
     border: none !important;
     border-radius: 3px !important;
     box-shadow: none !important;
@@ -1183,26 +1210,19 @@ figure.image-captions-figure {
 .callout[data-callout="image-grid"]
 figure.image-captions-figure > img {
     grid-row: 1 !important;
-
     align-self: center !important;
     justify-self: center !important;
-
     display: block !important;
-
     width: auto !important;
     height: auto !important;
     max-width: 100% !important;
     max-height: var(--image-grid-image-height) !important;
-
     object-fit: contain !important;
     image-rendering: auto !important;
-
     position: static !important;
     transform: none !important;
-
     margin: 0 !important;
     padding: 0 !important;
-
     border: none !important;
     border-radius: 3px !important;
     box-shadow: none !important;
@@ -1212,28 +1232,22 @@ figure.image-captions-figure > img {
 figure.image-captions-figure
 > figcaption.image-captions-caption {
     grid-row: 2 !important;
-
     display: block !important;
     width: 100%;
     height: auto !important;
-
     position: static !important;
     inset: auto !important;
     transform: none !important;
-
     margin:
         var(--image-grid-caption-gap)
         0 0 !important;
-
     padding: 0 !important;
     background: transparent !important;
-
     color: var(--text-muted) !important;
     font-size: 0.82em !important;
     font-weight: 400 !important;
     line-height: 1.4 !important;
     text-align: center !important;
-
     border: none !important;
     box-shadow: none !important;
     opacity: 1 !important;
@@ -1245,23 +1259,17 @@ figure.image-captions-figure
 .callout[data-callout="image-grid"]
 .internal-embed.image-embed {
     display: block !important;
-
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
-
     position: static !important;
-
     left: auto !important;
     right: auto !important;
     top: auto !important;
     bottom: auto !important;
-
     transform: none !important;
-
     margin: 0 !important;
     padding: 0 !important;
-
     background: transparent !important;
     overflow: visible !important;
 }
@@ -1271,14 +1279,11 @@ figure.image-captions-figure
     :has(figure.image-captions-figure)
 ) {
     display: flex !important;
-
     align-items: center !important;
     justify-content: center !important;
-
     width: 100% !important;
     max-width: 100% !important;
     height: var(--image-grid-image-height) !important;
-
     background: #fff !important;
     border-radius: 3px !important;
     overflow: hidden !important;
@@ -1289,13 +1294,10 @@ figure.image-captions-figure
     :has(figure.image-captions-figure)
 ) > img {
     display: block !important;
-
     width: auto !important;
     height: auto !important;
-
     max-width: 100% !important;
     max-height: 100% !important;
-
     object-fit: contain !important;
     image-rendering: auto !important;
     margin: 0 !important;
@@ -1308,14 +1310,11 @@ figure.image-captions-figure
 .markdown-source-view.mod-cm6
 .internal-embed.image-embed[src*=".webp"] {
     display: block !important;
-
     width: var(--pdf-plus-image-width) !important;
     max-width: var(--pdf-plus-image-width) !important;
-
     position: relative !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-
     margin-top: 18px !important;
     margin-bottom: 18px !important;
 }
@@ -1325,14 +1324,11 @@ figure.image-captions-figure
 .markdown-rendered
 .internal-embed.image-embed[src*=".webp"] {
     display: block !important;
-
     width: var(--pdf-plus-image-width) !important;
     max-width: var(--pdf-plus-image-width) !important;
-
     position: relative !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-
     margin-top: 18px !important;
     margin-bottom: 18px !important;
 }
@@ -1344,11 +1340,9 @@ figure.image-captions-figure
 .markdown-rendered
 .internal-embed.image-embed[src*=".webp"] img {
     display: block !important;
-
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
-
     margin: 0 !important;
 }
 
@@ -1357,15 +1351,12 @@ figure.image-captions-figure
 .callout[data-callout="image-grid"]
 .internal-embed.image-embed[src*=".webp"] {
     display: block !important;
-
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
-
     position: static !important;
     left: auto !important;
     transform: none !important;
-
     margin: 0 !important;
 }
 
@@ -1420,7 +1411,6 @@ body {
 
 .markdown-rendered .link-mention {
     border-radius: 5px;
-
     transition:
         background-color 0.15s ease,
         box-shadow 0.15s ease;
@@ -1429,7 +1419,6 @@ body {
 .markdown-rendered .link-mention-title {
     color: #d9dfe8 !important;
     font-weight: 500;
-
     text-decoration-color: #69737f !important;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
@@ -1452,7 +1441,6 @@ body {
 .markdown-rendered .link-mention:hover {
     background-color:
         rgba(255, 255, 255, 0.055) !important;
-
     box-shadow:
         0 0 0 4px rgba(255, 255, 255, 0.055) !important;
 }
