@@ -57,4 +57,4 @@ try (Connection con = dataSource.getConnection();
 
 먼저 `DataSource`에서 JDBC `Connection`을 얻고, `PreparedStatement`를 통해 INSERT SQL을 준비한다. 이후 `Member`객체의 각 필드 값을 SQL의 `?` 자리에 바인딩하고, `executeUpdate()`를 호출하면 데이터베이스에 SQL이 전달된다.
 
-데이터를 조회할 때도 비슷한 문제가 발생한다. 예를 들어 `SELECT id, name, email FROM member WHERE id = ?`를 실행하면 JDBC는 `ResultSet`으로 조회 결과를 제공한다.
+데이터를 조회할 때도 비슷한 문제가 발생한다. 예를 들어 `SELECT id, name, email FROM member WHERE id = ?`를 실행하면 JDBC는 `ResultSet`으로 조회 결과를 제공한다. 개발자는 `ResultSet`에서 각 컬럼 값을 꺼내 `new Member(…)`를 호출하여 객체를 생성하야 한다.
