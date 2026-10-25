@@ -1042,20 +1042,6 @@ body {
     fill: #eaf2ff !important;
 }
 
-/* 좁은 보기 영역에서는 축소보다 공간 확보 */
-
-@media (max-width: 700px) {
-    .markdown-rendered .mermaid {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .markdown-rendered .mermaid svg {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-}
-
 /* =========================================
    Image Grid
    ========================================= */
@@ -1515,15 +1501,6 @@ body {
 }
 
 
-
-/* =========================================
-   Mermaid 시퀀스 다이어그램 색상 반전 방지
-   ========================================= */
-
-.theme-dark .mermaid > svg:has(.messageLine0),
-.theme-dark .mermaid > svg:has(.messageLine1) {
-    filter: none !important;
-}
 
 /* =========================================
    Mermaid sequence diagram override
