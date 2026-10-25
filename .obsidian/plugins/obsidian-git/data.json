@@ -1,6 +1,6 @@
 {
-  "commitMessage": "vault backup: {{date}}",
-  "autoCommitMessage": "vault backup: {{date}}",
+  "commitMessage": "chore(vault): sync {{date}} ({{numFiles}} files)",
+  "autoCommitMessage": "chore(vault): sync {{date}} ({{numFiles}} files)",
   "commitMessageScript": "",
   "commitDateFormat": "YYYY-MM-DD HH:mm:ss",
   "autoSaveInterval": 15,

@@ -1,5 +1,4 @@
-﻿.obsidian/workspace.json
-.obsidian/workspace-mobile.json
+﻿.obsidian/workspace*.json
 .obsidian/cache/
 .trash/
 /Resources/PDF/
@@ -9,6 +8,14 @@ Thumbs.db
 # Machine-local / generated Obsidian plugin artifacts
 .obsidian/plugins/obsidian-git/obsidian_askpass.sh
 .obsidian/plugins/code-styler/reference-files/cache.json
+
+# Transient plugin/editor scratch files; not shared across devices
+.obsidian/plugins/*/cache/
+.obsidian/plugins/*/*.log
+.obsidian/plugins/*/*.tmp
+*.swp
+*.swo
+*~
 
 # PDF Plus manual settings snapshots (recoverable from Git history)
 .obsidian/plugins/pdf-plus/data.json.backup

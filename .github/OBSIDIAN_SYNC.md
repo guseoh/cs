@@ -10,6 +10,12 @@
 4. 플러그인이 15분 간격으로 자동 백업/동기화하지만, 기기를 바꾸기 직전에는 수동 동기화를 한 번 실행한다.
 5. 동기화 오류가 발생했다면 다음 기기에서 해당 파일을 수정하지 않는다. 오류 발생 상태의 파일을 별도 위치에 복사하여 보존한다.
 
+## 커밋 메시지 운영
+
+- Obsidian Git 자동 동기화는 `chore(vault): sync {{date}} ({{numFiles}} files)` 형식으로 기록한다. 날짜 형식은 `YYYY-MM-DD HH:mm:ss`이다.
+- 수동 동기화 시에도 기본 메시지 형식이 사용될 수 있다. 의미 있는 학습 내용 수정은 Git 소스 제어 화면에서 `docs(java): ...`, `docs(jpa): ...`, `docs(pawcycle): ...`처럼 변경 목적을 직접 작성할 수 있다.
+- 기존 Git 커밋 이력은 재작성하지 않는다. 두 기기에서 사용 중인 `main`에 강제 Push하지 않는다.
+
 ## 문제 발생 시
 
 - 먼저 `git status --short --branch`, `git fetch origin`, `git rev-list --left-right --count HEAD...origin/main`으로 상태를 확인한다.
