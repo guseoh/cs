@@ -57,6 +57,38 @@ Git의 버전 이력 외에도 Vault 전체를 주기적으로 독립적인 저�
 
 > 이 문서는 운영 가이드이며, 로컬 데스크탑·노트북의 현재 작업 상태를 자동으로 확인하거나 동기화하지 않는다.
 
+## 3차 로컬 동기화·백업 진단 (2026-10-25)
+
+GitHub의 `main`과 동기화 설정은 원격에서 확인했지만, **각 PC의 미커밋 변경/로컬 전용 커밋/실제 백업은 원격에서 확인할 수 없다.** 이 검사 결과를 데스크탑·노트북 동기화 완료로 해석하면 안 된다.
+
+### 두 기기에서 각각 실행
+
+Windows PowerShell 5.1에서 **각 기기의 Vault 루트**를 열고 다음 명령을 실행한다. 기존 노트·Git 브랜치·원격 추적 참조를 변경하지 않는다.
+
+~~~powershell
+.\scripts\Inspect-ObsidianVault.ps1
+~~~
+
+- `SYNCED_CLEAN`: 이 기기의 HEAD와 현재 원격 `main`이 같고 로컬 변경이 없음
+- `LOCAL_CHANGES`: 로컬에 미커밋/미추적 파일이 존재함; 우선 별도 백업 후 파일별 검토
+- `AHEAD` / `BEHIND` / `DIVERGED`: 커밋 상태에 차이가 있음; 자동 덮어쓰기 금지
+- `REMOTE_COMMIT_NOT_LOCAL`: 원격 SHA가 로컬에 없어 정확한 ahead/behind 계산을 보류함
+- `UNVERIFIED` / `WRONG_BRANCH`: 원격 조회 불가 또는 브랜치가 `main`이 아님
+
+스크립트는 `git ls-remote`로 현재 원격 HEAD를 **조회만** 한다. 자동 Fetch, Pull, Commit, Push, Reset, Clean은 하지 않는다. 네트워크가 끊기거나 인증이 실패하면 동기화를 성공으로 판정하지 않는다.
+
+### 최신 ZIP 무결성 및 복구 점검
+
+~~~powershell
+.\scripts\Inspect-ObsidianVault.ps1 -BackupDirectory (Join-Path $env:USERPROFILE 'ObsidianVaultBackups')
+# 별도 임시 폴더에 실제 압축 해제까지 진행하려면:
+.\scripts\Inspect-ObsidianVault.ps1 -BackupDirectory (Join-Path $env:USERPROFILE 'ObsidianVaultBackups') -RestoreTest
+~~~
+
+ZIP 파일의 SHA-256, 중요 파일 및 파일 수를 검사하고, `-RestoreTest` 지정 시에만 **새로운 TEMP 폴더**에 압축을 푼다. 실제 Vault를 덮어쓰지 않으며 복원본을 자동 삭제하지 않는다. 임시 복원본에 들어 있는 Obsidian Git은 활성화하지 않는다.
+
+**GitHub 원격 점검만 완료한 상태에서는 양 기기의 로컬 검사 및 실제 복구 시험을 완료로 판정하지 않는다.** 검사 결과 확인 전까지 중복 이미지 삭제는 보류한다.
+
 ## 데스크탑 적용 보류 — 재개 시 체크리스트
 
 현재 GitHub에서 실행한 변경은 **노트북 기준으로만 검토**했다. 데스크탑은 사용 가능할 때 별도로 다음 순서로 점검한다.
