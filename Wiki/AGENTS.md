@@ -22,8 +22,10 @@ Keep a compact, evidence-aware, queryable store of project state, confirmed deci
 ## AI session handoff
 At the end of a meaningful ChatGPT, Work or Codex task, prepare a **small, reviewable Wiki delta**: decision ID if newly confirmed, updated snapshot facts with source evidence, next open action and history summary. A GitHub connection with write permission is required to save it; an instruction file cannot access another client's private conversation automatically. Never turn an uncertain assistant promise into verified work.
 
+For publication and cross-client submission, use [the explicit AI handoff contract](handoff.md). Prefer a direct, reviewed canonical-record PR. If a client can only create owner-authored GitHub Issues, use a public-safe `[wiki]` Issue to stage an **untrusted candidate PR**, and promote only after review. Neither method automatically reads conversation histories.
+
 ## Automation boundary
-[GitHub PR intake](inbox/README.md) collects public merged PR metadata into a **candidate** review file; it does not use an LLM or auto-update accepted decisions. [validation](../.github/workflows/wiki-validation.yml) checks Wiki structure on PRs. No server, paid API, embedding or graph database is required.
+[GitHub PR intake](inbox/README.md) collects public merged PR metadata into a **candidate** review file; it does not use an LLM or auto-update accepted decisions. [validation](../.github/workflows/wiki-validation.yml) checks Wiki structure on PRs. [AI Issue handoff](../.github/workflows/wiki-handoff.yml) stages an owner-authored public Issue as a review PR only. No server, paid API, embedding or graph database is required.
 
 ## Sync and privacy
 This is a public repository. Do not copy private chat transcripts or sensitive details. Follow [Obsidian multi-device sync rules](../.github/OBSIDIAN_SYNC.md) and use review PRs instead of force-pushing main.
