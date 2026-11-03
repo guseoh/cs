@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1180" role="img" aria-labelledby="title desc"><title id="title">DevPedia 물리 ERD · 회원_기준정보</title><desc id="desc">모든 컬럼의 키, SQL 타입, NULL 허용 여부. 관계는 전체 관계도 및 데이터 사전 참조.</desc><rect width="100%" height="100%" fill="#f4f7fb"/>
+<text x="32" y="48" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="bold" fill="#142c49">DevPedia 물리 ERD · 회원_기준정보</text>
+<rect x="24" y="90" width="952" height="354" rx="8" fill="white" stroke="#8295ad"/>
+<text x="40" y="118" font-family="Malgun Gothic, sans-serif" font-size="22" fill="#142c49">members</text>
+<text x="40" y="146" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">KEY</text>
+<text x="155" y="146" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">COLUMN</text>
+<text x="650" y="146" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">SQL TYPE</text>
+<text x="890" y="146" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">NULL</text>
+<text x="40" y="174" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">PK</text>
+<text x="155" y="174" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">member_id</text>
+<text x="650" y="174" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">BIGINT</text>
+<text x="905" y="174" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="204" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="204" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">email</text>
+<text x="650" y="204" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">VARCHAR(254)</text>
+<text x="905" y="204" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="234" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="234" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">password_hash</text>
+<text x="650" y="234" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">VARCHAR(255)</text>
+<text x="905" y="234" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="264" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="264" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">nickname</text>
+<text x="650" y="264" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">VARCHAR(30)</text>
+<text x="905" y="264" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="294" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="294" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">bio</text>
+<text x="650" y="294" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">VARCHAR(500)</text>
+<text x="905" y="294" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">Y</text>
+<text x="40" y="324" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="324" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">github_url</text>
+<text x="650" y="324" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">VARCHAR(2048)</text>
+<text x="905" y="324" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">Y</text>
+<text x="40" y="354" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="354" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">portfolio_url</text>
+<text x="650" y="354" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">VARCHAR(2048)</text>
+<text x="905" y="354" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">Y</text>
+<text x="40" y="384" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="384" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">created_at</text>
+<text x="650" y="384" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">DATETIME(6)</text>
+<text x="905" y="384" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="414" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="414" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">updated_at</text>
+<text x="650" y="414" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">DATETIME(6)</text>
+<text x="905" y="414" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<rect x="24" y="460" width="952" height="174" rx="8" fill="white" stroke="#8295ad"/>
+<text x="40" y="488" font-family="Malgun Gothic, sans-serif" font-size="22" fill="#142c49">roles</text>
+<text x="40" y="516" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">KEY</text>
+<text x="155" y="516" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">COLUMN</text>
+<text x="650" y="516" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">SQL TYPE</text>
+<text x="890" y="516" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">NULL</text>
+<text x="40" y="544" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">PK</text>
+<text x="155" y="544" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">role_id</text>
+<text x="650" y="544" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">BIGINT</text>
+<text x="905" y="544" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="574" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="574" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">name</text>
+<text x="650" y="574" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">VARCHAR(50)</text>
+<text x="905" y="574" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="604" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="604" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">display_order</text>
+<text x="650" y="604" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">INT</text>
+<text x="905" y="604" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<rect x="24" y="650" width="952" height="174" rx="8" fill="white" stroke="#8295ad"/>
+<text x="40" y="678" font-family="Malgun Gothic, sans-serif" font-size="22" fill="#142c49">tech_stacks</text>
+<text x="40" y="706" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">KEY</text>
+<text x="155" y="706" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">COLUMN</text>
+<text x="650" y="706" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">SQL TYPE</text>
+<text x="890" y="706" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">NULL</text>
+<text x="40" y="734" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">PK</text>
+<text x="155" y="734" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">tech_stack_id</text>
+<text x="650" y="734" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">BIGINT</text>
+<text x="905" y="734" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="764" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="764" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">name</text>
+<text x="650" y="764" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">VARCHAR(50)</text>
+<text x="905" y="764" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="794" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49"></text>
+<text x="155" y="794" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">display_order</text>
+<text x="650" y="794" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">INT</text>
+<text x="905" y="794" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<rect x="24" y="840" width="952" height="144" rx="8" fill="white" stroke="#8295ad"/>
+<text x="40" y="868" font-family="Malgun Gothic, sans-serif" font-size="22" fill="#142c49">member_interest_roles</text>
+<text x="40" y="896" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">KEY</text>
+<text x="155" y="896" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">COLUMN</text>
+<text x="650" y="896" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">SQL TYPE</text>
+<text x="890" y="896" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">NULL</text>
+<text x="40" y="924" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">PK / FK</text>
+<text x="155" y="924" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">member_id</text>
+<text x="650" y="924" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">BIGINT</text>
+<text x="905" y="924" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="954" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">PK / FK</text>
+<text x="155" y="954" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">role_id</text>
+<text x="650" y="954" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">BIGINT</text>
+<text x="905" y="954" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<rect x="24" y="1000" width="952" height="144" rx="8" fill="white" stroke="#8295ad"/>
+<text x="40" y="1028" font-family="Malgun Gothic, sans-serif" font-size="22" fill="#142c49">member_tech_stacks</text>
+<text x="40" y="1056" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">KEY</text>
+<text x="155" y="1056" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">COLUMN</text>
+<text x="650" y="1056" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">SQL TYPE</text>
+<text x="890" y="1056" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">NULL</text>
+<text x="40" y="1084" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">PK / FK</text>
+<text x="155" y="1084" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">member_id</text>
+<text x="650" y="1084" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">BIGINT</text>
+<text x="905" y="1084" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+<text x="40" y="1114" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">PK / FK</text>
+<text x="155" y="1114" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">tech_stack_id</text>
+<text x="650" y="1114" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">BIGINT</text>
+<text x="905" y="1114" font-family="Malgun Gothic, sans-serif" font-size="16" fill="#142c49">N</text>
+</svg>

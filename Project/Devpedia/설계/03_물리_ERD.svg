@@ -1,0 +1,399 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2920 2220" role="img" aria-labelledby="title desc"><title id="title">DevPedia · 물리 ERD</title><desc id="desc">11개 엔티티를 한 번씩 배치한 전체 관계도. 모든 외래키 관계를 직접 연결한다. 실선은 식별 관계, 점선은 비식별 관계. 원은 0, 막대는 1, 갈퀴는 다수.</desc>
+<defs><marker id="many" viewBox="0 0 24 24" refX="24" refY="12" markerWidth="24" markerHeight="24" orient="auto" markerUnits="userSpaceOnUse"><path d="M24 3L10 12L24 21M10 12H0" fill="none" stroke="context-stroke" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#20242b" stroke="context-stroke" stroke-width="2"/></marker><marker id="one" viewBox="0 0 20 20" refX="0" refY="10" markerWidth="20" markerHeight="20" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M6 2V18M12 2V18" stroke="context-stroke" stroke-width="2"/></marker><marker id="optional" viewBox="0 0 24 24" refX="0" refY="12" markerWidth="24" markerHeight="24" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M6 3V21" stroke="context-stroke" stroke-width="2"/><circle cx="17" cy="12" r="4" fill="#20242b" stroke="context-stroke" stroke-width="2"/></marker></defs><style>text{font-family:Malgun Gothic,Arial,sans-serif;fill:#edf2f8}.edge:hover{stroke:#fff;stroke-width:5}.card:hover rect{stroke:#fff}</style><rect width="100%" height="100%" fill="#20242b"/>
+<path class="edge" d="M680,640 L700,640 L700,620 L700,600 L700,580 L700,560 L700,540 L700,520 L700,500 L700,480 L700,460 L700,440 L700,420 L700,400 L700,380 L700,360 L700,340 L700,320 L700,300 L700,280 L700,260 L700,240 L700,220 L700,200 L700,180 L700,160 L700,140 L720,140 L740,140 L760,140 L780,140 L800,140" fill="none" stroke="#65d5e3" stroke-width="2" marker-start="url(#one)" marker-end="url(#many)"><title>members(member_id) → member_interest_roles(member_id)</title></path>
+<path class="edge" d="M2240,140 L2220,140 L2200,140 L2180,140 L2160,140 L2140,140 L2120,140 L2100,140 L2080,140 L2060,140 L2040,140 L2020,140 L2000,140 L1980,140 L1960,140 L1940,140 L1920,140 L1900,140 L1880,140 L1860,140 L1840,140 L1820,140 L1800,140 L1780,140 L1760,140 L1740,140 L1720,140 L1700,140 L1680,140 L1660,140 L1640,140 L1620,140 L1600,140 L1580,140 L1560,140 L1540,140 L1520,140 L1500,140 L1480,140 L1460,140 L1440,140 L1420,140 L1400,140" fill="none" stroke="#65d5e3" stroke-width="2" marker-start="url(#one)" marker-end="url(#many)"><title>roles(role_id) → member_interest_roles(role_id)</title></path>
+<path class="edge" d="M680,680 L700,680 L720,680 L720,660 L720,640 L720,620 L720,600 L720,580 L720,560 L720,540 L720,520 L720,500 L720,480 L720,460 L720,440 L720,420 L720,400 L720,380 L720,360 L720,340 L720,320 L720,300 L720,280 L700,280 L680,280 L660,280 L640,280 L620,280 L600,280 L580,280 L560,280 L540,280 L520,280 L500,280 L480,280 L460,280 L440,280 L420,280 L400,280 L380,280 L360,280 L340,280 L320,280 L300,280 L280,280 L260,280 L240,280 L220,280 L200,280 L180,280 L160,280 L140,280 L120,280 L100,280 L80,280 L60,280 L60,260 L60,240 L60,220 L60,200 L60,180 L60,160 L60,140 L80,140" fill="none" stroke="#65d5e3" stroke-width="2" marker-start="url(#one)" marker-end="url(#many)"><title>members(member_id) → member_tech_stacks(member_id)</title></path>
+<path class="edge" d="M2240,1540 L2220,1540 L2220,1520 L2220,1500 L2220,1480 L2220,1460 L2220,1440 L2220,1420 L2220,1400 L2220,1380 L2220,1360 L2220,1340 L2220,1320 L2220,1300 L2220,1280 L2220,1260 L2220,1240 L2220,1220 L2220,1200 L2220,1180 L2220,1160 L2220,1140 L2220,1120 L2220,1100 L2220,1080 L2220,1060 L2220,1040 L2220,1020 L2220,1000 L2220,980 L2220,960 L2220,940 L2220,920 L2220,900 L2220,880 L2220,860 L2220,840 L2220,820 L2220,800 L2220,780 L2220,760 L2220,740 L2220,720 L2220,700 L2220,680 L2220,660 L2220,640 L2220,620 L2220,600 L2220,580 L2220,560 L2220,540 L2220,520 L2220,500 L2220,480 L2220,460 L2220,440 L2220,420 L2220,400 L2220,380 L2220,360 L2220,340 L2220,320 L2220,300 L2220,280 L2200,280 L2180,280 L2160,280 L2140,280 L2120,280 L2100,280 L2080,280 L2060,280 L2040,280 L2020,280 L2000,280 L1980,280 L1960,280 L1940,280 L1920,280 L1900,280 L1880,280 L1860,280 L1840,280 L1820,280 L1800,280 L1780,280 L1760,280 L1740,280 L1720,280 L1700,280 L1680,280 L1660,280 L1640,280 L1620,280 L1600,280 L1580,280 L1560,280 L1540,280 L1520,280 L1500,280 L1480,280 L1460,280 L1440,280 L1420,280 L1400,280 L1380,280 L1360,280 L1340,280 L1320,280 L1300,280 L1280,280 L1260,280 L1240,280 L1220,280 L1200,280 L1180,280 L1160,280 L1140,280 L1120,280 L1100,280 L1080,280 L1060,280 L1040,280 L1020,280 L1000,280 L980,280 L960,280 L940,280 L920,280 L900,280 L880,280 L860,280 L840,280 L820,280 L800,280 L780,280 L760,280 L740,280 L740,260 L740,240 L740,220 L740,200 L740,180 L740,160 L720,160 L700,160 L700,140 L680,140" fill="none" stroke="#65d5e3" stroke-width="2" marker-start="url(#one)" marker-end="url(#many)"><title>tech_stacks(tech_stack_id) → member_tech_stacks(tech_stack_id)</title></path>
+<path class="edge" d="M680,720 L700,720 L720,720 L740,720 L760,720 L780,720 L780,700 L780,680 L780,660 L780,640 L800,640" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#one)" marker-end="url(#many)"><title>members(member_id) → recruitment_posts(author_member_id)</title></path>
+<path class="edge" d="M1400,640 L1420,640 L1440,640 L1460,640 L1480,640 L1500,640 L1520,640" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#one)" marker-end="url(#many)"><title>recruitment_posts(post_id) → recruitment_slots(post_id)</title></path>
+<path class="edge" d="M2240,180 L2220,180 L2200,180 L2180,180 L2160,180 L2140,180 L2140,200 L2140,220 L2140,240 L2140,260 L2140,280 L2140,300 L2140,320 L2140,340 L2140,360 L2140,380 L2140,400 L2140,420 L2140,440 L2140,460 L2140,480 L2140,500 L2140,520 L2140,540 L2140,560 L2140,580 L2140,600 L2140,620 L2140,640 L2120,640" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#one)" marker-end="url(#many)"><title>roles(role_id) → recruitment_slots(role_id)</title></path>
+<path class="edge" d="M1400,680 L1420,680 L1420,700 L1420,720 L1420,740 L1420,760 L1420,780 L1420,800 L1420,820 L1420,840 L1420,860 L1420,880 L1420,900 L1420,920 L1420,940 L1420,960 L1420,980 L1420,1000 L1420,1020 L1420,1040 L1420,1060 L1420,1080 L1420,1100 L1420,1120 L1420,1140 L1420,1160 L1420,1180 L1420,1200 L1420,1220 L1420,1240 L1420,1260 L1420,1280 L1420,1300 L1420,1320 L1420,1340 L1420,1360 L1420,1380 L1420,1400 L1420,1420 L1420,1440 L1420,1460 L1420,1480 L1420,1500 L1420,1520 L1420,1540 L1420,1560 L1420,1580 L1420,1600 L1420,1620 L1420,1640 L1420,1660 L1420,1680 L1420,1700 L1420,1720 L1420,1740 L1420,1760 L1420,1780 L1420,1800 L1420,1820 L1420,1840 L1420,1860 L1420,1880 L1420,1900 L1420,1920 L1420,1940 L1440,1940 L1460,1940 L1480,1940 L1500,1940 L1520,1940" fill="none" stroke="#65d5e3" stroke-width="2" marker-start="url(#one)" marker-end="url(#many)"><title>recruitment_posts(post_id) → recruitment_post_tech_stacks(post_id)</title></path>
+<path class="edge" d="M2240,1580 L2220,1580 L2220,1600 L2220,1620 L2220,1640 L2220,1660 L2220,1680 L2220,1700 L2220,1720 L2220,1740 L2220,1760 L2220,1780 L2220,1800 L2220,1820 L2220,1840 L2220,1860 L2220,1880 L2220,1900 L2220,1920 L2220,1940 L2200,1940 L2180,1940 L2160,1940 L2140,1940 L2120,1940" fill="none" stroke="#65d5e3" stroke-width="2" marker-start="url(#one)" marker-end="url(#many)"><title>tech_stacks(tech_stack_id) → recruitment_post_tech_stacks(tech_stack_id)</title></path>
+<path class="edge" d="M1400,720 L1420,720 L1440,720 L1460,720 L1480,720 L1500,720 L1500,740 L1500,760 L1500,780 L1500,800 L1500,820 L1500,840 L1500,860 L1500,880 L1500,900 L1500,920 L1500,940 L1500,960 L1500,980 L1500,1000 L1500,1020 L1500,1040 L1500,1060 L1500,1080 L1500,1100 L1500,1120 L1500,1140 L1520,1140" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#one)" marker-end="url(#many)"><title>recruitment_posts(post_id) → applications(post_id)</title></path>
+<path class="edge" d="M2120,680 L2140,680 L2140,700 L2140,720 L2140,740 L2140,760 L2140,780 L2140,800 L2140,820 L2140,840 L2140,860 L2140,880 L2140,900 L2140,920 L2140,940 L2140,960 L2140,980 L2140,1000 L2140,1020 L2140,1040 L2140,1060 L2140,1080 L2120,1080 L2100,1080 L2080,1080 L2060,1080 L2040,1080 L2020,1080 L2000,1080 L1980,1080 L1960,1080 L1940,1080 L1920,1080 L1900,1080 L1880,1080 L1860,1080 L1840,1080 L1820,1080 L1800,1080 L1780,1080 L1760,1080 L1740,1080 L1720,1080 L1700,1080 L1680,1080 L1660,1080 L1640,1080 L1620,1080 L1600,1080 L1580,1080 L1560,1080 L1540,1080 L1520,1080 L1500,1080 L1480,1080 L1480,1100 L1480,1120 L1480,1140 L1480,1160 L1480,1180 L1500,1180 L1520,1180" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#one)" marker-end="url(#many)"><title>recruitment_slots(slot_id, post_id) → applications(slot_id, post_id)</title></path>
+<path class="edge" d="M680,760 L700,760 L700,780 L700,800 L700,820 L700,840 L700,860 L700,880 L700,900 L700,920 L700,940 L700,960 L700,980 L700,1000 L700,1020 L700,1040 L700,1060 L700,1080 L700,1100 L700,1120 L700,1140 L700,1160 L700,1180 L700,1200 L700,1220 L720,1220 L740,1220 L760,1220 L780,1220 L800,1220 L820,1220 L840,1220 L860,1220 L880,1220 L900,1220 L920,1220 L940,1220 L960,1220 L980,1220 L1000,1220 L1020,1220 L1040,1220 L1060,1220 L1080,1220 L1100,1220 L1120,1220 L1140,1220 L1160,1220 L1180,1220 L1200,1220 L1220,1220 L1240,1220 L1260,1220 L1280,1220 L1300,1220 L1320,1220 L1340,1220 L1360,1220 L1380,1220 L1400,1220 L1420,1220 L1440,1220 L1460,1220 L1480,1220 L1500,1220 L1520,1220" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#one)" marker-end="url(#many)"><title>members(member_id) → applications(applicant_member_id)</title></path>
+<path class="edge" d="M680,800 L700,800 L720,800 L740,800 L760,800 L780,800 L780,820 L780,840 L780,860 L780,880 L780,900 L780,920 L780,940 L780,960 L780,980 L780,1000 L780,1020 L780,1040 L780,1060 L780,1080 L780,1100 L780,1120 L780,1140 L780,1160 L780,1180 L780,1200 L780,1220 L780,1240 L780,1260 L800,1260 L820,1260 L840,1260 L860,1260 L880,1260 L900,1260 L920,1260 L940,1260 L960,1260 L980,1260 L1000,1260 L1020,1260 L1040,1260 L1060,1260 L1080,1260 L1100,1260 L1120,1260 L1140,1260 L1160,1260 L1180,1260 L1200,1260 L1220,1260 L1240,1260 L1260,1260 L1280,1260 L1300,1260 L1320,1260 L1340,1260 L1360,1260 L1380,1260 L1400,1260 L1420,1260 L1440,1260 L1460,1260 L1480,1260 L1500,1260 L1520,1260" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#optional)" marker-end="url(#many)"><title>members(member_id) → applications(decided_by_member_id)</title></path>
+<path class="edge" d="M1400,760 L1420,760 L1440,760 L1440,780 L1440,800 L1440,820 L1440,840 L1440,860 L1440,880 L1440,900 L1440,920 L1440,940 L1440,960 L1440,980 L1440,1000 L1440,1020 L1440,1040 L1440,1060 L1440,1080 L1440,1100 L1440,1120 L1440,1140 L1440,1160 L1440,1180 L1440,1200 L1440,1220 L1440,1240 L1440,1260 L1440,1280 L1440,1300 L1440,1320 L1440,1340 L1440,1360 L1440,1380 L1440,1400 L1440,1420 L1440,1440 L1440,1460 L1440,1480 L1420,1480 L1400,1480 L1380,1480 L1360,1480 L1340,1480 L1320,1480 L1300,1480 L1280,1480 L1260,1480 L1240,1480 L1220,1480 L1200,1480 L1180,1480 L1160,1480 L1140,1480 L1120,1480 L1100,1480 L1080,1480 L1060,1480 L1040,1480 L1020,1480 L1000,1480 L980,1480 L960,1480 L940,1480 L920,1480 L900,1480 L880,1480 L860,1480 L840,1480 L820,1480 L800,1480 L780,1480 L780,1500 L780,1520 L780,1540 L800,1540" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#one)" marker-end="url(#many)"><title>recruitment_posts(post_id) → comments(post_id)</title></path>
+<path class="edge" d="M680,840 L700,840 L720,840 L740,840 L760,840 L760,860 L760,880 L760,900 L760,920 L760,940 L760,960 L760,980 L760,1000 L760,1020 L760,1040 L760,1060 L760,1080 L760,1100 L760,1120 L760,1140 L760,1160 L760,1180 L760,1200 L760,1220 L760,1240 L760,1260 L760,1280 L760,1300 L760,1320 L760,1340 L760,1360 L760,1380 L760,1400 L760,1420 L760,1440 L760,1460 L760,1480 L760,1500 L760,1520 L760,1540 L760,1560 L760,1580 L780,1580 L800,1580" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#one)" marker-end="url(#many)"><title>members(member_id) → comments(author_member_id)</title></path>
+<path class="edge" d="M1400,1540 L1420,1540 L1440,1540 L1440,1560 L1440,1580 L1420,1580 L1400,1580" fill="none" stroke="#e4a9c0" stroke-width="2" stroke-dasharray="7 5" marker-start="url(#optional)" marker-end="url(#many)"><title>comments(comment_id, post_id) → comments(parent_comment_id, post_id)</title></path>
+<path class="edge" d="M680,880 L700,880 L720,880 L720,900 L720,920 L720,940 L720,960 L720,980 L720,1000 L720,1020 L720,1040 L720,1060 L720,1080 L720,1100 L720,1120 L720,1140 L720,1160 L720,1180 L720,1200 L720,1220 L720,1240 L720,1260 L720,1280 L720,1300 L720,1320 L720,1340 L720,1360 L720,1380 L720,1400 L720,1420 L720,1440 L720,1460 L720,1480 L700,1480 L680,1480 L660,1480 L640,1480 L620,1480 L600,1480 L580,1480 L560,1480 L540,1480 L520,1480 L500,1480 L480,1480 L460,1480 L440,1480 L420,1480 L400,1480 L380,1480 L360,1480 L340,1480 L320,1480 L300,1480 L280,1480 L260,1480 L240,1480 L220,1480 L200,1480 L180,1480 L160,1480 L140,1480 L120,1480 L100,1480 L80,1480 L60,1480 L60,1500 L60,1520 L60,1540 L80,1540" fill="none" stroke="#65d5e3" stroke-width="2" marker-start="url(#one)" marker-end="url(#many)"><title>members(member_id) → bookmarks(member_id)</title></path>
+<path class="edge" d="M800,680 L780,680 L760,680 L740,680 L740,700 L740,720 L740,740 L740,760 L740,780 L740,800 L740,820 L740,840 L740,860 L740,880 L740,900 L740,920 L740,940 L740,960 L740,980 L740,1000 L740,1020 L740,1040 L740,1060 L740,1080 L740,1100 L740,1120 L740,1140 L740,1160 L740,1180 L740,1200 L740,1220 L740,1240 L740,1260 L740,1280 L740,1300 L740,1320 L740,1340 L740,1360 L740,1380 L740,1400 L740,1420 L740,1440 L740,1460 L740,1480 L740,1500 L740,1520 L740,1540 L720,1540 L700,1540 L680,1540" fill="none" stroke="#65d5e3" stroke-width="2" marker-start="url(#one)" marker-end="url(#many)"><title>recruitment_posts(post_id) → bookmarks(post_id)</title></path>
+<g class="card"><rect x="80" y="600" width="600" height="352" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="80" y="600" width="600" height="42" fill="#10151c"/>
+<text x="94" y="627" font-size="20">회원</text>
+<text x="666" y="627" font-size="16"></text>
+<text x="666" y="627" text-anchor="end" font-size="16">members</text>
+<text x="92" y="666" font-size="15">KEY</text>
+<text x="198" y="666" font-size="15">COLUMN</text>
+<text x="510" y="666" font-size="15">TYPE</text>
+<text x="638" y="666" font-size="15">NULL</text>
+<rect x="82" y="673" width="596" height="27" fill="#473b29"/>
+<text x="92" y="694" font-size="13" style="fill:#ffe083">PK</text>
+<text x="198" y="694" font-size="15">member_id</text>
+<text x="510" y="694" font-size="14">BIGINT</text>
+<text x="650" y="694" font-size="13">N</text>
+<text x="92" y="722" font-size="13" style="fill:#9ce5ef">UQ</text>
+<text x="198" y="722" font-size="15">email</text>
+<text x="510" y="722" font-size="14">VARCHAR(254)</text>
+<text x="650" y="722" font-size="13">N</text>
+<text x="92" y="750" font-size="13" style="fill:#9ce5ef"></text>
+<text x="198" y="750" font-size="15">password_hash</text>
+<text x="510" y="750" font-size="14">VARCHAR(255)</text>
+<text x="650" y="750" font-size="13">N</text>
+<text x="92" y="778" font-size="13" style="fill:#9ce5ef">UQ</text>
+<text x="198" y="778" font-size="15">nickname</text>
+<text x="510" y="778" font-size="14">VARCHAR(30)</text>
+<text x="650" y="778" font-size="13">N</text>
+<text x="92" y="806" font-size="13" style="fill:#9ce5ef"></text>
+<text x="198" y="806" font-size="15">bio</text>
+<text x="510" y="806" font-size="14">VARCHAR(500)</text>
+<text x="650" y="806" font-size="13">Y</text>
+<text x="92" y="834" font-size="13" style="fill:#9ce5ef"></text>
+<text x="198" y="834" font-size="15">github_url</text>
+<text x="510" y="834" font-size="14">VARCHAR(2048)</text>
+<text x="650" y="834" font-size="13">Y</text>
+<text x="92" y="862" font-size="13" style="fill:#9ce5ef"></text>
+<text x="198" y="862" font-size="15">portfolio_url</text>
+<text x="510" y="862" font-size="14">VARCHAR(2048)</text>
+<text x="650" y="862" font-size="13">Y</text>
+<text x="92" y="890" font-size="13" style="fill:#9ce5ef"></text>
+<text x="198" y="890" font-size="15">created_at</text>
+<text x="510" y="890" font-size="14">DATETIME(6)</text>
+<text x="650" y="890" font-size="13">N</text>
+<text x="92" y="918" font-size="13" style="fill:#9ce5ef"></text>
+<text x="198" y="918" font-size="15">updated_at</text>
+<text x="510" y="918" font-size="14">DATETIME(6)</text>
+<text x="650" y="918" font-size="13">N</text>
+</g>
+<g class="card"><rect x="2240" y="100" width="600" height="184" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="2240" y="100" width="600" height="42" fill="#10151c"/>
+<text x="2254" y="127" font-size="20">기준 역할</text>
+<text x="2826" y="127" font-size="16"></text>
+<text x="2826" y="127" text-anchor="end" font-size="16">roles</text>
+<text x="2252" y="166" font-size="15">KEY</text>
+<text x="2358" y="166" font-size="15">COLUMN</text>
+<text x="2670" y="166" font-size="15">TYPE</text>
+<text x="2798" y="166" font-size="15">NULL</text>
+<rect x="2242" y="173" width="596" height="27" fill="#473b29"/>
+<text x="2252" y="194" font-size="13" style="fill:#ffe083">PK</text>
+<text x="2358" y="194" font-size="15">role_id</text>
+<text x="2670" y="194" font-size="14">BIGINT</text>
+<text x="2810" y="194" font-size="13">N</text>
+<text x="2252" y="222" font-size="13" style="fill:#9ce5ef">UQ</text>
+<text x="2358" y="222" font-size="15">name</text>
+<text x="2670" y="222" font-size="14">VARCHAR(50)</text>
+<text x="2810" y="222" font-size="13">N</text>
+<text x="2252" y="250" font-size="13" style="fill:#9ce5ef"></text>
+<text x="2358" y="250" font-size="15">display_order</text>
+<text x="2670" y="250" font-size="14">INT</text>
+<text x="2810" y="250" font-size="13">N</text>
+</g>
+<g class="card"><rect x="2240" y="1500" width="600" height="184" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="2240" y="1500" width="600" height="42" fill="#10151c"/>
+<text x="2254" y="1527" font-size="20">기술 스택</text>
+<text x="2826" y="1527" font-size="16"></text>
+<text x="2826" y="1527" text-anchor="end" font-size="16">tech_stacks</text>
+<text x="2252" y="1566" font-size="15">KEY</text>
+<text x="2358" y="1566" font-size="15">COLUMN</text>
+<text x="2670" y="1566" font-size="15">TYPE</text>
+<text x="2798" y="1566" font-size="15">NULL</text>
+<rect x="2242" y="1573" width="596" height="27" fill="#473b29"/>
+<text x="2252" y="1594" font-size="13" style="fill:#ffe083">PK</text>
+<text x="2358" y="1594" font-size="15">tech_stack_id</text>
+<text x="2670" y="1594" font-size="14">BIGINT</text>
+<text x="2810" y="1594" font-size="13">N</text>
+<text x="2252" y="1622" font-size="13" style="fill:#9ce5ef">UQ</text>
+<text x="2358" y="1622" font-size="15">name</text>
+<text x="2670" y="1622" font-size="14">VARCHAR(50)</text>
+<text x="2810" y="1622" font-size="13">N</text>
+<text x="2252" y="1650" font-size="13" style="fill:#9ce5ef"></text>
+<text x="2358" y="1650" font-size="15">display_order</text>
+<text x="2670" y="1650" font-size="14">INT</text>
+<text x="2810" y="1650" font-size="13">N</text>
+</g>
+<g class="card"><rect x="800" y="100" width="600" height="156" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="800" y="100" width="600" height="42" fill="#10151c"/>
+<text x="814" y="127" font-size="20">회원 관심 역할</text>
+<text x="1386" y="127" font-size="16"></text>
+<text x="1386" y="127" text-anchor="end" font-size="16">member_interest_roles</text>
+<text x="812" y="166" font-size="15">KEY</text>
+<text x="918" y="166" font-size="15">COLUMN</text>
+<text x="1230" y="166" font-size="15">TYPE</text>
+<text x="1358" y="166" font-size="15">NULL</text>
+<rect x="802" y="173" width="596" height="27" fill="#473b29"/>
+<text x="812" y="194" font-size="13" style="fill:#ffe083">PK/FK</text>
+<text x="918" y="194" font-size="15">member_id</text>
+<text x="1230" y="194" font-size="14">BIGINT</text>
+<text x="1370" y="194" font-size="13">N</text>
+<rect x="802" y="201" width="596" height="27" fill="#473b29"/>
+<text x="812" y="222" font-size="13" style="fill:#ffe083">PK/FK</text>
+<text x="918" y="222" font-size="15">role_id</text>
+<text x="1230" y="222" font-size="14">BIGINT</text>
+<text x="1370" y="222" font-size="13">N</text>
+</g>
+<g class="card"><rect x="80" y="100" width="600" height="156" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="80" y="100" width="600" height="42" fill="#10151c"/>
+<text x="94" y="127" font-size="20">회원 보유 기술</text>
+<text x="666" y="127" font-size="16"></text>
+<text x="666" y="127" text-anchor="end" font-size="16">member_tech_stacks</text>
+<text x="92" y="166" font-size="15">KEY</text>
+<text x="198" y="166" font-size="15">COLUMN</text>
+<text x="510" y="166" font-size="15">TYPE</text>
+<text x="638" y="166" font-size="15">NULL</text>
+<rect x="82" y="173" width="596" height="27" fill="#473b29"/>
+<text x="92" y="194" font-size="13" style="fill:#ffe083">PK/FK</text>
+<text x="198" y="194" font-size="15">member_id</text>
+<text x="510" y="194" font-size="14">BIGINT</text>
+<text x="650" y="194" font-size="13">N</text>
+<rect x="82" y="201" width="596" height="27" fill="#473b29"/>
+<text x="92" y="222" font-size="13" style="fill:#ffe083">PK/FK</text>
+<text x="198" y="222" font-size="15">tech_stack_id</text>
+<text x="510" y="222" font-size="14">BIGINT</text>
+<text x="650" y="222" font-size="13">N</text>
+</g>
+<g class="card"><rect x="800" y="600" width="600" height="548" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="800" y="600" width="600" height="42" fill="#10151c"/>
+<text x="814" y="627" font-size="20">모집글</text>
+<text x="1386" y="627" font-size="16"></text>
+<text x="1386" y="627" text-anchor="end" font-size="16">recruitment_posts</text>
+<text x="812" y="666" font-size="15">KEY</text>
+<text x="918" y="666" font-size="15">COLUMN</text>
+<text x="1230" y="666" font-size="15">TYPE</text>
+<text x="1358" y="666" font-size="15">NULL</text>
+<rect x="802" y="673" width="596" height="27" fill="#473b29"/>
+<text x="812" y="694" font-size="13" style="fill:#ffe083">PK</text>
+<text x="918" y="694" font-size="15">post_id</text>
+<text x="1230" y="694" font-size="14">BIGINT</text>
+<text x="1370" y="694" font-size="13">N</text>
+<text x="812" y="722" font-size="13" style="fill:#9ce5ef">FK</text>
+<text x="918" y="722" font-size="15">author_member_id</text>
+<text x="1230" y="722" font-size="14">BIGINT</text>
+<text x="1370" y="722" font-size="13">N</text>
+<text x="812" y="750" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="750" font-size="15">type</text>
+<text x="1230" y="750" font-size="14">VARCHAR(16)</text>
+<text x="1370" y="750" font-size="13">N</text>
+<text x="812" y="778" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="778" font-size="15">title</text>
+<text x="1230" y="778" font-size="14">VARCHAR(100)</text>
+<text x="1370" y="778" font-size="13">N</text>
+<text x="812" y="806" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="806" font-size="15">content</text>
+<text x="1230" y="806" font-size="14">TEXT</text>
+<text x="1370" y="806" font-size="13">N</text>
+<text x="812" y="834" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="834" font-size="15">start_date</text>
+<text x="1230" y="834" font-size="14">DATE</text>
+<text x="1370" y="834" font-size="13">N</text>
+<text x="812" y="862" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="862" font-size="15">application_deadline_date</text>
+<text x="1230" y="862" font-size="14">DATE</text>
+<text x="1370" y="862" font-size="13">Y</text>
+<text x="812" y="890" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="890" font-size="15">work_mode</text>
+<text x="1230" y="890" font-size="14">VARCHAR(16)</text>
+<text x="1370" y="890" font-size="13">N</text>
+<text x="812" y="918" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="918" font-size="15">region_text</text>
+<text x="1230" y="918" font-size="14">VARCHAR(100)</text>
+<text x="1370" y="918" font-size="13">Y</text>
+<text x="812" y="946" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="946" font-size="15">expected_duration_text</text>
+<text x="1230" y="946" font-size="14">VARCHAR(50)</text>
+<text x="1370" y="946" font-size="13">Y</text>
+<text x="812" y="974" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="974" font-size="15">status</text>
+<text x="1230" y="974" font-size="14">VARCHAR(16)</text>
+<text x="1370" y="974" font-size="13">N</text>
+<text x="812" y="1002" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="1002" font-size="15">close_reason</text>
+<text x="1230" y="1002" font-size="14">VARCHAR(24)</text>
+<text x="1370" y="1002" font-size="13">Y</text>
+<text x="812" y="1030" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="1030" font-size="15">closed_at</text>
+<text x="1230" y="1030" font-size="14">DATETIME(6)</text>
+<text x="1370" y="1030" font-size="13">Y</text>
+<text x="812" y="1058" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="1058" font-size="15">removed_at</text>
+<text x="1230" y="1058" font-size="14">DATETIME(6)</text>
+<text x="1370" y="1058" font-size="13">Y</text>
+<text x="812" y="1086" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="1086" font-size="15">created_at</text>
+<text x="1230" y="1086" font-size="14">DATETIME(6)</text>
+<text x="1370" y="1086" font-size="13">N</text>
+<text x="812" y="1114" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="1114" font-size="15">updated_at</text>
+<text x="1230" y="1114" font-size="14">DATETIME(6)</text>
+<text x="1370" y="1114" font-size="13">N</text>
+</g>
+<g class="card"><rect x="1520" y="600" width="600" height="268" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="1520" y="600" width="600" height="42" fill="#10151c"/>
+<text x="1534" y="627" font-size="20">모집 역할·정원</text>
+<text x="2106" y="627" font-size="16"></text>
+<text x="2106" y="627" text-anchor="end" font-size="16">recruitment_slots</text>
+<text x="1532" y="666" font-size="15">KEY</text>
+<text x="1638" y="666" font-size="15">COLUMN</text>
+<text x="1950" y="666" font-size="15">TYPE</text>
+<text x="2078" y="666" font-size="15">NULL</text>
+<rect x="1522" y="673" width="596" height="27" fill="#473b29"/>
+<text x="1532" y="694" font-size="13" style="fill:#ffe083">PK/UQ</text>
+<text x="1638" y="694" font-size="15">slot_id</text>
+<text x="1950" y="694" font-size="14">BIGINT</text>
+<text x="2090" y="694" font-size="13">N</text>
+<text x="1532" y="722" font-size="13" style="fill:#9ce5ef">FK/UQ</text>
+<text x="1638" y="722" font-size="15">post_id</text>
+<text x="1950" y="722" font-size="14">BIGINT</text>
+<text x="2090" y="722" font-size="13">N</text>
+<text x="1532" y="750" font-size="13" style="fill:#9ce5ef">FK/UQ</text>
+<text x="1638" y="750" font-size="15">role_id</text>
+<text x="1950" y="750" font-size="14">BIGINT</text>
+<text x="2090" y="750" font-size="13">N</text>
+<text x="1532" y="778" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="778" font-size="15">capacity</text>
+<text x="1950" y="778" font-size="14">INT</text>
+<text x="2090" y="778" font-size="13">N</text>
+<text x="1532" y="806" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="806" font-size="15">created_at</text>
+<text x="1950" y="806" font-size="14">DATETIME(6)</text>
+<text x="2090" y="806" font-size="13">N</text>
+<text x="1532" y="834" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="834" font-size="15">updated_at</text>
+<text x="1950" y="834" font-size="14">DATETIME(6)</text>
+<text x="2090" y="834" font-size="13">N</text>
+</g>
+<g class="card"><rect x="1520" y="1900" width="600" height="156" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="1520" y="1900" width="600" height="42" fill="#10151c"/>
+<text x="1534" y="1927" font-size="20">모집글 기술</text>
+<text x="2106" y="1927" font-size="16"></text>
+<text x="2106" y="1927" text-anchor="end" font-size="16">recruitment_post_tech_stacks</text>
+<text x="1532" y="1966" font-size="15">KEY</text>
+<text x="1638" y="1966" font-size="15">COLUMN</text>
+<text x="1950" y="1966" font-size="15">TYPE</text>
+<text x="2078" y="1966" font-size="15">NULL</text>
+<rect x="1522" y="1973" width="596" height="27" fill="#473b29"/>
+<text x="1532" y="1994" font-size="13" style="fill:#ffe083">PK/FK</text>
+<text x="1638" y="1994" font-size="15">post_id</text>
+<text x="1950" y="1994" font-size="14">BIGINT</text>
+<text x="2090" y="1994" font-size="13">N</text>
+<rect x="1522" y="2001" width="596" height="27" fill="#473b29"/>
+<text x="1532" y="2022" font-size="13" style="fill:#ffe083">PK/FK</text>
+<text x="1638" y="2022" font-size="15">tech_stack_id</text>
+<text x="1950" y="2022" font-size="14">BIGINT</text>
+<text x="2090" y="2022" font-size="13">N</text>
+</g>
+<g class="card"><rect x="1520" y="1100" width="600" height="436" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="1520" y="1100" width="600" height="42" fill="#10151c"/>
+<text x="1534" y="1127" font-size="20">지원서</text>
+<text x="2106" y="1127" font-size="16"></text>
+<text x="2106" y="1127" text-anchor="end" font-size="16">applications</text>
+<text x="1532" y="1166" font-size="15">KEY</text>
+<text x="1638" y="1166" font-size="15">COLUMN</text>
+<text x="1950" y="1166" font-size="15">TYPE</text>
+<text x="2078" y="1166" font-size="15">NULL</text>
+<rect x="1522" y="1173" width="596" height="27" fill="#473b29"/>
+<text x="1532" y="1194" font-size="13" style="fill:#ffe083">PK</text>
+<text x="1638" y="1194" font-size="15">application_id</text>
+<text x="1950" y="1194" font-size="14">BIGINT</text>
+<text x="2090" y="1194" font-size="13">N</text>
+<text x="1532" y="1222" font-size="13" style="fill:#9ce5ef">FK</text>
+<text x="1638" y="1222" font-size="15">post_id</text>
+<text x="1950" y="1222" font-size="14">BIGINT</text>
+<text x="2090" y="1222" font-size="13">N</text>
+<text x="1532" y="1250" font-size="13" style="fill:#9ce5ef">FK</text>
+<text x="1638" y="1250" font-size="15">slot_id</text>
+<text x="1950" y="1250" font-size="14">BIGINT</text>
+<text x="2090" y="1250" font-size="13">N</text>
+<text x="1532" y="1278" font-size="13" style="fill:#9ce5ef">FK</text>
+<text x="1638" y="1278" font-size="15">applicant_member_id</text>
+<text x="1950" y="1278" font-size="14">BIGINT</text>
+<text x="2090" y="1278" font-size="13">N</text>
+<text x="1532" y="1306" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="1306" font-size="15">motivation</text>
+<text x="1950" y="1306" font-size="14">TEXT</text>
+<text x="2090" y="1306" font-size="13">N</text>
+<text x="1532" y="1334" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="1334" font-size="15">github_url_snapshot</text>
+<text x="1950" y="1334" font-size="14">VARCHAR(2048)</text>
+<text x="2090" y="1334" font-size="13">Y</text>
+<text x="1532" y="1362" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="1362" font-size="15">portfolio_url_snapshot</text>
+<text x="1950" y="1362" font-size="14">VARCHAR(2048)</text>
+<text x="2090" y="1362" font-size="13">Y</text>
+<text x="1532" y="1390" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="1390" font-size="15">status</text>
+<text x="1950" y="1390" font-size="14">VARCHAR(16)</text>
+<text x="2090" y="1390" font-size="13">N</text>
+<text x="1532" y="1418" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="1418" font-size="15">auto_close_reason</text>
+<text x="1950" y="1418" font-size="14">VARCHAR(16)</text>
+<text x="2090" y="1418" font-size="13">Y</text>
+<text x="1532" y="1446" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="1446" font-size="15">submitted_at</text>
+<text x="1950" y="1446" font-size="14">DATETIME(6)</text>
+<text x="2090" y="1446" font-size="13">N</text>
+<text x="1532" y="1474" font-size="13" style="fill:#9ce5ef"></text>
+<text x="1638" y="1474" font-size="15">decided_at</text>
+<text x="1950" y="1474" font-size="14">DATETIME(6)</text>
+<text x="2090" y="1474" font-size="13">Y</text>
+<text x="1532" y="1502" font-size="13" style="fill:#9ce5ef">FK</text>
+<text x="1638" y="1502" font-size="15">decided_by_member_id</text>
+<text x="1950" y="1502" font-size="14">BIGINT</text>
+<text x="2090" y="1502" font-size="13">Y</text>
+</g>
+<g class="card"><rect x="800" y="1500" width="600" height="324" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="800" y="1500" width="600" height="42" fill="#10151c"/>
+<text x="814" y="1527" font-size="20">댓글</text>
+<text x="1386" y="1527" font-size="16"></text>
+<text x="1386" y="1527" text-anchor="end" font-size="16">comments</text>
+<text x="812" y="1566" font-size="15">KEY</text>
+<text x="918" y="1566" font-size="15">COLUMN</text>
+<text x="1230" y="1566" font-size="15">TYPE</text>
+<text x="1358" y="1566" font-size="15">NULL</text>
+<rect x="802" y="1573" width="596" height="27" fill="#473b29"/>
+<text x="812" y="1594" font-size="13" style="fill:#ffe083">PK/UQ</text>
+<text x="918" y="1594" font-size="15">comment_id</text>
+<text x="1230" y="1594" font-size="14">BIGINT</text>
+<text x="1370" y="1594" font-size="13">N</text>
+<text x="812" y="1622" font-size="13" style="fill:#9ce5ef">FK/UQ</text>
+<text x="918" y="1622" font-size="15">post_id</text>
+<text x="1230" y="1622" font-size="14">BIGINT</text>
+<text x="1370" y="1622" font-size="13">N</text>
+<text x="812" y="1650" font-size="13" style="fill:#9ce5ef">FK</text>
+<text x="918" y="1650" font-size="15">author_member_id</text>
+<text x="1230" y="1650" font-size="14">BIGINT</text>
+<text x="1370" y="1650" font-size="13">N</text>
+<text x="812" y="1678" font-size="13" style="fill:#9ce5ef">FK</text>
+<text x="918" y="1678" font-size="15">parent_comment_id</text>
+<text x="1230" y="1678" font-size="14">BIGINT</text>
+<text x="1370" y="1678" font-size="13">Y</text>
+<text x="812" y="1706" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="1706" font-size="15">content</text>
+<text x="1230" y="1706" font-size="14">VARCHAR(1000)</text>
+<text x="1370" y="1706" font-size="13">Y</text>
+<text x="812" y="1734" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="1734" font-size="15">is_content_removed</text>
+<text x="1230" y="1734" font-size="14">TINYINT(1)</text>
+<text x="1370" y="1734" font-size="13">N</text>
+<text x="812" y="1762" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="1762" font-size="15">created_at</text>
+<text x="1230" y="1762" font-size="14">DATETIME(6)</text>
+<text x="1370" y="1762" font-size="13">N</text>
+<text x="812" y="1790" font-size="13" style="fill:#9ce5ef"></text>
+<text x="918" y="1790" font-size="15">edited_at</text>
+<text x="1230" y="1790" font-size="14">DATETIME(6)</text>
+<text x="1370" y="1790" font-size="13">Y</text>
+</g>
+<g class="card"><rect x="80" y="1500" width="600" height="184" rx="5" fill="#2b3039" stroke="#69778b" stroke-width="2"/><rect x="80" y="1500" width="600" height="42" fill="#10151c"/>
+<text x="94" y="1527" font-size="20">북마크</text>
+<text x="666" y="1527" font-size="16"></text>
+<text x="666" y="1527" text-anchor="end" font-size="16">bookmarks</text>
+<text x="92" y="1566" font-size="15">KEY</text>
+<text x="198" y="1566" font-size="15">COLUMN</text>
+<text x="510" y="1566" font-size="15">TYPE</text>
+<text x="638" y="1566" font-size="15">NULL</text>
+<rect x="82" y="1573" width="596" height="27" fill="#473b29"/>
+<text x="92" y="1594" font-size="13" style="fill:#ffe083">PK/FK</text>
+<text x="198" y="1594" font-size="15">member_id</text>
+<text x="510" y="1594" font-size="14">BIGINT</text>
+<text x="650" y="1594" font-size="13">N</text>
+<rect x="82" y="1601" width="596" height="27" fill="#473b29"/>
+<text x="92" y="1622" font-size="13" style="fill:#ffe083">PK/FK</text>
+<text x="198" y="1622" font-size="15">post_id</text>
+<text x="510" y="1622" font-size="14">BIGINT</text>
+<text x="650" y="1622" font-size="13">N</text>
+<text x="92" y="1650" font-size="13" style="fill:#9ce5ef"></text>
+<text x="198" y="1650" font-size="15">created_at</text>
+<text x="510" y="1650" font-size="14">DATETIME(6)</text>
+<text x="650" y="1650" font-size="13">N</text>
+</g>
+</svg>
