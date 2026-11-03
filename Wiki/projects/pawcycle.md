@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001]
+related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
@@ -69,7 +69,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#20 have individual detailed dispositions**, while #21–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#30 have individual detailed dispositions**, while #31–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -109,5 +109,11 @@ GitHub PRs, README, ops documentation and CI status only. No OCI console, accoun
 
 [상세 원본 판정](../history/pawcycle-source-ledger/batch-011-020.md)과 [7월 연대기](../journal/pawcycle/2026-07.md)를 동기화했다. #11 Proposed UX → #13 PS-003 승인 → #14 반영은 PWC-0027에 통합했다. #12/#16 보조 AI 리뷰 운영은 [PWC-0034](../decisions/PWC-0034.md), #15/#17/#18/#19 Proposed ARCH/DATA/API/AUTH는 [PWC-0035](../decisions/PWC-0035.md)·[PWC-0036](../decisions/PWC-0036.md)·[PWC-0037](../decisions/PWC-0037.md)·[PWC-0038](../decisions/PWC-0038.md)에 분리했다. 이들 후보가 현재 Runtime 전체 승인 상태를 나타내지는 않는다.
 
-#17 값 객체 재결정과 #19 소유자 복합 조회 표현은 본문/handoff 간 차이가 남는다([PWL-0011](../lessons/PWL-0011.md)). 원본 코드·운영은 수정하지 않았다. #20의 Gradle9.1+·제안형 제목·승인 전 우선 검토 correction은 PWC-0032에 보강했다. 전체 **501개 목록 / 20개 상세 완료 / 481개 미완료**, 다음은 **#21**이다. 의미 검증·운영 검증 미확인은 원본별 기록에 남겼다.
+#17 값 객체 재결정과 #19 소유자 복합 조회 표현은 본문/handoff 간 차이가 남는다([PWL-0011](../lessons/PWL-0011.md)). 원본 코드·운영은 수정하지 않았다. #20의 Gradle9.1+·제안형 제목·승인 전 우선 검토 correction은 PWC-0032에 보강했다. 이는 첫 배치의 처리 내역이며 최신 집계와 재개 번호는 아래 #21–#30 배치를 따른다. 의미 검증·운영 검증 미확인은 원본별 기록에 남겼다.
 
+
+## Sequential source batch #21–#30 — 2026-11-03
+
+[원본 배치](../history/pawcycle-source-ledger/batch-021-030.md)에서 scaffold/CI(#21/#22), 구현 준비/계획/결정 요청(#23~#25), Harness(#26), 논리 ERD(#27), 후보(#28), 제한 승인(#29), AUTH-002 제안(#30)을 순서대로 연결했다. [PWC-0039](../decisions/PWC-0039.md)·[PWC-0040](../decisions/PWC-0040.md)은 proposed이며 기존 승인 PWC-0029/PWC-0007과 구분한다. [PWL-0012](../lessons/PWL-0012.md)는 toolchain·경로·동시 실행과 CI의 검증 한계다.
+
+현재 집계는 **501개 목록 / 30개 상세 완료 / 471개 미완료**, 다음 **#31**이다. #21 binary wrapper는 metadata만 확인했으며 공급망 검증은 미실행이다. 실제 DB/Auth/브라우저/운영 검증을 이번 기록 작업으로 주장하지 않는다.

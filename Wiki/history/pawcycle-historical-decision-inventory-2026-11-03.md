@@ -112,3 +112,7 @@
 ## 번호순 상세 배치 #11–#20 (2026-11-03)
 
 [배치](pawcycle-source-ledger/batch-011-020.md)에서 모든 원본의 처리·근거를 남겼다. 신규 PWC-0034는 한국어/보조 AI 리뷰 운영(accepted), PWC-0035~0038은 ARCH-001/DATA-001/API-001/AUTH-001(proposed), PWL-0011은 리뷰 반영 후 남은 본문/handoff 의미 불일치다. 기존 PWC-0027/0028/0032는 원본의 선행 제안·후속 correction으로 보강하며 중복 ID를 만들지 않았다. 새 #501은 metadata만 추가했으며 상세 완료는 **#1~#20 20건**, 미완료 **#21~#501 481건**이다. [진행 상태](pawcycle-source-ledger/progress.json)에서 다음 번호를 확인한다.
+
+## 번호순 상세 배치 #21–#30 (2026-11-03)
+
+[배치 근거](pawcycle-source-ledger/batch-021-030.md)와 [기계 재개점](pawcycle-source-ledger/progress.json)을 갱신했다. PWC-0039는 Backend 전제·대안 계획 체인, PWC-0040은 AUTH-002 DR1~DR3 제안, PWL-0012는 실행 환경/CI 한계다. 기존 승인 PWC-0029의 2공개API+최소세션/3테이블과 구별하며 source29의 SKU 표시 가격을 제외한 것처럼 읽힐 수 있는 과거 요약도 결제 가격 정책 확장 제외로 정밀화했다. 현재 상세 완료 **30**, 미완료 **471**, 다음 **#31**이다.

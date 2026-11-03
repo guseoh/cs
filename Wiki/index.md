@@ -70,6 +70,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0036](decisions/PWC-0036.md) | proposed | DATA-001 minimal schema and constraint candidates | pawcycle |
 | [PWC-0037](decisions/PWC-0037.md) | proposed | API-001 first endpoint/error/date proposal | pawcycle |
 | [PWC-0038](decisions/PWC-0038.md) | proposed | AUTH-001 identity and safe-return proposal | pawcycle |
+| [PWC-0039](decisions/PWC-0039.md) | proposed | First Backend prerequisite and alternative proposal chain | pawcycle |
+| [PWC-0040](decisions/PWC-0040.md) | proposed | AUTH-002 API/CSRF/credential candidate contract | pawcycle |
 
 ## Knowledge index
 
@@ -92,6 +94,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0009](lessons/PWL-0009.md) | First Obsidian PR recording failed on untracked detection and slug compatibility | pawcycle |
 | [PWL-0010](lessons/PWL-0010.md) | Early Discord false-green, HTTP 403 and Korean PR body corruption boundaries | pawcycle |
 | [PWL-0011](lessons/PWL-0011.md) | Review corrections can leave body/handoff semantic drift | pawcycle |
+| [PWL-0012](lessons/PWL-0012.md) | Historical build environment and CI verification limits | pawcycle |
 
 ## Record creation and maintenance
 
@@ -112,8 +115,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#20 have individual detailed dispositions; #21–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#30 have individual detailed dispositions; #31–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #21](history/pawcycle-source-ledger/progress.json). Current count: **20 complete / 481 pending / 501 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #31](history/pawcycle-source-ledger/progress.json). Current count: **30 complete / 471 pending / 501 inventoried**.
 
+
+- Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.

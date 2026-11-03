@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "fd01b4b68bfa339e4636c7a6d85ab42cee225383",
+  "wiki_parent_sha": "92725289208e4a12fecfa42aea77cdf5423b8d53",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    20
+    30
   ],
-  "completed_count": 20,
-  "pending_count": 481,
-  "next_source": 21,
+  "completed_count": 30,
+  "pending_count": 471,
+  "next_source": 31,
   "batches": [
     {
       "range": [
@@ -39,6 +39,13 @@
         20
       ],
       "evidence": "batch-011-020.md"
+    },
+    {
+      "range": [
+        21,
+        30
+      ],
+      "evidence": "batch-021-030.md"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -46,12 +53,16 @@
     "PR13 historical review SHA context and later learning-record supplementation",
     "Separate approval scope/date of Proposed ARCH-001/DATA-001/API-001/AUTH-001",
     "Later resolution of DATA value-object and AUTH owner-query body/handoff drift",
-    "Runtime/deployment/recovery evidence remains separate"
+    "Runtime/deployment/recovery evidence remains separate",
+    "PR21 generated wrapper binary content not inspected",
+    "PR22 class-loading path root cause not isolated",
+    "PR25 final review line references and PR30 dependency maintenance follow-up",
+    "Historical local failures not erased by remote CI success"
   ],
   "validation": {
-    "wiki": "63 records, 0 issues",
+    "wiki": "66 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique sequential sources; 20 complete; 481 pending; batch and timeline references checked"
+    "coverage": "501 unique consecutive sources; 30 complete; 471 pending; next #31; source and journal entries unique"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; verify this cursor against ledger rows; continue #21 before #22; do not count #501 metadata as detailed processing."
+  "resume": "Re-fetch PR18 HEAD and both main refs; verify cursor against ledger rows; continue #31 before #32; source #501 remains metadata-only."
 }
