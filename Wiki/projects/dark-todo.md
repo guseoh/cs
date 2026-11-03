@@ -6,6 +6,7 @@ status: active
 created_at: 2026-11-03
 updated_at: 2026-11-03
 evidence_level: source-verified
+capture_mode: manual
 sources:
   - https://github.com/guseoh/dark-todo-planner/pull/141
   - https://github.com/guseoh/dark-todo-planner/actions/runs/41377386788
