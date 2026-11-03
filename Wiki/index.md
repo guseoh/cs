@@ -44,6 +44,15 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0011](decisions/PWC-0011.md) | superseded | Historical AWS private RDS Single-AZ choice | pawcycle |
 | [PWC-0012](decisions/PWC-0012.md) | accepted | Phase 10 scheduler tuning KEEP; Queue/Kafka not selected | pawcycle |
 | [PWC-0013](decisions/PWC-0013.md) | accepted | Transition long-running operations from AWS to OCI Always Free | pawcycle |
+| [PWC-0014](decisions/PWC-0014.md) | accepted | Preserve Subscription locks, version CAS and unique constraints | pawcycle |
+| [PWC-0015](decisions/PWC-0015.md) | accepted | Historical AWS vs OCI same-host Observability | pawcycle |
+
+## Lesson index
+
+| ID | Lesson | Project |
+| --- | --- | --- |
+| [PWL-0001](lessons/PWL-0001.md) | Docker internal-network localhost publish failure | pawcycle |
+| [PWL-0002](lessons/PWL-0002.md) | Invalid JFR artifact cannot attribute a Java hotspot | pawcycle |
 
 ## Record creation and maintenance
 
