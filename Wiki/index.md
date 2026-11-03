@@ -36,6 +36,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 ## Record creation and maintenance
 
 - [Wiki/AGENTS.md](AGENTS.md): AI retrieval, review and write safeguards
+- [Cross-client handoff contract](handoff.md): ChatGPT, Work and Codex decision submission
 - [Wiki/schema.md](schema.md): canonical frontmatter / relation ID contract
 - [GitHub PR evidence inbox](inbox/README.md): untrusted automated capture and promotion steps
 - [Merged PR candidate queue](inbox/merged-pr-candidates.md): auto-generated candidate snapshot (may be empty before first run)
