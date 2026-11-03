@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007]
+related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
@@ -57,6 +57,15 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 - **Historical operations:** [PWL-0007](../lessons/PWL-0007.md) records AWS Backend stop/start and misleading frontend page 200; [PWC-0018](../decisions/PWC-0018.md) records Discord/Slack delivery with scheduled/dedupe DEFER. [PWC-0015](../decisions/PWC-0015.md) now includes **historical** 2026-09-22 OCI same-host OFF/ON calibration evidence from #300; November live overhead is unverified.
 - **Authentication/AI/Time:** [PWC-0019](../decisions/PWC-0019.md) records AuthenticationProvider ownership without changing Session/CSRF selection; [PWC-0020](../decisions/PWC-0020.md) records AI outside DB transaction and fingerprint guard; [PWC-0021](../decisions/PWC-0021.md) records approved legacy UTC reinterpretation.
 - This Wiki change uses linked PawCycle GitHub evidence only. No new OCI/AWS/MySQL/Provider/k6/Production execution or source-repository changes.
+
+## Historical follow-up — Cart version, JDBC/SQL, Catalog and OCI CD (2026-11-03)
+- [PWC-0022](../decisions/PWC-0022.md): 2026-10-20 Payment reconciliation F01 implements Cart `version +1` exactly once for actual item mutation; it does **not** close unresolved F07 recovery [#417](https://github.com/guseoh/pawcycle-commerce/issues/417).
+- [PWC-0023](../decisions/PWC-0023.md): Architecture V2 reached 2026-10-21 **repository-scoped** direct Runtime JdbcTemplate 0, isolated JDBC 9, 21 PersistenceAdapter KEEP and necessary Native SQL preservation. Earlier 2026-08 [PWC-0006](../decisions/PWC-0006.md)/[PWC-0008](../decisions/PWC-0008.md) explain historic design instead of today's class layout.
+- [PWC-0024](../decisions/PWC-0024.md): Production Catalog startup seed was rejected in favor of explicit `validate/apply`; late-August Canonical Customer Catalog target added. PR/CI does not prove Production DB import happened.
+- [PWC-0025](../decisions/PWC-0025.md): OCI Release Engine uses exact image/source/DB compatibility, protected approval/state/lock, bounded capacity and fail-closed restore semantics; actual DB Restore/rollback were not proven by this GitHub backfill.
+- [PWC-0026](../decisions/PWC-0026.md): 2026-10-28~31 Host Pull CD evolved from OFF/policy to limited frontend-cosmetic and then service-level application-v1, with guarded main SHA, service build/digest/provenance and manual-only unsafe changes.
+- [PWL-0008](../lessons/PWL-0008.md): **actual 2026-10-31 OCI first release attempt** hit CDHost inherited `paths` collision, stopping **before image pull and service replacement**. The corrected PR #491 was merged later that day. This report does not itself prove subsequent frontend-only/Backend-only E2E, live rollback or an enabled Timer.
+- Operational status information earlier in this snapshot came from older README/ops documents and task-bound reports. The **latest 2026-11 live runtime/Timer state is unresolved by this GitHub-only reconstruction**; retain separately verified Work/Host receipts if available.
 
 ## Constraints
 - Never claim cloud readiness, current billing eligibility, recovery or production activation merely from source or CI.

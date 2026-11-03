@@ -52,6 +52,11 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0019](decisions/PWC-0019.md) | accepted | AuthenticationProvider owns credentials | pawcycle |
 | [PWC-0020](decisions/PWC-0020.md) | accepted | AI external call outside DB transaction and stale guard | pawcycle |
 | [PWC-0021](decisions/PWC-0021.md) | accepted | New UTC data with accepted legacy time reinterpretation | pawcycle |
+| [PWC-0022](decisions/PWC-0022.md) | accepted | Payment reconciliation Cart version increments once | pawcycle |
+| [PWC-0023](decisions/PWC-0023.md) | accepted | Runtime direct JdbcTemplate zero with justified Native SQL KEEP | pawcycle |
+| [PWC-0024](decisions/PWC-0024.md) | accepted | Explicit Production Catalog one-shot validation/import | pawcycle |
+| [PWC-0025](decisions/PWC-0025.md) | accepted | OCI Release identity, capacity and fail-closed recovery | pawcycle |
+| [PWC-0026](decisions/PWC-0026.md) | accepted | OCI Host Pull service-scoped guarded CD | pawcycle |
 
 ## Lesson index
 
@@ -64,6 +69,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0005](lessons/PWL-0005.md) | Hikari pending is not a pool-size diagnosis | pawcycle |
 | [PWL-0006](lessons/PWL-0006.md) | Dropped/fixture/image invalid load evidence | pawcycle |
 | [PWL-0007](lessons/PWL-0007.md) | Frontend HTTP 200 does not prove backend health | pawcycle |
+| [PWL-0008](lessons/PWL-0008.md) | OCI first transition stopped before service mutation on Python method shadowing | pawcycle |
 
 ## Record creation and maintenance
 

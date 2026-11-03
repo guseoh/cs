@@ -40,6 +40,12 @@
 | H26 | P2 | [Authentication PR #140](https://github.com/guseoh/pawcycle-commerce/pull/140), ARCH-010 | 2026-08-13 | Provider owns BCrypt/Principal, Session contract unchanged | Accepted ADR/code | [PWC-0019](../decisions/PWC-0019.md) |
 | H27 | P1 | [AI transaction #437](https://github.com/guseoh/pawcycle-commerce/issues/437), [PR #440](https://github.com/guseoh/pawcycle-commerce/pull/440) | 2026-10-21 | AI outside transaction, stale summary overwrite guarded | PR/MySQL test | [PWC-0020](../decisions/PWC-0020.md) |
 | H28 | P1 | [UTC/legacy #448](https://github.com/guseoh/pawcycle-commerce/issues/448), [PR #451](https://github.com/guseoh/pawcycle-commerce/pull/451) | 2026-10-22 policy, 10-23 merge | accept legacy reinterpretation, no raw data repair | policy/PR/code | [PWC-0021](../decisions/PWC-0021.md) |
+| H29 | P1 | [F01 Payment Cart version #414](https://github.com/guseoh/pawcycle-commerce/issues/414), [PR #415](https://github.com/guseoh/pawcycle-commerce/pull/415) | 2026-10-20 | Item change -> Cart version +1 once, no-op version unchanged, F07 independently Open | MySQL/code/Issue final | [PWC-0022](../decisions/PWC-0022.md) |
+| H30 | P1 | [Architecture V2 #339](https://github.com/guseoh/pawcycle-commerce/issues/339), [PR #382](https://github.com/guseoh/pawcycle-commerce/pull/382), [#438](https://github.com/guseoh/pawcycle-commerce/pull/438) | 2026-10-08 approved; 10-21 closure | Runtime direct JdbcTemplate 0; Native KEEP; 21 Adapter KEEP; isolated 9 | Final issue comments and code | [PWC-0023](../decisions/PWC-0023.md) |
+| H31 | P2 | [One-shot Catalog #231](https://github.com/guseoh/pawcycle-commerce/issues/231), [PR #232](https://github.com/guseoh/pawcycle-commerce/pull/232), [#259–261](https://github.com/guseoh/pawcycle-commerce/pull/261) | 2026-08-26~30 | No Production startup seed, validate/approved apply, canonical customer target, no runtime apply claim | PR/CLI/runbook | [PWC-0024](../decisions/PWC-0024.md) |
+| H32 | P1 | [OCI Release #471](https://github.com/guseoh/pawcycle-commerce/issues/471), [PR #472](https://github.com/guseoh/pawcycle-commerce/pull/472), [#475](https://github.com/guseoh/pawcycle-commerce/pull/475) | 2026-10-28 | Exact SHA/digest/source, protected state/lock, DB compatibility and capacity; unknown rollback fail-closed | PR/Runbook/source | [PWC-0025](../decisions/PWC-0025.md) |
+| H33 | P1 | [Host Pull CD #473](https://github.com/guseoh/pawcycle-commerce/issues/473), [#474](https://github.com/guseoh/pawcycle-commerce/pull/474), [#486](https://github.com/guseoh/pawcycle-commerce/pull/486), [#490](https://github.com/guseoh/pawcycle-commerce/pull/490) | 2026-10-28~31 | OFF then restricted frontend cosmetic then application-v1 service-scoped; unsafe changes manual | PR/Controller code | [PWC-0026](../decisions/PWC-0026.md) |
+| H34 | P1 Lesson | [OCI first transition failure #491](https://github.com/guseoh/pawcycle-commerce/pull/491), [report](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/reports/OPS-OCI-CD-011/README.md) | 2026-10-31 | Inherited paths method collision -> TypeError before service mutation; bounded correction | Actual ops report/PR code | [PWL-0008](../lessons/PWL-0008.md) |
 
 ## GitHub·코드 역추적 메모 (2026-11-03)
 
@@ -67,7 +73,7 @@
 
 ## 후속 Batch 순서
 
-이번 배치에서는 [PWC-0014](../decisions/PWC-0014.md), [PWC-0015](../decisions/PWC-0015.md), [PWL-0001](../lessons/PWL-0001.md), [PWL-0002](../lessons/PWL-0002.md)를 등록했다. Subscription 비관적 잠금의 최초 확인 구현 PR은 #87로 특정했지만, ARCH-007 Proposed 초안과 달라진 **별도 승인 이유**는 보류한다. 다음 후보는 H08 인증 Provider 책임 및 Checkout/Payment 장애·정합성 교훈이다. Production 실검증과 구분한다.
+이번 배치에서는 [PWC-0014](../decisions/PWC-0014.md), [PWC-0015](../decisions/PWC-0015.md), [PWL-0001](../lessons/PWL-0001.md), [PWL-0002](../lessons/PWL-0002.md)를 등록했다. Subscription 비관적 잠금의 최초 확인 구현 PR은 #87로 특정했지만, ARCH-007 Proposed 초안과 달라진 **별도 승인 이유**는 보류한다. H08 및 Checkout/Payment 후속 기록은 [PWC-0016](../decisions/PWC-0016.md)–[PWC-0022](../decisions/PWC-0022.md)로 등록했다. 남은 검증은 현재 OCI live 배포·회복 증거와 승인 사유 불명 항목이다. Production 실검증과 구분한다.
 
 
 ## Payment부터 데이터 호환성까지 후속 조사 판정 (2026-11-03)
@@ -78,3 +84,12 @@
 - **Operations:** #146/#151 are AWS historical Production execution; #300 is OCI historical calibration completion evidence. This Wiki exercise did not read the current OCI tenant, execute rollback, or restore the Production database.
 - **Auth/AI/Time:** Provider-owned credential verification preserves approved Session/CSRF; AI invocation no-Tx and stale cache guard were repository tested; the user accepted changed historical HTTP timestamps without asserting legacy Instant restoration. No new Cloud/Production execution.
 - Existing Redis [PWC-0009](../decisions/PWC-0009.md), Scheduler [PWC-0012](../decisions/PWC-0012.md), AWS RDS [PWC-0011](../decisions/PWC-0011.md) remain canonical and are not duplicated.
+
+
+## 2026-11-03 — 후속 역사 결정 및 실패 운용 심화
+
+- R1-01 F01 Cart version은 MySQL/PR 병합으로 repository-safe하게 교정됐지만 F07 Payment PROCESSING 복구 Issue #417은 여전히 OPEN이다.
+- Architecture V2의 10월 사용자 승인 사항은 일반 Runtime 직접 `JdbcTemplate=0`이다. Native `FOR UPDATE`/CAS/미존재행/INSERT SELECT 등은 검증된 의미를 보존한다. 단순 'JPA로 모든 SQL 전환'이나 'Adapter 최소화'가 아니다. 21 Adapter KEEP과 isolated JDBC owner 9는 10월 21일 Repository Closure 근거다.
+- Production Catalog import는 명시 one-shot 확인과 단일 트랜잭션/멱등성을 확보하는 저장소 선택이다. 실제 Production product count 또는 운영 DB 데이터 반영 수는 별도 당시 실행증거 없이는 확정하지 않는다.
+- OCI Repository Release/Host Pull Controller는 exact main SHA/digest/DB/runtime/용량/락을 fail-closed로 검증한다. 2026-10-31 최초 실제 적용 시도에서 `CDHost.paths` 이름 충돌로 image pull/recreate 이전 STOP한 **운영 실패**를 확인했고 PR #491로 수정했다. 이 실패가 이후 실제 운영 자동배포 E2E 성공 또는 rollback/DB restore를 입증하지 않는다. 실환경은 최신 Host/Work receipt로 재검증해야 한다.
+- 기존 [PWC-0001](../decisions/PWC-0001.md)의 'Repository ready ≠ Production activation' 원칙과 일치하며, 초기 Source-only 오래된 OFF 문구를 최신 live 상태로 단정하지 않는다. [PWC-0006](../decisions/PWC-0006.md)/[PWC-0008](../decisions/PWC-0008.md) 8월 구조는 당시의 선택이다.
