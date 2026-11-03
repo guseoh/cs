@@ -1,0 +1,62 @@
+name: LLM Wiki GitHub evidence intake
+on:
+  schedule:
+    - cron: "17 23 * * *" # 08:17 KST
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: wiki-intake
+  cancel-in-progress: false
+jobs:
+  intake:
+    if: github.event_name == 'workflow_dispatch' || vars.WIKI_INGEST_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - name: Avoid duplicate open intake pull requests
+        id: pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          pending="$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --json headRefName --jq '.[] | select(.headRefName | startswith("automation/wiki-intake-")) | .headRefName' | head -n 1)"
+          if [[ -n "$pending" ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Existing intake PR: $pending; skip until reviewed"
+          fi
+      - name: Validate Wiki and intake tools
+        if: steps.pending.outputs.skip != 'true'
+        run: |
+          python scripts/wiki_validate.py
+          python -m unittest discover -s scripts -p 'test_wiki_tools.py' -v
+      - name: Collect recent public merged PRs
+        if: steps.pending.outputs.skip != 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/wiki_ingest.py
+      - name: Open review PR for source candidates only
+        if: steps.pending.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- Wiki/inbox/merged-pr-candidates.md; then
+            echo 'No changed merged-PR evidence; no PR needed'
+            exit 0
+          fi
+          branch="automation/wiki-intake-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add Wiki/inbox/merged-pr-candidates.md
+          git commit -m 'docs(wiki): refresh merged PR candidate evidence'
+          git push origin "$branch"
+          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" --title 'docs(wiki): review updated public merged-PR evidence' --body 'Automated, untrusted source signals only. Review linked PRs; no decisions are auto-accepted. Do not merge without human review.'
