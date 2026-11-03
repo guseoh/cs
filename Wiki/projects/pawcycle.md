@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002]
+related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
@@ -49,6 +49,14 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 - [PWL-0001](../lessons/PWL-0001.md): OCI Docker 29.8.0의 internal-network 구성에서 정적 publish와 runtime host listener가 달랐던 장애.
 - [PWL-0002](../lessons/PWL-0002.md): Phase 9 JFR Duration 0s/ExecutionSample 0 및 aggregate 부재는 Java hotspot 근거가 아니다.
 - 추가 근거는 GitHub PR·Issue·코드 및 기존 보고서이며 OCI live/MySQL/k6/JFR 재실행은 하지 않았다.
+
+## Historical backfill — Payment → Checkout → Performance → Operations → Auth/AI/Time (2026-11-03)
+- **Payment:** [PWC-0016](../decisions/PWC-0016.md), [PWL-0003](../lessons/PWL-0003.md). PR #450 query-only/error classification is Repository Verified/Merged, whereas NORMAL/PROCESSING finalization and active worker fencing remain unresolved in **Open Issue #417**. Fake Provider checks do not establish actual Toss/Production recovery.
+- **Checkout/Inventory:** [PWL-0004](../lessons/PWL-0004.md) records MySQL missing-row gap deadlock and minimum replay-lock removal; [PWC-0017](../decisions/PWC-0017.md) records a separate necessary Inventory locking read plus CAS for shared SKU. These are not opposing universal lock rules.
+- **Performance:** [PWL-0005](../lessons/PWL-0005.md) separates Hikari20 REJECT and CPU2.0 partial improvement; [PWL-0006](../lessons/PWL-0006.md) records invalid dropped/fixture/image runs and the bounded 20 RPS isolated NO_CHANGE. Redis/Scheduler decisions [PWC-0009](../decisions/PWC-0009.md) and [PWC-0012](../decisions/PWC-0012.md) are reused, not duplicated.
+- **Historical operations:** [PWL-0007](../lessons/PWL-0007.md) records AWS Backend stop/start and misleading frontend page 200; [PWC-0018](../decisions/PWC-0018.md) records Discord/Slack delivery with scheduled/dedupe DEFER. [PWC-0015](../decisions/PWC-0015.md) now includes **historical** 2026-09-22 OCI same-host OFF/ON calibration evidence from #300; November live overhead is unverified.
+- **Authentication/AI/Time:** [PWC-0019](../decisions/PWC-0019.md) records AuthenticationProvider ownership without changing Session/CSRF selection; [PWC-0020](../decisions/PWC-0020.md) records AI outside DB transaction and fingerprint guard; [PWC-0021](../decisions/PWC-0021.md) records approved legacy UTC reinterpretation.
+- This Wiki change uses linked PawCycle GitHub evidence only. No new OCI/AWS/MySQL/Provider/k6/Production execution or source-repository changes.
 
 ## Constraints
 - Never claim cloud readiness, current billing eligibility, recovery or production activation merely from source or CI.

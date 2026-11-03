@@ -46,6 +46,12 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0013](decisions/PWC-0013.md) | accepted | Transition long-running operations from AWS to OCI Always Free | pawcycle |
 | [PWC-0014](decisions/PWC-0014.md) | accepted | Preserve Subscription locks, version CAS and unique constraints | pawcycle |
 | [PWC-0015](decisions/PWC-0015.md) | accepted | Historical AWS vs OCI same-host Observability | pawcycle |
+| [PWC-0016](decisions/PWC-0016.md) | accepted | Payment PROCESSING query-only manual recovery policy | pawcycle |
+| [PWC-0017](decisions/PWC-0017.md) | accepted | Shared-SKU Inventory locking read with CAS | pawcycle |
+| [PWC-0018](decisions/PWC-0018.md) | accepted | Alert delivery verified; scheduling/dedupe deferred | pawcycle |
+| [PWC-0019](decisions/PWC-0019.md) | accepted | AuthenticationProvider owns credentials | pawcycle |
+| [PWC-0020](decisions/PWC-0020.md) | accepted | AI external call outside DB transaction and stale guard | pawcycle |
+| [PWC-0021](decisions/PWC-0021.md) | accepted | New UTC data with accepted legacy time reinterpretation | pawcycle |
 
 ## Lesson index
 
@@ -53,6 +59,11 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | --- | --- | --- |
 | [PWL-0001](lessons/PWL-0001.md) | Docker internal-network localhost publish failure | pawcycle |
 | [PWL-0002](lessons/PWL-0002.md) | Invalid JFR artifact cannot attribute a Java hotspot | pawcycle |
+| [PWL-0003](lessons/PWL-0003.md) | External Provider/DB commit PROCESSING failure gap | pawcycle |
+| [PWL-0004](lessons/PWL-0004.md) | InnoDB missing-row lock deadlock | pawcycle |
+| [PWL-0005](lessons/PWL-0005.md) | Hikari pending is not a pool-size diagnosis | pawcycle |
+| [PWL-0006](lessons/PWL-0006.md) | Dropped/fixture/image invalid load evidence | pawcycle |
+| [PWL-0007](lessons/PWL-0007.md) | Frontend HTTP 200 does not prove backend health | pawcycle |
 
 ## Record creation and maintenance
 
