@@ -28,17 +28,17 @@ NN = NOT NULL, NULL = null 허용. 기본값 없는 컬럼은 애플리케이션
 
 ### `members`
 
-| 컬럼 | SQL 타입 | NULL·기본값 | 의미 |
-|---|---|---|---|
-| `member_id` | BIGINT | NOT NULL AUTO_INCREMENT | 회원 ID |
-| `email` | VARCHAR(254) | NOT NULL | 로그인 이메일; trim·소문자, 유일 |
-| `password_hash` | VARCHAR(255) | NOT NULL | BCrypt 비밀번호 해시 |
-| `nickname` | VARCHAR(30) | NOT NULL | 공개 닉네임; trim, 유일 |
-| `bio` | VARCHAR(500) | NULL | 공개 소개 |
-| `github_url` | VARCHAR(2048) | NULL | 공개 GitHub URL |
-| `portfolio_url` | VARCHAR(2048) | NULL | 공개 포트폴리오 URL |
-| `created_at` | DATETIME(6) | NOT NULL | 생성 시각(UTC) |
-| `updated_at` | DATETIME(6) | NOT NULL | 최근 변경 시각(UTC) |
+| 컬럼              | SQL 타입        | NULL·기본값                | 의미                    |
+| --------------- | ------------- | ----------------------- | --------------------- |
+| `member_id`     | BIGINT        | NOT NULL AUTO_INCREMENT | 회원 ID                 |
+| `email`         | VARCHAR(254)  | NOT NULL                | 로그인 이메일; trim·소문자, 유일 |
+| `password_hash` | VARCHAR(255)  | NOT NULL                | BCrypt 비밀번호 해시        |
+| `nickname`      | VARCHAR(30)   | NOT NULL                | 공개 닉네임; trim, 유일      |
+| `bio`           | VARCHAR(500)  | NULL                    | 공개 소개                 |
+| `github_url`    | VARCHAR(2048) | NULL                    | 공개 GitHub URL         |
+| `portfolio_url` | VARCHAR(2048) | NULL                    | 공개 포트폴리오 URL          |
+| `created_at`    | DATETIME(6)   | NOT NULL                | 생성 시각(UTC)            |
+| `updated_at`    | DATETIME(6)   | NOT NULL                | 최근 변경 시각(UTC)         |
 
 ### `roles`
 
