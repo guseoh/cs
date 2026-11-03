@@ -66,6 +66,12 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0032](decisions/PWC-0032.md) | proposed | FOUNDATION-000 technology-version candidate, not wholesale approval | pawcycle |
 | [PWC-0033](decisions/PWC-0033.md) | accepted | First MVP DOMAIN-001 value objects and subscription calculation responsibility | pawcycle |
 
+## Knowledge index
+
+| ID | Status | Knowledge | Project |
+| --- | --- | --- | --- |
+| [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle code, design and operations reverse-engineering learning guide | pawcycle |
+
 ## Lesson index
 
 | ID | Lesson | Project |
