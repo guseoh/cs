@@ -33,6 +33,12 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [DTD-0003](decisions/DTD-0003.md) | accepted | Today reorder and compact Calendar detail | dark-todo |
 | [PWC-0001](decisions/PWC-0001.md) | accepted | Separate CD readiness from production activation | pawcycle |
 | [PWC-0002](decisions/PWC-0002.md) | accepted | Guard and time-bound OCI A1 acquisition | pawcycle |
+| [PWC-0003](decisions/PWC-0003.md) | accepted | First MVP: narrow SKU subscription scope | pawcycle |
+| [PWC-0004](decisions/PWC-0004.md) | accepted | Second MVP: Pet/PlanVersion and immutable snapshots | pawcycle |
+| [PWC-0005](decisions/PWC-0005.md) | accepted | Per-target subscription order automation consistency | pawcycle |
+| [PWC-0006](decisions/PWC-0006.md) | accepted | Subscription V2 runtime boundaries (historical) | pawcycle |
+| [PWC-0007](decisions/PWC-0007.md) | accepted | Approved session authentication contract | pawcycle |
+| [PWC-0008](decisions/PWC-0008.md) | accepted | Commerce runtime responsibility separation (historical) | pawcycle |
 
 ## Record creation and maintenance
 
@@ -45,6 +51,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 - [GitHub PR evidence inbox](inbox/README.md): untrusted automated capture and promotion steps
 - [Merged PR candidate queue](inbox/merged-pr-candidates.md): auto-generated candidate snapshot (may be empty before first run)
 - [2026-11 history](history/2026-11.md): change-log; not a chat transcript
+- [PawCycle historical decision inventory](history/pawcycle-historical-decision-inventory-2026-11-03.md): verified backfills and unresolved candidate decisions
 - [Obsidian sync policy](../.github/OBSIDIAN_SYNC.md): multi-device safety
 
 All records have stable IDs and links. Updating a project snapshot must not silently rewrite an accepted decision. Intake never writes decisions automatically.
