@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032]
+related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWK-0001]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
@@ -84,6 +84,12 @@ The [all-500 source ledger](../history/pawcycle-source-ledger/README.md) shows w
 - [PWC-0030](../decisions/PWC-0030.md): 2026-07-12 API-002 **seven** public Product API choices including alternatives. Its later MVP3 ACTIVE-SKU visibility update must be tracked at its own date.
 - [PWC-0031](../decisions/PWC-0031.md): 2026-07-13 API-003 **eight** subscription API decisions. Crucially first MVP omitted `Idempotency-Key` and accepted duplicate POST risk; later V2 choices are a separate epoch.
 - These are the **first detailed chronological approval examples**, not completion of #1–#100. Full PR diff, issue discussions, subsequent code and operating evidence remain to be traced for every item.
+
+## Reverse engineering learning guide — Issue #456 migrated (2026-11-03)
+
+- [PWK-0001](../knowledge/PWK-0001.md) is the user-confirmed, **ongoing learning playbook** for full-system Java/Spring/DB/ERD/process reverse engineering, feature-first study, flexible L1–L4 depth and a parallel read-only OCI operations track.
+- [Original PawCycle Issue #456](https://github.com/guseoh/pawcycle-commerce/issues/456) preserves the source conversation and expectations. Moving the plan to Wiki does **not** mark any curriculum step complete, approve code changes, or verify live Production.
+- The learner may start with Member Address CRUD; learning progress and source-backed follow-up outcomes should be recorded under the newer AI Wiki capture policy.
 
 ## Constraints
 - Never claim cloud readiness, current billing eligibility, recovery or production activation merely from source or CI.
