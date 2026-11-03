@@ -102,8 +102,13 @@
 
 ## 범위 변경: 선별 조사 → 최초 PR #1부터 전수 소급 (2026-11-03)
 
-이전 H01–H34는 **선별된 주요 결정·실패 사례**이며 프로젝트 전체 결정의 완전성 근거가 아니다. [전수 조사대장](pawcycle-source-ledger/README.md)에 2026-07-02 최초 PR #1부터 GitHub 공통 번호 #500까지 367 PR/133 Issue의 번호·생성일·병합/종료 상태·제목을 수집했다. 최초 별도 Issue가 #88이므로 초기 구현과 승인·제안은 대부분 PR body 및 변경된 권위 문서에 존재한다. 대장의 모든 원본은 현재 '상세 심사 대기'다. 이미 작성된 결정은 원본을 재확인할 때 연결하고, 나머지는 승인 판단·대안·검증을 새로 추출한다. 모든 source가 독립 Decision인 것은 아니지만 모든 source의 **검토 결과**는 남긴다.
+이전 H01–H34는 **선별된 주요 결정·실패 사례**이며 프로젝트 전체 결정의 완전성 근거가 아니다. [전수 조사대장](pawcycle-source-ledger/README.md)에 2026-07-02 최초 PR #1부터 GitHub 공통 번호 #500까지 367 PR/133 Issue의 번호·생성일·병합/종료 상태·제목을 수집했다. 최초 별도 Issue가 #88이므로 초기 구현과 승인·제안은 대부분 PR body 및 변경된 권위 문서에 존재한다. 목록 작성 당시 전체가 상세 심사 대기였고, 최신 처리 범위는 아래 순차 배치와 대장을 따른다. 이미 작성된 결정은 원본을 재확인할 때 연결하고, 나머지는 승인 판단·대안·검증을 새로 추출한다. 모든 source가 독립 Decision인 것은 아니지만 모든 source의 **검토 결과**는 남긴다.
 
 ## 2026-07 최초 승인 원본의 Decision backfill 시작
 
 [PWC-0027](../decisions/PWC-0027.md)–[PWC-0032](../decisions/PWC-0032.md)에 실제 원본이 명시하는 UX 네 가지, Product API 일곱 가지, Subscription API 여덟 가지, 좁은 Backend 승인, Harness 최초 결정과 FOUNDATION-000 기술 버전 **Proposed 후보**를 각각 보존했다. 승인 문서와 병합 PR은 구분하며, 이후 버전의 실제 런타임 의미를 당시 정책으로 소급하지 않는다. 이 6개 기록의 존재만으로 #1–#100의 전체 diff/comments 검토가 완료된 것은 아니다. [500-source 대장](pawcycle-source-ledger/README.md)은 metadata census이고 모든 원본의 심사와 Decision 추출은 계속 미완료다.
+
+
+## 번호순 상세 배치 #11–#20 (2026-11-03)
+
+[배치](pawcycle-source-ledger/batch-011-020.md)에서 모든 원본의 처리·근거를 남겼다. 신규 PWC-0034는 한국어/보조 AI 리뷰 운영(accepted), PWC-0035~0038은 ARCH-001/DATA-001/API-001/AUTH-001(proposed), PWL-0011은 리뷰 반영 후 남은 본문/handoff 의미 불일치다. 기존 PWC-0027/0028/0032는 원본의 선행 제안·후속 correction으로 보강하며 중복 ID를 만들지 않았다. 새 #501은 metadata만 추가했으며 상세 완료는 **#1~#20 20건**, 미완료 **#21~#501 481건**이다. [진행 상태](pawcycle-source-ledger/progress.json)에서 다음 번호를 확인한다.

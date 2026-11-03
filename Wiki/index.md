@@ -65,6 +65,11 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0031](decisions/PWC-0031.md) | accepted | API-003 first subscription D1-D8 contract and idempotency defer | pawcycle |
 | [PWC-0032](decisions/PWC-0032.md) | proposed | FOUNDATION-000 technology-version candidate, not wholesale approval | pawcycle |
 | [PWC-0033](decisions/PWC-0033.md) | accepted | First MVP DOMAIN-001 value objects and subscription calculation responsibility | pawcycle |
+| [PWC-0034](decisions/PWC-0034.md) | accepted | Historical Korean AI review and human selection authority | pawcycle |
+| [PWC-0035](decisions/PWC-0035.md) | proposed | ARCH-001 responsibility-boundary proposal | pawcycle |
+| [PWC-0036](decisions/PWC-0036.md) | proposed | DATA-001 minimal schema and constraint candidates | pawcycle |
+| [PWC-0037](decisions/PWC-0037.md) | proposed | API-001 first endpoint/error/date proposal | pawcycle |
+| [PWC-0038](decisions/PWC-0038.md) | proposed | AUTH-001 identity and safe-return proposal | pawcycle |
 
 ## Knowledge index
 
@@ -86,6 +91,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0008](lessons/PWL-0008.md) | OCI first transition stopped before service mutation on Python method shadowing | pawcycle |
 | [PWL-0009](lessons/PWL-0009.md) | First Obsidian PR recording failed on untracked detection and slug compatibility | pawcycle |
 | [PWL-0010](lessons/PWL-0010.md) | Early Discord false-green, HTTP 403 and Korean PR body corruption boundaries | pawcycle |
+| [PWL-0011](lessons/PWL-0011.md) | Review corrections can leave body/handoff semantic drift | pawcycle |
 
 ## Record creation and maintenance
 
@@ -99,11 +105,15 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 - [Merged PR candidate queue](inbox/merged-pr-candidates.md): auto-generated candidate snapshot (may be empty before first run)
 - [2026-11 history](history/2026-11.md): change-log; not a chat transcript
 - [PawCycle historical decision inventory](history/pawcycle-historical-decision-inventory-2026-11-03.md): verified backfills and unresolved candidate decisions
-- [PawCycle complete PR/Issue source ledger](history/pawcycle-source-ledger/README.md): all #1–#500 sources indexed; **not yet comprehensively reviewed**
+- [PawCycle complete PR/Issue source ledger](history/pawcycle-source-ledger/README.md): all #1–#501 sources indexed; **not yet comprehensively reviewed**
 - [Obsidian sync policy](../.github/OBSIDIAN_SYNC.md): multi-device safety
 
 All records have stable IDs and links. Updating a project snapshot must not silently rewrite an accepted decision. Intake never writes decisions automatically.
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#10 have individual detailed dispositions; #11–#500 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#20 have individual detailed dispositions; #21–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+
+
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #21](history/pawcycle-source-ledger/progress.json). Current count: **20 complete / 481 pending / 501 inventoried**.
+

@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWK-0001]
+related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
@@ -30,7 +30,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 - [PWC-0002](../decisions/PWC-0002.md): bounded, guard-railed OCI A1 acquisition plan.
 
 ## Historical decision backfill (source-only; 2026-11-03)
-- 최신으로 조회한 GitHub main은 [540464a9b875](https://github.com/guseoh/pawcycle-commerce/commit/540464a9b875f7bc6bdda11ecf499efdea2e2d43)이다. [PR #500](https://github.com/guseoh/pawcycle-commerce/pull/500)의 Wiki Capture 연결이 병합됐다. 위의 `aa264ff`는 **초기 스냅샷 당시**의 조회 SHA이지 현재 main이 아니다.
+- 앞선 조회의 GitHub main은 [540464a9b875](https://github.com/guseoh/pawcycle-commerce/commit/540464a9b875f7bc6bdda11ecf499efdea2e2d43)였다. 이번 배치에서 조회한 main은 [caad5233269f](https://github.com/guseoh/pawcycle-commerce/commit/caad5233269f52ccd31f6e93e54c77a464766b36)이며 새 #501의 존재/병합 metadata만 확인했다. 운영 timer/알림 성공은 미확인이다. [PR #500](https://github.com/guseoh/pawcycle-commerce/pull/500)의 Wiki Capture 연결이 병합됐다. 위의 `aa264ff`는 **초기 스냅샷 당시**의 조회 SHA이지 현재 main이 아니다.
 - 소급 조사에서 제품·도메인 MVP1 [PWC-0003](../decisions/PWC-0003.md), MVP2 [PWC-0004](../decisions/PWC-0004.md), 주문 자동화 [PWC-0005](../decisions/PWC-0005.md), 당시 Subscription V2 runtime [PWC-0006](../decisions/PWC-0006.md), 세션 인증 [PWC-0007](../decisions/PWC-0007.md), 당시 Commerce runtime [PWC-0008](../decisions/PWC-0008.md)을 등록했다.
 - [조사 인벤토리](../history/pawcycle-historical-decision-inventory-2026-11-03.md)는 당시 기각 대안·원본 상태와 보류 항목을 따로 관리한다. ARCH-007은 Proposed이고, 과거 ChatGPT 대화 원문은 충분히 확보되지 않았다.
 - 이 추가 조사는 **GitHub source 및 PR 확인**만 수행했다. OCI live target, Backend-only 운영 E2E, Rollback, DB Restore를 새로 검증하지 않았다. 본 스냅샷의 기존 운영 관련 문구는 서로 상충할 수 있으므로 실제 현재 운영 사실로 단정해서는 안 된다.
@@ -69,8 +69,8 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#500 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#10 have individual detailed dispositions**, while #11–#500 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
-- Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
+- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#20 have individual detailed dispositions**, while #21–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
 ## Full chronological backfill — first July approvals (2026-11-03)
@@ -103,3 +103,11 @@ The [all-500 source ledger](../history/pawcycle-source-ledger/README.md) shows w
 
 ## Evidence and verification limits
 GitHub PRs, README, ops documentation and CI status only. No OCI console, account billing, live VM capacity or production E2E verification.
+
+
+## Sequential source batch #11–#20 — 2026-11-03
+
+[상세 원본 판정](../history/pawcycle-source-ledger/batch-011-020.md)과 [7월 연대기](../journal/pawcycle/2026-07.md)를 동기화했다. #11 Proposed UX → #13 PS-003 승인 → #14 반영은 PWC-0027에 통합했다. #12/#16 보조 AI 리뷰 운영은 [PWC-0034](../decisions/PWC-0034.md), #15/#17/#18/#19 Proposed ARCH/DATA/API/AUTH는 [PWC-0035](../decisions/PWC-0035.md)·[PWC-0036](../decisions/PWC-0036.md)·[PWC-0037](../decisions/PWC-0037.md)·[PWC-0038](../decisions/PWC-0038.md)에 분리했다. 이들 후보가 현재 Runtime 전체 승인 상태를 나타내지는 않는다.
+
+#17 값 객체 재결정과 #19 소유자 복합 조회 표현은 본문/handoff 간 차이가 남는다([PWL-0011](../lessons/PWL-0011.md)). 원본 코드·운영은 수정하지 않았다. #20의 Gradle9.1+·제안형 제목·승인 전 우선 검토 correction은 PWC-0032에 보강했다. 전체 **501개 목록 / 20개 상세 완료 / 481개 미완료**, 다음은 **#21**이다. 의미 검증·운영 검증 미확인은 원본별 기록에 남겼다.
+
