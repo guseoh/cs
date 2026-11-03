@@ -16,3 +16,8 @@ This is an Obsidian Vault synchronized through GitHub. The existing `Study/`, `P
 - Preserve existing records and refer to replacements using `supersedes`.
 - This repository is public. Never store private chats, credentials, tokens, personal data, or sensitive operational details.
 - Respect the multi-device sync precautions in [.github/OBSIDIAN_SYNC.md](.github/OBSIDIAN_SYNC.md). Prefer a PR for reviewed Wiki changes; never force-push `main`.
+
+## Cross-client AI handoff
+
+- For ChatGPT, Work, or Codex decision capture, follow [Wiki/handoff.md](Wiki/handoff.md). Prefer a reviewed direct Wiki PR; a public owner-authored `[wiki]` Issue is a portable **candidate** route only.
+- Never automatically publish private conversations. The assistant must determine whether the user confirmed a durable and publicly safe summary. Do not imply cross-client background capture.
