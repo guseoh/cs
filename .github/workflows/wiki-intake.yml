@@ -11,7 +11,6 @@ concurrency:
   cancel-in-progress: false
 jobs:
   intake:
-    if: github.event_name == 'workflow_dispatch' || vars.WIKI_INGEST_ENABLED == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -41,6 +40,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/wiki_ingest.py
+      - name: Append full-mode merged PR journals (CSForge and PawCycle)
+        if: steps.pending.outputs.skip != 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/wiki_journal.py
       - name: Open review PR for source candidates only
         if: steps.pending.outputs.skip != 'true'
         env:
@@ -48,15 +52,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- Wiki/inbox/merged-pr-candidates.md; then
-            echo 'No changed merged-PR evidence; no PR needed'
+          if [[ -z "$(git status --porcelain -- Wiki/inbox/merged-pr-candidates.md Wiki/journal/csforge Wiki/journal/pawcycle)" ]]; then
+            echo 'No changed merged-PR evidence or journals; no PR needed'
             exit 0
           fi
           branch="automation/wiki-intake-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -b "$branch"
-          git add Wiki/inbox/merged-pr-candidates.md
+          git add Wiki/inbox/merged-pr-candidates.md Wiki/journal/csforge Wiki/journal/pawcycle
           git commit -m 'docs(wiki): refresh merged PR candidate evidence'
           git push origin "$branch"
-          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" --title 'docs(wiki): review updated public merged-PR evidence' --body 'Automated, untrusted source signals only. Review linked PRs; no decisions are auto-accepted. Do not merge without human review.'
+          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" --title 'docs(wiki): review CSForge and PawCycle activity journal' --body 'Automated, untrusted source events only. CSForge/PawCycle journal entries and PR candidate queue; no DevPedia implementation history. Review linked PRs; decisions are NOT auto-accepted. Do not merge without review.'
