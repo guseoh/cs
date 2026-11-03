@@ -93,3 +93,7 @@
 - Production Catalog import는 명시 one-shot 확인과 단일 트랜잭션/멱등성을 확보하는 저장소 선택이다. 실제 Production product count 또는 운영 DB 데이터 반영 수는 별도 당시 실행증거 없이는 확정하지 않는다.
 - OCI Repository Release/Host Pull Controller는 exact main SHA/digest/DB/runtime/용량/락을 fail-closed로 검증한다. 2026-10-31 최초 실제 적용 시도에서 `CDHost.paths` 이름 충돌로 image pull/recreate 이전 STOP한 **운영 실패**를 확인했고 PR #491로 수정했다. 이 실패가 이후 실제 운영 자동배포 E2E 성공 또는 rollback/DB restore를 입증하지 않는다. 실환경은 최신 Host/Work receipt로 재검증해야 한다.
 - 기존 [PWC-0001](../decisions/PWC-0001.md)의 'Repository ready ≠ Production activation' 원칙과 일치하며, 초기 Source-only 오래된 OFF 문구를 최신 live 상태로 단정하지 않는다. [PWC-0006](../decisions/PWC-0006.md)/[PWC-0008](../decisions/PWC-0008.md) 8월 구조는 당시의 선택이다.
+
+## 범위 변경: 선별 조사 → 최초 PR #1부터 전수 소급 (2026-11-03)
+
+이전 H01–H34는 **선별된 주요 결정·실패 사례**이며 프로젝트 전체 결정의 완전성 근거가 아니다. [전수 조사대장](pawcycle-source-ledger/README.md)에 2026-07-02 최초 PR #1부터 GitHub 공통 번호 #500까지 367 PR/133 Issue의 번호·생성일·병합/종료 상태·제목을 수집했다. 최초 별도 Issue가 #88이므로 초기 구현과 승인·제안은 대부분 PR body 및 변경된 권위 문서에 존재한다. 대장의 모든 원본은 현재 '상세 심사 대기'다. 이미 작성된 결정은 원본을 재확인할 때 연결하고, 나머지는 승인 판단·대안·검증을 새로 추출한다. 모든 source가 독립 Decision인 것은 아니지만 모든 source의 **검토 결과**는 남긴다.

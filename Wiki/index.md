@@ -83,6 +83,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 - [Merged PR candidate queue](inbox/merged-pr-candidates.md): auto-generated candidate snapshot (may be empty before first run)
 - [2026-11 history](history/2026-11.md): change-log; not a chat transcript
 - [PawCycle historical decision inventory](history/pawcycle-historical-decision-inventory-2026-11-03.md): verified backfills and unresolved candidate decisions
+- [PawCycle complete PR/Issue source ledger](history/pawcycle-source-ledger/README.md): all #1–#500 sources indexed; **not yet comprehensively reviewed**
 - [Obsidian sync policy](../.github/OBSIDIAN_SYNC.md): multi-device safety
 
 All records have stable IDs and links. Updating a project snapshot must not silently rewrite an accepted decision. Intake never writes decisions automatically.
