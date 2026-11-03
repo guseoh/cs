@@ -17,7 +17,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) | 2026-11-03 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
-| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-03 |
+| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-04 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
 ## Decision index
@@ -72,6 +72,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0038](decisions/PWC-0038.md) | proposed | AUTH-001 identity and safe-return proposal | pawcycle |
 | [PWC-0039](decisions/PWC-0039.md) | proposed | First Backend prerequisite and alternative proposal chain | pawcycle |
 | [PWC-0040](decisions/PWC-0040.md) | proposed | AUTH-002 API/CSRF/credential candidate contract | pawcycle |
+| [PWC-0041](decisions/PWC-0041.md) | accepted | Historical MySQL 8.4 mutable CI image policy | pawcycle |
+| [PWC-0042](decisions/PWC-0042.md) | accepted | Historical public Product batch query and read model | pawcycle |
+| [PWC-0043](decisions/PWC-0043.md) | accepted | Trusted notification code and original CI SHA provenance | pawcycle |
 
 ## Knowledge index
 
@@ -95,6 +98,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0010](lessons/PWL-0010.md) | Early Discord false-green, HTTP 403 and Korean PR body corruption boundaries | pawcycle |
 | [PWL-0011](lessons/PWL-0011.md) | Review corrections can leave body/handoff semantic drift | pawcycle |
 | [PWL-0012](lessons/PWL-0012.md) | Historical build environment and CI verification limits | pawcycle |
+| [PWL-0013](lessons/PWL-0013.md) | DB CHECK rejection and Spring exception assertion mismatch | pawcycle |
+| [PWL-0014](lessons/PWL-0014.md) | Generic credential responses do not equalize BCrypt work | pawcycle |
+| [PWL-0015](lessons/PWL-0015.md) | QA claims must match array/log/redaction evidence | pawcycle |
 
 ## Record creation and maintenance
 
@@ -115,10 +121,12 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#30 have individual detailed dispositions; #31–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#40 have individual detailed dispositions; #41–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #31](history/pawcycle-source-ledger/progress.json). Current count: **30 complete / 471 pending / 501 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #41](history/pawcycle-source-ledger/progress.json). Current count: **40 complete / 461 pending / 501 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
+
+- 2026-11-04 sequential batch: [#31–#40 dispositions](history/pawcycle-source-ledger/batch-031-040.md), [exact source/CI manifest](history/pawcycle-source-ledger/batch-031-040.sources.json). Next #41; authentication QA remains conditional within its evidence scope.

@@ -116,3 +116,7 @@
 ## 번호순 상세 배치 #21–#30 (2026-11-03)
 
 [배치 근거](pawcycle-source-ledger/batch-021-030.md)와 [기계 재개점](pawcycle-source-ledger/progress.json)을 갱신했다. PWC-0039는 Backend 전제·대안 계획 체인, PWC-0040은 AUTH-002 DR1~DR3 제안, PWL-0012는 실행 환경/CI 한계다. 기존 승인 PWC-0029의 2공개API+최소세션/3테이블과 구별하며 source29의 SKU 표시 가격을 제외한 것처럼 읽힐 수 있는 과거 요약도 결제 가격 정책 확장 제외로 정밀화했다. 현재 상세 완료 **30**, 미완료 **471**, 다음 **#31**이다.
+
+## 2026-11-04 번호순 상세 배치 #31–#40
+
+[상세 판정](pawcycle-source-ledger/batch-031-040.md)과 [source manifest](pawcycle-source-ledger/batch-031-040.sources.json)를 추가했다. 기존 PWC-0007/0030/0031은 승인→실제 구현/QA로 보강하고, PWC-0041~0043과 PWL-0013~0015를 등록했다. 원본별 112개 파일·공개 review·commit·최종 head CI metadata를 대조했지만 과거 앱/DB/전송을 재실행하지 않았다. 현재 **40개 완료 / 461개 미완료**, 다음은 **#41**이다. 인증 QA 조건부 판정·수정 후 Discord 수신은 미확인 후속으로 남는다.

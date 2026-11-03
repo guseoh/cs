@@ -4,7 +4,7 @@ type: project
 project: pawcycle
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-03
+updated_at: 2026-11-04
 evidence_level: source-verified
 capture_mode: full
 sources:
@@ -69,7 +69,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#30 have individual detailed dispositions**, while #31–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#40 have individual detailed dispositions**, while #41–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -116,4 +116,12 @@ GitHub PRs, README, ops documentation and CI status only. No OCI console, accoun
 
 [원본 배치](../history/pawcycle-source-ledger/batch-021-030.md)에서 scaffold/CI(#21/#22), 구현 준비/계획/결정 요청(#23~#25), Harness(#26), 논리 ERD(#27), 후보(#28), 제한 승인(#29), AUTH-002 제안(#30)을 순서대로 연결했다. [PWC-0039](../decisions/PWC-0039.md)·[PWC-0040](../decisions/PWC-0040.md)은 proposed이며 기존 승인 PWC-0029/PWC-0007과 구분한다. [PWL-0012](../lessons/PWL-0012.md)는 toolchain·경로·동시 실행과 CI의 검증 한계다.
 
-현재 집계는 **501개 목록 / 30개 상세 완료 / 471개 미완료**, 다음 **#31**이다. #21 binary wrapper는 metadata만 확인했으며 공급망 검증은 미실행이다. 실제 DB/Auth/브라우저/운영 검증을 이번 기록 작업으로 주장하지 않는다.
+이전 배치까지의 집계는 30개 완료였으며 최신 집계는 아래 #31–#40 배치를 따른다. #21 binary wrapper는 metadata만 확인했으며 공급망 검증은 미실행이다. 실제 DB/Auth/브라우저/운영 검증을 이번 기록 작업으로 주장하지 않는다.
+
+## Sequential source batch #31–#40 — 2026-11-04
+
+[상세 판정](../history/pawcycle-source-ledger/batch-031-040.md)과 [고정 증거 목록](../history/pawcycle-source-ledger/batch-031-040.sources.json)을 추가했다. 인증 계약 승인(#31), CI MySQL(#32), DB/Security 기반(#33), 인증 구현(#34), 상품 계약·구현·QA(#35~#37), 인증 조건부 QA(#38), 구독 계약(#39), 상세 알림(#40)을 번호순으로 연결했다.
+
+신규 [PWC-0041](../decisions/PWC-0041.md)은 당시 CI mutable image 정책, [PWC-0042](../decisions/PWC-0042.md)는 초기 상품 batch 조회, [PWC-0043](../decisions/PWC-0043.md)는 신뢰 코드·원본 SHA를 보존하는 알림 경계다. [PWL-0013](../lessons/PWL-0013.md)~[PWL-0015](../lessons/PWL-0015.md)는 DB 예외 assertion·credential 비교 경로·QA 증거 한계를 기록한다.
+
+현재 **501개 목록 / 40개 상세 완료 / 461개 미완료**, 다음은 **#41**이다. #38의 실제 배포 로그 조건과 #40의 안전한 최종 Preview·채널 수신 후속은 아직 확인하지 않았다. 최종 source head의 Repository Validation metadata는 성공이나 현재 Production 검증이 아니다. 이번 source/main 조회 기준은 caad5233269f52ccd31f6e93e54c77a464766b36이다.
