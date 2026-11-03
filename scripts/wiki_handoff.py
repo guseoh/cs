@@ -11,7 +11,7 @@ from pathlib import Path
 import re
 import sys
 
-ALLOWED_PROJECTS = {"csforge", "dark-todo", "pawcycle", "llm-wiki", "shared"}
+ALLOWED_PROJECTS = {"csforge", "dark-todo", "pawcycle", "devpedia", "llm-wiki", "shared"}
 ALLOWED_CLIENTS = {"chatgpt", "work", "codex"}
 ALLOWED_KINDS = {"decision", "lesson", "project-update"}
 FIELDS = {
@@ -79,6 +79,8 @@ def parse_issue(issue, owner, repo):
         raise ValueError("project or client is not allowed")
     if data["kind"] not in ALLOWED_KINDS:
         raise ValueError("invalid kind")
+    if data["project"] == "devpedia" and data["kind"] != "decision":
+        raise ValueError("DevPedia handoff is design-only: decision records only")
     if data["confirmed"] is not True or data["public_safe"] is not True:
         raise ValueError("confirmed and public_safe must both be explicit true")
     for key in ("summary", "context", "decision", "rejected_alternatives", "constraints"):

@@ -27,15 +27,19 @@
 }
 ```
 
-- `project`: `csforge`, `dark-todo`, `pawcycle`, `llm-wiki` or `shared`
+- `project`: `csforge`, `dark-todo`, `pawcycle`, `devpedia`, `llm-wiki` or `shared`
 - `client`: `chatgpt`, `work` or `codex`
-- `kind`: `decision`, `project-update` or `lesson`
+- `kind`: `decision`, `project-update` or `lesson`. For `devpedia`, only **design/architecture decisions and tradeoffs** are allowed (`kind: decision`); exclude implementation histories.
 - `confirmed`: set `true` **only** when the user has confirmed the decision or verified the claim. It does not mean production deployed.
 - `public_safe`: set `true` only after reviewing the exact payload for publication in public GitHub.
 - `source_urls`: zero to eight direct HTTPS evidence links. A linked PR is not a deployment validation.
 - Text values are short plain summaries, not Markdown, prompts, or full conversations.
 
 The Issue must be authored by the repository owner (not merely labelled by a bot) and have a valid repository Issue URL. Some GitHub apps may create Issues as a bot; those are deliberately rejected by automated intake. Use the **direct Wiki PR path** instead when the connector cannot create an owner-authored issue.
+
+## DevPedia human-implemented boundary
+
+DevPedia is authored and implemented by the user. AI assists with design reasoning and tradeoffs; it must not report self-authored implementation or automatically import PR/code history. The [capture policy](capture-policy.md) is authoritative. Its repository was not accessible to the connected GitHub session at initial setup, so no code state or current design choices should be invented. Publish only user-confirmed, redacted decisions to the public Wiki.
 
 ## End-of-task operating procedure
 

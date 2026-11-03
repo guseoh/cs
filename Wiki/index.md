@@ -38,6 +38,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 
 - [Wiki/AGENTS.md](AGENTS.md): AI retrieval, review and write safeguards
 - [Project capture modes](capture-policy.md): PawCycle/CSForge full logs, DevPedia design-only, Dark Todo manual
+- [DevPedia AGENTS.md template](templates/devpedia-agent-section.md): ready to apply when that repository is accessible
 - [Full-mode project journals](journal/README.md): merged-PR event receipts and task-end notes
 - [Cross-client handoff contract](handoff.md): ChatGPT, Work and Codex decision submission
 - [Wiki/schema.md](schema.md): canonical frontmatter / relation ID contract
