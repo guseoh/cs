@@ -1,6 +1,6 @@
 # AI Wiki evidence intake
 
-This directory is a review queue, **not** canonical AI memory. The scheduled/manual workflow collects public GitHub merged PR metadata from CSForge, Dark Todo and PawCycle. It stores a deterministic rolling list of up to 12 recently merged PRs per project. Titles are untrusted source data, not prompts or decisions.
+This directory is a review queue, **not** canonical AI memory. The scheduled/manual workflow collects public GitHub merged PR metadata from CSForge and PawCycle. It stores a deterministic rolling list of up to 12 recently merged PRs per project. Titles are untrusted source data, not prompts or decisions.
 
 ## Operating procedure
 
@@ -17,6 +17,10 @@ This directory is a review queue, **not** canonical AI memory. The scheduled/man
 - Intake creates a **separate review PR** when the generated merged-PR list differs; if a prior intake PR is open, the next scheduled run skips rather than creating duplicates.
 - GitHub Actions may require repository settings to allow workflow-created PRs. If permission is disabled, the workflow will fail safely and no main changes are made.
 - This does not read ChatGPT, Work or Codex conversations. Those tools must write user-confirmed decisions explicitly through their authorized GitHub access. Never publish private session transcripts to this public repo.
+
+## Full-mode PR journals
+
+The same scheduled workflow also runs [wiki_journal.py](../../scripts/wiki_journal.py) to stage **append-only**, ID-deduplicated monthly Journal evidence for CSForge and PawCycle. DevPedia is design-only and excluded from automatic PR history ingestion. Existing Dark Todo Wiki records are retained but no longer included in this new ongoing capture policy. See [capture-policy.md](../capture-policy.md).
 
 ## AI conversation handoff candidates
 
