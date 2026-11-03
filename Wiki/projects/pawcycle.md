@@ -67,6 +67,12 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 - [PWL-0008](../lessons/PWL-0008.md): **actual 2026-10-31 OCI first release attempt** hit CDHost inherited `paths` collision, stopping **before image pull and service replacement**. The corrected PR #491 was merged later that day. This report does not itself prove subsequent frontend-only/Backend-only E2E, live rollback or an enabled Timer.
 - Operational status information earlier in this snapshot came from older README/ops documents and task-bound reports. The **latest 2026-11 live runtime/Timer state is unresolved by this GitHub-only reconstruction**; retain separately verified Work/Host receipts if available.
 
+## Chronological source-audit progress (2026-11-03)
+
+- [PawCycle #1–#500 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#5 have individual detailed dispositions**, while #6–#500 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md).
+- [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
+
 ## Full chronological backfill — first July approvals (2026-11-03)
 
 The [all-500 source ledger](../history/pawcycle-source-ledger/README.md) shows why the early history must begin with PR #1: there was no separate Issue before #88. The previous PWC-0003–PWC-0026 are high-value historical highlights, not an exhaustive decision count.
