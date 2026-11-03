@@ -42,7 +42,7 @@ No DevPedia decisions have been migrated or independently verified yet. Add appr
 
 ## Next action
 
-When the DevPedia repository is accessible with the required permissions, add a short local `AGENTS.md` reference to [the capture policy](../capture-policy.md) without changing the development ownership model or committing work automatically.
+When the DevPedia repository is accessible with the required permissions, apply the reviewed [DevPedia AGENTS.md section](../templates/devpedia-agent-section.md) after inspecting and preserving the existing project rules. Do not change the development ownership model or automatically commit user-authored implementation.
 
 ## Evidence and verification limits
 
