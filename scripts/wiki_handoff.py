@@ -38,7 +38,7 @@ def text_field(value, field, limit=1600, required=False):
 
 def display(value):
     """Keep issue text from becoming Markdown links, HTML or headings."""
-    value = html.escape(value, quote=True)
+    value = html.escape(" ".join(value.split()), quote=True)
     for char, entity in (("[", "&#91;"), ("]", "&#93;"), ("(", "&#40;"),
                          (")", "&#41;"), ("|", "&#124;"), (chr(96), "&#96;"),
                          ("\\", "&#92;")):
