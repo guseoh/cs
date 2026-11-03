@@ -8,6 +8,7 @@ updated_at: 2026-11-03
 evidence_level: source-verified
 sources:
   - https://github.com/guseoh/cs
+  - https://github.com/guseoh/cs/pull/10
 depends_on: []
 supersedes: []
 related_to: [WIKI-0001, WIKI-0002]
@@ -15,32 +16,33 @@ related_to: [WIKI-0001, WIKI-0002]
 
 # LLM Wiki — project snapshot
 
-## Current state (2026-11-03)
+## Current state (checked 2026-11-03)
 
-- Phase 1: Markdown-first AI context index, evidence-aware records, and explicit ID relations are being introduced on a review branch.
-- Canonical repository: [guseoh/cs](https://github.com/guseoh/cs); `Study/` and `Project/` already exist and are not modified in this phase.
-- This snapshot records the Wiki setup itself, **not** the live state of CSForge, Dark Todo, or PawCycle.
-- Other AI clients require an accessible GitHub connection and an explicit read/write workflow; no automatic cross-session memory or capture is implied.
+- Phase 1: Markdown-first AI knowledge/decision records, ID relationships, index and read/write safeguards are prepared on the branch behind [PR #10](https://github.com/guseoh/cs/pull/10), NOT yet merged to main.
+- Added evidence-based source snapshots for CSForge, Dark Todo and PawCycle plus initial decisions with links to actual merged PRs, code and CI.
+- Added a no-LLM GitHub merged-PR intake script and record validator. The scheduled/manual GitHub Actions workflow **becomes available only after merge to main**, and daily intake remains disabled until WIKI_INGEST_ENABLED=true.
+- The candidate inbox is a review queue. Automatic promotion of candidate PRs to accepted decisions, and automatic reading of ChatGPT/Work/Codex private conversations, are NOT provided.
+- Existing Study/, Project/, Obsidian settings and repository content outside new Wiki files and tools are unchanged.
 
 ## Accepted decisions
 
-- [WIKI-0001](../decisions/WIKI-0001.md): keep `Wiki/` separate from study notes.
-- [WIKI-0002](../decisions/WIKI-0002.md): use the existing GitHub repository as shared Markdown source, without a new server.
+- [WIKI-0001](../decisions/WIKI-0001.md): keep Wiki distinct from Study.
+- [WIKI-0002](../decisions/WIKI-0002.md): existing public GitHub repository is the shared Markdown source without a new server.
 
 ## Constraints
 
-- Do not rewrite existing study materials or the Obsidian configuration.
-- Do not commit private conversation transcripts, credentials, or secrets to this public repository.
-- Distinguish chosen design from completed/verified implementation.
-- Keep git-sync and multi-device safety rules intact.
+- Public GitHub repository: no private transcripts, credentials, sensitive operational details or personal records.
+- CI green is not proof of live runtime correctness or latest production data.
+- Preserve multi-device Git sync precautions and do not force-push or overwrite divergent local Vault edits.
+- Promote new decisions only after verification and human review.
 
 ## Open questions and next actions
 
-- Review and merge Phase 1 only when ready; then verify Obsidian Git synchronization on devices.
-- Add one project snapshot at a time based on **currently checked** repository state and links to existing PRs/commits.
-- Add meaningful decision and lesson records only when evidence and consent are clear.
-- Consider semantic search or knowledge-graph tooling later if direct retrieval proves insufficient.
+- Complete and review PR #10, merge only after accepted review/CI and check local Obsidian sync separately.
+- If desired, enable WIKI_INGEST_ENABLED in the cs repository and confirm workflow-created pull-request permissions.
+- Inspect first candidate inbox PR and promote only durable, verified facts into canonical records.
+- Upgrade search infrastructure only when basic Markdown/ID retrieval no longer suffices.
 
 ## Evidence and verification limits
 
-Repository layout and visibility were checked through GitHub on 2026-11-03. The user's local devices, outstanding offline changes, and actual Obsidian synchronization were not inspected. A new Wiki file on GitHub is not proof it is already present on either device.
+GitHub repository and PR evidence checked on 2026-11-03. No assertion that the workflow was enabled, ran, or performed automatic writes to main; no local device inspection.
