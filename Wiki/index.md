@@ -39,6 +39,11 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0006](decisions/PWC-0006.md) | accepted | Subscription V2 runtime boundaries (historical) | pawcycle |
 | [PWC-0007](decisions/PWC-0007.md) | accepted | Approved session authentication contract | pawcycle |
 | [PWC-0008](decisions/PWC-0008.md) | accepted | Commerce runtime responsibility separation (historical) | pawcycle |
+| [PWC-0009](decisions/PWC-0009.md) | accepted | Redis product-list cache and measured read-scale KEEP | pawcycle |
+| [PWC-0010](decisions/PWC-0010.md) | accepted | Server-owned AI recommendation safety boundary | pawcycle |
+| [PWC-0011](decisions/PWC-0011.md) | superseded | Historical AWS private RDS Single-AZ choice | pawcycle |
+| [PWC-0012](decisions/PWC-0012.md) | accepted | Phase 10 scheduler tuning KEEP; Queue/Kafka not selected | pawcycle |
+| [PWC-0013](decisions/PWC-0013.md) | accepted | Transition long-running operations from AWS to OCI Always Free | pawcycle |
 
 ## Record creation and maintenance
 
