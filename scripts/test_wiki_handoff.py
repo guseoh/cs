@@ -68,6 +68,23 @@ class HandoffTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 parse_issue(issue, OWNER, REPO)
 
+    def test_accepts_devpedia_design_decision(self):
+        issue = fixture()
+        data = json.loads(issue["body"])
+        data["project"] = "devpedia"
+        data["kind"] = "decision"
+        issue["body"] = json.dumps(data)
+        self.assertEqual(parse_issue(issue, OWNER, REPO)[1]["project"], "devpedia")
+
+    def test_rejects_devpedia_implementation_update(self):
+        issue = fixture()
+        data = json.loads(issue["body"])
+        data["project"] = "devpedia"
+        data["kind"] = "project-update"
+        issue["body"] = json.dumps(data)
+        with self.assertRaises(ValueError):
+            parse_issue(issue, OWNER, REPO)
+
     def test_rejects_unknown_project(self):
         issue = fixture()
         data = json.loads(issue["body"])
