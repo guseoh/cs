@@ -1,0 +1,81 @@
+name: AI Wiki handoff review intake
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Owner-authored [wiki] Issue number"
+        type: string
+        required: true
+
+permissions:
+  contents: write
+  issues: read
+  pull-requests: write
+
+concurrency:
+  group: wiki-handoff
+  cancel-in-progress: false
+
+jobs:
+  create-review:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.issue.user.login == github.repository_owner &&
+       startsWith(github.event.issue.title, '[wiki] '))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+
+      - name: Fetch owner-authored handoff issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! "$ISSUE_NUMBER" =~ ^[1-9][0-9]*$ ]]; then
+            echo "Invalid numeric Issue identifier"
+            exit 1
+          fi
+          gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE_NUMBER" > "$RUNNER_TEMP/wiki-issue.json"
+
+      - name: Build untrusted review candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/wiki_handoff.py --issue-json "$RUNNER_TEMP/wiki-issue.json"
+          python scripts/wiki_validate.py
+          python -m unittest discover -s scripts -p 'test_wiki_*.py' -v
+
+      - name: Create review PR; never write directly to main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/wiki-handoff-$ISSUE_NUMBER"
+          path="Wiki/inbox/handoffs/issue-$ISSUE_NUMBER.md"
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+            echo "Existing handoff branch; review or close it first. No overwrite."
+            exit 0
+          fi
+          test -f "$path"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add -- "$path"
+          git diff --cached --quiet && exit 0
+          git commit -m "docs(wiki): queue review for issue $ISSUE_NUMBER"
+          git push origin "$branch"
+          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" \
+            --title "docs(wiki): review AI handoff Issue #$ISSUE_NUMBER" \
+            --body "Candidate ONLY from public owner-authored Issue #$ISSUE_NUMBER. Review for secrets, correctness, duplicate decisions and verifiable sources. This is not canonical memory. Do not auto-merge."

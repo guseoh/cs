@@ -17,3 +17,7 @@ This directory is a review queue, **not** canonical AI memory. The scheduled/man
 - Intake creates a **separate review PR** when the generated merged-PR list differs; if a prior intake PR is open, the next scheduled run skips rather than creating duplicates.
 - GitHub Actions may require repository settings to allow workflow-created PRs. If permission is disabled, the workflow will fail safely and no main changes are made.
 - This does not read ChatGPT, Work or Codex conversations. Those tools must write user-confirmed decisions explicitly through their authorized GitHub access. Never publish private session transcripts to this public repo.
+
+## AI conversation handoff candidates
+
+The [cross-client handoff contract](../handoff.md) allows ChatGPT, Work and Codex to submit **explicitly owner-confirmed, public-safe summaries** rather than private chat transcripts. The [GitHub Issue workflow](../../.github/workflows/wiki-handoff.yml) converts owner-authored `[wiki]` Issues into `handoffs/issue-N.md` review candidates, but never canonical decisions. Independently verify and promote via a separate reviewed PR.
