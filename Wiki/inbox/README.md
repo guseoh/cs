@@ -12,7 +12,7 @@ This directory is a review queue, **not** canonical AI memory. The scheduled/man
 
 ## Automation
 
-- [Wiki PR intake workflow](../../.github/workflows/wiki-intake.yml): daily at 23:17 UTC / 08:17 KST **only if** the repository variable WIKI_INGEST_ENABLED is set to true; manual workflow_dispatch is also available after the workflow is on main.
+- [Wiki PR intake workflow](../../.github/workflows/wiki-intake.yml): daily at 23:17 UTC / 08:17 KST after the workflow is merged to main; manual workflow_dispatch is also available. Both paths generate review PRs, not direct canonical edits.
 - [Wiki verification workflow](../../.github/workflows/wiki-validation.yml) validates metadata, graph links and source queue tests for relevant PRs.
 - Intake creates a **separate review PR** when the generated merged-PR list differs; if a prior intake PR is open, the next scheduled run skips rather than creating duplicates.
 - GitHub Actions may require repository settings to allow workflow-created PRs. If permission is disabled, the workflow will fail safely and no main changes are made.
