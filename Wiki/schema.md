@@ -30,6 +30,7 @@ related_to: []
 - `depends_on`: IDs of prerequisite records.
 - `supersedes`: IDs of earlier decisions this accepted decision replaces.
 - `related_to`: non-directional context links; use on both records where helpful.
+- Optional project snapshot field `capture_mode`: `full`, `design-only`, or `manual`; its meaning is defined by [capture-policy.md](capture-policy.md). Do not infer automatic recording from mere project presence in the index.
 
 Relations reference **IDs**, never raw titles. IDs in these three arrays must resolve to another existing record. A file path, Markdown link, or Obsidian wikilink can be included in the body for human navigation. Do not infer causation from `related_to`.
 

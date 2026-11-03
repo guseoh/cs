@@ -18,6 +18,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) | 2026-11-03 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-03 |
+| DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
 ## Decision index
 
@@ -36,6 +37,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 ## Record creation and maintenance
 
 - [Wiki/AGENTS.md](AGENTS.md): AI retrieval, review and write safeguards
+- [Project capture modes](capture-policy.md): PawCycle/CSForge full logs, DevPedia design-only, Dark Todo manual
+- [Full-mode project journals](journal/README.md): merged-PR event receipts and task-end notes
 - [Cross-client handoff contract](handoff.md): ChatGPT, Work and Codex decision submission
 - [Wiki/schema.md](schema.md): canonical frontmatter / relation ID contract
 - [GitHub PR evidence inbox](inbox/README.md): untrusted automated capture and promotion steps

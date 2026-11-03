@@ -6,6 +6,7 @@ status: active
 created_at: 2026-11-03
 updated_at: 2026-11-03
 evidence_level: source-verified
+capture_mode: full
 sources:
   - https://github.com/guseoh/csforge/pull/293
   - https://github.com/guseoh/csforge/pull/295

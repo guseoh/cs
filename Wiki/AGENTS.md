@@ -19,8 +19,12 @@ Keep a compact, evidence-aware, queryable store of project state, confirmed deci
 6. Resolve ID relationships and Markdown links with scripts/wiki_validate.py before finalizing a PR.
 7. Recheck source SHA, actual latest PR/CI, and conflicting documentation instead of copying old summary claims.
 
+## Per-project capture modes
+
+Read [capture-policy.md](capture-policy.md) before any automatic record. CSForge and PawCycle use **full** mode (including small completed work units and source-backed Journal entries); DevPedia uses **design-only** mode (no code diaries, PR event ingestion, or implementation authorship claims). Existing Dark Todo snapshot is retained, but new full-mode journaling is limited to the explicitly selected projects. Enforce privacy and project-specific authority rules before creating a PR or issue.
+
 ## AI session handoff
-At the end of a meaningful ChatGPT, Work or Codex task, prepare a **small, reviewable Wiki delta**: decision ID if newly confirmed, updated snapshot facts with source evidence, next open action and history summary. A GitHub connection with write permission is required to save it; an instruction file cannot access another client's private conversation automatically. Never turn an uncertain assistant promise into verified work.
+At the end of a ChatGPT, Work or Codex task, apply the relevant [capture mode](capture-policy.md). In full mode, even minor completed implementation or test work is eligible for a concise Journal entry; in DevPedia design-only mode, omit routine code journals. Prepare a **small, reviewable Wiki delta**: decision ID if newly confirmed, updated snapshot facts with source evidence, next open action and history summary. A GitHub connection with write permission is required to save it; an instruction file cannot access another client's private conversation automatically. Never turn an uncertain assistant promise into verified work.
 
 For publication and cross-client submission, use [the explicit AI handoff contract](handoff.md). Prefer a direct, reviewed canonical-record PR. If a client can only create owner-authored GitHub Issues, use a public-safe `[wiki]` Issue to stage an **untrusted candidate PR**, and promote only after review. Neither method automatically reads conversation histories.
 

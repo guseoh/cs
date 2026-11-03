@@ -18,7 +18,6 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "Wiki" / "inbox" / "merged-pr-candidates.md"
 REPOSITORIES = (
     ("CSForge", "guseoh/csforge"),
-    ("Dark Todo", "guseoh/dark-todo-planner"),
     ("PawCycle", "guseoh/pawcycle-commerce"),
 )
 RESULT_LIMIT = 12
