@@ -27,7 +27,7 @@ class WikiIntakeTests(unittest.TestCase):
         rows = [{"number": 101, "title": "safe title", "merged_at": "2026-11-03T00:00:00Z"}]
         data = {repo: rows for _, repo in REPOSITORIES}
         self.assertEqual(render(data), render(data))
-        self.assertEqual(render(data).count("safe title"), 3)
+        self.assertEqual(render(data).count("safe title"), len(REPOSITORIES))
         self.assertNotIn("production verified", render(data).lower())
 
     def test_invalid_pr_response_rejected(self):
