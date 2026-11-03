@@ -5,7 +5,7 @@ on:
       - "AGENTS.md"
       - "Wiki/**"
       - "scripts/wiki_*.py"
-      - "scripts/test_wiki_tools.py"
+      - "scripts/test_wiki_*.py"
       - ".github/workflows/wiki-*.yml"
   workflow_dispatch:
 permissions:
