@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008]
+related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
@@ -66,6 +66,18 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 - [PWC-0026](../decisions/PWC-0026.md): 2026-10-28~31 Host Pull CD evolved from OFF/policy to limited frontend-cosmetic and then service-level application-v1, with guarded main SHA, service build/digest/provenance and manual-only unsafe changes.
 - [PWL-0008](../lessons/PWL-0008.md): **actual 2026-10-31 OCI first release attempt** hit CDHost inherited `paths` collision, stopping **before image pull and service replacement**. The corrected PR #491 was merged later that day. This report does not itself prove subsequent frontend-only/Backend-only E2E, live rollback or an enabled Timer.
 - Operational status information earlier in this snapshot came from older README/ops documents and task-bound reports. The **latest 2026-11 live runtime/Timer state is unresolved by this GitHub-only reconstruction**; retain separately verified Work/Host receipts if available.
+
+## Full chronological backfill — first July approvals (2026-11-03)
+
+The [all-500 source ledger](../history/pawcycle-source-ledger/README.md) shows why the early history must begin with PR #1: there was no separate Issue before #88. The previous PWC-0003–PWC-0026 are high-value historical highlights, not an exhaustive decision count.
+
+- [PWC-0028](../decisions/PWC-0028.md): 2026-07-02 BOOTSTRAP-003/004 initial role branch names, commit/push after validation, user-only merge, Korean nominal commit titles, reports/handoff. Role branches are **historical**, not the current main-only + short task-branch operating rule; LICENSE/CODEOWNERS/CodeQL were not decided then.
+- [PWC-0027](../decisions/PWC-0027.md): 2026-07-05 PS-003 four **Approved** UX product choices: public catalog/private subscription, safe GET after login/no POST replay, generated subscription detail after success, and no client-computed pre-create next order date.
+- [PWC-0032](../decisions/PWC-0032.md): 2026-07-06 FOUNDATION-000 **Proposed** versions (Java 25, Boot 4.1, Gradle 9.1+, Node 24, Next 16, TypeScript 6, MySQL 8.4, Flyway/npm). PR merge did not accept every version.
+- [PWC-0029](../decisions/PWC-0029.md): 2026-07-10 ARCH-006 user-approved **narrow** Backend/DB/Security scope; DR1–DR3 later resolved via AUTH-003. Other Proposed documents stayed Proposed.
+- [PWC-0030](../decisions/PWC-0030.md): 2026-07-12 API-002 **seven** public Product API choices including alternatives. Its later MVP3 ACTIVE-SKU visibility update must be tracked at its own date.
+- [PWC-0031](../decisions/PWC-0031.md): 2026-07-13 API-003 **eight** subscription API decisions. Crucially first MVP omitted `Idempotency-Key` and accepted duplicate POST risk; later V2 choices are a separate epoch.
+- These are the **first detailed chronological approval examples**, not completion of #1–#100. Full PR diff, issue discussions, subsequent code and operating evidence remain to be traced for every item.
 
 ## Constraints
 - Never claim cloud readiness, current billing eligibility, recovery or production activation merely from source or CI.

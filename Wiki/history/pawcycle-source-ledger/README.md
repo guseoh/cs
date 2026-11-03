@@ -27,6 +27,16 @@
 5. **상태 판정:** 미조사 / 검토중 / 판단·승인 불명 / 기록 완료(Decision 또는 기존 기록 참조) / 독립 기록 불필요(근거·설명) 등을 구별합니다. 전체 종료는 각 원본의 판정과 생성된 결정의 원본 역링크가 맞고, 중복·누락 검토까지 통과해야 가능합니다.
 6. **실행 경계:** 읽기/소급 정리만 하고 PawCycle 코드·Issue/PR·Cloud·DB·비용·Secret 변경 금지. 중앙 Wiki Draft PR에서 리뷰·검증하고 사용자 별도 승인 전까지 병합하지 않습니다.
 
+## 2026-07 최초 내용 소급 기록 (부분 검토)
+
+- [PWC-0028](../../decisions/PWC-0028.md): PR #1/#3의 초기 Harness/역할/병합 결정.
+- [PWC-0027](../../decisions/PWC-0027.md): PR #13 / PS-003 승인 UX 4항.
+- [PWC-0032](../../decisions/PWC-0032.md): PR #20 / FOUNDATION-000 Proposed 기술 버전.
+- [PWC-0029](../../decisions/PWC-0029.md): PR #29/#31 / ARCH-006 제한 승인과 후속 AUTH-003.
+- [PWC-0030](../../decisions/PWC-0030.md): PR #35 / API-002 D1~D7.
+- [PWC-0031](../../decisions/PWC-0031.md): PR #39 / API-003 D1~D8.
+- 해당 원본의 body/권위 문서를 근거로 일부 Decision을 추출했지만 **모든 초기 PR/Issue의 diff·review·후속 운영 검증을 끝낸 것은 아니다.** 원본 표의 '대기'는 이 완전한 전수 판정을 가리킨다.
+
 ## 미완료 설명
 
 대장에 있는 모든 항목은 **목록화 완료 / 상세 전수 심사 아직 미완료**입니다. 기존 [주요 결정 인벤토리](../pawcycle-historical-decision-inventory-2026-11-03.md)의 선별 등록을 전체 완료로 계산하지 않습니다. 특히 최초 [#1–#31](001-100.md) 시기에만 승인 입력, Proposed, UX/기술/보안·Harness 선택이 서로 다른 PR에 걸쳐 있으므로, 첫 Batch에서 이를 세분화합니다.

@@ -57,6 +57,12 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0024](decisions/PWC-0024.md) | accepted | Explicit Production Catalog one-shot validation/import | pawcycle |
 | [PWC-0025](decisions/PWC-0025.md) | accepted | OCI Release identity, capacity and fail-closed recovery | pawcycle |
 | [PWC-0026](decisions/PWC-0026.md) | accepted | OCI Host Pull service-scoped guarded CD | pawcycle |
+| [PWC-0027](decisions/PWC-0027.md) | accepted | Early MVP PS-003 four UX product decisions and rejected options | pawcycle |
+| [PWC-0028](decisions/PWC-0028.md) | accepted | Historical initial role-branch Harness and user merge authority | pawcycle |
+| [PWC-0029](decisions/PWC-0029.md) | accepted | ARCH-006 narrowly approved initial Backend implementation scope | pawcycle |
+| [PWC-0030](decisions/PWC-0030.md) | accepted | API-002 public product D1-D7 decisions and alternatives | pawcycle |
+| [PWC-0031](decisions/PWC-0031.md) | accepted | API-003 first subscription D1-D8 contract and idempotency defer | pawcycle |
+| [PWC-0032](decisions/PWC-0032.md) | proposed | FOUNDATION-000 technology-version candidate, not wholesale approval | pawcycle |
 
 ## Lesson index
 

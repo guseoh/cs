@@ -46,6 +46,12 @@
 | H32 | P1 | [OCI Release #471](https://github.com/guseoh/pawcycle-commerce/issues/471), [PR #472](https://github.com/guseoh/pawcycle-commerce/pull/472), [#475](https://github.com/guseoh/pawcycle-commerce/pull/475) | 2026-10-28 | Exact SHA/digest/source, protected state/lock, DB compatibility and capacity; unknown rollback fail-closed | PR/Runbook/source | [PWC-0025](../decisions/PWC-0025.md) |
 | H33 | P1 | [Host Pull CD #473](https://github.com/guseoh/pawcycle-commerce/issues/473), [#474](https://github.com/guseoh/pawcycle-commerce/pull/474), [#486](https://github.com/guseoh/pawcycle-commerce/pull/486), [#490](https://github.com/guseoh/pawcycle-commerce/pull/490) | 2026-10-28~31 | OFF then restricted frontend cosmetic then application-v1 service-scoped; unsafe changes manual | PR/Controller code | [PWC-0026](../decisions/PWC-0026.md) |
 | H34 | P1 Lesson | [OCI first transition failure #491](https://github.com/guseoh/pawcycle-commerce/pull/491), [report](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/reports/OPS-OCI-CD-011/README.md) | 2026-10-31 | Inherited paths method collision -> TypeError before service mutation; bounded correction | Actual ops report/PR code | [PWL-0008](../lessons/PWL-0008.md) |
+| H35 | P1 | [BOOTSTRAP #1](https://github.com/guseoh/pawcycle-commerce/pull/1), [#3](https://github.com/guseoh/pawcycle-commerce/pull/3) | 2026-07-02 | 역할 브랜치·승인/검증 Harness, LICENSE/CODEOWNERS 당시 미결정 | PR body/report | [PWC-0028](../decisions/PWC-0028.md) |
+| H36 | P1 | [PS-003 PR #13](https://github.com/guseoh/pawcycle-commerce/pull/13) | 2026-07-05 | 공개 탐색/안전한 로그인 GET/상세 이동/생성 전 날짜 미표시 4항 승인 | 승인 Product 문서 | [PWC-0027](../decisions/PWC-0027.md) |
+| H37 | P1 | [FOUNDATION-000 PR #20](https://github.com/guseoh/pawcycle-commerce/pull/20) | 2026-07-06 | Java25·Boot4.1·Gradle9.1·Next16 등 추천은 Proposed; 일부만 ARCH-006 승인 | Proposed 원본 | [PWC-0032](../decisions/PWC-0032.md) |
+| H38 | P1 | [ARCH-006 PR #29](https://github.com/guseoh/pawcycle-commerce/pull/29), [AUTH-003 #31](https://github.com/guseoh/pawcycle-commerce/pull/31) | 2026-07-10 | 공개 상품 2 API/세션·CSRF/3테이블/Flyway V1 등 제한 승인, Proposal 전체 승인 아님 | Approved Inputs 문서 | [PWC-0029](../decisions/PWC-0029.md) |
+| H39 | P1 | [API-002 PR #35](https://github.com/guseoh/pawcycle-commerce/pull/35) | 2026-07-12 | 공개 Product API D1~D7 승인/대안, 후속 MVP3 ACTIVE SKU 별도 | Approved API 계약 | [PWC-0030](../decisions/PWC-0030.md) |
+| H40 | P1 | [API-003 PR #39](https://github.com/guseoh/pawcycle-commerce/pull/39) | 2026-07-13 | 구독 API D1~D8 승인, 당시 Idempotency-Key 미도입 및 중복 POST 위험 수용 | Approved API 계약 | [PWC-0031](../decisions/PWC-0031.md) |
 
 ## GitHub·코드 역추적 메모 (2026-11-03)
 
@@ -97,3 +103,7 @@
 ## 범위 변경: 선별 조사 → 최초 PR #1부터 전수 소급 (2026-11-03)
 
 이전 H01–H34는 **선별된 주요 결정·실패 사례**이며 프로젝트 전체 결정의 완전성 근거가 아니다. [전수 조사대장](pawcycle-source-ledger/README.md)에 2026-07-02 최초 PR #1부터 GitHub 공통 번호 #500까지 367 PR/133 Issue의 번호·생성일·병합/종료 상태·제목을 수집했다. 최초 별도 Issue가 #88이므로 초기 구현과 승인·제안은 대부분 PR body 및 변경된 권위 문서에 존재한다. 대장의 모든 원본은 현재 '상세 심사 대기'다. 이미 작성된 결정은 원본을 재확인할 때 연결하고, 나머지는 승인 판단·대안·검증을 새로 추출한다. 모든 source가 독립 Decision인 것은 아니지만 모든 source의 **검토 결과**는 남긴다.
+
+## 2026-07 최초 승인 원본의 Decision backfill 시작
+
+[PWC-0027](../decisions/PWC-0027.md)–[PWC-0032](../decisions/PWC-0032.md)에 실제 원본이 명시하는 UX 네 가지, Product API 일곱 가지, Subscription API 여덟 가지, 좁은 Backend 승인, Harness 최초 결정과 FOUNDATION-000 기술 버전 **Proposed 후보**를 각각 보존했다. 승인 문서와 병합 PR은 구분하며, 이후 버전의 실제 런타임 의미를 당시 정책으로 소급하지 않는다. 이 6개 기록의 존재만으로 #1–#100의 전체 diff/comments 검토가 완료된 것은 아니다. [500-source 대장](pawcycle-source-ledger/README.md)은 metadata census이고 모든 원본의 심사와 Decision 추출은 계속 미완료다.
