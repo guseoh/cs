@@ -44,7 +44,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 - 근거 범위: ADR뿐 아니라 실제 GitHub Issue 본문/결과 댓글, 병합 PR, 현재 pinned main의 Java/테스트를 대조했다. **이번 조사에서 OCI live runtime, Redis Production, 외부 AI, AWS historical resource, workload를 직접 실행하거나 재검증하지 않았다.**
 
 ## Historical concurrency/Observability/performance evidence (2026-11-03)
-- [PWC-0014](../decisions/PWC-0014.md): ARCH-007은 Proposed; 2026-10-08 Issue #356 승인과 PR #357은 실제 pessimistic row lock + `If-Match`·CAS·unique 실행 의미를 보존한다. 최초 잠금 도입 승인일은 미확인.
+- [PWC-0014](../decisions/PWC-0014.md): ARCH-007은 Proposed; 2026-10-08 Issue #356 승인과 PR #357은 실제 pessimistic row lock + `If-Match`·CAS·unique 실행 의미를 보존한다. PR #87(2026-08-02) 신규 구현에서 FOR UPDATE와 version CAS를 확인했으나 원래 Proposed 대비 별도 변경 승인 이유는 미확인.
 - [PWC-0015](../decisions/PWC-0015.md): AWS 별도 관측 호스트의 역사적 자원 근거와 OCI same-host Lean을 구분한다. 운영 overhead·alert/recovery는 신규 검증하지 않았다.
 - [PWL-0001](../lessons/PWL-0001.md): OCI Docker 29.8.0의 internal-network 구성에서 정적 publish와 runtime host listener가 달랐던 장애.
 - [PWL-0002](../lessons/PWL-0002.md): Phase 9 JFR Duration 0s/ExecutionSample 0 및 aggregate 부재는 Java hotspot 근거가 아니다.

@@ -14,7 +14,7 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | H01 | P1 | [PS-001](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/product/PS-001-first-mvp-domain-scope.md), PS-002, ARCH-001 | 확정일 미확인 | 단일 SKU 생성·조회 수직 범위, 일반 구매·결제·배송 후속; ARCH-001은 Proposed | 미확보 | [PWC-0003](../decisions/PWC-0003.md) — 제품 승인만 등록 |
 | H02 | P1 | [PS-004](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/product/PS-004-second-mvp-requirements.md), DOMAIN-002 | 확정일 미확인 | Pet·PlanVersion·snapshot 및 pending 도입; 최초 MVP는 역사적으로 보존 | 미확보 | [PWC-0004](../decisions/PWC-0004.md) — 승인 제품·도메인만 등록 |
-| H03 | P1 | ARCH-007 Proposed, [Issue #356](https://github.com/guseoh/pawcycle-commerce/issues/356), [PR #357](https://github.com/guseoh/pawcycle-commerce/pull/357), 현재 코드 | 08-02 Proposed, 10-08 T09 승인·병합 | 현재 pessimistic lock + If-Match·CAS·unique. 최초 잠금 도입 승인일 미확인 | 일부 맥락, GitHub 검증 | [PWC-0014](../decisions/PWC-0014.md) — **10월 보존 결정만 Accepted**, 원래 Proposed는 보류 |
+| H03 | P1 | ARCH-007 Proposed, [PR #87](https://github.com/guseoh/pawcycle-commerce/pull/87), [Issue #356](https://github.com/guseoh/pawcycle-commerce/issues/356), [PR #357](https://github.com/guseoh/pawcycle-commerce/pull/357), 현재 코드 | 08-02 Proposed·최초 확인 구현 PR #87 병합, 10-08 T09 승인·병합 | PR #87에 이미 `FOR UPDATE`와 version CAS 공존. **초안에서 변경한 별도 승인 이유 미확보** | 일부 대화 맥락 + 코드 patch 확인 | [PWC-0014](../decisions/PWC-0014.md) — 08-02 구현·10월 보존 결정 확인, ARCH-007 Proposed 유지 |
 | H04 | P1 | [PS-005](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/product/PS-005-subscription-automation-requirements.md), ARCH-008, [PR #121](https://github.com/guseoh/pawcycle-commerce/pull/121) | 2026-08-10 승인; 08-11 PR 병합 | Schedule별 REQUIRES_NEW + row lock + unique, 배치 전체 TX·분산락·DLQ 보류 | 미확보 | [PWC-0005](../decisions/PWC-0005.md) 등록 |
 | H05 | P1 | [ARCH-011](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/adr/ARCH-011-subscription-v2-runtime-structure.md), [PR #141](https://github.com/guseoh/pawcycle-commerce/pull/141) | 2026-08-14 PR 병합 | V2 JDBC store는 SQL, application은 유스케이스·TX 소유; 이후 전환은 별개 | 미확보 | [PWC-0006](../decisions/PWC-0006.md) 역사 기록 |
 | H06 | P1 | [ARCH-009](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/adr/ARCH-009-commerce-runtime-refactoring.md), [PR #139](https://github.com/guseoh/pawcycle-commerce/pull/139) | 2026-08-13 PR 병합 | Commerce 책임 분리/JPA validate/Lock·CAS SQL 유지; API·V1–V19 불변 | 미확보 | [PWC-0008](../decisions/PWC-0008.md) 역사 기록 |
@@ -42,7 +42,7 @@
 
 ## 후속 근거 확인 (2026-11-03)
 
-- [Issue #356](https://github.com/guseoh/pawcycle-commerce/issues/356)와 [PR #357](https://github.com/guseoh/pawcycle-commerce/pull/357)은 초기 ARCH-007의 비관적 잠금 미도입 *제안*과 실제 코드의 lock 사용을 분리해 보여준다. T09의 승인 범위는 **기존 lock/CAS/replay 계약 보존**이며, 최초 lock 도입의 근거는 미확인이다.
+- [Issue #356](https://github.com/guseoh/pawcycle-commerce/issues/356)와 [PR #357](https://github.com/guseoh/pawcycle-commerce/pull/357)은 초기 ARCH-007의 비관적 잠금 미도입 *제안*과 실제 코드의 lock 사용을 분리해 보여준다. [PR #87](https://github.com/guseoh/pawcycle-commerce/pull/87)의 신규 V2SubscriptionService patch는 `lockedOwnedSubscription ... FOR UPDATE` 및 조건부 version UPDATE를 보여주는 **초기 구현 근거**다. T09의 승인 범위는 기존 lock/CAS/replay 계약 보존이며, ARCH-007 Proposed와 달리 채택한 **별도 설계 승인 이유**는 미확인이다.
 - [ARCH-012](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/adr/ARCH-012-production-observability-boundary.md)와 PR #287/#293은 AWS 별도 Host, OCI same-host 설계, OCI 실제 network 장애·correction을 시간 순으로 분리한다.
 - [PERF-PH9-014](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/performance/PERF-PH9-014-phase9-conclusion.md)는 CPU pressure와 특정 Java hotspot 증거를 구분했고 잘못 종료된 JFR은 성능 원인으로 사용하지 않았다.
 
@@ -56,4 +56,4 @@
 
 ## 후속 Batch 순서
 
-이번 배치에서는 [PWC-0014](../decisions/PWC-0014.md), [PWC-0015](../decisions/PWC-0015.md), [PWL-0001](../lessons/PWL-0001.md), [PWL-0002](../lessons/PWL-0002.md)를 등록했다. Subscription 비관적 잠금의 **최초 도입 결정/승인 근거**는 보류한다. 다음 후보는 H08 인증 Provider 책임 및 Checkout/Payment 장애·정합성 교훈이다. Production 실검증과 구분한다.
+이번 배치에서는 [PWC-0014](../decisions/PWC-0014.md), [PWC-0015](../decisions/PWC-0015.md), [PWL-0001](../lessons/PWL-0001.md), [PWL-0002](../lessons/PWL-0002.md)를 등록했다. Subscription 비관적 잠금의 최초 확인 구현 PR은 #87로 특정했지만, ARCH-007 Proposed 초안과 달라진 **별도 승인 이유**는 보류한다. 다음 후보는 H08 인증 Provider 책임 및 Checkout/Payment 장애·정합성 교훈이다. Production 실검증과 구분한다.
