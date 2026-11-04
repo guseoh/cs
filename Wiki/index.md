@@ -15,6 +15,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | Project | Snapshot | Last checked |
 | --- | --- | --- |
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
+| Backend learning (cross-project) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) | 2026-11-04 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) | 2026-11-03 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-03 |
@@ -33,6 +34,17 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [DTD-0003](decisions/DTD-0003.md) | accepted | Today reorder and compact Calendar detail | dark-todo |
 | [PWC-0001](decisions/PWC-0001.md) | accepted | Separate CD readiness from production activation | pawcycle |
 | [PWC-0002](decisions/PWC-0002.md) | accepted | Guard and time-bound OCI A1 acquisition | pawcycle |
+| [BLR-0001](decisions/BLR-0001.md) | accepted | CS: academic chapter study, revisit through projects | backend-learning |
+| [BLR-0002](decisions/BLR-0002.md) | accepted | Prioritize Java/Spring backend before dedicated AI/cloud study | backend-learning |
+| [BLR-0003](decisions/BLR-0003.md) | accepted | Preserve Large-scale Board roadmap and direct failure experiments | backend-learning |
+| [BLR-0004](decisions/BLR-0004.md) | accepted | Study both system design volumes chapter by chapter | backend-learning |
+| [BLR-0005](decisions/BLR-0005.md) | accepted | Separate domain architecture and AI-assisted implementation track | backend-learning |
+| [BLR-0006](decisions/BLR-0006.md) | accepted | Sentry learning in Board; portfolio requires trade-off review | backend-learning |
+
+## Cross-project learning
+
+- [Backend learning snapshot](projects/backend-learning.md): current Java/Spring priority, academic CS curriculum, Large-scale Board contract, system-design reading, separate domain/AI practice, and Sentry adoption boundary.
+- Do not mistake a **planned learning activity** for an implemented feature, completed experiment or production validation. The source project ROADMAP remains authoritative.
 
 ## Record creation and maintenance
 
