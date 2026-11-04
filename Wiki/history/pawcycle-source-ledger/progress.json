@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "b787bc1825e724695525d61fd0949e6d01c76c27",
+  "wiki_parent_sha": "5f0451569ac276492a4748e9a70217fc58dbeba8",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -239,6 +239,6 @@
     "new_decisions": 15,
     "new_lessons": 9,
     "next_source": 201,
-    "source_changed_files": 651
+    "source_changed_files": 551
   }
 }

@@ -187,4 +187,4 @@ Hikari20기각·CPU2부분인과성·JFR선택과두pre-workload correction을�
 
 ## #200 요청 종료 체크포인트 — 2026-11-04
 
-#101~#200을 번호순 10개 배치로 처리했다. 신규 Decision15/Lesson9, 누적 200/501 상세 완료·301 미완료·다음#201. 원본 변경 파일651개와 전체 collection의 근거 위치를 manifest로 보존했다. 실패/기각/폐기와 후속 성공을 덮어쓰지 않았으며 현재 운영 검증을 실행한 것은 아니다. [재개점](pawcycle-source-ledger/progress.json).
+#101~#200을 번호순 10개 배치로 처리했다. 신규 Decision15/Lesson9, 누적 200/501 상세 완료·301 미완료·다음#201. 원본 변경 파일551개와 전체 collection의 근거 위치를 manifest로 보존했다. 실패/기각/폐기와 후속 성공을 덮어쓰지 않았으며 현재 운영 검증을 실행한 것은 아니다. [재개점](pawcycle-source-ledger/progress.json).
