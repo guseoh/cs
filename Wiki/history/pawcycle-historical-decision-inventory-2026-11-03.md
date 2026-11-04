@@ -148,3 +148,7 @@ AI 도구 Before 자료의 한계→Connector 대조군 재정의→읽기 capab
 ## 번호순 전수 조사 #101~#110 — 2026-11-04
 
 실측 기반 N+1 batch 조회, 구독별 reconciliation transaction 격리, 30일 멱등 보관·복구 호환 cleanup과 local 관측성 착수 경계를 복원했다. 병합 후 리뷰와 무효 검증을 구별했다. [배치 근거](pawcycle-source-ledger/batch-101-110.md). 신규 PWC-0062, PWC-0063, PWC-0064, PWL-0026, PWL-0027; 누적 110/501, 다음 #111.
+
+## 번호순 전수 조사 #111~#120 — 2026-11-04
+
+local metric·scrape 비용 수용, disposable 장애 격리, Prometheus 후보 감지와 Discord 수동 수신을 단계별로 복원했다. [배치 근거](pawcycle-source-ledger/batch-111-120.md). 신규 PWC-0065, PWC-0066, PWL-0028; 누적 120/501, 다음 #121.

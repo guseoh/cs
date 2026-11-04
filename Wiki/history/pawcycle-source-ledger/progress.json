@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "24f2be6ef18669d46bc6b63b6813264450949e55",
+  "wiki_parent_sha": "3c32af3d5b5349503cfee6724931a0b596daf3aa",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    110
+    120
   ],
-  "completed_count": 110,
-  "pending_count": 391,
-  "next_source": 111,
+  "completed_count": 120,
+  "pending_count": 381,
+  "next_source": 121,
   "batches": [
     {
       "range": [
@@ -110,6 +110,14 @@
       ],
       "evidence": "batch-101-110.md",
       "manifest": "batch-101-110.sources.json"
+    },
+    {
+      "range": [
+        111,
+        120
+      ],
+      "evidence": "batch-111-120.md",
+      "manifest": "batch-111-120.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -146,9 +154,9 @@
     "#101/#103/#104 병합 후 리뷰 해결 여부는 이 원본 범위에서 미확인; #104 실제 운영 규모·정확한 lock hold와 Production 복구 미검증."
   ],
   "validation": {
-    "wiki": "105 records, 0 issues",
+    "wiki": "108 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 110 complete; 391 pending; next #111; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 120 complete; 381 pending; next #121; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #111 before #112; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #121 before #122; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
 }
