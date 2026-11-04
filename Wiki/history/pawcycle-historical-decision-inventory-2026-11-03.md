@@ -212,3 +212,7 @@ Production import의명시승인/프록시경계, Checkout identity와Review/Q&A
 ## 번호순 전수 조사 #241~#250 — 2026-11-04
 
 UI 보정·FOUNDATION 호환성·Admin·개인화/Add-on 계약과 인증 Browser 증거를 복원하고 Provider/운영 미검증 경계를 보존했다. [배치 근거](pawcycle-source-ledger/batch-241-250.md). 신규 PWC-0086, PWC-0087; 누적 250/502, 다음 #251.
+
+## 번호순 전수 조사 #251~#260 — 2026-11-04
+
+Warm Utility→Warm Routine→Daily Orbit 변경관계, 임시AWS Auto-CD, Canonical Catalog 공통적재 준비를 복원했다. [배치 근거](pawcycle-source-ledger/batch-251-260.md). 신규 PWC-0088, PWC-0089; 누적 260/502, 다음 #261.
