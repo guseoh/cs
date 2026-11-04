@@ -156,3 +156,7 @@ local metric·scrape 비용 수용, disposable 장애 격리, Prometheus 후보 
 ## 번호순 전수 조사 #121~#130 — 2026-11-04
 
 정기 주문의 최초 구현·OFF 배포·정확한 SHA 승인, readiness/OIDC 단계와 실제 AWS 실패를 연결했다. #128의 최종 폐기는 완료와 구별했다. [배치 근거](pawcycle-source-ledger/batch-121-130.md). 신규 PWC-0067, PWC-0068; 누적 130/501, 다음 #131.
+
+## 번호순 전수 조사 #131~#140 — 2026-11-04
+
+SSM v1~v6의 실패 가설→process trace→exact Git trust→AWS 안전 배포를 복원하고 Catalog·Commerce·인증 책임 변화와 실제 검증 한계를 연결했다. [배치 근거](pawcycle-source-ledger/batch-131-140.md). 신규 PWC-0069, PWC-0070, PWL-0029; 누적 140/501, 다음 #141.
