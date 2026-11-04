@@ -43,7 +43,7 @@
         }
       ],
       "final_head_ci": null,
-      "disposition": "Production空Catalog→明示import要求",
+      "disposition": "Production 빈 Catalog와 명시적 import 요구",
       "records": [
         "PWC-0024"
       ]
@@ -570,7 +570,7 @@
           }
         ]
       },
-      "disposition": "多層confirmation/transactionproxy correction",
+      "disposition": "다층 confirmation과 transaction proxy 교정",
       "records": [
         "PWC-0024"
       ]
@@ -1098,7 +1098,7 @@
           }
         ]
       },
-      "disposition": "Checkout identity·atomic reorder·Trust domain",
+      "disposition": "Checkout identity·원자적 reorder·Trust 도메인",
       "records": [
         "PWC-0083",
         "PWC-0084"
@@ -1495,7 +1495,7 @@
           }
         ]
       },
-      "disposition": "FE request identity維持·未提供ownershipUI保留",
+      "disposition": "FE 요청 identity 유지와 미제공 소유권 UI 보류",
       "records": [
         "PWC-0083",
         "PWC-0084",
@@ -1683,7 +1683,7 @@
           }
         ]
       },
-      "disposition": "V2 deterministic generator·V1基準保全",
+      "disposition": "V2 결정적 generator와 V1 기준 보존",
       "records": [
         "PWC-0080"
       ]
@@ -2452,7 +2452,7 @@
           }
         ]
       },
-      "disposition": "V24 catalog拡張·DB制約と管理契約",
+      "disposition": "V24 Catalog 확장·DB 제약과 관리 계약",
       "records": [
         "PWC-0085"
       ]
@@ -2692,7 +2692,7 @@
           }
         ]
       },
-      "disposition": "V3 curated100/166·同SKU価格範囲修正",
+      "disposition": "V3 100/166 확장과 동일 SKU 가격 범위 교정",
       "records": [
         "PWC-0080",
         "PWC-0085"
@@ -2935,7 +2935,7 @@
           }
         ]
       },
-      "disposition": "公開discovery metadata·環境単一失敗分離",
+      "disposition": "공개 discovery metadata와 환경 실패 분리",
       "records": [
         "PWC-0085"
       ]
@@ -3480,7 +3480,7 @@
           }
         ]
       },
-      "disposition": "URL/SKU/serverauthority UI·実V3Browser保留",
+      "disposition": "URL·SKU·서버 권위 UI와 실제 V3 Browser 미검증",
       "records": [
         "PWC-0085",
         "PWC-0045"
@@ -3721,7 +3721,7 @@
           }
         ]
       },
-      "disposition": "隔離V3QA実行·correction後全再検証なし",
+      "disposition": "격리 V3 QA와 correction 후 전체 재검증 부재",
       "records": [
         "PWL-0036",
         "PWC-0080"

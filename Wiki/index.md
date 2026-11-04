@@ -111,8 +111,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0077](decisions/PWC-0077.md) | accepted | Phase 9은 특정 코드 hotspot을 입증하지 못해 추가 최적화 NO CHANGE로 종료한다 | pawcycle |
 | [PWC-0078](decisions/PWC-0078.md) | accepted | One-shot 결과는 실제 시작·역사 identity·durable evidence를 함께 결합한다 | pawcycle |
 | [PWC-0079](decisions/PWC-0079.md) | accepted | 정기배송 직접 관리는 하나의 결합 pending과 기존 주문 transaction으로 적용한다 | pawcycle |
-| [PWC-0080](decisions/PWC-0080.md) | accepted | 販売 Catalog は manifest と DB 権威を分離し検証 fixture を顧客データに混ぜない | pawcycle |
-| [PWC-0081](decisions/PWC-0081.md) | accepted | UX 補助 Skill と Draft レビューは既存設計権威を保ったまま導入する | pawcycle |
+| [PWC-0080](decisions/PWC-0080.md) | accepted | 판매 Catalog는 manifest와 DB 권위를 분리하고 검증 fixture를 고객 데이터와 격리한다 | pawcycle |
+| [PWC-0081](decisions/PWC-0081.md) | accepted | UX 보조 Skill과 Draft 리뷰는 기존 설계 권위를 유지하며 도입한다 | pawcycle |
 | [PWC-0082](decisions/PWC-0082.md) | accepted | Toss Test는 명시 opt-in과 서버 금액 대조로 준비하며 실결제와 구분한다 | pawcycle |
 | [PWC-0083](decisions/PWC-0083.md) | accepted | Checkout은 최초 요청 identity를 replay하고 서버 재주문은 Cart와 함께 원자 처리한다 | pawcycle |
 | [PWC-0084](decisions/PWC-0084.md) | accepted | Review와 Q&A는 서버 자격·소유권·moderation·동시성으로 공개 신뢰를 보호한다 | pawcycle |
@@ -180,7 +180,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0036](lessons/PWL-0036.md) | Smoke·CI 성공과 전체 사용자 Journey 판정은 다르다 | pawcycle |
 | [PWL-0037](lessons/PWL-0037.md) | 같은 fresh DB 기준선으로 환경 실패·공유 상태·제품 회귀를 구분한다 | pawcycle |
 | [PWL-0038](lessons/PWL-0038.md) | 자동화 check 성공은 실제 리뷰·배포·안전 종료의 성공 근거가 아니다 | pawcycle |
-| [PWL-0039](lessons/PWL-0039.md) | 읽기 전용 source와 running container도 실제 user·network 조건에서 검증해야 한다 | pawcycle |
+| [PWL-0039](lessons/PWL-0039.md) | 읽기 전용 archive 권한은 실제 container user의 traverse·read로 검증한다 | pawcycle |
 | [PWL-0040](lessons/PWL-0040.md) | 민감 로그 AST 검사는 직접 인자 계약이며 taint·일반 redaction을 보장하지 않는다 | pawcycle |
 
 ## Record creation and maintenance

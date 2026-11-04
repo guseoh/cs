@@ -392,7 +392,7 @@
           }
         ]
       },
-      "disposition": "FE状態/入力UX correction·実セッション未確認",
+      "disposition": "FE 상태·입력 UX 보정과 실제 인증 미확인",
       "records": [
         "PWC-0045",
         "PWC-0079"
@@ -491,7 +491,7 @@
           }
         ]
       },
-      "disposition": "独立QA失敗/部分/未実行・未病合終了",
+      "disposition": "독립 QA 실패·부분·미실행과 미병합 종료",
       "records": [
         "PWL-0036"
       ]
@@ -690,7 +690,7 @@
           }
         ]
       },
-      "disposition": "localDemoでQA在庫不足を解く・mutableinventory保全",
+      "disposition": "local Demo로 QA 재고 부족 보완·mutable inventory 보존",
       "records": [
         "PWC-0080"
       ]
@@ -1279,7 +1279,7 @@
           }
         ]
       },
-      "disposition": "manifest/DB-nativepagingへ変更・legacycache回避",
+      "disposition": "manifest·DB native paging 전환과 legacy cache 우회",
       "records": [
         "PWC-0080",
         "PWC-0009"
@@ -1882,7 +1882,7 @@
           }
         ]
       },
-      "disposition": "UX補助Skill導入・実行/検査限界",
+      "disposition": "UX 보조 Skill 도입과 실행·검사 한계",
       "records": [
         "PWC-0081"
       ]
@@ -1993,7 +1993,7 @@
           }
         ]
       },
-      "disposition": "Draft自動review有効化・使用量と動作別確認",
+      "disposition": "Draft 자동 리뷰 활성화와 사용량·실동작 구분",
       "records": [
         "PWC-0081"
       ]
@@ -2496,7 +2496,7 @@
           }
         ]
       },
-      "disposition": "購入後信頼UX・partial reorderと権威境界",
+      "disposition": "구매 후 신뢰 UX·partial reorder와 서버 권위",
       "records": [
         "PWC-0070",
         "PWC-0045"
@@ -3381,7 +3381,7 @@
           }
         ]
       },
-      "disposition": "Toss Test opt-in準備・Product Complete NO",
+      "disposition": "Toss Test opt-in 준비와 Product Complete 미달",
       "records": [
         "PWC-0082",
         "PWC-0080"
@@ -3442,7 +3442,7 @@
         }
       ],
       "final_head_ci": null,
-      "disposition": "DataV1は仮検証dataset・供給元契約を先に確認",
+      "disposition": "Data V1은 임시 검증 데이터이며 공급원 계약부터 확인",
       "records": [
         "PWC-0080",
         "PWC-0024"
@@ -3588,7 +3588,7 @@
           }
         ]
       },
-      "disposition": "32Product/42SKU/6Plan追加・既存保全",
+      "disposition": "32 Product·42 SKU·6 Plan 확장과 기존 데이터 보존",
       "records": [
         "PWC-0080"
       ]

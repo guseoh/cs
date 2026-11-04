@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "97bea923a6e1843abcbd2e6a843c8148abca7536",
+  "wiki_parent_sha": "cb4999aec13144f7d0fac1cbbafacf087fb06734",
   "wiki_main_sha": "a39344350da04c071bc4230952d0409a1bd4568d",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -310,31 +310,90 @@
     "RDS rehearsal/import/cutover 전체 chain 및 PITR restore 완료근거 미확인(#158 not_planned); 후속 runtime 사용은 #168에 별도 근거 존재. #159 quote escape grammar 부정회귀 추가 해결은 같은HEAD #160에서 미확인.",
     "#158 rehearsal 미완료/폐기 판정과 #164~#168 후속 RDS runtime·실측 증거를 함께 보존. 전체 import/cutover 승인·검증 chain은 미확인.",
     "#173 sustained 중간 Docker/MySQL snapshot 미보존. #177 exact k6 aggregate 및 overload Hikari/JVM peak 부재. Tomcat64는기각이며부분metric을0peak로해석하지않음.",
-    "#195 최신closed/completed와 마지막OPEN/미profiling댓글의시점차이: 직접closure설명은없고후속결론은#201이후순차대조대상. #200의helper/CI성공은실JFR성공이아님.",
     "#201은 NO CHANGE/Outcome C를 확인하지만 과거 원시 JFR artifact와 #195 직접 closure 원인은 재검증하지 않음. 이 PR의 2-query·JSON 통합 계약은 CI Backend skip으로 미검증.",
-    "#201에서 Phase 9 NO CHANGE/Outcome C를 확인했다. #195의 직접 closure 설명 댓글은 여전히 없다. 원시 JFR/k6 artifact의 직접 재분석은 미수행이며 당시 실행 보고와 helper 코드 경로를 대조했다."
+    "#201에서 Phase 9 NO CHANGE/Outcome C를 확인했다. #195의 직접 closure 설명 댓글은 여전히 없다. 원시 JFR/k6 artifact의 직접 재분석은 미수행이며 당시 실행 보고와 helper 코드 경로를 대조했다.",
+    "#204 5K raw detailed evidence was lost and not recreated; #208 10K is a distinct identity. #210/#211 mixed-scrape harness failure correction is not a new load run.",
+    "#225 omitted large vendored text and #237/#273/#277/#280 full text were retrieved with limited structural inspection, not independent whole-code runtime verification. #256 raster70 and #281 PNG2 are connector-inaccessible binaries: path/blob/manifest/report only; no current image/hash revalidation.",
+    "#246 post-merge stale Category/Plan and sensitive-data review findings remain unresolved by that original source alone. Source-specific real Provider, authenticated error/race and final-correction Browser gaps remain explicit in each batch.",
+    "#274 Session/JWT/Hybrid full comparison and ADR were not executed; not_planned archive is not a new KEEP Session ADR or permanent JWT rejection.",
+    "#277 closed-unmerged OCI migration readiness retained one unresolved server-authentication TLS thread. Later external-DB/observability records do not establish every historical TLS, backup/restore or cutover gate as completed.",
+    "#279 payment finalize/reconciliation/cart-version/SKU lock-order, after-sales and brandId fixture debts were explicitly deferred/exceptions; JPA convergence is not evidence of their resolution.",
+    "#299 CSRF baseline measurement-not-run and closed-unmerged; synthetic/CI success supplies no actual session/heap/CPU/capacity result.",
+    "#300 calibration is historical reported 60s/30 samples, not a current Production or capacity claim; raw artifacts/local OCI CLI not re-executed. #301-#304 independent source audits are next, despite #300 final-comment linkage. Tomcat series and OCI MQL availability require execution-time validation."
   ],
   "validation": {
     "wiki": "153 records, 0 issues",
     "intake_tests": "22 passed",
     "coverage": "502 unique consecutive sources; 300 complete; 202 pending; next #301; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #301 before #302; preserve historical failures, conditional QA and source-specific verification limits. User requested through #300 on 2026-11-04.",
+  "resume": "Requested #201-#300 complete: #201 preserved and #202-#300 audited in 10 validated batches. Continue #301 before #302; #300 references #301-#304 only as linked evidence, not independent dispositions. Re-fetch PR18 HEAD, cs/main, product/main and latest source number. Preserve binary/operational/raw-artifact limits and unresolved post-merge findings.",
   "request_checkpoint": {
-    "requested_through": 201,
-    "completed_this_request": [
-      201,
-      201
+    "new_decisions": 22,
+    "new_lessons": 6,
+    "updated_existing_records": 15,
+    "updated_existing_ids": [
+      "PWC-0006",
+      "PWC-0007",
+      "PWC-0009",
+      "PWC-0010",
+      "PWC-0012",
+      "PWC-0013",
+      "PWC-0014",
+      "PWC-0015",
+      "PWC-0023",
+      "PWC-0024",
+      "PWC-0025",
+      "PWC-0045",
+      "PWC-0055",
+      "PWC-0070",
+      "PWL-0001"
     ],
-    "batch_count": 1,
-    "new_decisions": 1,
-    "new_lessons": 0,
-    "updated_existing_records": 4,
-    "next_source": 202,
-    "source_changed_files": 1,
-    "inventory_delta": [
-      502
-    ]
+    "source_changed_files": 2420,
+    "newly_processed_sources": 99,
+    "requested_sources": 100,
+    "requested_range": [
+      201,
+      300
+    ],
+    "preserved_existing_source": 201,
+    "binary_files_not_independently_revalidated": 72,
+    "new_record_ids": [
+      "PWC-0078",
+      "PWL-0035",
+      "PWC-0079",
+      "PWC-0080",
+      "PWC-0081",
+      "PWC-0082",
+      "PWL-0036",
+      "PWC-0083",
+      "PWC-0084",
+      "PWC-0085",
+      "PWC-0086",
+      "PWC-0087",
+      "PWC-0088",
+      "PWC-0089",
+      "PWC-0090",
+      "PWC-0091",
+      "PWC-0092",
+      "PWC-0093",
+      "PWL-0037",
+      "PWC-0094",
+      "PWC-0095",
+      "PWL-0038",
+      "PWC-0096",
+      "PWC-0097",
+      "PWC-0098",
+      "PWC-0099",
+      "PWL-0039",
+      "PWL-0040"
+    ],
+    "requested_through": 300,
+    "completed_this_request": [
+      202,
+      300
+    ],
+    "batch_count": 10,
+    "next_source": 301
   },
   "resolved_or_narrowed_uncertainties": [
     {
@@ -342,6 +401,21 @@
       "was": "#195 종료 문맥과 후속 invalid JFR 결론 상세 대조 대기",
       "finding": "#201 문서에서 실제 workload 후 불완전 JFR·Outcome C·추가 코드 NO CHANGE 확인; 직접 closure 원인은 미확인 유지",
       "evidence": "batch-201-201.md"
+    },
+    {
+      "source": 263,
+      "finding": "#258/#259 and #262/#263 are same-HEAD replacement PR pairs caused by Ready connector failure; merged and unmerged status separated.",
+      "evidence": "batch-251-260.md; batch-261-270.md"
+    },
+    {
+      "source": 283,
+      "finding": "Temporary AWS auto-dispatch caused an unapproved execution attempt after image publish; OIDC failed and SSM was skipped. Dispatcher was removed, then active AWS execution surface retired in #284.",
+      "evidence": "batch-281-290.md"
+    },
+    {
+      "source": 300,
+      "finding": "same-host overhead and READY/NORMAL readiness completed historically; load/capacity and Scale Dataset Production apply remained unexecuted.",
+      "evidence": "batch-291-300.md"
     }
   ]
 }

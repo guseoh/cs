@@ -566,7 +566,7 @@
       },
       "disposition": "running·PortBindings만으로 localhost publish를 확정할 수 없음",
       "records": [
-        "PWL-0039",
+        "PWL-0001",
         "PWC-0015"
       ]
     },
