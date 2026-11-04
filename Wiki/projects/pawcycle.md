@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025]
+related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
@@ -69,7 +69,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#190 have individual detailed dispositions**, while #191–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#200 have individual detailed dispositions**, while #201–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -150,7 +150,7 @@ HTTPS 실제 발급·갱신/재부팅, S3 격리 복원과 유지보수 예외, 
 
 AI 도구 Before 자료의 한계→Connector 대조군 재정의→읽기 capability 계약→외부 측정도구→Codex 실험군을 연결하고, 우발 Issue4개는 독립 정책 없는 사고로 판정했다. cache/중복·schema drift·권한강제 아님·모델 미수집을 보존했다. [상세 근거](../history/pawcycle-source-ledger/batch-091-100.md). 누적 상세 100/501, 미완료 401; 다음 #101. 현재 운영 재검증이 아니다.
 
-## 2026-11-04 이번 요청 완료와 다음 재개
+## 2026-11-04 이전 #100 요청 종료 시점 (역사적 체크포인트)
 
 원본 #41~#100을 여섯 배치로 처리했다. 누적 **100/501 상세 완료, 401 미완료**, 다음은 **#101**이다. 신규 Decision 18개·Lesson 10개를 추가했다. PWC-0059는 원본 기술 제안의 proposed 상태, PWL-0021은 실행 재현 없는 잔여 gate 지적의 draft 상태다. 현재 main 운영 사실은 별도 재확인이 필요하다.
 
@@ -191,3 +191,15 @@ Control-only·same-SHA runtime 승인과 RDS preflight수정, Phase8의도구실
 ## 2026-11-04 역사 복원 #181~#190
 
 Tomcat128기각→CPU인과성/메모리재병목→1GiB보조효과→transaction축소효과약함→종료수집freshness보강을조건·수치·한계로연결했다. [상세 근거](../history/pawcycle-source-ledger/batch-181-190.md). 누적 상세 190/501, 미완료 311; 다음 #191. 현재 운영 재검증이 아니다.
+
+## 2026-11-04 역사 복원 #191~#200
+
+Hikari20기각·CPU2부분인과성·JFR선택과두pre-workload correction을복원했다. #200까지100건완료, 다음#201이며 profiling후속은별도근거로남겼다. [상세 근거](../history/pawcycle-source-ledger/batch-191-200.md). 누적 상세 200/501, 미완료 301; 다음 #201. 현재 운영 재검증이 아니다.
+
+## 2026-11-04 #200 요청 완료와 다음 재개
+
+원본 #101~#200 100건을 10개 검증 배치로 처리했다. 누적 **200/501 상세 완료, 301 미완료**, 다음은 **#201**이다. Decision 15개(PWC-0062~0076), Lesson 9개(PWL-0026~0034)를 추가하고 기존 기록의 근거·변경 관계를 갱신했다. 기존 Proposed/Draft를 임의 승인으로 격상하지 않았다.
+
+신규 기록: [PWC-0062](../decisions/PWC-0062.md), [PWC-0063](../decisions/PWC-0063.md), [PWC-0064](../decisions/PWC-0064.md), [PWC-0065](../decisions/PWC-0065.md), [PWC-0066](../decisions/PWC-0066.md), [PWC-0067](../decisions/PWC-0067.md), [PWC-0068](../decisions/PWC-0068.md), [PWC-0069](../decisions/PWC-0069.md), [PWC-0070](../decisions/PWC-0070.md), [PWC-0071](../decisions/PWC-0071.md), [PWC-0072](../decisions/PWC-0072.md), [PWC-0073](../decisions/PWC-0073.md), [PWC-0074](../decisions/PWC-0074.md), [PWC-0075](../decisions/PWC-0075.md), [PWC-0076](../decisions/PWC-0076.md), [PWL-0026](../lessons/PWL-0026.md), [PWL-0027](../lessons/PWL-0027.md), [PWL-0028](../lessons/PWL-0028.md), [PWL-0029](../lessons/PWL-0029.md), [PWL-0030](../lessons/PWL-0030.md), [PWL-0031](../lessons/PWL-0031.md), [PWL-0032](../lessons/PWL-0032.md), [PWL-0033](../lessons/PWL-0033.md), [PWL-0034](../lessons/PWL-0034.md).
+
+재개 시 PR18 HEAD·두 main·최신 원본 번호·progress.json을 재확인하고 #201을 먼저 처리한다. #195 현재 closure와 마지막 OPEN 댓글의 차이, 후속 invalid JFR 결론은 #201 이후 원본에서 연결한다. #158 rehearsal 폐기와 #168 RDS 실측 근거를 함께 보존하며 cutover 전체 검증을 추정하지 않는다. 제품·운영·원본 Issue/PR 변경 및 Ready/merge는 수행하지 않았다.

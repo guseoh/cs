@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "02591b9f04004f7fe8a9166973232af5ed75f9c0",
+  "wiki_parent_sha": "b787bc1825e724695525d61fd0949e6d01c76c27",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    190
+    200
   ],
-  "completed_count": 190,
-  "pending_count": 311,
-  "next_source": 191,
+  "completed_count": 200,
+  "pending_count": 301,
+  "next_source": 201,
   "batches": [
     {
       "range": [
@@ -174,6 +174,14 @@
       ],
       "evidence": "batch-181-190.md",
       "manifest": "batch-181-190.sources.json"
+    },
+    {
+      "range": [
+        191,
+        200
+      ],
+      "evidence": "batch-191-200.md",
+      "manifest": "batch-191-200.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -210,14 +218,27 @@
     "#101/#103/#104 병합 후 리뷰 해결 여부는 이 원본 범위에서 미확인; #104 실제 운영 규모·정확한 lock hold와 Production 복구 미검증.",
     "#122 병합 후 aggregate preflight·batch/candidate race 리뷰 해결 미확인. #128은 AWS 종료로 not_planned이며 전체 운영 검증 완료가 아님.",
     "#148 병합 후 runtime SHA/mount/endpoint/artifact/proxy 관련 추가 리뷰의 후속 해소는 미확인. #146 정확 MTTR 및 Grafana 순간장애 캡처는 없음.",
-    "RDS actual import/cutover/PITR restore 완료근거 없음(#158 not_planned). #159 quote escape grammar 부정회귀 추가 해결은 같은HEAD #160에서 미확인.",
+    "RDS rehearsal/import/cutover 전체 chain 및 PITR restore 완료근거 미확인(#158 not_planned); 후속 runtime 사용은 #168에 별도 근거 존재. #159 quote escape grammar 부정회귀 추가 해결은 같은HEAD #160에서 미확인.",
     "#158 rehearsal 미완료/폐기 판정과 #164~#168 후속 RDS runtime·실측 증거를 함께 보존. 전체 import/cutover 승인·검증 chain은 미확인.",
-    "#173 sustained 중간 Docker/MySQL snapshot 미보존. #177 exact k6 aggregate 및 overload Hikari/JVM peak 부재. Tomcat64는기각이며부분metric을0peak로해석하지않음."
+    "#173 sustained 중간 Docker/MySQL snapshot 미보존. #177 exact k6 aggregate 및 overload Hikari/JVM peak 부재. Tomcat64는기각이며부분metric을0peak로해석하지않음.",
+    "#195 최신closed/completed와 마지막OPEN/미profiling댓글의시점차이: 직접closure설명은없고후속결론은#201이후순차대조대상. #200의helper/CI성공은실JFR성공이아님."
   ],
   "validation": {
-    "wiki": "123 records, 0 issues",
+    "wiki": "124 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 190 complete; 311 pending; next #191; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 200 complete; 301 pending; next #201; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #191 before #192; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
+  "resume": "User-requested #101-#200 complete in 10 validated batches. Re-fetch PR18 HEAD, both main refs and latest source number; continue #201 then #202, without reprocessing #1-#200. Preserve #195 closure/profiling provenance and #158/#168 RDS evidence tension; do not infer missing operational verification.",
+  "request_checkpoint": {
+    "requested_through": 200,
+    "completed_this_request": [
+      101,
+      200
+    ],
+    "batch_count": 10,
+    "new_decisions": 15,
+    "new_lessons": 9,
+    "next_source": 201,
+    "source_changed_files": 651
+  }
 }
