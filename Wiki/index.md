@@ -114,6 +114,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0080](decisions/PWC-0080.md) | accepted | 販売 Catalog は manifest と DB 権威を分離し検証 fixture を顧客データに混ぜない | pawcycle |
 | [PWC-0081](decisions/PWC-0081.md) | accepted | UX 補助 Skill と Draft レビューは既存設計権威を保ったまま導入する | pawcycle |
 | [PWC-0082](decisions/PWC-0082.md) | accepted | Toss Test는 명시 opt-in과 서버 금액 대조로 준비하며 실결제와 구분한다 | pawcycle |
+| [PWC-0083](decisions/PWC-0083.md) | accepted | Checkout은 최초 요청 identity를 replay하고 서버 재주문은 Cart와 함께 원자 처리한다 | pawcycle |
+| [PWC-0084](decisions/PWC-0084.md) | accepted | Review와 Q&A는 서버 자격·소유권·moderation·동시성으로 공개 신뢰를 보호한다 | pawcycle |
+| [PWC-0085](decisions/PWC-0085.md) | accepted | Catalog 확장은 DB의 상품 관계·동일 SKU predicate와 공개 탐색 metadata를 기준으로 한다 | pawcycle |
 
 ## Knowledge index
 
@@ -181,10 +184,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#230 have individual detailed dispositions; #231–#502 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#240 have individual detailed dispositions; #241–#502 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #231](history/pawcycle-source-ledger/progress.json). Current count: **230 complete / 272 pending / 502 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #241](history/pawcycle-source-ledger/progress.json). Current count: **240 complete / 262 pending / 502 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -270,3 +273,7 @@ Scheduler 설정After와Phase10 조건부기술선택 종료, MVP4 결합pending
 ### PawCycle 상세 처리 #221~#230 (2026-11-04)
 
 독립QA의실패/미병합, Demo/manifest·DB-native탐색권위, UX보조도구/Draftreview와TossTest opt-in의미완성경계를복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-221-230.md). 최신 누적 230/502, 미완료 272, 다음 #231.
+
+### PawCycle 상세 처리 #231~#240 (2026-11-04)
+
+Production import의명시승인/프록시경계, Checkout identity와Review/Q&A, V24/V3탐색·가격predicate·실QA의검증gap을복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-231-240.md). 최신 누적 240/502, 미완료 262, 다음 #241.
