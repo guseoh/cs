@@ -218,6 +218,21 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0046](lessons/PWL-0046.md) | 교훈 | 커밋한 통합 테스트 fixture는 실패·권한 중단 뒤에도 소유 범위에서 정리해야 한다 |
 | [PWL-0047](lessons/PWL-0047.md) | 교훈 | 공유 Hikari active 수치 대신 해당 요청의 연결 반환과 트랜잭션 정리를 검증한다 |
 
+
+## #401–#503 신규 기록
+
+| ID | 내용 |
+| --- | --- |
+| [PWC-0122](decisions/PWC-0122.md) | Category 최대2단계는 부모 선행·정렬된 행 잠금과 최상위 transaction에서 보호한다 |
+| [PWC-0123](decisions/PWC-0123.md) | Catalog Import는 중립 Command를 직접 검증하고 실제 apply·rollback을 별도로 확인한다 |
+| [PWC-0124](decisions/PWC-0124.md) | MVC 입력 오류와 Frontend 도메인 오류는 실제 wire 경계에서 보호한다 |
+| [PWC-0125](decisions/PWC-0125.md) | Order 반품 wire와 화면 모델 차이는 전용 consumer adapter에서 정규화한다 |
+| [PWC-0126](decisions/PWC-0126.md) | 분석·설계·저장소 변경·운영 실행은 서로 다른 완료와 권한 경계를 가진다 |
+| [PWC-0127](decisions/PWC-0127.md) | 반품 입고는 재고 복원·비복원·취소와 결과 불확실성을 분리한다 |
+| [PWC-0128](decisions/PWC-0128.md) | Desktop UI는 승인된 시안 변화와 fixture·실인증 검증 범위를 함께 남긴다 |
+| [PWC-0129](decisions/PWC-0129.md) | A1 단기 스케줄러는 조회 호출만 옮기고 실제 실행 연속성을 별도로 검증한다 |
+| [PWL-0048](lessons/PWL-0048.md) | 같은 HEAD의 후속 성공은 최초 물리 잠금 실패의 원인 규명이 아니다 |
+
 ## Record creation and maintenance
 
 - [Wiki/AGENTS.md](AGENTS.md): AI retrieval, review and write safeguards
@@ -237,10 +252,10 @@ All records have stable IDs and links.Updating a project snapshot must not silen
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#400 have individual detailed dispositions; #401–#503 remain to be triaged despite existing partial topic-level records.There has been no comprehensive import of private ChatGPT, Work or Codex conversations.A missing record does not prove a historical decision never occurred.Projects may change after their last verification timestamp.GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#503 have source dispositions with bounded inspection and explicit limitations; open sources remain open work, not implemented outcomes.There has been no comprehensive import of private ChatGPT, Work or Codex conversations.A missing record does not prove a historical decision never occurred.Projects may change after their last verification timestamp.GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #401](history/pawcycle-source-ledger/progress.json). Current count: **400 complete / 103 pending / 503 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next newly verified source #504](history/pawcycle-source-ledger/progress.json). Current count: **503 dispositions / 0 pending source audits / 503 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -376,3 +391,13 @@ Checkout 정확성/무효 측정/NO_CHANGE, Querydsl·topology·typed read 선�
 원본 #331–#400의 변경파일747개를 manifest에 대조했다. 누락 patch 중 대형 Python4개는 원문·구조를 보충했고 이미지22개는 픽셀 재검증 없이 metadata/당시 보고로 제한한다. #503은 새 존재·Draft metadata만 추가했으며 상세 처리하지 않았다. 제품·운영·DB·Cloud·Secret·Provider·부하 실행은 없다. 원본 #401 이후의 closure 댓글 링크는 연결 근거이며 그 PR들의 독립 전수 완료를 뜻하지 않는다.
 
 [요청 체크포인트](history/pawcycle-source-ledger/checkpoint-301-400.md).
+
+## #401–최신 Closed PR #503 완료
+
+#401부터 조회시 최신 Closed PR #503까지 **103개 원본의 판정**을 기록했다. Open 원본은 제안·미병합·잔여 상태로 구분했으며 구현 완료로 바꾸지 않았다. 누적 **503개 목록 / 503개 출처 판정 / 대기0**, 다음 신규 후보 #504(아직 목록 생성하지 않음)다. 신규 결정8개(PWC-0122–0129)·교훈1개(PWL-0048), 기존 기록15개를 갱신했다.
+
+Architecture의 남은 경계와21Adapter KEEP, Cart version/F07/Category/Import/MVC/wire 계약, 시간 호환성·테스트 격리, Desktop R3·입고 취소/응답 불확실성, OCI Release/Host Pull·trust/timer/helper/image/TLS·서비스별 정책 및 최초 실전 STOP, A1 disabled worker/root compartment/단기 조회 Cron 변경을 연결했다.
+
+변경파일706개·전체 제공 patch와 댓글/리뷰/commit/CI metadata를 수집하고 주요 계약·실패를 제한 대조했다. 이미지35개(path 중복 포함)는 픽셀 재검증 없이 metadata/당시 보고만 보존했다. source별 원시 로컬 artifact·실제 인증·Provider·운영/복구·장기 연속성을 새로 검증하지 않았다. #503 병합은 Cloudflare 운영 배포나 외부 Secret 등록이 아니다. 코드 전체의 독립 전수 리뷰라고 주장하지 않는다.
+
+[근거·동적 상태·재개점](history/pawcycle-source-ledger/checkpoint-401-503.md).

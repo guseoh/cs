@@ -8,7 +8,7 @@
 - GitHub 번호: **#1–#500 전부** (Issue/PR 공통 번호 체계), PR **367개**, Issue **133개**.
 - 분류: PR Merged **342**, Closed/Unmerged **21**, Open **4**; Issue Closed **118**, Open **15**.
 - 첫 PR: [#1](https://github.com/guseoh/pawcycle-commerce/pull/1); 첫 별도 Issue: [#88](https://github.com/guseoh/pawcycle-commerce/issues/88).
-- 추가 목록: [#501~#503](501-600.md). #501은 2026-11-03, #502는 2026-11-04 metadata로 확인했습니다. 현재 목록 총 **503건**, 상세 완료 **400**, 미완료 **103**입니다. #502는 상세 조사하지 않았으며, 원래 #1~#500의 상태 스냅샷은 당시 값으로 보존합니다.
+- 추가 목록: [#501~#503](501-600.md). #501은 2026-11-03, #502는 2026-11-04 metadata로 확인했습니다. 현재 목록 총 **503건**, 상세 출처 판정 **503**, 대기 **0**입니다. #502는 상세 조사하지 않았으며, 원래 #1~#500의 상태 스냅샷은 당시 값으로 보존합니다.
 
 ## 번호 범위별 원본 대장
 
@@ -35,8 +35,8 @@
 
 ## 최신 번호순 상세 판정 — 2026-11-04
 
-- **#1~#400: 원본별 상세 판정 완료(400/503)**. 원본 처리 완료는 모든 운영 불확실성의 해소를 뜻하지 않는다.
-- **#401~#503: 103건 미완료**. 번호순으로 이어간다.
+- **#1~#503: 원본별 판정 완료(503/503, 제한 검사·한계 명시)**. 원본 처리 완료는 모든 운영 불확실성의 해소를 뜻하지 않는다.
+- **#401~#503: 이번 요청에서 판정 완료; Open source는 미완료 제품 작업으로 별도 유지**. 번호순으로 이어간다.
 - 신규 [PWC-0034](../../decisions/PWC-0034.md)는 한국어/보조 AI 리뷰 운영, [PWC-0035](../../decisions/PWC-0035.md)~[PWC-0038](../../decisions/PWC-0038.md)는 ARCH/DATA/API/AUTH의 **Proposed** 제안입니다. [PWL-0011](../../lessons/PWL-0011.md)은 리뷰 후에도 남은 본문/handoff 불일치입니다.
 - 초기 Harness와 제품 범위는 [PWC-0028](../../decisions/PWC-0028.md)·[PWC-0003](../../decisions/PWC-0003.md)에 연결했습니다. 후속 DOMAIN-001 설계는 [PWC-0033](../../decisions/PWC-0033.md), 협업 알림 false-green과 HTTP 403·본문 인코딩 문제는 [PWL-0010](../../lessons/PWL-0010.md)에 보존합니다. [PR #2](https://github.com/guseoh/pawcycle-commerce/pull/2)의 Obsidian 기록 실패 수정은 [PWL-0009](../../lessons/PWL-0009.md)에 별도로 보존합니다. PR #1의 fixture에 적힌 예시 PR 번호/이벤트는 실제 수행 증거가 아닙니다.
 - 이 대장은 **개별 원본이 어떤 결정을 지원하는지 또는 왜 별도 Decision이 불필요한지** 모두 추적합니다. 한 PR에 다수 판단이 있으면 분해하고, 문서와 운영 근거의 부재를 그대로 표시합니다.
@@ -53,12 +53,12 @@
 
 ## 미완료 설명
 
-대장 전체는 **목록화 완료 / 상세 전수 심사 진행 중(#1~#400 완료, #401~#503 미완료)**입니다. 기존 [주요 결정 인벤토리](../pawcycle-historical-decision-inventory-2026-11-03.md)의 선별 등록을 전체 완료로 계산하지 않습니다. 특히 최초 [#1–#31](001-100.md) 시기에만 승인 입력, Proposed, UX/기술/보안·Harness 선택이 서로 다른 PR에 걸쳐 있으므로, 첫 Batch에서 이를 세분화합니다.
+대장 전체는 **목록화 완료 / 상세 전수 심사 진행 중(#1~#503 출처 판정 완료; Open 제품 작업은 별도)**입니다. 기존 [주요 결정 인벤토리](../pawcycle-historical-decision-inventory-2026-11-03.md)의 선별 등록을 전체 완료로 계산하지 않습니다. 특히 최초 [#1–#31](001-100.md) 시기에만 승인 입력, Proposed, UX/기술/보안·Harness 선택이 서로 다른 PR에 걸쳐 있으므로, 첫 Batch에서 이를 세분화합니다.
 
 
 ## 정확한 재개 지점
 
-- 다음 원본: **#401**. #1~#400을 중복 생성하지 않는다. 사용자 요청 #301–#400은 완료했다.
+- 다음 신규 후보: **#504**. 존재를 확인하기 전 목록에 추가하지 않는다. 사용자 요청 #401–최신 Closed PR #503은 완료했다.
 - 재개 기준: 이 PR 최신 HEAD와 main을 다시 조회하고 [progress.json](progress.json)·대장·연대기를 대조합니다. source가 수정됐다면 과거 판정을 지우지 말고 delta를 덧붙입니다.
 - #13의 당시 검토 SHA 맥락/학습 기록 후속, Proposed 문서의 별도 승인, #17/#19 불일치 후속 해결과 실제 앱/운영 증거는 미확인 추적 항목입니다.
 
@@ -141,3 +141,13 @@ Checkout 정확성/무효 측정/NO_CHANGE, Querydsl·topology·typed read 선�
 원본 #331–#400의 변경파일747개를 manifest에 대조했다. 누락 patch 중 대형 Python4개는 원문·구조를 보충했고 이미지22개는 픽셀 재검증 없이 metadata/당시 보고로 제한한다. #503은 새 존재·Draft metadata만 추가했으며 상세 처리하지 않았다. 제품·운영·DB·Cloud·Secret·Provider·부하 실행은 없다. 원본 #401 이후의 closure 댓글 링크는 연결 근거이며 그 PR들의 독립 전수 완료를 뜻하지 않는다.
 
 [최신 main·수집 한계·대체 PR 대조](checkpoint-301-400.md).
+
+## #401–#503 요청 완료
+
+#401부터 조회시 최신 Closed PR #503까지 **103개 원본의 판정**을 기록했다. Open 원본은 제안·미병합·잔여 상태로 구분했으며 구현 완료로 바꾸지 않았다. 누적 **503개 목록 / 503개 출처 판정 / 대기0**, 다음 신규 후보 #504(아직 목록 생성하지 않음)다. 신규 결정8개(PWC-0122–0129)·교훈1개(PWL-0048), 기존 기록15개를 갱신했다.
+
+Architecture의 남은 경계와21Adapter KEEP, Cart version/F07/Category/Import/MVC/wire 계약, 시간 호환성·테스트 격리, Desktop R3·입고 취소/응답 불확실성, OCI Release/Host Pull·trust/timer/helper/image/TLS·서비스별 정책 및 최초 실전 STOP, A1 disabled worker/root compartment/단기 조회 Cron 변경을 연결했다.
+
+변경파일706개·전체 제공 patch와 댓글/리뷰/commit/CI metadata를 수집하고 주요 계약·실패를 제한 대조했다. 이미지35개(path 중복 포함)는 픽셀 재검증 없이 metadata/당시 보고만 보존했다. source별 원시 로컬 artifact·실제 인증·Provider·운영/복구·장기 연속성을 새로 검증하지 않았다. #503 병합은 Cloudflare 운영 배포나 외부 Secret 등록이 아니다. 코드 전체의 독립 전수 리뷰라고 주장하지 않는다.
+
+[체크포인트](checkpoint-401-503.md).

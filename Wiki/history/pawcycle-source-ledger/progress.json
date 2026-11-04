@@ -6,9 +6,9 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "2040345d59c919a6843a4d4939380ecf8589377a",
-  "wiki_main_sha": "53758f5255185a0ccbd5fc93c5d70a9b2ab2c474",
-  "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
+  "wiki_parent_sha": "b9e3a5e71f1c180e5e324c09b9f826980a18b6d1",
+  "wiki_main_sha": "65840658dac376ce33d7554dcf362185a239442f",
+  "source_main_sha": "79c4b4ce39e2edf4696e54d839f963848397231e",
   "inventoried_range": [
     1,
     503
@@ -22,11 +22,11 @@
   "inventoried_count": 503,
   "completed_contiguous_range": [
     1,
-    400
+    503
   ],
-  "completed_count": 400,
-  "pending_count": 103,
-  "next_source": 401,
+  "completed_count": 503,
+  "pending_count": 0,
+  "next_source": 504,
   "batches": [
     {
       "range": [
@@ -352,6 +352,94 @@
       ],
       "evidence": "batch-391-400.md",
       "manifest": "batch-391-400.sources.json"
+    },
+    {
+      "range": [
+        401,
+        410
+      ],
+      "evidence": "batch-401-410.md",
+      "manifest": "batch-401-410.sources.json"
+    },
+    {
+      "range": [
+        411,
+        420
+      ],
+      "evidence": "batch-411-420.md",
+      "manifest": "batch-411-420.sources.json"
+    },
+    {
+      "range": [
+        421,
+        430
+      ],
+      "evidence": "batch-421-430.md",
+      "manifest": "batch-421-430.sources.json"
+    },
+    {
+      "range": [
+        431,
+        440
+      ],
+      "evidence": "batch-431-440.md",
+      "manifest": "batch-431-440.sources.json"
+    },
+    {
+      "range": [
+        441,
+        450
+      ],
+      "evidence": "batch-441-450.md",
+      "manifest": "batch-441-450.sources.json"
+    },
+    {
+      "range": [
+        451,
+        460
+      ],
+      "evidence": "batch-451-460.md",
+      "manifest": "batch-451-460.sources.json"
+    },
+    {
+      "range": [
+        461,
+        470
+      ],
+      "evidence": "batch-461-470.md",
+      "manifest": "batch-461-470.sources.json"
+    },
+    {
+      "range": [
+        471,
+        480
+      ],
+      "evidence": "batch-471-480.md",
+      "manifest": "batch-471-480.sources.json"
+    },
+    {
+      "range": [
+        481,
+        490
+      ],
+      "evidence": "batch-481-490.md",
+      "manifest": "batch-481-490.sources.json"
+    },
+    {
+      "range": [
+        491,
+        500
+      ],
+      "evidence": "batch-491-500.md",
+      "manifest": "batch-491-500.sources.json"
+    },
+    {
+      "range": [
+        501,
+        503
+      ],
+      "evidence": "batch-501-503.md",
+      "manifest": "batch-501-503.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -406,27 +494,33 @@
     "T10 initial Purge timing and #365 historical actual borrower remain unconfirmed; stable local capacity does not prove Production limits.",
     "#378 Windows full suite subprocess timeout/abort and final reviewer gap remain separate from Linux CI; #397 rate-limit and #400 review0/0 are not completed external reviews.",
     "#381 initial design says implementation not approved; later #382 implementation/merge does not alone recover a separate approval transcript.",
-    "#399 observed open/reopened health alert is not current capacity/recovery proof. #503 is inventory-only; newer proposals are not applied to historical monitor claims."
+    "#399 observed open/reopened health alert is not current capacity/recovery proof. #503 is inventory-only; newer proposals are not applied to historical monitor claims.",
+    "#401–#503 inspection is bounded;35 raster entries not revalidated;local original artifacts not rerun.",
+    "#409 T09 initial failure RCA remains unresolved despite later CI success.",
+    "#417 Phase2 finalization,actual Provider/recovery and mixed-release time-data verification remain outside repository closure.",
+    "#491 actual first OCI transition stopped before image pull/service recreation;live adopt/activation/rollback not proven by correction.",
+    "#503 final removes external Heartbeat proposal from Open502;Cloudflare activation/Secret registration/live cadence/alerts remain NOT_RUN."
   ],
   "validation": {
-    "wiki": "182 records,0 issues",
-    "intake_tests": "22 tests:19 initial PASS;3 temp-directory permission errors then focused3 PASS using workspace TEMP; exact-head CI pending",
-    "coverage": "503 unique consecutive sources;400 complete;103 pending;next401;100 request-range dispositions;70 unique new journal keys;747 source files;22 raster metadata-only;4 large Python originals structurally inspected"
+    "wiki": "pending final validation",
+    "intake_tests": "pending final22 tests",
+    "coverage": "503 consecutive inventory entries;503 dispositions;103 new journal keys;706 source-file entries;35 images metadata-only"
   },
-  "resume": "User request #301–#400 complete. Re-fetch PR18 HEAD and both main refs; next independent source #401. #503 inventoried only. Do not reprocess completed historical records or claim current Production health.",
+  "resume": "All inventoried sources through503 have dispositions. Check new sources and changed Open sources before further audit. #504 is a candidate number only, not confirmed to exist. Never infer source completion as implementation/Production completion.",
   "request_checkpoint": {
     "requested_range": [
-      301,
-      400
+      401,
+      503
     ],
-    "requested_through": 400,
+    "requested_through": 503,
+    "latest_closed_pr": 503,
     "completed_this_request": [
-      301,
-      400
+      401,
+      503
     ],
-    "next_source": 401,
-    "scope": "source dispositions and source-specific limitations; no operational execution",
-    "status": "complete"
+    "next_source": 504,
+    "status": "complete",
+    "scope": "Per-source dispositions including explicit Open/pending implementation; bounded historical contract investigation, not complete independent code/runtime review"
   },
   "resolved_or_narrowed_uncertainties": [
     {
@@ -465,5 +559,16 @@
       "finding": "Initial DEFER later repository completed through #455; summary evidence support does not imply #455 has a formal CodeRabbit review.",
       "evidence": "batch-391-400.md"
     }
+  ],
+  "open_sources_observed": [
+    417,
+    460,
+    461,
+    466,
+    469,
+    470,
+    485,
+    487,
+    502
   ]
 }
