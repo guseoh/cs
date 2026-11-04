@@ -401,3 +401,11 @@ Architecture의 남은 경계와21Adapter KEEP, Cart version/F07/Category/Import
 변경파일706개·전체 제공 patch와 댓글/리뷰/commit/CI metadata를 수집하고 주요 계약·실패를 제한 대조했다. 이미지35개(path 중복 포함)는 픽셀 재검증 없이 metadata/당시 보고만 보존했다. source별 원시 로컬 artifact·실제 인증·Provider·운영/복구·장기 연속성을 새로 검증하지 않았다. #503 병합은 Cloudflare 운영 배포나 외부 Secret 등록이 아니다. 코드 전체의 독립 전수 리뷰라고 주장하지 않는다.
 
 [근거·동적 상태·재개점](history/pawcycle-source-ledger/checkpoint-401-503.md).
+
+## Issue 본문·댓글 보완 — 2026-11-04
+
+- [PWL-0049 · 파일 복원과 exact SHA 실행 승인](lessons/PWL-0049.md)
+
+독립 Issue **133개·댓글444개**를 본문과 함께 재검토했다. 댓글 링크444개는 기존 URL 인덱스에 이미 있었다. 이번에는 판단 전환의 설명과 승인 범위를 보완했으며 기존 분석에 같은 의미가 있으면 해당 기록을 갱신했다. Open Issue는 #399·#417·#460·#461·#470의5개다.
+
+UTC 승인/STOP/재승인, F07 query-only, lease 범위 종료, 최종 HEAD review 정정, 운영 추적 통합을 기존8개 기록에 보완했다. exact SHA 승인에 관한 PWL-0049만 신규 등록했다. 번호별503개 출처 판정은 별도 유지한다. [Issue 재검토 대장](history/pawcycle-issue-ledger/README.md).

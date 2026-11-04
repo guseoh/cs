@@ -151,3 +151,7 @@ Architecture의 남은 경계와21Adapter KEEP, Cart version/F07/Category/Import
 변경파일706개·전체 제공 patch와 댓글/리뷰/commit/CI metadata를 수집하고 주요 계약·실패를 제한 대조했다. 이미지35개(path 중복 포함)는 픽셀 재검증 없이 metadata/당시 보고만 보존했다. source별 원시 로컬 artifact·실제 인증·Provider·운영/복구·장기 연속성을 새로 검증하지 않았다. #503 병합은 Cloudflare 운영 배포나 외부 Secret 등록이 아니다. 코드 전체의 독립 전수 리뷰라고 주장하지 않는다.
 
 [체크포인트](checkpoint-401-503.md).
+
+## Issue 댓글 별도 재검토
+
+[Issue 전용 대장](../pawcycle-issue-ledger/README.md)에133개/댓글444개를 보완했다. 번호별503개 원본 판정과 중복 합산하지 않는다.

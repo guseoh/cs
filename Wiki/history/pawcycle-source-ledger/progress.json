@@ -571,5 +571,13 @@
     485,
     487,
     502
-  ]
+  ],
+  "issue_review": {
+    "observed_at": "2026-11-04",
+    "issue_count": 133,
+    "comment_count": 444,
+    "new_comment_url_count": 0,
+    "checkpoint": "../pawcycle-issue-ledger/README.md",
+    "pending_comment_fetches": 0
+  }
 }
