@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034]
+related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
@@ -69,7 +69,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#200 have individual detailed dispositions**, while #201–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#201 have individual detailed dispositions**, while #202–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -203,3 +203,11 @@ Hikari20기각·CPU2부분인과성·JFR선택과두pre-workload correction을�
 신규 기록: [PWC-0062](../decisions/PWC-0062.md), [PWC-0063](../decisions/PWC-0063.md), [PWC-0064](../decisions/PWC-0064.md), [PWC-0065](../decisions/PWC-0065.md), [PWC-0066](../decisions/PWC-0066.md), [PWC-0067](../decisions/PWC-0067.md), [PWC-0068](../decisions/PWC-0068.md), [PWC-0069](../decisions/PWC-0069.md), [PWC-0070](../decisions/PWC-0070.md), [PWC-0071](../decisions/PWC-0071.md), [PWC-0072](../decisions/PWC-0072.md), [PWC-0073](../decisions/PWC-0073.md), [PWC-0074](../decisions/PWC-0074.md), [PWC-0075](../decisions/PWC-0075.md), [PWC-0076](../decisions/PWC-0076.md), [PWL-0026](../lessons/PWL-0026.md), [PWL-0027](../lessons/PWL-0027.md), [PWL-0028](../lessons/PWL-0028.md), [PWL-0029](../lessons/PWL-0029.md), [PWL-0030](../lessons/PWL-0030.md), [PWL-0031](../lessons/PWL-0031.md), [PWL-0032](../lessons/PWL-0032.md), [PWL-0033](../lessons/PWL-0033.md), [PWL-0034](../lessons/PWL-0034.md).
 
 재개 시 PR18 HEAD·두 main·최신 원본 번호·progress.json을 재확인하고 #201을 먼저 처리한다. #195 현재 closure와 마지막 OPEN 댓글의 차이, 후속 invalid JFR 결론은 #201 이후 원본에서 연결한다. #158 rehearsal 폐기와 #168 RDS 실측 근거를 함께 보존하며 cutover 전체 검증을 추정하지 않는다. 제품·운영·원본 Issue/PR 변경 및 Ready/merge는 수행하지 않았다.
+
+## 2026-11-04 역사 복원 #201~#201
+
+Phase 9은 잔여 포화가 있지만 특정 Java hotspot 귀속 증거가 없어 추가 코드 최적화 NO CHANGE로 종료했다. 실제 PH9-011 불완전 JFR과 선행 pre-workload 실패를 구분하고 통합 검증 미실행 correction을 복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-201-201.md). 누적 상세 201/502, 미완료 301; 다음 #202. 현재 운영 재검증이 아니다.
+
+### #201 요청 종료 체크포인트
+
+[추가 최적화 NO CHANGE](../decisions/PWC-0077.md)와 JFR Outcome C, 미실행 통합 계약을 기록했다. 이번 신규 Decision 1개·기존 기록 4개 갱신, 누적 201/502 상세 완료·301 미완료·다음 #202다. 새 #502는 목록 metadata만 확인했다. cs main은 a3934435(Study 문서 1개 변경), PawCycle main은 caad5233로 확인했으며 원본 자료·제품·운영은 변경하지 않았다. #195의 직접 closure 원인은 미확인으로 유지한다.

@@ -6,25 +6,26 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "5f0451569ac276492a4748e9a70217fc58dbeba8",
-  "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
+  "wiki_parent_sha": "187a22dc84d8484b876544dca0b983e3a5a61f96",
+  "wiki_main_sha": "a39344350da04c071bc4230952d0409a1bd4568d",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
     1,
-    501
+    502
   ],
   "original_census_count": 500,
   "delta_inventory": [
-    501
+    501,
+    502
   ],
-  "inventoried_count": 501,
+  "inventoried_count": 502,
   "completed_contiguous_range": [
     1,
-    200
+    201
   ],
-  "completed_count": 200,
+  "completed_count": 201,
   "pending_count": 301,
-  "next_source": 201,
+  "next_source": 202,
   "batches": [
     {
       "range": [
@@ -182,6 +183,14 @@
       ],
       "evidence": "batch-191-200.md",
       "manifest": "batch-191-200.sources.json"
+    },
+    {
+      "range": [
+        201,
+        201
+      ],
+      "evidence": "batch-201-201.md",
+      "manifest": "batch-201-201.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -221,24 +230,38 @@
     "RDS rehearsal/import/cutover 전체 chain 및 PITR restore 완료근거 미확인(#158 not_planned); 후속 runtime 사용은 #168에 별도 근거 존재. #159 quote escape grammar 부정회귀 추가 해결은 같은HEAD #160에서 미확인.",
     "#158 rehearsal 미완료/폐기 판정과 #164~#168 후속 RDS runtime·실측 증거를 함께 보존. 전체 import/cutover 승인·검증 chain은 미확인.",
     "#173 sustained 중간 Docker/MySQL snapshot 미보존. #177 exact k6 aggregate 및 overload Hikari/JVM peak 부재. Tomcat64는기각이며부분metric을0peak로해석하지않음.",
-    "#195 최신closed/completed와 마지막OPEN/미profiling댓글의시점차이: 직접closure설명은없고후속결론은#201이후순차대조대상. #200의helper/CI성공은실JFR성공이아님."
+    "#195 최신closed/completed와 마지막OPEN/미profiling댓글의시점차이: 직접closure설명은없고후속결론은#201이후순차대조대상. #200의helper/CI성공은실JFR성공이아님.",
+    "#201은 NO CHANGE/Outcome C를 확인하지만 과거 원시 JFR artifact와 #195 직접 closure 원인은 재검증하지 않음. 이 PR의 2-query·JSON 통합 계약은 CI Backend skip으로 미검증.",
+    "#201에서 Phase 9 NO CHANGE/Outcome C를 확인했다. #195의 직접 closure 설명 댓글은 여전히 없다. 원시 JFR/k6 artifact의 직접 재분석은 미수행이며 당시 실행 보고와 helper 코드 경로를 대조했다."
   ],
   "validation": {
-    "wiki": "124 records, 0 issues",
+    "wiki": "125 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 200 complete; 301 pending; next #201; unique journal keys; batch source/file manifests consistent"
+    "coverage": "502 unique consecutive sources; 201 complete; 301 pending; next #202; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "User-requested #101-#200 complete in 10 validated batches. Re-fetch PR18 HEAD, both main refs and latest source number; continue #201 then #202, without reprocessing #1-#200. Preserve #195 closure/profiling provenance and #158/#168 RDS evidence tension; do not infer missing operational verification.",
+  "resume": "User requested source #201 only; completed #1-#201. Continue #202 before #203. #502 was inventoried as pending metadata only, not audited. Re-fetch PR18 HEAD, both main refs and latest source number. #201 confirms Phase9 NO CHANGE/Outcome C; preserve #195 direct closure provenance and absent raw profiling evidence.",
   "request_checkpoint": {
-    "requested_through": 200,
+    "requested_through": 201,
     "completed_this_request": [
-      101,
-      200
+      201,
+      201
     ],
-    "batch_count": 10,
-    "new_decisions": 15,
-    "new_lessons": 9,
-    "next_source": 201,
-    "source_changed_files": 551
-  }
+    "batch_count": 1,
+    "new_decisions": 1,
+    "new_lessons": 0,
+    "updated_existing_records": 4,
+    "next_source": 202,
+    "source_changed_files": 1,
+    "inventory_delta": [
+      502
+    ]
+  },
+  "resolved_or_narrowed_uncertainties": [
+    {
+      "source": 201,
+      "was": "#195 종료 문맥과 후속 invalid JFR 결론 상세 대조 대기",
+      "finding": "#201 문서에서 실제 workload 후 불완전 JFR·Outcome C·추가 코드 NO CHANGE 확인; 직접 closure 원인은 미확인 유지",
+      "evidence": "batch-201-201.md"
+    }
+  ]
 }
