@@ -75,6 +75,10 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0041](decisions/PWC-0041.md) | accepted | Historical MySQL 8.4 mutable CI image policy | pawcycle |
 | [PWC-0042](decisions/PWC-0042.md) | accepted | Historical public Product batch query and read model | pawcycle |
 | [PWC-0043](decisions/PWC-0043.md) | accepted | Trusted notification code and original CI SHA provenance | pawcycle |
+| [PWC-0044](decisions/PWC-0044.md) | accepted | 첫 구독은 도메인의 정확한 날짜 등식과 DB의 날짜 순서 제약을 구분했다 | pawcycle |
+| [PWC-0045](decisions/PWC-0045.md) | accepted | Frontend는 CSRF 실패 POST를 재실행하지 않고 인증 응답의 세대를 검증한다 | pawcycle |
+| [PWC-0046](decisions/PWC-0046.md) | accepted | 로컬 QA fixture는 이중 활성화·충돌 실패·회원 한정 reset과 단일 인스턴스로 제한한다 | pawcycle |
+| [PWC-0047](decisions/PWC-0047.md) | accepted | 최초 로컬 성능 측정은 다섯 cohort와 통제된 표본·집계 증거로 범위를 승인했다 | pawcycle |
 
 ## Knowledge index
 
@@ -101,6 +105,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0013](lessons/PWL-0013.md) | DB CHECK rejection and Spring exception assertion mismatch | pawcycle |
 | [PWL-0014](lessons/PWL-0014.md) | Generic credential responses do not equalize BCrypt work | pawcycle |
 | [PWL-0015](lessons/PWL-0015.md) | QA claims must match array/log/redaction evidence | pawcycle |
+| [PWL-0016](lessons/PWL-0016.md) | Webhook HTTP 성공은 실제 메시지의 카드 계약 성공을 증명하지 않는다 | pawcycle |
+| [PWL-0017](lessons/PWL-0017.md) | 실행 runner를 막아도 함께 로드되는 profile의 쿠키 완화는 남을 수 있다 | pawcycle |
+| [PWL-0018](lessons/PWL-0018.md) | MySQL 프로세스 응답과 실제 애플리케이션 계정의 readiness는 다르다 | pawcycle |
 
 ## Record creation and maintenance
 
@@ -121,12 +128,16 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#40 have individual detailed dispositions; #41–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#50 have individual detailed dispositions; #51–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #41](history/pawcycle-source-ledger/progress.json). Current count: **40 complete / 461 pending / 501 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #51](history/pawcycle-source-ledger/progress.json). Current count: **50 complete / 451 pending / 501 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
 
 - 2026-11-04 sequential batch: [#31–#40 dispositions](history/pawcycle-source-ledger/batch-031-040.md), [exact source/CI manifest](history/pawcycle-source-ledger/batch-031-040.sources.json). Next #41; authentication QA remains conditional within its evidence scope.
+
+### PawCycle 상세 처리 #41~#50 (2026-11-04)
+
+구독 V1 구현의 도메인/DB 날짜 경계, Frontend CSRF·비동기 인증 경쟁, local-only fixture와 쿠키·readiness 교정, 첫 MVP의 조건부 완료와 후속 접근성 QA, 성능 측정 후보→범위 승인·세부 차단을 복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-041-050.md). 최신 누적 50/501, 미완료 451, 다음 #51.

@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "74c8f314361d7a02ea74539211599ff374431b77",
+  "wiki_parent_sha": "a13838e4801bbc50080ca2e224ea7bb74eb5b2fb",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    40
+    50
   ],
-  "completed_count": 40,
-  "pending_count": 461,
-  "next_source": 41,
+  "completed_count": 50,
+  "pending_count": 451,
+  "next_source": 51,
   "batches": [
     {
       "range": [
@@ -54,6 +54,14 @@
       ],
       "evidence": "batch-031-040.md",
       "manifest": "batch-031-040.sources.json"
+    },
+    {
+      "range": [
+        41,
+        50
+      ],
+      "evidence": "batch-041-050.md",
+      "manifest": "batch-041-050.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -68,12 +76,15 @@
     "Historical local failures not erased by remote CI success",
     "PR38 conditional QA: actual deployment authentication-error log privacy and HTTPS/cookie delivery",
     "PR40 post-merge trusted-code Preview and actual channel receipt not verified in source40",
-    "Current MySQL image digest and statistical credential timing are outside historical CI metadata"
+    "Current MySQL image digest and statistical credential timing are outside historical CI metadata",
+    "#46 비QA reset 대조·타 프로젝트 volume/data, session 만료·CSRF_INVALID·POST timeout 미재현",
+    "#48 정상 keyboard-only/returnTo 보완 후에도 GET 오류 재시도·session 만료 3건 미실행",
+    "#41 신뢰 main의 실제 생성 message/화면 수신은 workflow success만으로 확정하지 않음"
   ],
   "validation": {
-    "wiki": "72 records, 0 issues",
+    "wiki": "79 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 40 complete; 461 pending; next #41; journal keys unique; 10-source/112-file manifest consistent"
+    "coverage": "501 unique consecutive sources; 50 complete; 451 pending; next #51; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; compare cursor and ledger; continue #41 before #42; source #501 remains metadata-only; preserve conditional QA and historical evidence limits."
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #51 before #52; preserve historical failures, conditional QA and source-specific verification limits. User requested through #100 on 2026-11-04."
 }

@@ -120,3 +120,7 @@
 ## 2026-11-04 번호순 상세 배치 #31–#40
 
 [상세 판정](pawcycle-source-ledger/batch-031-040.md)과 [source manifest](pawcycle-source-ledger/batch-031-040.sources.json)를 추가했다. 기존 PWC-0007/0030/0031은 승인→실제 구현/QA로 보강하고, PWC-0041~0043과 PWL-0013~0015를 등록했다. 원본별 112개 파일·공개 review·commit·최종 head CI metadata를 대조했지만 과거 앱/DB/전송을 재실행하지 않았다. 현재 **40개 완료 / 461개 미완료**, 다음은 **#41**이다. 인증 QA 조건부 판정·수정 후 Discord 수신은 미확인 후속으로 남는다.
+
+## 번호순 전수 조사 #41~#50 — 2026-11-04
+
+구독 V1 구현의 도메인/DB 날짜 경계, Frontend CSRF·비동기 인증 경쟁, local-only fixture와 쿠키·readiness 교정, 첫 MVP의 조건부 완료와 후속 접근성 QA, 성능 측정 후보→범위 승인·세부 차단을 복원했다. [배치 근거](pawcycle-source-ledger/batch-041-050.md). 신규 PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWL-0016, PWL-0017, PWL-0018; 누적 50/501, 다음 #51.
