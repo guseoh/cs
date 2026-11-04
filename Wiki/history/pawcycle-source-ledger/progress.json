@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "65b83b8d1e8598d0cdbb840d05268b6ae6fb1041",
+  "wiki_parent_sha": "cc88d489442773a35a3620963b044b6c660c4e0f",
   "wiki_main_sha": "a39344350da04c071bc4230952d0409a1bd4568d",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -21,11 +21,11 @@
   "inventoried_count": 502,
   "completed_contiguous_range": [
     1,
-    240
+    250
   ],
-  "completed_count": 240,
-  "pending_count": 262,
-  "next_source": 241,
+  "completed_count": 250,
+  "pending_count": 252,
+  "next_source": 251,
   "batches": [
     {
       "range": [
@@ -223,6 +223,14 @@
       ],
       "evidence": "batch-231-240.md",
       "manifest": "batch-231-240.sources.json"
+    },
+    {
+      "range": [
+        241,
+        250
+      ],
+      "evidence": "batch-241-250.md",
+      "manifest": "batch-241-250.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -267,11 +275,11 @@
     "#201에서 Phase 9 NO CHANGE/Outcome C를 확인했다. #195의 직접 closure 설명 댓글은 여전히 없다. 원시 JFR/k6 artifact의 직접 재분석은 미수행이며 당시 실행 보고와 helper 코드 경로를 대조했다."
   ],
   "validation": {
-    "wiki": "135 records, 0 issues",
+    "wiki": "137 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "502 unique consecutive sources; 240 complete; 262 pending; next #241; unique journal keys; batch source/file manifests consistent"
+    "coverage": "502 unique consecutive sources; 250 complete; 252 pending; next #251; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #241 before #242; preserve historical failures, conditional QA and source-specific verification limits. User requested through #300 on 2026-11-04.",
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #251 before #252; preserve historical failures, conditional QA and source-specific verification limits. User requested through #300 on 2026-11-04.",
   "request_checkpoint": {
     "requested_through": 201,
     "completed_this_request": [

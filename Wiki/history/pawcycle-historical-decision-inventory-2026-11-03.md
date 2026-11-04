@@ -208,3 +208,7 @@ Scheduler 설정After와Phase10 조건부기술선택 종료, MVP4 결합pending
 ## 번호순 전수 조사 #231~#240 — 2026-11-04
 
 Production import의명시승인/프록시경계, Checkout identity와Review/Q&A, V24/V3탐색·가격predicate·실QA의검증gap을복원했다. [배치 근거](pawcycle-source-ledger/batch-231-240.md). 신규 PWC-0083, PWC-0084, PWC-0085; 누적 240/502, 다음 #241.
+
+## 번호순 전수 조사 #241~#250 — 2026-11-04
+
+UI 보정·FOUNDATION 호환성·Admin·개인화/Add-on 계약과 인증 Browser 증거를 복원하고 Provider/운영 미검증 경계를 보존했다. [배치 근거](pawcycle-source-ledger/batch-241-250.md). 신규 PWC-0086, PWC-0087; 누적 250/502, 다음 #251.
