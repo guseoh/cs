@@ -224,3 +224,7 @@ Warm Utility→Warm Routine→Daily Orbit 변경관계, 임시AWS Auto-CD, Canon
 ## 번호순 전수 조사 #271~#280 — 2026-11-04
 
 HTTP·JPA리팩터링단계/남은정합성부채, Session검토보류, Seoul→Tokyo·TrialE5변경과미병합OCI준비/TLSgate를복원했다. [배치 근거](pawcycle-source-ledger/batch-271-280.md). 신규 PWC-0091, PWC-0092, PWC-0093, PWL-0037; 누적 280/502, 다음 #281.
+
+## 번호순 전수 조사 #281~#290 — 2026-11-04
+
+AWS자동dispatch사건과철거, externalMySQL·HTTPSreloadpending·samehost관측, botreviewfalse-success와exactHEAD/shellgate를복원했다. [배치 근거](pawcycle-source-ledger/batch-281-290.md). 신규 PWC-0094, PWC-0095, PWL-0038; 누적 290/502, 다음 #291.

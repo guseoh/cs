@@ -69,7 +69,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#280 have individual detailed dispositions**, while #281–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#290 have individual detailed dispositions**, while #291–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -243,3 +243,7 @@ Warm Utility→Warm Routine→Daily Orbit 변경관계, 임시AWS Auto-CD, Canon
 ## 2026-11-04 역사 복원 #271~#280
 
 HTTP·JPA리팩터링단계/남은정합성부채, Session검토보류, Seoul→Tokyo·TrialE5변경과미병합OCI준비/TLSgate를복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-271-280.md). 누적 상세 280/502, 미완료 222; 다음 #281. 현재 운영 재검증이 아니다.
+
+## 2026-11-04 역사 복원 #281~#290
+
+AWS자동dispatch사건과철거, externalMySQL·HTTPSreloadpending·samehost관측, botreviewfalse-success와exactHEAD/shellgate를복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-281-290.md). 누적 상세 290/502, 미완료 212; 다음 #291. 현재 운영 재검증이 아니다.

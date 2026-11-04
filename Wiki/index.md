@@ -125,6 +125,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0091](decisions/PWC-0091.md) | accepted | Backend 구조 리팩터링은 typed 경계에서 JPA semantic repository로 단계별 수렴한다 | pawcycle |
 | [PWC-0092](decisions/PWC-0092.md) | accepted | OCI 초기 계획은 가입·용량 근거에 따라 Tokyo와 Trial E5 bootstrap으로 바뀐다 | pawcycle |
 | [PWC-0093](decisions/PWC-0093.md) | accepted | HTTP validation·status·partial PATCH와 Frontend transport를 함께 검증한다 | pawcycle |
+| [PWC-0094](decisions/PWC-0094.md) | accepted | Lean Harness는 실행 위험의 근거를 남기고 정책·절차·리뷰 상태를 분리한다 | pawcycle |
+| [PWC-0095](decisions/PWC-0095.md) | accepted | 인증서 renewal과 Nginx reload 사이 실패는 영속 pending 상태로 복구한다 | pawcycle |
 
 ## Knowledge index
 
@@ -173,6 +175,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0035](lessons/PWL-0035.md) | 서로 다른 scrape 세대의 counter와 timer를 한 snapshot으로 해석하지 않는다 | pawcycle |
 | [PWL-0036](lessons/PWL-0036.md) | Smoke·CI 성공과 전체 사용자 Journey 판정은 다르다 | pawcycle |
 | [PWL-0037](lessons/PWL-0037.md) | 같은 fresh DB 기준선으로 환경 실패·공유 상태·제품 회귀를 구분한다 | pawcycle |
+| [PWL-0038](lessons/PWL-0038.md) | 자동화 check 성공은 실제 리뷰·배포·안전 종료의 성공 근거가 아니다 | pawcycle |
 
 ## Record creation and maintenance
 
@@ -193,10 +196,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#280 have individual detailed dispositions; #281–#502 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#290 have individual detailed dispositions; #291–#502 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #281](history/pawcycle-source-ledger/progress.json). Current count: **280 complete / 222 pending / 502 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #291](history/pawcycle-source-ledger/progress.json). Current count: **290 complete / 212 pending / 502 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -302,3 +305,7 @@ Warm Utility→Warm Routine→Daily Orbit 변경관계, 임시AWS Auto-CD, Canon
 ### PawCycle 상세 처리 #271~#280 (2026-11-04)
 
 HTTP·JPA리팩터링단계/남은정합성부채, Session검토보류, Seoul→Tokyo·TrialE5변경과미병합OCI준비/TLSgate를복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-271-280.md). 최신 누적 280/502, 미완료 222, 다음 #281.
+
+### PawCycle 상세 처리 #281~#290 (2026-11-04)
+
+AWS자동dispatch사건과철거, externalMySQL·HTTPSreloadpending·samehost관측, botreviewfalse-success와exactHEAD/shellgate를복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-281-290.md). 최신 누적 290/502, 미완료 212, 다음 #291.
