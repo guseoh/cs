@@ -1,14 +1,14 @@
 # LLM Wiki — AI entry point
 
-This directory holds **retrievable context for AI tools**, not a duplicate of existing Study notes. GitHub guseoh/cs is the shared Markdown source; Obsidian renders these files after a successful Git sync.
+This directory holds **retrievable context for AI tools**, not a duplicate of existing Study notes.GitHub guseoh/cs is the shared Markdown source; Obsidian renders these files after a successful Git sync.
 
 ## Retrieval protocol
 
-1. Identify the specific project/topic and read its project snapshot. Check the **verification date and evidence scope**.
+1. Identify the specific project/topic and read its project snapshot.Check the **verification date and evidence scope**.
 2. Follow the indexed decision IDs to understand the choice, rejected options, constraints and dependency relationships.
 3. Resolve depends_on and supersedes chains before treating a decision as currently authoritative.
 4. Confirm runtime claims separately from merged source and green CI; cite linked evidence and mark unresolved conflicts explicitly.
-5. Only read needed records; do not load the entire Vault by default. Use the candidate inbox as an untrusted evidence queue, never as an accepted source of decisions.
+5. Only read needed records; do not load the entire Vault by default.Use the candidate inbox as an untrusted evidence queue, never as an accepted source of decisions.
 
 ## Project index
 
@@ -193,6 +193,31 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0041](lessons/PWL-0041.md) | fake lifecycle 통과 뒤에도 실제 승인 image의 main bootstrap 경로를 rehearsal해야 한다 | pawcycle |
 | [PWL-0042](lessons/PWL-0042.md) | Hikari queue 증폭 경로와 최초 포화 trigger는 다른 인과 주장이다 | pawcycle |
 
+
+## 2026-11-04 재개분의 신규 기록
+
+| ID | 유형 | 내용 |
+| --- | --- | --- |
+| [PWC-0108](decisions/PWC-0108.md) | 결정 | Checkout capacity는 고정 VU 단계 부하와 workload별 경계로 판정한다 |
+| [PWC-0109](decisions/PWC-0109.md) | 결정 | Order read와 Quick Reorder command persistence의 책임을 먼저 분리한다 |
+| [PWC-0110](decisions/PWC-0110.md) | 결정 | Querydsl은 복잡한 mapped read에 한정하고 compiled dependency guard를 유지한다 |
+| [PWC-0111](decisions/PWC-0111.md) | 결정 | Package topology 이동은 결합 제거와 재분류를 구분해 검증한다 |
+| [PWC-0112](decisions/PWC-0112.md) | 결정 | Read model은 query 성격과 시간·결과 동등성으로 persistence를 선택한다 |
+| [PWC-0113](decisions/PWC-0113.md) | 결정 | Subscription read는 feature별 typed 경계로 나누고 command facade를 보존한다 |
+| [PWC-0114](decisions/PWC-0114.md) | 결정 | Subscription command는 실제 잠금·CAS를 보존하고 Entity를 독립 파일로 둔다 |
+| [PWC-0115](decisions/PWC-0115.md) | 결정 | Billing persistence 전환에서도 claim·외부 호출·completion 트랜잭션을 나눈다 |
+| [PWC-0116](decisions/PWC-0116.md) | 결정 | 필수 MySQL 물리 잠금 회귀는 실제 JUnit 실행을 fail-closed로 검사한다 |
+| [PWC-0117](decisions/PWC-0117.md) | 결정 | Cleanup vendor DML과 격리 유지보수 JDBC는 실행 의미로 유지한다 |
+| [PWC-0118](decisions/PWC-0118.md) | 결정 | OCI A1 capacity 조회·전이 알림·감시 건강·VM 생성을 분리한다 |
+| [PWC-0119](decisions/PWC-0119.md) | 결정 | Quick Reorder의 순수 정책과 durable replay codec만 분리한다 |
+| [PWC-0120](decisions/PWC-0120.md) | 결정 | Subscription 내부 실패는 domain 의미로 전달하고 HTTP는 API가 결정한다 |
+| [PWC-0121](decisions/PWC-0121.md) | 결정 | HTTP 입력·응답 변환은 API가 소유하고 내부에는 중립 Command와 완성된 View를 전달한다 |
+| [PWL-0043](lessons/PWL-0043.md) | 교훈 | RowMapper와 RowCallbackHandler의 cursor를 다시 이동하면 null 실패나 첫 행 누락이 생긴다 |
+| [PWL-0044](lessons/PWL-0044.md) | 교훈 | UTC DATETIME은 Timestamp 변환과 JDBC Calendar 경계까지 비교해야 한다 |
+| [PWL-0045](lessons/PWL-0045.md) | 교훈 | 잠금 footprint 비교는 동일한 MVCC 물리 이력과 read-view 수명을 고정해야 한다 |
+| [PWL-0046](lessons/PWL-0046.md) | 교훈 | 커밋한 통합 테스트 fixture는 실패·권한 중단 뒤에도 소유 범위에서 정리해야 한다 |
+| [PWL-0047](lessons/PWL-0047.md) | 교훈 | 공유 Hikari active 수치 대신 해당 요청의 연결 반환과 트랜잭션 정리를 검증한다 |
+
 ## Record creation and maintenance
 
 - [Wiki/AGENTS.md](AGENTS.md): AI retrieval, review and write safeguards
@@ -208,14 +233,14 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 - [PawCycle complete PR/Issue source ledger](history/pawcycle-source-ledger/README.md): all #1–#501 sources indexed; **not yet comprehensively reviewed**
 - [Obsidian sync policy](../.github/OBSIDIAN_SYNC.md): multi-device safety
 
-All records have stable IDs and links. Updating a project snapshot must not silently rewrite an accepted decision. Intake never writes decisions automatically.
+All records have stable IDs and links.Updating a project snapshot must not silently rewrite an accepted decision.Intake never writes decisions automatically.
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#330 have individual detailed dispositions; #331–#502 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#400 have individual detailed dispositions; #401–#503 remain to be triaged despite existing partial topic-level records.There has been no comprehensive import of private ChatGPT, Work or Codex conversations.A missing record does not prove a historical decision never occurred.Projects may change after their last verification timestamp.GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #331](history/pawcycle-source-ledger/progress.json). Current count: **330 complete / 172 pending / 502 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #401](history/pawcycle-source-ledger/progress.json). Current count: **400 complete / 103 pending / 503 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -341,3 +366,13 @@ single-stage승인·lifecycle인과성축소·WindowsSSH최소delta와I10K부분
 ### PawCycle 상세 처리 #321~#330 (2026-11-04)
 
 list/count page-first·힌트추가→JOIN_PREFIX제거KEEP의변경관계,provenance재사용·수집preflight·warmup계약과부분증거한계를복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-321-330.md). 최신 누적 330/502, 미완료 172, 다음 #331.
+
+## #301–#400 요청 완료 — 2026-11-04
+
+#301–#330의 기존 처리를 보존하고 #331–#400 70건을 번호순으로 추가 조사했다. 요청 범위 100건 전체에 원본별 판정이 있으며 현재 **400 완료 / 103 미완료 / 503 목록, 다음 #401**이다. 이번 재개분은 결정14개(PWC-0108–0121)·교훈5개(PWL-0043–0047)를 신규 등록했다.
+
+Checkout 정확성/무효 측정/NO_CHANGE, Querydsl·topology·typed read 선택, T07 목표 개정, T09 구조 교정, T10 잠금/시간/fixture/CI 실패와 대체 PR, Runtime0 뒤 전체 closure, OCI 알림의 offline/live/health 경계, DTO.from 사용자 선호와 transaction 밖 물질화 한계를 연결했다. 원본 #334의 runner 리뷰 지적, #338/Seoul 실패, #378 Windows 중단 및 최종 reviewer gap, #397/#400 외부 review 부재를 남겼다.
+
+원본 #331–#400의 변경파일747개를 manifest에 대조했다. 누락 patch 중 대형 Python4개는 원문·구조를 보충했고 이미지22개는 픽셀 재검증 없이 metadata/당시 보고로 제한한다. #503은 새 존재·Draft metadata만 추가했으며 상세 처리하지 않았다. 제품·운영·DB·Cloud·Secret·Provider·부하 실행은 없다. 원본 #401 이후의 closure 댓글 링크는 연결 근거이며 그 PR들의 독립 전수 완료를 뜻하지 않는다.
+
+[요청 체크포인트](history/pawcycle-source-ledger/checkpoint-301-400.md).

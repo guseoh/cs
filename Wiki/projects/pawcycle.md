@@ -14,15 +14,15 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034, PWC-0078, PWC-0079, PWC-0080, PWC-0081, PWC-0082, PWC-0083, PWC-0084, PWC-0085, PWC-0086, PWC-0087, PWC-0088, PWC-0089, PWC-0090, PWC-0091, PWC-0092, PWC-0093, PWC-0094, PWC-0095, PWC-0096, PWC-0097, PWC-0098, PWC-0099, PWL-0035, PWL-0036, PWL-0037, PWL-0038, PWL-0039, PWL-0040]
+related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034, PWC-0078, PWC-0079, PWC-0080, PWC-0081, PWC-0082, PWC-0083, PWC-0084, PWC-0085, PWC-0086, PWC-0087, PWC-0088, PWC-0089, PWC-0090, PWC-0091, PWC-0092, PWC-0093, PWC-0094, PWC-0095, PWC-0096, PWC-0097, PWC-0098, PWC-0099, PWL-0035, PWL-0036, PWL-0037, PWL-0038, PWL-0039, PWL-0040, PWC-0108, PWC-0109, PWC-0110, PWC-0111, PWC-0112, PWC-0113, PWC-0114, PWC-0115, PWC-0116, PWC-0117, PWC-0118, PWC-0119, PWC-0120, PWC-0121, PWL-0043, PWL-0044, PWL-0045, PWL-0046, PWL-0047]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
 ## Current state (checked 2026-11-03)
 - Observed main commit: [aa264ff996e0](https://github.com/guseoh/pawcycle-commerce/commit/aa264ff996e0167815f9138264fded36128882f7) (2026-11-03).
 - [PR #496](https://github.com/guseoh/pawcycle-commerce/pull/496) merged a guarded OCI A1 provisioning worker. **Actual OCI tenant preflight, worker Host installation/activation, live instance launch and app/DB deployment were out of scope.**
-- [Main Repository Validation](https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924) and [image publish](https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493907) workflows succeeded. Neither proves a running production deployment.
-- Source discrepancy requiring reconciliation: [README](https://github.com/guseoh/pawcycle-commerce/blob/main/README.md) says Production deployment target **none**, while [operations overview](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/architecture/production-operations-overview.md) identifies **OCI app01**, with limited 2026-10-25 healthy observations. Current live target/health is **unresolved**, not silently inferred.
+- [Main Repository Validation](https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924) and [image publish](https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493907) workflows succeeded.Neither proves a running production deployment.
+- Source discrepancy requiring reconciliation: [README](https://github.com/guseoh/pawcycle-commerce/blob/main/README.md) says Production deployment target **none**, while [operations overview](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/architecture/production-operations-overview.md) identifies **OCI app01**, with limited 2026-10-25 healthy observations.Current live target/health is **unresolved**, not silently inferred.
 - Host Pull CD, automated application deployment and zero-downtime deployment are marked DEFER/OFF in the current operations overview.
 
 ## Accepted decisions
@@ -52,20 +52,20 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 ## Historical backfill — Payment → Checkout → Performance → Operations → Auth/AI/Time (2026-11-03)
 - **Payment:** [PWC-0016](../decisions/PWC-0016.md), [PWL-0003](../lessons/PWL-0003.md). PR #450 query-only/error classification is Repository Verified/Merged, whereas NORMAL/PROCESSING finalization and active worker fencing remain unresolved in **Open Issue #417**. Fake Provider checks do not establish actual Toss/Production recovery.
-- **Checkout/Inventory:** [PWL-0004](../lessons/PWL-0004.md) records MySQL missing-row gap deadlock and minimum replay-lock removal; [PWC-0017](../decisions/PWC-0017.md) records a separate necessary Inventory locking read plus CAS for shared SKU. These are not opposing universal lock rules.
-- **Performance:** [PWL-0005](../lessons/PWL-0005.md) separates Hikari20 REJECT and CPU2.0 partial improvement; [PWL-0006](../lessons/PWL-0006.md) records invalid dropped/fixture/image runs and the bounded 20 RPS isolated NO_CHANGE. Redis/Scheduler decisions [PWC-0009](../decisions/PWC-0009.md) and [PWC-0012](../decisions/PWC-0012.md) are reused, not duplicated.
+- **Checkout/Inventory:** [PWL-0004](../lessons/PWL-0004.md) records MySQL missing-row gap deadlock and minimum replay-lock removal; [PWC-0017](../decisions/PWC-0017.md) records a separate necessary Inventory locking read plus CAS for shared SKU.These are not opposing universal lock rules.
+- **Performance:** [PWL-0005](../lessons/PWL-0005.md) separates Hikari20 REJECT and CPU2.0 partial improvement; [PWL-0006](../lessons/PWL-0006.md) records invalid dropped/fixture/image runs and the bounded 20 RPS isolated NO_CHANGE.Redis/Scheduler decisions [PWC-0009](../decisions/PWC-0009.md) and [PWC-0012](../decisions/PWC-0012.md) are reused, not duplicated.
 - **Historical operations:** [PWL-0007](../lessons/PWL-0007.md) records AWS Backend stop/start and misleading frontend page 200; [PWC-0018](../decisions/PWC-0018.md) records Discord/Slack delivery with scheduled/dedupe DEFER. [PWC-0015](../decisions/PWC-0015.md) now includes **historical** 2026-09-22 OCI same-host OFF/ON calibration evidence from #300; November live overhead is unverified.
 - **Authentication/AI/Time:** [PWC-0019](../decisions/PWC-0019.md) records AuthenticationProvider ownership without changing Session/CSRF selection; [PWC-0020](../decisions/PWC-0020.md) records AI outside DB transaction and fingerprint guard; [PWC-0021](../decisions/PWC-0021.md) records approved legacy UTC reinterpretation.
-- This Wiki change uses linked PawCycle GitHub evidence only. No new OCI/AWS/MySQL/Provider/k6/Production execution or source-repository changes.
+- This Wiki change uses linked PawCycle GitHub evidence only.No new OCI/AWS/MySQL/Provider/k6/Production execution or source-repository changes.
 
 ## Historical follow-up — Cart version, JDBC/SQL, Catalog and OCI CD (2026-11-03)
 - [PWC-0022](../decisions/PWC-0022.md): 2026-10-20 Payment reconciliation F01 implements Cart `version +1` exactly once for actual item mutation; it does **not** close unresolved F07 recovery [#417](https://github.com/guseoh/pawcycle-commerce/issues/417).
-- [PWC-0023](../decisions/PWC-0023.md): Architecture V2 reached 2026-10-21 **repository-scoped** direct Runtime JdbcTemplate 0, isolated JDBC 9, 21 PersistenceAdapter KEEP and necessary Native SQL preservation. Earlier 2026-08 [PWC-0006](../decisions/PWC-0006.md)/[PWC-0008](../decisions/PWC-0008.md) explain historic design instead of today's class layout.
-- [PWC-0024](../decisions/PWC-0024.md): Production Catalog startup seed was rejected in favor of explicit `validate/apply`; late-August Canonical Customer Catalog target added. PR/CI does not prove Production DB import happened.
+- [PWC-0023](../decisions/PWC-0023.md): Architecture V2 reached 2026-10-21 **repository-scoped** direct Runtime JdbcTemplate 0, isolated JDBC 9, 21 PersistenceAdapter KEEP and necessary Native SQL preservation.Earlier 2026-08 [PWC-0006](../decisions/PWC-0006.md)/[PWC-0008](../decisions/PWC-0008.md) explain historic design instead of today's class layout.
+- [PWC-0024](../decisions/PWC-0024.md): Production Catalog startup seed was rejected in favor of explicit `validate/apply`; late-August Canonical Customer Catalog target added.PR/CI does not prove Production DB import happened.
 - [PWC-0025](../decisions/PWC-0025.md): OCI Release Engine uses exact image/source/DB compatibility, protected approval/state/lock, bounded capacity and fail-closed restore semantics; actual DB Restore/rollback were not proven by this GitHub backfill.
 - [PWC-0026](../decisions/PWC-0026.md): 2026-10-28~31 Host Pull CD evolved from OFF/policy to limited frontend-cosmetic and then service-level application-v1, with guarded main SHA, service build/digest/provenance and manual-only unsafe changes.
-- [PWL-0008](../lessons/PWL-0008.md): **actual 2026-10-31 OCI first release attempt** hit CDHost inherited `paths` collision, stopping **before image pull and service replacement**. The corrected PR #491 was merged later that day. This report does not itself prove subsequent frontend-only/Backend-only E2E, live rollback or an enabled Timer.
-- Operational status information earlier in this snapshot came from older README/ops documents and task-bound reports. The **latest 2026-11 live runtime/Timer state is unresolved by this GitHub-only reconstruction**; retain separately verified Work/Host receipts if available.
+- [PWL-0008](../lessons/PWL-0008.md): **actual 2026-10-31 OCI first release attempt** hit CDHost inherited `paths` collision, stopping **before image pull and service replacement**. The corrected PR #491 was merged later that day.This report does not itself prove subsequent frontend-only/Backend-only E2E, live rollback or an enabled Timer.
+- Operational status information earlier in this snapshot came from older README/ops documents and task-bound reports.The **latest 2026-11 live runtime/Timer state is unresolved by this GitHub-only reconstruction**; retain separately verified Work/Host receipts if available.
 
 ## Chronological source-audit progress (2026-11-03)
 
@@ -77,18 +77,18 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 The [all-500 source ledger](../history/pawcycle-source-ledger/README.md) shows why the early history must begin with PR #1: there was no separate Issue before #88. The previous PWC-0003–PWC-0026 are high-value historical highlights, not an exhaustive decision count.
 
-- [PWC-0028](../decisions/PWC-0028.md): 2026-07-02 BOOTSTRAP-003/004 initial role branch names, commit/push after validation, user-only merge, Korean nominal commit titles, reports/handoff. Role branches are **historical**, not the current main-only + short task-branch operating rule; LICENSE/CODEOWNERS/CodeQL were not decided then.
+- [PWC-0028](../decisions/PWC-0028.md): 2026-07-02 BOOTSTRAP-003/004 initial role branch names, commit/push after validation, user-only merge, Korean nominal commit titles, reports/handoff.Role branches are **historical**, not the current main-only + short task-branch operating rule; LICENSE/CODEOWNERS/CodeQL were not decided then.
 - [PWC-0027](../decisions/PWC-0027.md): 2026-07-05 PS-003 four **Approved** UX product choices: public catalog/private subscription, safe GET after login/no POST replay, generated subscription detail after success, and no client-computed pre-create next order date.
 - [PWC-0032](../decisions/PWC-0032.md): 2026-07-06 FOUNDATION-000 **Proposed** versions (Java 25, Boot 4.1, Gradle 9.1+, Node 24, Next 16, TypeScript 6, MySQL 8.4, Flyway/npm). PR merge did not accept every version.
 - [PWC-0029](../decisions/PWC-0029.md): 2026-07-10 ARCH-006 user-approved **narrow** Backend/DB/Security scope; DR1–DR3 later resolved via AUTH-003. Other Proposed documents stayed Proposed.
-- [PWC-0030](../decisions/PWC-0030.md): 2026-07-12 API-002 **seven** public Product API choices including alternatives. Its later MVP3 ACTIVE-SKU visibility update must be tracked at its own date.
-- [PWC-0031](../decisions/PWC-0031.md): 2026-07-13 API-003 **eight** subscription API decisions. Crucially first MVP omitted `Idempotency-Key` and accepted duplicate POST risk; later V2 choices are a separate epoch.
+- [PWC-0030](../decisions/PWC-0030.md): 2026-07-12 API-002 **seven** public Product API choices including alternatives.Its later MVP3 ACTIVE-SKU visibility update must be tracked at its own date.
+- [PWC-0031](../decisions/PWC-0031.md): 2026-07-13 API-003 **eight** subscription API decisions.Crucially first MVP omitted `Idempotency-Key` and accepted duplicate POST risk; later V2 choices are a separate epoch.
 - These are the **first detailed chronological approval examples**, not completion of #1–#100. Full PR diff, issue discussions, subsequent code and operating evidence remain to be traced for every item.
 
 ## Reverse engineering learning guide — Issue #456 migrated (2026-11-03)
 
 - [PWK-0001](../knowledge/PWK-0001.md) is the user-confirmed, **ongoing learning playbook** for full-system Java/Spring/DB/ERD/process reverse engineering, feature-first study, flexible L1–L4 depth and a parallel read-only OCI operations track.
-- [Original PawCycle Issue #456](https://github.com/guseoh/pawcycle-commerce/issues/456) preserves the source conversation and expectations. Moving the plan to Wiki does **not** mark any curriculum step complete, approve code changes, or verify live Production.
+- [Original PawCycle Issue #456](https://github.com/guseoh/pawcycle-commerce/issues/456) preserves the source conversation and expectations.Moving the plan to Wiki does **not** mark any curriculum step complete, approve code changes, or verify live Production.
 - The learner may start with Member Address CRUD; learning progress and source-backed follow-up outcomes should be recorded under the newer AI Wiki capture policy.
 
 ## Constraints
@@ -102,7 +102,7 @@ The [all-500 source ledger](../history/pawcycle-source-ledger/README.md) shows w
 - Keep automation off until independent operational approval and tests.
 
 ## Evidence and verification limits
-GitHub PRs, README, ops documentation and CI status only. No OCI console, account billing, live VM capacity or production E2E verification.
+GitHub PRs, README, ops documentation and CI status only.No OCI console, account billing, live VM capacity or production E2E verification.
 
 
 ## Sequential source batch #11–#20 — 2026-11-03
@@ -269,3 +269,13 @@ single-stage승인·lifecycle인과성축소·WindowsSSH최소delta와I10K부분
 ## 2026-11-04 역사 복원 #321~#330
 
 list/count page-first·힌트추가→JOIN_PREFIX제거KEEP의변경관계,provenance재사용·수집preflight·warmup계약과부분증거한계를복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-321-330.md). 누적 상세 330/502, 미완료 172; 다음 #331. 현재 운영 재검증이 아니다.
+
+## #301–#400 요청 완료 — 2026-11-04
+
+#301–#330의 기존 처리를 보존하고 #331–#400 70건을 번호순으로 추가 조사했다. 요청 범위 100건 전체에 원본별 판정이 있으며 현재 **400 완료 / 103 미완료 / 503 목록, 다음 #401**이다. 이번 재개분은 결정14개(PWC-0108–0121)·교훈5개(PWL-0043–0047)를 신규 등록했다.
+
+Checkout 정확성/무효 측정/NO_CHANGE, Querydsl·topology·typed read 선택, T07 목표 개정, T09 구조 교정, T10 잠금/시간/fixture/CI 실패와 대체 PR, Runtime0 뒤 전체 closure, OCI 알림의 offline/live/health 경계, DTO.from 사용자 선호와 transaction 밖 물질화 한계를 연결했다. 원본 #334의 runner 리뷰 지적, #338/Seoul 실패, #378 Windows 중단 및 최종 reviewer gap, #397/#400 외부 review 부재를 남겼다.
+
+원본 #331–#400의 변경파일747개를 manifest에 대조했다. 누락 patch 중 대형 Python4개는 원문·구조를 보충했고 이미지22개는 픽셀 재검증 없이 metadata/당시 보고로 제한한다. #503은 새 존재·Draft metadata만 추가했으며 상세 처리하지 않았다. 제품·운영·DB·Cloud·Secret·Provider·부하 실행은 없다. 원본 #401 이후의 closure 댓글 링크는 연결 근거이며 그 PR들의 독립 전수 완료를 뜻하지 않는다.
+
+[최신 main 대조와 미확인 경계](../history/pawcycle-source-ledger/checkpoint-301-400.md).
