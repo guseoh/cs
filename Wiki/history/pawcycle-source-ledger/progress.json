@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "61f05bb1d1a18efce7d730c187ced18b75430770",
+  "wiki_parent_sha": "24f2be6ef18669d46bc6b63b6813264450949e55",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    100
+    110
   ],
-  "completed_count": 100,
-  "pending_count": 401,
-  "next_source": 101,
+  "completed_count": 110,
+  "pending_count": 391,
+  "next_source": 111,
   "batches": [
     {
       "range": [
@@ -102,6 +102,14 @@
       ],
       "evidence": "batch-091-100.md",
       "manifest": "batch-091-100.sources.json"
+    },
+    {
+      "range": [
+        101,
+        110
+      ],
+      "evidence": "batch-101-110.md",
+      "manifest": "batch-101-110.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -134,12 +142,13 @@
     "#88 closed/checklist완료는후속저장소기록이며운영scheduler/legacy활성화승인또는실행완료아님",
     "#100 역사대조군18행 production_execution필드부재로현재validator완전재검증불가;원본비소급보존",
     "#100 실행모델/추론수준미수집·credential read-only강제아님·실제업무3~5건pilot미실행",
-    "#92~95 우발Issue생성은확인되나정확한오선택Tool/부작용재현은미확인"
+    "#92~95 우발Issue생성은확인되나정확한오선택Tool/부작용재현은미확인",
+    "#101/#103/#104 병합 후 리뷰 해결 여부는 이 원본 범위에서 미확인; #104 실제 운영 규모·정확한 lock hold와 Production 복구 미검증."
   ],
   "validation": {
-    "wiki": "100 records, 0 issues",
+    "wiki": "105 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 100 complete; 401 pending; next #101; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 110 complete; 391 pending; next #111; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Requested #41–#100 batch scope completed. Re-fetch PR18 HEAD and both main refs before continuing #101, then #102 in order. Sources #102/#104/#106/#108 are only linked as Issue #88 follow-ups, not yet detailed-audited. Preserve unverified approval, runtime, review and schema-drift limits."
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #111 before #112; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
 }

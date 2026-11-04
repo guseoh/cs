@@ -69,7 +69,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#100 have individual detailed dispositions**, while #101–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#110 have individual detailed dispositions**, while #111–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -155,3 +155,7 @@ AI 도구 Before 자료의 한계→Connector 대조군 재정의→읽기 capab
 원본 #41~#100을 여섯 배치로 처리했다. 누적 **100/501 상세 완료, 401 미완료**, 다음은 **#101**이다. 신규 Decision 18개·Lesson 10개를 추가했다. PWC-0059는 원본 기술 제안의 proposed 상태, PWL-0021은 실행 재현 없는 잔여 gate 지적의 draft 상태다. 현재 main 운영 사실은 별도 재확인이 필요하다.
 
 [PWC-0044](../decisions/PWC-0044.md), [PWC-0045](../decisions/PWC-0045.md), [PWC-0046](../decisions/PWC-0046.md), [PWC-0047](../decisions/PWC-0047.md), [PWC-0048](../decisions/PWC-0048.md), [PWC-0049](../decisions/PWC-0049.md), [PWC-0050](../decisions/PWC-0050.md), [PWC-0051](../decisions/PWC-0051.md), [PWC-0052](../decisions/PWC-0052.md), [PWC-0053](../decisions/PWC-0053.md), [PWC-0054](../decisions/PWC-0054.md), [PWC-0055](../decisions/PWC-0055.md), [PWC-0056](../decisions/PWC-0056.md), [PWC-0057](../decisions/PWC-0057.md), [PWC-0058](../decisions/PWC-0058.md), [PWC-0059](../decisions/PWC-0059.md), [PWC-0060](../decisions/PWC-0060.md), [PWC-0061](../decisions/PWC-0061.md), [PWL-0016](../lessons/PWL-0016.md), [PWL-0017](../lessons/PWL-0017.md), [PWL-0018](../lessons/PWL-0018.md), [PWL-0019](../lessons/PWL-0019.md), [PWL-0020](../lessons/PWL-0020.md), [PWL-0021](../lessons/PWL-0021.md), [PWL-0022](../lessons/PWL-0022.md), [PWL-0023](../lessons/PWL-0023.md), [PWL-0024](../lessons/PWL-0024.md), [PWL-0025](../lessons/PWL-0025.md)
+
+## 2026-11-04 역사 복원 #101~#110
+
+실측 기반 N+1 batch 조회, 구독별 reconciliation transaction 격리, 30일 멱등 보관·복구 호환 cleanup과 local 관측성 착수 경계를 복원했다. 병합 후 리뷰와 무효 검증을 구별했다. [상세 근거](../history/pawcycle-source-ledger/batch-101-110.md). 누적 상세 110/501, 미완료 391; 다음 #111. 현재 운영 재검증이 아니다.

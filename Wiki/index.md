@@ -93,6 +93,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0059](decisions/PWC-0059.md) | proposed | MVP2 API·데이터·정합성 계약은 Proposed로 출발하고 후속 구현과의 차이를 남겼다 | pawcycle |
 | [PWC-0060](decisions/PWC-0060.md) | accepted | AI 도구 비교는 역사 PR 시간 대신 고정 시나리오·독립 arm·미측정 null을 사용한다 | pawcycle |
 | [PWC-0061](decisions/PWC-0061.md) | accepted | GitHub MCP 읽기 단계는 실제 권한과 Tool·저장소 allowlist를 구별해 통제했다 | pawcycle |
+| [PWC-0062](decisions/PWC-0062.md) | accepted | 동일 fixture 실측 후 현재 page의 연관 row를 batch 조회한다 | pawcycle |
+| [PWC-0063](decisions/PWC-0063.md) | accepted | 구독 reconciliation은 구독별 독립 transaction으로 실패를 격리한다 | pawcycle |
+| [PWC-0064](decisions/PWC-0064.md) | accepted | 멱등 성공 결과는 최초 완료부터 30일 보관하고 bounded 정리한다 | pawcycle |
 
 ## Knowledge index
 
@@ -129,6 +132,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0023](lessons/PWL-0023.md) | 멱등 경합 재조회는 MySQL snapshot 가시성과 응답·reconciliation commit 경계를 함께 검증해야 한다 | pawcycle |
 | [PWL-0024](lessons/PWL-0024.md) | MySQL 초기화 환경 변수를 바꿔도 기존 named volume의 계정은 바뀌지 않는다 | pawcycle |
 | [PWL-0025](lessons/PWL-0025.md) | Benchmark의 cache·중복 arm·schema drift를 숨기면 비교 수치가 달라진다 | pawcycle |
+| [PWL-0026](lessons/PWL-0026.md) | migration predicate 밖의 row와 insert도 locking scan에 막힐 수 있다 | pawcycle |
+| [PWL-0027](lessons/PWL-0027.md) | 환경 baseline 실패와 코드 회귀를 분리하고 DDL rollback 호환을 검증한다 | pawcycle |
 
 ## Record creation and maintenance
 
@@ -149,10 +154,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#100 have individual detailed dispositions; #101–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#110 have individual detailed dispositions; #111–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #101](history/pawcycle-source-ledger/progress.json). Current count: **100 complete / 401 pending / 501 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #111](history/pawcycle-source-ledger/progress.json). Current count: **110 complete / 391 pending / 501 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -182,3 +187,7 @@ HTTPS 실제 발급·갱신/재부팅, S3 격리 복원과 유지보수 예외, 
 ### PawCycle 상세 처리 #91~#100 (2026-11-04)
 
 AI 도구 Before 자료의 한계→Connector 대조군 재정의→읽기 capability 계약→외부 측정도구→Codex 실험군을 연결하고, 우발 Issue4개는 독립 정책 없는 사고로 판정했다. cache/중복·schema drift·권한강제 아님·모델 미수집을 보존했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-091-100.md). 최신 누적 100/501, 미완료 401, 다음 #101.
+
+### PawCycle 상세 처리 #101~#110 (2026-11-04)
+
+실측 기반 N+1 batch 조회, 구독별 reconciliation transaction 격리, 30일 멱등 보관·복구 호환 cleanup과 local 관측성 착수 경계를 복원했다. 병합 후 리뷰와 무효 검증을 구별했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-101-110.md). 최신 누적 110/501, 미완료 391, 다음 #111.

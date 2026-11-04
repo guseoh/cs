@@ -144,3 +144,7 @@ HTTPS 실제 발급·갱신/재부팅, S3 격리 복원과 유지보수 예외, 
 ## 번호순 전수 조사 #91~#100 — 2026-11-04
 
 AI 도구 Before 자료의 한계→Connector 대조군 재정의→읽기 capability 계약→외부 측정도구→Codex 실험군을 연결하고, 우발 Issue4개는 독립 정책 없는 사고로 판정했다. cache/중복·schema drift·권한강제 아님·모델 미수집을 보존했다. [배치 근거](pawcycle-source-ledger/batch-091-100.md). 신규 PWC-0060, PWC-0061, PWL-0025; 누적 100/501, 다음 #101.
+
+## 번호순 전수 조사 #101~#110 — 2026-11-04
+
+실측 기반 N+1 batch 조회, 구독별 reconciliation transaction 격리, 30일 멱등 보관·복구 호환 cleanup과 local 관측성 착수 경계를 복원했다. 병합 후 리뷰와 무효 검증을 구별했다. [배치 근거](pawcycle-source-ledger/batch-101-110.md). 신규 PWC-0062, PWC-0063, PWC-0064, PWL-0026, PWL-0027; 누적 110/501, 다음 #111.
