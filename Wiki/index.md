@@ -79,6 +79,10 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0045](decisions/PWC-0045.md) | accepted | Frontend는 CSRF 실패 POST를 재실행하지 않고 인증 응답의 세대를 검증한다 | pawcycle |
 | [PWC-0046](decisions/PWC-0046.md) | accepted | 로컬 QA fixture는 이중 활성화·충돌 실패·회원 한정 reset과 단일 인스턴스로 제한한다 | pawcycle |
 | [PWC-0047](decisions/PWC-0047.md) | accepted | 최초 로컬 성능 측정은 다섯 cohort와 통제된 표본·집계 증거로 범위를 승인했다 | pawcycle |
+| [PWC-0048](decisions/PWC-0048.md) | accepted | 초기 Lean Harness는 위험 등급별 증거와 실제 소비자 기준 인수인계를 선택했다 | pawcycle |
+| [PWC-0049](decisions/PWC-0049.md) | accepted | 역사적 AWS 운영 기반은 비용 알림·T3 standard·SSM과 제한된 네트워크로 준비했다 | pawcycle |
+| [PWC-0050](decisions/PWC-0050.md) | accepted | 역사적 AWS 단일 release는 동일 SHA·digest·런타임 비밀 원자 전환과 DB 보존 rollback을 사용했다 | pawcycle |
+| [PWC-0051](decisions/PWC-0051.md) | accepted | 역사적 HTTPS 활성화는 발급·인증서 검증 이후에만 hostname을 승인했다 | pawcycle |
 
 ## Knowledge index
 
@@ -108,6 +112,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0016](lessons/PWL-0016.md) | Webhook HTTP 성공은 실제 메시지의 카드 계약 성공을 증명하지 않는다 | pawcycle |
 | [PWL-0017](lessons/PWL-0017.md) | 실행 runner를 막아도 함께 로드되는 profile의 쿠키 완화는 남을 수 있다 | pawcycle |
 | [PWL-0018](lessons/PWL-0018.md) | MySQL 프로세스 응답과 실제 애플리케이션 계정의 readiness는 다르다 | pawcycle |
+| [PWL-0019](lessons/PWL-0019.md) | 최초 성능 기준선은 계측 실패와 승인 순서 이탈로 끝내 확보되지 않았다 | pawcycle |
 
 ## Record creation and maintenance
 
@@ -128,10 +133,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#50 have individual detailed dispositions; #51–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#60 have individual detailed dispositions; #61–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #51](history/pawcycle-source-ledger/progress.json). Current count: **50 complete / 451 pending / 501 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #61](history/pawcycle-source-ledger/progress.json). Current count: **60 complete / 441 pending / 501 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -141,3 +146,7 @@ Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#5
 ### PawCycle 상세 처리 #41~#50 (2026-11-04)
 
 구독 V1 구현의 도메인/DB 날짜 경계, Frontend CSRF·비동기 인증 경쟁, local-only fixture와 쿠키·readiness 교정, 첫 MVP의 조건부 완료와 후속 접근성 QA, 성능 측정 후보→범위 승인·세부 차단을 복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-041-050.md). 최신 누적 50/501, 미완료 451, 다음 #51.
+
+### PawCycle 상세 처리 #51~#60 (2026-11-04)
+
+성능 세부 승인→순서 이탈 부분 관측→전체 재승인→native stderr/배열 SelfTest 실패→기준선 미확보 종료를 복원하고, 위험 기반 Lean Harness·AWS 준비·동일 SHA release·HTTPS의 준비/운영 경계를 연결했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-051-060.md). 최신 누적 60/501, 미완료 441, 다음 #61.

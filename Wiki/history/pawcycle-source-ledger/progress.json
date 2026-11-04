@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "a13838e4801bbc50080ca2e224ea7bb74eb5b2fb",
+  "wiki_parent_sha": "6bd97c2a8da31625db31f62fea1f085e7b04209a",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    50
+    60
   ],
-  "completed_count": 50,
-  "pending_count": 451,
-  "next_source": 51,
+  "completed_count": 60,
+  "pending_count": 441,
+  "next_source": 61,
   "batches": [
     {
       "range": [
@@ -62,6 +62,14 @@
       ],
       "evidence": "batch-041-050.md",
       "manifest": "batch-041-050.sources.json"
+    },
+    {
+      "range": [
+        51,
+        60
+      ],
+      "evidence": "batch-051-060.md",
+      "manifest": "batch-051-060.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -79,12 +87,15 @@
     "Current MySQL image digest and statistical credential timing are outside historical CI metadata",
     "#46 비QA reset 대조·타 프로젝트 volume/data, session 만료·CSRF_INVALID·POST timeout 미재현",
     "#48 정상 keyboard-only/returnTo 보완 후에도 GET 오류 재시도·session 만료 3건 미실행",
-    "#41 신뢰 main의 실제 생성 message/화면 수신은 workflow success만으로 확정하지 않음"
+    "#41 신뢰 main의 실제 생성 message/화면 수신은 workflow success만으로 확정하지 않음",
+    "#55 기능군 최종 종료는 병합 문서의 상태이나 별도 사용자 종료 승인 원문/링크 미확인; 리뷰가 승인 provenance 부족 지적",
+    "#58 후속 local Compose health 지연 미통과; 초기 통과와 구별",
+    "#60 실제 unknown Host 외부 검증·자동갱신 schedule·session·운영 rollback은 이 source에서 미실행"
   ],
   "validation": {
-    "wiki": "79 records, 0 issues",
+    "wiki": "84 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 50 complete; 451 pending; next #51; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 60 complete; 441 pending; next #61; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #51 before #52; preserve historical failures, conditional QA and source-specific verification limits. User requested through #100 on 2026-11-04."
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #61 before #62; preserve historical failures, conditional QA and source-specific verification limits. User requested through #100 on 2026-11-04."
 }
