@@ -133,6 +133,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0099](decisions/PWC-0099.md) | accepted | Scale Dataset의 cardinality와 discovery·engagement 현실성은 독립 변수로 둔다 | pawcycle |
 | [PWC-0100](decisions/PWC-0100.md) | accepted | OCI Catalog 규모 비교는 별도 schema·계정·loopback Backend의 I0↔I10K로 격리한다 | pawcycle |
 | [PWC-0101](decisions/PWC-0101.md) | accepted | 격리 성능 stage는 같은 UTC 구간의 수집과 OCI expected bucket 완전성을 요구한다 | pawcycle |
+| [PWC-0102](decisions/PWC-0102.md) | accepted | 격리 부하는 evidence 경로를 유지한 single-stage로 승인 단위를 통제한다 | pawcycle |
+| [PWC-0103](decisions/PWC-0103.md) | accepted | Catalog 지연은 aggregate 차이 대신 opt-in phase·TX/JDBC lifecycle로 분해한다 | pawcycle |
+| [PWC-0104](decisions/PWC-0104.md) | accepted | Windows 성능 실행은 Bash SSOT를 유지하고 SSH executable·identity argv만 명시한다 | pawcycle |
 
 ## Knowledge index
 
@@ -185,6 +188,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0039](lessons/PWL-0039.md) | 읽기 전용 archive 권한은 실제 container user의 traverse·read로 검증한다 | pawcycle |
 | [PWL-0040](lessons/PWL-0040.md) | 민감 로그 AST 검사는 직접 인자 계약이며 taint·일반 redaction을 보장하지 않는다 | pawcycle |
 | [PWL-0041](lessons/PWL-0041.md) | fake lifecycle 통과 뒤에도 실제 승인 image의 main bootstrap 경로를 rehearsal해야 한다 | pawcycle |
+| [PWL-0042](lessons/PWL-0042.md) | Hikari queue 증폭 경로와 최초 포화 trigger는 다른 인과 주장이다 | pawcycle |
 
 ## Record creation and maintenance
 
@@ -205,10 +209,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#310 have individual detailed dispositions; #311–#502 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#320 have individual detailed dispositions; #321–#502 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #311](history/pawcycle-source-ledger/progress.json). Current count: **310 complete / 192 pending / 502 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #321](history/pawcycle-source-ledger/progress.json). Current count: **320 complete / 182 pending / 502 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -326,3 +330,7 @@ opc권한·networkpublish·runtimeenv실패교정, edge/ownership/logging보안�
 ### PawCycle 상세 처리 #301~#310 (2026-11-04)
 
 10K정확총량·I0/I10K격리와formalreview증거gap,stagebucket완전성·실image rehearsal실패및2회복구를복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-301-310.md). 최신 누적 310/502, 미완료 192, 다음 #311.
+
+### PawCycle 상세 처리 #311~#320 (2026-11-04)
+
+single-stage승인·lifecycle인과성축소·WindowsSSH최소delta와I10K부분실패/최종보류를복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-311-320.md). 최신 누적 320/502, 미완료 182, 다음 #321.

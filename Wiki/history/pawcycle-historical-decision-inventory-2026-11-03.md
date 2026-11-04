@@ -242,3 +242,7 @@ Phase10 one-shot identity와 유실 증거, Scheduler KEEP, Catalog·Checkout·T
 ## 번호순 전수 조사 #301~#310 — 2026-11-04
 
 10K정확총량·I0/I10K격리와formalreview증거gap,stagebucket완전성·실image rehearsal실패및2회복구를복원했다. [배치 근거](pawcycle-source-ledger/batch-301-310.md). 신규 PWC-0100, PWC-0101, PWL-0041; 누적 310/502, 다음 #311.
+
+## 번호순 전수 조사 #311~#320 — 2026-11-04
+
+single-stage승인·lifecycle인과성축소·WindowsSSH최소delta와I10K부분실패/최종보류를복원했다. [배치 근거](pawcycle-source-ledger/batch-311-320.md). 신규 PWC-0102, PWC-0103, PWC-0104, PWL-0042; 누적 320/502, 다음 #321.

@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "8e4ac59e53e5c4e431edccd83a59189767e0cac1",
+  "wiki_parent_sha": "19be05f8e131e8f1861ea397fc988c15ca6f9aac",
   "wiki_main_sha": "a39344350da04c071bc4230952d0409a1bd4568d",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -21,11 +21,11 @@
   "inventoried_count": 502,
   "completed_contiguous_range": [
     1,
-    310
+    320
   ],
-  "completed_count": 310,
-  "pending_count": 192,
-  "next_source": 311,
+  "completed_count": 320,
+  "pending_count": 182,
+  "next_source": 321,
   "batches": [
     {
       "range": [
@@ -279,6 +279,14 @@
       ],
       "evidence": "batch-301-310.md",
       "manifest": "batch-301-310.sources.json"
+    },
+    {
+      "range": [
+        311,
+        320
+      ],
+      "evidence": "batch-311-320.md",
+      "manifest": "batch-311-320.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -330,11 +338,11 @@
     "#300 calibration is historical reported 60s/30 samples, not a current Production or capacity claim; raw artifacts/local OCI CLI not re-executed. #301-#304 independent source audits are next, despite #300 final-comment linkage. Tomcat series and OCI MQL availability require execution-time validation."
   ],
   "validation": {
-    "wiki": "156 records, 0 issues",
+    "wiki": "160 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "502 unique consecutive sources; 310 complete; 192 pending; next #311; unique journal keys; batch source/file manifests consistent"
+    "coverage": "502 unique consecutive sources; 320 complete; 182 pending; next #321; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #311 before #312; preserve historical failures, conditional QA and source-specific verification limits. User requested through #400 on 2026-11-04.",
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #321 before #322; preserve historical failures, conditional QA and source-specific verification limits. User requested through #400 on 2026-11-04.",
   "request_checkpoint": {
     "requested_range": [
       301,
@@ -343,9 +351,9 @@
     "requested_through": 400,
     "completed_this_request": [
       301,
-      310
+      320
     ],
-    "next_source": 311,
+    "next_source": 321,
     "scope": "source dispositions and source-specific limitations; no operational execution"
   },
   "resolved_or_narrowed_uncertainties": [
