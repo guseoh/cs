@@ -152,3 +152,7 @@ AI 도구 Before 자료의 한계→Connector 대조군 재정의→읽기 capab
 ## 번호순 전수 조사 #111~#120 — 2026-11-04
 
 local metric·scrape 비용 수용, disposable 장애 격리, Prometheus 후보 감지와 Discord 수동 수신을 단계별로 복원했다. [배치 근거](pawcycle-source-ledger/batch-111-120.md). 신규 PWC-0065, PWC-0066, PWL-0028; 누적 120/501, 다음 #121.
+
+## 번호순 전수 조사 #121~#130 — 2026-11-04
+
+정기 주문의 최초 구현·OFF 배포·정확한 SHA 승인, readiness/OIDC 단계와 실제 AWS 실패를 연결했다. #128의 최종 폐기는 완료와 구별했다. [배치 근거](pawcycle-source-ledger/batch-121-130.md). 신규 PWC-0067, PWC-0068; 누적 130/501, 다음 #131.

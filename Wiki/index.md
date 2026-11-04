@@ -98,6 +98,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0064](decisions/PWC-0064.md) | accepted | 멱등 성공 결과는 최초 완료부터 30일 보관하고 bounded 정리한다 | pawcycle |
 | [PWC-0065](decisions/PWC-0065.md) | accepted | 관측 metric은 commit 결과를 따르고 scrape DB 비용을 별도 평가한다 | pawcycle |
 | [PWC-0066](decisions/PWC-0066.md) | accepted | 장애 후보 감지와 알림 전달의 검증 단계를 분리한다 | pawcycle |
+| [PWC-0067](decisions/PWC-0067.md) | accepted | 자동화 배포는 OFF로 시작하고 contract·migration 경계는 별도 승인한다 | pawcycle |
+| [PWC-0068](decisions/PWC-0068.md) | accepted | readiness·알림·OIDC 배포는 서로 다른 증거와 승인 단계다 | pawcycle |
 
 ## Knowledge index
 
@@ -157,10 +159,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#120 have individual detailed dispositions; #121–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#130 have individual detailed dispositions; #131–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #121](history/pawcycle-source-ledger/progress.json). Current count: **120 complete / 381 pending / 501 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #131](history/pawcycle-source-ledger/progress.json). Current count: **130 complete / 371 pending / 501 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -198,3 +200,7 @@ AI 도구 Before 자료의 한계→Connector 대조군 재정의→읽기 capab
 ### PawCycle 상세 처리 #111~#120 (2026-11-04)
 
 local metric·scrape 비용 수용, disposable 장애 격리, Prometheus 후보 감지와 Discord 수동 수신을 단계별로 복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-111-120.md). 최신 누적 120/501, 미완료 381, 다음 #121.
+
+### PawCycle 상세 처리 #121~#130 (2026-11-04)
+
+정기 주문의 최초 구현·OFF 배포·정확한 SHA 승인, readiness/OIDC 단계와 실제 AWS 실패를 연결했다. #128의 최종 폐기는 완료와 구별했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-121-130.md). 최신 누적 130/501, 미완료 371, 다음 #131.

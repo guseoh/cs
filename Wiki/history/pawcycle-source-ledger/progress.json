@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "3c32af3d5b5349503cfee6724931a0b596daf3aa",
+  "wiki_parent_sha": "cb63fd21c77a8b7879cd9c750a75e8425d8c2898",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    120
+    130
   ],
-  "completed_count": 120,
-  "pending_count": 381,
-  "next_source": 121,
+  "completed_count": 130,
+  "pending_count": 371,
+  "next_source": 131,
   "batches": [
     {
       "range": [
@@ -118,6 +118,14 @@
       ],
       "evidence": "batch-111-120.md",
       "manifest": "batch-111-120.sources.json"
+    },
+    {
+      "range": [
+        121,
+        130
+      ],
+      "evidence": "batch-121-130.md",
+      "manifest": "batch-121-130.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -151,12 +159,13 @@
     "#100 역사대조군18행 production_execution필드부재로현재validator완전재검증불가;원본비소급보존",
     "#100 실행모델/추론수준미수집·credential read-only강제아님·실제업무3~5건pilot미실행",
     "#92~95 우발Issue생성은확인되나정확한오선택Tool/부작용재현은미확인",
-    "#101/#103/#104 병합 후 리뷰 해결 여부는 이 원본 범위에서 미확인; #104 실제 운영 규모·정확한 lock hold와 Production 복구 미검증."
+    "#101/#103/#104 병합 후 리뷰 해결 여부는 이 원본 범위에서 미확인; #104 실제 운영 규모·정확한 lock hold와 Production 복구 미검증.",
+    "#122 병합 후 aggregate preflight·batch/candidate race 리뷰 해결 미확인. #128은 AWS 종료로 not_planned이며 전체 운영 검증 완료가 아님."
   ],
   "validation": {
-    "wiki": "108 records, 0 issues",
+    "wiki": "110 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 120 complete; 381 pending; next #121; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 130 complete; 371 pending; next #131; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #121 before #122; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #131 before #132; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
 }
