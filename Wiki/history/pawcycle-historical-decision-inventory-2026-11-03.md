@@ -140,3 +140,7 @@ HTTPS 실제 발급·갱신/재부팅, S3 격리 복원과 유지보수 예외, 
 ## 번호순 전수 조사 #81~#90 — 2026-11-04
 
 최소운영기준선7항목 Verified의 한계, code/metadata CI 분리·비소급 Lean 전환, MVP2 제품/legacy 정책과 Proposed 기술계약→구현 Delta, 멱등 current-read·reconciliation correction, 운영활성화 후속 Issue와 로컬volume 인증복구를 기록했다. [배치 근거](pawcycle-source-ledger/batch-081-090.md). 신규 PWC-0057, PWC-0058, PWC-0059, PWL-0023, PWL-0024; 누적 90/501, 다음 #91.
+
+## 번호순 전수 조사 #91~#100 — 2026-11-04
+
+AI 도구 Before 자료의 한계→Connector 대조군 재정의→읽기 capability 계약→외부 측정도구→Codex 실험군을 연결하고, 우발 Issue4개는 독립 정책 없는 사고로 판정했다. cache/중복·schema drift·권한강제 아님·모델 미수집을 보존했다. [배치 근거](pawcycle-source-ledger/batch-091-100.md). 신규 PWC-0060, PWC-0061, PWL-0025; 누적 100/501, 다음 #101.

@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
 depends_on: []
 supersedes: []
-related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012]
+related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025]
 ---
 # PawCycle Commerce — source-verified project snapshot
 
@@ -69,7 +69,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#90 have individual detailed dispositions**, while #91–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#100 have individual detailed dispositions**, while #101–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -145,3 +145,13 @@ HTTPS 실제 발급·갱신/재부팅, S3 격리 복원과 유지보수 예외, 
 ## 2026-11-04 역사 복원 #81~#90
 
 최소운영기준선7항목 Verified의 한계, code/metadata CI 분리·비소급 Lean 전환, MVP2 제품/legacy 정책과 Proposed 기술계약→구현 Delta, 멱등 current-read·reconciliation correction, 운영활성화 후속 Issue와 로컬volume 인증복구를 기록했다. [상세 근거](../history/pawcycle-source-ledger/batch-081-090.md). 누적 상세 90/501, 미완료 411; 다음 #91. 현재 운영 재검증이 아니다.
+
+## 2026-11-04 역사 복원 #91~#100
+
+AI 도구 Before 자료의 한계→Connector 대조군 재정의→읽기 capability 계약→외부 측정도구→Codex 실험군을 연결하고, 우발 Issue4개는 독립 정책 없는 사고로 판정했다. cache/중복·schema drift·권한강제 아님·모델 미수집을 보존했다. [상세 근거](../history/pawcycle-source-ledger/batch-091-100.md). 누적 상세 100/501, 미완료 401; 다음 #101. 현재 운영 재검증이 아니다.
+
+## 2026-11-04 이번 요청 완료와 다음 재개
+
+원본 #41~#100을 여섯 배치로 처리했다. 누적 **100/501 상세 완료, 401 미완료**, 다음은 **#101**이다. 신규 Decision 18개·Lesson 10개를 추가했다. PWC-0059는 원본 기술 제안의 proposed 상태, PWL-0021은 실행 재현 없는 잔여 gate 지적의 draft 상태다. 현재 main 운영 사실은 별도 재확인이 필요하다.
+
+[PWC-0044](../decisions/PWC-0044.md), [PWC-0045](../decisions/PWC-0045.md), [PWC-0046](../decisions/PWC-0046.md), [PWC-0047](../decisions/PWC-0047.md), [PWC-0048](../decisions/PWC-0048.md), [PWC-0049](../decisions/PWC-0049.md), [PWC-0050](../decisions/PWC-0050.md), [PWC-0051](../decisions/PWC-0051.md), [PWC-0052](../decisions/PWC-0052.md), [PWC-0053](../decisions/PWC-0053.md), [PWC-0054](../decisions/PWC-0054.md), [PWC-0055](../decisions/PWC-0055.md), [PWC-0056](../decisions/PWC-0056.md), [PWC-0057](../decisions/PWC-0057.md), [PWC-0058](../decisions/PWC-0058.md), [PWC-0059](../decisions/PWC-0059.md), [PWC-0060](../decisions/PWC-0060.md), [PWC-0061](../decisions/PWC-0061.md), [PWL-0016](../lessons/PWL-0016.md), [PWL-0017](../lessons/PWL-0017.md), [PWL-0018](../lessons/PWL-0018.md), [PWL-0019](../lessons/PWL-0019.md), [PWL-0020](../lessons/PWL-0020.md), [PWL-0021](../lessons/PWL-0021.md), [PWL-0022](../lessons/PWL-0022.md), [PWL-0023](../lessons/PWL-0023.md), [PWL-0024](../lessons/PWL-0024.md), [PWL-0025](../lessons/PWL-0025.md)

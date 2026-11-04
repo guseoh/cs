@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "0563b500bdc1337d24f2580af7ddd06d23db985c",
+  "wiki_parent_sha": "61f05bb1d1a18efce7d730c187ced18b75430770",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    90
+    100
   ],
-  "completed_count": 90,
-  "pending_count": 411,
-  "next_source": 91,
+  "completed_count": 100,
+  "pending_count": 401,
+  "next_source": 101,
   "batches": [
     {
       "range": [
@@ -94,6 +94,14 @@
       ],
       "evidence": "batch-081-090.md",
       "manifest": "batch-081-090.sources.json"
+    },
+    {
+      "range": [
+        91,
+        100
+      ],
+      "evidence": "batch-091-100.md",
+      "manifest": "batch-091-100.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -123,12 +131,15 @@
     "#76 candidate restore는저장소준비이며#80도actualproductionDBrestore를실행하지않음",
     "#85 병합뒤 추가5건 중legacy NOT NULL/composite 소유FK 전략은#89제외범위로잔여; UI추가리뷰는#86본문해결주장만으로닫지않음",
     "#87 FOR UPDATE 최초구현은확인했으나ARCH007 Proposed의비관적lock미도입에서바꾼별도ADR승인원문은미확인",
-    "#88 closed/checklist완료는후속저장소기록이며운영scheduler/legacy활성화승인또는실행완료아님"
+    "#88 closed/checklist완료는후속저장소기록이며운영scheduler/legacy활성화승인또는실행완료아님",
+    "#100 역사대조군18행 production_execution필드부재로현재validator완전재검증불가;원본비소급보존",
+    "#100 실행모델/추론수준미수집·credential read-only강제아님·실제업무3~5건pilot미실행",
+    "#92~95 우발Issue생성은확인되나정확한오선택Tool/부작용재현은미확인"
   ],
   "validation": {
-    "wiki": "97 records, 0 issues",
+    "wiki": "100 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 90 complete; 411 pending; next #91; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 100 complete; 401 pending; next #101; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #91 before #92; preserve historical failures, conditional QA and source-specific verification limits. User requested through #100 on 2026-11-04."
+  "resume": "Requested #41–#100 batch scope completed. Re-fetch PR18 HEAD and both main refs before continuing #101, then #102 in order. Sources #102/#104/#106/#108 are only linked as Issue #88 follow-ups, not yet detailed-audited. Preserve unverified approval, runtime, review and schema-drift limits."
 }
