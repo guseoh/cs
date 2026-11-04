@@ -160,3 +160,7 @@ local metric·scrape 비용 수용, disposable 장애 격리, Prometheus 후보 
 ## 번호순 전수 조사 #131~#140 — 2026-11-04
 
 SSM v1~v6의 실패 가설→process trace→exact Git trust→AWS 안전 배포를 복원하고 Catalog·Commerce·인증 책임 변화와 실제 검증 한계를 연결했다. [배치 근거](pawcycle-source-ledger/batch-131-140.md). 신규 PWC-0069, PWC-0070, PWL-0029; 누적 140/501, 다음 #141.
+
+## 번호순 전수 조사 #141~#150 — 2026-11-04
+
+V2책임 분리, AWS관측 bridge독립화와실제검증, Backenddrill의 probe/시간한계, 두호스트read-only진단과독립알림을복원했다. [배치 근거](pawcycle-source-ledger/batch-141-150.md). 신규 PWC-0071; 누적 150/501, 다음 #151.

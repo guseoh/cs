@@ -69,7 +69,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#140 have individual detailed dispositions**, while #141–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#150 have individual detailed dispositions**, while #151–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -171,3 +171,7 @@ local metric·scrape 비용 수용, disposable 장애 격리, Prometheus 후보 
 ## 2026-11-04 역사 복원 #131~#140
 
 SSM v1~v6의 실패 가설→process trace→exact Git trust→AWS 안전 배포를 복원하고 Catalog·Commerce·인증 책임 변화와 실제 검증 한계를 연결했다. [상세 근거](../history/pawcycle-source-ledger/batch-131-140.md). 누적 상세 140/501, 미완료 361; 다음 #141. 현재 운영 재검증이 아니다.
+
+## 2026-11-04 역사 복원 #141~#150
+
+V2책임 분리, AWS관측 bridge독립화와실제검증, Backenddrill의 probe/시간한계, 두호스트read-only진단과독립알림을복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-141-150.md). 누적 상세 150/501, 미완료 351; 다음 #151. 현재 운영 재검증이 아니다.
