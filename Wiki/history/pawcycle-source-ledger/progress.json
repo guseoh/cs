@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "245b4fbe529de746807a52f9997f097431507c5f",
+  "wiki_parent_sha": "a2c259ced7daa7e78a195342db0c6f745040d925",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    150
+    160
   ],
-  "completed_count": 150,
-  "pending_count": 351,
-  "next_source": 151,
+  "completed_count": 160,
+  "pending_count": 341,
+  "next_source": 161,
   "batches": [
     {
       "range": [
@@ -142,6 +142,14 @@
       ],
       "evidence": "batch-141-150.md",
       "manifest": "batch-141-150.sources.json"
+    },
+    {
+      "range": [
+        151,
+        160
+      ],
+      "evidence": "batch-151-160.md",
+      "manifest": "batch-151-160.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -177,12 +185,13 @@
     "#92~95 우발Issue생성은확인되나정확한오선택Tool/부작용재현은미확인",
     "#101/#103/#104 병합 후 리뷰 해결 여부는 이 원본 범위에서 미확인; #104 실제 운영 규모·정확한 lock hold와 Production 복구 미검증.",
     "#122 병합 후 aggregate preflight·batch/candidate race 리뷰 해결 미확인. #128은 AWS 종료로 not_planned이며 전체 운영 검증 완료가 아님.",
-    "#148 병합 후 runtime SHA/mount/endpoint/artifact/proxy 관련 추가 리뷰의 후속 해소는 미확인. #146 정확 MTTR 및 Grafana 순간장애 캡처는 없음."
+    "#148 병합 후 runtime SHA/mount/endpoint/artifact/proxy 관련 추가 리뷰의 후속 해소는 미확인. #146 정확 MTTR 및 Grafana 순간장애 캡처는 없음.",
+    "RDS actual import/cutover/PITR restore 완료근거 없음(#158 not_planned). #159 quote escape grammar 부정회귀 추가 해결은 같은HEAD #160에서 미확인."
   ],
   "validation": {
-    "wiki": "114 records, 0 issues",
+    "wiki": "115 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 150 complete; 351 pending; next #151; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 160 complete; 341 pending; next #161; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #151 before #152; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #161 before #162; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
 }

@@ -164,3 +164,7 @@ SSM v1~v6의 실패 가설→process trace→exact Git trust→AWS 안전 배포
 ## 번호순 전수 조사 #141~#150 — 2026-11-04
 
 V2책임 분리, AWS관측 bridge독립화와실제검증, Backenddrill의 probe/시간한계, 두호스트read-only진단과독립알림을복원했다. [배치 근거](pawcycle-source-ledger/batch-141-150.md). 신규 PWC-0071; 누적 150/501, 다음 #151.
+
+## 번호순 전수 조사 #151~#160 — 2026-11-04
+
+실양채널알림과자동실행보류, RDS비교·TLS대가·실자원생성, rehearsal미완료/폐기와CRLF·env파싱수정·대체PR을구분했다. [배치 근거](pawcycle-source-ledger/batch-151-160.md). 신규 PWL-0030; 누적 160/501, 다음 #161.
