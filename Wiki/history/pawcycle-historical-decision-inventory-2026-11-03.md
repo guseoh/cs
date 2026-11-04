@@ -216,3 +216,7 @@ UI 보정·FOUNDATION 호환성·Admin·개인화/Add-on 계약과 인증 Browse
 ## 번호순 전수 조사 #251~#260 — 2026-11-04
 
 Warm Utility→Warm Routine→Daily Orbit 변경관계, 임시AWS Auto-CD, Canonical Catalog 공통적재 준비를 복원했다. [배치 근거](pawcycle-source-ledger/batch-251-260.md). 신규 PWC-0088, PWC-0089; 누적 260/502, 다음 #261.
+
+## 번호순 전수 조사 #261~#270 — 2026-11-04
+
+운영적재adapter/identity실패의원인과동일HEAD대체, Catalog현실성overlay, 익명추천SQL·CompareJDBC교정및배포후QAgate를복원했다. [배치 근거](pawcycle-source-ledger/batch-261-270.md). 신규 PWC-0090; 누적 270/502, 다음 #271.

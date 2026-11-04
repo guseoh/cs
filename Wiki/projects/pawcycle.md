@@ -69,7 +69,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#260 have individual detailed dispositions**, while #261–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#270 have individual detailed dispositions**, while #271–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -235,3 +235,7 @@ UI 보정·FOUNDATION 호환성·Admin·개인화/Add-on 계약과 인증 Browse
 ## 2026-11-04 역사 복원 #251~#260
 
 Warm Utility→Warm Routine→Daily Orbit 변경관계, 임시AWS Auto-CD, Canonical Catalog 공통적재 준비를 복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-251-260.md). 누적 상세 260/502, 미완료 242; 다음 #261. 현재 운영 재검증이 아니다.
+
+## 2026-11-04 역사 복원 #261~#270
+
+운영적재adapter/identity실패의원인과동일HEAD대체, Catalog현실성overlay, 익명추천SQL·CompareJDBC교정및배포후QAgate를복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-261-270.md). 누적 상세 270/502, 미완료 232; 다음 #271. 현재 운영 재검증이 아니다.
