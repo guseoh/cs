@@ -103,6 +103,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0069](decisions/PWC-0069.md) | accepted | Admin Catalog는 RBAC·상태 전이·공개 SKU와 구독 적격성을 분리한다 | pawcycle |
 | [PWC-0070](decisions/PWC-0070.md) | accepted | Commerce는 공통 주문 snapshot·재고 예약·미확정 결제와 명시 복구를 연결한다 | pawcycle |
 | [PWC-0071](decisions/PWC-0071.md) | accepted | 운영 진단은 두 호스트의 읽기 신호를 결합하고 알림 실패와 분리한다 | pawcycle |
+| [PWC-0072](decisions/PWC-0072.md) | accepted | 성능 측정은 시간창·유입률·환경별 실패 경계를 보존하고 튜닝과 분리한다 | pawcycle |
 
 ## Knowledge index
 
@@ -144,6 +145,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0028](lessons/PWL-0028.md) | 장애 재현은 disposable 자원·실제 lock·복구 신호까지 확인한다 | pawcycle |
 | [PWL-0029](lessons/PWL-0029.md) | 수동 sudo와 SSM Agent root는 Git 신뢰 환경이 다르다 | pawcycle |
 | [PWL-0030](lessons/PWL-0030.md) | 운영 도구는 실제 출력·materializer 형식과 실패 경로를 함께 검증한다 | pawcycle |
+| [PWL-0031](lessons/PWL-0031.md) | 빠른 502와 TIME_WAIT 압력은 정상 처리량으로 계산하지 않는다 | pawcycle |
+| [PWL-0032](lessons/PWL-0032.md) | AWS 250 RPS 실패는 heap 한계가 아닌 container cgroup OOM이었다 | pawcycle |
 
 ## Record creation and maintenance
 
@@ -164,10 +167,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#160 have individual detailed dispositions; #161–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#170 have individual detailed dispositions; #171–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #161](history/pawcycle-source-ledger/progress.json). Current count: **160 complete / 341 pending / 501 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #171](history/pawcycle-source-ledger/progress.json). Current count: **170 complete / 331 pending / 501 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -221,3 +224,7 @@ V2책임 분리, AWS관측 bridge독립화와실제검증, Backenddrill의 probe
 ### PawCycle 상세 처리 #151~#160 (2026-11-04)
 
 실양채널알림과자동실행보류, RDS비교·TLS대가·실자원생성, rehearsal미완료/폐기와CRLF·env파싱수정·대체PR을구분했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-151-160.md). 최신 누적 160/501, 미완료 341, 다음 #161.
+
+### PawCycle 상세 처리 #161~#170 (2026-11-04)
+
+Control-only·same-SHA runtime 승인과 RDS preflight수정, Phase8의도구실패/correction/local proxy한계/AWS cgroupOOM·최종closure를복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-161-170.md). 최신 누적 170/501, 미완료 331, 다음 #171.

@@ -168,3 +168,7 @@ V2책임 분리, AWS관측 bridge독립화와실제검증, Backenddrill의 probe
 ## 번호순 전수 조사 #151~#160 — 2026-11-04
 
 실양채널알림과자동실행보류, RDS비교·TLS대가·실자원생성, rehearsal미완료/폐기와CRLF·env파싱수정·대체PR을구분했다. [배치 근거](pawcycle-source-ledger/batch-151-160.md). 신규 PWL-0030; 누적 160/501, 다음 #161.
+
+## 번호순 전수 조사 #161~#170 — 2026-11-04
+
+Control-only·same-SHA runtime 승인과 RDS preflight수정, Phase8의도구실패/correction/local proxy한계/AWS cgroupOOM·최종closure를복원했다. [배치 근거](pawcycle-source-ledger/batch-161-170.md). 신규 PWC-0072, PWL-0031, PWL-0032; 누적 170/501, 다음 #171.
