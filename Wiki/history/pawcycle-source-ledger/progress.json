@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "cb4999aec13144f7d0fac1cbbafacf087fb06734",
+  "wiki_parent_sha": "8e4ac59e53e5c4e431edccd83a59189767e0cac1",
   "wiki_main_sha": "a39344350da04c071bc4230952d0409a1bd4568d",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -21,11 +21,11 @@
   "inventoried_count": 502,
   "completed_contiguous_range": [
     1,
-    300
+    310
   ],
-  "completed_count": 300,
-  "pending_count": 202,
-  "next_source": 301,
+  "completed_count": 310,
+  "pending_count": 192,
+  "next_source": 311,
   "batches": [
     {
       "range": [
@@ -271,6 +271,14 @@
       ],
       "evidence": "batch-291-300.md",
       "manifest": "batch-291-300.sources.json"
+    },
+    {
+      "range": [
+        301,
+        310
+      ],
+      "evidence": "batch-301-310.md",
+      "manifest": "batch-301-310.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -322,78 +330,23 @@
     "#300 calibration is historical reported 60s/30 samples, not a current Production or capacity claim; raw artifacts/local OCI CLI not re-executed. #301-#304 independent source audits are next, despite #300 final-comment linkage. Tomcat series and OCI MQL availability require execution-time validation."
   ],
   "validation": {
-    "wiki": "153 records, 0 issues",
+    "wiki": "156 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "502 unique consecutive sources; 300 complete; 202 pending; next #301; unique journal keys; batch source/file manifests consistent"
+    "coverage": "502 unique consecutive sources; 310 complete; 192 pending; next #311; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Requested #201-#300 complete: #201 preserved and #202-#300 audited in 10 validated batches. Continue #301 before #302; #300 references #301-#304 only as linked evidence, not independent dispositions. Re-fetch PR18 HEAD, cs/main, product/main and latest source number. Preserve binary/operational/raw-artifact limits and unresolved post-merge findings.",
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #311 before #312; preserve historical failures, conditional QA and source-specific verification limits. User requested through #400 on 2026-11-04.",
   "request_checkpoint": {
-    "new_decisions": 22,
-    "new_lessons": 6,
-    "updated_existing_records": 15,
-    "updated_existing_ids": [
-      "PWC-0006",
-      "PWC-0007",
-      "PWC-0009",
-      "PWC-0010",
-      "PWC-0012",
-      "PWC-0013",
-      "PWC-0014",
-      "PWC-0015",
-      "PWC-0023",
-      "PWC-0024",
-      "PWC-0025",
-      "PWC-0045",
-      "PWC-0055",
-      "PWC-0070",
-      "PWL-0001"
-    ],
-    "source_changed_files": 2420,
-    "newly_processed_sources": 99,
-    "requested_sources": 100,
     "requested_range": [
-      201,
-      300
+      301,
+      400
     ],
-    "preserved_existing_source": 201,
-    "binary_files_not_independently_revalidated": 72,
-    "new_record_ids": [
-      "PWC-0078",
-      "PWL-0035",
-      "PWC-0079",
-      "PWC-0080",
-      "PWC-0081",
-      "PWC-0082",
-      "PWL-0036",
-      "PWC-0083",
-      "PWC-0084",
-      "PWC-0085",
-      "PWC-0086",
-      "PWC-0087",
-      "PWC-0088",
-      "PWC-0089",
-      "PWC-0090",
-      "PWC-0091",
-      "PWC-0092",
-      "PWC-0093",
-      "PWL-0037",
-      "PWC-0094",
-      "PWC-0095",
-      "PWL-0038",
-      "PWC-0096",
-      "PWC-0097",
-      "PWC-0098",
-      "PWC-0099",
-      "PWL-0039",
-      "PWL-0040"
-    ],
-    "requested_through": 300,
+    "requested_through": 400,
     "completed_this_request": [
-      202,
-      300
+      301,
+      310
     ],
-    "batch_count": 10,
-    "next_source": 301
+    "next_source": 311,
+    "scope": "source dispositions and source-specific limitations; no operational execution"
   },
   "resolved_or_narrowed_uncertainties": [
     {

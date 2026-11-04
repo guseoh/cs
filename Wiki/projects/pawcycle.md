@@ -69,7 +69,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#300 have individual detailed dispositions**, while #301–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#310 have individual detailed dispositions**, while #311–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -257,3 +257,7 @@ opc권한·networkpublish·runtimeenv실패교정, edge/ownership/logging보안�
 #201 기존 판정을 유지하고 #202–#300 **99건**을 번호순 10배치로 조사했다. 요청 범위 100건 전체에 상세 처리 결과가 있으며 누적 **300/502 완료·202 미완료·다음 #301**이다. 신규 결정 22개·교훈 6개, 기존 기록 15개를 갱신하고 원본 변경파일 2420개의 경로·blob·수집 가능 patch/한계를 manifest로 남겼다.
 
 Phase10 one-shot identity와 유실 증거, Scheduler KEEP, Catalog·Checkout·Trust, UX 대안/승인 변경, JPA/HTTP 경계, AWS 자동 dispatch 실패와 철거, Tokyo/Trial E5·관측 권한/network·보안 경계, #300 제한된 관측 Production Verified를 연결했다. #256/#281 binary72개는 원본 재검증 없이 manifest/당시 보고로 제한하고, 실제 Provider·운영/복구·원시 성능 artifact 및 병합 뒤 추가 리뷰의 미확인을 유지한다. #300의 #301~#304 언급은 연결 근거이며 독립 전수 처리는 #301부터다.
+
+## 2026-11-04 역사 복원 #301~#310
+
+10K정확총량·I0/I10K격리와formalreview증거gap,stagebucket완전성·실image rehearsal실패및2회복구를복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-301-310.md). 누적 상세 310/502, 미완료 192; 다음 #311. 현재 운영 재검증이 아니다.
