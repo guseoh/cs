@@ -228,3 +228,7 @@ HTTP·JPA리팩터링단계/남은정합성부채, Session검토보류, Seoul→
 ## 번호순 전수 조사 #281~#290 — 2026-11-04
 
 AWS자동dispatch사건과철거, externalMySQL·HTTPSreloadpending·samehost관측, botreviewfalse-success와exactHEAD/shellgate를복원했다. [배치 근거](pawcycle-source-ledger/batch-281-290.md). 신규 PWC-0094, PWC-0095, PWL-0038; 누적 290/502, 다음 #291.
+
+## 번호순 전수 조사 #291~#300 — 2026-11-04
+
+opc권한·networkpublish·runtimeenv실패교정, edge/ownership/logging보안경계와#300관측준비최종완료·dataset변수분리를복원했다. [배치 근거](pawcycle-source-ledger/batch-291-300.md). 신규 PWC-0096, PWC-0097, PWC-0098, PWC-0099, PWL-0039, PWL-0040; 누적 300/502, 다음 #301.
