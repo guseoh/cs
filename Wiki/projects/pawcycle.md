@@ -69,7 +69,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#201 have individual detailed dispositions**, while #202–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#210 have individual detailed dispositions**, while #211–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -211,3 +211,7 @@ Phase 9은 잔여 포화가 있지만 특정 Java hotspot 귀속 증거가 없�
 ### #201 요청 종료 체크포인트
 
 [추가 최적화 NO CHANGE](../decisions/PWC-0077.md)와 JFR Outcome C, 미실행 통합 계약을 기록했다. 이번 신규 Decision 1개·기존 기록 4개 갱신, 누적 201/502 상세 완료·301 미완료·다음 #202다. 새 #502는 목록 metadata만 확인했다. cs main은 a3934435(Study 문서 1개 변경), PawCycle main은 caad5233로 확인했으며 원본 자료·제품·운영은 변경하지 않았다. #195의 직접 closure 원인은 미확인으로 유지한다.
+
+## 2026-11-04 역사 복원 #202~#210
+
+Redis 최초 KEEP와 race 교정, 유실된5k와새10k의구분, one-shot identity·durable evidence 및mixed-scrape실패를복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-202-210.md). 누적 상세 210/502, 미완료 292; 다음 #211. 현재 운영 재검증이 아니다.

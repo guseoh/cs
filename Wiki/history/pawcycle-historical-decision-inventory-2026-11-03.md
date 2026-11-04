@@ -192,3 +192,7 @@ Hikari20기각·CPU2부분인과성·JFR선택과두pre-workload correction을�
 ## 번호순 전수 조사 #201~#201 — 2026-11-04
 
 Phase 9은 잔여 포화가 있지만 특정 Java hotspot 귀속 증거가 없어 추가 코드 최적화 NO CHANGE로 종료했다. 실제 PH9-011 불완전 JFR과 선행 pre-workload 실패를 구분하고 통합 검증 미실행 correction을 복원했다. [배치 근거](pawcycle-source-ledger/batch-201-201.md). 신규 PWC-0077; 누적 201/502, 다음 #202.
+
+## 번호순 전수 조사 #202~#210 — 2026-11-04
+
+Redis 최초 KEEP와 race 교정, 유실된5k와새10k의구분, one-shot identity·durable evidence 및mixed-scrape실패를복원했다. [배치 근거](pawcycle-source-ledger/batch-202-210.md). 신규 PWC-0078, PWL-0035; 누적 210/502, 다음 #211.
