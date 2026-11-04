@@ -220,3 +220,7 @@ Warm Utility→Warm Routine→Daily Orbit 변경관계, 임시AWS Auto-CD, Canon
 ## 번호순 전수 조사 #261~#270 — 2026-11-04
 
 운영적재adapter/identity실패의원인과동일HEAD대체, Catalog현실성overlay, 익명추천SQL·CompareJDBC교정및배포후QAgate를복원했다. [배치 근거](pawcycle-source-ledger/batch-261-270.md). 신규 PWC-0090; 누적 270/502, 다음 #271.
+
+## 번호순 전수 조사 #271~#280 — 2026-11-04
+
+HTTP·JPA리팩터링단계/남은정합성부채, Session검토보류, Seoul→Tokyo·TrialE5변경과미병합OCI준비/TLSgate를복원했다. [배치 근거](pawcycle-source-ledger/batch-271-280.md). 신규 PWC-0091, PWC-0092, PWC-0093, PWL-0037; 누적 280/502, 다음 #281.
