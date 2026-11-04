@@ -1,0 +1,1887 @@
+{
+  "schema_version": 1,
+  "range": [
+    431,
+    440
+  ],
+  "observed_at": "2026-11-04",
+  "source_repository": "guseoh/pawcycle-commerce",
+  "sources": [
+    {
+      "number": 431,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/431",
+      "title": "refactor(checkout): isolate R2-02 response and replay boundaries",
+      "state": "closed",
+      "state_reason": null,
+      "created_at": "2026-10-20T08:38:32Z",
+      "updated_at": "2026-10-23T08:38:46Z",
+      "closed_at": "2026-10-20T11:22:15Z",
+      "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+      "merged": true,
+      "merged_at": "2026-10-20T11:22:15Z",
+      "merge_commit_sha": "a67bb0b51c644baefb37220290c8921b14a0c592",
+      "changed_files": 8,
+      "files": [
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/checkout/api/CheckoutController.java",
+          "status": "modified",
+          "sha": "a03ce46696575cc0c5505822b3879b757a4b3fbb",
+          "patch_available": true,
+          "additions": 11,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/4c3cb2e82c404dbe4452a52c00257f886373b962/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcheckout%2Fapi%2FCheckoutController.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/checkout/application/CheckoutApplicationService.java",
+          "status": "modified",
+          "sha": "d074943683165c3af723d63ff541e43bfdb9a388",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 9,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/4c3cb2e82c404dbe4452a52c00257f886373b962/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcheckout%2Fapplication%2FCheckoutApplicationService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/checkout/application/CheckoutIdempotencyService.java",
+          "status": "modified",
+          "sha": "0e2056c24cac9f7123dd980772f6095e64f25d50",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/4c3cb2e82c404dbe4452a52c00257f886373b962/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcheckout%2Fapplication%2FCheckoutIdempotencyService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/checkout/application/CheckoutPricing.java",
+          "status": "added",
+          "sha": "ccf01327555e0e06668ef9aba3436f73a061fa8d",
+          "patch_available": true,
+          "additions": 12,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/4c3cb2e82c404dbe4452a52c00257f886373b962/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcheckout%2Fapplication%2FCheckoutPricing.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/checkout/application/CheckoutResult.java",
+          "status": "added",
+          "sha": "f8cbe522746589b44cd2b6c4be2a820efe9cf40f",
+          "patch_available": true,
+          "additions": 13,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/4c3cb2e82c404dbe4452a52c00257f886373b962/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcheckout%2Fapplication%2FCheckoutResult.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/CheckoutIdempotencyIntegrationTests.java",
+          "status": "modified",
+          "sha": "602e5ecb4540a7f5a43bdd72a56f88fc27010542",
+          "patch_available": true,
+          "additions": 101,
+          "deletions": 27,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/4c3cb2e82c404dbe4452a52c00257f886373b962/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2FCheckoutIdempotencyIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/CommerceFacade.java",
+          "status": "modified",
+          "sha": "aded66b9ccb4c0ad23db2a88e133a06afbc471e0",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/4c3cb2e82c404dbe4452a52c00257f886373b962/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2FCommerceFacade.java"
+        },
+        {
+          "path": "backend/src/test/resources/architecture/legacy-dependencies.txt",
+          "status": "modified",
+          "sha": "7f64cc27886f709851c868f8c9fcda5294bde611",
+          "patch_available": true,
+          "additions": 0,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/4c3cb2e82c404dbe4452a52c00257f886373b962/backend%2Fsrc%2Ftest%2Fresources%2Farchitecture%2Flegacy-dependencies.txt"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/431#issuecomment-6286970152",
+          "created_at": "2026-10-20T08:38:40Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/431#issuecomment-6289617704",
+          "created_at": "2026-10-20T11:15:45Z"
+        }
+      ],
+      "reviews": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/431#pullrequestreview-5582805504",
+          "sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "state": "COMMENTED",
+          "submitted_at": "2026-10-20T08:49:06Z"
+        }
+      ],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "message": "refactor(checkout): isolate R2-02 API models"
+        }
+      ],
+      "ci": [
+        {
+          "id": 39414465261,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39414465261"
+        },
+        {
+          "id": 39413671224,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39413671224"
+        },
+        {
+          "id": 39413671847,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39413671847"
+        },
+        {
+          "id": 39413671834,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39413671834"
+        },
+        {
+          "id": 39396216181,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39396216181"
+        },
+        {
+          "id": 39396215230,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39396215230"
+        },
+        {
+          "id": 39396141547,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39396141547"
+        },
+        {
+          "id": 39395858035,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39395858035"
+        },
+        {
+          "id": 39395857475,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39395857475"
+        },
+        {
+          "id": 39394868995,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39394868995"
+        },
+        {
+          "id": 39394868956,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39394868956"
+        },
+        {
+          "id": 39394868998,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "4c3cb2e82c404dbe4452a52c00257f886373b962",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39394868998"
+        }
+      ]
+    },
+    {
+      "number": 432,
+      "type": "Issue",
+      "url": "https://github.com/guseoh/pawcycle-commerce/issues/432",
+      "title": "[BACKEND-REFACTOR-R2-03-04] Commerce 결제·사후처리 Application/API 응답 경계 통합 정리",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-10-20T10:07:00Z",
+      "updated_at": "2026-10-20T11:31:53Z",
+      "closed_at": "2026-10-20T11:31:53Z",
+      "changed_files": 0,
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/432#issuecomment-6288820512",
+          "created_at": "2026-10-20T10:26:18Z"
+        }
+      ]
+    },
+    {
+      "number": 433,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/433",
+      "title": "refactor(commerce): consolidate R2-03-04 response boundaries",
+      "state": "closed",
+      "state_reason": null,
+      "created_at": "2026-10-20T10:15:34Z",
+      "updated_at": "2026-10-23T08:38:48Z",
+      "closed_at": "2026-10-20T11:31:52Z",
+      "head_sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+      "merged": true,
+      "merged_at": "2026-10-20T11:31:52Z",
+      "merge_commit_sha": "5d1d07704845a0d659af84c08f75e1f95841045a",
+      "changed_files": 39,
+      "files": [
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/billing/api/BillingController.java",
+          "status": "modified",
+          "sha": "d56f31312fc34dcffae1fb2a10aabea3a89fb490",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fbilling%2Fapi%2FBillingController.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/billing/api/BillingMethodResponse.java",
+          "status": "modified",
+          "sha": "e4335bf451425df78e7cafeec7e11bff7a084a8e",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fbilling%2Fapi%2FBillingMethodResponse.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/billing/api/BillingPreparationResponse.java",
+          "status": "modified",
+          "sha": "f4946272c698e951085be6212f2dce0f17c6da63",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fbilling%2Fapi%2FBillingPreparationResponse.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/billing/application/BillingApplicationService.java",
+          "status": "modified",
+          "sha": "71667991dd92df4d3c298f5e928173205f97bb6d",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fbilling%2Fapplication%2FBillingApplicationService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/billing/application/BillingMethodQueryService.java",
+          "status": "modified",
+          "sha": "89d0037399a8e58d1f9a451fc6ce75861d4fc579",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fbilling%2Fapplication%2FBillingMethodQueryService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/billing/application/BillingMethodResult.java",
+          "status": "added",
+          "sha": "992f988a934727cadbadc5d7bdb175b2a5052a9c",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fbilling%2Fapplication%2FBillingMethodResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/billing/application/BillingPreparationResult.java",
+          "status": "added",
+          "sha": "3a04da52bdebab8175ea12b728e8b354cc86bee8",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fbilling%2Fapplication%2FBillingPreparationResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/cancellation/api/CancellationController.java",
+          "status": "modified",
+          "sha": "32589c0ef9176deec5923ad8edd837720b01c067",
+          "patch_available": true,
+          "additions": 1,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcancellation%2Fapi%2FCancellationController.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/cancellation/api/CancellationResponse.java",
+          "status": "modified",
+          "sha": "9155e68ba33c8823173fa3107ab96ba7e900684a",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcancellation%2Fapi%2FCancellationResponse.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/cancellation/application/CancellationResult.java",
+          "status": "added",
+          "sha": "bfa0837727dffaa920e1a5ba2bd3543a35f4d6ca",
+          "patch_available": true,
+          "additions": 10,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcancellation%2Fapplication%2FCancellationResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/cancellation/application/CancellationService.java",
+          "status": "modified",
+          "sha": "3ebce9a6ea96e369d12e0b53b1532ea64adf7f9e",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 4,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcancellation%2Fapplication%2FCancellationService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/delivery/api/AdminDeliveryController.java",
+          "status": "modified",
+          "sha": "16526a21af7535b0a3d56ab06c5be9128f47a2f1",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fdelivery%2Fapi%2FAdminDeliveryController.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/delivery/api/DeliveryResponse.java",
+          "status": "modified",
+          "sha": "73a5cb9723da95bf4653b5cdc9130bbb9997af45",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fdelivery%2Fapi%2FDeliveryResponse.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/delivery/application/DeliveryResult.java",
+          "status": "added",
+          "sha": "2d71f0d690568c773d4f1d3731ee464f70f058a9",
+          "patch_available": true,
+          "additions": 15,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fdelivery%2Fapplication%2FDeliveryResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/delivery/application/DeliveryService.java",
+          "status": "modified",
+          "sha": "d0de145262e1de8c0665222a45c27c4d7e7764ae",
+          "patch_available": true,
+          "additions": 9,
+          "deletions": 10,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fdelivery%2Fapplication%2FDeliveryService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/payment/api/AdminPaymentController.java",
+          "status": "modified",
+          "sha": "454a8ff7df5ac8597b500c4e209add5e32a3aa58",
+          "patch_available": true,
+          "additions": 1,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fpayment%2Fapi%2FAdminPaymentController.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/payment/api/PaymentController.java",
+          "status": "modified",
+          "sha": "28a73d90a5ff90c84241bdc243a7295be551c432",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fpayment%2Fapi%2FPaymentController.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/payment/api/PaymentReconciliationResponse.java",
+          "status": "modified",
+          "sha": "9eb458fb28a556dbff9a839afa4800266f97e288",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fpayment%2Fapi%2FPaymentReconciliationResponse.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/payment/api/PaymentResponse.java",
+          "status": "modified",
+          "sha": "dde7cb391872334d4c8bc858c0ff8978f42e2acb",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fpayment%2Fapi%2FPaymentResponse.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/payment/application/PaymentApplicationService.java",
+          "status": "modified",
+          "sha": "d1017388102c1b09d75b5a8c18df5d3883202c31",
+          "patch_available": true,
+          "additions": 9,
+          "deletions": 10,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fpayment%2Fapplication%2FPaymentApplicationService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/payment/application/PaymentReconciliationResult.java",
+          "status": "added",
+          "sha": "f067b6f17e92b1a3abc31da7e49d5938926d8a1a",
+          "patch_available": true,
+          "additions": 10,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fpayment%2Fapplication%2FPaymentReconciliationResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/payment/application/PaymentReconciliationService.java",
+          "status": "modified",
+          "sha": "94dc14679bb124af3ddf4328071e6e73ccf7bc8b",
+          "patch_available": true,
+          "additions": 4,
+          "deletions": 5,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fpayment%2Fapplication%2FPaymentReconciliationService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/payment/application/PaymentResult.java",
+          "status": "added",
+          "sha": "932a7af7668be7d1c53ef59e0ee1ae5184434f46",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fpayment%2Fapplication%2FPaymentResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/refund/api/AdminRefundController.java",
+          "status": "modified",
+          "sha": "e6041945c11859cf0f2501605e2a7e6fb8e2d863",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Frefund%2Fapi%2FAdminRefundController.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/refund/api/RefundResponse.java",
+          "status": "modified",
+          "sha": "59718cc6870748abcb4acfcaa5c2334f80b11b4f",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Frefund%2Fapi%2FRefundResponse.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/refund/application/RefundResult.java",
+          "status": "added",
+          "sha": "3cd5cbbcccdba970040bf406c696e71f94ccc44c",
+          "patch_available": true,
+          "additions": 18,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Frefund%2Fapplication%2FRefundResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/refund/application/RefundService.java",
+          "status": "modified",
+          "sha": "b81421e55a42e00b1e43c4fc10515aab4e32bff4",
+          "patch_available": true,
+          "additions": 11,
+          "deletions": 12,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Frefund%2Fapplication%2FRefundService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/returning/api/ReturnResponse.java",
+          "status": "modified",
+          "sha": "cb2444b53ce1d0f717cf2a7f1e46ed813f08900f",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Freturning%2Fapi%2FReturnResponse.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/returning/application/ReturnResult.java",
+          "status": "added",
+          "sha": "6e320d847b9770626a8530eba4afd9dd22fe9f96",
+          "patch_available": true,
+          "additions": 14,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Freturning%2Fapplication%2FReturnResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/returning/application/ReturnService.java",
+          "status": "modified",
+          "sha": "7bb225251fc089b06c2a8dca2b056d484c42880b",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 8,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Freturning%2Fapplication%2FReturnService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/returnrequest/api/AdminReturnController.java",
+          "status": "modified",
+          "sha": "63aaaa1f8799994bdbe943caf468f4ec6f38f041",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Freturnrequest%2Fapi%2FAdminReturnController.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/commerce/returnrequest/api/ReturnRequestController.java",
+          "status": "modified",
+          "sha": "ef0184d6dc6c79f35ea186fe7a61a216ae9623fe",
+          "patch_available": true,
+          "additions": 1,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Freturnrequest%2Fapi%2FReturnRequestController.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/AfterSalesConcurrencyIntegrationTests.java",
+          "status": "modified",
+          "sha": "c5b04928a05dfd4605260344c838afa338cb586b",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2FAfterSalesConcurrencyIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/CommerceFacade.java",
+          "status": "modified",
+          "sha": "8edf140e257b0468475ccd7b81632ca5055b7214",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2FCommerceFacade.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/CommerceResourceStatusControllerTests.java",
+          "status": "modified",
+          "sha": "da77e5145ee70397051f4c215cb89de6a159132d",
+          "patch_available": true,
+          "additions": 9,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2FCommerceResourceStatusControllerTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/RefundServiceTests.java",
+          "status": "modified",
+          "sha": "3f7a41e7a481a0a3a68b40da272f0898402146aa",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2FRefundServiceTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/ReturnServiceTests.java",
+          "status": "modified",
+          "sha": "61556d7483a67a7855419dbf9911e795a445c44c",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2FReturnServiceTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/billing/application/BillingApplicationServiceLoggingTests.java",
+          "status": "modified",
+          "sha": "8dde8548e763d4207a0ea4c64abb4f840bada1cd",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fbilling%2Fapplication%2FBillingApplicationServiceLoggingTests.java"
+        },
+        {
+          "path": "backend/src/test/resources/architecture/legacy-dependencies.txt",
+          "status": "modified",
+          "sha": "cbcffc3f1dd038ea1ea9bac45e98e784eb6ad993",
+          "patch_available": true,
+          "additions": 0,
+          "deletions": 8,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/89955c458d1dfbebd4a862bd0ad5006a9a181d96/backend%2Fsrc%2Ftest%2Fresources%2Farchitecture%2Flegacy-dependencies.txt"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/433#issuecomment-6288647126",
+          "created_at": "2026-10-20T10:15:42Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/433#issuecomment-6288795502",
+          "created_at": "2026-10-20T10:24:47Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/433#issuecomment-6289754463",
+          "created_at": "2026-10-20T11:24:10Z"
+        }
+      ],
+      "reviews": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/433#pullrequestreview-5584401394",
+          "sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "state": "COMMENTED",
+          "submitted_at": "2026-10-20T11:31:21Z"
+        }
+      ],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "be2efb38c44b4c889347d1ff6514c17d425af03e",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/be2efb38c44b4c889347d1ff6514c17d425af03e",
+          "message": "refactor(commerce): isolate payment and billing API results"
+        },
+        {
+          "sha": "465576086c280c6eb8abb61b9de9c081b219e94a",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/465576086c280c6eb8abb61b9de9c081b219e94a",
+          "message": "refactor(commerce): isolate cancellation and refund API results"
+        },
+        {
+          "sha": "106f2e1f2dd6353b50b7e32e637529acbfdf47c0",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/106f2e1f2dd6353b50b7e32e637529acbfdf47c0",
+          "message": "refactor(commerce): isolate return and delivery API results"
+        },
+        {
+          "sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "message": "merge(commerce): align R2-03-04 with merged R2-02 checkout"
+        }
+      ],
+      "ci": [
+        {
+          "id": 39415613220,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415613220"
+        },
+        {
+          "id": 39415551188,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415551188"
+        },
+        {
+          "id": 39414765296,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39414765296"
+        },
+        {
+          "id": 39414765718,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39414765718"
+        },
+        {
+          "id": 39414678449,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39414678449"
+        },
+        {
+          "id": 39414671855,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39414671855"
+        },
+        {
+          "id": 39414671854,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "89955c458d1dfbebd4a862bd0ad5006a9a181d96",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39414671854"
+        }
+      ]
+    },
+    {
+      "number": 434,
+      "type": "Issue",
+      "url": "https://github.com/guseoh/pawcycle-commerce/issues/434",
+      "title": "[BACKEND-REFACTOR-R2-05] Subscription 멱등성·응답 경계 통합 마감",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-10-20T10:28:19Z",
+      "updated_at": "2026-10-20T11:43:26Z",
+      "closed_at": "2026-10-20T11:43:26Z",
+      "changed_files": 0,
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/434#issuecomment-6288950511",
+          "created_at": "2026-10-20T10:34:21Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/434#issuecomment-6289570248",
+          "created_at": "2026-10-20T11:12:52Z"
+        }
+      ]
+    },
+    {
+      "number": 435,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/435",
+      "title": "refactor(subscription): isolate command and replay boundaries",
+      "state": "closed",
+      "state_reason": null,
+      "created_at": "2026-10-20T10:55:24Z",
+      "updated_at": "2026-10-23T08:38:24Z",
+      "closed_at": "2026-10-20T11:43:25Z",
+      "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+      "merged": true,
+      "merged_at": "2026-10-20T11:43:25Z",
+      "merge_commit_sha": "a3e05739b3981c3b959d52cdbc6966dcc5bc497d",
+      "changed_files": 25,
+      "files": [
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/api/CreateSubscriptionRequest.java",
+          "status": "modified",
+          "sha": "2369b48ec3dfe1f4313c289d79aa78191ecc8937",
+          "patch_available": true,
+          "additions": 6,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapi%2FCreateSubscriptionRequest.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/api/SubscriptionCommandRequest.java",
+          "status": "modified",
+          "sha": "7d50e4cabf055fcf4857d92d5ba67dfcaf10a993",
+          "patch_available": true,
+          "additions": 6,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapi%2FSubscriptionCommandRequest.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/api/SubscriptionController.java",
+          "status": "modified",
+          "sha": "e61a971133dafd9df8c9fc7f1422ed6e00cd8da2",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapi%2FSubscriptionController.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/application/SubscriptionApplicationSupport.java",
+          "status": "modified",
+          "sha": "4544c19e1651520746787153c9027cc944db21e6",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 7,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionApplicationSupport.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/application/SubscriptionCommandApplicationService.java",
+          "status": "modified",
+          "sha": "b28f3b923598974625d55b2fa6add716fe166047",
+          "patch_available": true,
+          "additions": 8,
+          "deletions": 8,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionCommandApplicationService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/application/SubscriptionCreationApplicationService.java",
+          "status": "modified",
+          "sha": "b987a6322c23923d61964f453f0397cbb80a4577",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionCreationApplicationService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/application/SubscriptionOperationResult.java",
+          "status": "modified",
+          "sha": "43a709aa5ba16cf5e5172cae3d676c866d6d6dcc",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionOperationResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/application/SubscriptionResult.java",
+          "status": "modified",
+          "sha": "9e611c5e7b5cf8d273d3eed2da550086ad0ef467",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionResult.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/application/SubscriptionService.java",
+          "status": "modified",
+          "sha": "f3b1df9090513beb6d1658867af550c0c2ca6f39",
+          "patch_available": true,
+          "additions": 4,
+          "deletions": 5,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/model/SubscriptionCommand.java",
+          "status": "added",
+          "sha": "5836083b1dc9892a9365df834ecb31117581e3b3",
+          "patch_available": true,
+          "additions": 12,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fmodel%2FSubscriptionCommand.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/subscription/model/SubscriptionCreateCommand.java",
+          "status": "added",
+          "sha": "0f2f1d7828b5d37fa9ae6d69009f8698749f884e",
+          "patch_available": true,
+          "additions": 4,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fmodel%2FSubscriptionCreateCommand.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/foundation/bootstrap/LocalQaBootstrapIntegrationTests.java",
+          "status": "modified",
+          "sha": "bb9aa4a5d22b975fc799008cfb063177f1b96609",
+          "patch_available": true,
+          "additions": 4,
+          "deletions": 4,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Ffoundation%2Fbootstrap%2FLocalQaBootstrapIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/IdempotencyCleanupConcurrencyIntegrationTests.java",
+          "status": "modified",
+          "sha": "bfade23c23d0ffe1c2ee38ab61a943f079e83f0c",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2FIdempotencyCleanupConcurrencyIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/SubscriptionCommandIntegrationTests.java",
+          "status": "modified",
+          "sha": "f2ebaf81e6c30a3bacd025f62b2f783c777a54ce",
+          "patch_available": true,
+          "additions": 40,
+          "deletions": 40,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2FSubscriptionCommandIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/SubscriptionIdempotencyConcurrencyIntegrationTests.java",
+          "status": "modified",
+          "sha": "221c33316a04cfa97d493b872f6ca9e85d61a94a",
+          "patch_available": true,
+          "additions": 5,
+          "deletions": 5,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2FSubscriptionIdempotencyConcurrencyIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/SubscriptionOrderAutomationServiceIntegrationTests.java",
+          "status": "modified",
+          "sha": "c86706969361b3982868243c144ce5519b8ad9cc",
+          "patch_available": true,
+          "additions": 17,
+          "deletions": 17,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2FSubscriptionOrderAutomationServiceIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/SubscriptionReconciliationIntegrationTests.java",
+          "status": "modified",
+          "sha": "5c451e748996179aee9f1223704f62304c81a389",
+          "patch_available": true,
+          "additions": 4,
+          "deletions": 4,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2FSubscriptionReconciliationIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/api/SubscriptionControllerTests.java",
+          "status": "modified",
+          "sha": "0f2ec848a057971b86bd36a43b1caf64eb1c5e40",
+          "patch_available": true,
+          "additions": 20,
+          "deletions": 7,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapi%2FSubscriptionControllerTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/application/FrozenSubscriptionQueryReference.java",
+          "status": "modified",
+          "sha": "de4077b39501e86aab5720c3a6d50e65d90bd00a",
+          "patch_available": true,
+          "additions": 4,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FFrozenSubscriptionQueryReference.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/application/SubscriptionCommandStateTests.java",
+          "status": "modified",
+          "sha": "699cc333bfe0ad3b3d30db69235bed206e413457",
+          "patch_available": true,
+          "additions": 2,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionCommandStateTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/application/SubscriptionReadBoundaryIntegrationTests.java",
+          "status": "modified",
+          "sha": "73de8c7b6dc2f6c22cf257152c5aa8e6b29337d3",
+          "patch_available": true,
+          "additions": 14,
+          "deletions": 6,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionReadBoundaryIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/application/SubscriptionReadBoundaryTests.java",
+          "status": "modified",
+          "sha": "3091d4d3741b29f0d5a6c5686499f1354a2a644f",
+          "patch_available": true,
+          "additions": 20,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionReadBoundaryTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/application/SubscriptionRequestBoundaryTests.java",
+          "status": "added",
+          "sha": "6c2ff50a9831733606f0988643e89ee1cb9f6500",
+          "patch_available": true,
+          "additions": 49,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fapplication%2FSubscriptionRequestBoundaryTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/subscription/automation/SubscriptionServiceIntegrationTests.java",
+          "status": "modified",
+          "sha": "37b7bca9a64b3585a1b2df50140edfac6757b040",
+          "patch_available": true,
+          "additions": 11,
+          "deletions": 11,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fsubscription%2Fautomation%2FSubscriptionServiceIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/resources/architecture/legacy-dependencies.txt",
+          "status": "modified",
+          "sha": "9c4a79a31c4d3346a1dcb048fe7a0d56120fc983",
+          "patch_available": true,
+          "additions": 0,
+          "deletions": 7,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/97e9a79d3bf73c8207b79baf4138603b51189baa/backend%2Fsrc%2Ftest%2Fresources%2Farchitecture%2Flegacy-dependencies.txt"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/435#issuecomment-6289286429",
+          "created_at": "2026-10-20T10:55:33Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/435#issuecomment-6289927098",
+          "created_at": "2026-10-20T11:34:47Z"
+        }
+      ],
+      "reviews": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/435#pullrequestreview-5584223727",
+          "sha": "181f7b2e6419f7cc919303a094132c5353d900fe",
+          "state": "COMMENTED",
+          "submitted_at": "2026-10-20T11:12:16Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/435#pullrequestreview-5584510148",
+          "sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "state": "COMMENTED",
+          "submitted_at": "2026-10-20T11:42:56Z"
+        }
+      ],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "181f7b2e6419f7cc919303a094132c5353d900fe",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/181f7b2e6419f7cc919303a094132c5353d900fe",
+          "message": "refactor(subscription): isolate command and replay boundaries"
+        },
+        {
+          "sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "message": "merge(subscription): align R2-05 with Checkout and Commerce"
+        }
+      ],
+      "ci": [
+        {
+          "id": 39416989502,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39416989502"
+        },
+        {
+          "id": 39416929291,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39416929291"
+        },
+        {
+          "id": 39415928004,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415928004"
+        },
+        {
+          "id": 39415928019,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415928019"
+        },
+        {
+          "id": 39415927509,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415927509"
+        },
+        {
+          "id": 39415917545,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415917545"
+        },
+        {
+          "id": 39415917219,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415917219"
+        },
+        {
+          "id": 39415833066,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415833066"
+        },
+        {
+          "id": 39415830389,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415830389"
+        },
+        {
+          "id": 39415830394,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "97e9a79d3bf73c8207b79baf4138603b51189baa",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39415830394"
+        }
+      ]
+    },
+    {
+      "number": 436,
+      "type": "Issue",
+      "url": "https://github.com/guseoh/pawcycle-commerce/issues/436",
+      "title": "[BACKEND-REFACTOR-R2-06] Architecture V2 전체 Closure — Adapter·DB 반환·트랜잭션·문서 검증",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-10-20T12:06:55Z",
+      "updated_at": "2026-10-21T03:02:10Z",
+      "closed_at": "2026-10-21T03:02:10Z",
+      "changed_files": 0,
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/436#issuecomment-6290517445",
+          "created_at": "2026-10-20T12:10:00Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/436#issuecomment-6304509638",
+          "created_at": "2026-10-20T23:57:47Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/436#issuecomment-6305735978",
+          "created_at": "2026-10-21T01:28:06Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/436#issuecomment-6305887197",
+          "created_at": "2026-10-21T01:40:02Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/436#issuecomment-6306960415",
+          "created_at": "2026-10-21T03:02:07Z"
+        }
+      ]
+    },
+    {
+      "number": 437,
+      "type": "Issue",
+      "url": "https://github.com/guseoh/pawcycle-commerce/issues/437",
+      "title": "[BACKEND-REFACTOR-R3-03] AI 외부 호출과 DB 트랜잭션 경계 분리 — ReviewSummary·ProductComparison",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-10-20T12:08:37Z",
+      "updated_at": "2026-10-21T06:33:55Z",
+      "closed_at": "2026-10-21T06:33:55Z",
+      "changed_files": 0,
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6290547566",
+          "created_at": "2026-10-20T12:11:43Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6307026969",
+          "created_at": "2026-10-21T03:07:24Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6307184556",
+          "created_at": "2026-10-21T03:19:27Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6307257642",
+          "created_at": "2026-10-21T03:25:28Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6307283825",
+          "created_at": "2026-10-21T03:27:39Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6307400032",
+          "created_at": "2026-10-21T03:35:51Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6307577104",
+          "created_at": "2026-10-21T03:50:02Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6307624678",
+          "created_at": "2026-10-21T03:53:58Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6307849040",
+          "created_at": "2026-10-21T04:12:01Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6308982599",
+          "created_at": "2026-10-21T05:42:31Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6309441348",
+          "created_at": "2026-10-21T06:16:20Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/437#issuecomment-6309693286",
+          "created_at": "2026-10-21T06:33:51Z"
+        }
+      ]
+    },
+    {
+      "number": 438,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/438",
+      "title": "test(backend): complete R2-06 architecture closure evidence",
+      "state": "closed",
+      "state_reason": null,
+      "created_at": "2026-10-21T00:36:41Z",
+      "updated_at": "2026-10-23T08:37:19Z",
+      "closed_at": "2026-10-21T01:38:22Z",
+      "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+      "merged": true,
+      "merged_at": "2026-10-21T01:38:22Z",
+      "merge_commit_sha": "739568ffda2272d09e3d0404b1b0e1689783ddc2",
+      "changed_files": 4,
+      "files": [
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/architecture/PersistenceResultBoundaryTests.java",
+          "status": "added",
+          "sha": "316067527ce9734224d1f71111ae6c41ff22c4c2",
+          "patch_available": true,
+          "additions": 141,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Farchitecture%2FPersistenceResultBoundaryTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/checkout/application/CheckoutExpirationTransactionIntegrationTests.java",
+          "status": "added",
+          "sha": "e3d73db781c18d9fe95bb6ed915e4f794a2e3610",
+          "patch_available": true,
+          "additions": 146,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fcheckout%2Fapplication%2FCheckoutExpirationTransactionIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/commerce/delivery/application/DeliveryTransactionIntegrationTests.java",
+          "status": "added",
+          "sha": "8abb1b7dbc022048f4bb866b63b8f3f33a04a0f2",
+          "patch_available": true,
+          "additions": 162,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcommerce%2Fdelivery%2Fapplication%2FDeliveryTransactionIntegrationTests.java"
+        },
+        {
+          "path": "docs/architecture/backend-architecture-v2.md",
+          "status": "modified",
+          "sha": "aec900270bbdddce6a8dd7e677c4dfe4e93e1517",
+          "patch_available": true,
+          "additions": 180,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5/docs%2Farchitecture%2Fbackend-architecture-v2.md"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/438#issuecomment-6305036250",
+          "created_at": "2026-10-21T00:36:51Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/438#issuecomment-6305803909",
+          "created_at": "2026-10-21T01:33:29Z"
+        }
+      ],
+      "reviews": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/438#pullrequestreview-5593869594",
+          "sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "state": "COMMENTED",
+          "submitted_at": "2026-10-21T01:27:25Z"
+        }
+      ],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "3ee3106b1d38bbbd70f94d9596b99172b1f28ee1",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/3ee3106b1d38bbbd70f94d9596b99172b1f28ee1",
+          "message": "docs(backend): seed R2-06 closure evidence audit"
+        },
+        {
+          "sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "message": "test(backend): complete R2-06 architecture closure evidence"
+        }
+      ],
+      "ci": [
+        {
+          "id": 39528487479,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39528487479"
+        },
+        {
+          "id": 39527996315,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39527996315"
+        },
+        {
+          "id": 39527996353,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39527996353"
+        },
+        {
+          "id": 39527995580,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39527995580"
+        },
+        {
+          "id": 39527422170,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39527422170"
+        },
+        {
+          "id": 39522981762,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39522981762"
+        },
+        {
+          "id": 39522982143,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39522982143"
+        },
+        {
+          "id": 39522359973,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39522359973"
+        },
+        {
+          "id": 39522359993,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39522359993"
+        },
+        {
+          "id": 39522360133,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "5ddef8a0725c51d4eab9e6c0aa3b5e5723a422d5",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39522360133"
+        }
+      ]
+    },
+    {
+      "number": 439,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/439",
+      "title": "refactor(backend): separate AI from DB transactions",
+      "state": "closed",
+      "state_reason": null,
+      "created_at": "2026-10-21T03:12:19Z",
+      "updated_at": "2026-10-23T08:38:39Z",
+      "closed_at": "2026-10-21T03:27:36Z",
+      "head_sha": "3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492",
+      "merged": false,
+      "merged_at": null,
+      "merge_commit_sha": "108314613e06da96cd844d225fad0322d0f4b3f4",
+      "changed_files": 7,
+      "files": [
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/catalog/engagement/application/ReviewSummaryService.java",
+          "status": "modified",
+          "sha": "0d0628e4f1732feac8a2203ddf629c35ec61d35a",
+          "patch_available": true,
+          "additions": 11,
+          "deletions": 8,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fengagement%2Fapplication%2FReviewSummaryService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/catalog/engagement/persistence/ReviewSummaryQueryRepository.java",
+          "status": "modified",
+          "sha": "c3ff8d57384d230b4c56677464bf98b9fac0494c",
+          "patch_available": true,
+          "additions": 81,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fengagement%2Fpersistence%2FReviewSummaryQueryRepository.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/catalog/product/application/ProductComparisonService.java",
+          "status": "modified",
+          "sha": "0ef6b08f1ef784182042cce0685b24e8b2bb2b2d",
+          "patch_available": true,
+          "additions": 4,
+          "deletions": 5,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fproduct%2Fapplication%2FProductComparisonService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/catalog/product/persistence/ProductComparisonQueryRepository.java",
+          "status": "modified",
+          "sha": "978275269465681d92a932079f04a21023cdd493",
+          "patch_available": true,
+          "additions": 7,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fproduct%2Fpersistence%2FProductComparisonQueryRepository.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/catalog/engagement/application/ReviewSummaryServiceTests.java",
+          "status": "modified",
+          "sha": "2f90a6de550e95c3ab4ac56065414552c68fa6a1",
+          "patch_available": true,
+          "additions": 33,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fengagement%2Fapplication%2FReviewSummaryServiceTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/catalog/engagement/application/ReviewSummaryTransactionBoundaryIntegrationTests.java",
+          "status": "added",
+          "sha": "6f40b822460d09848f2c6a1284205295507b638e",
+          "patch_available": true,
+          "additions": 219,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fengagement%2Fapplication%2FReviewSummaryTransactionBoundaryIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/catalog/product/application/ProductComparisonServiceTests.java",
+          "status": "modified",
+          "sha": "2b6f984c56949b9253e6f79a01e20b7f6a49923d",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fproduct%2Fapplication%2FProductComparisonServiceTests.java"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/439#issuecomment-6307094027",
+          "created_at": "2026-10-21T03:12:28Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/439#issuecomment-6307282921",
+          "created_at": "2026-10-21T03:27:34Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "69f888c35da0ce1e205c7bcadcbf9141ee150c84",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/69f888c35da0ce1e205c7bcadcbf9141ee150c84",
+          "message": "refactor(backend): separate AI IO from DB transactions with guarded review summary cache"
+        },
+        {
+          "sha": "b05ae278505d5c930dce326f1f93e6defeb5440d",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/b05ae278505d5c930dce326f1f93e6defeb5440d",
+          "message": "test(backend): cover AI transaction boundaries and stale summary races"
+        },
+        {
+          "sha": "856f4d92e5ccd63491c6e3920b937934000b65a4",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/856f4d92e5ccd63491c6e3920b937934000b65a4",
+          "message": "fix(backend): use current MySQL rows for guarded summary writes"
+        },
+        {
+          "sha": "3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492",
+          "message": "test(backend): use policy-safe AI fixture text in transaction tests"
+        }
+      ],
+      "ci": [
+        {
+          "id": 39538686400,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39538686400"
+        },
+        {
+          "id": 39538488838,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39538488838"
+        },
+        {
+          "id": 39538489332,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39538489332"
+        },
+        {
+          "id": 39538434910,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39538434910"
+        },
+        {
+          "id": 39538433141,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39538433141"
+        },
+        {
+          "id": 39538433143,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "3e8b8bf4ebfbca087fdf22472ab49c24a2ef8492",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39538433143"
+        }
+      ]
+    },
+    {
+      "number": 440,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/440",
+      "title": "refactor(backend): separate AI from DB transactions",
+      "state": "closed",
+      "state_reason": null,
+      "created_at": "2026-10-21T03:27:12Z",
+      "updated_at": "2026-10-23T08:38:41Z",
+      "closed_at": "2026-10-21T04:09:46Z",
+      "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+      "merged": true,
+      "merged_at": "2026-10-21T04:09:46Z",
+      "merge_commit_sha": "cbc7d53f1a69b452a839e5a8a68b8fe49989aba2",
+      "changed_files": 7,
+      "files": [
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/catalog/engagement/application/ReviewSummaryService.java",
+          "status": "modified",
+          "sha": "0d0628e4f1732feac8a2203ddf629c35ec61d35a",
+          "patch_available": true,
+          "additions": 11,
+          "deletions": 8,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/8d4e11ae3b04f5b124518f94de803199236d702f/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fengagement%2Fapplication%2FReviewSummaryService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/catalog/engagement/persistence/ReviewSummaryQueryRepository.java",
+          "status": "modified",
+          "sha": "a2cd4ce16a0846b91876ba34d524b0a08e4a0d57",
+          "patch_available": true,
+          "additions": 82,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/8d4e11ae3b04f5b124518f94de803199236d702f/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fengagement%2Fpersistence%2FReviewSummaryQueryRepository.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/catalog/product/application/ProductComparisonService.java",
+          "status": "modified",
+          "sha": "21cf6e756c6b2bb7e61f5c690f199d94b0d151c5",
+          "patch_available": true,
+          "additions": 15,
+          "deletions": 10,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/8d4e11ae3b04f5b124518f94de803199236d702f/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fproduct%2Fapplication%2FProductComparisonService.java"
+        },
+        {
+          "path": "backend/src/main/java/com/pawcycle/backend/catalog/product/persistence/ProductComparisonQueryRepository.java",
+          "status": "modified",
+          "sha": "498e39f516c53cde8b083c011d8cd2396e39ba66",
+          "patch_available": true,
+          "additions": 12,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/8d4e11ae3b04f5b124518f94de803199236d702f/backend%2Fsrc%2Fmain%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fproduct%2Fpersistence%2FProductComparisonQueryRepository.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/catalog/engagement/application/ReviewSummaryServiceTests.java",
+          "status": "modified",
+          "sha": "2f90a6de550e95c3ab4ac56065414552c68fa6a1",
+          "patch_available": true,
+          "additions": 33,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/8d4e11ae3b04f5b124518f94de803199236d702f/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fengagement%2Fapplication%2FReviewSummaryServiceTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/catalog/engagement/application/ReviewSummaryTransactionBoundaryIntegrationTests.java",
+          "status": "added",
+          "sha": "2ba79df003e177746927a9483d52bf85fb47b22c",
+          "patch_available": true,
+          "additions": 279,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/8d4e11ae3b04f5b124518f94de803199236d702f/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fengagement%2Fapplication%2FReviewSummaryTransactionBoundaryIntegrationTests.java"
+        },
+        {
+          "path": "backend/src/test/java/com/pawcycle/backend/catalog/product/application/ProductComparisonServiceTests.java",
+          "status": "modified",
+          "sha": "ee68e50b48be86697c71ef37a4d93019d7106dab",
+          "patch_available": true,
+          "additions": 6,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/8d4e11ae3b04f5b124518f94de803199236d702f/backend%2Fsrc%2Ftest%2Fjava%2Fcom%2Fpawcycle%2Fbackend%2Fcatalog%2Fproduct%2Fapplication%2FProductComparisonServiceTests.java"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#issuecomment-6307280192",
+          "created_at": "2026-10-21T03:27:21Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#issuecomment-6307691163",
+          "created_at": "2026-10-21T03:59:25Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#issuecomment-6307693091",
+          "created_at": "2026-10-21T03:59:34Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#issuecomment-6307694434",
+          "created_at": "2026-10-21T03:59:41Z"
+        }
+      ],
+      "reviews": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#pullrequestreview-5594764815",
+          "sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "state": "COMMENTED",
+          "submitted_at": "2026-10-21T03:52:58Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#pullrequestreview-5594838281",
+          "sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "state": "COMMENTED",
+          "submitted_at": "2026-10-21T04:05:58Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#pullrequestreview-5594856849",
+          "sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "state": "COMMENTED",
+          "submitted_at": "2026-10-21T04:09:12Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#pullrequestreview-5594859442",
+          "sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "state": "COMMENTED",
+          "submitted_at": "2026-10-21T04:09:40Z"
+        }
+      ],
+      "review_comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#discussion_r4332927727",
+          "path": "backend/src/test/java/com/pawcycle/backend/catalog/engagement/application/ReviewSummaryTransactionBoundaryIntegrationTests.java",
+          "sha": "8d4e11ae3b04f5b124518f94de803199236d702f"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#discussion_r4332943137",
+          "path": "backend/src/test/java/com/pawcycle/backend/catalog/engagement/application/ReviewSummaryTransactionBoundaryIntegrationTests.java",
+          "sha": "8d4e11ae3b04f5b124518f94de803199236d702f"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/440#discussion_r4332945399",
+          "path": "backend/src/test/java/com/pawcycle/backend/catalog/engagement/application/ReviewSummaryTransactionBoundaryIntegrationTests.java",
+          "sha": "8d4e11ae3b04f5b124518f94de803199236d702f"
+        }
+      ],
+      "commits": [
+        {
+          "sha": "bbd6aba93438aa65d94b2069b939ff3080a48e4d",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/bbd6aba93438aa65d94b2069b939ff3080a48e4d",
+          "message": "refactor(backend): separate AI IO and DB transactions"
+        },
+        {
+          "sha": "86a531d19e2dbad1ea05572541f194dbc3a3203a",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/86a531d19e2dbad1ea05572541f194dbc3a3203a",
+          "message": "test(backend): pin review guard isolation and verify insert locking"
+        },
+        {
+          "sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/8d4e11ae3b04f5b124518f94de803199236d702f",
+          "message": "refactor(backend): preserve comparison read snapshot across products"
+        }
+      ],
+      "ci": [
+        {
+          "id": 39542507005,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39542507005"
+        },
+        {
+          "id": 39542496831,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39542496831"
+        },
+        {
+          "id": 39542456542,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39542456542"
+        },
+        {
+          "id": 39542163038,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39542163038"
+        },
+        {
+          "id": 39541742735,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39541742735"
+        },
+        {
+          "id": 39541743051,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39541743051"
+        },
+        {
+          "id": 39541544414,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39541544414"
+        },
+        {
+          "id": 39541544568,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39541544568"
+        },
+        {
+          "id": 39541544546,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39541544546"
+        },
+        {
+          "id": 39541033543,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39541033543"
+        },
+        {
+          "id": 39541034004,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39541034004"
+        },
+        {
+          "id": 39541001433,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39541001433"
+        },
+        {
+          "id": 39540955738,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39540955738"
+        },
+        {
+          "id": 39540955451,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39540955451"
+        },
+        {
+          "id": 39540276402,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39540276402"
+        },
+        {
+          "id": 39540274027,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39540274027"
+        },
+        {
+          "id": 39540273911,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "8d4e11ae3b04f5b124518f94de803199236d702f",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/39540273911"
+        }
+      ]
+    }
+  ],
+  "inspection_scope": "Public body/discussion/reviews/commits/complete file inventory and available patches collected; scoped contract/verification analysis, not independent complete code review. Raster metadata only. Original runtime and operational tests not repeated."
+}

@@ -12,6 +12,17 @@ This file defines **standing capture preferences**, not unrestricted access to c
 | `dark-todo` | `manual` | Existing rules; not enrolled in the new always-on Journal | **No** new full Journal | Previously recorded decisions and snapshot retained |
 | `llm-wiki` | `manual` | Change log only when Wiki policy/schema changes | No | Wiki architecture decisions |
 
+## PawCycle AI Project Memory and exhaustive historical coverage (user-confirmed 2026-11-03)
+
+PawCycle Wiki is a **retrieval substrate for ChatGPT and Codex**. The user need not read the Wiki directly: on a question such as “why was this chosen?” or “find portfolio-worthy failures”, AI clients should search indexed records, follow the prior decision → alternative → failed attempt → correction/supersession links, check GitHub/other authorized originals and explain the chain in Korean. Absence from the Wiki is **not proof** of no prior decision.
+
+- Backfill is source-complete, not theme-sampled. For each numbered historical PR/Issue, retain an explicit processing verdict and a record/link explaining whether it supplied an independent decision, updated an existing one, an experiment/failure/deferral, or no standalone record. Preserve exact uncertainty and time of observation.
+- New PawCycle work is **process-captured by default**, including design explorations, alternatives not selected, implementation/testing, failed or stopped work, and user approvals. Emit concise source-linked Journal/source entries for small items and Decision/Lesson records for durable reasoning, rather than verbose duplicates.
+- A GitHub connector or explicit handoff must actually **read/write** the public-safe record. Neither Obsidian nor agents have passive cross-session memory or access to all private chat transcripts. Follow the existing reviewed-PR and permission gates; do not turn policy into automatic GitHub writes without authorized workflow.
+- Source-of-truth order remains current user instruction → approved latest PawCycle contracts → actual code/tests/runtime evidence. Historical Wiki records are evidence of past **reasoning**, not automatic proof of present production state.
+
+See [WIKI-0003](decisions/WIKI-0003.md) and [the source ledger](history/pawcycle-source-ledger/README.md).
+
 ## Two distinct capture mechanisms
 
 **(A) AI task-end handoff.** In an AI-assisted session, review the work completed even when nobody says "save this to Wiki". For `full` projects, every completed, meaningful work unit — including small code/layout adjustments and failed verification — becomes an appropriately brief Journal entry when public-safe; consequential design choices also become one decision per record. For `design-only` DevPedia, only *design decisions, considered alternatives, architectural rationale, requirements and unresolved design questions* qualify. Ignore ordinary commits, bug fixes, implementation diaries and routine test reports for DevPedia. Proposed designs must remain `proposed` until actually confirmed.

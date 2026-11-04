@@ -1,0 +1,583 @@
+{
+  "schema_version": 1,
+  "project": "pawcycle",
+  "updated_at": "2026-11-04",
+  "source_repository": "guseoh/pawcycle-commerce",
+  "wiki_repository": "guseoh/cs",
+  "draft_pr": 18,
+  "branch": "docs/pawcycle-history-backfill-20261103",
+  "wiki_parent_sha": "b9e3a5e71f1c180e5e324c09b9f826980a18b6d1",
+  "wiki_main_sha": "65840658dac376ce33d7554dcf362185a239442f",
+  "source_main_sha": "79c4b4ce39e2edf4696e54d839f963848397231e",
+  "inventoried_range": [
+    1,
+    503
+  ],
+  "original_census_count": 500,
+  "delta_inventory": [
+    501,
+    502,
+    503
+  ],
+  "inventoried_count": 503,
+  "completed_contiguous_range": [
+    1,
+    503
+  ],
+  "completed_count": 503,
+  "pending_count": 0,
+  "next_source": 504,
+  "batches": [
+    {
+      "range": [
+        1,
+        10
+      ],
+      "evidence": "001-100.md"
+    },
+    {
+      "range": [
+        11,
+        20
+      ],
+      "evidence": "batch-011-020.md"
+    },
+    {
+      "range": [
+        21,
+        30
+      ],
+      "evidence": "batch-021-030.md"
+    },
+    {
+      "range": [
+        31,
+        40
+      ],
+      "evidence": "batch-031-040.md",
+      "manifest": "batch-031-040.sources.json"
+    },
+    {
+      "range": [
+        41,
+        50
+      ],
+      "evidence": "batch-041-050.md",
+      "manifest": "batch-041-050.sources.json"
+    },
+    {
+      "range": [
+        51,
+        60
+      ],
+      "evidence": "batch-051-060.md",
+      "manifest": "batch-051-060.sources.json"
+    },
+    {
+      "range": [
+        61,
+        70
+      ],
+      "evidence": "batch-061-070.md",
+      "manifest": "batch-061-070.sources.json"
+    },
+    {
+      "range": [
+        71,
+        80
+      ],
+      "evidence": "batch-071-080.md",
+      "manifest": "batch-071-080.sources.json"
+    },
+    {
+      "range": [
+        81,
+        90
+      ],
+      "evidence": "batch-081-090.md",
+      "manifest": "batch-081-090.sources.json"
+    },
+    {
+      "range": [
+        91,
+        100
+      ],
+      "evidence": "batch-091-100.md",
+      "manifest": "batch-091-100.sources.json"
+    },
+    {
+      "range": [
+        101,
+        110
+      ],
+      "evidence": "batch-101-110.md",
+      "manifest": "batch-101-110.sources.json"
+    },
+    {
+      "range": [
+        111,
+        120
+      ],
+      "evidence": "batch-111-120.md",
+      "manifest": "batch-111-120.sources.json"
+    },
+    {
+      "range": [
+        121,
+        130
+      ],
+      "evidence": "batch-121-130.md",
+      "manifest": "batch-121-130.sources.json"
+    },
+    {
+      "range": [
+        131,
+        140
+      ],
+      "evidence": "batch-131-140.md",
+      "manifest": "batch-131-140.sources.json"
+    },
+    {
+      "range": [
+        141,
+        150
+      ],
+      "evidence": "batch-141-150.md",
+      "manifest": "batch-141-150.sources.json"
+    },
+    {
+      "range": [
+        151,
+        160
+      ],
+      "evidence": "batch-151-160.md",
+      "manifest": "batch-151-160.sources.json"
+    },
+    {
+      "range": [
+        161,
+        170
+      ],
+      "evidence": "batch-161-170.md",
+      "manifest": "batch-161-170.sources.json"
+    },
+    {
+      "range": [
+        171,
+        180
+      ],
+      "evidence": "batch-171-180.md",
+      "manifest": "batch-171-180.sources.json"
+    },
+    {
+      "range": [
+        181,
+        190
+      ],
+      "evidence": "batch-181-190.md",
+      "manifest": "batch-181-190.sources.json"
+    },
+    {
+      "range": [
+        191,
+        200
+      ],
+      "evidence": "batch-191-200.md",
+      "manifest": "batch-191-200.sources.json"
+    },
+    {
+      "range": [
+        201,
+        201
+      ],
+      "evidence": "batch-201-201.md",
+      "manifest": "batch-201-201.sources.json"
+    },
+    {
+      "range": [
+        202,
+        210
+      ],
+      "evidence": "batch-202-210.md",
+      "manifest": "batch-202-210.sources.json"
+    },
+    {
+      "range": [
+        211,
+        220
+      ],
+      "evidence": "batch-211-220.md",
+      "manifest": "batch-211-220.sources.json"
+    },
+    {
+      "range": [
+        221,
+        230
+      ],
+      "evidence": "batch-221-230.md",
+      "manifest": "batch-221-230.sources.json"
+    },
+    {
+      "range": [
+        231,
+        240
+      ],
+      "evidence": "batch-231-240.md",
+      "manifest": "batch-231-240.sources.json"
+    },
+    {
+      "range": [
+        241,
+        250
+      ],
+      "evidence": "batch-241-250.md",
+      "manifest": "batch-241-250.sources.json"
+    },
+    {
+      "range": [
+        251,
+        260
+      ],
+      "evidence": "batch-251-260.md",
+      "manifest": "batch-251-260.sources.json"
+    },
+    {
+      "range": [
+        261,
+        270
+      ],
+      "evidence": "batch-261-270.md",
+      "manifest": "batch-261-270.sources.json"
+    },
+    {
+      "range": [
+        271,
+        280
+      ],
+      "evidence": "batch-271-280.md",
+      "manifest": "batch-271-280.sources.json"
+    },
+    {
+      "range": [
+        281,
+        290
+      ],
+      "evidence": "batch-281-290.md",
+      "manifest": "batch-281-290.sources.json"
+    },
+    {
+      "range": [
+        291,
+        300
+      ],
+      "evidence": "batch-291-300.md",
+      "manifest": "batch-291-300.sources.json"
+    },
+    {
+      "range": [
+        301,
+        310
+      ],
+      "evidence": "batch-301-310.md",
+      "manifest": "batch-301-310.sources.json"
+    },
+    {
+      "range": [
+        311,
+        320
+      ],
+      "evidence": "batch-311-320.md",
+      "manifest": "batch-311-320.sources.json"
+    },
+    {
+      "range": [
+        321,
+        330
+      ],
+      "evidence": "batch-321-330.md",
+      "manifest": "batch-321-330.sources.json"
+    },
+    {
+      "range": [
+        331,
+        340
+      ],
+      "evidence": "batch-331-340.md",
+      "manifest": "batch-331-340.sources.json"
+    },
+    {
+      "range": [
+        341,
+        350
+      ],
+      "evidence": "batch-341-350.md",
+      "manifest": "batch-341-350.sources.json"
+    },
+    {
+      "range": [
+        351,
+        360
+      ],
+      "evidence": "batch-351-360.md",
+      "manifest": "batch-351-360.sources.json"
+    },
+    {
+      "range": [
+        361,
+        370
+      ],
+      "evidence": "batch-361-370.md",
+      "manifest": "batch-361-370.sources.json"
+    },
+    {
+      "range": [
+        371,
+        380
+      ],
+      "evidence": "batch-371-380.md",
+      "manifest": "batch-371-380.sources.json"
+    },
+    {
+      "range": [
+        381,
+        390
+      ],
+      "evidence": "batch-381-390.md",
+      "manifest": "batch-381-390.sources.json"
+    },
+    {
+      "range": [
+        391,
+        400
+      ],
+      "evidence": "batch-391-400.md",
+      "manifest": "batch-391-400.sources.json"
+    },
+    {
+      "range": [
+        401,
+        410
+      ],
+      "evidence": "batch-401-410.md",
+      "manifest": "batch-401-410.sources.json"
+    },
+    {
+      "range": [
+        411,
+        420
+      ],
+      "evidence": "batch-411-420.md",
+      "manifest": "batch-411-420.sources.json"
+    },
+    {
+      "range": [
+        421,
+        430
+      ],
+      "evidence": "batch-421-430.md",
+      "manifest": "batch-421-430.sources.json"
+    },
+    {
+      "range": [
+        431,
+        440
+      ],
+      "evidence": "batch-431-440.md",
+      "manifest": "batch-431-440.sources.json"
+    },
+    {
+      "range": [
+        441,
+        450
+      ],
+      "evidence": "batch-441-450.md",
+      "manifest": "batch-441-450.sources.json"
+    },
+    {
+      "range": [
+        451,
+        460
+      ],
+      "evidence": "batch-451-460.md",
+      "manifest": "batch-451-460.sources.json"
+    },
+    {
+      "range": [
+        461,
+        470
+      ],
+      "evidence": "batch-461-470.md",
+      "manifest": "batch-461-470.sources.json"
+    },
+    {
+      "range": [
+        471,
+        480
+      ],
+      "evidence": "batch-471-480.md",
+      "manifest": "batch-471-480.sources.json"
+    },
+    {
+      "range": [
+        481,
+        490
+      ],
+      "evidence": "batch-481-490.md",
+      "manifest": "batch-481-490.sources.json"
+    },
+    {
+      "range": [
+        491,
+        500
+      ],
+      "evidence": "batch-491-500.md",
+      "manifest": "batch-491-500.sources.json"
+    },
+    {
+      "range": [
+        501,
+        503
+      ],
+      "evidence": "batch-501-503.md",
+      "manifest": "batch-501-503.sources.json"
+    }
+  ],
+  "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
+  "remaining_uncertainties": [
+    "PR13 historical review SHA context and later learning-record supplementation",
+    "Separate approval scope/date of Proposed ARCH-001/DATA-001/API-001/AUTH-001",
+    "Later resolution of DATA value-object and AUTH owner-query body/handoff drift",
+    "Runtime/deployment/recovery evidence remains separate",
+    "PR21 generated wrapper binary content not inspected",
+    "PR22 class-loading path root cause not isolated",
+    "PR25 final review line references and PR30 dependency maintenance follow-up",
+    "Historical local failures not erased by remote CI success",
+    "PR38 conditional QA: actual deployment authentication-error log privacy and HTTPS/cookie delivery",
+    "PR40 post-merge trusted-code Preview and actual channel receipt not verified in source40",
+    "Current MySQL image digest and statistical credential timing are outside historical CI metadata",
+    "#46 비QA reset 대조·타 프로젝트 volume/data, session 만료·CSRF_INVALID·POST timeout 미재현",
+    "#48 정상 keyboard-only/returnTo 보완 후에도 GET 오류 재시도·session 만료 3건 미실행",
+    "#41 신뢰 main의 실제 생성 message/화면 수신은 workflow success만으로 확정하지 않음",
+    "#55 기능군 최종 종료는 병합 문서의 상태이나 별도 사용자 종료 승인 원문/링크 미확인; 리뷰가 승인 provenance 부족 지적",
+    "#58 후속 local Compose health 지연 미통과; 초기 통과와 구별",
+    "#60 실제 unknown Host 외부 검증·자동갱신 schedule·session·운영 rollback은 이 source에서 미실행",
+    "#63 backup ID의 저장소 밖 장기 보관은 미확인; raw운영로그 대신 사용자PASS요약",
+    "#64 자동 cleanup_trap 삭제 직전 경계 재검증 없음·TOCTOU 위험은 문서화만 했고 코드미개선",
+    "#70 외부 Spring 설정 소스를 사전 gate가 못 보는 P1 지적은 최종diff/댓글에서 해결 근거 미확인",
+    "#70 외부설정 gate우회는#71 wrapper의명시CLI/격리경계와별도로미확인유지",
+    "#80 정확한운영시작/종료·중단시간·RTO·트래픽영향과Certbot namedvolume경고근본원인미확인",
+    "#76 candidate restore는저장소준비이며#80도actualproductionDBrestore를실행하지않음",
+    "#85 병합뒤 추가5건 중legacy NOT NULL/composite 소유FK 전략은#89제외범위로잔여; UI추가리뷰는#86본문해결주장만으로닫지않음",
+    "#87 FOR UPDATE 최초구현은확인했으나ARCH007 Proposed의비관적lock미도입에서바꾼별도ADR승인원문은미확인",
+    "#88 closed/checklist완료는후속저장소기록이며운영scheduler/legacy활성화승인또는실행완료아님",
+    "#100 역사대조군18행 production_execution필드부재로현재validator완전재검증불가;원본비소급보존",
+    "#100 실행모델/추론수준미수집·credential read-only강제아님·실제업무3~5건pilot미실행",
+    "#92~95 우발Issue생성은확인되나정확한오선택Tool/부작용재현은미확인",
+    "#101/#103/#104 병합 후 리뷰 해결 여부는 이 원본 범위에서 미확인; #104 실제 운영 규모·정확한 lock hold와 Production 복구 미검증.",
+    "#122 병합 후 aggregate preflight·batch/candidate race 리뷰 해결 미확인. #128은 AWS 종료로 not_planned이며 전체 운영 검증 완료가 아님.",
+    "#148 병합 후 runtime SHA/mount/endpoint/artifact/proxy 관련 추가 리뷰의 후속 해소는 미확인. #146 정확 MTTR 및 Grafana 순간장애 캡처는 없음.",
+    "RDS rehearsal/import/cutover 전체 chain 및 PITR restore 완료근거 미확인(#158 not_planned); 후속 runtime 사용은 #168에 별도 근거 존재. #159 quote escape grammar 부정회귀 추가 해결은 같은HEAD #160에서 미확인.",
+    "#158 rehearsal 미완료/폐기 판정과 #164~#168 후속 RDS runtime·실측 증거를 함께 보존. 전체 import/cutover 승인·검증 chain은 미확인.",
+    "#173 sustained 중간 Docker/MySQL snapshot 미보존. #177 exact k6 aggregate 및 overload Hikari/JVM peak 부재. Tomcat64는기각이며부분metric을0peak로해석하지않음.",
+    "#201은 NO CHANGE/Outcome C를 확인하지만 과거 원시 JFR artifact와 #195 직접 closure 원인은 재검증하지 않음. 이 PR의 2-query·JSON 통합 계약은 CI Backend skip으로 미검증.",
+    "#201에서 Phase 9 NO CHANGE/Outcome C를 확인했다. #195의 직접 closure 설명 댓글은 여전히 없다. 원시 JFR/k6 artifact의 직접 재분석은 미수행이며 당시 실행 보고와 helper 코드 경로를 대조했다.",
+    "#204 5K raw detailed evidence was lost and not recreated; #208 10K is a distinct identity. #210/#211 mixed-scrape harness failure correction is not a new load run.",
+    "#225 omitted large vendored text and #237/#273/#277/#280 full text were retrieved with limited structural inspection, not independent whole-code runtime verification. #256 raster70 and #281 PNG2 are connector-inaccessible binaries: path/blob/manifest/report only; no current image/hash revalidation.",
+    "#246 post-merge stale Category/Plan and sensitive-data review findings remain unresolved by that original source alone. Source-specific real Provider, authenticated error/race and final-correction Browser gaps remain explicit in each batch.",
+    "#274 Session/JWT/Hybrid full comparison and ADR were not executed; not_planned archive is not a new KEEP Session ADR or permanent JWT rejection.",
+    "#277 closed-unmerged OCI migration readiness retained one unresolved server-authentication TLS thread. Later external-DB/observability records do not establish every historical TLS, backup/restore or cutover gate as completed.",
+    "#279 payment finalize/reconciliation/cart-version/SKU lock-order, after-sales and brandId fixture debts were explicitly deferred/exceptions; JPA convergence is not evidence of their resolution.",
+    "#299 CSRF baseline measurement-not-run and closed-unmerged; synthetic/CI success supplies no actual session/heap/CPU/capacity result.",
+    "#300 calibration is historical reported 60s/30 samples, not a current Production or capacity claim; raw artifacts/local OCI CLI not re-executed. #301-#304 independent source audits are next, despite #300 final-comment linkage. Tomcat series and OCI MQL availability require execution-time validation.",
+    "#334 resource telemetry gate, unbounded monitor joins and runtime image/source binding review findings are not resolved by that source. #336 large runner retains resource-error non-gating/unbounded joins in bounded inspection.",
+    "#331–#400 raster22 metadata/report only; four omitted large Python patches retrieved and structurally inspected, no complete independent runtime/code audit.",
+    "T10 initial Purge timing and #365 historical actual borrower remain unconfirmed; stable local capacity does not prove Production limits.",
+    "#378 Windows full suite subprocess timeout/abort and final reviewer gap remain separate from Linux CI; #397 rate-limit and #400 review0/0 are not completed external reviews.",
+    "#381 initial design says implementation not approved; later #382 implementation/merge does not alone recover a separate approval transcript.",
+    "#399 observed open/reopened health alert is not current capacity/recovery proof. #503 is inventory-only; newer proposals are not applied to historical monitor claims.",
+    "#401–#503 inspection is bounded;35 raster entries not revalidated;local original artifacts not rerun.",
+    "#409 T09 initial failure RCA remains unresolved despite later CI success.",
+    "#417 Phase2 finalization,actual Provider/recovery and mixed-release time-data verification remain outside repository closure.",
+    "#491 actual first OCI transition stopped before image pull/service recreation;live adopt/activation/rollback not proven by correction.",
+    "#503 final removes external Heartbeat proposal from Open502;Cloudflare activation/Secret registration/live cadence/alerts remain NOT_RUN."
+  ],
+  "validation": {
+    "wiki": "191 records,0 issues",
+    "intake_tests": "22 PASS;workspace TEMP;no source code changes",
+    "coverage": "PASS:503 consecutive inventory;503 source dispositions;103 unique new journal keys;706 source-file entries;35 raster entries metadata-only",
+    "exact_head_ci": "See current Draft PR18 latest section; checked after final push"
+  },
+  "resume": "All inventoried sources through503 have dispositions. Check new sources and changed Open sources before further audit. #504 is a candidate number only, not confirmed to exist. Never infer source completion as implementation/Production completion.",
+  "request_checkpoint": {
+    "requested_range": [
+      401,
+      503
+    ],
+    "requested_through": 503,
+    "latest_closed_pr": 503,
+    "completed_this_request": [
+      401,
+      503
+    ],
+    "next_source": 504,
+    "status": "complete",
+    "scope": "Per-source dispositions including explicit Open/pending implementation; bounded historical contract investigation, not complete independent code/runtime review"
+  },
+  "resolved_or_narrowed_uncertainties": [
+    {
+      "source": 201,
+      "was": "#195 종료 문맥과 후속 invalid JFR 결론 상세 대조 대기",
+      "finding": "#201 문서에서 실제 workload 후 불완전 JFR·Outcome C·추가 코드 NO CHANGE 확인; 직접 closure 원인은 미확인 유지",
+      "evidence": "batch-201-201.md"
+    },
+    {
+      "source": 263,
+      "finding": "#258/#259 and #262/#263 are same-HEAD replacement PR pairs caused by Ready connector failure; merged and unmerged status separated.",
+      "evidence": "batch-251-260.md; batch-261-270.md"
+    },
+    {
+      "source": 283,
+      "finding": "Temporary AWS auto-dispatch caused an unapproved execution attempt after image publish; OIDC failed and SSM was skipped. Dispatcher was removed, then active AWS execution surface retired in #284.",
+      "evidence": "batch-281-290.md"
+    },
+    {
+      "source": 300,
+      "finding": "same-host overhead and READY/NORMAL readiness completed historically; load/capacity and Scale Dataset Production apply remained unexecuted.",
+      "evidence": "batch-291-300.md"
+    },
+    {
+      "source": 359,
+      "finding": "#364 preserves15 core T10 blobs exactly; original #359 unmerged, JUnit display identity correction separate.",
+      "evidence": "batch-351-360.md; batch-361-370.md"
+    },
+    {
+      "source": 339,
+      "finding": "Runtime0 and Architecture closure separated; official Oct21 repository completion comments checked, no Production claim.",
+      "evidence": "batch-331-340.md; batch-371-380.md"
+    },
+    {
+      "source": 395,
+      "finding": "Initial DEFER later repository completed through #455; summary evidence support does not imply #455 has a formal CodeRabbit review.",
+      "evidence": "batch-391-400.md"
+    }
+  ],
+  "open_sources_observed": [
+    417,
+    460,
+    461,
+    466,
+    469,
+    470,
+    485,
+    487,
+    502
+  ],
+  "issue_review": {
+    "observed_at": "2026-11-04",
+    "issue_count": 133,
+    "comment_count": 444,
+    "new_comment_url_count": 0,
+    "checkpoint": "../pawcycle-issue-ledger/README.md",
+    "pending_comment_fetches": 0
+  }
+}

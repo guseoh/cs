@@ -1,0 +1,2900 @@
+{
+  "schema_version": 1,
+  "range": [
+    301,
+    310
+  ],
+  "observed_at": "2026-11-04",
+  "source_repository": "guseoh/pawcycle-commerce",
+  "sources": [
+    {
+      "number": 301,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/301",
+      "title": "fix(ops): Production release lock 권한 계약 정렬",
+      "created_at": "2026-09-22T04:58:46Z",
+      "updated_at": "2026-10-06T05:11:42Z",
+      "state": "closed",
+      "state_reason": null,
+      "closed_at": "2026-09-22T07:01:28Z",
+      "merged_at": "2026-09-22T07:01:28Z",
+      "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+      "merge_commit_sha": "b669c5a8e0a5d5bf61a20331216003a2a404cb85",
+      "changed_files": 5,
+      "files": [
+        {
+          "path": "infra/production/create-production-auth-smoke-member.sh",
+          "status": "modified",
+          "sha": "ed39a4b02188ae0d719dc6a11ccbada63a9a37e7",
+          "additions": 38,
+          "deletions": 3,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/7024ef0fff488307d77dcd0d90c0a168317fe8d2/infra%2Fproduction%2Fcreate-production-auth-smoke-member.sh"
+        },
+        {
+          "path": "infra/production/import-demo-catalog.sh",
+          "status": "modified",
+          "sha": "c2d458ca3ff91775eac331939281eefc21242c87",
+          "additions": 38,
+          "deletions": 2,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/7024ef0fff488307d77dcd0d90c0a168317fe8d2/infra%2Fproduction%2Fimport-demo-catalog.sh"
+        },
+        {
+          "path": "infra/production/test-create-production-auth-smoke-member.py",
+          "status": "modified",
+          "sha": "2c4da296ec4c8e5766dcd0d56753b617f9c502c4",
+          "additions": 59,
+          "deletions": 3,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/7024ef0fff488307d77dcd0d90c0a168317fe8d2/infra%2Fproduction%2Ftest-create-production-auth-smoke-member.py"
+        },
+        {
+          "path": "infra/production/test-demo-catalog-import.sh",
+          "status": "modified",
+          "sha": "4184fa8e5df6725e5c865c9bb41b5aea6965106d",
+          "additions": 41,
+          "deletions": 5,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/7024ef0fff488307d77dcd0d90c0a168317fe8d2/infra%2Fproduction%2Ftest-demo-catalog-import.sh"
+        },
+        {
+          "path": "infra/production/validate-production-contracts.py",
+          "status": "modified",
+          "sha": "095400f48b593dfa3b93fcd4ee4c5b9022192360",
+          "additions": 54,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/7024ef0fff488307d77dcd0d90c0a168317fe8d2/infra%2Fproduction%2Fvalidate-production-contracts.py"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5771430874",
+          "created_at": "2026-09-22T04:58:52Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5771506647",
+          "created_at": "2026-09-22T05:09:17Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5771506848",
+          "created_at": "2026-09-22T05:09:19Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5771507472",
+          "created_at": "2026-09-22T05:09:23Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5771726521",
+          "created_at": "2026-09-22T05:38:40Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5771733927",
+          "created_at": "2026-09-22T05:39:36Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5771883416",
+          "created_at": "2026-09-22T05:58:51Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5771884254",
+          "created_at": "2026-09-22T05:58:57Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5772138001",
+          "created_at": "2026-09-22T06:28:01Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/301#issuecomment-5772138769",
+          "created_at": "2026-09-22T06:28:06Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "6ea8af5d30612933147cbbe8cca8b5252739f931",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/6ea8af5d30612933147cbbe8cca8b5252739f931",
+          "message": "fix(ops): Production release lock 권한 계약 정렬"
+        },
+        {
+          "sha": "9f8e5e9a273ca08c6c2a93b26f2bb296eb81df2e",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/9f8e5e9a273ca08c6c2a93b26f2bb296eb81df2e",
+          "message": "fix(ops): Auth smoke wrapper 실행 권한 복구"
+        },
+        {
+          "sha": "168ce5d53713556a278f2be5dbda28551153e938",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/168ce5d53713556a278f2be5dbda28551153e938",
+          "message": "fix(ops): release lock state 경로 신뢰 경계 강화"
+        },
+        {
+          "sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+          "message": "test(ops): root-owned release lock fixture 확인 보정"
+        }
+      ],
+      "timeline": [],
+      "final_head_ci": {
+        "total_count": 10,
+        "runs": [
+          {
+            "id": 35697544383,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35697544383"
+          },
+          {
+            "id": 35695489818,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35695489818"
+          },
+          {
+            "id": 35695489725,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35695489725"
+          },
+          {
+            "id": 35695049705,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35695049705"
+          },
+          {
+            "id": 35695050052,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35695050052"
+          },
+          {
+            "id": 35692895761,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35692895761"
+          },
+          {
+            "id": 35692895514,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35692895514"
+          },
+          {
+            "id": 35691564620,
+            "name": "Repository Validation",
+            "event": "pull_request",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35691564620"
+          },
+          {
+            "id": 35691562070,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35691562070"
+          },
+          {
+            "id": 35691562102,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "7024ef0fff488307d77dcd0d90c0a168317fe8d2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35691562102"
+          }
+        ]
+      },
+      "disposition": "shared deploy.lock 권한·trust path 재발 방지",
+      "records": [
+        "PWC-0098",
+        "PWC-0055"
+      ]
+    },
+    {
+      "number": 302,
+      "type": "Issue",
+      "url": "https://github.com/guseoh/pawcycle-commerce/issues/302",
+      "title": "PERF-V7-002: Catalog Scale Dataset 10K/100K 준비와 OCI Re-baseline",
+      "created_at": "2026-09-22T06:03:52Z",
+      "updated_at": "2026-11-03T14:39:00Z",
+      "state": "closed",
+      "state_reason": "not_planned",
+      "closed_at": "2026-11-03T14:39:00Z",
+      "merged_at": null,
+      "head_sha": null,
+      "merge_commit_sha": null,
+      "changed_files": 0,
+      "files": [],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5771944678",
+          "created_at": "2026-09-22T06:06:12Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5771949926",
+          "created_at": "2026-09-22T06:06:49Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5773350648",
+          "created_at": "2026-09-22T08:21:00Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5773452466",
+          "created_at": "2026-09-22T08:29:27Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5810795321",
+          "created_at": "2026-09-24T08:40:40Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5811253888",
+          "created_at": "2026-09-24T09:10:37Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5814908903",
+          "created_at": "2026-09-24T13:19:27Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5844976853",
+          "created_at": "2026-09-26T09:22:15Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5862237855",
+          "created_at": "2026-09-28T02:32:12Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5867992961",
+          "created_at": "2026-09-28T10:18:57Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5908489189",
+          "created_at": "2026-09-30T09:37:37Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-5909772168",
+          "created_at": "2026-09-30T10:55:36Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/302#issuecomment-6606688381",
+          "created_at": "2026-11-03T14:38:49Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [],
+      "timeline": [
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-22T06:04:18Z",
+          "commit_id": null,
+          "source_number": 300,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/300"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T06:06:12Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T06:06:49Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-22T08:12:19Z",
+          "commit_id": null,
+          "source_number": 303,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/303"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T08:21:00Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T08:29:27Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-22T08:30:13Z",
+          "commit_id": null,
+          "source_number": 305,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/305"
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-22T08:49:47Z",
+          "commit_id": null,
+          "source_number": 306,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/306"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-24T08:40:40Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-24T08:52:58Z",
+          "commit_id": null,
+          "source_number": 308,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/308"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-24T09:10:37Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-24T13:19:27Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-26T09:22:15Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-28T02:31:43Z",
+          "commit_id": null,
+          "source_number": 309,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/309"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-28T02:32:12Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-28T10:18:57Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-29T05:23:07Z",
+          "commit_id": null,
+          "source_number": 312,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/312"
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-29T08:40:09Z",
+          "commit_id": null,
+          "source_number": 314,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/314"
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-29T09:01:11Z",
+          "commit_id": null,
+          "source_number": 315,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/315"
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-30T07:12:37Z",
+          "commit_id": null,
+          "source_number": 316,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/316"
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-30T09:37:08Z",
+          "commit_id": null,
+          "source_number": 318,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/318"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-30T09:37:37Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-30T10:55:22Z",
+          "commit_id": null,
+          "source_number": 320,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/320"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-30T10:55:36Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-10-23T00:30:07Z",
+          "commit_id": null,
+          "source_number": 452,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/452"
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-10-23T03:59:56Z",
+          "commit_id": null,
+          "source_number": 166,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/166"
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-10-23T08:06:21Z",
+          "commit_id": null,
+          "source_number": 456,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/456"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-11-03T14:38:49Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "closed",
+          "created_at": "2026-11-03T14:39:00Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        }
+      ],
+      "final_head_ci": null,
+      "disposition": "I0↔I10K 격리 승인·실행 중단·후속 이관",
+      "records": [
+        "PWC-0100",
+        "PWC-0099",
+        "PWC-0098",
+        "PWL-0041"
+      ]
+    },
+    {
+      "number": 303,
+      "type": "Issue",
+      "url": "https://github.com/guseoh/pawcycle-commerce/issues/303",
+      "title": "PERF-V7-002 — Catalog Core Scale Dataset repository preparation",
+      "created_at": "2026-09-22T06:17:06Z",
+      "updated_at": "2026-09-22T08:16:57Z",
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-09-22T08:12:25Z",
+      "merged_at": null,
+      "head_sha": null,
+      "merge_commit_sha": null,
+      "changed_files": 0,
+      "files": [],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5772370285",
+          "created_at": "2026-09-22T06:52:35Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5772592613",
+          "created_at": "2026-09-22T07:14:08Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5772596802",
+          "created_at": "2026-09-22T07:14:33Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5772947028",
+          "created_at": "2026-09-22T07:47:18Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5772949548",
+          "created_at": "2026-09-22T07:47:32Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5773180141",
+          "created_at": "2026-09-22T08:07:58Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5773183328",
+          "created_at": "2026-09-22T08:08:12Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5773241980",
+          "created_at": "2026-09-22T08:12:18Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5773246702",
+          "created_at": "2026-09-22T08:12:37Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5773297604",
+          "created_at": "2026-09-22T08:16:27Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/303#issuecomment-5773303228",
+          "created_at": "2026-09-22T08:16:56Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [],
+      "timeline": [
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-22T06:24:35Z",
+          "commit_id": null,
+          "source_number": 304,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/304"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T06:52:35Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T07:14:08Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T07:14:33Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-22T07:15:13Z",
+          "commit_id": null,
+          "source_number": 300,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/300"
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-22T07:45:14Z",
+          "commit_id": null,
+          "source_number": 302,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/302"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T07:47:18Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T07:47:32Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T08:07:58Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T08:08:12Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T08:12:18Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "closed",
+          "created_at": "2026-09-22T08:12:25Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T08:12:37Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T08:16:27Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T08:16:56Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-22T08:30:13Z",
+          "commit_id": null,
+          "source_number": 305,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/305"
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-24T08:52:58Z",
+          "commit_id": null,
+          "source_number": 308,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/308"
+        }
+      ],
+      "final_head_ci": null,
+      "disposition": "exact total 10K prepare/verify와 리뷰 과장 정정",
+      "records": [
+        "PWC-0099",
+        "PWL-0038"
+      ]
+    },
+    {
+      "number": 304,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/304",
+      "title": "feat(perf): Catalog Core Scale Dataset 준비 계약 추가",
+      "created_at": "2026-09-22T06:24:34Z",
+      "updated_at": "2026-10-06T05:12:13Z",
+      "state": "closed",
+      "state_reason": null,
+      "closed_at": "2026-09-22T08:11:41Z",
+      "merged_at": "2026-09-22T08:11:41Z",
+      "head_sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+      "merge_commit_sha": "cd883cf6a954d7f82e7bf72af9254aa9e64e5493",
+      "changed_files": 4,
+      "files": [
+        {
+          "path": ".github/workflows/validate-conventions.yml",
+          "status": "modified",
+          "sha": "d6867329c81ee265d03859d4a40f9e60f8dde2c7",
+          "additions": 7,
+          "deletions": 1,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84/.github%2Fworkflows%2Fvalidate-conventions.yml"
+        },
+        {
+          "path": "infra/performance/catalog-scale.md",
+          "status": "modified",
+          "sha": "232eab7c18233b12e447a0e6944d448cf258b3c6",
+          "additions": 288,
+          "deletions": 6,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84/infra%2Fperformance%2Fcatalog-scale.md"
+        },
+        {
+          "path": "scripts/prepare-product-scale-data.py",
+          "status": "added",
+          "sha": "f3ee56b5b13dcc541fce913d35fb26800638670a",
+          "additions": 270,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84/scripts%2Fprepare-product-scale-data.py"
+        },
+        {
+          "path": "scripts/test_prepare_product_scale_data.py",
+          "status": "added",
+          "sha": "3333ed48671cc814f3154066b490f6ebd9e627e7",
+          "additions": 258,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84/scripts%2Ftest_prepare_product_scale_data.py"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5772179960",
+          "created_at": "2026-09-22T06:32:28Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5772317182",
+          "created_at": "2026-09-22T06:46:57Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5772317958",
+          "created_at": "2026-09-22T06:47:03Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5772581135",
+          "created_at": "2026-09-22T07:13:05Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5772582400",
+          "created_at": "2026-09-22T07:13:11Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5772926574",
+          "created_at": "2026-09-22T07:45:27Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5772927616",
+          "created_at": "2026-09-22T07:45:32Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5773146024",
+          "created_at": "2026-09-22T08:05:20Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5773147000",
+          "created_at": "2026-09-22T08:05:24Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5773204950",
+          "created_at": "2026-09-22T08:09:47Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5773206394",
+          "created_at": "2026-09-22T08:09:53Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5773300733",
+          "created_at": "2026-09-22T08:16:44Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#issuecomment-5773303953",
+          "created_at": "2026-09-22T08:17:00Z"
+        }
+      ],
+      "reviews": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#pullrequestreview-5275387476",
+          "state": "COMMENTED",
+          "commit_id": "f238191d374d6de91c32d17c88f118d5e88a3e46"
+        }
+      ],
+      "review_comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#discussion_r4069492054",
+          "path": "infra/performance/catalog-scale.md",
+          "commit_id": "f238191d374d6de91c32d17c88f118d5e88a3e46",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#discussion_r4069492098",
+          "path": "scripts/prepare-product-scale-data.py",
+          "commit_id": "f238191d374d6de91c32d17c88f118d5e88a3e46",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/304#discussion_r4069492104",
+          "path": "scripts/prepare-product-scale-data.py",
+          "commit_id": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+          "in_reply_to_id": null
+        }
+      ],
+      "commits": [
+        {
+          "sha": "8b061d27f193f5cd521e2839fa59ecc7bc56d6a2",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/8b061d27f193f5cd521e2839fa59ecc7bc56d6a2",
+          "message": "feat(perf): Catalog scale dataset 준비 검증기 추가"
+        },
+        {
+          "sha": "6475f929d191df1ec752199819b762d1dd6b81e7",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/6475f929d191df1ec752199819b762d1dd6b81e7",
+          "message": "test(perf): Catalog scale dataset 준비 계약 검증"
+        },
+        {
+          "sha": "a3f55167c278061cd400721adf77106d5cb6a913",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/a3f55167c278061cd400721adf77106d5cb6a913",
+          "message": "docs(perf): Catalog scale dataset 계약 구체화"
+        },
+        {
+          "sha": "6a76b6f1d2dba3e62fd6699cdc47e2254137cd54",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/6a76b6f1d2dba3e62fd6699cdc47e2254137cd54",
+          "message": "ci(perf): Catalog scale dataset 회귀 검증 연결"
+        },
+        {
+          "sha": "6788c6c312c20325a39b0b7105b0acf25783b67c",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/6788c6c312c20325a39b0b7105b0acf25783b67c",
+          "message": "test(perf): Catalog Core 10K 실제 분포 검증"
+        },
+        {
+          "sha": "f238191d374d6de91c32d17c88f118d5e88a3e46",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/f238191d374d6de91c32d17c88f118d5e88a3e46",
+          "message": "merge(main): PERF-V7-002 branch 최신화"
+        },
+        {
+          "sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+          "message": "fix(perf): Scale dataset 검증 경계 강화"
+        }
+      ],
+      "timeline": [],
+      "final_head_ci": {
+        "total_count": 8,
+        "runs": [
+          {
+            "id": 35703488219,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35703488219"
+          },
+          {
+            "id": 35703435370,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35703435370"
+          },
+          {
+            "id": 35703434731,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35703434731"
+          },
+          {
+            "id": 35702897258,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35702897258"
+          },
+          {
+            "id": 35702897094,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35702897094"
+          },
+          {
+            "id": 35702067577,
+            "name": "Repository Validation",
+            "event": "pull_request",
+            "head_sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35702067577"
+          },
+          {
+            "id": 35702064061,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35702064061"
+          },
+          {
+            "id": 35702064009,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "60b11f9d35e6c2eba9ac1f5f58366c7bb0d43f84",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35702064009"
+          }
+        ]
+      },
+      "disposition": "generator 보존 wrapper·정확 boolean·출력 경로 충돌 차단",
+      "records": [
+        "PWC-0099",
+        "PWL-0038"
+      ]
+    },
+    {
+      "number": 305,
+      "type": "Issue",
+      "url": "https://github.com/guseoh/pawcycle-commerce/issues/305",
+      "title": "PERF-V7-003 — OCI Catalog Scale 격리 Runtime 저장소 계약",
+      "created_at": "2026-09-22T08:30:12Z",
+      "updated_at": "2026-09-24T08:40:26Z",
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-09-24T08:40:25Z",
+      "merged_at": null,
+      "head_sha": null,
+      "merge_commit_sha": null,
+      "changed_files": 0,
+      "files": [],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/305#issuecomment-5777252568",
+          "created_at": "2026-09-22T13:18:37Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/305#issuecomment-5777279785",
+          "created_at": "2026-09-22T13:20:13Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/305#issuecomment-5810791667",
+          "created_at": "2026-09-24T08:40:24Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [],
+      "timeline": [
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-22T08:49:47Z",
+          "commit_id": null,
+          "source_number": 306,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/306"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T13:18:37Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-22T13:20:13Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-24T08:40:24Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "closed",
+          "created_at": "2026-09-24T08:40:26Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-24T13:19:28Z",
+          "commit_id": null,
+          "source_number": 302,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/302"
+        }
+      ],
+      "final_head_ci": null,
+      "disposition": "격리 runtime 저장소 승인과 완료 범위",
+      "records": [
+        "PWC-0100",
+        "PWL-0038"
+      ]
+    },
+    {
+      "number": 306,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/306",
+      "title": "feat(perf): OCI Catalog Scale 격리 Runtime 계약 추가",
+      "created_at": "2026-09-22T08:49:46Z",
+      "updated_at": "2026-10-06T05:12:18Z",
+      "state": "closed",
+      "state_reason": null,
+      "closed_at": "2026-09-23T00:25:39Z",
+      "merged_at": "2026-09-23T00:25:39Z",
+      "head_sha": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+      "merge_commit_sha": "7d2cf59c77fb0ed3d112aed62fe0830251d5e5e3",
+      "changed_files": 13,
+      "files": [
+        {
+          "path": ".github/workflows/isolated-catalog-validation.yml",
+          "status": "added",
+          "sha": "b512102aa29027ff0398bb883ca39c9507e8b0a7",
+          "additions": 60,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/.github%2Fworkflows%2Fisolated-catalog-validation.yml"
+        },
+        {
+          "path": "docs/runbook/PERF-V7-003-isolated-catalog-scale.md",
+          "status": "added",
+          "sha": "605a6994d09b790164fe4bce66ac39647205a1ea",
+          "additions": 845,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/docs%2Frunbook%2FPERF-V7-003-isolated-catalog-scale.md"
+        },
+        {
+          "path": "docs/runbook/README.md",
+          "status": "modified",
+          "sha": "8b84cdc1768ff0fd8d3b99d411d60a1bffcb15df",
+          "additions": 1,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/docs%2Frunbook%2FREADME.md"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/compose.yaml",
+          "status": "added",
+          "sha": "3fde10038fabfebd4f5e9dacd2728606e3933657",
+          "additions": 89,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fcatalog-isolated%2Fcompose.yaml"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/manage-isolated-catalog.sh",
+          "status": "added",
+          "sha": "341881a36bf8b27e46a92eccdea5d5681a814aec",
+          "additions": 288,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fcatalog-isolated%2Fmanage-isolated-catalog.sh"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/prepare-isolated-catalog-provenance.py",
+          "status": "added",
+          "sha": "029566e4917950f39fafb2cc690592b4192b3fcc",
+          "additions": 277,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fcatalog-isolated%2Fprepare-isolated-catalog-provenance.py"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/runtime.env.example",
+          "status": "added",
+          "sha": "5458792ff67b496368d7c8805e2e048de640aed6",
+          "additions": 10,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fcatalog-isolated%2Fruntime.env.example"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/test-isolated-catalog-contract.sh",
+          "status": "added",
+          "sha": "802fbe653c1d3925a3dbd1c32b5e8c63d5e89ac6",
+          "additions": 355,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fcatalog-isolated%2Ftest-isolated-catalog-contract.sh"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/test_validate_isolated_catalog.py",
+          "status": "added",
+          "sha": "86fd27695d98414f1c1865095dd26fa85c43c680",
+          "additions": 533,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fcatalog-isolated%2Ftest_validate_isolated_catalog.py"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/validate-isolated-catalog.py",
+          "status": "added",
+          "sha": "47ace410e4d3848aebc802ded1d3748cd8cc3b53",
+          "additions": 438,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fcatalog-isolated%2Fvalidate-isolated-catalog.py"
+        },
+        {
+          "path": "infra/performance/k6/isolated-capacity-api-products.js",
+          "status": "added",
+          "sha": "1affab3e34eb6ea3c1e6f5b4ba8c7a28a9043cd3",
+          "additions": 19,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fk6%2Fisolated-capacity-api-products.js"
+        },
+        {
+          "path": "infra/performance/k6/lib/isolated-capacity.js",
+          "status": "added",
+          "sha": "c01cf08af35f81813ba0e8ec2f9786458b024fbe",
+          "additions": 168,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fk6%2Flib%2Fisolated-capacity.js"
+        },
+        {
+          "path": "infra/performance/k6/run-isolated-capacity.sh",
+          "status": "added",
+          "sha": "3281a18fb54332b294f2035396003616c5b72c71",
+          "additions": 104,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/04453f5e1dd08be6dc13fe473ac37801424b6bd2/infra%2Fperformance%2Fk6%2Frun-isolated-capacity.sh"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5773703997",
+          "created_at": "2026-09-22T08:49:58Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5774109434",
+          "created_at": "2026-09-22T09:23:25Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5774110606",
+          "created_at": "2026-09-22T09:23:30Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5774609223",
+          "created_at": "2026-09-22T10:03:56Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5774610220",
+          "created_at": "2026-09-22T10:04:01Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5777190271",
+          "created_at": "2026-09-22T13:14:55Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5777193600",
+          "created_at": "2026-09-22T13:15:07Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5778172171",
+          "created_at": "2026-09-22T14:18:19Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5778174861",
+          "created_at": "2026-09-22T14:18:30Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5779804511",
+          "created_at": "2026-09-22T16:06:18Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5779805763",
+          "created_at": "2026-09-22T16:06:23Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5780010083",
+          "created_at": "2026-09-22T16:18:59Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5780011514",
+          "created_at": "2026-09-22T16:19:05Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5786604292",
+          "created_at": "2026-09-23T00:08:34Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5786625879",
+          "created_at": "2026-09-23T00:10:19Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#issuecomment-5786627158",
+          "created_at": "2026-09-23T00:10:25Z"
+        }
+      ],
+      "reviews": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#pullrequestreview-5276319795",
+          "state": "COMMENTED",
+          "commit_id": "764d26c8098e9a0e77097b92841b431363c2f4ec"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#pullrequestreview-5278728899",
+          "state": "COMMENTED",
+          "commit_id": "072009edcc4b5cbd98b9d8cb5147c26f2f8133b9"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#pullrequestreview-5279587568",
+          "state": "COMMENTED",
+          "commit_id": "d7048972b64614e9b0e5ab5edd712fa076e6c5bd"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#pullrequestreview-5280717035",
+          "state": "COMMENTED",
+          "commit_id": "e433bbd02afa5377d3221334c67efd3899d1c5be"
+        }
+      ],
+      "review_comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4070231873",
+          "path": ".github/workflows/isolated-catalog-validation.yml",
+          "commit_id": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4070231893",
+          "path": "docs/runbook/PERF-V7-003-isolated-catalog-scale.md",
+          "commit_id": "ac0c60ea41f956e9f267175d71e3a96e6895a800",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4070231904",
+          "path": "infra/performance/catalog-isolated/manage-isolated-catalog.sh",
+          "commit_id": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4070231909",
+          "path": "infra/performance/catalog-isolated/validate-isolated-catalog.py",
+          "commit_id": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4070231922",
+          "path": "infra/performance/k6/run-isolated-capacity.sh",
+          "commit_id": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4072160318",
+          "path": ".github/workflows/isolated-catalog-validation.yml",
+          "commit_id": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4072160333",
+          "path": "docs/runbook/PERF-V7-003-isolated-catalog-scale.md",
+          "commit_id": "9d376ee618cf3e9aa85ff4398e74aea6248e139d",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4072160374",
+          "path": "infra/performance/catalog-isolated/manage-isolated-catalog.sh",
+          "commit_id": "341886b759d9872ae7e833fe310f146de60b6f48",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4072160391",
+          "path": "infra/performance/catalog-isolated/prepare-isolated-catalog-provenance.py",
+          "commit_id": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4072870954",
+          "path": "infra/performance/catalog-isolated/prepare-isolated-catalog-provenance.py",
+          "commit_id": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/306#discussion_r4073851697",
+          "path": "docs/runbook/PERF-V7-003-isolated-catalog-scale.md",
+          "commit_id": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "in_reply_to_id": null
+        }
+      ],
+      "commits": [
+        {
+          "sha": "d1a12391f47c6bdd00bc5dcc7c97305ec48c4c00",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/d1a12391f47c6bdd00bc5dcc7c97305ec48c4c00",
+          "message": "feat(perf): 격리 Catalog 실행 preflight 추가"
+        },
+        {
+          "sha": "abfaed5d4547ff62f39454e49444d4c7d9cc111b",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/abfaed5d4547ff62f39454e49444d4c7d9cc111b",
+          "message": "feat(perf): 격리 Catalog Backend Compose 추가"
+        },
+        {
+          "sha": "9cbb0f23eac68dfd8f3e00d24092c0ad7a61228a",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/9cbb0f23eac68dfd8f3e00d24092c0ad7a61228a",
+          "message": "feat(perf): 격리 Catalog lifecycle wrapper 추가"
+        },
+        {
+          "sha": "c87a235ea2c85250e43770c60c50546570480b3e",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/c87a235ea2c85250e43770c60c50546570480b3e",
+          "message": "docs(perf): 격리 Catalog runtime env 계약 추가"
+        },
+        {
+          "sha": "a97b57e59180fa5288fefff29c24e12cb91481a1",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/a97b57e59180fa5288fefff29c24e12cb91481a1",
+          "message": "feat(perf): 격리 Catalog capacity k6 계약 추가"
+        },
+        {
+          "sha": "149a533498f1593dc367466119f1f68dffc20da0",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/149a533498f1593dc367466119f1f68dffc20da0",
+          "message": "feat(perf): 격리 Catalog k6 entrypoint 추가"
+        },
+        {
+          "sha": "ce60747e9f3cea15523369d6a48f1c93e8f5580e",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/ce60747e9f3cea15523369d6a48f1c93e8f5580e",
+          "message": "feat(perf): 격리 Catalog k6 결과 artifact 추가"
+        },
+        {
+          "sha": "d9da12bd41602235ded0e68a63895677dc912dd8",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/d9da12bd41602235ded0e68a63895677dc912dd8",
+          "message": "feat(perf): 격리 Catalog k6 runner 추가"
+        },
+        {
+          "sha": "946d05381068ac76fce34cf1c8fda8cf52b0931f",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/946d05381068ac76fce34cf1c8fda8cf52b0931f",
+          "message": "test(perf): 격리 Catalog preflight 회귀 추가"
+        },
+        {
+          "sha": "4615332207e239f0dc5aa7ea58ac53917da87520",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/4615332207e239f0dc5aa7ea58ac53917da87520",
+          "message": "test(perf): 격리 Catalog lifecycle 계약 검증"
+        },
+        {
+          "sha": "badea717af44b26e0bad59fd0de133deb7209aa4",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/badea717af44b26e0bad59fd0de133deb7209aa4",
+          "message": "docs(perf): OCI 격리 Catalog Scale Runbook 추가"
+        },
+        {
+          "sha": "4aeba0a7298cbdafacb5767a29e20218d6fbc436",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/4aeba0a7298cbdafacb5767a29e20218d6fbc436",
+          "message": "docs(perf): 격리 Catalog Scale Runbook 인덱스 추가"
+        },
+        {
+          "sha": "fe6cb020f61be58408d69de1ecdac5a242bb80ba",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/fe6cb020f61be58408d69de1ecdac5a242bb80ba",
+          "message": "ci(perf): 격리 Catalog contract validation 추가"
+        },
+        {
+          "sha": "7f05ddc429e825e2c38b822af4c99eb1d5b8b282",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/7f05ddc429e825e2c38b822af4c99eb1d5b8b282",
+          "message": "fix(perf): 격리 Backend image 실행 경계 강화"
+        },
+        {
+          "sha": "e44d4f06effc956f230ef2d93ac1ab700a6c448b",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/e44d4f06effc956f230ef2d93ac1ab700a6c448b",
+          "message": "test(perf): pinned image 실행 경계 검증"
+        },
+        {
+          "sha": "413d27832cfbf16c11ffaec581471c043ee1dbeb",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/413d27832cfbf16c11ffaec581471c043ee1dbeb",
+          "message": "fix(perf): cleanup에서 image 의존 제거"
+        },
+        {
+          "sha": "764d26c8098e9a0e77097b92841b431363c2f4ec",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/764d26c8098e9a0e77097b92841b431363c2f4ec",
+          "message": "test(perf): image 없는 cleanup 회귀 검증"
+        },
+        {
+          "sha": "9c00e9cd61d82e707c9c03952125674dfc2a73ab",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/9c00e9cd61d82e707c9c03952125674dfc2a73ab",
+          "message": "fix(perf): 격리 CI 의존 경계 보강"
+        },
+        {
+          "sha": "d30770716e09db1ae6ba578f8b7a26ca1b591b97",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/d30770716e09db1ae6ba578f8b7a26ca1b591b97",
+          "message": "fix(perf): 격리 dataset provenance 생성 추가"
+        },
+        {
+          "sha": "c87ca8a72d9b67845fe3b6372ab942a82e9e34ad",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/c87ca8a72d9b67845fe3b6372ab942a82e9e34ad",
+          "message": "fix(perf): dataset provenance를 exact source와 검증"
+        },
+        {
+          "sha": "c8e5ee3eb7df23ee6c4f773e02ed4891f7ab7e93",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/c8e5ee3eb7df23ee6c4f773e02ed4891f7ab7e93",
+          "message": "fix(perf): exact source와 startup rollback 강제"
+        },
+        {
+          "sha": "c44770ccb6e46b20f983a5985cf759ce123be0d0",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/c44770ccb6e46b20f983a5985cf759ce123be0d0",
+          "message": "fix(perf): 격리 부하 결과 혼합 차단"
+        },
+        {
+          "sha": "1e879fe3fe226d6ae1b9f464323c1dbb2eb39af6",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/1e879fe3fe226d6ae1b9f464323c1dbb2eb39af6",
+          "message": "test(perf): exact-source provenance 회귀 추가"
+        },
+        {
+          "sha": "a6b8c76ce40a4d9704c08cb8d820b7f74ce9ddb1",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/a6b8c76ce40a4d9704c08cb8d820b7f74ce9ddb1",
+          "message": "fix(perf): 격리 k6 exact source 경계 강제"
+        },
+        {
+          "sha": "ac0c60ea41f956e9f267175d71e3a96e6895a800",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/ac0c60ea41f956e9f267175d71e3a96e6895a800",
+          "message": "test(perf): exact source와 startup cleanup 회귀 추가"
+        },
+        {
+          "sha": "85b87fa755280ab42778106ef1fdbded372a72d9",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/85b87fa755280ab42778106ef1fdbded372a72d9",
+          "message": "docs(perf): exact source와 provenance 절차 강화"
+        },
+        {
+          "sha": "9c74dec4ab792816839d7c9325d2d2b78899c1f0",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/9c74dec4ab792816839d7c9325d2d2b78899c1f0",
+          "message": "fix(perf): dataset provenance에 실제 generator digest 연결"
+        },
+        {
+          "sha": "2e64fe59442ad6ef5d525ae2b170c520a3f38b4a",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/2e64fe59442ad6ef5d525ae2b170c520a3f38b4a",
+          "message": "fix(perf): provenance 생성기에 실제 generator digest 포함"
+        },
+        {
+          "sha": "600c70eeeba853e1d59dd732c390207b55aec228",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/600c70eeeba853e1d59dd732c390207b55aec228",
+          "message": "test(perf): 실제 generator provenance 회귀 추가"
+        },
+        {
+          "sha": "215072e472c9c3439540e5d53601714d7be2346d",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/215072e472c9c3439540e5d53601714d7be2346d",
+          "message": "test(perf): provenance generator digest 생성값 검증"
+        },
+        {
+          "sha": "072009edcc4b5cbd98b9d8cb5147c26f2f8133b9",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/072009edcc4b5cbd98b9d8cb5147c26f2f8133b9",
+          "message": "docs(perf): provenance generator 경계 구체화"
+        },
+        {
+          "sha": "9d376ee618cf3e9aa85ff4398e74aea6248e139d",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/9d376ee618cf3e9aa85ff4398e74aea6248e139d",
+          "message": "fix(perf): baseline k6 문법 검증 추가"
+        },
+        {
+          "sha": "341886b759d9872ae7e833fe310f146de60b6f48",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/341886b759d9872ae7e833fe310f146de60b6f48",
+          "message": "docs(perf): provenance 항목 줄바꿈 수정"
+        },
+        {
+          "sha": "9778d0e042a22da4184b1bcef76f071f3f6e9bbd",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/9778d0e042a22da4184b1bcef76f071f3f6e9bbd",
+          "message": "fix(perf): harden isolated catalog cleanup and provenance"
+        },
+        {
+          "sha": "d7048972b64614e9b0e5ab5edd712fa076e6c5bd",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/d7048972b64614e9b0e5ab5edd712fa076e6c5bd",
+          "message": "fix(perf): reject internal source symlinks"
+        },
+        {
+          "sha": "e433bbd02afa5377d3221334c67efd3899d1c5be",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/e433bbd02afa5377d3221334c67efd3899d1c5be",
+          "message": "fix(perf): harden isolated source path integrity"
+        },
+        {
+          "sha": "79d393ea538d1fc49ce09f214eece670721fb39d",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/79d393ea538d1fc49ce09f214eece670721fb39d",
+          "message": "docs(perf): make source boundary check fail closed"
+        },
+        {
+          "sha": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+          "message": "docs(perf): make source boundary checks fail closed"
+        }
+      ],
+      "timeline": [],
+      "final_head_ci": {
+        "total_count": 7,
+        "runs": [
+          {
+            "id": 35802011710,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35802011710"
+          },
+          {
+            "id": 35800703960,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35800703960"
+          },
+          {
+            "id": 35800704234,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35800704234"
+          },
+          {
+            "id": 35799950067,
+            "name": "Isolated Catalog Validation",
+            "event": "pull_request",
+            "head_sha": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35799950067"
+          },
+          {
+            "id": 35799950031,
+            "name": "Repository Validation",
+            "event": "pull_request",
+            "head_sha": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35799950031"
+          },
+          {
+            "id": 35799948462,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35799948462"
+          },
+          {
+            "id": 35799948491,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "04453f5e1dd08be6dc13fe473ac37801424b6bd2",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35799948491"
+          }
+        ]
+      },
+      "disposition": "immutable provenance와 실행·cleanup 안전 경계",
+      "records": [
+        "PWC-0100"
+      ]
+    },
+    {
+      "number": 307,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/307",
+      "title": "docs(harness): PCC V9 기준 동기화",
+      "created_at": "2026-09-23T04:18:14Z",
+      "updated_at": "2026-10-06T05:12:06Z",
+      "state": "closed",
+      "state_reason": null,
+      "closed_at": "2026-09-23T04:23:11Z",
+      "merged_at": "2026-09-23T04:23:11Z",
+      "head_sha": "7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245",
+      "merge_commit_sha": "10d2aa731dd5ad9c2f993db3644c824ec9040a3a",
+      "changed_files": 1,
+      "files": [
+        {
+          "path": "docs/runbook/lean-harness.md",
+          "status": "modified",
+          "sha": "5598cb4a5811b0270dc42eda2cd661e912ebaf83",
+          "additions": 1,
+          "deletions": 1,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245/docs%2Frunbook%2Flean-harness.md"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/307#issuecomment-5788964612",
+          "created_at": "2026-09-23T04:18:20Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/307#issuecomment-5788965229",
+          "created_at": "2026-09-23T04:18:24Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/307#issuecomment-5788990201",
+          "created_at": "2026-09-23T04:21:00Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "dc2f7c67e46ea2f15ff5073a36708955d8f3c6f5",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/dc2f7c67e46ea2f15ff5073a36708955d8f3c6f5",
+          "message": "docs(harness): PCC V9 기준 동기화"
+        },
+        {
+          "sha": "7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245",
+          "message": "chore(harness): PR metadata 검증 재실행"
+        }
+      ],
+      "timeline": [],
+      "final_head_ci": {
+        "total_count": 6,
+        "runs": [
+          {
+            "id": 35818121350,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35818121350"
+          },
+          {
+            "id": 35818081822,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35818081822"
+          },
+          {
+            "id": 35818081367,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35818081367"
+          },
+          {
+            "id": 35817963094,
+            "name": "Repository Validation",
+            "event": "pull_request",
+            "head_sha": "7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35817963094"
+          },
+          {
+            "id": 35817961425,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35817961425"
+          },
+          {
+            "id": 35817961333,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "7aeaf6c5f62abefd1bd18e242f9a63b23f0d6245",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/35817961333"
+          }
+        ]
+      },
+      "disposition": "PCC V9 기준 표기만 동기화",
+      "records": [
+        "PWC-0094"
+      ]
+    },
+    {
+      "number": 308,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/308",
+      "title": "feat(perf): collect isolated Catalog stage evidence",
+      "created_at": "2026-09-24T08:52:56Z",
+      "updated_at": "2026-10-06T05:11:21Z",
+      "state": "closed",
+      "state_reason": null,
+      "closed_at": "2026-09-24T13:16:38Z",
+      "merged_at": "2026-09-24T13:16:38Z",
+      "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+      "merge_commit_sha": "9d2db627486b2940a7c357aefe66ebe927c974af",
+      "changed_files": 8,
+      "files": [
+        {
+          "path": ".github/workflows/isolated-catalog-validation.yml",
+          "status": "modified",
+          "sha": "156b92b40a05ec32aecd113694a80e5b3816fa9f",
+          "additions": 6,
+          "deletions": 1,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/6e2015ed010b89f245da588148c833af52af07dc/.github%2Fworkflows%2Fisolated-catalog-validation.yml"
+        },
+        {
+          "path": "docs/runbook/PERF-V7-003-isolated-catalog-scale.md",
+          "status": "modified",
+          "sha": "1becec67f3e9337a8525ee985fcf38ea4cc0cd33",
+          "additions": 102,
+          "deletions": 2,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/6e2015ed010b89f245da588148c833af52af07dc/docs%2Frunbook%2FPERF-V7-003-isolated-catalog-scale.md"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "status": "added",
+          "sha": "98225865324ff8ecba4cad3089f6f59710e1f5c6",
+          "additions": 373,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/6e2015ed010b89f245da588148c833af52af07dc/infra%2Fperformance%2Fcatalog-isolated%2Fcollect-stage-evidence.py"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/compose.yaml",
+          "status": "modified",
+          "sha": "b9d7770419572140e1a5f2313d48e841218d0e3e",
+          "additions": 1,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/6e2015ed010b89f245da588148c833af52af07dc/infra%2Fperformance%2Fcatalog-isolated%2Fcompose.yaml"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/test-isolated-catalog-contract.sh",
+          "status": "modified",
+          "sha": "c660116d8ab5a8e52d74a37eb877983c3e2193bf",
+          "additions": 251,
+          "deletions": 4,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/6e2015ed010b89f245da588148c833af52af07dc/infra%2Fperformance%2Fcatalog-isolated%2Ftest-isolated-catalog-contract.sh"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/test_collect_stage_evidence.py",
+          "status": "added",
+          "sha": "2878c5661c3b22045f286cf6ba0adacd1de7e5e1",
+          "additions": 253,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/6e2015ed010b89f245da588148c833af52af07dc/infra%2Fperformance%2Fcatalog-isolated%2Ftest_collect_stage_evidence.py"
+        },
+        {
+          "path": "infra/performance/k6/lib/isolated-capacity.js",
+          "status": "modified",
+          "sha": "0de634daa5eccba4c76567593466ae179f8a7f50",
+          "additions": 9,
+          "deletions": 1,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/6e2015ed010b89f245da588148c833af52af07dc/infra%2Fperformance%2Fk6%2Flib%2Fisolated-capacity.js"
+        },
+        {
+          "path": "infra/performance/k6/run-isolated-capacity.sh",
+          "status": "modified",
+          "sha": "334230fe1f2220fd60629437fe1c8e2b91cde802",
+          "additions": 118,
+          "deletions": 7,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/6e2015ed010b89f245da588148c833af52af07dc/infra%2Fperformance%2Fk6%2Frun-isolated-capacity.sh"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5810983316",
+          "created_at": "2026-09-24T08:53:03Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5810985145",
+          "created_at": "2026-09-24T08:53:09Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5811126836",
+          "created_at": "2026-09-24T09:02:11Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5811692399",
+          "created_at": "2026-09-24T09:41:02Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5811727276",
+          "created_at": "2026-09-24T09:43:39Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5812732384",
+          "created_at": "2026-09-24T10:55:52Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5812875002",
+          "created_at": "2026-09-24T11:06:22Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5812876217",
+          "created_at": "2026-09-24T11:06:28Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5814361361",
+          "created_at": "2026-09-24T12:44:25Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5814742350",
+          "created_at": "2026-09-24T13:08:59Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#issuecomment-5814743972",
+          "created_at": "2026-09-24T13:09:05Z"
+        }
+      ],
+      "reviews": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5303647217",
+          "state": "COMMENTED",
+          "commit_id": "7a597ed3223a058dfced273d32d11a895abd0798"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304589730",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304589986",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304590235",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304590527",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304590791",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304591091",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304591361",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304591627",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304594322",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304594579",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304595138",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304595782",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304595994",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304597077",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304599766",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#pullrequestreview-5304604120",
+          "state": "COMMENTED",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc"
+        }
+      ],
+      "review_comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4092958404",
+          "path": "docs/runbook/PERF-V7-003-isolated-catalog-scale.md",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4092958417",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4092958442",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4092958446",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4092958457",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "7a597ed3223a058dfced273d32d11a895abd0798",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4092958468",
+          "path": "infra/performance/catalog-isolated/test-isolated-catalog-contract.sh",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4092958489",
+          "path": "infra/performance/catalog-isolated/test-isolated-catalog-contract.sh",
+          "commit_id": "7a597ed3223a058dfced273d32d11a895abd0798",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4092958503",
+          "path": "infra/performance/k6/run-isolated-capacity.sh",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": null
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093739016",
+          "path": "docs/runbook/PERF-V7-003-isolated-catalog-scale.md",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958404
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093739227",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958417
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093739437",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958442
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093739698",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958446
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093739934",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "7a597ed3223a058dfced273d32d11a895abd0798",
+          "in_reply_to_id": 4092958457
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093740236",
+          "path": "infra/performance/catalog-isolated/test-isolated-catalog-contract.sh",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958468
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093740488",
+          "path": "infra/performance/catalog-isolated/test-isolated-catalog-contract.sh",
+          "commit_id": "7a597ed3223a058dfced273d32d11a895abd0798",
+          "in_reply_to_id": 4092958489
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093740707",
+          "path": "infra/performance/k6/run-isolated-capacity.sh",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958503
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093742977",
+          "path": "infra/performance/catalog-isolated/test-isolated-catalog-contract.sh",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958468
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093743185",
+          "path": "infra/performance/catalog-isolated/test-isolated-catalog-contract.sh",
+          "commit_id": "7a597ed3223a058dfced273d32d11a895abd0798",
+          "in_reply_to_id": 4092958489
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093743702",
+          "path": "docs/runbook/PERF-V7-003-isolated-catalog-scale.md",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958404
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093744262",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958417
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093744422",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958446
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093745336",
+          "path": "infra/performance/k6/run-isolated-capacity.sh",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958503
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093747649",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "6e2015ed010b89f245da588148c833af52af07dc",
+          "in_reply_to_id": 4092958442
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/308#discussion_r4093751488",
+          "path": "infra/performance/catalog-isolated/collect-stage-evidence.py",
+          "commit_id": "7a597ed3223a058dfced273d32d11a895abd0798",
+          "in_reply_to_id": 4092958457
+        }
+      ],
+      "commits": [
+        {
+          "sha": "cc386faee701ade2392f53cbf294c24aac206814",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/cc386faee701ade2392f53cbf294c24aac206814",
+          "message": "feat(perf): collect isolated Catalog stage evidence"
+        },
+        {
+          "sha": "a9903362e89334944bcc6880979eb0a89445b63e",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/a9903362e89334944bcc6880979eb0a89445b63e",
+          "message": "fix(perf): wait briefly for OCI metric publication"
+        },
+        {
+          "sha": "b889af3465f16c6f3d69af4c1730ae40f7cfb087",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/b889af3465f16c6f3d69af4c1730ae40f7cfb087",
+          "message": "fix(perf): require complete isolated load evidence"
+        },
+        {
+          "sha": "4ae31c6f59877f046ba2cca5a76678638fc9d641",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/4ae31c6f59877f046ba2cca5a76678638fc9d641",
+          "message": "test(perf): isolate repeated evidence runner cases"
+        },
+        {
+          "sha": "7a597ed3223a058dfced273d32d11a895abd0798",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/7a597ed3223a058dfced273d32d11a895abd0798",
+          "message": "fix(perf): align OCI evidence aggregation windows"
+        },
+        {
+          "sha": "6e2015ed010b89f245da588148c833af52af07dc",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/6e2015ed010b89f245da588148c833af52af07dc",
+          "message": "fix(perf): address isolated evidence review findings"
+        }
+      ],
+      "timeline": [],
+      "final_head_ci": {
+        "total_count": 35,
+        "runs": [
+          {
+            "id": 36004553945,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36004553945"
+          },
+          {
+            "id": 36004384007,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36004384007"
+          },
+          {
+            "id": 36004383137,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36004383137"
+          },
+          {
+            "id": 36003888815,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36003888815"
+          },
+          {
+            "id": 36003887004,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36003887004"
+          },
+          {
+            "id": 36002070352,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36002070352"
+          },
+          {
+            "id": 36002071483,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36002071483"
+          },
+          {
+            "id": 36002008523,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36002008523"
+          },
+          {
+            "id": 36002008898,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36002008898"
+          },
+          {
+            "id": 36001879691,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001879691"
+          },
+          {
+            "id": 36001880507,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001880507"
+          },
+          {
+            "id": 36001602664,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001602664"
+          },
+          {
+            "id": 36001602107,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001602107"
+          },
+          {
+            "id": 36001453017,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001453017"
+          },
+          {
+            "id": 36001452754,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "failure",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001452754"
+          },
+          {
+            "id": 36001250992,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001250992"
+          },
+          {
+            "id": 36001205370,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001205370"
+          },
+          {
+            "id": 36001176605,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001176605"
+          },
+          {
+            "id": 36001164794,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001164794"
+          },
+          {
+            "id": 36001163491,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001163491"
+          },
+          {
+            "id": 36001156574,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001156574"
+          },
+          {
+            "id": 36001150227,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001150227"
+          },
+          {
+            "id": 36001147290,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001147290"
+          },
+          {
+            "id": 36001122512,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001122512"
+          },
+          {
+            "id": 36001117271,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001117271"
+          },
+          {
+            "id": 36001114666,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001114666"
+          },
+          {
+            "id": 36001111944,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001111944"
+          },
+          {
+            "id": 36001108972,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001108972"
+          },
+          {
+            "id": 36001106619,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001106619"
+          },
+          {
+            "id": 36001104287,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001104287"
+          },
+          {
+            "id": 36001101165,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36001101165"
+          },
+          {
+            "id": 36000954543,
+            "name": "Isolated Catalog Validation",
+            "event": "pull_request",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36000954543"
+          },
+          {
+            "id": 36000954544,
+            "name": "Repository Validation",
+            "event": "pull_request",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36000954544"
+          },
+          {
+            "id": 36000951080,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36000951080"
+          },
+          {
+            "id": 36000951081,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "6e2015ed010b89f245da588148c833af52af07dc",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36000951081"
+          }
+        ]
+      },
+      "disposition": "stage measurement window와 완전한 OCI bucket 수집",
+      "records": [
+        "PWC-0101",
+        "PWL-0034"
+      ]
+    },
+    {
+      "number": 309,
+      "type": "Issue",
+      "url": "https://github.com/guseoh/pawcycle-commerce/issues/309",
+      "title": "PERF-V7-004: OCI isolated Catalog rehearsal harness와 bootstrap contract correction",
+      "created_at": "2026-09-28T02:31:42Z",
+      "updated_at": "2026-09-28T10:17:25Z",
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-09-28T10:17:25Z",
+      "merged_at": null,
+      "head_sha": null,
+      "merge_commit_sha": null,
+      "changed_files": 0,
+      "files": [],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/309#issuecomment-5862250158",
+          "created_at": "2026-09-28T02:33:40Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/309#issuecomment-5866324005",
+          "created_at": "2026-09-28T08:29:43Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/309#issuecomment-5866526193",
+          "created_at": "2026-09-28T08:44:25Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/309#issuecomment-5867546370",
+          "created_at": "2026-09-28T09:50:52Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/309#issuecomment-5867837919",
+          "created_at": "2026-09-28T10:08:27Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/309#issuecomment-5867922176",
+          "created_at": "2026-09-28T10:14:22Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/issues/309#issuecomment-5867968189",
+          "created_at": "2026-09-28T10:17:17Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [],
+      "timeline": [
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-28T02:32:13Z",
+          "commit_id": null,
+          "source_number": 302,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/302"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-28T02:33:40Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-28T06:59:46Z",
+          "commit_id": null,
+          "source_number": 310,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/310"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-28T08:29:43Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-28T08:44:25Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "cross-referenced",
+          "created_at": "2026-09-28T09:09:07Z",
+          "commit_id": null,
+          "source_number": 311,
+          "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/311"
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-28T09:50:52Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-28T10:08:27Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-28T10:14:22Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "commented",
+          "created_at": "2026-09-28T10:17:17Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        },
+        {
+          "event": "closed",
+          "created_at": "2026-09-28T10:17:25Z",
+          "commit_id": null,
+          "source_number": null,
+          "source_url": null
+        }
+      ],
+      "final_head_ci": null,
+      "disposition": "실image main bootstrap 충돌 뒤 no-load rehearsal 2회 확인",
+      "records": [
+        "PWL-0041",
+        "PWC-0100"
+      ]
+    },
+    {
+      "number": 310,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/310",
+      "title": "perf: PERF-V7-004 isolated Catalog rehearsal harness",
+      "created_at": "2026-09-28T06:59:45Z",
+      "updated_at": "2026-10-06T05:14:36Z",
+      "state": "closed",
+      "state_reason": null,
+      "closed_at": "2026-09-28T08:18:01Z",
+      "merged_at": "2026-09-28T08:18:00Z",
+      "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+      "merge_commit_sha": "0cae63013f8c1decd542dfa82581d4730e5e3bec",
+      "changed_files": 6,
+      "files": [
+        {
+          "path": "docs/runbook/PERF-V7-003-isolated-catalog-scale.md",
+          "status": "modified",
+          "sha": "e3ec08d07976bafb7d86e261130e36293e0a8649",
+          "additions": 81,
+          "deletions": 34,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c/docs%2Frunbook%2FPERF-V7-003-isolated-catalog-scale.md"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/app01-paths.sh",
+          "status": "added",
+          "sha": "12db90813a30e31ef7c7887e666a23c98a9c24e3",
+          "additions": 3,
+          "deletions": 0,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c/infra%2Fperformance%2Fcatalog-isolated%2Fapp01-paths.sh"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/compose.yaml",
+          "status": "modified",
+          "sha": "2f701a232c16f16587b615ae037637719664dff8",
+          "additions": 18,
+          "deletions": 1,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c/infra%2Fperformance%2Fcatalog-isolated%2Fcompose.yaml"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/manage-isolated-catalog.sh",
+          "status": "modified",
+          "sha": "b6f831571a03636f2e6276edf03e60f4695c2f0e",
+          "additions": 101,
+          "deletions": 3,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c/infra%2Fperformance%2Fcatalog-isolated%2Fmanage-isolated-catalog.sh"
+        },
+        {
+          "path": "infra/performance/catalog-isolated/test-isolated-catalog-contract.sh",
+          "status": "modified",
+          "sha": "323ca4ac219d2d17b6105e347ca214e296aa7a7b",
+          "additions": 178,
+          "deletions": 3,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c/infra%2Fperformance%2Fcatalog-isolated%2Ftest-isolated-catalog-contract.sh"
+        },
+        {
+          "path": "infra/performance/k6/run-isolated-capacity.sh",
+          "status": "modified",
+          "sha": "8d4781404c0a28518548334f8808887188b31c13",
+          "additions": 8,
+          "deletions": 1,
+          "patch_available": true,
+          "full_text_inspection": null,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c/infra%2Fperformance%2Fk6%2Frun-isolated-capacity.sh"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#issuecomment-5865044073",
+          "created_at": "2026-09-28T06:59:54Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#issuecomment-5865183380",
+          "created_at": "2026-09-28T07:10:59Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#issuecomment-5865185706",
+          "created_at": "2026-09-28T07:11:09Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#issuecomment-5865360279",
+          "created_at": "2026-09-28T07:24:41Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#issuecomment-5865362102",
+          "created_at": "2026-09-28T07:24:50Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#issuecomment-5865587075",
+          "created_at": "2026-09-28T07:41:16Z"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#issuecomment-5866146773",
+          "created_at": "2026-09-28T08:17:49Z"
+        }
+      ],
+      "reviews": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#pullrequestreview-5335109719",
+          "state": "COMMENTED",
+          "commit_id": "f75e99c5595147f6728b8fb2a778ff4ce6da5223"
+        },
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#pullrequestreview-5335722981",
+          "state": "COMMENTED",
+          "commit_id": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c"
+        }
+      ],
+      "review_comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/310#discussion_r4119486451",
+          "path": "infra/performance/catalog-isolated/manage-isolated-catalog.sh",
+          "commit_id": "d5d950cd3a95d58fe69231c50ca885bdeab6763b",
+          "in_reply_to_id": null
+        }
+      ],
+      "commits": [
+        {
+          "sha": "d5d950cd3a95d58fe69231c50ca885bdeab6763b",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/d5d950cd3a95d58fe69231c50ca885bdeab6763b",
+          "message": "perf: Add OCI isolated Catalog rehearsal harness"
+        },
+        {
+          "sha": "b900112902e9cef53a99179a983eca75e0de42e1",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/b900112902e9cef53a99179a983eca75e0de42e1",
+          "message": "fix: Bound isolated rehearsal smoke requests"
+        },
+        {
+          "sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+          "message": "fix: Guard isolated catalog lifecycle actions"
+        }
+      ],
+      "timeline": [],
+      "final_head_ci": {
+        "total_count": 14,
+        "runs": [
+          {
+            "id": 36396541380,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36396541380"
+          },
+          {
+            "id": 36396501542,
+            "name": "Repository Validation",
+            "event": "pull_request",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36396501542"
+          },
+          {
+            "id": 36396501460,
+            "name": "Isolated Catalog Validation",
+            "event": "pull_request",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36396501460"
+          },
+          {
+            "id": 36396501472,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36396501472"
+          },
+          {
+            "id": 36396501498,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36396501498"
+          },
+          {
+            "id": 36396229126,
+            "name": "Collaboration Notification",
+            "event": "pull_request_review",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36396229126"
+          },
+          {
+            "id": 36395402930,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36395402930"
+          },
+          {
+            "id": 36395402356,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36395402356"
+          },
+          {
+            "id": 36395304358,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36395304358"
+          },
+          {
+            "id": 36395304001,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "failure",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36395304001"
+          },
+          {
+            "id": 36394403422,
+            "name": "Repository Validation",
+            "event": "pull_request",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36394403422"
+          },
+          {
+            "id": 36394403387,
+            "name": "Isolated Catalog Validation",
+            "event": "pull_request",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36394403387"
+          },
+          {
+            "id": 36394401310,
+            "name": "CodeRabbit Review Handoff",
+            "event": "pull_request_target",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36394401310"
+          },
+          {
+            "id": 36394401275,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "0dfe1777fcf6e18158ab87182b8b3f3e7f8f417c",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/36394401275"
+          }
+        ]
+      },
+      "disposition": "bootstrap·apply 확인·timeout·project lifecycle lock 교정",
+      "records": [
+        "PWL-0041",
+        "PWC-0100"
+      ]
+    }
+  ]
+}

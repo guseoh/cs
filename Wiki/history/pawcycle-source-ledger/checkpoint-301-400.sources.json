@@ -1,0 +1,66 @@
+{
+  "wiki_start_head": "2040345d59c919a6843a4d4939380ecf8589377a",
+  "wiki_main": "53758f5255185a0ccbd5fc93c5d70a9b2ab2c474",
+  "source_main": "caad5233269f52ccd31f6e93e54c77a464766b36",
+  "files": [
+    {
+      "path": "backend/src/test/java/com/pawcycle/backend/architecture/BackendArchitectureTests.java",
+      "sha": "e25011aec50136cfbc9b926efbff40a2321d00b7",
+      "url": "https://github.com/guseoh/pawcycle-commerce/blob/caad5233269f52ccd31f6e93e54c77a464766b36/backend/src/test/java/com/pawcycle/backend/architecture/BackendArchitectureTests.java"
+    },
+    {
+      "path": "docs/architecture/backend-architecture-v2.md",
+      "sha": "aec900270bbdddce6a8dd7e677c4dfe4e93e1517",
+      "url": "https://github.com/guseoh/pawcycle-commerce/blob/caad5233269f52ccd31f6e93e54c77a464766b36/docs/architecture/backend-architecture-v2.md"
+    },
+    {
+      "path": "backend/src/main/java/com/pawcycle/backend/commerce/inventory/application/InventoryService.java",
+      "sha": "bff99c4fd525748e612045e6b7c96adf09fc8a4d",
+      "url": "https://github.com/guseoh/pawcycle-commerce/blob/caad5233269f52ccd31f6e93e54c77a464766b36/backend/src/main/java/com/pawcycle/backend/commerce/inventory/application/InventoryService.java"
+    },
+    {
+      "path": "backend/src/main/java/com/pawcycle/backend/commerce/checkout/persistence/CheckoutIdempotencyRepository.java",
+      "sha": "ea49bca13f9f2dd40c1cabe87e8d33ac744019d8",
+      "url": "https://github.com/guseoh/pawcycle-commerce/blob/caad5233269f52ccd31f6e93e54c77a464766b36/backend/src/main/java/com/pawcycle/backend/commerce/checkout/persistence/CheckoutIdempotencyRepository.java"
+    },
+    {
+      "path": "backend/src/main/java/com/pawcycle/backend/subscription/persistence/SubscriptionIdempotencyCleanupPersistence.java",
+      "sha": "166e7f7e9557e07ab228bde1530aadadaa788bff",
+      "url": "https://github.com/guseoh/pawcycle-commerce/blob/caad5233269f52ccd31f6e93e54c77a464766b36/backend/src/main/java/com/pawcycle/backend/subscription/persistence/SubscriptionIdempotencyCleanupPersistence.java"
+    },
+    {
+      "path": "backend/src/main/java/com/pawcycle/backend/subscription/domain/SubscriptionFailure.java",
+      "sha": "24ce0f01abcfbe6b425ab28b0be866ae03fc371e",
+      "url": "https://github.com/guseoh/pawcycle-commerce/blob/caad5233269f52ccd31f6e93e54c77a464766b36/backend/src/main/java/com/pawcycle/backend/subscription/domain/SubscriptionFailure.java"
+    },
+    {
+      "path": "backend/src/main/java/com/pawcycle/backend/recommendation/model/RecommendationView.java",
+      "sha": "f864c6b61f6bf35e95eb9d90bec412d1f0dde3ce",
+      "url": "https://github.com/guseoh/pawcycle-commerce/blob/caad5233269f52ccd31f6e93e54c77a464766b36/backend/src/main/java/com/pawcycle/backend/recommendation/model/RecommendationView.java"
+    },
+    {
+      "path": "scripts/request_coderabbit_review.py",
+      "sha": "634d72ce1cea51f4dab1d32d05415b30ef73a07a",
+      "url": "https://github.com/guseoh/pawcycle-commerce/blob/caad5233269f52ccd31f6e93e54c77a464766b36/scripts/request_coderabbit_review.py"
+    }
+  ],
+  "monitor": {
+    "path": ".github/scripts/oci_a1_capacity_monitor.py",
+    "sha": "2d4ed476d340a8f3551c4dfd8a3836a7a948958c"
+  },
+  "smoke": {
+    "id": 38860330741,
+    "status": "completed",
+    "conclusion": "success",
+    "sha": "e17be479344a0964b47b01b3aa203cdc5e53e3a5",
+    "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/38860330741"
+  },
+  "inventory503": {
+    "number": 503,
+    "title": "fix(oci): A1 무료 5분 감시와 독립 Heartbeat 검증",
+    "created_at": "2026-11-04T05:44:39Z",
+    "state": "open",
+    "head": "e41786634c002d8bf6c1ec99ceb50069e8569180",
+    "merged": false
+  }
+}
