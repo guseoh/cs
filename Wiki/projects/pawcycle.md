@@ -69,7 +69,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#210 have individual detailed dispositions**, while #211–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#502 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#220 have individual detailed dispositions**, while #221–#502 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -215,3 +215,7 @@ Phase 9은 잔여 포화가 있지만 특정 Java hotspot 귀속 증거가 없�
 ## 2026-11-04 역사 복원 #202~#210
 
 Redis 최초 KEEP와 race 교정, 유실된5k와새10k의구분, one-shot identity·durable evidence 및mixed-scrape실패를복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-202-210.md). 누적 상세 210/502, 미완료 292; 다음 #211. 현재 운영 재검증이 아니다.
+
+## 2026-11-04 역사 복원 #211~#220
+
+Scheduler 설정After와Phase10 조건부기술선택 종료, MVP4 결합pending/잠금교정·AI안전추천·Frontend연결의미완료경계를복원했다. [상세 근거](../history/pawcycle-source-ledger/batch-211-220.md). 누적 상세 220/502, 미완료 282; 다음 #221. 현재 운영 재검증이 아니다.
