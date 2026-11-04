@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "6a7bd549445bf1db2f74219f35a2f628e54b4aaa",
+  "wiki_parent_sha": "d0a1f1f83db6a83cc4f45a282c1b2a8c1bcdee1a",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    70
+    80
   ],
-  "completed_count": 70,
-  "pending_count": 431,
-  "next_source": 71,
+  "completed_count": 80,
+  "pending_count": 421,
+  "next_source": 81,
   "batches": [
     {
       "range": [
@@ -78,6 +78,14 @@
       ],
       "evidence": "batch-061-070.md",
       "manifest": "batch-061-070.sources.json"
+    },
+    {
+      "range": [
+        71,
+        80
+      ],
+      "evidence": "batch-071-080.md",
+      "manifest": "batch-071-080.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -101,12 +109,15 @@
     "#60 실제 unknown Host 외부 검증·자동갱신 schedule·session·운영 rollback은 이 source에서 미실행",
     "#63 backup ID의 저장소 밖 장기 보관은 미확인; raw운영로그 대신 사용자PASS요약",
     "#64 자동 cleanup_trap 삭제 직전 경계 재검증 없음·TOCTOU 위험은 문서화만 했고 코드미개선",
-    "#70 외부 Spring 설정 소스를 사전 gate가 못 보는 P1 지적은 최종diff/댓글에서 해결 근거 미확인"
+    "#70 외부 Spring 설정 소스를 사전 gate가 못 보는 P1 지적은 최종diff/댓글에서 해결 근거 미확인",
+    "#70 외부설정 gate우회는#71 wrapper의명시CLI/격리경계와별도로미확인유지",
+    "#80 정확한운영시작/종료·중단시간·RTO·트래픽영향과Certbot namedvolume경고근본원인미확인",
+    "#76 candidate restore는저장소준비이며#80도actualproductionDBrestore를실행하지않음"
   ],
   "validation": {
-    "wiki": "89 records, 0 issues",
+    "wiki": "92 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 70 complete; 431 pending; next #71; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 80 complete; 421 pending; next #81; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #71 before #72; preserve historical failures, conditional QA and source-specific verification limits. User requested through #100 on 2026-11-04."
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #81 before #82; preserve historical failures, conditional QA and source-specific verification limits. User requested through #100 on 2026-11-04."
 }
