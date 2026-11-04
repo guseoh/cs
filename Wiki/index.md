@@ -83,6 +83,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0049](decisions/PWC-0049.md) | accepted | 역사적 AWS 운영 기반은 비용 알림·T3 standard·SSM과 제한된 네트워크로 준비했다 | pawcycle |
 | [PWC-0050](decisions/PWC-0050.md) | accepted | 역사적 AWS 단일 release는 동일 SHA·digest·런타임 비밀 원자 전환과 DB 보존 rollback을 사용했다 | pawcycle |
 | [PWC-0051](decisions/PWC-0051.md) | accepted | 역사적 HTTPS 활성화는 발급·인증서 검증 이후에만 hostname을 승인했다 | pawcycle |
+| [PWC-0052](decisions/PWC-0052.md) | accepted | AWS 백업은 같은 dump snapshot의 manifest와 S3 격리 복원으로 검증했다 | pawcycle |
+| [PWC-0053](decisions/PWC-0053.md) | accepted | 최초 EC2 장애 알림은 상태 지표의 SNS email 전이만 최소 검증했다 | pawcycle |
+| [PWC-0054](decisions/PWC-0054.md) | accepted | 운영 인증 smoke와 전용 회원 생성은 비밀 전달·one-shot·실행 승인 경계를 분리했다 | pawcycle |
 
 ## Knowledge index
 
@@ -113,6 +116,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0017](lessons/PWL-0017.md) | 실행 runner를 막아도 함께 로드되는 profile의 쿠키 완화는 남을 수 있다 | pawcycle |
 | [PWL-0018](lessons/PWL-0018.md) | MySQL 프로세스 응답과 실제 애플리케이션 계정의 readiness는 다르다 | pawcycle |
 | [PWL-0019](lessons/PWL-0019.md) | 최초 성능 기준선은 계측 실패와 승인 순서 이탈로 끝내 확보되지 않았다 | pawcycle |
+| [PWL-0020](lessons/PWL-0020.md) | 운영 문서의 fail-closed·cleanup 보장은 실제 검사 시점과 대상을 확인해야 한다 | pawcycle |
+| [PWL-0021](lessons/PWL-0021.md) | draft | Spring Context 이전 gate는 자신이 보지 못하는 외부 설정 경로까지 고려해야 한다 | pawcycle |
 
 ## Record creation and maintenance
 
@@ -133,10 +138,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#60 have individual detailed dispositions; #61–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#70 have individual detailed dispositions; #71–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #61](history/pawcycle-source-ledger/progress.json). Current count: **60 complete / 441 pending / 501 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #71](history/pawcycle-source-ledger/progress.json). Current count: **70 complete / 431 pending / 501 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -150,3 +155,7 @@ Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#6
 ### PawCycle 상세 처리 #51~#60 (2026-11-04)
 
 성능 세부 승인→순서 이탈 부분 관측→전체 재승인→native stderr/배열 SelfTest 실패→기준선 미확보 종료를 복원하고, 위험 기반 Lean Harness·AWS 준비·동일 SHA release·HTTPS의 준비/운영 경계를 연결했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-051-060.md). 최신 누적 60/501, 미완료 441, 다음 #61.
+
+### PawCycle 상세 처리 #61~#70 (2026-11-04)
+
+HTTPS 실제 발급·갱신/재부팅, S3 격리 복원과 유지보수 예외, 자동 cleanup·IAM gate의 검증 한계, 기능 차이 없는 release rollback, EC2 SNS 수동 알림, 인증 smoke·one-shot 회원 준비와 사전 gate 잔여 지적을 복원했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-061-070.md). 최신 누적 70/501, 미완료 431, 다음 #71.
