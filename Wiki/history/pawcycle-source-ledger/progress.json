@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "da4c43926d4cd30a3da8fd1d9e3a192fa915d929",
+  "wiki_parent_sha": "02591b9f04004f7fe8a9166973232af5ed75f9c0",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    180
+    190
   ],
-  "completed_count": 180,
-  "pending_count": 321,
-  "next_source": 181,
+  "completed_count": 190,
+  "pending_count": 311,
+  "next_source": 191,
   "batches": [
     {
       "range": [
@@ -166,6 +166,14 @@
       ],
       "evidence": "batch-171-180.md",
       "manifest": "batch-171-180.sources.json"
+    },
+    {
+      "range": [
+        181,
+        190
+      ],
+      "evidence": "batch-181-190.md",
+      "manifest": "batch-181-190.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -207,9 +215,9 @@
     "#173 sustained 중간 Docker/MySQL snapshot 미보존. #177 exact k6 aggregate 및 overload Hikari/JVM peak 부재. Tomcat64는기각이며부분metric을0peak로해석하지않음."
   ],
   "validation": {
-    "wiki": "121 records, 0 issues",
+    "wiki": "123 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 180 complete; 321 pending; next #181; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 190 complete; 311 pending; next #191; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #181 before #182; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #191 before #192; preserve historical failures, conditional QA and source-specific verification limits. User requested through #200 on 2026-11-04."
 }
