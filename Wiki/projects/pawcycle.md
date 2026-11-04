@@ -69,7 +69,7 @@ related_to: [PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-000
 
 ## Chronological source-audit progress (2026-11-03)
 
-- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#80 have individual detailed dispositions**, while #81–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
+- [PawCycle #1–#501 original-source ledger](../history/pawcycle-source-ledger/README.md) is **fully inventoried, not fully audited**. As of this Wiki draft revision, **#1–#90 have individual detailed dispositions**, while #91–#501 remain uncompleted source-by-source; earlier PWC/PWL topic-level research is not double-counted.
 - Initial collaboration/Obsidian-record correction #1–#3 is linked to [PWC-0028](../decisions/PWC-0028.md) and [PWL-0009](../lessons/PWL-0009.md). Product scope #4–#5 is linked to [PWC-0003](../decisions/PWC-0003.md). DOMAIN-001 (#7) links to [PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011](../decisions/PWC-0033.md); Harness task-ID expansions #6/#8 link to PWC-0028; Discord/UTF-8 failures #9/#10 link to [PWL-0010](../lessons/PWL-0010.md).
 - [WIKI-0003](../decisions/WIKI-0003.md) establishes that this is AI-facing, durable Project Memory with future task-end capture and traceable original evidence, **not automatic access to all AI sessions**.
 
@@ -141,3 +141,7 @@ HTTPS 실제 발급·갱신/재부팅, S3 격리 복원과 유지보수 예외, 
 ## 2026-11-04 역사 복원 #71~#80
 
 운영 회원 wrapper·실제 회원/세션 증거, Application/Control SHA 분리와 rollback 호환성 교정, candidate DB restore 준비, 운영 안전성 판정 철회·보류와 실제 Control 왕복 검증을 시간순으로 연결했다. [상세 근거](../history/pawcycle-source-ledger/batch-071-080.md). 누적 상세 80/501, 미완료 421; 다음 #81. 현재 운영 재검증이 아니다.
+
+## 2026-11-04 역사 복원 #81~#90
+
+최소운영기준선7항목 Verified의 한계, code/metadata CI 분리·비소급 Lean 전환, MVP2 제품/legacy 정책과 Proposed 기술계약→구현 Delta, 멱등 current-read·reconciliation correction, 운영활성화 후속 Issue와 로컬volume 인증복구를 기록했다. [상세 근거](../history/pawcycle-source-ledger/batch-081-090.md). 누적 상세 90/501, 미완료 411; 다음 #91. 현재 운영 재검증이 아니다.

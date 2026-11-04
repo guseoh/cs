@@ -6,7 +6,7 @@
   "wiki_repository": "guseoh/cs",
   "draft_pr": 18,
   "branch": "docs/pawcycle-history-backfill-20261103",
-  "wiki_parent_sha": "d0a1f1f83db6a83cc4f45a282c1b2a8c1bcdee1a",
+  "wiki_parent_sha": "0563b500bdc1337d24f2580af7ddd06d23db985c",
   "wiki_main_sha": "df5d81d9f68aa40cac1e04cb74a95ce0984e3ac4",
   "source_main_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
   "inventoried_range": [
@@ -20,11 +20,11 @@
   "inventoried_count": 501,
   "completed_contiguous_range": [
     1,
-    80
+    90
   ],
-  "completed_count": 80,
-  "pending_count": 421,
-  "next_source": 81,
+  "completed_count": 90,
+  "pending_count": 411,
+  "next_source": 91,
   "batches": [
     {
       "range": [
@@ -86,6 +86,14 @@
       ],
       "evidence": "batch-071-080.md",
       "manifest": "batch-071-080.sources.json"
+    },
+    {
+      "range": [
+        81,
+        90
+      ],
+      "evidence": "batch-081-090.md",
+      "manifest": "batch-081-090.sources.json"
     }
   ],
   "completion_definition": "Per-source disposition with evidence and explicit limits; does not mean every operational/approval uncertainty is resolved.",
@@ -112,12 +120,15 @@
     "#70 외부 Spring 설정 소스를 사전 gate가 못 보는 P1 지적은 최종diff/댓글에서 해결 근거 미확인",
     "#70 외부설정 gate우회는#71 wrapper의명시CLI/격리경계와별도로미확인유지",
     "#80 정확한운영시작/종료·중단시간·RTO·트래픽영향과Certbot namedvolume경고근본원인미확인",
-    "#76 candidate restore는저장소준비이며#80도actualproductionDBrestore를실행하지않음"
+    "#76 candidate restore는저장소준비이며#80도actualproductionDBrestore를실행하지않음",
+    "#85 병합뒤 추가5건 중legacy NOT NULL/composite 소유FK 전략은#89제외범위로잔여; UI추가리뷰는#86본문해결주장만으로닫지않음",
+    "#87 FOR UPDATE 최초구현은확인했으나ARCH007 Proposed의비관적lock미도입에서바꾼별도ADR승인원문은미확인",
+    "#88 closed/checklist완료는후속저장소기록이며운영scheduler/legacy활성화승인또는실행완료아님"
   ],
   "validation": {
-    "wiki": "92 records, 0 issues",
+    "wiki": "97 records, 0 issues",
     "intake_tests": "22 passed",
-    "coverage": "501 unique consecutive sources; 80 complete; 421 pending; next #81; unique journal keys; batch source/file manifests consistent"
+    "coverage": "501 unique consecutive sources; 90 complete; 411 pending; next #91; unique journal keys; batch source/file manifests consistent"
   },
-  "resume": "Re-fetch PR18 HEAD and both main refs; continue #81 before #82; preserve historical failures, conditional QA and source-specific verification limits. User requested through #100 on 2026-11-04."
+  "resume": "Re-fetch PR18 HEAD and both main refs; continue #91 before #92; preserve historical failures, conditional QA and source-specific verification limits. User requested through #100 on 2026-11-04."
 }

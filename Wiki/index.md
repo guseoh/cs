@@ -88,6 +88,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0054](decisions/PWC-0054.md) | accepted | 운영 인증 smoke와 전용 회원 생성은 비밀 전달·one-shot·실행 승인 경계를 분리했다 | pawcycle |
 | [PWC-0055](decisions/PWC-0055.md) | accepted | AWS Application Release와 Production Control은 별도 SHA로 승인하고 호환성을 검사한다 | pawcycle |
 | [PWC-0056](decisions/PWC-0056.md) | accepted | Production DB 복원은 source 보존·candidate 검증·트래픽 차단 후 전환으로 준비했다 | pawcycle |
+| [PWC-0057](decisions/PWC-0057.md) | accepted | PCC V3는 조건부 기록과 경로별 병렬 CI를 선택하고 metadata 성공을 code 검증과 분리했다 | pawcycle |
+| [PWC-0058](decisions/PWC-0058.md) | accepted | MVP2 legacy 가격·종 이행은 손실 없는 전체 사전 검증과 현재 시점 snapshot으로 제한했다 | pawcycle |
+| [PWC-0059](decisions/PWC-0059.md) | proposed | MVP2 API·데이터·정합성 계약은 Proposed로 출발하고 후속 구현과의 차이를 남겼다 | pawcycle |
 
 ## Knowledge index
 
@@ -121,6 +124,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0020](lessons/PWL-0020.md) | 운영 문서의 fail-closed·cleanup 보장은 실제 검사 시점과 대상을 확인해야 한다 | pawcycle |
 | [PWL-0021](lessons/PWL-0021.md) | draft | Spring Context 이전 gate는 자신이 보지 못하는 외부 설정 경로까지 고려해야 한다 | pawcycle |
 | [PWL-0022](lessons/PWL-0022.md) | 운영 기준선은 실제 검증한 Control 버전에 묶이며 후속 변경에 자동 승계되지 않는다 | pawcycle |
+| [PWL-0023](lessons/PWL-0023.md) | 멱등 경합 재조회는 MySQL snapshot 가시성과 응답·reconciliation commit 경계를 함께 검증해야 한다 | pawcycle |
+| [PWL-0024](lessons/PWL-0024.md) | MySQL 초기화 환경 변수를 바꿔도 기존 named volume의 계정은 바뀌지 않는다 | pawcycle |
 
 ## Record creation and maintenance
 
@@ -141,10 +146,10 @@ All records have stable IDs and links. Updating a project snapshot must not sile
 
 ## Coverage limits
 
-Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#80 have individual detailed dispositions; #81–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
+Historical seeded decisions are not an exhaustive source audit: PawCycle #1–#90 have individual detailed dispositions; #91–#501 remain to be triaged despite existing partial topic-level records. There has been no comprehensive import of private ChatGPT, Work or Codex conversations. A missing record does not prove a historical decision never occurred. Projects may change after their last verification timestamp. GitHub branches and pull requests do not prove current cloud or database state.
 
 
-- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #81](history/pawcycle-source-ledger/progress.json). Current count: **80 complete / 421 pending / 501 inventoried**.
+- Sequential audit: [#11–#20 evidence and dispositions](history/pawcycle-source-ledger/batch-011-020.md), [July timeline](journal/pawcycle/2026-07.md), [next source #91](history/pawcycle-source-ledger/progress.json). Current count: **90 complete / 411 pending / 501 inventoried**.
 
 
 - Next sequential batch: [#21–#30 evidence](history/pawcycle-source-ledger/batch-021-030.md); scaffold and CI are separate from DB/Auth implementation approval.
@@ -166,3 +171,7 @@ HTTPS 실제 발급·갱신/재부팅, S3 격리 복원과 유지보수 예외, 
 ### PawCycle 상세 처리 #71~#80 (2026-11-04)
 
 운영 회원 wrapper·실제 회원/세션 증거, Application/Control SHA 분리와 rollback 호환성 교정, candidate DB restore 준비, 운영 안전성 판정 철회·보류와 실제 Control 왕복 검증을 시간순으로 연결했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-071-080.md). 최신 누적 80/501, 미완료 421, 다음 #81.
+
+### PawCycle 상세 처리 #81~#90 (2026-11-04)
+
+최소운영기준선7항목 Verified의 한계, code/metadata CI 분리·비소급 Lean 전환, MVP2 제품/legacy 정책과 Proposed 기술계약→구현 Delta, 멱등 current-read·reconciliation correction, 운영활성화 후속 Issue와 로컬volume 인증복구를 기록했다. [원본 대장](history/pawcycle-source-ledger/README.md) · [배치](history/pawcycle-source-ledger/batch-081-090.md). 최신 누적 90/501, 미완료 411, 다음 #91.
