@@ -1,10 +1,10 @@
 filters:
   and:
     - file.inFolder("References/Tech Articles/Articles")
-    - 'type == "tech-article"'
+    - type == "tech-article"
 formulas:
-  article: 'file.asLink(title)'
-  month: 'collected.format("YYYY-MM")'
+  article: file.asLink(title)
+  month: collected.format("YYYY-MM")
 properties:
   formula.article:
     displayName: 기술 글
@@ -25,29 +25,29 @@ properties:
 views:
   - type: table
     name: 최근 수집
-    limit: 12
     order:
       - formula.article
-      - note.summary
-      - note.collected
-      - note.topic
-      - note.status
+      - summary
+      - collected
+      - topic
+      - status
     sort:
-      - property: note.collected
+      - property: collected
         direction: DESC
+    limit: 12
   - type: table
     name: 날짜별
     groupBy:
-      property: note.collected
+      property: collected
       direction: DESC
     order:
       - formula.article
-      - note.summary
-      - note.source
-      - note.topic
-      - note.status
+      - summary
+      - source
+      - topic
+      - status
     sort:
-      - property: note.collected
+      - property: collected
         direction: DESC
   - type: table
     name: 월별
@@ -56,59 +56,59 @@ views:
       direction: DESC
     order:
       - formula.article
-      - note.collected
-      - note.topic
-      - note.source
+      - collected
+      - topic
+      - source
     sort:
-      - property: note.collected
+      - property: collected
         direction: DESC
   - type: table
     name: 태그별
     groupBy:
-      property: note.topic
+      property: topic
       direction: ASC
     order:
       - formula.article
-      - note.summary
-      - note.collected
-      - note.tags
+      - summary
+      - collected
+      - tags
     sort:
-      - property: note.collected
+      - property: collected
         direction: DESC
   - type: table
     name: 읽기 대기
     filters:
       and:
-        - 'status == "inbox"'
+        - status == "inbox"
     order:
       - formula.article
-      - note.topic
-      - note.collected
+      - topic
+      - collected
     sort:
-      - property: note.collected
+      - property: collected
         direction: DESC
   - type: table
     name: 학습 완료
     filters:
       and:
-        - 'status == "reviewed"'
+        - status == "reviewed"
     order:
       - formula.article
-      - note.topic
-      - note.collected
+      - topic
+      - collected
     sort:
-      - property: note.collected
+      - property: collected
         direction: DESC
   - type: table
     name: 전체 자료
     order:
       - formula.article
-      - note.summary
-      - note.collected
-      - note.published
-      - note.topic
-      - note.tags
-      - note.status
+      - summary
+      - collected
+      - published
+      - topic
+      - tags
+      - status
     sort:
-      - property: note.collected
+      - property: collected
         direction: DESC
