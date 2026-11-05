@@ -1,0 +1,87 @@
+filters:
+  and:
+    - file.inFolder("References/Tech Articles/Articles")
+    - 'type == "tech-article"'
+formulas:
+  article: 'file.asLink(title)'
+properties:
+  formula.article:
+    displayName: 글
+  note.source:
+    displayName: 출처
+  note.published:
+    displayName: 발행일
+  note.collected:
+    displayName: 수집일
+  note.categories:
+    displayName: 주제
+  note.projects:
+    displayName: 프로젝트
+  note.status:
+    displayName: 학습 상태
+views:
+  - type: table
+    name: 읽기 대기
+    filters:
+      and:
+        - 'status == "inbox"'
+    order:
+      - formula.article
+      - note.source
+      - note.collected
+      - note.categories
+    sort:
+      - property: note.collected
+        direction: DESC
+  - type: table
+    name: 읽는 중
+    filters:
+      and:
+        - 'status == "reading"'
+    order:
+      - formula.article
+      - note.source
+      - note.categories
+      - note.projects
+    sort:
+      - property: note.collected
+        direction: DESC
+  - type: table
+    name: 학습 완료
+    filters:
+      and:
+        - 'status == "reviewed"'
+    order:
+      - formula.article
+      - note.source
+      - note.categories
+      - note.projects
+    sort:
+      - property: note.collected
+        direction: DESC
+  - type: table
+    name: 설계·아키텍처
+    filters:
+      and:
+        - 'categories.contains("설계·아키텍처")'
+    order:
+      - formula.article
+      - note.source
+      - note.status
+      - note.projects
+    sort:
+      - property: note.collected
+        direction: DESC
+  - type: table
+    name: 전체 자료
+    order:
+      - formula.article
+      - note.source
+      - note.published
+      - note.collected
+      - note.categories
+      - note.status
+      - note.projects
+    sort:
+      - property: note.collected
+        direction: DESC
