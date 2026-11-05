@@ -1,0 +1,51 @@
+---
+type: tech-article
+title: "하나의 프롬프트, 세 개의 두뇌: Multi-Agent CLI로 인프라 운영 속도를 3배로 끌어올린 이야기"
+aliases: []
+summary: "AI 에이전트를 무조건 늘리기보다 작업 위험도에 맞게 속도·정밀도·교차 검증을 선택하고 정책을 한 곳에서 관리해야 한다."
+source: "아임웹 기술블로그 · Yonghyun Kim"
+published: 2026-03-20
+collected: 2026-10-22
+url: "https://medium.com/imweb-tech/%ED%95%98%EB%82%98%EC%9D%98-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%84%B8-%EA%B0%9C%EC%9D%98-%EB%91%90%EB%87%8C-multi-agent-cli%EB%A1%9C-%EC%9D%B8%ED%94%84%EB%9D%BC-%EC%9A%B4%EC%98%81-%EC%86%8D%EB%8F%84%EB%A5%BC-3%EB%B0%B0%EB%A1%9C-%EB%81%8C%EC%96%B4%EC%98%AC%EB%A6%B0-%EC%9D%B4%EC%95%BC%EA%B8%B0-ec0a3cfab49f"
+topic: "AI·개발도구"
+categories:
+  - "AI·개발도구"
+  - "인프라·DevOps"
+projects:
+  - "PawCycle"
+status: inbox
+tags:
+  - "tech-article"
+  - "tech/AI-개발도구"
+  - "tech/인프라-DevOps"
+migration_origin: notion
+---
+
+# 하나의 프롬프트, 세 개의 두뇌: Multi-Agent CLI로 인프라 운영 속도를 3배로 끌어올린 이야기
+
+> [!abstract] 한 줄 정리
+> AI 에이전트를 무조건 늘리기보다 작업 위험도에 맞게 속도·정밀도·교차 검증을 선택하고 정책을 한 곳에서 관리해야 한다.
+
+> 아임웹 기술블로그 · Yonghyun Kim · 2026-03-20
+
+## 핵심 내용
+
+- **문제:** 빠른 로그 분석과 고위험 IAM 변경을 하나의 에이전트에 맡기면 검증 부족과 컨텍스트 과부하가 발생한다.
+- **구조:** Claude 조율자, Gemini 빠른 분석, Codex 정밀 검증의 역할을 분리하고 solo/quick/precise/cross/critical 다섯 모드를 제공한다. 작업별 타임아웃도 다르게 둔다.
+- **검증:** IAM 정책 작성에서 두 모델을 비교해 S3 ListBucket 조건과 DynamoDB GSI 접근 권한의 차이를 발견했다. 배포 계획은 정밀 검증 → 영향 분석 → 종합 판단 순서로 진행한다.
+- **시행착오:** 레거시 PHP 분석에서는 한 모델이 파일 경로를 잘못 파악하고 다른 모델은 원격 접근이 막혀 교차 검증을 중단하고 단일 탐색으로 전환했다.
+- **결과:** 작성자는 복잡한 작업 처리 속도 3배 향상, 코드 리뷰 품질 체감 40% 개선을 보고했다. 후자는 주관적 평가이며 일반화된 벤치마크는 아니다.
+
+## 왜 읽을까
+
+멀티에이전트의 가치는 모델 개수보다 독립 검증과 실패 시 단순한 방법으로 되돌아갈 수 있는 설계에 있다. 공통 정책 Hub와 에이전트별 Spoke를 분리하는 방법도 참고할 만하다.
+
+**프로젝트에 적용 — PawCycle**
+
+- [ ] 코드 분석·테스트 생성·운영 변경을 위험도별로 구분하고 운영 변경은 사람 승인 뒤에만 수행한다.
+- [ ] 중요한 설계는 독립 검토를 거치되 최종 결론은 실제 코드·테스트로 검증한다.
+- [ ] 에이전트별 중복 정책 대신 공통 안전 규칙의 단일 출처를 유지한다.
+
+---
+
+**원문:** [하나의 프롬프트, 세 개의 두뇌: Multi-Agent CLI로 인프라 운영 속도를 3배로 끌어올린 이야기](https://medium.com/imweb-tech/%ED%95%98%EB%82%98%EC%9D%98-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%84%B8-%EA%B0%9C%EC%9D%98-%EB%91%90%EB%87%8C-multi-agent-cli%EB%A1%9C-%EC%9D%B8%ED%94%84%EB%9D%BC-%EC%9A%B4%EC%98%81-%EC%86%8D%EB%8F%84%EB%A5%BC-3%EB%B0%B0%EB%A1%9C-%EB%81%8C%EC%96%B4%EC%98%AC%EB%A6%B0-%EC%9D%B4%EC%95%BC%EA%B8%B0-ec0a3cfab49f)
