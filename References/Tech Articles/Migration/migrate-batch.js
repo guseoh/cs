@@ -51,8 +51,11 @@ function convert(row,index,page){
  const categories=JSON.parse(row["유형"]||"[]");
  if(!categories.length||categories.length>2||categories.some(x=>!tag[x]))throw Error("missing/invalid categories");
  const brief=body.match(/<callout\b[^>]*>([\s\S]*?)<\/callout>/i);
- if(!brief)throw Error("missing summary callout");
- const summary=clean(brief[1].replace(/^[\s\S]*?한 줄 정리<\/b>\s*/i,"")).replace(/\s+/g," ").trim();
+ const legacy=body.match(/^>\s*<b>한 줄 정리:<\/b>\s*(.+)$/m);
+ if(!brief&&!legacy)throw Error("missing summary in callout and legacy quote");
+ const summary=clean(brief
+   ? brief[1].replace(/^[\s\S]*?한 줄 정리<\/b>\s*/i,"")
+   : legacy[1]).replace(/\s+/g," ").trim();
  if(summary.length<18)throw Error("summary too short");
  const core=section(body,"핵심 내용"),why=section(body,"왜 읽을까"),sourceSection=section(body,"원문");
  if(core.length<70||why.length<35)throw Error("detail section incomplete: "+core.length+"/"+why.length);
@@ -63,10 +66,13 @@ function convert(row,index,page){
  const pub=header&&header[2].match(/(\d{4})\D+?(\d{1,2})\D+?(\d{1,2})/);
  const published=pub?pub[1]+"-"+pub[2].padStart(2,"0")+"-"+pub[3].padStart(2,"0"):"";
  const projectHeader=body.match(/^##\s*(프로젝트에 적용\s*[—–-]\s*(.+))$/m);
+ const legacyProject=body.match(/^##\s*(프로젝트 적용)\s*$/m);
  const pname=projectHeader?projectHeader[2].trim():"";
- const projects=pname&&!["공통","전체","없음"].includes(pname)?pname.split(/\s*[,/]\s*/).filter(Boolean):[];
- const projectBody=projectHeader?section(body,projectHeader[1]):"";
- if(projectHeader&&projectBody.length<25)throw Error("missing project details");
+ const projectBody=projectHeader?section(body,projectHeader[1])
+   : legacyProject?section(body,legacyProject[1]):"";
+ const namedProjects=(legacyProject?projectBody.split("\n")[0]:pname).match(/PawCycle|DevPedia|FutMatch/g)||[];
+ const projects=[...new Set(namedProjects)];
+ if((projectHeader||legacyProject)&&projectBody.length<25)throw Error("missing project details");
  const slug=String(title).normalize("NFKC").replace(/[^\p{L}\p{N}]+/gu,"-").replace(/^-|-$/g,"").slice(0,52).replace(/-$/,"")||"article";
  const path="References/Tech Articles/Articles/"+date.slice(0,4)+"/"+date+"-"+slug+"-"+hash(norm(url))+".md";
  const list=(name,items)=>[name+":"].concat(items.map(x=>"  - "+quoted(x)));
