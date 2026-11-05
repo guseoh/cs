@@ -19,6 +19,19 @@ CATEGORIES = {
     "리팩터링", "동시성·분산", "인프라·DevOps", "AI·개발도구",
     "보안", "개발문화·회고",
 }
+TOPIC_TAGS = {
+    "DB·데이터": "tech/DB-데이터",
+    "성능": "tech/성능",
+    "설계·아키텍처": "tech/설계-아키텍처",
+    "테스트": "tech/테스트",
+    "장애·운영": "tech/장애-운영",
+    "리팩터링": "tech/리팩터링",
+    "동시성·분산": "tech/동시성-분산",
+    "인프라·DevOps": "tech/인프라-DevOps",
+    "AI·개발도구": "tech/AI-개발도구",
+    "보안": "tech/보안",
+    "개발문화·회고": "tech/개발문화-회고",
+}
 TRACKING = {"fbclid", "gclid", "mc_cid", "mc_eid", "igshid", "ref"}
 FILENAME = re.compile(r"^\d{4}-\d{2}-\d{2}-.+\.md$")
 
@@ -83,6 +96,10 @@ def validate_note(path: Path, root: Path = ROOT) -> tuple[str, list[str]]:
     for key in ("title", "source"):
         if not isinstance(data.get(key), str) or not data[key].strip():
             issue(f"{key} must be non-empty text")
+    if not isinstance(data.get("summary"), str) or not data["summary"].strip():
+        issue("summary must be non-empty text")
+    if not isinstance(data.get("topic"), str) or data["topic"] not in CATEGORIES:
+        issue("invalid primary topic")
     if not isinstance(data.get("status"), str) or data["status"] not in STATUSES:
         issue("invalid status")
     for field in ("categories", "projects", "tags", "aliases"):
@@ -95,9 +112,18 @@ def validate_note(path: Path, root: Path = ROOT) -> tuple[str, list[str]]:
             issue("categories must contain one or two distinct values")
         if any(not isinstance(c, str) or c not in CATEGORIES for c in categories):
             issue("unknown category")
+    if isinstance(categories, list) and categories:
+        if data.get("topic") != categories[0]:
+            issue("primary topic must match first category")
     tags = data.get("tags")
-    if isinstance(tags, list) and "tech-article" not in tags:
-        issue("tags must include tech-article")
+    if isinstance(tags, list):
+        if "tech-article" not in tags:
+            issue("tags must include tech-article")
+        if isinstance(categories, list):
+            for category in categories:
+                if isinstance(category, str) and category in TOPIC_TAGS:
+                    if TOPIC_TAGS[category] not in tags:
+                        issue(f"missing nested topic tag for {category}")
 
     collected = None
     for key, required in (("collected", True), ("published", False)):
@@ -154,8 +180,20 @@ def validate_archive(root: Path = ROOT) -> list[str]:
             errors.append("invalid Bases YAML or missing views")
         else:
             names = {view.get("name") for view in base["views"] if isinstance(view, dict)}
-            if not {"읽기 대기", "전체 자료", "학습 완료"}.issubset(names):
+            if not {"최근 수집", "날짜별", "월별", "태그별", "읽기 대기", "전체 자료", "학습 완료"}.issubset(names):
                 errors.append("Bases required views are missing")
+            groupings = {
+                item.get("name"): item["groupBy"].get("property")
+                for item in base["views"]
+                if isinstance(item, dict) and isinstance(item.get("groupBy"), dict)
+            }
+            for name, property_name in {
+                "날짜별": "note.collected",
+                "월별": "formula.month",
+                "태그별": "note.topic",
+            }.items():
+                if groupings.get(name) != property_name:
+                    errors.append(f"Bases {name} must group by {property_name}")
             if "file.inFolder" not in str(base.get("filters", "")):
                 errors.append("Bases must filter to Articles folder")
     except (OSError, yaml.YAMLError) as exc:

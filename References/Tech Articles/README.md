@@ -6,7 +6,10 @@
 
 - 자동 생성할 수 있는 곳: References/Tech Articles/Articles/YYYY/의 새 Markdown 파일.
 - 템플릿: Templates/Tech Article.md (수동 작성 때 Templater 명령으로 삽입).
-- 대시보드: 기술 자료.md, 데이터 뷰: 기술 자료.base.
+- 대시보드: 기술 자료.md. 날짜별.md / 태그별.md는 Bases 그룹별 조회 전용 화면이다.
+- 날짜별 보기: 수집일(collected) 기준 그룹화. 발행일(published)은 별개다.
+- 태그별 보기: 대표 topic으로 그룹화하고, 두 번째 분류는 Obsidian 계층형 tags로 탐색한다.
+- 데이터 뷰: 기술 자료.base.
 - 자동 수집기는 **기존 파일을 수정하거나 삭제하지 않는다.** 특히 status, 체크박스, 본문에 남긴 개인 메모를 덮어쓰지 않는다.
 - 기존 Study/, Project/, Wiki/, .obsidian/ 설정을 수집기에서 변경하지 않는다. 공용 저장소이므로 비밀정보·개인정보·비공개 사내 내용은 기록하지 않는다.
 - 출처를 실제로 열어 제목, 날짜, 본문과 URL을 검증한 후 요약한다. 원문에 없는 대안·수치·검증 결과를 만들어 내지 않는다.
@@ -19,6 +22,8 @@
 | type | 반드시 tech-article |
 | title | 검증한 원문 제목 |
 | aliases | 제목 변경이나 한국어 표시용 별칭 (선택) |
+| summary | 목록에서 보일 핵심 요약 1~2문장 |
+| topic | 대표 분야. categories 첫 항목과 일치 |
 | source | 발행 블로그·조직 |
 | published | 원문 발행일. 찾지 못했으면 비워 두고 본문에 미확인 표시 |
 | collected | Asia/Seoul 기준 수집일 |
@@ -26,9 +31,18 @@
 | categories | 기존 11개 주제 중 주 유형 1개, 실제로 필요한 경우 보조 유형 1개 |
 | projects | 프로젝트 적용 후보. 억지로 연결하지 않으며 빈 목록 가능 |
 | status | inbox, reading, reviewed, archived 중 하나 |
-| tags | tech-article 포함 |
+| tags | tech-article 및 각 categories에 대응하는 tech/계층형 태그 포함 |
 
 파일명은 YYYY-MM-DD-짧은-주제.md 형태의 읽기 쉬운 이름을 권장한다. 파일명은 고유 식별자가 아니며, 중복 판정의 정본은 url이다. 두 문서가 같은 canonical URL을 가리키면 생성하지 않는다.
+
+## 날짜와 태그를 활용한 탐색
+
+- `날짜별`: `note.collected` 그룹, 최신 수집일 우선.
+- `월별`: `collected.format("YYYY-MM")` 수식 그룹.
+- `태그별`: 대표 주제 `note.topic` 그룹. 부 유형도 보려면 Obsidian 태그 패널에서 tech/계층 태그를 선택한다.
+- 예: `설계·아키텍처` ↔ `tech/설계-아키텍처`, `동시성·분산` ↔ `tech/동시성-분산`, `DB·데이터` ↔ `tech/DB-데이터`.
+- 원문을 자세히 읽으려면 목록의 제목 링크를 연다. 상세 노트에는 배경, 트레이드오프, 검증 결과, 적용 메모를 설명한다.
+- 기존 예시 두 건은 이번 **수동 서식 개선**을 위해 확인 후 수정했다. 자동 수집기는 기존 노트를 수정하지 않는다.
 
 ## 매일 저장 프로토콜 (스케줄러 전환 시 적용)
 

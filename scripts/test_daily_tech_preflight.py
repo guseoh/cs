@@ -16,11 +16,7 @@ class StagingTests(unittest.TestCase):
         self.folder = self.root / "References/Tech Articles/Articles/2026"
         self.folder.mkdir(parents=True)
         b = self.root / "References/Tech Articles/기술 자료.base"
-        b.write_text(
-            'filters:\n  and:\n    - file.inFolder("References/Tech Articles/Articles")'
-            '\nviews:\n  - name: 읽기 대기\n  - name: 학습 완료\n  - name: 전체 자료\n',
-            encoding="utf-8",
-        )
+        b.write_text("filters:\n  and:\n    - file.inFolder(\"References/Tech Articles/Articles\")\nviews:\n  - name: 최근 수집\n  - name: 날짜별\n    groupBy:\n      property: note.collected\n  - name: 월별\n    groupBy:\n      property: formula.month\n  - name: 태그별\n    groupBy:\n      property: note.topic\n  - name: 읽기 대기\n  - name: 학습 완료\n  - name: 전체 자료\n", encoding="utf-8")
         self.existing = self.folder / "2026-11-05-example.md"
         self.existing.write_text(ARTICLE, encoding="utf-8")
         self.git("init", "-b", "main")

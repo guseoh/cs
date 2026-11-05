@@ -10,6 +10,8 @@ ARTICLE = """---
 type: tech-article
 title: "Example"
 source: "Example Blog"
+summary: "Example summary"
+topic: "설계·아키텍처"
 published: 2026-01-01
 collected: 2026-11-05
 url: "https://example.org/article/"
@@ -19,6 +21,7 @@ projects: []
 status: inbox
 tags:
   - tech-article
+  - tech/설계-아키텍처
 ---
 > [!abstract] Summary
 
@@ -35,7 +38,7 @@ class DailyTechTests(unittest.TestCase):
         self.folder = self.root / "References/Tech Articles/Articles/2026"
         self.folder.mkdir(parents=True)
         base = self.root / "References/Tech Articles/기술 자료.base"
-        base.write_text('filters:\n  - file.inFolder("References/Tech Articles/Articles")\nviews:\n  - name: 읽기 대기\n  - name: 학습 완료\n  - name: 전체 자료\n', encoding="utf-8")
+        base.write_text("filters:\n  and:\n    - file.inFolder(\"References/Tech Articles/Articles\")\nviews:\n  - name: 최근 수집\n  - name: 날짜별\n    groupBy:\n      property: note.collected\n  - name: 월별\n    groupBy:\n      property: formula.month\n  - name: 태그별\n    groupBy:\n      property: note.topic\n  - name: 읽기 대기\n  - name: 학습 완료\n  - name: 전체 자료\n", encoding="utf-8")
         self.note = self.folder / "2026-11-05-example.md"
         self.note.write_text(ARTICLE, encoding="utf-8")
 
@@ -72,6 +75,23 @@ class DailyTechTests(unittest.TestCase):
     def test_rejects_bad_categories_type_without_crash(self):
         self.note.write_text(ARTICLE.replace("  - 설계·아키텍처", "  - [nested, bad]"), encoding="utf-8")
         self.assertIn("unknown category", " ".join(validate_note(self.note, self.root)[1]))
+
+    def test_rejects_topic_mismatch(self):
+        self.note.write_text(ARTICLE.replace('topic: "설계·아키텍처"', 'topic: "보안"'), encoding="utf-8")
+        self.assertIn("primary topic must match", " ".join(validate_note(self.note, self.root)[1]))
+
+    def test_rejects_missing_topic_tag(self):
+        self.note.write_text(ARTICLE.replace("  - tech/설계-아키텍처\\n", ""), encoding="utf-8")
+        self.assertIn("missing nested topic tag", " ".join(validate_note(self.note, self.root)[1]))
+
+    def test_rejects_missing_summary(self):
+        self.note.write_text(ARTICLE.replace('summary: "Example summary"', 'summary: ""'), encoding="utf-8")
+        self.assertIn("summary must be non-empty", " ".join(validate_note(self.note, self.root)[1]))
+
+    def test_grouped_view_validation(self):
+        base = self.root / "References/Tech Articles/기술 자료.base"
+        base.write_text(base.read_text(encoding="utf-8").replace("property: note.topic", "property: note.status"), encoding="utf-8")
+        self.assertIn("Bases 태그별 must group by note.topic", " ".join(validate_archive(self.root)))
 
     def test_rejects_symlink_article(self):
         alternate = self.folder / "2026-11-05-outside.md"
