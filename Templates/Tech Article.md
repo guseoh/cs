@@ -13,7 +13,10 @@ projects: []
 status: inbox
 tags:
   - tech-article
+  # categories 값에 대응하는 tech/계층형 태그를 추가한다 (예: tech/설계-아키텍처)
 ---
+
+# 원문 제목을 여기에 입력
 
 > [!abstract] 핵심 결론
 > 해결하려는 문제와 중요한 설계 판단, 최종 결과를 2~3문장으로 정리한다. 제목을 그대로 반복하지 않는다.
