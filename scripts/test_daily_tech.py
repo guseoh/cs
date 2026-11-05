@@ -81,7 +81,7 @@ class DailyTechTests(unittest.TestCase):
         self.assertIn("primary topic must match", " ".join(validate_note(self.note, self.root)[1]))
 
     def test_rejects_missing_topic_tag(self):
-        self.note.write_text(ARTICLE.replace("  - tech/설계-아키텍처\\n", ""), encoding="utf-8")
+        self.note.write_text(ARTICLE.replace("  - tech/설계-아키텍처", ""), encoding="utf-8")
         self.assertIn("missing nested topic tag", " ".join(validate_note(self.note, self.root)[1]))
 
     def test_rejects_missing_summary(self):
