@@ -145,6 +145,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | ID | Status | Knowledge | Project |
 | --- | --- | --- | --- |
 | [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle code, design and operations reverse-engineering learning guide | pawcycle |
+| [PWK-0002](knowledge/PWK-0002.md) | published | JVM JIT warmup and CRaC restoration: 330s to 2–3s case study | shared |
 
 ## Lesson index
 
