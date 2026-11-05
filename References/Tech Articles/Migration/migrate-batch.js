@@ -3,7 +3,7 @@
 // One-time SHA-pinned ChatGPT Code Mode function. No credentials or private Notion links are persisted.
 const repo="guseoh/cs", branch="notion-import";
 const start=config.start, count=config.count||8;
-if(!Number.isInteger(start)||start<0||start>=345||start%8!==0||count>8||count<1)throw Error("invalid batch");
+if(!Number.isInteger(start)||start<0||start>=345||count>8||count<1)throw Error("invalid batch");
 let cursor,rows;
 for(let page=0;page<=Math.floor(start/100);page++){
   const data={mode:"view",view_url:"view://1c89cdd8-e623-4956-a0e8-3e90351a1ca0",page_size:100,is_archived:false};
