@@ -4,10 +4,11 @@ type: project
 project: pawcycle
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-04
+updated_at: 2026-11-05
 evidence_level: source-verified
 capture_mode: full
 sources:
+  - https://github.com/guseoh/pawcycle-commerce/issues/456
   - https://github.com/guseoh/pawcycle-commerce/pull/496
   - https://github.com/guseoh/pawcycle-commerce/blob/main/README.md
   - https://github.com/guseoh/pawcycle-commerce/blob/main/docs/architecture/production-operations-overview.md
@@ -24,6 +25,13 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 - [Main Repository Validation](https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924) and [image publish](https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493907) workflows succeeded.Neither proves a running production deployment.
 - Source discrepancy requiring reconciliation: [README](https://github.com/guseoh/pawcycle-commerce/blob/main/README.md) says Production deployment target **none**, while [operations overview](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/architecture/production-operations-overview.md) identifies **OCI app01**, with limited 2026-10-25 healthy observations.Current live target/health is **unresolved**, not silently inferred.
 - Host Pull CD, automated application deployment and zero-downtime deployment are marked DEFER/OFF in the current operations overview.
+
+## 학습 운영 기준 개정 — 2026-11-05 (user-confirmed)
+
+- [PWK-0001](../knowledge/PWK-0001.md) 및 [PawCycle Issue #456](https://github.com/guseoh/pawcycle-commerce/issues/456) 본문에 **전체 시스템 리버스 엔지니어링** 학습 기준을 동기화했다. 먼저 C4/요구·데이터·배포·운영 지도를 구축하고, 기능 수직 분석과 Java/Spring·DB·보안·인프라의 수평 심화, 과거 결정/실패 복원, 핵심 영역의 독립 재설계·반례 검증을 왕복한다.
+- **OOP·DDD 백엔드 리팩터링은 사용자가 이미 진행 중이라고 확인한 별도 작업**이다. 본 학습 기준 개정이 해당 리팩터링의 코드·PR·검증 완료를 의미하지 않으며 새 리팩터링 로드맵을 만들지 않는다. 전후 설계 차이는 실제 기존 코드·PR·ADR로 복원한다.
+- 기존 첫 세부 기능 **회원 배송지 CRUD**와 L1~L4 선택적 분석은 유지하되, 전체 시스템 지도를 선행한다. OCI 운영·AWS 역사·관측·복구 학습은 병렬이며 운영 실행은 승인된 별도 Gate가 필요하다.
+- **검증 범위:** 이번에는 공개 Issue·Wiki·기존 코드/문서에 기반한 **학습 방식 합의**만 확인했다. 새 코드를 실행하거나 Production/Cloud 상태, 학습 완료, 현재 리팩터링 HEAD/CI를 검증했다고 주장하지 않는다.
 
 ## Accepted decisions
 - [PWC-0001](../decisions/PWC-0001.md): CD activation requires independent runtime approval and recovery evidence.
