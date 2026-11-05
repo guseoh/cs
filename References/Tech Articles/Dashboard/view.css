@@ -105,3 +105,67 @@
 .tech-archive__project-chip { padding:4px 10px!important; }
 .tech-archive__project-tag { font-size:10px; color:var(--text-normal);
   border-left:1px solid var(--ta-line); padding-left:7px; }
+
+/* Subdued semantic colors: shared by filters, metadata and article tags. */
+.theme-dark .tech-archive [data-topic="DB·데이터"] { --ta-tag-color:#8bb3be; }
+.theme-dark .tech-archive [data-topic="성능"] { --ta-tag-color:#c9ad82; }
+.theme-dark .tech-archive [data-topic="설계·아키텍처"] { --ta-tag-color:#b6a3cc; }
+.theme-dark .tech-archive [data-topic="테스트"] { --ta-tag-color:#91b8a9; }
+.theme-dark .tech-archive [data-topic="장애·운영"] { --ta-tag-color:#c9988e; }
+.theme-dark .tech-archive [data-topic="리팩터링"] { --ta-tag-color:#9baccc; }
+.theme-dark .tech-archive [data-topic="동시성·분산"] { --ta-tag-color:#c6a583; }
+.theme-dark .tech-archive [data-topic="인프라·DevOps"] { --ta-tag-color:#8eaec0; }
+.theme-dark .tech-archive [data-topic="AI·개발도구"] { --ta-tag-color:#b5a0cf; }
+.theme-dark .tech-archive [data-topic="보안"] { --ta-tag-color:#cc9baa; }
+.theme-dark .tech-archive [data-topic="개발문화·회고"] { --ta-tag-color:#b9aca3; }
+.theme-light .tech-archive [data-topic="DB·데이터"] { --ta-tag-color:#376c7d; }
+.theme-light .tech-archive [data-topic="성능"] { --ta-tag-color:#8a601c; }
+.theme-light .tech-archive [data-topic="설계·아키텍처"] { --ta-tag-color:#75599d; }
+.theme-light .tech-archive [data-topic="테스트"] { --ta-tag-color:#3f7968; }
+.theme-light .tech-archive [data-topic="장애·운영"] { --ta-tag-color:#9b5747; }
+.theme-light .tech-archive [data-topic="리팩터링"] { --ta-tag-color:#526c9d; }
+.theme-light .tech-archive [data-topic="동시성·분산"] { --ta-tag-color:#8a621f; }
+.theme-light .tech-archive [data-topic="인프라·DevOps"] { --ta-tag-color:#406f89; }
+.theme-light .tech-archive [data-topic="AI·개발도구"] { --ta-tag-color:#7956a1; }
+.theme-light .tech-archive [data-topic="보안"] { --ta-tag-color:#9b526e; }
+.theme-light .tech-archive [data-topic="개발문화·회고"] { --ta-tag-color:#716054; }
+.theme-dark .tech-archive [data-project="PawCycle"] { --ta-project-color:#c4ae8a; }
+.theme-dark .tech-archive [data-project="DevPedia"] { --ta-project-color:#9cadc9; }
+.theme-dark .tech-archive [data-project="FutMatch"] { --ta-project-color:#95bbae; }
+.theme-light .tech-archive [data-project="PawCycle"] { --ta-project-color:#886625; }
+.theme-light .tech-archive [data-project="DevPedia"] { --ta-project-color:#4f6897; }
+.theme-light .tech-archive [data-project="FutMatch"] { --ta-project-color:#3b7966; }
+
+/* Keep the neutral '전체' option neutral. Only actual subjects receive colors. */
+.tech-archive__chip[data-topic],
+.tech-archive__category[data-topic] {
+  color:var(--ta-tag-color, var(--text-muted))!important;
+  border-color:color-mix(in srgb, var(--ta-tag-color) 30%, var(--ta-line))!important;
+  background:color-mix(in srgb, var(--ta-tag-color) 7%, transparent)!important;
+}
+.tech-archive__chip[data-topic]:hover {
+  background:color-mix(in srgb, var(--ta-tag-color) 13%, transparent)!important;
+}
+.tech-archive__chip[data-topic].is-active {
+  color:var(--ta-tag-color)!important;
+  border-color:color-mix(in srgb, var(--ta-tag-color) 64%, var(--ta-line))!important;
+  background:color-mix(in srgb, var(--ta-tag-color) 17%, transparent)!important;
+}
+.tech-archive__article-topic[data-topic] { color:var(--ta-tag-color, var(--text-normal)); }
+.tech-archive__project-chip[data-project] {
+  color:var(--ta-project-color, var(--text-muted))!important;
+  border-color:color-mix(in srgb, var(--ta-project-color) 25%, var(--ta-line))!important;
+  background:color-mix(in srgb, var(--ta-project-color) 5%, transparent)!important;
+}
+.tech-archive__project-chip[data-project]:hover {
+  background:color-mix(in srgb, var(--ta-project-color) 11%, transparent)!important;
+}
+.tech-archive__project-chip[data-project].is-active {
+  color:var(--ta-project-color)!important;
+  border-color:color-mix(in srgb, var(--ta-project-color) 60%, var(--ta-line))!important;
+  background:color-mix(in srgb, var(--ta-project-color) 14%, transparent)!important;
+}
+.tech-archive__project-tag[data-project] {
+  color:var(--ta-project-color, var(--text-normal));
+  border-left-color:color-mix(in srgb, var(--ta-project-color) 55%, var(--ta-line));
+}
