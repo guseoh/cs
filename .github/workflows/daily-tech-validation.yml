@@ -9,6 +9,8 @@ on:
       - "Templates/Tech Article.md"
       - "scripts/validate_daily_tech.py"
       - "scripts/test_daily_tech.py"
+      - "scripts/preflight_daily_tech.py"
+      - "scripts/test_daily_tech_preflight.py"
       - ".github/workflows/daily-tech-validation.yml"
   pull_request:
     paths:
@@ -27,6 +29,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.12"
@@ -35,4 +38,9 @@ jobs:
       - name: Validate archive
         run: python scripts/validate_daily_tech.py
       - name: Test archive safety checks
-        run: python -m unittest scripts/test_daily_tech.py -v
+        run: python -m unittest scripts/test_daily_tech.py scripts/test_daily_tech_preflight.py -v
+      - name: Preflight additions-only staging against latest main
+        if: github.ref == 'refs/heads/daily-tech'
+        run: |
+          git fetch --no-tags origin main
+          python scripts/preflight_daily_tech.py --base-ref origin/main

@@ -83,7 +83,7 @@ def validate_note(path: Path, root: Path = ROOT) -> tuple[str, list[str]]:
     for key in ("title", "source"):
         if not isinstance(data.get(key), str) or not data[key].strip():
             issue(f"{key} must be non-empty text")
-    if data.get("status") not in STATUSES:
+    if not isinstance(data.get("status"), str) or data["status"] not in STATUSES:
         issue("invalid status")
     for field in ("categories", "projects", "tags", "aliases"):
         values = data.get(field, [] if field == "aliases" else None)
@@ -93,7 +93,7 @@ def validate_note(path: Path, root: Path = ROOT) -> tuple[str, list[str]]:
     if isinstance(categories, list):
         if not (1 <= len(categories) <= 2) or len(categories) != len(set(map(str, categories))):
             issue("categories must contain one or two distinct values")
-        if any(c not in CATEGORIES for c in categories):
+        if any(not isinstance(c, str) or c not in CATEGORIES for c in categories):
             issue("unknown category")
     tags = data.get("tags")
     if isinstance(tags, list) and "tech-article" not in tags:
@@ -134,7 +134,13 @@ def validate_note(path: Path, root: Path = ROOT) -> tuple[str, list[str]]:
     if "## 원문" not in body:
         issue("missing source section")
     linked = re.findall(r"\]\((https?://[^\s)]+)\)", body)
-    if identity and not any(canonical_url(link) == identity for link in linked):
+    found_source = False
+    for link in linked:
+        try:
+            found_source = found_source or (canonical_url(link) == identity)
+        except (ValueError, TypeError):
+            issue("invalid Markdown source link")
+    if identity and not found_source:
         issue("body must link to the same canonical source URL")
     return identity, errors
 
@@ -160,6 +166,9 @@ def validate_archive(root: Path = ROOT) -> list[str]:
     if not article_paths:
         errors.append("no sample articles to validate")
     for path in article_paths:
+        if path.is_symlink():
+            errors.append(f"article may not be a symlink: {path.relative_to(root)}")
+            continue
         identity, problems = validate_note(path, root)
         errors.extend(problems)
         if identity:

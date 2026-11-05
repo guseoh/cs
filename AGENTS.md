@@ -21,3 +21,10 @@ This is an Obsidian Vault synchronized through GitHub. The existing `Study/`, `P
 
 - For ChatGPT, Work, or Codex decision capture, follow [Wiki/handoff.md](Wiki/handoff.md). Prefer a reviewed direct Wiki PR; a public owner-authored `[wiki]` Issue is a portable **candidate** route only.
 - Never automatically publish private conversations. The assistant must determine whether the user confirmed a durable and publicly safe summary. Do not imply cross-client background capture.
+
+## Daily Tech auto capture
+
+- Daily technical article archiving uses [References/Tech Articles/README.md](References/Tech%20Articles/README.md), **not** the Wiki capture schema. Preserve handwritten Study, Project and Wiki notes.
+- The user elected a small reusable staging branch called `daily-tech`; no daily PR. Add new public articles only in `References/Tech Articles/Articles/YYYY/`, validate the exact staging SHA with Daily Tech validation CI, and advance `main` only by non-force fast-forward after confirming that main has not moved.
+- Refuse to overwrite existing notes, remove files, bypass a failing/unavailable CI check, auto-merge diverged histories, or publish secrets/private content. On conflicts, stop and report the blocker; do not silently fall back to writing directly on main.
+- The Notion scheduler has not been switched; do not claim automatic Obsidian archiving is active until the scheduled task is explicitly updated and tested.
