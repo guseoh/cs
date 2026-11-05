@@ -1,6 +1,6 @@
 ---
 type: tech-article
-title: "\\[Project Loom\\] Virtual Thread에 봄(Spring)은 왔는가"
+title: "[Project Loom] Virtual Thread에 봄(Spring)은 왔는가"
 aliases: []
 summary: "애플리케이션이 더 많은 요청을 받을 수 있게 만드는 것과 시스템 전체 처리량이 늘어나는 것은 다른 문제입니다."
 source: "tech.kakaopay.com"

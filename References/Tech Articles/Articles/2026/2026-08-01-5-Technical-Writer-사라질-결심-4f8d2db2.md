@@ -1,6 +1,6 @@
 ---
 type: tech-article
-title: "5\\. Technical Writer, 사라질 결심"
+title: "5. Technical Writer, 사라질 결심"
 aliases: []
 summary: "AI가 문장을 대신 쓰게 될수록 기술 문서 담당자의 가치는 문장 생산보다 필요한 맥락·구조·질문을 시스템으로 설계하는 쪽으로 이동합니다."
 source: "toss.tech"

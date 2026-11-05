@@ -1,6 +1,6 @@
 ---
 type: tech-article
-title: "Hive는 잊으려 했지만, Spark는 기억하고 있었다: 사라진 get\\_table RPC 복원기"
+title: "Hive는 잊으려 했지만, Spark는 기억하고 있었다: 사라진 get_table RPC 복원기"
 aliases: []
 summary: "Hive Metastore 4.2 업그레이드에서 사라진 레거시 RPC 때문에 Spark 3.5.5 잡이 깨진 사례다. 최신 서버로 옮길 때는 서버 자체의 호환성뿐 아니라 오래된 클라이언트가 의존하는 프로토콜 계약까지 전환 범위로 봐야 한다."
 source: "NAVER D2"
