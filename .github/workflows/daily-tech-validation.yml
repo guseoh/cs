@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - daily-tech
+      - notion-import
     paths:
       - "References/Tech Articles/**"
       - "Templates/Tech Article.md"
