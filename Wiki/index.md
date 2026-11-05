@@ -15,7 +15,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | Project | Snapshot | Last checked |
 | --- | --- | --- |
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
-| Backend learning (cross-project) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) | 2026-11-04 |
+| Backend learning (cross-project) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) | 2026-11-05 |
+| AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) | 2026-11-03 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-04 |
@@ -41,6 +42,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [BLR-0004](decisions/BLR-0004.md) | accepted | Study both system design volumes chapter by chapter | backend-learning |
 | [BLR-0005](decisions/BLR-0005.md) | accepted | Separate domain architecture and AI-assisted implementation track | backend-learning |
 | [BLR-0006](decisions/BLR-0006.md) | accepted | Sentry learning in Board; portfolio requires trade-off review | backend-learning |
+| [AGT-0001](decisions/AGT-0001.md) | accepted | AgentLab: backend-focused Agent fundamentals and 13-stage roadmap | agentlab |
+| [AGT-0002](decisions/AGT-0002.md) | accepted | AgentLab stage-bounded, theory-rich, evidence-aware teaching | agentlab |
 | [PWC-0003](decisions/PWC-0003.md) | accepted | First MVP: narrow SKU subscription scope | pawcycle |
 | [PWC-0004](decisions/PWC-0004.md) | accepted | Second MVP: Pet/PlanVersion and immutable snapshots | pawcycle |
 | [PWC-0005](decisions/PWC-0005.md) | accepted | Per-target subscription order automation consistency | pawcycle |
@@ -153,6 +156,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | --- | --- | --- | --- |
 | [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle code, design and operations reverse-engineering learning guide | pawcycle |
 | [PWK-0002](knowledge/PWK-0002.md) | published | JVM JIT warmup and CRaC restoration: 330s to 2–3s case study | shared |
+| [AGK-0001](knowledge/AGK-0001.md) | published | Backend AI adoption, Agent roles and learning FAQ (2026-11-05) | agentlab |
 
 ## Lesson index
 
