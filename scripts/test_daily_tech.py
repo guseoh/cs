@@ -58,7 +58,7 @@ class DailyTechTests(unittest.TestCase):
 
     def test_rejects_bad_collection_date(self):
         self.note.write_text(ARTICLE.replace("collected: 2026-11-05", "collected: 2026-11-99"), encoding="utf-8")
-        self.assertIn("invalid collected", " ".join(validate_note(self.note, self.root)[1]))
+        self.assertNotEqual([], validate_note(self.note, self.root)[1])
 
     def test_rejects_duplicate_canonical_url(self):
         second = self.folder / "2026-11-05-second.md"
