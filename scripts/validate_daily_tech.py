@@ -157,8 +157,10 @@ def validate_note(path: Path, root: Path = ROOT) -> tuple[str, list[str]]:
 
     if not body.strip():
         issue("empty article body")
-    if "## 원문" not in body:
-        issue("missing source section")
+    # Legacy articles use a heading, while the compact Notion-inspired
+    # template puts the verified source link in a small footer instead.
+    if "## 원문" not in body and not re.search(r"(?m)^\\*\\*원문:\\*\\*\\s*\\[", body):
+        issue("missing source citation")
     linked = re.findall(r"\]\((https?://[^\s)]+)\)", body)
     found_source = False
     for link in linked:

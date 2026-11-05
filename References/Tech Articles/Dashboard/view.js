@@ -59,9 +59,16 @@ function button(parent, label, className, click, ariaLabel) {
   b.addEventListener("click", click);
   return b;
 }
-function openNote(entry) {
-  // Native Obsidian navigation; never uses external URLs or custom protocols.
-  app.workspace.openLinkText(entry.path, "", false);
+async function openNote(entry) {
+  // Open in a *new Obsidian tab* without replacing the dashboard.
+  // Resolve from the vault first so missing files never create empty tabs.
+  const file = app.vault.getAbstractFileByPath(entry.path);
+  if (!file || file.extension !== "md") {
+    console.warn("Daily Tech: note not found:", entry.path);
+    return;
+  }
+  const leaf = app.workspace.getLeaf("tab");
+  await leaf.openFile(file);
 }
 function monthCount(date) { return pages.filter(p => p.date === date).length; }
 function renderCalendar(parent) {
@@ -166,7 +173,9 @@ function renderResults() {
     elt(meta, "span", "", p.date || "날짜 미확인");
     elt(meta, "span", "", p.source || "출처 미확인");
     elt(meta, "span", "tech-archive__article-topic", p.topic || "기타");
-    const title = button(item, p.title, "tech-archive__article-link", () => openNote(p));
+    const title = button(item, p.title, "tech-archive__article-link", () => {
+      void openNote(p).catch(error => console.error("Daily Tech: cannot open note in new tab", error));
+    });
     title.title = p.title;
     if (p.summary) elt(item, "p", "tech-archive__summary", p.summary);
     const bottom = elt(item, "div", "tech-archive__article-foot");

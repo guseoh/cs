@@ -63,6 +63,16 @@ class DailyTechTests(unittest.TestCase):
         self.note.write_text(ARTICLE.replace("collected: 2026-11-05", "collected: 2026-11-99"), encoding="utf-8")
         self.assertNotEqual([], validate_note(self.note, self.root)[1])
 
+    def test_accepts_compact_source_footer(self):
+        compact = ARTICLE.replace("## 원문\\n", "**원문:** ")
+        self.note.write_text(compact, encoding="utf-8")
+        self.assertEqual([], validate_note(self.note, self.root)[1])
+
+    def test_rejects_unmarked_source_link(self):
+        unmarked = ARTICLE.replace("## 원문\\n", "")
+        self.note.write_text(unmarked, encoding="utf-8")
+        self.assertIn("missing source citation", " ".join(validate_note(self.note, self.root)[1]))
+
     def test_rejects_duplicate_canonical_url(self):
         second = self.folder / "2026-11-05-second.md"
         second.write_text(ARTICLE.replace("https://example.org/article/", "https://EXAMPLE.org/article"), encoding="utf-8")

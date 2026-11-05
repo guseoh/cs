@@ -23,7 +23,27 @@ const notes=[
 ];
 const dv={container,pages:()=>({where:fn=>({array:()=>notes.filter(fn)})})};
 const opened=[];
-const app={workspace:{openLinkText:(file)=>opened.push(file)}};
+const newTabLeaves=[];
+const vaultLookups=[];
+const app={
+  vault:{
+    getAbstractFileByPath:(filePath)=>{
+      vaultLookups.push(filePath);
+      return notes.some(note=>note.file.path===filePath)
+        ? {path:filePath, extension:"md"} : null;
+    }
+  },
+  workspace:{
+    getLeaf:(kind)=>{
+      assert.equal(kind,"tab","explicitly open in a new Obsidian tab");
+      const leaf={
+        async openFile(file) { opened.push(file.path); }
+      };
+      newTabLeaves.push(leaf);
+      return leaf;
+    }
+  }
+};
 const source=fs.readFileSync(path.join(__dirname,"view.js"),"utf8");
 vm.runInNewContext(source,{document,dv,app,console});
 const find=(root,predicate)=>{let results=[]; if(predicate(root))results.push(root); for(const c of root.children)results.push(...find(c,predicate));return results;};
@@ -63,4 +83,18 @@ const search=find(dashboard,n=>n.className==="tech-archive__search")[0];
 search.value="DevPedia";search._events.input();
 assert.equal(articleRows().length,1,"project names are searchable");
 assert.equal(container.children[0],dashboard,"search preserves the scroll anchor");
-console.log("OK: Notion subjects (11), project navigation, independent+combined filters, scroll stability, search");
+// A click must open the selected Markdown in an independent tab.
+search.value=""; search._events.input();
+assert.equal(articleRows().length,3);
+const first = find(articleRows()[0],n=>n.className==="tech-archive__article-link")[0];
+first.click();
+assert.equal(newTabLeaves.length,1,"one newly created tab");
+assert.equal(opened[0],notes[0].file.path,"the clicked article opens in the new tab");
+assert.equal(container.children[0],dashboard,"dashboard remains mounted in its own tab");
+const context={document,dv,app,console};
+vm.runInNewContext(source, context);
+const beforeMissingTab=newTabLeaves.length;
+void context.openNote({path:"References/Tech Articles/Articles/2026/missing.md"});
+assert.equal(newTabLeaves.length,beforeMissingTab,"missing note does not create an empty tab");
+
+console.log("OK: Notion subjects (11), project filtering, scroll stability, new tab navigation, missing-file safety");
