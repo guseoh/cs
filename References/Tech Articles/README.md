@@ -34,13 +34,15 @@
 
 1. 원문을 열고 검증한다. 기존 Articles/의 URL을 먼저 읽고 canonical URL로 비교한다.
 2. 기존 URL이면 **새 파일을 생성하지 않는다**. 사용자 메모와 상태를 보호한다.
-3. 새 글 3~5편의 Markdown을 생성하고 로컬과 동일한 검증 스크립트 및 단위 테스트를 통과시킨다.
-4. 원격 main HEAD를 다시 조회한 후 다른 파일의 변경을 보존한 **추가 전용 커밋**으로 반영한다. HEAD가 바뀌었으면 최신 트리로 새로 검증하고 충돌 시 쓰기를 중단한다. Force push는 금지한다.
-5. 저장 후 파일·URL·상태를 재조회해 생성 건수를 확인한다. 실패했더라도 브리핑 메시지는 전달한다.
+3. 원격 main HEAD가 최신인지 확인한 후 daily-tech 브랜치를 이 HEAD와 맞춘다. 해당 브랜치에 미병합 변경이 있으면 덮어쓰지 않고 중단한다.
+4. 새 글 3~5편을 **daily-tech 브랜치에만 추가**한다. 같은 URL이 있으면 제외하고, 기존 파일을 수정하거나 삭제하지 않는다.
+5. GitHub Actions의 Daily Tech validation 성공을 기다린다. 이 결과는 반드시 **스테이징 커밋 SHA와 일치**해야 한다. 실패, 미실행, 아직 실행 중인 경우 main을 변경하지 않는다.
+6. main HEAD가 스테이징 기준에서 변하지 않았는지 재확인한 뒤, force 없이 main을 staging HEAD로 Fast-forward한다. HEAD가 바뀌면 **다시 스테이징·검증**하고 자동 강제 병합하지 않는다.
+7. 저장 후 main의 파일·URL·상태·커밋 SHA를 재조회해 검증한다. 실패했더라도 브리핑은 전달한다. 저장 실패는 성공으로 표시하지 않는다.
 
 ### 브랜치 결정
 
-초기 설계·테스트는 daily-tech 브랜치에서 진행한다. 일일 작업마다 PR을 만들거나 장기 브랜치의 내용을 무조건 병합하지 않는다. 전환 후 자동 생성기는 main에 신규 파일만 직접 추가한다. GitHub Actions의 push 검증은 사후 검증이므로 **쓰기 전 검증을 대체하지 못한다**. 자동 쓰기 기능은 아직 활성화하지 않았다.
+초기 설계·테스트는 daily-tech 브랜치에서 진행한다. 일일 작업마다 PR을 만들거나 장기 브랜치의 내용을 무조건 병합하지 않는다. 전환 후 자동 생성기는 daily-tech에서 검증한 신규 파일만 PR 없이 main으로 Fast-forward한다. GitHub Actions의 main push 검증은 사후 검사일 뿐이며, **daily-tech CI 검증과 SHA 대조가 쓰기 전 안전장치**다. 자동 스케줄러 연결은 아직 활성화하지 않았다.
 
 ### Obsidian Git의 동시성
 
@@ -50,6 +52,7 @@
 
 - 설치: python -m pip install PyYAML==6.0.3
 - 검증: python scripts/validate_daily_tech.py
-- 테스트: python -m unittest scripts/test_daily_tech.py -v
+- 테스트: python -m unittest scripts/test_daily_tech.py scripts/test_daily_tech_preflight.py -v
+- 추가 전용 스테이징 검증: python scripts/preflight_daily_tech.py --base-ref origin/main (최신 main fetch 후 daily-tech에서 실행)
 
 Python 검사는 메타데이터 형식, URL 중복, Properties 값, 파일명, 출처 본문 링크, Bases YAML의 최소 구조만 검증한다. Obsidian GUI의 실제 렌더링과 GitHub 쓰기 권한은 별도로 실기기 검증해야 한다.

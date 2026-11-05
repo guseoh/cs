@@ -65,6 +65,22 @@ class DailyTechTests(unittest.TestCase):
         second.write_text(ARTICLE.replace("https://example.org/article/", "https://EXAMPLE.org/article"), encoding="utf-8")
         self.assertIn("duplicate canonical URL", " ".join(validate_archive(self.root)))
 
+    def test_rejects_bad_status_type_without_crash(self):
+        self.note.write_text(ARTICLE.replace("status: inbox", "status: []"), encoding="utf-8")
+        self.assertIn("invalid status", " ".join(validate_note(self.note, self.root)[1]))
+
+    def test_rejects_bad_categories_type_without_crash(self):
+        self.note.write_text(ARTICLE.replace("  - 설계·아키텍처", "  - [nested, bad]"), encoding="utf-8")
+        self.assertIn("unknown category", " ".join(validate_note(self.note, self.root)[1]))
+
+    def test_rejects_symlink_article(self):
+        alternate = self.folder / "2026-11-05-outside.md"
+        try:
+            alternate.symlink_to(self.note)
+        except (OSError, NotImplementedError):
+            self.skipTest("symlinks unavailable")
+        self.assertIn("may not be a symlink", " ".join(validate_archive(self.root)))
+
 
 if __name__ == "__main__":
     unittest.main()
