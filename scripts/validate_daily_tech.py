@@ -123,9 +123,6 @@ def validate_note(path: Path, root: Path = ROOT) -> tuple[str, list[str]]:
         identity = canonical_url(url)
         if urlsplit(url).fragment:
             issue("url must not include fragment")
-        if canonical_url(url) != canonical_url(urlsplit(url)._replace(query="").geturl()):
-            # This comparison is not a validity check for functional query params.
-            pass
         if any(k.lower().startswith("utm_") or k.lower() in TRACKING
                for k, _ in parse_qsl(urlsplit(url).query)):
             issue("url contains tracking parameters")
