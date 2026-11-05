@@ -64,23 +64,21 @@ function renderCalendar(parent) {
   const section = elt(parent, "section", "tech-archive__calendar-wrap");
   const heading = elt(section, "div", "tech-archive__section-head");
   const name = elt(heading, "div", "");
-  elt(name, "span", "tech-archive__eyebrow", "BROWSE BY DATE");
   elt(name, "h2", "tech-archive__heading", "날짜별 아카이브");
-  elt(heading, "span", "tech-archive__hint", "날짜 선택 → 해당 글 보기");
 
   const toolbar = elt(section, "div", "tech-archive__monthbar");
   const controls = elt(toolbar, "div", "tech-archive__month-controls");
   button(controls, "‹", "tech-archive__nav", () => {
     const next = new Date(state.year, state.month - 1, 1);
-    state.year = next.getFullYear(); state.month = next.getMonth(); render();
+    state.year = next.getFullYear(); state.month = next.getMonth(); refreshCalendar();
   }, "이전 달");
   elt(controls, "strong", "tech-archive__month-title", state.year + "년 " + (state.month + 1) + "월");
   button(controls, "›", "tech-archive__nav", () => {
     const next = new Date(state.year, state.month + 1, 1);
-    state.year = next.getFullYear(); state.month = next.getMonth(); render();
+    state.year = next.getFullYear(); state.month = next.getMonth(); refreshCalendar();
   }, "다음 달");
   button(toolbar, "이번 달", "tech-archive__outline", () => {
-    state.year = now.getFullYear(); state.month = now.getMonth(); state.day = null; state.page = 0; render();
+    state.year = now.getFullYear(); state.month = now.getMonth(); state.day = null; state.page = 0; refreshCalendar();
   });
 
   const calendar = elt(section, "div", "tech-archive__calendar");
@@ -103,7 +101,7 @@ function renderCalendar(parent) {
     const selected = state.day === date;
     const cell = button(calendar, "", "tech-archive__day" +
       (selected ? " is-selected" : "") + (date === todayIso ? " is-today" : ""),
-      () => { state.day = selected ? null : date; state.page = 0; render(); },
+      () => { state.day = selected ? null : date; state.page = 0; refreshCalendar(); },
       date + " · " + countText(articles.length));
     const top = elt(cell, "span", "tech-archive__day-top");
     elt(top, "span", "tech-archive__day-number", day);
@@ -118,7 +116,7 @@ function renderCalendar(parent) {
     const selectedLine = elt(section, "div", "tech-archive__selected");
     elt(selectedLine, "span", "", state.day + " · " + countText(monthCount(state.day)));
     button(selectedLine, "날짜 선택 해제", "tech-archive__plain-button", () => {
-      state.day = null; state.page = 0; render();
+      state.day = null; state.page = 0; refreshCalendar();
     });
   }
 }
@@ -130,6 +128,14 @@ function articleMatch(p) {
   return !q || [p.title, p.summary, p.source, p.topic, ...p.categories].join(" ").toLocaleLowerCase().includes(q);
 }
 let resultHost;
+let calendarHost;
+
+// Only refresh the calendar and result list; preserve the surrounding document.
+function refreshCalendar() {
+  calendarHost.replaceChildren();
+  renderCalendar(calendarHost);
+  if (resultHost) renderResults();
+}
 function renderResults() {
   resultHost.replaceChildren();
   const matching = pages.filter(articleMatch);
@@ -138,7 +144,7 @@ function renderResults() {
   elt(left, "h3", "", state.day ? "선택한 날짜의 글" : "기술 자료 목록");
   elt(left, "span", "", countText(matching.length));
   if (state.day) button(header, "전체 날짜로 돌아가기", "tech-archive__plain-button", () => {
-    state.day = null; state.page = 0; render();
+    state.day = null; state.page = 0; refreshCalendar();
   });
   if (!matching.length) {
     const empty = elt(resultHost, "div", "tech-archive__no-results");
@@ -175,16 +181,25 @@ function renderExplorer(parent) {
   const section = elt(parent, "section", "tech-archive__explorer");
   const heading = elt(section, "div", "tech-archive__section-head");
   const name = elt(heading, "div", "");
-  elt(name, "span", "tech-archive__eyebrow", "EXPLORE ARTICLES");
   elt(name, "h2", "tech-archive__heading", "주제와 글 탐색");
-  elt(heading, "span", "tech-archive__hint", "대표·보조 주제 모두 검색");
   const subjects = [...new Set(pages.flatMap(p => p.categories))].filter(Boolean).sort((a, b) => a.localeCompare(b, "ko"));
   const tags = elt(section, "div", "tech-archive__tags");
+  const topicButtons = new Map();
   ["전체", ...subjects].forEach(subject => {
     const b = button(tags, subject, "tech-archive__chip" + (state.topic === subject ? " is-active" : ""), () => {
-      state.topic = subject; state.page = 0; render();
+      if (state.topic === subject) return;
+      state.topic = subject;
+      state.page = 0;
+      // Keep the existing calendar, root, and scroll position intact.
+      for (const [name, chip] of topicButtons) {
+        const active = name === state.topic;
+        chip.className = "tech-archive__chip" + (active ? " is-active" : "");
+        chip.setAttribute("aria-pressed", String(active));
+      }
+      renderResults();
     });
     b.setAttribute("aria-pressed", String(state.topic === subject));
+    topicButtons.set(subject, b);
   });
 
   const tools = elt(section, "div", "tech-archive__tools");
@@ -208,11 +223,6 @@ function renderExplorer(parent) {
 }
 function render() {
   root.replaceChildren();
-  const top = elt(root, "div", "tech-archive__intro");
-  const label = elt(top, "div", "tech-archive__eyebrow", "DAILY TECH  /  KNOWLEDGE ARCHIVE");
-  elt(top, "p", "tech-archive__lead", "읽을거리를 쌓는 곳에서, 설계 판단을 꺼내 쓰는 곳으로.");
-  elt(top, "p", "tech-archive__description",
-    "국내 기술 블로그의 문제, 구현 과정, 트레이드오프, 검증 결과를 기록합니다. 날짜를 고르거나 분야를 선택하면 글을 바로 열 수 있습니다.");
   const stats = elt(root, "div", "tech-archive__stats");
   const datasets = [
     [pages.length, "등록된 글"],
@@ -225,7 +235,8 @@ function render() {
     elt(stat, "strong", "", number.toLocaleString("ko-KR"));
     elt(stat, "span", "", caption);
   }
-  renderCalendar(root);
+  calendarHost = elt(root, "div", "tech-archive__calendar-host");
+  renderCalendar(calendarHost);
   renderExplorer(root);
 }
 render();
