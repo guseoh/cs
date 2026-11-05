@@ -105,3 +105,116 @@
 .tech-archive__project-chip { padding:4px 10px!important; }
 .tech-archive__project-tag { font-size:10px; color:var(--text-normal);
   border-left:1px solid var(--ta-line); padding-left:7px; }
+
+/* Subdued semantic colors: shared by filters, metadata and article tags. */
+.theme-dark .tech-archive [data-topic="DB·데이터"] { --ta-tag-color:#8bb3be; }
+.theme-dark .tech-archive [data-topic="성능"] { --ta-tag-color:#c9ad82; }
+.theme-dark .tech-archive [data-topic="설계·아키텍처"] { --ta-tag-color:#b6a3cc; }
+.theme-dark .tech-archive [data-topic="테스트"] { --ta-tag-color:#91b8a9; }
+.theme-dark .tech-archive [data-topic="장애·운영"] { --ta-tag-color:#c9988e; }
+.theme-dark .tech-archive [data-topic="리팩터링"] { --ta-tag-color:#9baccc; }
+.theme-dark .tech-archive [data-topic="동시성·분산"] { --ta-tag-color:#c6a583; }
+.theme-dark .tech-archive [data-topic="인프라·DevOps"] { --ta-tag-color:#8eaec0; }
+.theme-dark .tech-archive [data-topic="AI·개발도구"] { --ta-tag-color:#b5a0cf; }
+.theme-dark .tech-archive [data-topic="보안"] { --ta-tag-color:#cc9baa; }
+.theme-dark .tech-archive [data-topic="개발문화·회고"] { --ta-tag-color:#b9aca3; }
+.theme-light .tech-archive [data-topic="DB·데이터"] { --ta-tag-color:#376c7d; }
+.theme-light .tech-archive [data-topic="성능"] { --ta-tag-color:#8a601c; }
+.theme-light .tech-archive [data-topic="설계·아키텍처"] { --ta-tag-color:#75599d; }
+.theme-light .tech-archive [data-topic="테스트"] { --ta-tag-color:#3f7968; }
+.theme-light .tech-archive [data-topic="장애·운영"] { --ta-tag-color:#9b5747; }
+.theme-light .tech-archive [data-topic="리팩터링"] { --ta-tag-color:#526c9d; }
+.theme-light .tech-archive [data-topic="동시성·분산"] { --ta-tag-color:#8a621f; }
+.theme-light .tech-archive [data-topic="인프라·DevOps"] { --ta-tag-color:#406f89; }
+.theme-light .tech-archive [data-topic="AI·개발도구"] { --ta-tag-color:#7956a1; }
+.theme-light .tech-archive [data-topic="보안"] { --ta-tag-color:#9b526e; }
+.theme-light .tech-archive [data-topic="개발문화·회고"] { --ta-tag-color:#716054; }
+.theme-dark .tech-archive [data-project="PawCycle"] { --ta-project-color:#c4ae8a; }
+.theme-dark .tech-archive [data-project="DevPedia"] { --ta-project-color:#9cadc9; }
+.theme-dark .tech-archive [data-project="FutMatch"] { --ta-project-color:#95bbae; }
+.theme-light .tech-archive [data-project="PawCycle"] { --ta-project-color:#886625; }
+.theme-light .tech-archive [data-project="DevPedia"] { --ta-project-color:#4f6897; }
+.theme-light .tech-archive [data-project="FutMatch"] { --ta-project-color:#3b7966; }
+
+
+/* Notion-style filled labels: color the entire tag surface, not an icon or outline.
+   The 11 topic names, source metadata, and article contents remain unchanged. */
+.theme-dark .tech-archive {
+  --ta-tag-base: #252525;
+  --ta-tag-fill: 52%;
+  --ta-tag-hover-fill: 59%;
+  --ta-project-fill: 42%;
+  --ta-project-hover-fill: 48%;
+}
+.theme-light .tech-archive {
+  --ta-tag-base: #ffffff;
+  --ta-tag-fill: 20%;
+  --ta-tag-hover-fill: 25%;
+  --ta-project-fill: 15%;
+  --ta-project-hover-fill: 19%;
+}
+.tech-archive__chip[data-topic],
+.tech-archive__category[data-topic] {
+  border: 1px solid transparent!important;
+  border-radius: 3px!important;
+  background: color-mix(in srgb, var(--ta-tag-color) var(--ta-tag-fill), var(--ta-tag-base))!important;
+  font-weight: 550;
+}
+.theme-dark .tech-archive__chip[data-topic],
+.theme-dark .tech-archive__category[data-topic] {
+  color: #f5f5f6!important;
+}
+.theme-light .tech-archive__chip[data-topic],
+.theme-light .tech-archive__category[data-topic] {
+  color: var(--ta-tag-color)!important;
+}
+.tech-archive__category[data-topic] {
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+/* Filters are recognizably clickable but do not turn into bright buttons. */
+.tech-archive .tech-archive__chip[data-topic]:hover {
+  background: color-mix(in srgb, var(--ta-tag-color) var(--ta-tag-hover-fill), var(--ta-tag-base))!important;
+}
+.theme-dark .tech-archive__chip[data-topic].is-active {
+  border-color: var(--ta-tag-color)!important;
+  background: color-mix(in srgb, var(--ta-tag-color) 66%, var(--ta-tag-base))!important;
+}
+.theme-light .tech-archive__chip[data-topic].is-active {
+  border-color: var(--ta-tag-color)!important;
+  background: color-mix(in srgb, var(--ta-tag-color) 29%, var(--ta-tag-base))!important;
+}
+/* The small topic in the metadata line remains text, avoiding a third badge. */
+.tech-archive__article-topic[data-topic] {
+  color: var(--ta-tag-color, var(--text-normal));
+}
+/* Distinguish projects using the same filled-label language, at lower emphasis. */
+.tech-archive__project-chip[data-project],
+.tech-archive__project-tag[data-project] {
+  border: 1px solid transparent!important;
+  border-radius: 3px!important;
+  background: color-mix(in srgb, var(--ta-project-color) var(--ta-project-fill), var(--ta-tag-base))!important;
+}
+.theme-dark .tech-archive__project-chip[data-project],
+.theme-dark .tech-archive__project-tag[data-project] {
+  color: #f5f5f6!important;
+}
+.theme-light .tech-archive__project-chip[data-project],
+.theme-light .tech-archive__project-tag[data-project] {
+  color: var(--ta-project-color)!important;
+}
+.tech-archive__project-tag[data-project] {
+  padding: 1px 6px;
+}
+.tech-archive .tech-archive__project-chip[data-project]:hover {
+  background: color-mix(in srgb, var(--ta-project-color) var(--ta-project-hover-fill), var(--ta-tag-base))!important;
+}
+.theme-dark .tech-archive__project-chip[data-project].is-active {
+  border-color: var(--ta-project-color)!important;
+  background: color-mix(in srgb, var(--ta-project-color) 58%, var(--ta-tag-base))!important;
+}
+.theme-light .tech-archive__project-chip[data-project].is-active {
+  border-color: var(--ta-project-color)!important;
+  background: color-mix(in srgb, var(--ta-project-color) 25%, var(--ta-tag-base))!important;
+}
+/* "전체" selectors, dates, status indicators and article text are deliberately neutral. */
