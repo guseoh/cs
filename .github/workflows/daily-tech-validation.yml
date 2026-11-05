@@ -39,6 +39,8 @@ jobs:
         run: python scripts/validate_daily_tech.py
       - name: Test archive safety checks
         run: python -m unittest scripts/test_daily_tech.py scripts/test_daily_tech_preflight.py -v
+      - name: Test Dataview dashboard interactions
+        run: node "References/Tech Articles/Dashboard/view.test.cjs"
       - name: Preflight additions-only staging against latest main
         if: github.ref == 'refs/heads/daily-tech'
         run: |

@@ -96,3 +96,12 @@
   .tech-archive__day,.tech-archive__empty { height:55px; }
   .tech-archive__month-title { min-width:90px; }
 }
+
+/* Independent project navigation. Uses the same restrained style as topic chips. */
+.tech-archive__project-row { display:flex; flex-wrap:wrap; align-items:center; gap:10px;
+  border-top:1px solid var(--ta-line); padding:12px 0 14px; }
+.tech-archive__project-label { font-size:11px; color:var(--ta-muted); font-weight:550; white-space:nowrap; }
+.tech-archive__project-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.tech-archive__project-chip { padding:4px 10px!important; }
+.tech-archive__project-tag { font-size:10px; color:var(--text-normal);
+  border-left:1px solid var(--ta-line); padding-left:7px; }
