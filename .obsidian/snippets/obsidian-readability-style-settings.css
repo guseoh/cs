@@ -1,4 +1,16 @@
 
+/* =========================================
+   Obsidian Readability
+   Java / Spring Learning Notes
+
+   - Minimal Dark
+   - Reading / Live Preview
+   - Image Grid / Image Captions
+   - Mermaid / PDF Plus
+   - Auto Card Link / Link Mention
+   - Style Settings 지원
+   ========================================= */
+
 /* @settings
 name: Jihun Obsidian Readability
 id: jihun-obsidian-readability
@@ -246,7 +258,7 @@ settings:
     id: mermaid-max-width
     title: Mermaid 영역 최대 너비
     type: variable-number
-    default: 95
+    default: 100
     min: 60
     max: 100
     step: 5
@@ -254,28 +266,25 @@ settings:
   -
     id: mermaid-diagram-size
     title: Mermaid 다이어그램 크기
-    description: 실제 SVG 다이어그램의 너비를 조절합니다.
     type: variable-number
-    default: 85
+    default: 78
     min: 50
     max: 100
-    step: 5
+    step: 1
     format: "%"
   -
     id: mermaid-diagram-max-width
     title: Mermaid 그림 최대 너비
-    description: 너무 넓은 다이어그램의 폭을 제한합니다.
     type: variable-number
-    default: 740
+    default: 920
     min: 440
     max: 1100
     step: 20
     format: px
-
 */
 
 /* =========================================
-   기본 변수
+   01. 기본 변수
    ========================================= */
 
 body {
@@ -309,13 +318,18 @@ body {
     --text-block-bg-alpha: 0.018;
     --text-block-border-alpha: 0.025;
 
-    --mermaid-max-width: 95%;
-    --mermaid-diagram-size: 85%;
-    --mermaid-diagram-max-width: 740px;
+    --mermaid-max-width: 100%;
+    --mermaid-diagram-size: 78%;
+    --mermaid-diagram-max-width: 920px;
+
+    --pdf-plus-image-width: 360px;
+    --image-grid-width: 900px;
+    --image-grid-height: 240px;
+    --image-grid-caption-gap: 6px;
 }
 
 /* =========================================
-   본문과 리스트
+   02. 본문과 리스트
    ========================================= */
 
 .markdown-rendered p {
@@ -383,57 +397,53 @@ body {
 }
 
 /* =========================================
-   인라인 코드
+   03. 인라인 코드
    ========================================= */
 
-.markdown-rendered :not(pre) > code {
+.theme-dark .markdown-rendered :not(pre) > code,
+.theme-dark .markdown-source-view.mod-cm6
+.cm-inline-code {
     background: rgba(
-        255, 255, 255, var(--inline-code-bg-alpha)
+        255, 255, 255,
+        var(--inline-code-bg-alpha)
     );
     border: 1px solid rgba(
-        255, 255, 255, var(--inline-code-border-alpha)
+        255, 255, 255,
+        var(--inline-code-border-alpha)
     );
     border-radius: var(--inline-code-radius);
     padding: 1px 5px;
     color: #d8d8d8;
     font-size: 0.9em;
-    font-weight: 500;
-    font-family: "JetBrains Mono", monospace !important;
+    font-family: "JetBrains Mono", monospace;
     font-feature-settings: "calt" 1, "liga" 1;
 }
 
-.cm-s-obsidian span.cm-inline-code {
-    background: rgba(
-        255, 255, 255, var(--inline-code-bg-alpha)
-    );
-    border: 1px solid rgba(
-        255, 255, 255, var(--inline-code-border-alpha)
-    );
-    border-radius: var(--inline-code-radius);
-    padding: 1px 5px;
-    color: #d8d8d8;
-    font-size: 0.9em;
+.theme-dark .markdown-rendered :not(pre) > code {
+    font-weight: 500;
+}
+
+.theme-dark .markdown-source-view.mod-cm6
+.cm-inline-code {
     font-weight: 400;
 }
 
-.markdown-source-view.mod-cm6 .cm-inline-code {
-    font-family: "JetBrains Mono", monospace !important;
-    font-feature-settings: "calt" 1, "liga" 1;
-}
-
 /* =========================================
-   코드 블록
+   04. 코드 블록
    ========================================= */
 
-.markdown-rendered pre {
+.theme-dark .markdown-rendered pre {
     position: relative;
     background: rgba(
-        255, 255, 255, var(--code-block-bg-alpha)
+        255, 255, 255,
+        var(--code-block-bg-alpha)
     ) !important;
     border: 1px solid rgba(
-        255, 255, 255, var(--code-block-border-alpha)
+        255, 255, 255,
+        var(--code-block-border-alpha)
     ) !important;
-    border-radius: var(--code-block-radius) !important;
+    border-radius:
+        var(--code-block-radius) !important;
     padding:
         var(--code-block-padding-y)
         var(--code-block-padding-x);
@@ -444,7 +454,9 @@ body {
     box-shadow: none !important;
 }
 
-.markdown-rendered pre:has(> code[class*="language-"]) {
+.markdown-rendered pre:has(
+    > code[class*="language-"]
+) {
     padding-right: 72px;
 }
 
@@ -452,13 +464,12 @@ body {
     position: absolute;
     top: 9px;
     right: 12px;
-    color: #b2b7bf !important;
+    color: var(--text-muted);
     font-family: var(--font-interface);
-    font-size: 12px !important;
-    font-weight: 600 !important;
+    font-size: 12px;
+    font-weight: 600;
     line-height: 1;
-    letter-spacing: 0.01em;
-    opacity: 0.95 !important;
+    opacity: 0.95;
     pointer-events: none;
     user-select: none;
 }
@@ -489,8 +500,10 @@ body {
     content: "JSON";
 }
 
-.markdown-rendered pre > code.language-yaml::before,
-.markdown-rendered pre > code.language-yml::before {
+.markdown-rendered pre > code:is(
+    .language-yaml,
+    .language-yml
+)::before {
     content: "YAML";
 }
 
@@ -506,13 +519,17 @@ body {
     content: "CSS";
 }
 
-.markdown-rendered pre > code.language-javascript::before,
-.markdown-rendered pre > code.language-js::before {
+.markdown-rendered pre > code:is(
+    .language-javascript,
+    .language-js
+)::before {
     content: "JavaScript";
 }
 
-.markdown-rendered pre > code.language-typescript::before,
-.markdown-rendered pre > code.language-ts::before {
+.markdown-rendered pre > code:is(
+    .language-typescript,
+    .language-ts
+)::before {
     content: "TypeScript";
 }
 
@@ -520,8 +537,10 @@ body {
     content: "Bash";
 }
 
-.markdown-rendered pre > code.language-shell::before,
-.markdown-rendered pre > code.language-sh::before {
+.markdown-rendered pre > code:is(
+    .language-shell,
+    .language-sh
+)::before {
     content: "Shell";
 }
 
@@ -529,8 +548,10 @@ body {
     content: "PowerShell";
 }
 
-.markdown-rendered pre > code.language-dockerfile::before,
-.markdown-rendered pre > code.language-docker::before {
+.markdown-rendered pre > code:is(
+    .language-dockerfile,
+    .language-docker
+)::before {
     content: "Dockerfile";
 }
 
@@ -542,13 +563,17 @@ body {
     content: "HTTP";
 }
 
-.markdown-rendered pre > code.language-markdown::before,
-.markdown-rendered pre > code.language-md::before {
+.markdown-rendered pre > code:is(
+    .language-markdown,
+    .language-md
+)::before {
     content: "Markdown";
 }
 
-.markdown-rendered pre > code.language-python::before,
-.markdown-rendered pre > code.language-py::before {
+.markdown-rendered pre > code:is(
+    .language-python,
+    .language-py
+)::before {
     content: "Python";
 }
 
@@ -580,46 +605,61 @@ body {
     content: "INI";
 }
 
-.markdown-rendered pre > code.language-text::before,
-.markdown-rendered pre > code.language-plaintext::before,
-.markdown-rendered pre > code.language-txt::before {
+.markdown-rendered pre > code:is(
+    .language-text,
+    .language-plaintext,
+    .language-txt
+)::before {
     content: none;
 }
 
-/* 설명용 일반 코드 블록 */
+/* 코드 내용 */
 
-.markdown-rendered pre:has(> code.language-text),
-.markdown-rendered pre:has(> code.language-plaintext),
-.markdown-rendered pre:has(> code.language-txt) {
-    background: rgba(
-        255, 255, 255, var(--text-block-bg-alpha)
-    ) !important;
-    border-color: rgba(
-        255, 255, 255, var(--text-block-border-alpha)
-    ) !important;
-    padding-right: var(--code-block-padding-x);
-}
-
-.markdown-rendered pre > code.language-text,
-.markdown-rendered pre > code.language-plaintext,
-.markdown-rendered pre > code.language-txt {
-    color: var(--text-muted);
-}
-
-.markdown-rendered pre code {
+.theme-dark .markdown-rendered pre code {
     background: transparent !important;
     border: none !important;
     padding: 0;
     color: #d6d6d6;
     font-size: 0.92em;
     line-height: 1.55;
+    font-family: "JetBrains Mono", monospace;
+}
+
+/* 설명용 text 블록 */
+
+.theme-dark .markdown-rendered pre:has(
+    > code:is(
+        .language-text,
+        .language-plaintext,
+        .language-txt
+    )
+) {
+    background: rgba(
+        255, 255, 255,
+        var(--text-block-bg-alpha)
+    ) !important;
+    border-color: rgba(
+        255, 255, 255,
+        var(--text-block-border-alpha)
+    ) !important;
+    padding-right: var(--code-block-padding-x);
+}
+
+.theme-dark .markdown-rendered pre > code:is(
+    .language-text,
+    .language-plaintext,
+    .language-txt
+) {
+    color: var(--text-muted);
 }
 
 /* Live Preview 코드 블록 */
 
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
+.theme-dark .markdown-source-view.mod-cm6
+.cm-line.HyperMD-codeblock {
     background: rgba(
-        255, 255, 255, var(--code-block-bg-alpha)
+        255, 255, 255,
+        var(--code-block-bg-alpha)
     );
 }
 
@@ -635,7 +675,7 @@ body {
     border-bottom-right-radius: var(--code-block-radius);
 }
 
-/* 코드와 설명 사이 간격 */
+/* 코드 블록과 설명의 간격 */
 
 .markdown-rendered .el-p + .el-pre {
     margin-top: 20px !important;
@@ -664,69 +704,69 @@ body {
 }
 
 /* =========================================
-   코드 구문 색상
+   05. 코드 구문 색상
+   다크 테마에서만 사용자 정의 색 적용
    ========================================= */
 
-.markdown-rendered pre code .token.keyword,
-.markdown-rendered pre code .token.atrule {
+.theme-dark .markdown-rendered pre code
+.token:is(.keyword, .atrule) {
     color: var(--syntax-keyword, #b98c77) !important;
 }
 
-.markdown-rendered pre code .token.class-name,
-.markdown-rendered pre code .token.builtin,
-.markdown-rendered pre code .token.type {
+.theme-dark .markdown-rendered pre code
+.token:is(.class-name, .builtin, .type) {
     color: var(--syntax-type, #8faed0) !important;
 }
 
-.markdown-rendered pre code .token.function,
-.markdown-rendered pre code .token.method {
+.theme-dark .markdown-rendered pre code
+.token:is(.function, .method) {
     color: var(--syntax-function, #90abc4) !important;
 }
 
-.markdown-rendered pre code .token.variable {
+.theme-dark .markdown-rendered pre code
+.token.variable {
     color: var(--syntax-variable, #d2d5db) !important;
 }
 
-.markdown-rendered pre code .token.property,
-.markdown-rendered pre code .token.constant,
-.markdown-rendered pre code .token.key {
+.theme-dark .markdown-rendered pre code
+.token:is(.property, .constant, .key) {
     color: var(--syntax-property, #ae94b5) !important;
 }
 
-.markdown-rendered pre code .token.number,
-.markdown-rendered pre code .token.boolean {
+.theme-dark .markdown-rendered pre code
+.token:is(.number, .boolean) {
     color: var(--syntax-number, #b99bc4) !important;
 }
 
-.markdown-rendered pre code .token.string,
-.markdown-rendered pre code .token.char,
-.markdown-rendered pre code .token.template-string {
+.theme-dark .markdown-rendered pre code
+.token:is(.string, .char, .template-string) {
     color: var(--syntax-string, #8dad84) !important;
 }
 
-.markdown-rendered pre code .token.operator {
+.theme-dark .markdown-rendered pre code
+.token.operator {
     color: var(--syntax-operator, #bfc4c9) !important;
 }
 
-.markdown-rendered pre code .token.punctuation {
+.theme-dark .markdown-rendered pre code
+.token.punctuation {
     color: var(--syntax-punctuation, #b8bec6) !important;
 }
 
-.markdown-rendered pre code .token.annotation {
+.theme-dark .markdown-rendered pre code
+.token.annotation {
     color: var(--syntax-annotation, #c1a16b) !important;
 }
 
-.markdown-rendered pre code .token.comment,
-.markdown-rendered pre code .token.prolog,
-.markdown-rendered pre code .token.doctype,
-.markdown-rendered pre code .token.cdata {
+.theme-dark .markdown-rendered pre code
+.token:is(.comment, .prolog, .doctype, .cdata) {
     color: var(--syntax-comment, #818b92) !important;
     font-style: italic;
 }
 
 /* SQL */
 
-.markdown-rendered pre > code.language-sql {
+.theme-dark .markdown-rendered pre > code.language-sql {
     --syntax-keyword: #55a9b4;
     --syntax-type: #79a1d0;
     --syntax-function: #79a1d0;
@@ -741,7 +781,7 @@ body {
 
 /* Java 계열 */
 
-.markdown-rendered pre > code:is(
+.theme-dark .markdown-rendered pre > code:is(
     .language-java,
     .language-kotlin,
     .language-groovy,
@@ -762,7 +802,7 @@ body {
 
 /* JavaScript / TypeScript */
 
-.markdown-rendered pre > code:is(
+.theme-dark .markdown-rendered pre > code:is(
     .language-javascript,
     .language-js,
     .language-typescript,
@@ -782,7 +822,7 @@ body {
 
 /* Python */
 
-.markdown-rendered pre > code:is(
+.theme-dark .markdown-rendered pre > code:is(
     .language-python,
     .language-py
 ) {
@@ -798,26 +838,14 @@ body {
     --syntax-comment: #818e92;
 }
 
-/* JSON */
+/* JSON / YAML */
 
-.markdown-rendered pre > code.language-json {
-    --syntax-keyword: #ac8cbd;
-    --syntax-type: #7da4d0;
-    --syntax-function: #7da4d0;
-    --syntax-property: #7da4d0;
-    --syntax-number: #b992c3;
-    --syntax-string: #86ac7e;
-    --syntax-operator: #bdc2c8;
-    --syntax-punctuation: #aeb6c2;
-}
-
-/* YAML */
-
-.markdown-rendered pre > code:is(
+.theme-dark .markdown-rendered pre > code:is(
+    .language-json,
     .language-yaml,
     .language-yml
 ) {
-    --syntax-keyword: #ad90bf;
+    --syntax-keyword: #ac8cbd;
     --syntax-type: #7da4d0;
     --syntax-function: #7da4d0;
     --syntax-property: #7da4d0;
@@ -829,7 +857,7 @@ body {
 
 /* HTML / XML */
 
-.markdown-rendered pre > code:is(
+.theme-dark .markdown-rendered pre > code:is(
     .language-html,
     .language-xml
 ) {
@@ -844,7 +872,7 @@ body {
 
 /* CSS */
 
-.markdown-rendered pre > code.language-css {
+.theme-dark .markdown-rendered pre > code.language-css {
     --syntax-keyword: #a189c3;
     --syntax-type: #78a6cf;
     --syntax-function: #c19d64;
@@ -856,7 +884,7 @@ body {
 
 /* Shell / PowerShell */
 
-.markdown-rendered pre > code:is(
+.theme-dark .markdown-rendered pre > code:is(
     .language-bash,
     .language-shell,
     .language-sh,
@@ -874,7 +902,7 @@ body {
 
 /* C / C++ / Go / Rust */
 
-.markdown-rendered pre > code:is(
+.theme-dark .markdown-rendered pre > code:is(
     .language-c,
     .language-cpp,
     .language-go,
@@ -892,7 +920,7 @@ body {
 
 /* 설정 파일 계열 */
 
-.markdown-rendered pre > code:is(
+.theme-dark .markdown-rendered pre > code:is(
     .language-dockerfile,
     .language-docker,
     .language-nginx,
@@ -911,65 +939,58 @@ body {
 
 /* Live Preview 구문 색상 */
 
-.markdown-source-view.mod-cm6 .cm-keyword {
+.theme-dark .markdown-source-view.mod-cm6 .cm-keyword {
     color: #d89a76 !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-type,
-.markdown-source-view.mod-cm6 .cm-def {
+.theme-dark .markdown-source-view.mod-cm6
+:is(.cm-type, .cm-def) {
     color: #a9c7e6 !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-variable {
+.theme-dark .markdown-source-view.mod-cm6 .cm-variable {
     color: #d2d2d2 !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-variable-2,
-.markdown-source-view.mod-cm6 .cm-variable-3,
-.markdown-source-view.mod-cm6 .cm-property {
+.theme-dark .markdown-source-view.mod-cm6
+:is(.cm-variable-2, .cm-variable-3, .cm-property) {
     color: #c89fbd !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-number,
-.markdown-source-view.mod-cm6 .cm-bool {
+.theme-dark .markdown-source-view.mod-cm6
+:is(.cm-number, .cm-bool, .cm-atom) {
     color: #c3a6d8 !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-string,
-.markdown-source-view.mod-cm6 .cm-string-2 {
+.theme-dark .markdown-source-view.mod-cm6
+:is(.cm-string, .cm-string-2) {
     color: #93b88b !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-operator {
+.theme-dark .markdown-source-view.mod-cm6 .cm-operator {
     color: #cccccc !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-comment {
+.theme-dark .markdown-source-view.mod-cm6 .cm-comment {
     color: #777f87 !important;
     font-style: italic;
 }
 
-.markdown-source-view.mod-cm6 .cm-atom {
-    color: #c3a6d8 !important;
-}
-
-.markdown-source-view.mod-cm6 .cm-meta {
+.theme-dark .markdown-source-view.mod-cm6 .cm-meta {
     color: #c7b65b !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-tag {
+.theme-dark .markdown-source-view.mod-cm6 .cm-tag {
     color: #d89a76 !important;
 }
 
-.markdown-source-view.mod-cm6 .cm-attribute {
+.theme-dark .markdown-source-view.mod-cm6 .cm-attribute {
     color: #a9c7e6 !important;
 }
 
 /* =========================================
-   Mermaid
+   06. Mermaid
    ========================================= */
-
-/* SVG 너비를 직접 조절하되 740px을 초과하지 않음 */
 
 .markdown-rendered .mermaid {
     width: var(--mermaid-max-width);
@@ -991,99 +1012,233 @@ body {
     text-rendering: geometricPrecision;
 }
 
-/* 시퀀스 다이어그램: 차분한 블루 + 선명한 글씨 */
+/* 시퀀스 다이어그램 */
 
-.theme-dark .markdown-rendered .mermaid svg rect.actor,
-.theme-dark .markdown-rendered .mermaid svg .actor rect {
-    fill: #0c2443 !important;
-    stroke: #4a85cc !important;
-    stroke-width: 1.5px !important;
+.theme-dark .markdown-rendered
+.mermaid > svg:has(.actor-line) {
+    filter: none !important;
+    width: min(72%, 680px) !important;
 }
 
-.theme-dark .markdown-rendered .mermaid svg text.actor,
-.theme-dark .markdown-rendered .mermaid svg .actor text,
-.theme-dark .markdown-rendered .mermaid svg .actor text tspan {
-    fill: #f3f7ff !important;
+.theme-dark .markdown-rendered .mermaid svg
+:is(rect.actor, .actor rect) {
+    fill: #172638 !important;
+    stroke: #587a9c !important;
+    stroke-width: 1.25px !important;
+}
+
+.theme-dark .markdown-rendered .mermaid svg
+:is(
+    text.actor,
+    text.actor-box,
+    text.actor-man,
+    .actor text,
+    .actor text tspan
+) {
+    fill: #edf1f6 !important;
+    stroke: none !important;
     font-weight: 600 !important;
 }
 
 .theme-dark .markdown-rendered .mermaid svg .actor-line {
-    stroke: #6d88a9 !important;
-    stroke-width: 1.4px !important;
-    opacity: 0.95;
+    stroke: #71849b !important;
+    stroke-width: 1.1px !important;
 }
 
-.theme-dark .markdown-rendered .mermaid svg .messageText,
-.theme-dark .markdown-rendered .mermaid svg .messageText tspan {
-    fill: #f0f5ff !important;
+.theme-dark .markdown-rendered .mermaid svg
+:is(.messageText, .messageText tspan) {
+    fill: #e2e8f0 !important;
+    stroke: none !important;
     font-weight: 500 !important;
 }
 
-.theme-dark .markdown-rendered .mermaid svg .messageLine0,
-.theme-dark .markdown-rendered .mermaid svg .messageLine1 {
-    stroke: #bdcbdf !important;
-    stroke-width: 1.6px !important;
+.theme-dark .markdown-rendered .mermaid svg
+:is(.messageLine0, .messageLine1) {
+    stroke: #a7b3c2 !important;
+    stroke-width: 1.4px !important;
 }
 
-.theme-dark .markdown-rendered .mermaid svg .arrowheadPath,
-.theme-dark .markdown-rendered .mermaid svg marker path {
-    fill: #bdcbdf !important;
-    stroke: #bdcbdf !important;
+.theme-dark .markdown-rendered .mermaid svg
+:is(.arrowheadPath, marker path) {
+    fill: #a7b3c2 !important;
+    stroke: #a7b3c2 !important;
 }
 
-.theme-dark .markdown-rendered .mermaid svg rect.note,
-.theme-dark .markdown-rendered .mermaid svg rect.labelBox {
-    fill: #142c4d !important;
-    stroke: #608cbb !important;
+.theme-dark .markdown-rendered .mermaid svg
+:is(rect.note, rect.labelBox) {
+    fill: #18283a !important;
+    stroke: #587a9c !important;
 }
 
-.theme-dark .markdown-rendered .mermaid svg .noteText,
-.theme-dark .markdown-rendered .mermaid svg .labelText {
-    fill: #eaf2ff !important;
+.theme-dark .markdown-rendered .mermaid svg
+:is(
+    .noteText,
+    .labelText,
+    .noteText tspan,
+    .labelText tspan
+) {
+    fill: #edf1f6 !important;
+}
+
+@media (max-width: 700px) {
+    .markdown-rendered
+    .mermaid > svg:has(.actor-line) {
+        width: 100% !important;
+    }
 }
 
 /* =========================================
-   Image Grid
+   07. Image Grid
    ========================================= */
 
-.image-grid:has(.image-grid-cell:nth-child(2):last-child) {
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr)) !important;
-    width: min(66.666%, 720px);
-    margin-inline: auto;
+.markdown-rendered .image-grid,
+.markdown-source-view.mod-cm6 .image-grid {
+    width: min(100%, var(--image-grid-width));
+    margin: 16px auto 20px;
+    align-items: start;
 }
 
-.image-grid-img {
-    pointer-events: none;
-}
+/* 플러그인의 columns와 gap 설정을 존중 */
 
-.image-grid-cell {
+.image-grid .image-grid-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-width: 0;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible;
     cursor: zoom-in;
 }
 
+/* 동일한 높이의 이미지 표시 영역 */
+
+.image-grid .image-grid-img {
+    display: block;
+    width: 100% !important;
+    height: var(--image-grid-height) !important;
+    max-height: var(--image-grid-height) !important;
+    object-fit: contain !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    image-rendering: auto;
+}
+
+/* Image Captions 플러그인과 함께 쓰는 경우 */
+
+.image-grid figure.image-captions-figure {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+
+.image-grid figure.image-captions-figure > img {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: var(--image-grid-height) !important;
+    max-height: var(--image-grid-height) !important;
+    object-fit: contain !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 캡션은 배경 없이 텍스트만 표시 */
+
+.image-grid figcaption,
+.image-grid .image-captions-caption,
+.image-grid .image-grid-caption {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    inset: auto !important;
+    transform: none !important;
+    margin:
+        var(--image-grid-caption-gap)
+        0 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    font-size: 0.82em !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    text-align: center !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+}
+
+/* 편집 모드의 이미지 그리드 외곽 강조 제거 */
+
+.cm-embed-block:has(.block-language-image-grid) {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
 /* =========================================
-   Callout
+   08. 일반 이미지 캡션
    ========================================= */
 
-/*
- * 일반 Callout에만 적용
- * more 및 image-grid 전용 Callout 제외
- */
+.markdown-rendered figure.image-captions-figure {
+    background-color: transparent;
+    box-shadow: none;
+}
 
-.callout:not([data-callout="more"]):not([data-callout="image-grid"]) {
+.markdown-rendered figcaption.image-captions-caption {
+    background: transparent !important;
+    color: var(--text-muted);
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    font-size: 0.82em;
+    font-weight: 400;
+    line-height: 1.45;
+}
+
+/* =========================================
+   09. Callout
+   ========================================= */
+
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) {
     background: rgba(255, 255, 255, 0.022);
     border: 1px solid rgba(255, 255, 255, 0.035);
-    border-left: 2px solid rgba(var(--callout-color), 0.45);
+    border-left: 2px solid rgba(
+        var(--callout-color), 0.45
+    );
     border-radius: 6px;
     padding: 9px 12px;
     margin: 12px 0;
     box-shadow: none;
 }
 
-/* Callout 제목 */
-
-.callout:not([data-callout="more"]):not([data-callout="image-grid"])
-> .callout-title {
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) > .callout-title {
     display: flex;
     align-items: center;
     gap: 7px;
@@ -1094,20 +1249,18 @@ body {
     border: none;
 }
 
-/* 제목 텍스트 */
-
-.callout:not([data-callout="more"]):not([data-callout="image-grid"])
-> .callout-title .callout-title-inner {
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) > .callout-title .callout-title-inner {
     color: var(--text-normal);
     font-size: 0.96em;
     font-weight: 500;
     line-height: 1.5;
 }
 
-/* Callout 아이콘 */
-
-.callout:not([data-callout="more"]):not([data-callout="image-grid"])
-> .callout-title .callout-icon {
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) > .callout-title .callout-icon {
     color: rgb(var(--callout-color));
     opacity: 0.8;
     width: 16px;
@@ -1116,18 +1269,16 @@ body {
     flex-shrink: 0;
 }
 
-/* 접기 아이콘 */
-
-.callout:not([data-callout="more"]):not([data-callout="image-grid"])
-> .callout-title .callout-fold {
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) > .callout-title .callout-fold {
     color: var(--text-muted);
     opacity: 0.65;
 }
 
-/* Callout 본문 */
-
-.callout:not([data-callout="more"]):not([data-callout="image-grid"])
-> .callout-content {
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) > .callout-content {
     padding: 5px 0 0;
     margin: 0;
     color: var(--text-normal);
@@ -1136,35 +1287,26 @@ body {
     box-shadow: none;
 }
 
-/* 첫 번째 요소 여백 제거 */
-
-.callout:not([data-callout="more"]):not([data-callout="image-grid"])
-> .callout-content > :first-child {
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) > .callout-content > :first-child {
     margin-top: 0;
 }
 
-/* 마지막 요소 여백 제거 */
-
-.callout:not([data-callout="more"]):not([data-callout="image-grid"])
-> .callout-content > :last-child {
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) > .callout-content > :last-child {
     margin-bottom: 0;
 }
 
-/* 단일 문단 간격 */
-
-.callout:not([data-callout="more"]):not([data-callout="image-grid"])
-> .callout-content > p {
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) > .callout-content > p {
     line-height: var(--body-line-height);
 }
 
-/* 접힌 Callout은 본문 숨김 */
-
-.callout.is-collapsed > .callout-content {
-    display: none;
-}
-
 /* =========================================
-   URL 기본 스타일
+   10. 외부 링크
    ========================================= */
 
 .markdown-rendered a.external-link {
@@ -1184,176 +1326,20 @@ body {
 }
 
 /* =========================================
-   이미지 / PDF Plus / 그리드 변수
+   11. PDF Plus 이미지
    ========================================= */
 
-:root {
-    --pdf-plus-image-width: 360px;
-    --image-grid-width: 720px;
-    --image-grid-gap: 8px;
-    --image-grid-image-height: 190px;
-    --image-grid-caption-gap: 4px;
-}
+/*
+ * 기존 WebP 정렬 규칙 유지.
+ * 모든 WebP 이미지에 적용될 수 있으므로
+ * 향후 PDF 전용 클래스로 분리하는 것이 바람직함.
+ */
 
-/* 이미지 그리드 Callout */
-
-.callout[data-callout="image-grid"] {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin: 16px 0 20px !important;
-    overflow: visible !important;
-}
-
-.callout[data-callout="image-grid"] > .callout-title {
-    display: none !important;
-}
-
-.callout[data-callout="image-grid"] > .callout-content {
-    display: grid !important;
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr)) !important;
-    gap: var(--image-grid-gap) !important;
-    width: min(100%, var(--image-grid-width)) !important;
-    max-width: var(--image-grid-width) !important;
-    padding: 0 !important;
-    margin: 0 auto !important;
-    overflow: visible !important;
-}
-
-.callout[data-callout="image-grid"] .callout-content > p {
-    min-width: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: visible !important;
-}
-
-.callout[data-callout="image-grid"]
-figure.image-captions-figure {
-    display: grid !important;
-    grid-template-rows:
-        var(--image-grid-image-height)
-        auto !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    position: static !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background:
-        linear-gradient(#fff, #fff)
-        top / 100% var(--image-grid-image-height)
-        no-repeat !important;
-    border: none !important;
-    border-radius: 3px !important;
-    box-shadow: none !important;
-    overflow: visible !important;
-}
-
-.callout[data-callout="image-grid"]
-figure.image-captions-figure > img {
-    grid-row: 1 !important;
-    align-self: center !important;
-    justify-self: center !important;
-    display: block !important;
-    width: auto !important;
-    height: auto !important;
-    max-width: 100% !important;
-    max-height: var(--image-grid-image-height) !important;
-    object-fit: contain !important;
-    image-rendering: auto !important;
-    position: static !important;
-    transform: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    border-radius: 3px !important;
-    box-shadow: none !important;
-}
-
-.callout[data-callout="image-grid"]
-figure.image-captions-figure
-> figcaption.image-captions-caption {
-    grid-row: 2 !important;
-    display: block !important;
-    width: 100%;
-    height: auto !important;
-    position: static !important;
-    inset: auto !important;
-    transform: none !important;
-    margin:
-        var(--image-grid-caption-gap)
-        0 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-    color: var(--text-muted) !important;
-    font-size: 0.82em !important;
-    font-weight: 400 !important;
-    line-height: 1.4 !important;
-    text-align: center !important;
-    border: none !important;
-    box-shadow: none !important;
-    opacity: 1 !important;
-    overflow: visible !important;
-}
-
-/* 이미지 그리드 내부 */
-
-.callout[data-callout="image-grid"]
-.internal-embed.image-embed {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    position: static !important;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-    overflow: visible !important;
-}
-
-.callout[data-callout="image-grid"]
-.internal-embed.image-embed:not(
-    :has(figure.image-captions-figure)
-) {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    height: var(--image-grid-image-height) !important;
-    background: #fff !important;
-    border-radius: 3px !important;
-    overflow: hidden !important;
-}
-
-.callout[data-callout="image-grid"]
-.internal-embed.image-embed:not(
-    :has(figure.image-captions-figure)
-) > img {
-    display: block !important;
-    width: auto !important;
-    height: auto !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    object-fit: contain !important;
-    image-rendering: auto !important;
-    margin: 0 !important;
-}
-
-/* =========================================
-   PDF Plus 이미지
-   ========================================= */
-
-.markdown-source-view.mod-cm6
-.internal-embed.image-embed[src*=".webp"] {
+:is(
+    .markdown-source-view.mod-cm6,
+    .markdown-preview-view,
+    .markdown-rendered
+) .internal-embed.image-embed[src*=".webp"] {
     display: block !important;
     width: var(--pdf-plus-image-width) !important;
     max-width: var(--pdf-plus-image-width) !important;
@@ -1364,26 +1350,11 @@ figure.image-captions-figure
     margin-bottom: 18px !important;
 }
 
-.markdown-preview-view
-.internal-embed.image-embed[src*=".webp"],
-.markdown-rendered
-.internal-embed.image-embed[src*=".webp"] {
-    display: block !important;
-    width: var(--pdf-plus-image-width) !important;
-    max-width: var(--pdf-plus-image-width) !important;
-    position: relative !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    margin-top: 18px !important;
-    margin-bottom: 18px !important;
-}
-
-.markdown-source-view.mod-cm6
-.internal-embed.image-embed[src*=".webp"] img,
-.markdown-preview-view
-.internal-embed.image-embed[src*=".webp"] img,
-.markdown-rendered
-.internal-embed.image-embed[src*=".webp"] img {
+:is(
+    .markdown-source-view.mod-cm6,
+    .markdown-preview-view,
+    .markdown-rendered
+) .internal-embed.image-embed[src*=".webp"] img {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -1391,11 +1362,9 @@ figure.image-captions-figure
     margin: 0 !important;
 }
 
-/* 그리드 내부에서는 PDF Plus 정렬 초기화 */
+/* 이미지 그리드 내부에서는 중앙 정렬 해제 */
 
-.callout[data-callout="image-grid"]
-.internal-embed.image-embed[src*=".webp"] {
-    display: block !important;
+.image-grid .internal-embed.image-embed[src*=".webp"] {
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
@@ -1407,11 +1376,17 @@ figure.image-captions-figure
 
 /* PDF Plus 좌표 링크 숨김 */
 
-.markdown-preview-view
+:is(.markdown-preview-view, .markdown-rendered)
 p:has(
-    a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
-),
-.markdown-rendered
+    a.internal-link[data-href*=".pdf#page="]
+    [data-href*="&rect="]
+) {
+    display: none !important;
+}
+
+/* 속성이 같은 링크에 존재하는 경우 */
+
+:is(.markdown-preview-view, .markdown-rendered)
 p:has(
     a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
 ) {
@@ -1426,17 +1401,16 @@ p:has(
 }
 
 /* =========================================
-   GitHub 링크 아이콘
+   12. GitHub 링크 아이콘
    ========================================= */
 
 .theme-dark .markdown-rendered
-.link-favicon[data-host="github.com"],
-.theme-dark .markdown-rendered
-.link-favicon[data-target*="github.com"],
-.theme-dark .markdown-rendered
-.link-favicon[src*="github"],
-.theme-dark .markdown-rendered
-.link-favicon[style*="github"],
+:is(
+    .link-favicon[data-host="github.com"],
+    .link-favicon[data-target*="github.com"],
+    .link-favicon[src*="github"],
+    .link-favicon[style*="github"]
+),
 .theme-dark .markdown-rendered
 a.external-link[href*="github.com"] .link-favicon {
     filter: brightness(0) invert(0.78) !important;
@@ -1444,7 +1418,7 @@ a.external-link[href*="github.com"] .link-favicon {
 }
 
 /* =========================================
-   Link Mention
+   13. Link Mention
    ========================================= */
 
 body {
@@ -1461,7 +1435,7 @@ body {
         box-shadow 0.15s ease;
 }
 
-.markdown-rendered .link-mention-title {
+.theme-dark .markdown-rendered .link-mention-title {
     color: #d9dfe8 !important;
     font-weight: 500;
     text-decoration-color: #69737f !important;
@@ -1469,28 +1443,27 @@ body {
     text-underline-offset: 3px;
 }
 
-.theme-dark
-.link-mention[href*="github.com"]
+.theme-dark .link-mention[href*="github.com"]
 .link-mention-favicon {
     filter: brightness(0) invert(0.82) !important;
     opacity: 1 !important;
 }
 
-.theme-dark
-.link-mention[href*="github.com"]
+.theme-dark .link-mention[href*="github.com"]
 .link-mention-default-icon {
     color: #cbd2da !important;
     opacity: 1 !important;
 }
 
-.markdown-rendered .link-mention:hover {
+.theme-dark .markdown-rendered .link-mention:hover {
     background-color:
         rgba(255, 255, 255, 0.055) !important;
     box-shadow:
-        0 0 0 4px rgba(255, 255, 255, 0.055) !important;
+        0 0 0 4px
+        rgba(255, 255, 255, 0.055) !important;
 }
 
-.markdown-rendered
+.theme-dark .markdown-rendered
 .link-mention:hover .link-mention-title {
     color: #ffffff !important;
     text-decoration-color: #a0b3ca !important;
@@ -1500,193 +1473,69 @@ body {
     vertical-align: -0.15em;
 }
 
-
-
 /* =========================================
-   Mermaid sequence diagram override
-   - 박스 글씨 흰색
-   - 다크모드 반전 제거
-   - 전체는 조금 더 작게, 가로 폭은 더 넓게
+   14. Auto Card Link
    ========================================= */
 
-/* 전체 크기/폭 */
-body {
-    --mermaid-max-width: 100%;
-    --mermaid-diagram-size: 78%;
-    --mermaid-diagram-max-width: 920px;
-}
-
-/* Obsidian 다크모드의 Mermaid 색상 반전 해제 */
-.theme-dark .mermaid > svg:has(.messageLine0),
-.theme-dark .mermaid > svg:has(.messageLine1) {
-    filter: none !important;
-}
-
-/* Mermaid 컨테이너 */
-.markdown-rendered .mermaid {
-    width: var(--mermaid-max-width);
-    max-width: var(--mermaid-max-width);
-    margin: 18px auto 22px;
-    overflow-x: auto;
-    text-align: center;
-}
-
-/* 실제 SVG 크기
-   - 전체 크기는 줄이되
-   - 최대 폭은 넓혀서 답답하지 않게 */
-.markdown-rendered .mermaid svg {
-    display: block;
-    width: min(var(--mermaid-diagram-size), var(--mermaid-diagram-max-width)) !important;
-    max-width: 100% !important;
+.theme-dark .auto-card-link-card {
     height: auto !important;
-    margin-inline: auto;
-    text-rendering: geometricPrecision;
+    min-height: 72px;
+    background: var(--background-primary-alt) !important;
+    color: var(--text-normal) !important;
+    border: 1px solid
+        var(--background-modifier-border) !important;
+    border-radius: 5px !important;
+    box-shadow: none !important;
+    transition:
+        background-color 0.15s,
+        border-color 0.15s;
 }
 
-/* 참여자 박스 */
-.theme-dark .markdown-rendered .mermaid svg rect.actor,
-.theme-dark .markdown-rendered .mermaid svg .actor rect {
-    fill: #0d2b4f !important;
-    stroke: #4e90e6 !important;
-    stroke-width: 1.35px !important;
+.theme-dark .auto-card-link-card:hover {
+    background:
+        var(--background-modifier-hover) !important;
+    border-color: var(--text-faint) !important;
 }
 
-/* 참여자 박스 안 글씨 - 흰색으로 강제 */
-.theme-dark .markdown-rendered .mermaid svg text.actor,
-.theme-dark .markdown-rendered .mermaid svg .actor text,
-.theme-dark .markdown-rendered .mermaid svg .actor text tspan {
-    fill: #f7fbff !important;
-    color: #f7fbff !important;
-    font-weight: 700 !important;
+.auto-card-link-main {
+    justify-content: center !important;
+    min-width: 0;
+    gap: 7px !important;
+    padding: 12px 14px !important;
 }
 
-/* 생명선 */
-.theme-dark .markdown-rendered .mermaid svg .actor-line {
-    stroke: #87a8d6 !important;
-    stroke-width: 1.2px !important;
-    opacity: 0.95 !important;
+.theme-dark .auto-card-link-title {
+    color: var(--text-normal) !important;
+    font-size: 0.97em;
+    font-weight: 600;
+    line-height: 1.4;
 }
 
-/* 메시지 텍스트 */
-.theme-dark .markdown-rendered .mermaid svg .messageText,
-.theme-dark .markdown-rendered .mermaid svg .messageText tspan {
-    fill: #eef4ff !important;
-    color: #eef4ff !important;
-    font-weight: 600 !important;
-}
-
-/* 메시지 선 */
-.theme-dark .markdown-rendered .mermaid svg .messageLine0,
-.theme-dark .markdown-rendered .mermaid svg .messageLine1 {
-    stroke: #dde7f7 !important;
-    stroke-width: 1.55px !important;
-}
-
-/* 화살표 머리 */
-.theme-dark .markdown-rendered .mermaid svg .arrowheadPath,
-.theme-dark .markdown-rendered .mermaid svg marker path {
-    fill: #dde7f7 !important;
-    stroke: #dde7f7 !important;
-}
-
-/* note / label */
-.theme-dark .markdown-rendered .mermaid svg rect.note,
-.theme-dark .markdown-rendered .mermaid svg rect.labelBox {
-    fill: #132b49 !important;
-    stroke: #5b8dc9 !important;
-}
-
-.theme-dark .markdown-rendered .mermaid svg .noteText,
-.theme-dark .markdown-rendered .mermaid svg .labelText,
-.theme-dark .markdown-rendered .mermaid svg .noteText tspan,
-.theme-dark .markdown-rendered .mermaid svg .labelText tspan {
-    fill: #eef4ff !important;
-    color: #eef4ff !important;
-}
-
-/* 좁은 화면 */
-@media (max-width: 700px) {
-    .markdown-rendered .mermaid {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .markdown-rendered .mermaid svg {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-}
-
-
-/* =========================================
-   Mermaid Sequence - Global Appearance
-   ========================================= */
-
-/* SVG 색상 반전 방지 */
-.theme-dark .mermaid > svg:has(.actor-line) {
-    filter: none !important;
-}
-
-/* 참여자 박스 */
-.theme-dark .mermaid svg rect.actor {
-    fill: #172638 !important;
-    stroke: #587a9c !important;
-    stroke-width: 1.25px !important;
-}
-
-/* 참여자 텍스트 */
-.theme-dark .mermaid svg text.actor,
-.theme-dark .mermaid svg text.actor-box,
-.theme-dark .mermaid svg text.actor-man,
-.theme-dark .mermaid svg text.actor tspan,
-.theme-dark .mermaid svg text.actor-box tspan,
-.theme-dark .mermaid svg text.actor-man tspan {
-    fill: #edf1f6 !important;
-    stroke: none !important;
-    font-weight: 600 !important;
-}
-
-/* 메시지 텍스트 */
-.theme-dark .mermaid svg .messageText,
-.theme-dark .mermaid svg .messageText tspan {
-    fill: #e2e8f0 !important;
-    stroke: none !important;
-    font-weight: 500 !important;
-}
-
-/* 화살표 */
-.theme-dark .mermaid svg .messageLine0,
-.theme-dark .mermaid svg .messageLine1 {
-    stroke: #a7b3c2 !important;
-    stroke-width: 1.4px !important;
-}
-
-/* 화살표 머리 */
-.theme-dark .mermaid svg .arrowheadPath,
-.theme-dark .mermaid svg marker path {
-    fill: #a7b3c2 !important;
-    stroke: #a7b3c2 !important;
-}
-
-/* 생명선 */
-.theme-dark .mermaid svg .actor-line {
-    stroke: #71849b !important;
-    stroke-width: 1.1px !important;
-}
-
-/* 전체 영역 */
-.markdown-rendered .mermaid {
-    width: 100%;
-    max-width: 100%;
-    margin: 18px auto 22px;
-    text-align: center;
-}
-
-/* 실제 시퀀스 다이어그램 크기 */
-.markdown-rendered .mermaid > svg:has(.actor-line) {
-    display: block;
-    width: min(72%, 680px) !important;
-    max-width: 100% !important;
+.auto-card-link-description {
     height: auto !important;
-    margin-inline: auto;
+    max-height: 4.5em !important;
+    line-height: 1.5 !important;
+    font-size: 0.85em !important;
+    color: var(--text-muted) !important;
+}
+
+.auto-card-link-host {
+    color: var(--text-faint);
+    font-size: 0.79em !important;
+}
+
+.auto-card-link-favicon {
+    width: 15px !important;
+    height: 15px !important;
+}
+
+/* 썸네일이 있을 때만 이미지 영역 사용 */
+
+.auto-card-link-thumbnail {
+    width: 156px !important;
+    max-width: 32% !important;
+    height: auto !important;
+    align-self: stretch;
+    object-fit: cover !important;
+    border-radius: 0 !important;
 }

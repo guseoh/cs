@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "range": [
+    201,
+    201
+  ],
+  "observed_at": "2026-11-04",
+  "source_repository": "guseoh/pawcycle-commerce",
+  "sources": [
+    {
+      "number": 201,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/201",
+      "title": "docs(tl): Phase 9 최적화 종료 판정",
+      "created_at": "2026-08-23T12:34:13Z",
+      "updated_at": "2026-09-06T09:10:40Z",
+      "state": "closed",
+      "state_reason": null,
+      "closed_at": "2026-08-23T12:38:46Z",
+      "merged_at": "2026-08-23T12:38:46Z",
+      "head_sha": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+      "merge_commit_sha": "386a0e1dd4b247d0531822350304f632258c9581",
+      "changed_files": 1,
+      "files": [
+        {
+          "path": "docs/performance/PERF-PH9-014-phase9-conclusion.md",
+          "status": "added",
+          "sha": "916b81d53134353524bf74a76ee7abbd81b62d2c",
+          "additions": 93,
+          "deletions": 0,
+          "patch_available": true,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba/docs%2Fperformance%2FPERF-PH9-014-phase9-conclusion.md"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/201#issuecomment-5386021813",
+          "created_at": "2026-08-23T12:34:21Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "12435f0ebe727a5c6ffea34aaff99d1b69f80bf6",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/12435f0ebe727a5c6ffea34aaff99d1b69f80bf6",
+          "message": "docs(tl): Phase 9 최적화 종료 판정"
+        },
+        {
+          "sha": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+          "message": "docs(tl): Phase 9 검증 결과 정정"
+        }
+      ],
+      "timeline": [],
+      "final_head_ci": {
+        "total_count": 7,
+        "runs": [
+          {
+            "id": 32639985652,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639985652"
+          },
+          {
+            "id": 32639985599,
+            "name": "Record Merged Pull Request",
+            "event": "pull_request_target",
+            "head_sha": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639985599"
+          },
+          {
+            "id": 32639982563,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639982563"
+          },
+          {
+            "id": 32639982426,
+            "name": "Repository Validation",
+            "event": "pull_request",
+            "head_sha": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639982426"
+          },
+          {
+            "id": 32639877600,
+            "name": "PR Metadata Validation",
+            "event": "pull_request",
+            "head_sha": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639877600"
+          },
+          {
+            "id": 32639853967,
+            "name": "Repository Validation",
+            "event": "pull_request",
+            "head_sha": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639853967"
+          },
+          {
+            "id": 32639852208,
+            "name": "Collaboration Notification",
+            "event": "pull_request_target",
+            "head_sha": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639852208"
+          }
+        ],
+        "jobs": [
+          {
+            "id": 97195475920,
+            "name": "Commit and PR conventions",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639982426/job/97195475920"
+          },
+          {
+            "id": 97195494987,
+            "name": "Classify validation changes",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639982426/job/97195494987"
+          },
+          {
+            "id": 97195512870,
+            "name": "Harness validation",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639982426/job/97195512870"
+          },
+          {
+            "id": 97195513304,
+            "name": "Frontend validation",
+            "conclusion": "skipped",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639982426/job/97195513304"
+          },
+          {
+            "id": 97195513320,
+            "name": "Production contract validation (${{ matrix.lane }})",
+            "conclusion": "skipped",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639982426/job/97195513320"
+          },
+          {
+            "id": 97195513431,
+            "name": "Backend and MySQL validation",
+            "conclusion": "skipped",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639982426/job/97195513431"
+          },
+          {
+            "id": 97195539899,
+            "name": "Application validation",
+            "conclusion": "success",
+            "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/32639982426/job/97195539899"
+          }
+        ]
+      },
+      "disposition": "추가 최적화 NO CHANGE·profiling Outcome C; 통합 계약은 이번 PR 미검증",
+      "records": [
+        "PWC-0077",
+        "PWL-0002",
+        "PWC-0076",
+        "PWC-0075"
+      ]
+    }
+  ],
+  "supplemental_inspection": {
+    "source_head": "4be4d17c0a9504e0fa01c0bcc4a01fa63c597eba",
+    "paths": [
+      "infra/performance/phase9/run-products-jfr-diagnostic.ps1",
+      "backend/src/main/java/com/pawcycle/backend/catalog/product/application/ProductListReader.java"
+    ],
+    "method": "Read-only source inspection; original JFR/k6 artifacts and product tests were not executed.",
+    "ci_jobs_run": 32639982426,
+    "review_collection_count": 0,
+    "inline_collection_count": 0
+  }
+}

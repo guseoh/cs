@@ -1,0 +1,704 @@
+{
+  "schema_version": 1,
+  "range": [
+    501,
+    503
+  ],
+  "observed_at": "2026-11-04",
+  "source_repository": "guseoh/pawcycle-commerce",
+  "sources": [
+    {
+      "number": 501,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/501",
+      "title": "fix(oci): poll A1 capacity every five minutes with alerts only",
+      "state": "closed",
+      "state_reason": null,
+      "created_at": "2026-11-03T14:18:42Z",
+      "updated_at": "2026-11-03T14:23:18Z",
+      "closed_at": "2026-11-03T14:23:15Z",
+      "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+      "merged": true,
+      "merged_at": "2026-11-03T14:23:15Z",
+      "merge_commit_sha": "caad5233269f52ccd31f6e93e54c77a464766b36",
+      "changed_files": 5,
+      "files": [
+        {
+          "path": ".github/scripts/oci_a1_monitor_health.py",
+          "status": "modified",
+          "sha": "9a5def529312fe73fb145dfb3ba012e20fd814d4",
+          "patch_available": true,
+          "additions": 23,
+          "deletions": 9,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/b0ef7c711b25b22c1193fdb3c861734c12a5a7e6/.github%2Fscripts%2Foci_a1_monitor_health.py"
+        },
+        {
+          "path": ".github/scripts/test_oci_a1_monitor_health.py",
+          "status": "modified",
+          "sha": "8763f2accf05ec601fe6e1148dc0c9ed9ae75a80",
+          "patch_available": true,
+          "additions": 30,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/b0ef7c711b25b22c1193fdb3c861734c12a5a7e6/.github%2Fscripts%2Ftest_oci_a1_monitor_health.py"
+        },
+        {
+          "path": ".github/workflows/oci-a1-capacity-watch.yml",
+          "status": "modified",
+          "sha": "f8822e59665e471ea79f44fb859ac157199f735e",
+          "patch_available": true,
+          "additions": 3,
+          "deletions": 3,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/b0ef7c711b25b22c1193fdb3c861734c12a5a7e6/.github%2Fworkflows%2Foci-a1-capacity-watch.yml"
+        },
+        {
+          "path": ".github/workflows/oci-a1-monitor-health.yml",
+          "status": "modified",
+          "sha": "4c95edc73b60541d44e8b39df032aafe1107dcad",
+          "patch_available": true,
+          "additions": 0,
+          "deletions": 5,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/b0ef7c711b25b22c1193fdb3c861734c12a5a7e6/.github%2Fworkflows%2Foci-a1-monitor-health.yml"
+        },
+        {
+          "path": "docs/runbook/oci-a1-capacity-watch.md",
+          "status": "modified",
+          "sha": "2da3915320c3d212291d1256d9dc2ba021911476",
+          "patch_available": true,
+          "additions": 8,
+          "deletions": 6,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/b0ef7c711b25b22c1193fdb3c861734c12a5a7e6/docs%2Frunbook%2Foci-a1-capacity-watch.md"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/501#issuecomment-6606212842",
+          "created_at": "2026-11-03T14:18:51Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "2cfad569a35bd6c3d2d51218e6bd6e5172b12df2",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/2cfad569a35bd6c3d2d51218e6bd6e5172b12df2",
+          "message": "fix(oci): poll A1 capacity every five minutes without scheduled tests"
+        },
+        {
+          "sha": "2ddf5792d87a6e75834485bfede9abf4631e4d30",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/2ddf5792d87a6e75834485bfede9abf4631e4d30",
+          "message": "fix(oci): avoid per-check health workflows at five-minute cadence"
+        },
+        {
+          "sha": "d87ca3137eabba8e26644b3d3755e2fa90c0fba9",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/d87ca3137eabba8e26644b3d3755e2fa90c0fba9",
+          "message": "fix(oci): paginate scheduled checks for accurate 24h five-minute health stats"
+        },
+        {
+          "sha": "9dacb785e63731268078d2b0a68514a0b0be122c",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/9dacb785e63731268078d2b0a68514a0b0be122c",
+          "message": "test(oci): cover paginated five-minute capacity run history"
+        },
+        {
+          "sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "message": "docs(oci): switch A1 operations to five-minute alert-only monitoring"
+        }
+      ],
+      "ci": [
+        {
+          "id": 41653183068,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41653183068"
+        },
+        {
+          "id": 41652790827,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652790827"
+        },
+        {
+          "id": 41652791704,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652791704"
+        },
+        {
+          "id": 41652625090,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652625090"
+        },
+        {
+          "id": 41652624871,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652624871"
+        },
+        {
+          "id": 41652435257,
+          "name": "OCI Tokyo A1 Capacity Watch",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652435257"
+        },
+        {
+          "id": 41652435665,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652435665"
+        },
+        {
+          "id": 41652435596,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652435596"
+        },
+        {
+          "id": 41652434547,
+          "name": "OCI A1 Monitor Health",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652434547"
+        },
+        {
+          "id": 41652434810,
+          "name": "OCI A1 Provisioner Offline Tests",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652434810"
+        },
+        {
+          "id": 41652434843,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "b0ef7c711b25b22c1193fdb3c861734c12a5a7e6",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41652434843"
+        }
+      ]
+    },
+    {
+      "number": 502,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/502",
+      "title": "fix(oci): Cloudflare Cron으로 A1 용량 감시 호출 경로 준비",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-04T02:25:25Z",
+      "updated_at": "2026-11-04T05:41:34Z",
+      "closed_at": null,
+      "head_sha": "1397efdb279c6871a6c28680583ff17768af7424",
+      "merged": false,
+      "merged_at": null,
+      "merge_commit_sha": null,
+      "changed_files": 10,
+      "files": [
+        {
+          "path": ".github/scripts/oci_a1_heartbeat.py",
+          "status": "added",
+          "sha": "c5ec07d7dbbfb9c4e1e835239c985917d41cc3a6",
+          "patch_available": true,
+          "additions": 50,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/.github%2Fscripts%2Foci_a1_heartbeat.py"
+        },
+        {
+          "path": ".github/scripts/oci_a1_monitor_health.py",
+          "status": "modified",
+          "sha": "3794d1f8321744148d2b71b37cd3687b8bd105d7",
+          "patch_available": true,
+          "additions": 10,
+          "deletions": 5,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/.github%2Fscripts%2Foci_a1_monitor_health.py"
+        },
+        {
+          "path": ".github/scripts/test_oci_a1_heartbeat.py",
+          "status": "added",
+          "sha": "d883467f84552ee1b2d8bb293c1d1b262e2124ed",
+          "patch_available": true,
+          "additions": 90,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/.github%2Fscripts%2Ftest_oci_a1_heartbeat.py"
+        },
+        {
+          "path": ".github/scripts/test_oci_a1_monitor_health.py",
+          "status": "modified",
+          "sha": "d7007da1cbd6b998d3fd1644ac56605645fc7470",
+          "patch_available": true,
+          "additions": 32,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/.github%2Fscripts%2Ftest_oci_a1_monitor_health.py"
+        },
+        {
+          "path": ".github/workflows/oci-a1-capacity-watch.yml",
+          "status": "modified",
+          "sha": "ad3cdfc15fda7095450d3a75ac6d2bdf48b60692",
+          "patch_available": true,
+          "additions": 19,
+          "deletions": 1,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/.github%2Fworkflows%2Foci-a1-capacity-watch.yml"
+        },
+        {
+          "path": "docs/runbook/oci-a1-capacity-watch.md",
+          "status": "modified",
+          "sha": "bf74779a7921578a790e953b7ac9eadfbadab20b",
+          "patch_available": true,
+          "additions": 179,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/docs%2Frunbook%2Foci-a1-capacity-watch.md"
+        },
+        {
+          "path": "infra/oci-capacity-cron/.gitignore",
+          "status": "added",
+          "sha": "d693bab6c61638e8641759dcfc70c659b3213fae",
+          "patch_available": true,
+          "additions": 4,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/infra%2Foci-capacity-cron%2F.gitignore"
+        },
+        {
+          "path": "infra/oci-capacity-cron/worker.mjs",
+          "status": "added",
+          "sha": "9e8e0e96aa749ce8ffa82156757c5723d42e0183",
+          "patch_available": true,
+          "additions": 115,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/infra%2Foci-capacity-cron%2Fworker.mjs"
+        },
+        {
+          "path": "infra/oci-capacity-cron/worker.test.mjs",
+          "status": "added",
+          "sha": "991d0c9a3cc9a9a86c3e83203140055e7f95d447",
+          "patch_available": true,
+          "additions": 174,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/infra%2Foci-capacity-cron%2Fworker.test.mjs"
+        },
+        {
+          "path": "infra/oci-capacity-cron/wrangler.jsonc",
+          "status": "added",
+          "sha": "ab897d6af8eb33e43c589d14b0fd3b8477e3df54",
+          "patch_available": true,
+          "additions": 10,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/1397efdb279c6871a6c28680583ff17768af7424/infra%2Foci-capacity-cron%2Fwrangler.jsonc"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/502#issuecomment-6620857709",
+          "created_at": "2026-11-04T02:25:33Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "3f6bd04d0520dfc4431134faaa538e13bc445ce2",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/3f6bd04d0520dfc4431134faaa538e13bc445ce2",
+          "message": "fix(oci): stage Cloudflare cron dispatch for A1 capacity checks"
+        },
+        {
+          "sha": "7e46e97d40c42eabb4733570c56b1c068b13babb",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/7e46e97d40c42eabb4733570c56b1c068b13babb",
+          "message": "fix(oci): separate dispatcher heartbeat from completed OCI checks"
+        },
+        {
+          "sha": "1d250f316a55275e4bbdf792cb244adc22988f52",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/1d250f316a55275e4bbdf792cb244adc22988f52",
+          "message": "test(oci): validate two-layer heartbeat, delayed Cron and failure signaling"
+        },
+        {
+          "sha": "e5ba4601e46dd19de8f63ab6973b7178bd52accc",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/e5ba4601e46dd19de8f63ab6973b7178bd52accc",
+          "message": "feat(oci): emit independently verified successful capacity check heartbeat"
+        },
+        {
+          "sha": "9065f677002d5ea5a50103b9ef0def5c3f61043c",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/9065f677002d5ea5a50103b9ef0def5c3f61043c",
+          "message": "feat(oci): emit independently verified successful capacity check heartbeat"
+        },
+        {
+          "sha": "a27e7a55b4f128cef03d8d41eb0563909f3df558",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/a27e7a55b4f128cef03d8d41eb0563909f3df558",
+          "message": "feat(oci): report real completed checks to independent dead-man monitor"
+        },
+        {
+          "sha": "1397efdb279c6871a6c28680583ff17768af7424",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/1397efdb279c6871a6c28680583ff17768af7424",
+          "message": "docs(oci): define free two-heartbeat rollout and stop gates"
+        }
+      ],
+      "ci": [
+        {
+          "id": 41780800317,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1397efdb279c6871a6c28680583ff17768af7424",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41780800317"
+        },
+        {
+          "id": 41780799918,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "1397efdb279c6871a6c28680583ff17768af7424",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41780799918"
+        },
+        {
+          "id": 41780650068,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "1397efdb279c6871a6c28680583ff17768af7424",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41780650068"
+        },
+        {
+          "id": 41780650057,
+          "name": "OCI A1 Monitor Health",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1397efdb279c6871a6c28680583ff17768af7424",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41780650057"
+        },
+        {
+          "id": 41780650078,
+          "name": "OCI A1 capacity self_test",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1397efdb279c6871a6c28680583ff17768af7424",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41780650078"
+        },
+        {
+          "id": 41780650032,
+          "name": "OCI A1 Provisioner Offline Tests",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1397efdb279c6871a6c28680583ff17768af7424",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41780650032"
+        },
+        {
+          "id": 41780647611,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1397efdb279c6871a6c28680583ff17768af7424",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41780647611"
+        },
+        {
+          "id": 41780647580,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1397efdb279c6871a6c28680583ff17768af7424",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41780647580"
+        }
+      ]
+    },
+    {
+      "number": 503,
+      "type": "PR",
+      "url": "https://github.com/guseoh/pawcycle-commerce/pull/503",
+      "title": "fix(oci): A1 단기 Cloudflare Cron 스케줄러 준비",
+      "state": "closed",
+      "state_reason": null,
+      "created_at": "2026-11-04T05:44:39Z",
+      "updated_at": "2026-11-04T06:39:15Z",
+      "closed_at": "2026-11-04T06:39:13Z",
+      "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+      "merged": true,
+      "merged_at": "2026-11-04T06:39:12Z",
+      "merge_commit_sha": "79c4b4ce39e2edf4696e54d839f963848397231e",
+      "changed_files": 8,
+      "files": [
+        {
+          "path": ".github/scripts/oci_a1_monitor_health.py",
+          "status": "modified",
+          "sha": "3794d1f8321744148d2b71b37cd3687b8bd105d7",
+          "patch_available": true,
+          "additions": 10,
+          "deletions": 5,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/03b21097588fe1c4636d2938be316d80e081a4d0/.github%2Fscripts%2Foci_a1_monitor_health.py"
+        },
+        {
+          "path": ".github/scripts/test_oci_a1_monitor_health.py",
+          "status": "modified",
+          "sha": "d7007da1cbd6b998d3fd1644ac56605645fc7470",
+          "patch_available": true,
+          "additions": 32,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/03b21097588fe1c4636d2938be316d80e081a4d0/.github%2Fscripts%2Ftest_oci_a1_monitor_health.py"
+        },
+        {
+          "path": ".github/workflows/oci-a1-capacity-watch.yml",
+          "status": "modified",
+          "sha": "3cc9dd616821512727e57bdb431bdc588b8d6310",
+          "patch_available": true,
+          "additions": 10,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/03b21097588fe1c4636d2938be316d80e081a4d0/.github%2Fworkflows%2Foci-a1-capacity-watch.yml"
+        },
+        {
+          "path": "docs/runbook/oci-a1-capacity-watch.md",
+          "status": "modified",
+          "sha": "1f959dd7e0fb30b573860daa5da0520ddb47a17d",
+          "patch_available": true,
+          "additions": 120,
+          "deletions": 2,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/03b21097588fe1c4636d2938be316d80e081a4d0/docs%2Frunbook%2Foci-a1-capacity-watch.md"
+        },
+        {
+          "path": "infra/oci-capacity-cron/.gitignore",
+          "status": "added",
+          "sha": "d693bab6c61638e8641759dcfc70c659b3213fae",
+          "patch_available": true,
+          "additions": 4,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/03b21097588fe1c4636d2938be316d80e081a4d0/infra%2Foci-capacity-cron%2F.gitignore"
+        },
+        {
+          "path": "infra/oci-capacity-cron/worker.mjs",
+          "status": "added",
+          "sha": "0b2cab573e327c0c47393e75a1bf117fe8d486bf",
+          "patch_available": true,
+          "additions": 79,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/03b21097588fe1c4636d2938be316d80e081a4d0/infra%2Foci-capacity-cron%2Fworker.mjs"
+        },
+        {
+          "path": "infra/oci-capacity-cron/worker.test.mjs",
+          "status": "added",
+          "sha": "1fef8fe97b5951c5996f981d4db94ed656242288",
+          "patch_available": true,
+          "additions": 127,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/03b21097588fe1c4636d2938be316d80e081a4d0/infra%2Foci-capacity-cron%2Fworker.test.mjs"
+        },
+        {
+          "path": "infra/oci-capacity-cron/wrangler.jsonc",
+          "status": "added",
+          "sha": "ab897d6af8eb33e43c589d14b0fd3b8477e3df54",
+          "patch_available": true,
+          "additions": 10,
+          "deletions": 0,
+          "blob_url": "https://github.com/guseoh/pawcycle-commerce/blob/03b21097588fe1c4636d2938be316d80e081a4d0/infra%2Foci-capacity-cron%2Fwrangler.jsonc"
+        }
+      ],
+      "comments": [
+        {
+          "url": "https://github.com/guseoh/pawcycle-commerce/pull/503#issuecomment-6623612168",
+          "created_at": "2026-11-04T05:44:47Z"
+        }
+      ],
+      "reviews": [],
+      "review_comments": [],
+      "commits": [
+        {
+          "sha": "d9aeefcd8c136f7eec910d6628bd52b489aa4d97",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/d9aeefcd8c136f7eec910d6628bd52b489aa4d97",
+          "message": "fix(oci): stage free dual-heartbeat A1 capacity watch"
+        },
+        {
+          "sha": "02af022014aedf8a66ff25907f128b468e22541e",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/02af022014aedf8a66ff25907f128b468e22541e",
+          "message": "fix(oci): redact unexpected heartbeat errors"
+        },
+        {
+          "sha": "e41786634c002d8bf6c1ec99ceb50069e8569180",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/e41786634c002d8bf6c1ec99ceb50069e8569180",
+          "message": "docs(oci): require initial verified dead-man ping"
+        },
+        {
+          "sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "url": "https://github.com/guseoh/pawcycle-commerce/commit/03b21097588fe1c4636d2938be316d80e081a4d0",
+          "message": "fix(oci): simplify temporary A1 Cron without external heartbeat"
+        }
+      ],
+      "ci": [
+        {
+          "id": 41786954295,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41786954295"
+        },
+        {
+          "id": 41785953178,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41785953178"
+        },
+        {
+          "id": 41785953776,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41785953776"
+        },
+        {
+          "id": 41785953814,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41785953814"
+        },
+        {
+          "id": 41785933012,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41785933012"
+        },
+        {
+          "id": 41785932482,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41785932482"
+        },
+        {
+          "id": 41785265239,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41785265239"
+        },
+        {
+          "id": 41785265252,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41785265252"
+        },
+        {
+          "id": 41783795352,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41783795352"
+        },
+        {
+          "id": 41783794897,
+          "name": "PR Metadata Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41783794897"
+        },
+        {
+          "id": 41783696400,
+          "name": "OCI A1 Provisioner Offline Tests",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41783696400"
+        },
+        {
+          "id": 41783696480,
+          "name": "OCI A1 Monitor Health",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41783696480"
+        },
+        {
+          "id": 41783696441,
+          "name": "OCI A1 capacity self_test",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41783696441"
+        },
+        {
+          "id": 41783696381,
+          "name": "Repository Validation",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41783696381"
+        },
+        {
+          "id": 41783693388,
+          "name": "Collaboration Notification",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41783693388"
+        },
+        {
+          "id": 41783693715,
+          "name": "CodeRabbit Review Handoff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "03b21097588fe1c4636d2938be316d80e081a4d0",
+          "attempt": 1,
+          "url": "https://github.com/guseoh/pawcycle-commerce/actions/runs/41783693715"
+        }
+      ]
+    }
+  ],
+  "inspection_scope": "Public body/discussion/reviews/commits/complete file inventory and available patches collected; scoped contract/verification analysis, not independent complete code review. Raster metadata only. Original runtime and operational tests not repeated."
+}
