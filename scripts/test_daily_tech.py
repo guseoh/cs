@@ -101,7 +101,15 @@ class DailyTechTests(unittest.TestCase):
     def test_grouped_view_validation(self):
         base = self.root / "References/Tech Articles/기술 자료.base"
         base.write_text(base.read_text(encoding="utf-8").replace("property: note.topic", "property: note.status"), encoding="utf-8")
-        self.assertIn("Bases 태그별 must group by note.topic", " ".join(validate_archive(self.root)))
+        self.assertIn("Bases 태그별 must group by", " ".join(validate_archive(self.root)))
+
+    def test_accepts_native_bases_property_aliases(self):
+        base = self.root / "References/Tech Articles/기술 자료.base"
+        content = base.read_text(encoding="utf-8")
+        content = content.replace("property: note.collected", "property: collected")
+        content = content.replace("property: note.topic", "property: topic")
+        base.write_text(content, encoding="utf-8")
+        self.assertEqual([], validate_archive(self.root))
 
     def test_rejects_symlink_article(self):
         alternate = self.folder / "2026-11-05-outside.md"
