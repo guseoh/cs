@@ -1,0 +1,38 @@
+name: Daily Tech validation
+on:
+  push:
+    branches:
+      - main
+      - daily-tech
+    paths:
+      - "References/Tech Articles/**"
+      - "Templates/Tech Article.md"
+      - "scripts/validate_daily_tech.py"
+      - "scripts/test_daily_tech.py"
+      - ".github/workflows/daily-tech-validation.yml"
+  pull_request:
+    paths:
+      - "References/Tech Articles/**"
+      - "Templates/Tech Article.md"
+      - "scripts/validate_daily_tech.py"
+      - "scripts/test_daily_tech.py"
+      - ".github/workflows/daily-tech-validation.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - name: Install YAML parser
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+      - name: Validate archive
+        run: python scripts/validate_daily_tech.py
+      - name: Test archive safety checks
+        run: python -m unittest scripts/test_daily_tech.py -v
