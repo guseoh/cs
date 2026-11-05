@@ -19,7 +19,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) | 2026-11-03 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
-| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-04 |
+| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-05 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
 ## Decision index
@@ -154,7 +154,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 
 | ID | Status | Knowledge | Project |
 | --- | --- | --- | --- |
-| [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle code, design and operations reverse-engineering learning guide | pawcycle |
+| [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle 전체 시스템·아키텍처·설계 이력·운영 리버스 엔지니어링 가이드 (2026-11-05) | pawcycle |
 | [PWK-0002](knowledge/PWK-0002.md) | published | JVM JIT warmup and CRaC restoration: 330s to 2–3s case study | shared |
 | [AGK-0001](knowledge/AGK-0001.md) | published | Backend AI adoption, Agent roles and learning FAQ (2026-11-05) | agentlab |
 
