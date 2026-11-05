@@ -189,13 +189,15 @@ def validate_archive(root: Path = ROOT) -> list[str]:
                 for item in base["views"]
                 if isinstance(item, dict) and isinstance(item.get("groupBy"), dict)
             }
-            for name, property_name in {
-                "날짜별": "note.collected",
-                "월별": "formula.month",
-                "태그별": "note.topic",
+            # Obsidian Bases accepts a local property as "collected" or
+            # "note.collected"; preserve the user's existing working UI.
+            for name, property_names in {
+                "날짜별": {"note.collected", "collected"},
+                "월별": {"formula.month"},
+                "태그별": {"note.topic", "topic"},
             }.items():
-                if groupings.get(name) != property_name:
-                    errors.append(f"Bases {name} must group by {property_name}")
+                if groupings.get(name) not in property_names:
+                    errors.append(f"Bases {name} must group by {sorted(property_names)[-1]}")
             if "file.inFolder" not in str(base.get("filters", "")):
                 errors.append("Bases must filter to Articles folder")
     except (OSError, yaml.YAMLError) as exc:
