@@ -38,7 +38,7 @@ views:
   - type: table
     name: 날짜별
     groupBy:
-      property: collected
+      property: note.collected
       direction: DESC
     order:
       - formula.article
@@ -65,7 +65,7 @@ views:
   - type: table
     name: 태그별
     groupBy:
-      property: topic
+      property: note.topic
       direction: ASC
     order:
       - formula.article
