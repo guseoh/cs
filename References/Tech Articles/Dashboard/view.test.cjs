@@ -59,6 +59,12 @@ assert.ok(topic("인프라·DevOps"));
 assert.ok(project("PawCycle"));
 assert.ok(project("DevPedia"));
 assert.equal(articleRows().length,3);
+assert.equal(topic("전체").attributes["data-topic"],undefined,"all topics stays neutral");
+assert.equal(topic("AI·개발도구").attributes["data-topic"],"AI·개발도구");
+assert.equal(project("PawCycle").attributes["data-project"],"PawCycle");
+assert.equal(find(dashboard,n=>n.className==="tech-archive__article-topic")[0].attributes["data-topic"],"설계·아키텍처");
+assert.ok(find(dashboard,n=>n.className==="tech-archive__category").some(n=>n.attributes["data-topic"]==="동시성·분산"));
+assert.ok(find(dashboard,n=>n.className==="tech-archive__project-tag").some(n=>n.attributes["data-project"]==="DevPedia"));
 const calendar=find(dashboard,n=>n.className==="tech-archive__calendar-host")[0];
 project("PawCycle").click();
 assert.equal(articleRows().length,1,"PawCycle filters project membership");
@@ -97,4 +103,4 @@ const beforeMissingTab=newTabLeaves.length;
 void context.openNote({path:"References/Tech Articles/Articles/2026/missing.md"});
 assert.equal(newTabLeaves.length,beforeMissingTab,"missing note does not create an empty tab");
 
-console.log("OK: Notion subjects (11), project filtering, scroll stability, new tab navigation, missing-file safety");
+console.log("OK: 11 topic color markers, project markers, filters, scroll stability, new tabs, missing-file safety");
