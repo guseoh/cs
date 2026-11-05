@@ -142,12 +142,16 @@
 .theme-dark .tech-archive {
   --ta-tag-base: #252525;
   --ta-tag-fill: 52%;
+  --ta-tag-hover-fill: 59%;
   --ta-project-fill: 42%;
+  --ta-project-hover-fill: 48%;
 }
 .theme-light .tech-archive {
   --ta-tag-base: #ffffff;
   --ta-tag-fill: 20%;
+  --ta-tag-hover-fill: 25%;
   --ta-project-fill: 15%;
+  --ta-project-hover-fill: 19%;
 }
 .tech-archive__chip[data-topic],
 .tech-archive__category[data-topic] {
@@ -169,8 +173,8 @@
   border-radius: 3px;
 }
 /* Filters are recognizably clickable but do not turn into bright buttons. */
-.tech-archive__chip[data-topic]:hover {
-  filter: brightness(1.12);
+.tech-archive .tech-archive__chip[data-topic]:hover {
+  background: color-mix(in srgb, var(--ta-tag-color) var(--ta-tag-hover-fill), var(--ta-tag-base))!important;
 }
 .theme-dark .tech-archive__chip[data-topic].is-active {
   border-color: var(--ta-tag-color)!important;
@@ -202,8 +206,8 @@
 .tech-archive__project-tag[data-project] {
   padding: 1px 6px;
 }
-.tech-archive__project-chip[data-project]:hover {
-  filter: brightness(1.12);
+.tech-archive .tech-archive__project-chip[data-project]:hover {
+  background: color-mix(in srgb, var(--ta-project-color) var(--ta-project-hover-fill), var(--ta-tag-base))!important;
 }
 .theme-dark .tech-archive__project-chip[data-project].is-active {
   border-color: var(--ta-project-color)!important;
