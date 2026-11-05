@@ -134,6 +134,23 @@ def validate_note(path: Path, root: Path = ROOT) -> tuple[str, list[str]]:
         except (ValueError, TypeError) as exc:
             issue(f"invalid {key}: {exc}")
 
+    history = data.get("collected_dates")
+    if history is not None:
+        if not isinstance(history, list) or not history:
+            issue("collected_dates must be a nonempty list")
+        else:
+            normalized: list[str] = []
+            for raw in history:
+                try:
+                    parsed = _as_date(raw, True)
+                    normalized.append(parsed.isoformat())
+                except (ValueError, TypeError) as exc:
+                    issue(f"invalid collected_dates entry: {exc}")
+            if len(set(normalized)) != len(normalized):
+                issue("collected_dates must not contain duplicates")
+            if collected is not None and collected.isoformat() not in normalized:
+                issue("collected_dates must include primary collected date")
+
     relative = path.relative_to(root)
     if not FILENAME.fullmatch(path.name):
         issue("filename must be YYYY-MM-DD-short-topic.md")

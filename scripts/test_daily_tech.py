@@ -73,6 +73,16 @@ class DailyTechTests(unittest.TestCase):
         self.note.write_text(unmarked, encoding="utf-8")
         self.assertIn("missing source citation", " ".join(validate_note(self.note, self.root)[1]))
 
+    def test_preserves_historical_collected_dates(self):
+        multi = ARTICLE.replace("collected: 2026-11-05", "collected: 2026-11-05\\ncollected_dates:\\n  - 2026-11-05\\n  - 2026-08-13")
+        self.note.write_text(multi.replace("\\n", "\n"), encoding="utf-8")
+        self.assertEqual([], validate_note(self.note, self.root)[1])
+
+    def test_rejects_collected_dates_without_primary(self):
+        multi = ARTICLE.replace("collected: 2026-11-05", "collected: 2026-11-05\\ncollected_dates:\\n  - 2026-08-13")
+        self.note.write_text(multi.replace("\\n", "\n"), encoding="utf-8")
+        self.assertIn("must include primary", " ".join(validate_note(self.note, self.root)[1]))
+
     def test_rejects_duplicate_canonical_url(self):
         second = self.folder / "2026-11-05-second.md"
         second.write_text(ARTICLE.replace("https://example.org/article/", "https://EXAMPLE.org/article"), encoding="utf-8")

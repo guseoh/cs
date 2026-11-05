@@ -29,6 +29,7 @@ const pages = dv.pages(source)
     categories: asList(p.categories).map(String),
     projects: asList(p.projects).map(String),
     date: dayString(p.collected),
+    dates: [...new Set([dayString(p.collected), ...asList(p.collected_dates).map(dayString)].filter(Boolean))],
     published: dayString(p.published),
     status: String(p.status || "inbox")
   }))
@@ -70,7 +71,7 @@ async function openNote(entry) {
   const leaf = app.workspace.getLeaf("tab");
   await leaf.openFile(file);
 }
-function monthCount(date) { return pages.filter(p => p.date === date).length; }
+function monthCount(date) { return pages.filter(p => p.dates.includes(date)).length; }
 function renderCalendar(parent) {
   const section = elt(parent, "section", "tech-archive__calendar-wrap");
   const heading = elt(section, "div", "tech-archive__section-head");
@@ -108,7 +109,7 @@ function renderCalendar(parent) {
       continue;
     }
     const date = iso(state.year, state.month, day);
-    const articles = pages.filter(p => p.date === date);
+    const articles = pages.filter(p => p.dates.includes(date));
     const selected = state.day === date;
     const cell = button(calendar, "", "tech-archive__day" +
       (selected ? " is-selected" : "") + (date === todayIso ? " is-today" : ""),
@@ -132,7 +133,7 @@ function renderCalendar(parent) {
   }
 }
 function articleMatch(p) {
-  if (state.day && p.date !== state.day) return false;
+  if (state.day && !p.dates.includes(state.day)) return false;
   if (state.topic !== "전체" && !p.categories.includes(state.topic) && p.topic !== state.topic) return false;
   if (state.project !== "전체" && !p.projects.includes(state.project)) return false;
   if (state.status !== "전체" && p.status !== state.status) return false;
@@ -265,7 +266,7 @@ function render() {
   const stats = elt(root, "div", "tech-archive__stats");
   const datasets = [
     [pages.length, "등록된 글"],
-    [new Set(pages.map(p => p.date).filter(Boolean)).size, "수집 날짜"],
+    [new Set(pages.flatMap(p => p.dates)).size, "수집 날짜"],
     [new Set(pages.flatMap(p => p.categories)).size, "분류 주제"],
     [pages.filter(p => p.status === "inbox").length, "읽기 대기"]
   ];
