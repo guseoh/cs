@@ -173,15 +173,22 @@ function renderResults() {
     const meta = elt(item, "div", "tech-archive__article-meta");
     elt(meta, "span", "", p.date || "날짜 미확인");
     elt(meta, "span", "", p.source || "출처 미확인");
-    elt(meta, "span", "tech-archive__article-topic", p.topic || "기타");
+    const primaryTopic = elt(meta, "span", "tech-archive__article-topic", p.topic || "기타");
+    primaryTopic.setAttribute("data-topic", p.topic);
     const title = button(item, p.title, "tech-archive__article-link", () => {
       void openNote(p).catch(error => console.error("Daily Tech: cannot open note in new tab", error));
     });
     title.title = p.title;
     if (p.summary) elt(item, "p", "tech-archive__summary", p.summary);
     const bottom = elt(item, "div", "tech-archive__article-foot");
-    for (const category of p.categories.slice(0, 2)) elt(bottom, "span", "tech-archive__category", category);
-    for (const project of p.projects) elt(bottom, "span", "tech-archive__project-tag", project);
+    for (const category of p.categories.slice(0, 2)) {
+      const label = elt(bottom, "span", "tech-archive__category", category);
+      label.setAttribute("data-topic", category);
+    }
+    for (const project of p.projects) {
+      const label = elt(bottom, "span", "tech-archive__project-tag", project);
+      label.setAttribute("data-project", project);
+    }
     if (p.status in statuses) elt(bottom, "span", "tech-archive__status", statuses[p.status]);
   });
   if (count > 1) {
@@ -214,6 +221,7 @@ function renderExplorer(parent) {
       }
       renderResults();
     });
+    if (subject !== "전체") b.setAttribute("data-topic", subject);
     b.setAttribute("aria-pressed", String(state.topic === subject));
     topicButtons.set(subject, b);
   });
@@ -238,6 +246,7 @@ function renderExplorer(parent) {
       }
       renderResults();
     });
+    if (project !== "전체") chip.setAttribute("data-project", project);
     chip.setAttribute("aria-pressed", String(state.project === project));
     projectButtons.set(project, chip);
   });
