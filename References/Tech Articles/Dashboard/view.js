@@ -1,6 +1,9 @@
 /* Daily Tech: a local-only Obsidian dashboard for DataviewJS.
    Data remains in Markdown notes; this view never changes article metadata. */
 const source = '"References/Tech Articles/Articles"';
+// Confirmed against the Notion "유형" multi-select schema on 2026-11-05.
+// Keep all 11 labels exactly; do not infer subjects from currently imported notes.
+const notionTopics = ["DB·데이터","성능","설계·아키텍처","테스트","장애·운영","리팩터링","동시성·분산","인프라·DevOps","AI·개발도구","보안","개발문화·회고"];
 const asList = value => {
   if (!value) return [];
   if (Array.isArray(value)) return value;
@@ -24,6 +27,7 @@ const pages = dv.pages(source)
     source: String(p.source || ""),
     topic: String(p.topic || ""),
     categories: asList(p.categories).map(String),
+    projects: asList(p.projects).map(String),
     date: dayString(p.collected),
     published: dayString(p.published),
     status: String(p.status || "inbox")
@@ -31,7 +35,7 @@ const pages = dv.pages(source)
   .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || a.title.localeCompare(b.title, "ko"));
 const now = new Date();
 const state = { year: now.getFullYear(), month: now.getMonth(), day: null,
-  topic: "전체", query: "", status: "전체", page: 0 };
+  topic: "전체", project: "전체", query: "", status: "전체", page: 0 };
 const statuses = { inbox: "읽기 대기", reading: "읽는 중",
   reviewed: "학습 완료", archived: "보관" };
 const root = document.createElement("div");
@@ -123,9 +127,10 @@ function renderCalendar(parent) {
 function articleMatch(p) {
   if (state.day && p.date !== state.day) return false;
   if (state.topic !== "전체" && !p.categories.includes(state.topic) && p.topic !== state.topic) return false;
+  if (state.project !== "전체" && !p.projects.includes(state.project)) return false;
   if (state.status !== "전체" && p.status !== state.status) return false;
   const q = state.query.trim().toLocaleLowerCase();
-  return !q || [p.title, p.summary, p.source, p.topic, ...p.categories].join(" ").toLocaleLowerCase().includes(q);
+  return !q || [p.title, p.summary, p.source, p.topic, ...p.categories, ...p.projects].join(" ").toLocaleLowerCase().includes(q);
 }
 let resultHost;
 let calendarHost;
@@ -166,6 +171,7 @@ function renderResults() {
     if (p.summary) elt(item, "p", "tech-archive__summary", p.summary);
     const bottom = elt(item, "div", "tech-archive__article-foot");
     for (const category of p.categories.slice(0, 2)) elt(bottom, "span", "tech-archive__category", category);
+    for (const project of p.projects) elt(bottom, "span", "tech-archive__project-tag", project);
     if (p.status in statuses) elt(bottom, "span", "tech-archive__status", statuses[p.status]);
   });
   if (count > 1) {
@@ -182,7 +188,7 @@ function renderExplorer(parent) {
   const heading = elt(section, "div", "tech-archive__section-head");
   const name = elt(heading, "div", "");
   elt(name, "h2", "tech-archive__heading", "주제와 글 탐색");
-  const subjects = [...new Set(pages.flatMap(p => p.categories))].filter(Boolean).sort((a, b) => a.localeCompare(b, "ko"));
+  const subjects = notionTopics;
   const tags = elt(section, "div", "tech-archive__tags");
   const topicButtons = new Map();
   ["전체", ...subjects].forEach(subject => {
@@ -200,6 +206,30 @@ function renderExplorer(parent) {
     });
     b.setAttribute("aria-pressed", String(state.topic === subject));
     topicButtons.set(subject, b);
+  });
+
+  // Project labels are an independent filter, not a 12th Notion subject.
+  const projectRow = elt(section, "div", "tech-archive__project-row");
+  elt(projectRow, "span", "tech-archive__project-label", "적용 프로젝트");
+  const projectTags = elt(projectRow, "div", "tech-archive__project-tags");
+  const presentProjects = [...new Set(pages.flatMap(p => p.projects))]
+    .filter(Boolean).filter(p => p !== "PawCycle").sort((a, b) => a.localeCompare(b, "ko"));
+  const projectButtons = new Map();
+  ["전체", "PawCycle", ...presentProjects].forEach(project => {
+    const chip = button(projectTags, project, "tech-archive__chip tech-archive__project-chip" +
+      (state.project === project ? " is-active" : ""), () => {
+      if (state.project === project) return;
+      state.project = project;
+      state.page = 0;
+      for (const [name, b] of projectButtons) {
+        const active = name === state.project;
+        b.className = "tech-archive__chip tech-archive__project-chip" + (active ? " is-active" : "");
+        b.setAttribute("aria-pressed", String(active));
+      }
+      renderResults();
+    });
+    chip.setAttribute("aria-pressed", String(state.project === project));
+    projectButtons.set(project, chip);
   });
 
   const tools = elt(section, "div", "tech-archive__tools");
