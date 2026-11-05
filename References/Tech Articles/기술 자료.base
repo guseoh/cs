@@ -4,22 +4,77 @@ filters:
     - 'type == "tech-article"'
 formulas:
   article: 'file.asLink(title)'
+  month: 'collected.format("YYYY-MM")'
 properties:
   formula.article:
-    displayName: 글
+    displayName: 기술 글
+  note.summary:
+    displayName: 핵심 요약
   note.source:
     displayName: 출처
-  note.published:
-    displayName: 발행일
   note.collected:
     displayName: 수집일
-  note.categories:
-    displayName: 주제
-  note.projects:
-    displayName: 프로젝트
+  note.published:
+    displayName: 발행일
+  note.topic:
+    displayName: 대표 주제
+  note.tags:
+    displayName: 세부 태그
   note.status:
-    displayName: 학습 상태
+    displayName: 읽기 상태
 views:
+  - type: table
+    name: 최근 수집
+    limit: 12
+    order:
+      - formula.article
+      - note.summary
+      - note.collected
+      - note.topic
+      - note.status
+    sort:
+      - property: note.collected
+        direction: DESC
+  - type: table
+    name: 날짜별
+    groupBy:
+      property: note.collected
+      direction: DESC
+    order:
+      - formula.article
+      - note.summary
+      - note.source
+      - note.topic
+      - note.status
+    sort:
+      - property: note.collected
+        direction: DESC
+  - type: table
+    name: 월별
+    groupBy:
+      property: formula.month
+      direction: DESC
+    order:
+      - formula.article
+      - note.collected
+      - note.topic
+      - note.source
+    sort:
+      - property: note.collected
+        direction: DESC
+  - type: table
+    name: 태그별
+    groupBy:
+      property: note.topic
+      direction: ASC
+    order:
+      - formula.article
+      - note.summary
+      - note.collected
+      - note.tags
+    sort:
+      - property: note.collected
+        direction: DESC
   - type: table
     name: 읽기 대기
     filters:
@@ -27,22 +82,8 @@ views:
         - 'status == "inbox"'
     order:
       - formula.article
-      - note.source
+      - note.topic
       - note.collected
-      - note.categories
-    sort:
-      - property: note.collected
-        direction: DESC
-  - type: table
-    name: 읽는 중
-    filters:
-      and:
-        - 'status == "reading"'
-    order:
-      - formula.article
-      - note.source
-      - note.categories
-      - note.projects
     sort:
       - property: note.collected
         direction: DESC
@@ -53,22 +94,8 @@ views:
         - 'status == "reviewed"'
     order:
       - formula.article
-      - note.source
-      - note.categories
-      - note.projects
-    sort:
-      - property: note.collected
-        direction: DESC
-  - type: table
-    name: 설계·아키텍처
-    filters:
-      and:
-        - 'categories.contains("설계·아키텍처")'
-    order:
-      - formula.article
-      - note.source
-      - note.status
-      - note.projects
+      - note.topic
+      - note.collected
     sort:
       - property: note.collected
         direction: DESC
@@ -76,12 +103,12 @@ views:
     name: 전체 자료
     order:
       - formula.article
-      - note.source
-      - note.published
+      - note.summary
       - note.collected
-      - note.categories
+      - note.published
+      - note.topic
+      - note.tags
       - note.status
-      - note.projects
     sort:
       - property: note.collected
         direction: DESC
