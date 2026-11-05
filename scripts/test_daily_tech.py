@@ -64,12 +64,12 @@ class DailyTechTests(unittest.TestCase):
         self.assertNotEqual([], validate_note(self.note, self.root)[1])
 
     def test_accepts_compact_source_footer(self):
-        compact = ARTICLE.replace("## 원문\\n", "**원문:** ")
+        compact = ARTICLE.replace("## 원문\n", "**원문:** ")
         self.note.write_text(compact, encoding="utf-8")
         self.assertEqual([], validate_note(self.note, self.root)[1])
 
     def test_rejects_unmarked_source_link(self):
-        unmarked = ARTICLE.replace("## 원문\\n", "")
+        unmarked = ARTICLE.replace("## 원문\n", "")
         self.note.write_text(unmarked, encoding="utf-8")
         self.assertIn("missing source citation", " ".join(validate_note(self.note, self.root)[1]))
 

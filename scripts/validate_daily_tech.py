@@ -159,7 +159,7 @@ def validate_note(path: Path, root: Path = ROOT) -> tuple[str, list[str]]:
         issue("empty article body")
     # Legacy articles use a heading, while the compact Notion-inspired
     # template puts the verified source link in a small footer instead.
-    if "## 원문" not in body and not re.search(r"(?m)^\\*\\*원문:\\*\\*\\s*\\[", body):
+    if "## 원문" not in body and not any(line.startswith("**원문:** [") for line in body.splitlines()):
         issue("missing source citation")
     linked = re.findall(r"\]\((https?://[^\s)]+)\)", body)
     found_source = False
