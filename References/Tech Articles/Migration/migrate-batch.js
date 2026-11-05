@@ -27,7 +27,7 @@ const tag={
 "테스트":"tech/테스트","장애·운영":"tech/장애-운영","리팩터링":"tech/리팩터링",
 "동시성·분산":"tech/동시성-분산","인프라·DevOps":"tech/인프라-DevOps",
 "AI·개발도구":"tech/AI-개발도구","보안":"tech/보안","개발문화·회고":"tech/개발문화-회고"};
-const norm=u=>String(u).replace(/^https?:\/\/(?:www\.)?/i,"").replace(/\/+$/,"").toLowerCase();
+const norm=u=>{const raw=String(u).replace(/^https?:\/\/(?:www\.)?/i,"").replace(/\/+$/,"").toLowerCase();try{return decodeURI(raw)}catch{return raw}};
 const quoted=x=>JSON.stringify(String(x));
 const hash=x=>{let h=2166136261;for(let i=0;i<x.length;i++){h^=x.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(16).padStart(8,"0")};
 const clean=x=>String(x||"").replace(/<br\s*\/?>/gi,"\n")
