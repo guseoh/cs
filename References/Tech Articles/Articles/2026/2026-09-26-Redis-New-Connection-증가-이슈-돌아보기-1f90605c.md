@@ -30,11 +30,30 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** 피크 시간이 지난 자정에도 Redis New Connection 지표가 줄지 않았고, 파이프라이닝이 새 연결을 만드는지부터 의심했다.
-- **구조:** `RedisTemplate.executePipelined()`은 공유 연결이 아니라 전용 연결을 사용하지만, 풀을 설정했다면 전용 연결도 풀에서 재사용된다. 당시 최대 풀 크기는 20이었다.
-- **원인:** GenericObjectPool의 기본 LIFO 특성 때문에 일부 연결이 오래 idle 상태로 남았고, ElastiCache의 `timeout=100` 설정이 100초 동안 사용하지 않은 연결을 끊었다. Lettuce ConnectionWatchDog가 이를 다시 연결하면서 New Connection이 증가했다.
-- **검증:** 로컬에서도 사용하지 않는 연결이 실제로 100초 간격으로 재연결되는 것을 재현했다. 피크 때 늘어난 연결이 한산한 시간에 idle이 되면서 자정에 신규 연결 지표가 더 높아지는 현상을 설명할 수 있었다.
-- **트레이드오프:** 서버의 idle timeout을 무작정 늘리기보다 애플리케이션 커넥션 풀의 LIFO→FIFO 변경 등 연결 사용 패턴을 조정하는 방안을 검토했다.
+Redis의 New Connection이 자정에도 높게 유지되면 부하가 다시 늘어난 것처럼 보이지만 실제로는 피크 때 만들어진 유휴 연결이 재접속되는 것일 수 있다. 우아한형제들은 파이프라인이 연결을 매번 새로 생성한다는 가설을 먼저 세웠지만, `RedisTemplate.executePipelined()`의 전용 연결도 풀에 포함돼 재사용된다는 사실을 확인했다.
+
+```mermaid
+flowchart LR
+ A[트래픽 피크에 연결 풀 증가] --> B[LIFO: 일부 연결만 재사용]
+ B --> C[사용하지 않는 연결 100초 경과]
+ C --> D[Redis idle timeout 종료]
+ D --> E[Lettuce WatchDog 재연결]
+ E --> F[New Connection 메트릭 상승]
+```
+
+*원문 근거를 가로 방향으로 자체 재구성한 학습용 도식이다.*
+
+Lettuce 연결 풀의 최대 크기는 20이었고 GenericObjectPool의 기본 LIFO 전략 때문에 자주 쓰는 연결만 다시 선택되며 나머지는 오래 idle로 남았다. ElastiCache의 `timeout=100`은 100초간 미사용 연결을 끊었고 Lettuce ConnectionWatchDog가 이를 다시 열면서 New Connection 메트릭이 증가했다. 피크 이후 트래픽이 줄어들수록 풀의 사용하지 않는 커넥션이 늘어난 역설적인 현상이다.
+
+| 요소 | 설정·동작 | 관측 결과 |
+| --- | --- | --- |
+| Pipelined 연결 | 전용이나 풀에서 재사용 | 매번 새 연결이 아님 |
+| Pool | 최대 크기 20, 기본 LIFO | 일부 연결 장시간 Idle |
+| Redis idle timeout | 100초 | 미사용 연결 닫힘 |
+| Lettuce WatchDog | 끊긴 연결 복원 | 신규 연결 수 증가 |
+| 후보 조정 | LIFO→FIFO | 연결 사용의 고른 분포 확인 |
+
+개발 환경에서 idle 연결이 실제로 100초 주기로 다시 연결되는 것을 확인한 뒤 서버 timeout을 무조건 늘리지 않고 풀의 LIFO→FIFO 전략 등 연결의 재사용 패턴을 변경하는 대안을 검토했다. New Connection 수 자체가 API 장애는 아니지만 재연결이 많은 이유를 파악하지 않고 풀 크기만 늘리면 같은 문제가 심해질 수 있다.
 
 ## 왜 읽을까
 
