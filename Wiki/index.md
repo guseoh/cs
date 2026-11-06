@@ -22,6 +22,10 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-06 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
+## Repository maintenance observations
+
+- [PawCycle scripts/docs cleanup inventory (2026-11-06)](projects/pawcycle.md#repository-cleanup-inventory--2026-11-06-analyzed-change-proposal-not-approved) — File tree, historical evidence, active CI dependencies, document status drift and phased cleanup candidates. **Analysis only; no repository deletion or change approved.**
+
 ## Active investigation handoffs
 
 - [PawCycle — OCI E5→A1 G0 migration and data-preservation checkpoint (2026-11-06)](projects/pawcycle.md#oci-g0-session-handoff--2026-11-06-user-reported-cloud-observations-no-operations-approval): **NO-GO for cutover**, separately approved DB access/backup/restore gates, A1 monitor activation variable reported true but current run health unverified; 2026-11-06 strategy update: **OCI A1 acquisition, data backup/network/ARM64 readiness and local backend refactor/frontend design/reverse engineering proceed actively in parallel, not with local-first priority**; **AWS remains the main operations/deployment learning environment**. G0-R2.3 deeper backup Export study was paused (token limit), **backup replacement/safety remains unverified**, and Production cutover is still NO-GO. Network forms and security-rule matching only; Cloud Shell VNIC activation/IP/IAM and MySQL connection remain unverified. This summarizes user-supplied OCI observations, not independent production verification.
