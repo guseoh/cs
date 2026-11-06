@@ -30,11 +30,29 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** MariaDB JDBC 드라이버를 MySQL로 바꾼 뒤 EC2 인스턴스가 반복적으로 OOM으로 종료됐다. 요청이 약 2분 지연되는 구간에도 실제 DB 쿼리 시간은 짧았다.
-- **증거:** Heap Dump 분석에서 `ConnectionImpl` 객체 13,689개와 `AbandonedConnectionCleanupThread`가 관리하는 참조 구조에 메모리가 집중된 사실을 발견했다.
-- **원인:** HikariCP `max-lifetime`이 50초여서 기본값 30분보다 36배 빠르게 커넥션이 교체됐다. 단일 스레드로 네트워크 리소스를 정리하는 작업이 생성 속도를 따라가지 못했다.
-- **트레이드오프:** DB failover 시 빠른 재연결을 위해 50초 수명을 유지해야 했으므로, 수명 연장 대신 mysql-connector-j 8.0.22 이상에서 제공하는 `-Dcom.mysql.cj.disableAbandonedConnectionCleanup=true` 옵션을 선택했다.
-- **결과:** 옵션 적용 후 힙 덤프에서 해당 정리 스레드의 메모리 점유가 사라졌고, 이후 수개월 동안 안정적으로 운영됐다고 보고했다.
+JDBC 드라이버를 MariaDB에서 MySQL로 바꾼 뒤 컬리 서비스의 EC2 인스턴스가 주기적으로 OOM으로 교체되었다. DB 쿼리 자체가 오래 걸리는 것은 아니었지만 요청 지연이 약 2분에 달했고, 힙 덤프에는 `ConnectionImpl` 객체 13,689개가 남아 있었다.
+
+![PhantomReference와 ConnectionFinalizerPhantomReference의 네트워크 자원 정리 참조 구조](https://helloworld.kurly.com/_astro/lifetime3.C-P8FLaj_1XDLql.webp)
+
+*그림 1. 원문 PhantomReference 수명 그림: 직접 참조가 끊긴 Connection을 Cleanup Thread가 정리할 때 남는 참조 관계 — [출처: 원문 기술 블로그](https://helloworld.kurly.com/blog/connection-leak/)*
+
+HikariCP가 Connection 수명을 50초로 짧게 설정한 것은 DB failover 이후 빠른 재접속을 위한 정책이었다. 하지만 기본 30분 대비 36배 빠르게 연결이 교체되자 MySQL 드라이버의 `AbandonedConnectionCleanupThread`가 `PhantomReference`를 통해 관리하는 네트워크 자원의 정리가 새 연결 생성 속도를 따라가지 못했다. Heap Dump의 참조 그래프를 보면 `ConnectionFinalizerPhantomReference`가 단일 Cleanup Thread의 자료구조에 남는 과정을 확인할 수 있다.
+
+```text
+# 원문에서 채택한 MySQL Connector/J JVM 옵션
+-Dcom.mysql.cj.disableAbandonedConnectionCleanup=true
+```
+
+해당 속성은 특정 Connector/J 버전의 동작을 제어한다. 일반적인 커넥션 풀의 누수나 커넥션 미반납을 해결하는 범용 플래그가 아니다.
+
+| 진단 근거 | 관찰 결과 | 설계 의사결정 |
+| --- | --- | --- |
+| Heap Dump | ConnectionImpl 13,689개 | 드라이버 Cleanup 참조 경로 추적 |
+| Hikari max-lifetime | 50초(기본 약 30분 대비 36배) | failover 대응 수명 유지 |
+| CleanupThread | 연결 교체 속도를 따라가지 못함 | 지원 플래그로 비활성화 |
+| 후속 관측 | 누적 메모리 감소·수개월 안정 | 드라이버 버전·풀 폐기 경로 검증 |
+
+팀은 수명 50초를 늘리는 대신 mysql-connector-j 8.0.22 이상에서 지원하는 `-Dcom.mysql.cj.disableAbandonedConnectionCleanup=true`를 적용해 관련 정리 스레드를 비활성화했다. 이후 해당 스레드의 누적 점유가 사라지고 수개월간 안정적으로 운영했다고 보고했다. 하지만 이 설정은 모든 JDBC 드라이버에 동일하게 적용되는 해결책이 아니며 커넥션을 명시적으로 닫는 풀과 리소스 관리 책임이 유지되어야 한다.
 
 ## 왜 읽을까
 

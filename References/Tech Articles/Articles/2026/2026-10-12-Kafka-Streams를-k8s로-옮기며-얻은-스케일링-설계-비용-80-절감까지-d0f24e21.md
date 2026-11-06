@@ -30,11 +30,30 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** EC2 c6g.2xlarge 72대를 피크 기준으로 고정 운영했다. Kubernetes CPU 기반 HPA는 파티션 불균등 분배로 일부 Pod가 포화되어도 평균 CPU가 임계치 아래여서 확장하지 못했다.
-- **구조:** 소스 토픽별 Kafka Streams 앱으로 분리해 배포·장애·스케일링을 격리하고, KEDA Kafka scaler로 consumer lag을 기준으로 replica를 조절했다.
-- **접근:** 자정 로그 급증에는 lag이 쌓이기 전 cron trigger로 미리 확장했다. Pod당 다중 stream thread로 JVM 오버헤드와 rebalance 유발 이벤트를 줄였지만 단일 Pod 장애 영향 범위가 커지는 비용도 고려했다.
-- **수치:** EC2 대비 인프라 비용을 80% 이상 절감했다. 운영 환경은 최소 replica를 유지하고 트래픽이 적은 시간에는 2대까지 줄어든다.
-- **주의점:** KEDA의 파티션 균등 옵션은 Pod 수만 고려하지만 실제 작업 분배는 Pod×thread 기준이다. 24 파티션·Pod당 4 thread라면 균등한 replica는 1·2·3·6이며, 이를 지원하는 개선 PR을 진행 중이라고 설명한다.
+데브시스터즈의 Kafka Streams Log Transformer는 피크 시점에 맞춰 EC2 c6g.2xlarge 72대를 고정 운영했다. Kubernetes로 이전한 뒤 일반 HPA의 평균 CPU를 기준으로 늘리려 했지만 파티션이 고르게 배치되지 않으면 일부 Pod만 CPU가 포화돼도 평균이 낮아 확장되지 않는 문제가 있었다.
+
+ ```mermaid
+flowchart LR
+ A[Kafka 파티션·Consumer Lag] --> B[KEDA Kafka Scaler]
+ C[자정 선제 Cron Trigger] --> B
+ B --> D[Replica 수 결정]
+ D --> E[Kafka Streams Pod×Thread]
+ E --> F[Lag·처리 지연·비용 검증]
+```
+
+*원문에서 확인한 워크로드 전용 스케일링 경계를 가로형으로 재구성했다. Consumer Lag는 실시간 처리 지연의 신호이며 CPU 평균과 역할이 다르다.*
+
+처리 중인 Kafka 토픽마다 애플리케이션을 분리해 배포·장애 영역을 나누고, KEDA Kafka scaler가 Consumer Lag을 기준으로 확장하도록 변경했다. 자정에는 로그가 급격히 증가하는 특성을 이용해 lag가 실제로 쌓이기 전에 cron trigger로 미리 scale-out했다. Pod당 여러 Stream Thread를 실행하면 JVM 및 재균형 비용을 줄일 수 있지만 Pod 하나가 죽었을 때 영향을 받는 태스크도 함께 증가한다. 파티션 24개에 Pod마다 thread 4개라면 균등한 배분 조건은 1·2·3·6 replica 같은 조합이 된다.
+
+| 전환 항목 | 기존/문제 | 선택과 효과 |
+| --- | --- | --- |
+| 인프라 | EC2 72대 피크 고정 | Kubernetes/KEDA 동적 확장 |
+| HPA 신호 | 평균 CPU의 파티션 편중 은폐 | Kafka consumer lag 사용 |
+| 자정 트래픽 | Lag 증가 후 대응 시 늦음 | Cron 사전 확장 |
+| 실행 단위 | Pod만 기준으로 계산 | Pod×Thread와 파티션 수 함께 판단 |
+| 비용 | 기존 EC2 고정 규모 | 80% 이상 절감(원문 환경) |
+
+최소 Replica를 유지하되 한산한 시점에는 2개까지 축소하며, 기존 EC2 대비 인프라 비용을 80% 이상 절감했다. 원문은 KEDA가 계산하는 파티션 단위와 실제 워커의 Pod×thread 실행 단위가 달라지는 문제를 개선 PR로 다루고 있다고 설명한다. 실측 트래픽·Lag 회복 시간·파티션 수를 무시하고 단순히 CPU 기준을 낮추는 것은 적합한 해결책이 아니다.
 
 ## 왜 읽을까
 
