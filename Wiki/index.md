@@ -19,7 +19,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) | 2026-11-03 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
-| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-05 |
+| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-06 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
 ## Decision index
