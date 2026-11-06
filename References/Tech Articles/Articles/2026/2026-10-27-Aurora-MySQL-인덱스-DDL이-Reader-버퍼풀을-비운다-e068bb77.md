@@ -28,43 +28,28 @@ migration_origin: notion
 
 > 당근 기술 블로그 · Eden(이든) · 2026-09-17
 
-## 한눈에 보기
-
-인덱스를 사용하지 못하도록 표시하는 INVISIBLE DDL은 논리적으로 가벼운 메타데이터 변경처럼 보일 수 있다. 그런데 특정 Aurora MySQL 엔진에서는 이 변경을 수행하자 Writer가 아닌 Reader 노드들에서만 I/O와 CPU 사용량이 상승했다. 버퍼풀 메모리가 계속 할당되어 있다는 사실만으로 캐시 데이터가 유효하다고 결론 내릴 수 없다는 점이 핵심이다.
-
-```mermaid
-flowchart TD
-  A[Writer: ALTER INDEX INVISIBLE] --> B[Aurora 스토리지·메타데이터 변경]
-  B --> C[Reader 1·2·3에서 캐시 무효화]
-  C --> D[INNODB_BUFFER_PAGE IS_STALE 94~98%]
-  D --> E[스토리지 재읽기·ReadIOPS 상승]
-  E --> F[Reader CPU·지연 증가]
-  G[Writer CPU 정상] -. "Writer 지표만으로 감지 불가" .-> F
-```
-
-*원문을 토대로 자체 재구성한 설명용 도식이며 원본 도식의 전재가 아니다.*
-
-원문은 Writer 1대·Reader 3대의 실험에서 인덱스를 INVISIBLE로 변경한 뒤 Reader 지표가 급증한 원인을 추적했다. 전체 버퍼풀 크기가 약 8GB로 유지되더라도 페이지의 `IS_STALE` 비율이 94~98%라면 실제 재사용할 수 있는 캐시는 크게 줄어든 것이다. 별도 클러스터에서 여러 DDL 알고리즘을 비교한 뒤 공급사에 엔진 결함을 재현해 전달한 증거 확보 과정이 중요하다.
-
 ## 핵심 내용
 
-### 문제의 발단
+사용하지 않는 인덱스를 삭제하기 전에 INVISIBLE로 바꾸는 것은 일반적으로 영향 범위를 줄이기 위한 점진적 절차다. 하지만 특정 Aurora MySQL 버전에서는 이 메타데이터 중심 DDL을 실행하자 Writer가 안정적인데 Reader 여러 대에서 CPU와 읽기 I/O가 급증했다. Writer 한 대의 지표만 관찰하면 장애를 놓칠 수 있는 사례다.
 
-**문제:** Aurora MySQL 3.10.x의 Writer 1대·Reader 3대 환경에서 미사용 인덱스 6개를 단계적으로 정리하려 했다. INDEX INVISIBLE을 3회 실행할 때 Reader 3대에서만 CPU가 약 30%→50~60%, ReadIOPS가 평소 수백→3.1K로 증가했고 Writer 지표는 안정적이었다.
+```mermaid
+flowchart LR
+ A[Writer: INDEX INVISIBLE DDL] --> B[캐시 무효화 메타데이터]
+ B --> C[Reader 버퍼풀 IS_STALE 급증]
+ C --> D[디스크 재읽기·ReadIOPS 증가]
+ D --> E[Reader CPU·응답 지연 증가]
+```
 
-### 구조와 검증 과정
+*원문에서 확인한 사실을 바탕으로 가로 방향으로 자체 재구성한 개념도다.*
 
-**접근:** 모든 노드의 `performance_schema.table_io_waits_summary_by_index_usage`를 1주 간격 두 차례 비교해 미사용 인덱스를 선별했다. 바로 DROP하지 않고 INVISIBLE로 변경한 뒤 관찰하려는 점진적 절차였다.
+원문은 Writer 1대·Reader 3대의 Aurora 3.10.x 환경에서 사용량이 거의 없는 인덱스 6개를 정리했다. INVISIBLE 변경 후 Reader의 `INNODB_BUFFER_PAGE`를 확인하자 버퍼풀의 전체 용량은 약 8GB로 유지됐지만, 해당 테이블의 PRIMARY 및 다른 인덱스 페이지 중 94~98%가 `IS_STALE`로 표시됐다. 메모리 페이지가 할당되어 있다는 사실과 실제 쿼리에 재사용할 수 있는 캐시라는 사실은 다르다.
 
-**원인 분석:** `INNODB_BUFFER_PAGE`의 전체 페이지 수는 약 8GB 수준으로 유지됐지만 `IS_STALE`을 확인하자 PRIMARY와 다른 인덱스의 94~98%가 무효 상태로 바뀌었다. 인덱스 한 개가 아니라 해당 테이블 전체 캐시가 영향을 받은 것이다.
+```sql
+-- 문제를 재현한 DDL 유형을 설명하는 예시
+ALTER TABLE example_table ALTER INDEX old_index INVISIBLE;
+```
 
-### 실측·운영 판단
-
-**재현:** 별도 클러스터에서 INSTANT, INPLACE, COPY, CREATE/DROP/RENAME INDEX 등을 비교했다. rebuild 없는 인덱스 DDL에서도 캐시 무효화가 발생함을 확인했고, AWS는 Aurora MySQL 3.08.0부터 유입된 엔진 결함이라고 인정했다.
-
-**주의점:** 원문 작성 당시 AWS는 3.14에 수정이 포함될 예정이라고 안내했고 3.10 LTS에 백포트 계획은 없었다. 적용 전에는 실제 엔진 버전과 릴리스 상태를 재확인해야 하며, `INNODB_BUFFER_PAGE` 조회 자체도 운영 부하를 유발할 수 있다.
-
-### 주요 지표와 비교
+인덱스를 바로 DROP하지 않고 관찰하는 전략도 **정확한 엔진 버전별 영향 테스트** 없이는 무조건 안전하다고 할 수 없다.
 
 | 지표·조건 | 변경 전 | DDL 직후 | 해석 |
 | --- | --- | --- | --- |
@@ -75,6 +60,8 @@ flowchart TD
 | Writer 상태 | 안정적 | 안정적 | Writer 지표만으로 문제 놓칠 수 있음 |
 
 *원문에서 확인한 Aurora MySQL 3.10.x 환경의 회귀 현상이다. 모든 MySQL 또는 모든 Aurora 버전의 일반적 동작으로 확대 해석해서는 안 된다.*
+
+팀은 별도 클러스터에서 INSTANT·INPLACE·COPY와 CREATE/DROP/RENAME INDEX 등 여러 DDL을 비교해 rebuild 없는 인덱스 변경에서도 비슷한 현상이 나타남을 재현했다. AWS는 3.08.0부터 유입된 Aurora 엔진 결함이라고 인정했고 원문 집필 당시 3.14 수정을 예고했다. 현재 엔진 버전과 실제 수정 반영 여부는 별도 확인해야 하며, 모든 MySQL 인스턴스에서 같은 현상이 나타난다는 일반화는 금물이다.
 
 ## 왜 읽을까
 
