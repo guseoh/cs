@@ -32,10 +32,6 @@ migration_origin: notion
 
 SageMaker 추론 모델, DynamoDB 유저 임베딩, OpenSearch 아이템 인덱스가 서로 다른 서비스에 흩어져 있으면 각각의 배포가 성공해도 서로 다른 세대의 산출물을 함께 읽는 문제가 생긴다. 컬리는 개별 자원의 원자적 갱신을 시도하는 대신 세대별 산출물을 준비한 뒤 활성 포인터 하나를 전환하는 설계를 선택했다.
 
-SageMaker 추론 모델, DynamoDB 유저 임베딩, OpenSearch 인덱스를 순차 교체하면 서로 다른 세대가 섞여 추천 결과의 정합성이 깨집니다.
-
-Argo가 DAG·재시도·게이트를, SageMaker가 GPU 학습·추론·모델 승인 상태를 담당합니다. 활성 키 `sdm:active`로 세대 전환을 통제합니다.
-
 ![세대별 ML 파이프라인 준비와 활성화](https://helloworld.kurly.com/_astro/04-daily-pipeline.BQ182-iq_Z1JbLwQ.webp)
 
 *그림 1. 신규 세대 준비 중에는 라이브를 바꾸지 않는 컷오버 순서 — [출처: 원문 기술 블로그](https://helloworld.kurly.com/blog/recommend-ml-pipeline)*
@@ -45,12 +41,6 @@ Argo가 DAG·재시도·게이트를, SageMaker가 GPU 학습·추론·모델 �
 *그림 2. sdm:active가 모델·유저 임베딩·색인의 세대를 함께 결정 — [출처: 원문 기술 블로그](https://helloworld.kurly.com/blog/recommend-ml-pipeline)*
 
 Argo의 CronWorkflow는 학습→배포→피처 적재→검색 색인→컷오버 순서를 실행하며, SageMaker는 GPU 작업과 모델 승인을 담당한다. 새로운 모델은 기존 챔피언과 같은 입력으로 비교해 성공률·오류·벡터 수·지연을 검증한다. 검증에 실패하면 라이브 세대는 유지한다. 신규 SageMaker Variant를 Weight 0으로 준비하고 임베딩·인덱스도 별도 네임스페이스에 적재한 뒤 `sdm:active`를 바꾸는 것이 핵심이다.
-
-신규 Variant를 Weight 0으로 준비하고 새 데이터와 인덱스를 생성한 뒤, 검증과 InService 확인을 통과한 경우에만 컷오버합니다.
-
-직전 세대를 롤백용으로 유지하는 비용이 발생합니다. 오토스케일링 도입 후 상시 인스턴스가 이전의 약 2/3 수준으로 줄었습니다.
-
-UpdateEndpoint가 기존 Fleet도 교체해 지연이 발생할 수 있어 워커 초기화 웜업이 필요했습니다. 자식 Workflow의 제출은 재시도하지 않고 상태 조회만 재시도해 중복 실행을 막았습니다.
 
 | 자원·단계 | 새로운 세대 준비 | 실제 전환 또는 확인 |
 | --- | --- | --- |
