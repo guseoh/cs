@@ -30,11 +30,26 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **구조:** Apache Spark Operator는 개별 SparkApplication의 기동·상태·제한된 재시도를 담당하고, 자체 Spark Tenant Operator는 여러 Application의 replica 수·세대(generation)·교체를 관리한다. Gateway는 신규 세션과 기존 세션을 서로 다른 세대로 라우팅한다.
-- **교체:** 새 generation의 모든 서버가 일정 시간 안정적으로 Ready인 경우에만 신규 세션을 전환한다. 기존 세션은 원래 Driver에 남겨 drain하며, 기본 90분이 지나면 강제 정리될 수 있어 세션 단절 위험이 남는다.
-- **장애 경계:** Apache Spark Operator의 재시도가 끝나도 무한 재생성하지 않는다. 정상 서버가 최소 1개 남아 있을 때만 상위 Operator가 교체하고, 모두 실패한 상태에서는 자동 교체를 보류한다.
-- **시행착오:** Spark UI HTTP probe는 리다이렉트를 성공으로 오인해 실제 Connect 준비를 보장하지 못했다. gRPC 포트 연결 검사로 바꾸자 Executor의 Driver DNS 조회와 Ready 조건이 서로를 기다리는 교착이 드러나 Pod IP 직접 연결 등으로 해결했다.
-- **수치·결과:** 72시간 관측에서 Heap 고정·PreTouch만 적용한 cgroup anonymous memory는 9.26GiB→10.5GiB 초과였지만, `MALLOC_ARENA_MAX=2` 비교에서는 9.06GiB를 유지했다. 운영은 `max(4, cores)` 정책을 적용하며, 20개 이상의 테넌트를 운영한다고 보고했다.
+Spark Connect에서 사용자의 Driver 세션은 특정 서버의 메모리에 남기 때문에 Deployment처럼 단순히 Pod를 교체하면 이미 실행 중인 세션이 끊어진다. 토스증권은 개별 서버 상태를 다루는 Apache Spark Operator와 테넌트가 원하는 replica 수·generation을 관리하는 Spark Tenant Operator를 구분했다.
+
+![Apache Spark Operator와 Spark Tenant Operator의 책임 분리](https://static.toss.im/ipd-tcs/toss_core/live/c64fb3ee-5264-4502-b5ac-a65bd3042f23/p2-03-two-operators-revised-techblog.png)
+
+*그림 1. 원문 두 Operator 역할도: 단일 SparkApplication 실행과 테넌트 세대 관리의 경계를 분리 — [출처: 원문 기술 블로그](https://toss.tech/article/spark-connect-on-kubernetes-2)*
+
+![Spark Application attempt와 tenant generation의 차이](https://static.toss.im/ipd-tcs/toss_core/live/1fd787c4-89b5-43a9-b528-9a3f65b5d635/p2-11-attempt-generation-techblog.png)
+
+*그림 2. 원문 attempt와 generation 설명도: 서버 재기동과 테넌트 전체 교체는 서로 다른 이벤트 — [출처: 원문 기술 블로그](https://toss.tech/article/spark-connect-on-kubernetes-2)*
+
+새 설정이 나오면 Tenant Operator는 새 generation의 SparkApplication을 준비하고 모두 일정 시간 안정적으로 Ready일 때만 `currentGeneration`을 변경한다. Gateway는 그 이후의 신규 세션만 새 서버로 보내고 기존 세션은 원래 Driver에서 drain하도록 남긴다. Application 재시도 횟수는 제한하며 모든 서버가 실패한 상태에서는 무한 교체하지 않는다. gRPC 포트 검사를 readiness에 사용했을 때 Driver와 Executor DNS 준비 조건이 서로를 기다리는 교착도 발생해 IP 직접 연결 등으로 수정했다.
+
+| 책임 | Apache Spark Operator | Spark Tenant Operator / Gateway |
+| --- | --- | --- |
+| 생명주기 | 개별 Driver Pod·attempt | 테넌트 replica 수·generation |
+| 장애 | 제한된 재시도 | 정상 서버 남았을 때만 교체 |
+| 설정 변경 | 새 Application 실행 | 새 세대 검증 뒤 신규 세션 전환 |
+| 기존 세션 | Driver 메모리 종속 | drain 후 종료, 기본 90분 한계 |
+
+기존 세션은 기본 90분 drain 한도를 지나면 강제 종료될 수 있으므로 무중단을 무제한 보장한다고 할 수 없다. 운영 메모리에서는 72시간 관측 중 단순 Heap 고정·PreTouch만 적용한 cgroup anonymous memory가 9.26GiB에서 10.5GiB를 넘었지만 `MALLOC_ARENA_MAX=2`는 약 9.06GiB를 유지했다. 운영 설정은 `max(4, cores)` 정책으로 정했고 원문 집필 시점에 20개 이상의 테넌트를 지원했다.
 
 ## 왜 읽을까
 

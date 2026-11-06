@@ -30,10 +30,28 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** Hive Metastore를 4.2로 올린 뒤 Spark 잡의 테이블 메타데이터 조회에서 `UNKNOWN_METHOD: get_table` 오류가 발생했다. Hive 4.2 클라이언트는 정상인데 Hive 2.3.9 계열 클라이언트를 내장한 Spark 3.5.5에서만 실패했다.
-- **구조:** Hive 4 계열은 요청 객체 기반 `get_table_req` 중심으로 이동하면서 레거시 `get_table` RPC가 사라졌고, Spark 쪽 구버전 `HiveMetaStoreClient`는 여전히 기존 RPC 이름과 시그니처에 의존했다.
-- **접근:** Spark 전체 업그레이드나 별도 프록시를 두는 대신 HMS Thrift IDL에 기존 시그니처의 `get_table`을 하위 호환용으로 복원하고, 서버 구현은 검증된 내부 조회 로직에 위임했다.
-- **주의점:** RPC 호환성은 메서드 이름만 맞춘다고 끝나지 않는다. 인자 필드 번호·타입, 반환 타입, 예외 정의와 Java/C++/Python 생성 스텁의 직렬화·디스패치까지 계약으로 검증해야 한다.
+Hive Metastore 서버만 새 버전으로 교체해도 Spark가 내부에 오래된 Hive 클라이언트를 포함한다면 기존 API 메서드의 존재 여부가 런타임 호환성을 결정한다. NAVER는 Hive Metastore 4.2로 갱신한 뒤 Spark 3.5.5에서 `TApplicationException UNKNOWN_METHOD: get_table` 오류를 겪었다.
+
+Hive 4 계열 클라이언트는 요청 객체를 받는 `get_table_req` 중심으로 이동했지만 Spark가 사용하는 Hive 2.3.9 계열 `HiveMetaStoreClient`는 레거시 `get_table` Thrift RPC 이름과 시그니처를 호출했다. 서버 코드에서 새 RPC가 정상으로 동작하더라도 이름이 없는 이전 메서드는 프로토콜 단계에서 거부된다. 팀은 Spark 전체 업그레이드나 프록시를 추가하는 대신 HMS Thrift IDL에 기존 RPC 시그니처를 복원하고 서버 구현은 이미 검증된 내부 테이블 조회 로직에 위임하는 접근을 택했다.
+
+```text
+# RPC 호환성 경계의 개념도 (실제 Thrift IDL 인용 아님)
+Spark 3.5.5 HiveMetaStoreClient -> get_table(old_args)
+Hive Metastore 4.2              -> get_table_req(request)
+하위 호환 서버 래퍼             -> get_table -> 내부 검증된 조회
+```
+
+지원 API를 바꾸는 마이그레이션에서 클라이언트가 어떤 RPC 이름을 실제로 호출하는지 추적해야 한다.
+
+| 경로 | 클라이언트 기대 | 서버의 실제 지원 |
+| --- | --- | --- |
+| 구 Spark 클라이언트 | `get_table` | 업그레이드 후 메서드 없음 → 오류 |
+| 신 Hive 클라이언트 | `get_table_req` | 정상 지원 |
+| 하위 호환 패치 | 이전 메서드도 수용 | 내부 새 구현으로 위임 |
+
+*IDL 호환성의 성공은 클라이언트 전체 동작과 예외·권한 계약까지 검증할 때 확정된다.*
+
+RPC 호환성은 함수 이름만 다시 넣는 것으로 끝나지 않는다. 인자 순서·필드 번호·타입·반환값·예외 정의가 IDL의 계약이며 생성된 Java/C++/Python 스텁이 같은 직렬화와 디스패치를 수행하는지 테스트해야 한다. 원문에 따르면 코드 패치 자체는 작은 변경이지만 실제 생산 환경에 적용하기 전에 구버전 Spark와 신버전 Hive 클라이언트를 동시에 시험해야 한다.
 
 ## 왜 읽을까
 

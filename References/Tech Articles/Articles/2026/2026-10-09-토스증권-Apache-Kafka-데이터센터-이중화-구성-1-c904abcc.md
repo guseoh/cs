@@ -30,11 +30,29 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** 두 데이터센터의 Kubernetes와 서비스 서버는 Active-Active였지만, MSA의 메시지 브로커인 Kafka가 함께 이중화되지 않으면 데이터센터 장애 시 서비스가 멈춘다.
-- **구조:** 독립 Kafka 두 개를 양방향 미러링하는 Active-Active와 데이터센터를 가로지르는 단일 Stretched Cluster를 비교했다.
-- **트레이드오프:** Active-Active는 로컬 접근 지연과 장애 격리가 유리하지만 수백 토픽의 양방향 미러링, 수천 Consumer Group Offset 동기화, 이중 권한·토픽 관리가 필요하다.
-- **선택:** Stretched Cluster의 데이터센터 간 통신 지연과 네트워크 분리 위험을 우선 회피하고 Active-Active를 채택했다. 글은 이를 토스증권의 요구사항에 따른 선택으로 설명한다.
-- **운영:** 양쪽 클러스터에 같은 토픽 이름을 사용하고 Producer는 Split DNS로 로컬 Kafka에 쓰게 했다. 상대 데이터센터에는 미러링으로 전달하며 Consumer 전환은 별도 정책으로 설계한다.
+데이터센터 두 곳에서 서비스와 Kubernetes가 Active-Active로 운영되더라도 메시지 브로커 Kafka가 단일 데이터센터에만 남아 있다면 전체 서비스의 장애 복원력은 제한된다. 토스증권은 데이터센터를 가로지르는 Stretched Cluster와 각 센터에서 독립적으로 운영하며 미러링하는 Active-Active를 비교했다.
+
+ ```mermaid
+flowchart LR
+ A[DC1 Producer] --> B[DC1 Kafka]
+ C[DC2 Producer] --> D[DC2 Kafka]
+ B <-->|비동기 미러링| D
+ E[DC1 Consumers] --> B
+ F[DC2 Consumers] --> D
+```
+
+*원문의 Active-Active 선택을 나타내는 가로형 개념도다. 양방향 미러링은 소비자 Offset의 즉각적 일치나 글로벌 총순서를 보장하지 않는다.*
+
+Stretched Cluster는 단일 논리 Kafka를 구성하기에 토픽·Consumer 관리가 단순할 수 있지만 데이터센터 간 네트워크 지연과 분리 상황이 복제·리더 선출에 직접 영향을 준다. Active-Active는 로컬 Kafka에 빠르게 접근하고 센터별 장애를 격리할 수 있지만 토픽과 ACL, 수천 개 Consumer Group Offset을 서로 맞추고 양방향 메시지 미러링을 운영해야 한다. 같은 토픽 이름을 두 센터에서 사용하고 Split DNS로 Producer가 기본적으로 지역 클러스터에 기록하도록 했다.
+
+| 선택지 | 장점 | 주된 운영 비용 |
+| --- | --- | --- |
+| Stretched Cluster | 논리적 단일 클러스터 | 센터 간 지연·네트워크 분리 민감 |
+| Independent Active-Active | 로컬 접근·센터 장애 격리 | 토픽·ACL·Offset·양방향 미러링 |
+| Split DNS | Producer 지역성 유지 | DNS와 전환 절차 관리 |
+| 비동기 미러링 | 센터 간 느슨한 결합 | 지연·중복·복구 시 일관성 점검 |
+
+토스증권은 운영 중 양쪽 클러스터의 복잡한 Offset·미러링 책임을 감수하더라도 데이터센터 간 통신 의존을 낮추는 선택을 했다. 다만 비동기 미러링은 센터 간 일시적 지연이 있을 수 있어 장애 전환 중 중복·누락·순서 보장을 자동으로 제공하지 않는다. 실제 복구 목적 시간과 Consumer 위치, 양방향 쓰기 충돌 정책은 별도 설계 대상으로 남는다.
 
 ## 왜 읽을까
 
