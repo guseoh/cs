@@ -24,7 +24,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 
 ## Active investigation handoffs
 
-- [PawCycle — OCI E5→A1 G0 migration and data-preservation checkpoint (2026-11-06)](projects/pawcycle.md#oci-g0-session-handoff--2026-11-06-user-reported-cloud-observations-no-operations-approval): **NO-GO for cutover**, separately approved DB access/backup/restore gates, A1 monitor activation variable reported true but current run health unverified; next: resolve G0-R2.1-A **trusted DB CA/hostname verification and existing least-privilege DB credential path**. Network forms and security-rule matching only; Cloud Shell VNIC activation/IP/IAM and MySQL connection remain unverified. This summarizes user-supplied OCI observations, not independent production verification.
+- [PawCycle — OCI E5→A1 G0 migration and data-preservation checkpoint (2026-11-06)](projects/pawcycle.md#oci-g0-session-handoff--2026-11-06-user-reported-cloud-observations-no-operations-approval): **NO-GO for cutover**, separately approved DB access/backup/restore gates, A1 monitor activation variable reported true but current run health unverified; next: G0-R2.2 **review live MySQL.Free backup turnover, OCI-managed Backup Export eligibility (currently disabled), and trusted TLS/least-privilege SQL credential path**, all as separately gated work. Network forms and security-rule matching only; Cloud Shell VNIC activation/IP/IAM and MySQL connection remain unverified. This summarizes user-supplied OCI observations, not independent production verification.
 
 ## Decision index
 
