@@ -28,11 +28,27 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** `record` 반환값을 `@Cacheable`로 Redis에 저장하면 최초 요청은 정상 처리되지만, 두 번째 요청부터 캐시된 JSON을 역직렬화하는 시점에 예외가 발생했다.
-- **주의점:** 컴파일 단계에서는 드러나지 않고 캐시 미스인 첫 호출도 정상이라, 실제 캐시 히트 경로를 테스트하지 않으면 코드 리뷰나 일반 테스트에서 놓치기 쉬운 유형의 오류다.
-- **원인:** 사용한 `GenericJackson2JsonRedisSerializer`의 타입 정보 추가 로직이 기본적으로 `NON_FINAL` 타입을 대상으로 하는데, Java record는 자동으로 final 클래스가 되므로 타입 메타데이터가 누락됐다.
-- **접근:** Jackson의 `DefaultTypeResolverBuilder.useForType()` 동작을 추적한 뒤 기존 정책은 유지하면서 record일 때만 타입 정보를 추가하는 `RecordSupportingTypeResolver`를 구현했다.
-- **결과:** 커스텀 TypeResolver 적용 후 캐시 미스와 캐시 히트 모두 같은 record 객체로 정상 직렬화·역직렬화되는 것을 테스트로 확인했다.
+`@Cacheable`이 반환하는 Java record를 Redis에 저장할 때 첫 요청은 정상이고 두 번째 요청에서만 역직렬화 오류가 발생할 수 있다. 최초 요청은 캐시 미스라 실제 메서드를 실행하지만 다음 요청은 JSON을 역직렬화해야 하므로 오류 경로가 달라지기 때문이다.
+
+우아한형제들은 GenericJackson2JsonRedisSerializer가 타입 정보를 추가하는 Jackson DefaultTypeResolverBuilder의 조건을 추적했다. 기본 `NON_FINAL` 정책은 record가 암묵적으로 `final` 클래스라는 점 때문에 대상에서 빠질 수 있고, 저장된 JSON에 타입 메타데이터가 없어 객체의 구체적인 형식을 복원하지 못했다. 기존 직렬화 정책을 모두 바꾸는 대신 record 클래스만 처리하도록 `RecordSupportingTypeResolver`를 확장했다.
+
+```java
+// 타입 정책의 예외 규칙을 표현한 학습용 의사 코드
+boolean useForType(JavaType type) {
+    return type.getRawClass().isRecord() || existingPolicy(type);
+}
+```
+
+*실제 Jackson 오버라이드 API의 완성본이 아니며 기존 정책에 record를 포함하는 핵심 아이디어만 보여준다.*
+
+| 호출 단계 | 처리 내용 | 오류 발견 여부 |
+| --- | --- | --- |
+| 최초 Cache Miss | 서비스 메서드 실행→직렬화 | 정상처럼 보일 수 있음 |
+| 다음 Cache Hit | 저장된 JSON 역직렬화 | 타입 메타데이터 누락 오류 |
+| 타입 정책 수정 | Record 타입 포함 | 양방향 동등성 검증 |
+| 배포 전환 | 기존 캐시와 신규 포맷 | 하위 호환/만료 정책 |
+
+수정 후에는 같은 record를 캐시 미스와 캐시 히트 양쪽에서 반복 조회해 정확한 타입과 필드가 복원되는지 테스트했다. 한 번 저장할 때 정상이라는 사실은 캐시 경로의 회귀 검증을 대체하지 못하며 구버전 캐시의 역직렬화 호환성·TTL 만료 시점도 배포 전략에 포함해야 한다.
 
 ## 왜 읽을까
 

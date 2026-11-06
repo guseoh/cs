@@ -30,11 +30,37 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** Schema-per-Tenant 구조에서 `TenantContext`를 ThreadLocal에 두고 있었는데 `@Async` 적용 직후 새 스레드에서 컨텍스트가 사라져 NPE와 잘못된 스키마 접근이 발생했다. 동기 실행에서는 정상이라 비동기 전환 시에만 드러난 문제였다.
-- **접근:** Spring `TaskDecorator`에서 호출 스레드의 tenant ID와 MDC를 캡처해 비동기 스레드에 주입하고, 작업 종료 시 반드시 `clear()`하도록 구성했다. 코루틴은 `CoroutineContext`로 별도 전파하는 방식을 비교했다.
-- **주의점:** MDC 역시 ThreadLocal 기반이라 tenant 정보만 복사하면 운영 로그에서 요청·테넌트 추적이 끊긴다. 컨텍스트 전파와 정리는 한 세트로 다뤄야 스레드풀 재사용 과정에서 오염을 막을 수 있다.
-- **수치:** 적용 전 `@Async` 실행 시 NPE가 100% 발생했고 잘못된 스키마 접근도 간헐적으로 나타났다. 적용 후 두 문제는 0건이 됐고, 동기화 처리 시간은 순차 120초에서 병렬 35초로 줄었다.
-- **결과:** 단순 병렬화보다 중요한 것은 스레드 경계를 넘는 상태를 명시적으로 정의하는 일이었다. 글은 비동기 전환을 컨텍스트·트랜잭션·에러 처리까지 포함한 인프라 레이어 변경으로 정리한다.
+Schema-per-Tenant 방식에서 현재 테넌트를 `ThreadLocal`에 보관하면 동기 서비스 메서드 안에서는 정상이어도 `@Async`로 스레드가 바뀌는 순간 값이 사라진다. 일부 요청은 NPE로 실패하고 다른 경우에는 잘못된 테넌트의 DB Schema를 선택할 위험도 있다.
+
+Spring `TaskDecorator`는 작업을 스레드풀에 제출하기 전 호출 스레드의 Tenant ID와 MDC를 캡처하고, 실제 워커 스레드가 실행할 때 주입하도록 만든다. 작업이 끝나면 반드시 `finally`에서 TenantContext와 MDC를 clear해야 이전 작업의 ID가 재사용된 스레드에 남지 않는다. 코루틴에서는 ThreadLocal을 무조건 복사하는 대신 별도 `CoroutineContext` 전파 방식과 비교해야 한다.
+
+```java
+// TaskDecorator에서 캡처와 정리를 분리한 의사 코드
+String tenant = TenantContext.get();
+Map<String, String> logContext = MDC.getCopyOfContextMap();
+return () -> {
+    try {
+        TenantContext.set(tenant);
+        if (logContext != null) MDC.setContextMap(logContext);
+        task.run();
+    } finally {
+        TenantContext.clear();
+        MDC.clear();
+    }
+};
+```
+
+*실제 운영에서는 빈 Context·스레드풀 거절과 트랜잭션 전파를 별도 확인해야 한다.*
+
+| 상태 | @Async 적용 전 | 컨텍스트 전파 후 |
+| --- | --- | --- |
+| Tenant ID | 호출 스레드에서 유효 | 작업 스레드에 명시 주입 |
+| MDC | 워커에서 누락 가능 | 캡처·설정·clear |
+| NPE | 비동기에서 100% | 원문 관찰 0건 |
+| 동기화 처리 | 120초 순차 | 35초 병렬 |
+| 보안 위험 | 스레드풀 간 테넌트 오염 | finally에서 clear 필요 |
+
+원문은 적용 전 비동기 NPE 100%·잘못된 스키마 접근 일부 발생을 보고했고 변경 후 0건이 됐다. 동기화 처리 시간도 순차 120초에서 병렬 35초로 줄었지만 멀티테넌트 격리 테스트를 통과하지 않으면 속도 향상은 오히려 위험을 키운다. `@Async` 도입은 스레드만 늘리는 변경이 아니라 권한·트랜잭션·로깅 경계를 함께 재설계하는 작업이다.
 
 ## 왜 읽을까
 

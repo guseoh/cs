@@ -30,11 +30,31 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** GitHub repository owner 변경 후 Git URL은 redirect로 새 저장소를 정상 fetch했지만 Image Updater의 GHCR owner는 옛 값을 계속 가리켰다. 새 chart의 `/ready` probe가 오래된 image에 적용되면서 replacement Pod가 404로 계속 NotReady가 됐다.
-- **구조:** Git source는 redirect 덕분에 최신 상태였지만 registry 좌표는 별도 식별자였다. Git과 OCI image를 같은 이동 규칙으로 생각한 결과 source revision과 실제 배포 artifact의 정본이 갈라졌다.
-- **접근:** version-controlled Application manifest의 repository URL과 image-list owner를 교정하고, 새 SHA가 registry와 Git value에 모두 존재하는지 확인한 뒤 이미 성공할 수 없어진 과거 Argo operation만 최소 범위로 종료했다. Application이나 Deployment를 통째로 삭제하지 않았다.
-- **결과:** RollingUpdate가 기존 Ready Pod를 유지해 외부 서비스 중단 없이 복구했다. 최종 확인은 정확한 image SHA, Pod 1/1 Ready·restart 0, Argo Synced/Healthy, `/health`·`/ready` 200, 인증 실패/정상 응답까지 연결해 수행했다.
-- **주의점:** controller 화면의 정상 상태만으로 배포 성공을 판단하면 source와 artifact 사이의 불일치를 놓칠 수 있다. source revision → selected image → live digest → readiness를 하나의 검증 chain으로 봐야 한다.
+GitHub 저장소 Owner를 변경했을 때 Git 원본 URL은 redirect를 통해 정상 fetch될 수 있지만 컨테이너 이미지의 GHCR 경로는 자동으로 같은 방식으로 바뀌지 않는다. 한 GitOps 서비스는 소스 Chart는 최신인데 Image Updater가 예전 Registry Owner를 가리켜 과거 이미지를 계속 선택한 상태에서 새 `/ready` Probe를 적용해 RollingUpdate가 교착됐다.
+
+```mermaid
+flowchart LR
+ A[Git Source redirect 정상] --> B[새 Chart·/ready Probe]
+ C[옛 GHCR Image 경로] --> D[오래된 이미지 실행]
+ B --> E[새 Pod Readiness 확인]
+ D --> E
+ E --> F[404·NotReady 교착]
+ F --> G[Image Path·Digest 교정·롤아웃 재검증]
+```
+
+*원문 내용을 바탕으로 자체 재구성한 가로형 기술 흐름도다.*
+
+신규 Pod는 옛 바이너리에서 없는 `/ready`에 404로 응답해 NotReady이고 기존 Ready Pod는 RollingUpdate 정책 때문에 보존됐다. 해결은 Application 전체 삭제가 아니라 Git에 추적된 Manifest의 Repository URL과 Image List 경로를 고치고 새 SHA가 Registry와 Helm Values에 존재하는지 대조한 다음 실패한 이전 Argo Operation만 최소 범위에서 중단한 것이다.
+
+| 경계 | 실제 현상 | 확인 방법 |
+| --- | --- | --- |
+| Git Source | Redirect로 최신 Chart | source SHA |
+| GHCR | 예전 Owner 이미지 선택 | image-list·digest |
+| 신규 Probe | 구 이미지에서 404 | HTTP `/ready` 200 |
+| RollingUpdate | 기존 Pod 계속 Ready | Deployment 상태 |
+| 최종 승인 | Argo Synced/Healthy | 실제 Pod SHA·Restart·인증 테스트 |
+
+수정 뒤 source revision→선택된 이미지 SHA→실제 Pod Image Digest→`/health`·`/ready` 응답을 일치 확인하고 Pod 1/1 Ready·restart 0·Argo Synced/Healthy까지 검사했다. 사용자 서비스 중단 없이 복구했지만 컨트롤러가 Healthy라고 표시한다는 것만으로 **실행 중인 artifact가 원하는 소스**라는 사실을 증명할 수는 없다.
 
 ## 왜 읽을까
 
