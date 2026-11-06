@@ -28,11 +28,19 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** 외부 솔루션으로 운영하던 후불결제 여신코어를 내재화하면서 회원·심사·승인·납부·연체 등 복잡하고 정책이 명확한 도메인을 팀 내부에서 안정적으로 소유해야 했다.
-- **접근:** 도메인 전문가·기획자·개발자가 함께 유비쿼터스 언어를 만들고 Bounded Context와 Aggregate Root를 먼저 정의했다. 각 Bounded Context는 Gradle 모듈 경계로, Aggregate는 일관성을 유지하는 트랜잭션 경계로 삼았다.
-- **구조:** Application은 JPA Entity를 직접 다루지 않고 DomainEntity와 DomainRepository를 통해 명령을 전달한다. 여러 도메인이 반드시 함께 수행해야 하는 핵심 흐름은 별도의 Biz-component에 모아 API와 Batch가 공통으로 사용하게 했다.
-- **트레이드오프:** 대량 처리 배치는 JPA Entity 직접 접근이 더 효율적인 경우가 있어 Batch 전용 Entity를 별도로 만들었고, 같은 테이블을 표현하는 Entity 중복이라는 유지보수 비용이 생겼다.
-- **주의점:** 글에서도 현재 구조를 절대적인 정답으로 두지 않는다. 설계 규칙을 강하게 지키는 대가로 생긴 중복과 복잡성을 실제 운영 경험과 함께 드러낸다.
+외부 솔루션으로 운영하던 후불결제 여신코어를 내재화하면서 회원·심사·승인·납부·연체 등 복잡하고 정책이 명확한 도메인을 팀 내부에서 안정적으로 소유해야 했다. 도메인 전문가·기획자·개발자가 함께 유비쿼터스 언어를 만들고 Bounded Context와 Aggregate Root를 먼저 정의했다. 각 Bounded Context는 Gradle 모듈 경계로, Aggregate는 일관성을 유지하는 트랜잭션 경계로 삼았다.
+
+Application은 JPA Entity를 직접 다루지 않고 DomainEntity와 DomainRepository를 통해 명령을 전달한다. 여러 도메인이 반드시 함께 수행해야 하는 핵심 흐름은 별도의 Biz-component에 모아 API와 Batch가 공통으로 사용하게 했다. 대량 처리 배치는 JPA Entity 직접 접근이 더 효율적인 경우가 있어 Batch 전용 Entity를 별도로 만들었고, 같은 테이블을 표현하는 Entity 중복이라는 유지보수 비용이 생겼다.
+
+글에서도 현재 구조를 절대적인 정답으로 두지 않는다. 설계 규칙을 강하게 지키는 대가로 생긴 중복과 복잡성을 실제 운영 경험과 함께 드러낸다.
+
+Bounded Context는 모듈을 몇 개로 나누느냐보다 **어떤 언어와 정책을 같은 일관성 경계 안에 둘 것인가**를 먼저 결정하는 장치다. Aggregate Root가 트랜잭션 불변식을 보호하고 Application 계층은 도메인 동작을 조율하도록 하면서도, 대량 Batch에서는 별도 접근 모델이 필요한 현실적인 예외를 허용했다. 이 예외는 단순한 규칙 위반이 아니라 성능 이득과 중복 Entity 유지 비용의 교환이다.
+
+| 설계 영역 | 선택 | 남는 비용 |
+| --- | --- | --- |
+| 도메인 분리 | Bounded Context별 Gradle 모듈 | 경계 간 호출·통합 관리 |
+| 상태 일관성 | Aggregate 중심 트랜잭션 | Aggregate 간 조정 |
+| 대량 배치 | 전용 JPA Entity 허용 | 같은 테이블에 대한 이중 모델 유지 |
 
 ## 왜 읽을까
 
