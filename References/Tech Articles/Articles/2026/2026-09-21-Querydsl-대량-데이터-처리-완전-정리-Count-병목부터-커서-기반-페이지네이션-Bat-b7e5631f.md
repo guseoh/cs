@@ -30,11 +30,27 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** Content 쿼리와 Count 쿼리를 그대로 재사용하면 불필요한 조인이 Count에도 따라붙고, 데이터가 커질수록 Count 자체가 병목이 된다. Total Count가 필요하지 않다면 Slice로 Count를 없애고 `pageSize + 1`건을 조회해 `hasNext`를 판정한다.
-- **수치:** Spring Batch Reader 비교에서 100만 건 기준 `JpaPagingItemReader`는 1,048,979ms, No-Offset 방식은 28,732ms였다. 1,048,576건 데이터의 페이지 위치별 비교에서도 offset은 첫 페이지 대비 마지막이 3.3배까지 느려졌지만 cursor는 1.0배 수준을 유지했다.
-- **접근:** 읽기 병목을 줄인 뒤에는 Querydsl-SQL의 `addBatch()`와 `execute()`를 이용해 Batch Insert/Update로 쓰기 병목을 줄인다. MySQL `IDENTITY` 전략에서는 JPA `saveAll`만으로 JDBC Batch Insert가 되지 않는 이유도 함께 설명한다.
-- **주의점:** Count 쿼리에서 조인을 제거하려면 결과 행 수가 변하지 않는 관계인지 검증해야 한다. 또한 `SQLQueryFactory`가 DataSource에서 직접 커넥션을 얻으면 JPA 트랜잭션과 별도 경계가 될 수 있어 원자성을 별도로 확인해야 한다.
-- **트레이드오프:** Count와 Content의 코루틴 병렬화는 JDBC 블로킹 시간을 겹칠 수 있지만, `@Transactional` 내부에서 스레드가 바뀌면 트랜잭션의 ThreadLocal 컨텍스트가 전파되지 않아 같은 패턴을 그대로 적용하면 안 된다.
+대용량 목록에서 Content와 Count 쿼리를 동일한 Join으로 작성하면 Count에는 필요하지 않은 연산까지 수행하고 페이지가 뒤쪽으로 갈수록 OFFSET 스캔 비용도 커진다. 카카오페이는 Querydsl과 Spring Batch를 활용해 읽기의 두 병목을 먼저 분리한 뒤 쓰기의 JDBC Batch까지 확인했다.
+
+전체 개수가 필요 없는 화면에는 Slice로 `pageSize+1`건을 읽고 마지막 한 건으로 `hasNext`를 판정한다. Count가 필요하다면 Content에서 필요한 JOIN이 결과 건수에 영향이 없는지 확인하고 불필요한 JOIN만 제거한다. 대량 배치 Reader는 키셋/No-Offset으로 마지막 정렬 키를 저장해 바로 다음 범위를 읽도록 만들었다. 쓰기 경로는 Querydsl-SQL의 `addBatch()`와 `execute()`를 사용해 여러 INSERT/UPDATE를 하나의 배치로 모으는 구조다.
+
+```java
+// Slice 조회의 핵심 논리를 축약한 예시
+List<Order> rows = query.limit(pageSize + 1).fetch();
+boolean hasNext = rows.size() > pageSize;
+List<Order> content = rows.subList(0, Math.min(rows.size(), pageSize));
+```
+
+정렬 키가 고유하고 일관적이어야 중간 변경의 누락·중복을 줄일 수 있다.
+
+| 대량 처리 비교 | 기존 | 개선 |
+| --- | ---: | ---: |
+| 100만 건 Reader | 1,048,979ms | 28,732ms |
+| OFFSET 마지막/첫 페이지 | 약 3.3배 | Keyset 약 1.0배 |
+| Count | 필요 없는 JOIN 포함 | 결과 수 불변일 때 제거 |
+| 쓰기 | 개별 saveAll | Querydsl SQL JDBC Batch |
+
+원문의 100만 건 Reader 실험에서 JpaPagingItemReader 1,048,979ms에 비해 No-Offset은 28,732ms였고, OFFSET 마지막 페이지는 첫 페이지 대비 3.3배 느려졌지만 커서는 거의 1.0배 수준을 유지했다. 단순 `saveAll`은 MySQL IDENTITY 키 생성 방식 때문에 기대한 JDBC Batch가 수행되지 않을 수 있다. Querydsl SQLFactory의 커넥션 경계가 JPA 트랜잭션과 분리되거나 Kotlin 코루틴에서 스레드가 바뀌면 원자성이 깨질 수 있어 코드·성능·트랜잭션을 함께 검증해야 한다.
 
 ## 왜 읽을까
 
