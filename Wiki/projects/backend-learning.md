@@ -4,7 +4,7 @@ type: project
 project: backend-learning
 status: active
 created_at: 2026-11-04
-updated_at: 2026-11-05
+updated_at: 2026-11-06
 evidence_level: user-confirmed
 capture_mode: manual
 sources:
@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, AGT-0001, AGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, AGT-0001, AGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -41,6 +41,16 @@ AI coding prompts, task delegation, harness practices, code review and verificat
 
 See [BLR-0005](../decisions/BLR-0005.md), [AGT-0001](../decisions/AGT-0001.md) and [AI adoption Q&A](../knowledge/AGK-0001.md).
 
+## 2026-11-06 — Architecture learning before independent design (user-confirmed)
+
+The architecture/system-design curriculum now starts with **instructor-led concept learning and worked Java/Spring examples**, before requiring independent design exercises. The user will use the public outline of the [Inflearn architecture course](https://www.inflearn.com/course/in-the-age-of-ai-dev?cid=343703) as a topic reference **without purchasing or reproducing its paid materials**.
+
+Six stages: (1) architecture/quality attributes/trade-offs; (2) OOP, modularity and DDD; (3) layered, hexagonal, modular-monolith, microservices and event patterns; (4) API/DB transactions, concurrency, consistency, messaging, resilience and observability; (5) source-grounded reverse engineering, diagrams and ADRs; (6) guided design exercises, later growing into independent decisions.
+
+**Teaching contract:** Explain the underlying reason and prerequisites, then work through concrete Java 21/Spring Boot examples, contrasting flawed/baseline and improved designs, data/state/sequence diagrams, limitations, alternative choices and verification tests. Read actual Korean engineering posts (e.g. Woowa, NAVER D2, Toss, LY Corporation) and other trustworthy Korean technical blogs; link the actual relevant articles and explain their contents inside the lesson rather than supplying URLs without analysis. Prefer relevant Korean-language references, supplement with official documentation, distinguish vendor experience from general rules and verify version-sensitive claims. Do not require quizzes or initial standalone architecture solutions.
+
+This is a **learning-plan decision only**, not a claim that any stage was completed or a project implementation was performed. It **does not supersede** book-based study in [BLR-0004](../decisions/BLR-0004.md), the later domain-based design direction in [BLR-0005](../decisions/BLR-0005.md), or Large-scale Board's actual roadmap. See [BLR-0007](../decisions/BLR-0007.md).
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -49,6 +59,7 @@ See [BLR-0005](../decisions/BLR-0005.md), [AGT-0001](../decisions/AGT-0001.md) a
 - [BLR-0004](../decisions/BLR-0004.md): chapter-by-chapter system-design reasoning from both volumes.
 - [BLR-0005](../decisions/BLR-0005.md): separate user-led domain design plus AI-assisted implementation.
 - [BLR-0006](../decisions/BLR-0006.md): learning Sentry vs portfolio-specific trade-off decision.
+- [BLR-0007](../decisions/BLR-0007.md): concept-first architecture learning with worked Java/Spring examples and Korean engineering sources.
 
 ## Existing project boundaries (not re-authorized or changed here)
 
