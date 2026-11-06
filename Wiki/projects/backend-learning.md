@@ -4,7 +4,7 @@ type: project
 project: backend-learning
 status: active
 created_at: 2026-11-04
-updated_at: 2026-11-05
+updated_at: 2026-11-06
 evidence_level: user-confirmed
 capture_mode: manual
 sources:
@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, AGT-0001, AGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, AGT-0001, AGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -41,6 +41,10 @@ AI coding prompts, task delegation, harness practices, code review and verificat
 
 See [BLR-0005](../decisions/BLR-0005.md), [AGT-0001](../decisions/AGT-0001.md) and [AI adoption Q&A](../knowledge/AGK-0001.md).
 
+## 2026-11-06 — Architecture-first concept curriculum
+
+The learner chose to study architecture **before independent system-design scenarios**. The public eight-section, 59-topic architecture course curriculum is the topic order for independent AI-led study, not paid course attendance or a claim of access to nonpublic lessons. Lessons emphasize Java/Spring worked code examples and real execution flows; problem → alternatives → trade-offs; diagrams; and substantive Korean-company/Korean-language engineering-source analysis. Early sessions are explanatory, later sessions analyze verified existing systems before user-led decisions. See [BLR-0007](../decisions/BLR-0007.md). The detailed lesson allocation remains an adaptable proposed outline and actual completion is unverified. The existing daily scenario automation is not modified by this Wiki note.
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -49,6 +53,7 @@ See [BLR-0005](../decisions/BLR-0005.md), [AGT-0001](../decisions/AGT-0001.md) a
 - [BLR-0004](../decisions/BLR-0004.md): chapter-by-chapter system-design reasoning from both volumes.
 - [BLR-0005](../decisions/BLR-0005.md): separate user-led domain design plus AI-assisted implementation.
 - [BLR-0006](../decisions/BLR-0006.md): learning Sentry vs portfolio-specific trade-off decision.
+- [BLR-0007](../decisions/BLR-0007.md): architecture-first public course topic scaffold, with Java/Spring examples and Korean engineering evidence.
 
 ## Existing project boundaries (not re-authorized or changed here)
 
