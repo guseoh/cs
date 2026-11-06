@@ -24,7 +24,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 
 ## Active investigation handoffs
 
-- [PawCycle — OCI E5→A1 G0 migration and data-preservation checkpoint (2026-11-06)](projects/pawcycle.md#oci-g0-session-handoff--2026-11-06-user-reported-cloud-observations-no-operations-approval): **NO-GO for cutover**, separately approved DB access/backup/restore gates, A1 monitor activation variable reported true but current run health unverified; next: G0-R2.2 **review live MySQL.Free backup turnover, OCI-managed Backup Export eligibility (currently disabled), and trusted TLS/least-privilege SQL credential path**, all as separately gated work. Network forms and security-rule matching only; Cloud Shell VNIC activation/IP/IAM and MySQL connection remain unverified. This summarizes user-supplied OCI observations, not independent production verification.
+- [PawCycle — OCI E5→A1 G0 migration and data-preservation checkpoint (2026-11-06)](projects/pawcycle.md#oci-g0-session-handoff--2026-11-06-user-reported-cloud-observations-no-operations-approval): **NO-GO for cutover**, separately approved DB access/backup/restore gates, A1 monitor activation variable reported true but current run health unverified; 2026-11-06 strategy update: **local Java/Spring design/refactor/reverse engineering continues without A1**; **AWS is the main operations/deployment learning environment**; OCI A1 acquisition and data preservation proceed independently. G0-R2.3 deeper backup Export study was paused (token limit), **backup replacement/safety remains unverified**, and Production cutover is still NO-GO. Network forms and security-rule matching only; Cloud Shell VNIC activation/IP/IAM and MySQL connection remain unverified. This summarizes user-supplied OCI observations, not independent production verification.
 
 ## Decision index
 
@@ -40,6 +40,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [DTD-0003](decisions/DTD-0003.md) | accepted | Today reorder and compact Calendar detail | dark-todo |
 | [PWC-0001](decisions/PWC-0001.md) | accepted | Separate CD readiness from production activation | pawcycle |
 | [PWC-0002](decisions/PWC-0002.md) | accepted | Guard and time-bound OCI A1 acquisition | pawcycle |
+| [PWC-0130](decisions/PWC-0130.md) | accepted | Local-first development while OCI A1 capacity remains unavailable | pawcycle |
+| [PWC-0131](decisions/PWC-0131.md) | accepted | AWS-first operations/deployment learning, OCI conditional hosting | pawcycle |
 | [BLR-0001](decisions/BLR-0001.md) | accepted | CS: academic chapter study, revisit through projects | backend-learning |
 | [BLR-0002](decisions/BLR-0002.md) | accepted | Prioritize Java/Spring backend before dedicated AI/cloud study | backend-learning |
 | [BLR-0003](decisions/BLR-0003.md) | accepted | Preserve Large-scale Board roadmap and direct failure experiments | backend-learning |
