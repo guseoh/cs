@@ -4,7 +4,7 @@ type: project
 project: pawcycle
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-05
+updated_at: 2026-11-06
 evidence_level: source-verified
 capture_mode: full
 sources:
@@ -25,6 +25,12 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 - [Main Repository Validation](https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924) and [image publish](https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493907) workflows succeeded.Neither proves a running production deployment.
 - Source discrepancy requiring reconciliation: [README](https://github.com/guseoh/pawcycle-commerce/blob/main/README.md) says Production deployment target **none**, while [operations overview](https://github.com/guseoh/pawcycle-commerce/blob/main/docs/architecture/production-operations-overview.md) identifies **OCI app01**, with limited 2026-10-25 healthy observations.Current live target/health is **unresolved**, not silently inferred.
 - Host Pull CD, automated application deployment and zero-downtime deployment are marked DEFER/OFF in the current operations overview.
+
+## OCI Free Trial transition checkpoint — 2026-11-06 (user-reported)
+
+- The Free Trial was reported expired; a previously trial-funded compute instance was observed **stopped**, while its boot volume remained visible. No recent backup or assigned backup policy was reported. This is **user-confirmed console observation**, not independent OCI inspection, backup verification, or proof the instance is recoverable.
+- An Arm A1 shape was marked **Always Free eligible** in the console, but capacity availability and successful instance launch remain **unverified**. Shape listing is not a capacity reservation; historical capacity failures remain unresolved.
+- **Pending safety action:** verify an independent boot-volume backup before deleting, detaching, or changing existing resources; then confirm eligible home-region storage/backup use, try a controlled Always Free Arm instance launch, and validate a separate x86-to-Arm application/data migration. No OCI resource mutation or actual backup occurred during this Wiki update.
 
 ## 학습 운영 기준 개정 — 2026-11-05 (user-confirmed)
 
