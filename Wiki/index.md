@@ -22,6 +22,10 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-06 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
+## Active investigation handoffs
+
+- [PawCycle — OCI E5→A1 G0 migration and data-preservation checkpoint (2026-11-06)](projects/pawcycle.md#oci-g0-session-handoff--2026-11-06-user-reported-cloud-observations-no-operations-approval): **NO-GO for cutover**, separately approved DB access/backup/restore gates, A1 monitor activation variable reported true but current run health unverified; next `G0-R2.1-A` read-only checks. This summarizes user-supplied OCI observations, not independent production verification.
+
 ## Decision index
 
 | ID | State | Decision | Project |
