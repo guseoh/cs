@@ -30,10 +30,13 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** IntelliJ에서 실행할 때는 시작 직후 커넥션이 생성되는 것처럼 보였지만 Gradle로 만든 JAR과 개발 환경에서는 애플리케이션 시작 시 커넥션 풀이 초기화되지 않았다.
-- **구조:** `initialSize`는 `SimpleDequePool`의 크기 정책을 설정할 뿐 `buildPool()` 생성 시점에 실제 커넥션을 즉시 만드는 코드가 아니다. 필요한 자원은 reactive pool의 acquire 흐름에서 비동기적으로 할당된다.
-- **접근:** r2dbc-pool과 reactor-pool 구현을 직접 추적해 생성 시점을 확인했고, r2dbc-pool이 제공하는 `warmup()`을 명시적으로 호출해 최소 커넥션을 애플리케이션 시작 전에 확보했다.
-- **주의점:** IntelliJ의 Actuator HealthCheck 통합 동작이 DB 연결을 먼저 발생시켜 실제 런타임 동작을 가릴 수 있었다. IDE 실행 결과보다 실제 빌드 산출물과 배포 환경을 기준으로 검증해야 한다.
+IntelliJ에서 실행할 때는 시작 직후 커넥션이 생성되는 것처럼 보였지만 Gradle로 만든 JAR과 개발 환경에서는 애플리케이션 시작 시 커넥션 풀이 초기화되지 않았다. `initialSize`는 `SimpleDequePool`의 크기 정책을 설정할 뿐 `buildPool()` 생성 시점에 실제 커넥션을 즉시 만드는 코드가 아니다. 필요한 자원은 reactive pool의 acquire 흐름에서 비동기적으로 할당된다.
+
+r2dbc-pool과 reactor-pool 구현을 직접 추적해 생성 시점을 확인했고, r2dbc-pool이 제공하는 `warmup()`을 명시적으로 호출해 최소 커넥션을 애플리케이션 시작 전에 확보했다. IntelliJ의 Actuator HealthCheck 통합 동작이 DB 연결을 먼저 발생시켜 실제 런타임 동작을 가릴 수 있었다. IDE 실행 결과보다 실제 빌드 산출물과 배포 환경을 기준으로 검증해야 한다.
+
+Reactive Pool은 생성자 호출과 실제 커넥션 확보가 같은 시점에 일어나지 않는다는 점을 먼저 이해해야 한다. `initialSize` 설정은 확보할 규모의 의도를 나타내지만, 비동기 자원을 **구독·요청**하지 않으면 DB 연결이 아직 만들어지지 않을 수 있다. IDE의 상태 확인 도구가 연결을 먼저 열어 테스트 결과가 달라졌다면 그것은 배포 환경의 준비 완료를 증명하지 못한다.
+
+확인할 순서는 프로세스 기동, 첫 acquire 시점, warmup 호출 완료, 첫 실제 요청 지연이다. Warmup을 통해 시작 단계에서 필요한 연결을 확보하더라도 DB 장애나 네트워크 단절에 대한 요청 단계의 오류 처리는 여전히 필요하다.
 
 ## 왜 읽을까
 
