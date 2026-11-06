@@ -32,10 +32,6 @@ migration_origin: notion
 
 사용하지 않는 인덱스를 삭제하기 전에 INVISIBLE로 바꾸는 것은 일반적으로 영향 범위를 줄이기 위한 점진적 절차다. 하지만 특정 Aurora MySQL 버전에서는 이 메타데이터 중심 DDL을 실행하자 Writer가 안정적인데 Reader 여러 대에서 CPU와 읽기 I/O가 급증했다. Writer 한 대의 지표만 관찰하면 장애를 놓칠 수 있는 사례다.
 
-Aurora MySQL 3.10.x의 Writer 1대·Reader 3대 환경에서 미사용 인덱스 6개를 단계적으로 정리하려 했다. INDEX INVISIBLE을 3회 실행할 때 Reader 3대에서만 CPU가 약 30%→50~60%, ReadIOPS가 평소 수백→3.1K로 증가했고 Writer 지표는 안정적이었다.
-
-모든 노드의 `performance_schema.table_io_waits_summary_by_index_usage`를 1주 간격 두 차례 비교해 미사용 인덱스를 선별했다. 바로 DROP하지 않고 INVISIBLE로 변경한 뒤 관찰하려는 점진적 절차였다.
-
 ```mermaid
 flowchart LR
  A[Writer: INDEX INVISIBLE DDL] --> B[캐시 무효화 메타데이터]
@@ -54,12 +50,6 @@ ALTER TABLE example_table ALTER INDEX old_index INVISIBLE;
 ```
 
 인덱스를 바로 DROP하지 않고 관찰하는 전략도 **정확한 엔진 버전별 영향 테스트** 없이는 무조건 안전하다고 할 수 없다.
-
-`INNODB_BUFFER_PAGE`의 전체 페이지 수는 약 8GB 수준으로 유지됐지만 `IS_STALE`을 확인하자 PRIMARY와 다른 인덱스의 94~98%가 무효 상태로 바뀌었다. 인덱스 한 개가 아니라 해당 테이블 전체 캐시가 영향을 받은 것이다.
-
-별도 클러스터에서 INSTANT, INPLACE, COPY, CREATE/DROP/RENAME INDEX 등을 비교했다. rebuild 없는 인덱스 DDL에서도 캐시 무효화가 발생함을 확인했고, AWS는 Aurora MySQL 3.08.0부터 유입된 엔진 결함이라고 인정했다.
-
-원문 작성 당시 AWS는 3.14에 수정이 포함될 예정이라고 안내했고 3.10 LTS에 백포트 계획은 없었다. 적용 전에는 실제 엔진 버전과 릴리스 상태를 재확인해야 하며, `INNODB_BUFFER_PAGE` 조회 자체도 운영 부하를 유발할 수 있다.
 
 | 지표·조건 | 변경 전 | DDL 직후 | 해석 |
 | --- | --- | --- | --- |
