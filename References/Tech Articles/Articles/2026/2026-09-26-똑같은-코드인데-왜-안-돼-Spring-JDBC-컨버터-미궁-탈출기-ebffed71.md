@@ -28,11 +28,30 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** `LocalDate → String` WritingConverter를 등록했지만 VARCHAR 컬럼에 기대한 `2024-08-01` 대신 Oracle DATE 형식의 값이 저장됐고, 비슷하게 만든 LocalDateTime 쪽은 정상처럼 보여 원인이 더 헷갈렸다.
-- **접근:** Spring JDBC의 파라미터 바인딩 경로까지 내려가 `LocalDate`, `LocalDateTime`, `String`이 각각 어떤 JDBC 타입 힌트로 전달되는지 추적했다.
-- **주의점:** 같은 애플리케이션 코드라도 `setDate`, `setTimestamp`, `setString`과 JDBC 드라이버의 암묵적 타입 변환에 따라 실제 저장 결과가 달라질 수 있다. DB 벤더와 드라이버 버전 차이도 고려해야 한다.
-- **해결:** `LocalDate`를 직접 쓰는 대신 `CustomLocalDate` 래퍼 타입을 두고 양방향 컨버터를 등록해 Spring JDBC의 특별 처리 경로를 피했다.
-- **검증:** Repository 왕복 결과뿐 아니라 JdbcTemplate으로 DB의 실제 raw 값을 읽어 원하는 문자열 형식으로 저장됐는지 테스트하도록 했다.
+`LocalDate`를 문자열로 저장하도록 Spring Data JDBC의 WritingConverter를 등록해도 VARCHAR 컬럼에 원하는 ISO 형식이 아닌 Oracle DATE 표현이 저장될 수 있다. 네이버파이낸셜은 거의 같은 코드로 보이는 LocalDateTime 쪽은 정상으로 작동하는데 LocalDate만 실패해 Spring JDBC의 실제 타입 처리·파라미터 바인딩 경로를 추적했다.
+
+Spring JDBC는 Java 타입과 SQL 타입의 힌트를 이용해 `setDate`, `setTimestamp`, `setString` 등 다른 바인딩 경로로 내려간다. 애플리케이션이 String을 의도해도 변환 전 타입에 대한 특별 취급이나 드라이버의 암묵적 변환이 개입하면 저장 값이 달라질 수 있다. 해결은 `LocalDate`를 직접 필드로 쓰는 대신 `CustomLocalDate` 래퍼를 정의하고 양방향 Converter를 등록해 기본 특수 처리 경로와 구분한 것이다.
+
+```java
+// 별도의 값 객체를 통해 JDBC 기본 LocalDate 경로를 구분하는 개념 예시
+record CustomLocalDate(LocalDate value) {}
+
+@WritingConverter
+class DateToString implements Converter<CustomLocalDate, String> {
+    public String convert(CustomLocalDate d) { return d.value().toString(); }
+}
+```
+
+*실제 원문의 클래스명·애너테이션 조합을 그대로 옮긴 것이 아니라 래퍼 타입의 역할을 설명한다.*
+
+| 계층 | 기대한 동작 | 실제 확인할 것 |
+| --- | --- | --- |
+| Converter | LocalDate→ISO String | 실제 Converter가 선택됐는가 |
+| JDBC 바인딩 | 문자열로 전달 | setDate/setString 중 무엇인가 |
+| Oracle VARCHAR | `YYYY-MM-DD` 저장 | 드라이버의 암묵적 변환 유무 |
+| 검증 | Repository 조회가 정상 | raw DB 값 직접 비교 |
+
+검증에서 Repository로 저장한 뒤 다시 같은 매퍼로 읽으면 저장/읽기 변환의 오류가 서로 상쇄될 수 있다. JdbcTemplate으로 실제 DB의 원시 문자열을 읽어 기대한 날짜 포맷이 저장됐는지 따로 확인해야 한다. 스프링 버전·JDBC 드라이버·DB 벤더의 타입 바인딩을 바꾸면 결과가 달라질 수 있다.
 
 ## 왜 읽을까
 

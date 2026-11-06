@@ -30,11 +30,27 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** 호출당 약 150ms인 API를 5만 건 이상 순차 처리하면서 전체 배치가 1시간을 넘겼고, chunk 안에서도 네트워크 대기와 JPA 개별 update가 반복됐다.
-- **접근:** 단건 I/O를 수행하던 Processor 역할을 줄이고 Writer에서 묶어서 처리하며, 불필요한 영속성 컨텍스트 비용을 피하기 위해 Projection을 활용했다.
-- **수치:** 같은 값으로 갱신 가능한 데이터는 조건별 `IN` update로 묶어 최대 약 1,000번의 DB I/O를 3번 수준으로 줄였고, 10개 병렬 rail에서 API 구간은 약 10배에 가까운 향상을 보였다. 5,000건 이상 DB 갱신 실험에서는 90% 이상 개선된 결과도 제시한다.
-- **구조:** 동일 값 갱신은 grouped `IN` update, 행마다 값이 다르면 JDBC/Exposed batch update처럼 상황에 맞는 bulk I/O 방식을 사용한다.
-- **트레이드오프:** chunk를 과하게 키우면 connection과 transaction을 오래 점유하고 MySQL packet 제한에도 영향을 받을 수 있으며, 병렬화는 테스트·디버깅·장애 분석 비용을 높이므로 측정 뒤 도입해야 한다.
+Spring Batch에서 외부 API를 한 건에 약 150ms씩 5만 건 이상 호출하면 네트워크 대기만으로 전체 처리 시간이 길어진다. 여기에 Reader·Processor·Writer가 단건 DB I/O를 반복하면 CPU보다 대기와 트랜잭션 비용이 실제 병목이 된다. 카카오페이는 처리 구간을 나눠 측정한 뒤 묶을 수 있는 I/O와 병렬화할 수 있는 외부 호출을 구분했다.
+
+Processor가 매건 외부 호출·수정을 모두 수행하는 대신 Writer에서 작업을 묶고, 조회 단계에서는 꼭 필요한 필드만 Projection으로 가져와 불필요한 JPA 영속성 컨텍스트를 줄였다. 같은 값으로 업데이트할 레코드는 `WHERE id IN (...)` 조건으로 묶고, 행마다 값이 다른 경우에는 JDBC Batch나 Exposed batch update를 활용했다. API 부하는 10개 병렬 Rail로 나눠 대기 시간을 겹치도록 설계했다.
+
+```sql
+-- 같은 상태값으로 여러 행을 바꿀 때의 묶음 갱신 예시
+UPDATE notification_job
+SET status = 'PROCESSED'
+WHERE id IN (:id1, :id2, :id3);
+```
+
+*원문의 Querydsl/Batch 실제 구현을 단순화한 학습 예시이며 서로 다른 값의 갱신에는 별도의 Batch Update가 필요하다.*
+
+| 개선 대상 | 원문 관측 | 측정 조건상의 주의점 |
+| --- | --- | --- |
+| 외부 API | 호출당 약 150ms·5만 건+ | I/O 대기 병목 |
+| 같은 값 DB Update | 최대 1,000회 → 약 3회 I/O | IN 갱신 가능 조건 |
+| API 처리 | 10개 Rail, 약 10배 | 외부 Rate Limit·순서 |
+| 대량 DB 갱신 | 5,000건+ 실험에서 90%+ | Chunk·Packet·트랜잭션 경계 |
+
+원문의 실험에서 동일 값 업데이트 약 1,000회 DB I/O가 3회 수준으로 줄고, API 구간은 10 Rail에서 약 10배 가까이 빨라졌으며 5,000건 이상 갱신한 DB 실험에는 90% 이상 개선도 나타났다. 다만 Chunk를 크게 만들면 연결·트랜잭션을 오래 점유하고 MySQL 패킷 크기나 실패 시 재처리 범위가 커진다. 병렬 Rail은 순서·중복 처리와 스레드별 트랜잭션 경계까지 함께 검증해야 한다.
 
 ## 왜 읽을까
 

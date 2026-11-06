@@ -30,11 +30,29 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **구조:** 컬리는 MySQL·Oracle·PostgreSQL 등 여러 DB의 데이터를 Kafka를 거쳐 통합 플랫폼으로 옮길 때 Kafka Connect의 JDBC Source Connector를 활용한다. JSON 설정만으로 반복적인 파이프라인을 만들 수 있다는 운영상 장점이 있다.
-- **트레이드오프:** 로그 기반 CDC는 지연이 짧고 변경을 충실하게 포착하지만 로그 접근 권한과 DB별 설정·운영 복잡도가 크다. JDBC의 쿼리 기반 CDC는 구축이 간단하고 이식성이 좋지만 폴링 지연과 변경 누락 가능성을 감수해야 한다.
-- **주의점:** Incrementing 모드는 이미 처리한 PK의 UPDATE를 감지하지 못하고, 쿼리 기반 방식 자체는 삭제된 행이나 한 폴링 주기 안에서 발생했다가 사라진 중간 변경을 복원할 수 없다.
-- **문제:** 긴 트랜잭션 때문에 더 이른 timestamp의 행이 늦게 커밋되면, 뒤에 커밋된 최신 timestamp가 먼저 오프셋을 전진시켜 늦게 완료된 행이 영구적으로 조회 범위 밖으로 밀려날 수 있다.
-- **접근:** `timestamp.delay.interval.ms`로 조회 상한을 현재 시각보다 뒤로 미뤄 늦은 커밋을 기다릴 수 있지만, 값을 크게 할수록 누락 가능성은 줄고 데이터 반영 지연은 커지므로 트랜잭션 특성에 맞춰 조정해야 한다.
+여러 운영 DB를 Kafka로 복제하는 작업에 애플리케이션마다 새로운 CDC 코드를 작성하면 설정·배포·모니터링 비용이 반복된다. 컬리는 MySQL·Oracle·PostgreSQL 등에서 공통 JDBC Source Connector를 사용해 JSON 명세로 폴링 방식의 파이프라인을 구성했다.
+
+로그 기반 CDC는 모든 변경에 가까운 이벤트를 추적하지만 DB 로그 접근 권한과 벤더별 설정 부담이 있다. JDBC 기반 폴링은 접근이 쉽고 데이터베이스 간 이식성이 높지만 Incrementing 모드는 이미 읽은 ID의 UPDATE를 잡지 못하고, 삭제되거나 폴링 구간 안에서 생성됐다 사라진 중간 상태도 놓칠 수 있다. Timestamp 모드에서도 긴 트랜잭션이 오래된 시간으로 늦게 Commit되면 더 최신 타임스탬프를 먼저 처리한 오프셋에서 밀려 영구 누락될 수 있다.
+
+```json
+{
+  "mode": "timestamp+incrementing",
+  "timestamp.column.name": "updated_at",
+  "incrementing.column.name": "id",
+  "timestamp.delay.interval.ms": "60000"
+}
+```
+
+*JDBC Source Connector의 개념 예시다. 실제 원문의 프로덕션 Delay 값·컬럼명은 별도 확인이 필요하다.*
+
+| 수집 방식 | 잡을 수 있는 변경 | 놓칠 수 있는 사건 |
+| --- | --- | --- |
+| Incrementing | 새 고유 키 INSERT | 기존 키 UPDATE/DELETE |
+| Timestamp | 특정 시각 이후 변경 | 늦게 커밋된 구시각 행 |
+| 로그 기반 CDC | 로그에 기록된 INSERT/UPDATE/DELETE | 로그 보관·권한 제약 |
+| Delay Interval | 늦은 커밋 여유 | 데이터 최신성 지연 |
+
+`timestamp.delay.interval.ms`는 현재 시각 바로 앞 구간을 즉시 읽지 않고 일정 시간 기다려 늦게 Commit된 행을 포착할 여유를 준다. 지연을 늘리면 누락 가능성은 낮아지지만 데이터가 다음 시스템에 반영되는 시간이 늘어난다. 이 값은 DB 트랜잭션 지연 분포와 허용 가능한 최신성 요구를 관측해 설정해야 한다.
 
 ## 왜 읽을까
 

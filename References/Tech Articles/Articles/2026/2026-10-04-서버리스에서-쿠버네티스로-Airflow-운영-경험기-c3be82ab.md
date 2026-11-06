@@ -30,11 +30,26 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** DAG를 이관한 뒤 Scheduler CPU가 신규 환경에서 0.25→0.45 core, 개발 환경에서 0.4→2.7 core로 급증했다.
-- **접근:** DAG 변경 빈도가 낮다는 특성을 이용해 `min_file_process_interval`을 늘려 파일 파싱·I/O 빈도를 낮추고 CPU 사용량을 줄였다.
-- **문제:** Celery Worker의 순간 메모리 사용 증가와 노드 자원 경합이 Container·Kubelet·OS 수준 OOM으로 이어져 Pod뿐 아니라 같은 노드의 다른 워크로드까지 영향을 받을 수 있었다.
-- **구조:** request/limit으로 조기 OOM 경계를 만들고, 일정한 자원 패턴의 애플리케이션은 Taint/Toleration으로 노드를 분리해 장애 영향 범위를 축소했다.
-- **트레이드오프:** 관리형 서비스에서 K8S로 이동하면 성능·비용 최적화와 제어권을 얻지만 스케줄러, 자원 정책, 로그, 노드 장애까지 팀이 직접 이해하고 운영해야 한다.
+Airflow를 관리형 서버리스 환경에서 자체 Kubernetes 클러스터로 옮기면 노드 자원과 배포를 직접 제어할 수 있지만 스케줄러와 워커의 자원 경계를 스스로 책임져야 한다. 컬리는 DAG 파일 변경이 많지 않아도 주기적인 DAG 재파싱으로 Scheduler CPU가 크게 증가하는 현상을 발견했다.
+
+운영 환경에서 Scheduler CPU 0.25→0.45 core, 개발 환경에서는 0.4→2.7 core로 증가했다. `min_file_process_interval`은 DAG 파일을 다시 파싱하기 전에 기다리는 최소 시간을 의미하므로 자주 바뀌지 않는 정의에는 간격을 늘려 반복 I/O와 CPU 사용을 줄일 수 있다. 그러나 변경을 반영하는 속도는 그만큼 느려지는 트레이드오프가 생긴다.
+
+```ini
+# Airflow 동작 원리를 설명하는 설정 예시
+[scheduler]
+min_file_process_interval = 120
+```
+
+*120초는 학습용 예시일 뿐 원문에서 채택한 정확한 최종 설정값은 아니다. 반영 지연과 CPU 사용량을 함께 검증해야 한다.*
+
+| 문제 | 조정 방법 | 감수할 비용 |
+| --- | --- | --- |
+| DAG 재파싱 과다 | min_file_process_interval 증가 | 새 DAG 반영 지연 |
+| Celery 순간 메모리 | Request/Limit 조정 | Pod 단위 OOM 경계 |
+| 노드 리소스 경합 | Taint·Toleration 분리 | 전용 자원 유휴 가능 |
+| 관리형→K8s | 배포·리소스 제어권 확보 | 운영·장애 책임 확대 |
+
+Celery Worker의 순간 메모리 사용이 Kubernetes의 Request/Limit을 넘으면 컨테이너 단독 OOM뿐 아니라 노드 메모리 압박과 Kubelet 수준 장애로 전파될 수 있다. 안정적인 자원 패턴의 워크로드는 Taint/Toleration으로 노드를 분리해 장애 전파 범위를 좁혔다. 관리형 서비스를 떠날 때에는 라이선스·단가뿐 아니라 운영 인력과 로그·재시도·노드 장애 대응 비용도 비교해야 한다.
 
 ## 왜 읽을까
 

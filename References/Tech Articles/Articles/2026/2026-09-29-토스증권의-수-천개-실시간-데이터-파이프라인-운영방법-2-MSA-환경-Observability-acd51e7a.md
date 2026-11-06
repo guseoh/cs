@@ -30,11 +30,29 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** 서비스 소스 수정 없이 실시간 연결 관계를 100% 커버해야 했지만, netstat는 애플리케이션 의미를 모르고 소스 분석은 실제 배포 상태와 다를 수 있었다.
-- **수치:** 라이브 Kafka Broker에는 초당 100만 건 이상의 요청이 있어 전체 request log를 켜면 CPU 100%나 디스크 고갈로 Broker 자체가 위험해졌다. 0.1% 샘플링은 안전했지만 실시간 100% 커버리지 요구를 충족하지 못했다.
-- **접근:** 약 30개 Kafka Broker API를 조사해 모든 클라이언트가 기본적으로 약 5분마다 호출하는 METADATA API만 100% 수집했다. 최근 10분 로그를 보면 트래픽 유무와 관계없이 연결 현황을 잡을 수 있게 했다.
-- **구조:** METADATA 로그만으로 알 수 없는 Producer/Consumer 및 Consumer Group 정보는 기존 Lag metric과 결합하고, Kubernetes의 conntrack을 IP·Port로 조인해 실제 Pod 이름까지 복원했다. 세 데이터는 ClickHouse에서 결합하고 Materialized View로 사용하기 쉬운 `service_graph` 형태로 제공했다.
-- **결과:** Kafka Client ↔ Broker ↔ Topic ↔ Consumer Group ↔ Kubernetes Pod 관계를 실시간으로 조회할 수 있게 되어 리니지와 Grafana 관제에 재사용할 수 있는 운영 데이터가 만들어졌다.
+수천 개 실시간 데이터 파이프라인을 운영할 때 클라이언트가 어떤 Kafka Broker·Topic·Consumer Group에 실제 연결됐는지 알 수 없으면 장애의 영향 범위와 데이터 흐름을 찾기 어렵다. 소스에서 의존성을 추론하면 코드에 남아 있지만 실행되지 않는 관계까지 포함되고, Broker의 모든 요청을 로깅하면 초당 100만 건 이상인 운영 트래픽에 별도의 CPU·디스크 장애를 만들 수 있다.
+
+```mermaid
+flowchart LR
+ A[Kafka METADATA 요청 100%] --> D[ClickHouse Join]
+ B[Consumer Lag·Group 메트릭] --> D
+ C[K8s conntrack IP·Port] --> D
+ D --> E[service_graph Materialized View]
+ E --> F[리니지·Grafana 장애 영향]
+```
+
+*원문에서 확인한 처리 경계를 가로형으로 자체 재구성한 학습용 도식이다.*
+
+토스증권은 약 30개 Kafka Broker API를 조사해 클라이언트가 기본적으로 대략 5분 간격으로 호출하는 METADATA 요청만 전수 기록했다. 최근 10분의 METADATA 로그에서 실제 Broker·Topic 연결을 추출하고 Consumer Group은 Lag 메트릭과, 실제 실행 Pod는 Kubernetes conntrack의 IP·Port 관계와 합쳐 복원했다. ClickHouse에서 세 원천을 조인하고 Materialized View로 `service_graph`를 만들었다.
+
+| 데이터 소스 | 알려주는 사실 | 한계 |
+| --- | --- | --- |
+| Broker METADATA | Client↔Broker↔Topic | Producer/Consumer 세부 구분 부족 |
+| Kafka Lag metric | Consumer Group·파티션 | 실제 Pod 이름 부재 |
+| K8s conntrack | IP·Port↔Pod | 애플리케이션 의미 부재 |
+| ClickHouse MV | 조인된 서비스 그래프 | 데이터 갱신 시점 불일치 주의 |
+
+전체 요청의 0.1%만 로깅하면 Broker 안전성은 확보하기 쉬워도 접속 관계를 100% 발견한다는 요구를 보장할 수 없다. 반대로 METADATA API만 전수 수집하면 모든 클라이언트가 실제로 반복 호출한다는 프로토콜 동작에 의존해 비용과 커버리지를 함께 맞출 수 있다. 세 원천 데이터가 서로 다른 시간에 갱신되므로 조회 시점·만료 기준을 명시해야 잘못된 연결을 오래 남기지 않는다.
 
 ## 왜 읽을까
 

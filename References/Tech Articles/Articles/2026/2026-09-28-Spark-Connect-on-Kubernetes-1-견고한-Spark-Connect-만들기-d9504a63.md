@@ -33,11 +33,30 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** Spark Connect는 여러 세션이 하나의 Driver와 SparkContext를 공유해 Executor 실패가 누적되면 문제 쿼리 하나가 서버 전체 세션을 함께 종료시킬 수 있었다.
-- **접근:** 글로벌 Executor 실패 카운터를 사실상 비활성화하고 Task·Stage 단위 실패 한도로 문제 쿼리만 끊도록 조정했으며, `spark.driver.maxResultSize`로 거대한 결과가 Driver 메모리에 들어오기 전에 차단했다.
-- **구조:** Spark Connect 서버를 여러 Replica로 나눠 각 Replica가 독립적인 Driver·SparkContext·Executor를 갖게 해 장애 영향 범위를 서버 전체에서 Replica 하나로 축소했다.
-- **트레이드오프:** 기존 세션은 상태가 있는 원래 Replica에 고정해야 하지만 새 세션은 한가한 서버로 보내야 해서, 단순 consistent hash 대신 Task 사용률과 활성 세션 수를 반영하는 전용 Gateway를 만들었다.
-- **주의점:** Gateway가 Kubernetes API에 직접 의존하지 않도록 서버 생명주기는 Controller가 맡고, Gateway는 Redis에 게시된 상태만 읽게 해 Data Plane과 Control Plane의 장애 경계를 분리했다.
+Spark Connect는 여러 사용자의 세션이 하나의 Driver와 SparkContext를 공유하기 때문에 특정 쿼리의 Executor 오류가 전역 실패 횟수에 영향을 주면 다른 정상 세션까지 종료될 수 있다. 토스증권은 사용자 요청마다 Driver를 만드는 방식과 공유 서버를 쓰는 방식의 비용을 비교해 실패를 쿼리 단위로 최대한 격리하도록 조정했다.
+
+```mermaid
+flowchart LR
+ A[신규 Spark Connect 세션] --> B[Gateway: 부하·세션 수]
+ B --> C[Replica별 독립 Driver]
+ D[기존 세션] --> E[원래 Replica 고정]
+ C --> F[Executor·Stage 실행]
+ E --> F
+```
+
+*원문에서 확인한 처리 경계를 가로형으로 자체 재구성한 학습용 도식이다.*
+
+전역 Executor 실패 한도를 완화하고 Task·Stage 단위 실패 조건으로 실패 쿼리만 중단하도록 했으며, `spark.driver.maxResultSize`로 거대한 결과가 Driver 메모리에 들어오는 문제를 사전에 거절했다. 서버 Replica마다 독립 Driver·SparkContext·Executor를 유지하면 한 Replica의 장애가 모든 사용자에게 번지는 범위도 줄어든다.
+
+| 구분 | 기존 단일 Driver 위험 | 선택한 격리 방식 |
+| --- | --- | --- |
+| Executor 실패 | 여러 사용자 전역 종료 | Task/Stage별 제한 |
+| 큰 조회 결과 | Driver OOM | maxResultSize 제한 |
+| 단일 서버 장애 | 전체 세션 영향 | 독립 Replica 분리 |
+| 기존 세션 | 재라우팅 시 상태 소실 | Session Affinity |
+| Controller 장애 | Gateway 운영 연쇄 실패 | Redis를 통한 상태 전달 |
+
+세션이 이미 시작됐으면 그 Driver에 상태가 있으므로 후속 요청은 같은 Replica로 라우팅해야 하지만 새 세션은 상대적으로 한가한 Replica로 보내야 한다. 단순 Consistent Hash 대신 실제 Task 사용률과 세션 수를 바탕으로 선택하는 Gateway를 만들었다. Kubernetes 리소스 수명은 Controller가 관리하고 Gateway는 Redis에 게시된 상태만 조회하여 Control Plane 장애가 Data Plane으로 직접 전파되는 위험을 제한한다.
 
 ## 왜 읽을까
 

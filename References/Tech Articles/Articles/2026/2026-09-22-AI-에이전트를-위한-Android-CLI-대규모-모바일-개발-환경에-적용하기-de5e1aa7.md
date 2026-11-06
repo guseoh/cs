@@ -30,11 +30,28 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** 수백 개 Gradle 모듈에서 grep/glob 결과를 그대로 에이전트에 넣으면 컨텍스트가 급격히 커지고, 선언·사용처 같은 의미론적 질문에도 정확히 답하기 어렵다.
-- **접근:** Android CLI와 Android Studio의 semantic index를 활용하되 CLI를 직접 노출하지 않고 얇은 wrapper와 Skill을 두어 오류와 출력을 에이전트가 처리하기 쉬운 형태로 정규화했다.
-- **구조:** 바이너리를 저장소에 버전 고정해 개발자·CI·에이전트 환경 차이를 줄이고, wrapper에서 `--no-metrics` 같은 보안 정책도 강제한다. IDE가 준비되지 않으면 grep/glob으로 fallback하는 규칙도 공통 프롬프트에 명시한다.
-- **주의점:** 대량의 find-usages 결과는 요약만 stdout으로 보내고 상세 결과는 파일에 한 번 저장한다. 에이전트가 같은 명령을 반복 실행하지 않고 필요한 부분만 다시 읽도록 해 컨텍스트와 실행 비용을 줄인다.
-- **트레이드오프:** Gradle sync의 stale 상태나 find-usages의 이름 충돌처럼 CLI가 아직 신뢰할 수 없는 영역은 wrapper만으로 완전히 해결할 수 없다. 자동화가 못 보는 경계를 명시하는 것도 설계의 일부다.
+대형 Android 저장소에서 에이전트에게 grep/glob의 수천 줄 결과를 그대로 넘기면 컨텍스트가 채워져 실제 코드 변경에 필요한 정보가 묻힌다. LY는 Android Studio가 가진 의미론적 인덱스와 Android CLI를 사용해 정의·사용처 같은 구조적 질문을 빠르게 해결하는 방식을 선택했다.
+
+CLI 바이너리를 저장소에 버전 고정해 개발자·CI·에이전트의 실행 환경을 맞췄다. CLI를 모델에 직접 노출하지 않고 Wrapper에서 `--no-metrics` 등 조직 정책을 강제하고 오류 형식을 안정화한다. Skill은 사용처 검색의 필요 조건과 실행·Fallback 순서를 알려주며 IDE 인덱스가 준비되지 않았다면 grep/glob 등 텍스트 탐색으로 되돌리는 명시적 규칙을 둔다.
+
+```text
+# 대형 저장소에서 에이전트 출력 계약의 개념 예시
+Command: semantic-find-usages --symbol UserRepository
+stdout: 23 matching files; detailed results at /tmp/usages.txt
+Next: 필요한 2개 파일 범위만 다시 읽기
+Fallback: Gradle sync 미준비면 제한된 grep/glob
+```
+
+*실제 제품의 CLI 옵션과 경로가 아닌 반환 범위를 줄이는 방식을 표현했다.*
+
+| 접근 방식 | 장점 | 한계 |
+| --- | --- | --- |
+| grep/glob | 인덱스 없이 사용 | 문자열 동명이인·대량 결과 |
+| Android CLI semantic index | 심볼 의미 기반 탐색 | IDE Sync 최신성 의존 |
+| Wrapper + Skill | 정책·출력 표준화 | 도구 자체의 정확성 보증은 아님 |
+| 파일 기반 상세 결과 | 컨텍스트 절약 | 파일 수명·참조 관리 |
+
+사용처 수가 많을 때에는 전체 결과를 stdout에 흘리지 않고 상세 결과는 파일로 저장한 뒤 요약·파일 경로만 반환한다. 에이전트는 필요한 부분만 다시 읽어 토큰과 반복 호출을 줄인다. 하지만 Gradle Sync가 오래된 상태나 이름이 같은 심볼의 충돌은 인덱스의 한계로 남기 때문에 정답이라 주장하기 전에 실제 컴파일·테스트로 검증해야 한다.
 
 ## 왜 읽을까
 

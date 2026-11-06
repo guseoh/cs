@@ -30,11 +30,31 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** 원천 데이터가 5분 단위로 수집·발행돼 23:59에 생성된 데이터가 00:00 이후 Kafka에 들어오면 다음 날 집계 윈도우에 포함될 수 있었다.
-- **구조:** 이벤트를 겹치지 않는 구간에서 한 번만 집계하기 위해 Tumbling Window와 grace period, suppress를 조합했다.
-- **접근:** Kafka 발행 시각이 아니라 데이터 생성 시각을 사용하도록 `TimestampExtractor`를 적용해 event time 기준을 맞췄다.
-- **주의점:** Processor 내부 `forward`는 stream time을 전진시키지 못했고, WindowStore를 강제로 훑어 발행하는 방식은 중복 결과를 만들었다. 최종적으로 source topic에 파티션별 dummy event를 넣어 각 파티션의 stream time을 전진시켰다.
-- **트레이드오프:** 시간 기반 로직은 경계 시점, late event, 재계산 정책까지 함께 정의해야 하며 테스트도 단순 CRUD보다 까다롭다.
+Kafka Streams에서 5분 주기로 모인 데이터를 자정에 집계하면 23:59에 생성된 이벤트도 실제 Kafka 발행이 00:00을 넘어서 다음 날의 윈도우에 들어갈 수 있다. 집계 기준은 메시지가 브로커에 도착한 시각이 아니라 업무 데이터의 생성 시각이어야 하므로 컬리는 이벤트 시간 기반 집계를 검토했다.
+
+ ```mermaid
+flowchart LR
+ A[원본 이벤트의 생성 시각] --> B[TimestampExtractor]
+ B --> C[Tumbling Window·Grace]
+ D[파티션별 Dummy Event] --> E[Stream Time 전진]
+ E --> C
+ C --> F[Suppress 후 윈도우 결과]
+```
+
+*원문 근거를 바탕으로 자체 재구성한 가로형 학습 도식이다.*
+
+`TimestampExtractor`로 원본 데이터의 생성 시각을 읽고 Tumbling Window와 Grace Period, Suppress를 이용해 한 시각 구간을 한 번 집계하고 충분히 늦게 도착하는 데이터를 허용하도록 했다. 하지만 Suppress는 Stream Time이 윈도우 종료·Grace를 지나야 결과를 내보낼 수 있으므로 토픽에 새 이벤트가 없으면 시간이 흘러도 결과가 발행되지 않을 수 있다. Processor의 단순 `forward`는 원천 스트림 시간 전진으로 인정되지 않았고 WindowStore를 수동 탐색하는 방식은 중복 결과를 만들었다.
+
+```text
+# 집계 시각의 차이를 나타내는 학습용 예시
+Event Time: 23:59:50
+Kafka Arrival: 00:00:20
+윈도우 소속: 도착 시각이 아닌 23:55~00:00 구간
+```
+
+*실제 Window 크기·Grace 값은 서비스에서 허용하는 지연과 재처리 정책으로 결정한다.*
+
+최종 접근은 각 소스 파티션에 Dummy Event를 추가해 Stream Time을 앞으로 이동시키는 것이었다. 파티션별로 진행 상태가 달라질 수 있고 실제 데이터와 Dummy를 구분해야 하므로 테스트에서 자정 경계, 지연 도착, 파티션의 무활동, Replay 시 중복 발행 여부까지 확인해야 한다. 이벤트 시간에 맞추는 것과 정확히 한 번 출력한다는 보장은 서로 다른 계약이다.
 
 ## 왜 읽을까
 

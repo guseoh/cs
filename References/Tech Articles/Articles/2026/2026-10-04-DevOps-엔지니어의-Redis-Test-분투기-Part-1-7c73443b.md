@@ -30,11 +30,18 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** Redis에서 필요한 Key를 얻지 못하면서 Look-Aside Cache의 요청이 RDS로 몰려 장애가 발생했고, Redis 용량과 사용 방식이 적절한지도 검증 근거가 부족했다.
-- **접근:** ElastiCache 제약과 실제 장애 재현 요구 때문에 `redis-benchmark`만 사용하지 않고 Node.js/Express 테스트 API와 nGrinder로 실제 GET/SET 흐름을 만들었다.
-- **구조:** 운영과 같은 `cache.m5.large` Failover 구성, EC2 2대에서 테스트하고 Redis의 CPU·Connection·Memory·Latency를 함께 관찰했다.
-- **수치:** 총 Vuser 1,500 부하에서 초기 Key 부재/만료 후 GET·SET이 몰릴 때 오류와 TPS 급락을 재현했고, 단일 Key를 반복 확인하는 구조에서도 200명 이상 동시 요청 시 Primary CPU가 25% 이상 올라갔다.
-- **주의점:** 캐시는 정상 상태의 hit rate만 볼 것이 아니라 Key 만료·미스·장애 시 원본 DB로 부하가 얼마나 증폭되는지를 함께 시험해야 한다.
+Look-Aside Cache는 키가 존재하고 조회가 분산되는 평상시에는 DB를 보호하지만, 동시에 키가 만료되면 같은 값을 다시 구하려는 요청이 원본 DB에 몰릴 수 있다. 컬리 DevOps 팀은 실제 장애와 비슷한 Redis 미스·만료 상황을 재현하기 위해 단순 `redis-benchmark`보다 애플리케이션 GET/SET 요청 흐름을 만들었다.
+
+운영과 같은 ElastiCache `cache.m5.large` Failover 구성에서 Node.js/Express 테스트 API와 nGrinder를 결합해 2개 EC2에서 부하를 발생시켰다. Redis의 CPU·Connection·Memory·Latency를 보면서 캐시 적중 상태, 미스 시 DB 조회, 다시 SET할 때의 동시 요청을 나누어 관찰했다. 동일한 키 하나를 여러 사용자가 요청하는 구조에서는 한 요청이 캐시를 채워도 다른 요청이 동시에 DB를 호출하는 Stampede가 생길 수 있다.
+
+| 시험 조건 | 관찰 결과 | 판단 |
+| --- | --- | --- |
+| 정상 hit | 캐시에서 빠르게 반환 | 원본 DB 부하가 숨겨질 수 있음 |
+| 초기 키 미존재 | GET 미스·동시 SET | DB 유입 폭증 위험 |
+| 1,500 Vuser | 오류·TPS 급락 재현 | Redis/DB·발신 서버를 함께 관찰 |
+| 단일 Key 200명+ | Primary CPU 25%+ | Hot key에 대한 병렬 요청 부담 |
+
+Vuser 1,500 환경에서 초기 키 부재와 만료 후 GET/SET에 오류와 TPS 급락이 재현됐고, 동일 Key를 반복 확인하는 경우에도 동시 사용자 200명 이상이면 Primary CPU가 25% 이상 증가했다. 이 수치만으로 Redis 전체 용량이 부족하다고 단정하지 말고 Redis·원본 DB·부하 발생기 각각의 시간을 구분해야 한다. 분산 락·Single-flight·TTL Jitter는 추가로 검토할 만한 대안이지만 원문에서 검증 완료한 해결책으로 기록하지 않는다.
 
 ## 왜 읽을까
 

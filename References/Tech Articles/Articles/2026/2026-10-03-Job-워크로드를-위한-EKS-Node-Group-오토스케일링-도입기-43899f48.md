@@ -30,11 +30,20 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **문제:** Job 전용 Node Group을 고정 크기로 운영하자 한산할 때는 비용이 낭비되고, 작업이 몰릴 때는 시작이 지연됐다. 실행 중 Job이 있는 노드는 Scale-in하기 어렵다는 제약도 있었다.
-- **접근:** 별도 스케줄러 대신 PodAffinity로 Job을 소수 노드에 모으는 Bin-packing 효과를 만들고, Karpenter의 `do-not-disrupt` 같은 보호 설정으로 실행 중 Job의 강제 종료를 막았다.
-- **주의점:** Production에서 Job이 정시마다 몰리자 kubelet 과부하, Image Pull 실패, EBS Volume Throttling, CNI IP 할당 지연이 드러났다. Right-sizing만 기대하지 않고 노드의 `maxPods`를 60으로 제한해 과도한 밀집을 막았다.
-- **수치:** 오토스케일링 뒤 workflow Pod 평균 Pending은 1.54초에서 0.78초로 약 49% 감소했고 Running은 138초에서 72.6초로 약 47% 줄었다. 반면 Image Pull은 job 3→7.972초, job-arm 16→29.76초로 증가했다.
-- **트레이드오프:** 노드 생성·삭제가 잦아지면 로컬 이미지 캐시가 줄어 Image Pull 비용이 커진다. 전체 지표가 모두 좋아지는 것이 아니라 핵심 목표와 부작용을 함께 측정해야 한다.
+Kubernetes Job을 실행할 전용 Node Group을 고정 크기로 운영하면 평상시에는 유휴 서버 비용이 생기고 작업이 몰리는 시간에는 예약된 노드가 부족해 Pod 시작이 늦어진다. 반대로 무작정 오토스케일링해 빈 노드를 없애면 다음 Job 시작 때 이미지 다운로드와 Volume 연결 지연을 감수해야 한다.
+
+당근은 Job을 소수 노드에 모으는 PodAffinity로 Bin-packing 경향을 만들고 Karpenter의 `do-not-disrupt` 보호로 실행 중인 Job이 강제로 축출되지 않도록 했다. 그러나 일정 시각에 다수 Job이 몰릴 때 Pod를 지나치게 한 노드에 채우면 Kubelet 과부하, EBS Volume Throttling, CNI IP 할당 지연이 생겼다. 노드의 `maxPods`를 60으로 제한하고 Node Group과 워크로드별 Image Pull·Pending·Running 시간을 나누어 측정했다.
+
+| 구간 | 이전 | 이후 | 변화 방향 |
+| --- | ---: | ---: | --- |
+| 평균 Pending | 1.54초 | 0.78초 | 개선 |
+| 평균 Running | 138초 | 72.6초 | 개선 |
+| Image Pull (job) | 3초 | 7.972초 | 악화 |
+| Image Pull (job-arm) | 16초 | 29.76초 | 악화 |
+
+*노드 축소가 이미지 캐시를 버리는 영향이 있기에 Pod 전체 생명주기로 성과를 측정해야 한다.*
+
+workflow Pod 평균 Pending은 1.54초→0.78초, Running은 138초→72.6초로 줄었지만 이미지 다운로드는 job에서 3→7.972초, job-arm에서 16→29.76초로 늘었다. 전체 처리 시간을 줄여도 모든 단계가 동시에 개선되지 않는다는 것이 핵심이다. Job의 중단 불가능성·노드 축소 조건·이미지 캐시 손실을 함께 고려한 최종 비용 모델이 필요하다.
 
 ## 왜 읽을까
 
