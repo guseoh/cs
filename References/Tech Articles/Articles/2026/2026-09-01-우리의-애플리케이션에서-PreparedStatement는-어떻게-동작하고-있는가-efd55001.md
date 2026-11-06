@@ -30,10 +30,17 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **구조:** 애플리케이션에서 DB까지 Hibernate → HikariCP → JDBC → MySQL Connector/J 계층을 따라가며 `PreparedStatement` 구현과 설정이 어디서 결정되는지 확인한다.
-- **접근:** `useServerPrepStmts`와 `cachePrepStmts` 조합에 따라 `ServerPreparedStatement` 또는 `ClientPreparedStatement`가 선택되고, 서버 측 객체 캐시 여부도 달라진다. Client 방식은 객체 자체가 아니라 `QueryInfo`를 캐시한다.
-- **수치:** 단일 Connection에서 단순 SELECT 2만 회를 반복했을 때 서버 PREPARE를 사용하면서 캐시하지 않은 조합은 약 21분, 나머지 세 조합은 약 4분이었다. 매 호출마다 PREPARE/DEALLOCATE가 왕복하는 비용이 크게 드러났다.
-- **주의점:** 테스트 쿼리가 단순하고 Connection이 하나인 조건이라 결과를 일반화하면 안 된다. MySQL의 `max_prepared_stmt_count` 기본값 16,382와 Connection별 캐시 특성도 함께 고려해야 한다.
+애플리케이션에서 DB까지 Hibernate → HikariCP → JDBC → MySQL Connector/J 계층을 따라가며 `PreparedStatement` 구현과 설정이 어디서 결정되는지 확인한다. `useServerPrepStmts`와 `cachePrepStmts` 조합에 따라 `ServerPreparedStatement` 또는 `ClientPreparedStatement`가 선택되고, 서버 측 객체 캐시 여부도 달라진다. Client 방식은 객체 자체가 아니라 `QueryInfo`를 캐시한다.
+
+단일 Connection에서 단순 SELECT 2만 회를 반복했을 때 서버 PREPARE를 사용하면서 캐시하지 않은 조합은 약 21분, 나머지 세 조합은 약 4분이었다. 매 호출마다 PREPARE/DEALLOCATE가 왕복하는 비용이 크게 드러났다. 테스트 쿼리가 단순하고 Connection이 하나인 조건이라 결과를 일반화하면 안 된다. MySQL의 `max_prepared_stmt_count` 기본값 16,382와 Connection별 캐시 특성도 함께 고려해야 한다.
+
+| Connector/J 설정 | 동작 | 위험 |
+| --- | --- | --- |
+| 서버 Prepared Statement, 캐시 없음 | PREPARE/DEALLOCATE가 반복될 수 있음 | 네트워크 왕복 증가 |
+| 서버 Prepared Statement, 캐시 사용 | Connection별 객체 재사용 | 서버 statement 자원 사용 |
+| 클라이언트 Prepared Statement | `QueryInfo` 캐시 가능 | 서버 측 실행 경로와 차이 |
+
+같은 SQL을 반복해도 네트워크 왕복과 캐시가 어느 계층에 있는지에 따라 비용은 달라진다. 원문의 2만 회 단일 Connection 테스트에서 **서버 prepare + 캐시 없음 약 21분, 다른 세 조합 약 4분**이라는 결과는 해당 조건에 한정된다. 실제 서비스에서는 쿼리 종류, Connection 수, 서버의 Prepared Statement 한도를 포함해 다시 측정해야 한다.
 
 ## 왜 읽을까
 
