@@ -30,11 +30,28 @@ migration_origin: notion
 
 ## 핵심 내용
 
-- **선택:** 쿠키런: 킹덤에서 DynamoDB·Aurora(PostgreSQL 호환)·CockroachDB를 비교했다. 트랜잭션 지원과 수평 확장성을 함께 얻으려는 요구가 있었다.
-- **수치:** 해당 게임 워크로드의 벤치마크에서 CockroachDB와 Aurora의 p50은 비슷했고 CockroachDB의 p99가 더 좋았다. DynamoDB는 약 0.01%의 오류가 관측됐으며 결과는 워크로드 종속적이라고 명시한다.
-- **구조:** CockroachDB는 데이터를 Range로 나누고 복제본의 Leaseholder·Raft Leader와 Raft 합의를 통해 읽기·쓰기를 처리한다. MVCC로 이전 버전이 보존되므로 쓰기 패턴은 저장 용량에도 영향을 준다.
-- **주의점:** 증가하는 정수·타임스탬프 키는 마지막 Range에 쓰기가 집중되는 Hotspot을 만들 수 있다. UUID 등 분산된 키나 해시 샤딩을 검토하되 범위 조회 비용과 교환한다.
-- **운영:** 다중 AZ에서 locality 설정 없이 복제본이 특정 AZ에 몰리면 장애 내성이 약해질 수 있다. 글에서는 초기 locality 미설정으로 실제 장애를 겪었다고 설명한다.
+쿠키런: 킹덤의 DB 선택에는 관계형 트랜잭션과 갑작스러운 사용자 증가에 따른 수평 확장성이 동시에 필요했다. 기존 MySQL·Couchbase 경험만으로는 분산 SQL의 비용을 추정하기 어려워 DynamoDB, Aurora와 CockroachDB를 실제 게임에 가까운 워크로드로 비교했다.
+
+```mermaid
+flowchart LR
+ A[Client SQL 요청] --> B[Range Leaseholder]
+ B --> C[Raft 복제본 다수 AZ]
+ C --> D[쓰기 합의·MVCC 버전 기록]
+ E[순차 증가 Key] --> F[마지막 Range 핫스팟 위험]
+```
+
+*원문에서 설명한 분산 SQL 요소를 가로형으로 단순화했다. 실제 읽기·쓰기 경로는 consistency·replica 배치에 따라 달라진다.*
+
+CockroachDB는 키 범위를 Range로 쪼개 복제하고, 각 Range의 Leaseholder와 Raft 합의 과정을 이용해 일관된 읽기·쓰기를 제공한다. 여러 AZ에 복제본을 분산해 장애에 대비하지만 locality 설정이 없으면 특정 가용 영역에 복제본이 몰릴 수 있다. MVCC로 과거 값이 남기 때문에 업데이트가 많이 발생할수록 저장 용량과 정리 부담도 커진다.
+
+| 검토 요소 | 선택의 장점 | 남는 위험 |
+| --- | --- | --- |
+| Range + Raft | 트랜잭션·복제·수평 확장 | 복제 합의와 네트워크 비용 |
+| MVCC | 동시 접근 버전 관리 | 오래된 버전의 저장·GC 비용 |
+| 순차 PK | 생성·정렬에 편리 | 단일 Range 쓰기 핫스팟 |
+| locality 배치 | AZ 장애 복원력 | 설정 없이 복제본 편중 가능 |
+
+벤치마크에서 CockroachDB와 Aurora의 p50은 비슷하고 CockroachDB의 p99가 더 좋았지만 이는 해당 게임 데이터·인프라에 대한 결과다. DynamoDB는 약 0.01%의 오류가 나타났으며 일반적인 제품 우열의 증거로 삼을 수 없다. 연속 증가하는 PK·타임스탬프를 쓰면 마지막 Range에 쓰기가 집중되므로 UUID나 해시 샤딩의 분산 특성과 정렬 범위 조회의 비용을 함께 고려해야 한다.
 
 ## 왜 읽을까
 
