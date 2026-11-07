@@ -159,7 +159,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle 전체 시스템·아키텍처·설계 이력·운영 리버스 엔지니어링 가이드 (2026-11-05) | pawcycle |
 | [PWK-0002](knowledge/PWK-0002.md) | published | JVM JIT warmup and CRaC restoration: 330s to 2–3s case study | shared |
 | [AGK-0001](knowledge/AGK-0001.md) | published | Backend AI adoption, Agent roles and learning FAQ (2026-11-05) | agentlab |
-| [BLK-0001](knowledge/BLK-0001.md) | published | Ubuntu/Linux 0–7 roadmap; practice-first teaching, Phase 0 user-evidenced, Phase 1 assigned | backend-learning |
+| [BLK-0001](knowledge/BLK-0001.md) | published | Ubuntu/Linux 0–7 roadmap; Phase 0 done, Phase 1 core tested / exit code pending, Phase 2 assigned | backend-learning |
 
 ## Lesson index
 
