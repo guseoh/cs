@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, AGT-0001, AGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLK-0001, AGT-0001, AGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -46,7 +46,7 @@ See [BLR-0005](../decisions/BLR-0005.md), [AGT-0001](../decisions/AGT-0001.md) a
 
 The user confirmed a first phase covering **Linux fundamentals, the web-server request path and operation of a single Ubuntu server**. The delivery format combines **conceptual explanation and hands-on Ubuntu practice**, without rote memorization of an exhaustive command list. This supplements the Java/Spring-first plan rather than changing the separate in-depth cloud study priority.
 
-A project or exercise application is **not yet chosen**. The assistant proposed no project for initial Linux work, a static Nginx page later, and a minimal reusable Spring Boot API only when studying reverse proxy and server lifecycle. These remain recommendations pending user selection; no deployment is claimed. See [BLR-0007](../decisions/BLR-0007.md).
+The user reviewed the full Windows-host/WSL2-to-Ubuntu-VM curriculum and requested that the direction and roadmap be recorded and used for the immediate start. The chosen practice path is **no app project for early Linux fundamentals -> Nginx static HTML -> minimal Java/Spring Boot API -> single-server operational and failure-recovery exercises**. The cross-cutting learning spine is the request lifecycle through naming, TCP/ports, TLS, Nginx proxy, the Java process and HTTP response, with OS/socket/systemd/log evidence and layered incident diagnosis. This builds web-service operating-environment literacy, **not complete infrastructure/network/kernel specialization**. Preserve advanced cloud and multi-node subjects as deferred. See [BLR-0007](../decisions/BLR-0007.md), [BLR-0008](../decisions/BLR-0008.md), and [BLK-0001 roadmap](../knowledge/BLK-0001.md). **No lab setup or phase completion has yet been verified.**
 
 ## Accepted decisions
 
@@ -57,6 +57,7 @@ A project or exercise application is **not yet chosen**. The assistant proposed 
 - [BLR-0005](../decisions/BLR-0005.md): separate user-led domain design plus AI-assisted implementation.
 - [BLR-0006](../decisions/BLR-0006.md): learning Sentry vs portfolio-specific trade-off decision.
 - [BLR-0007](../decisions/BLR-0007.md): bounded Ubuntu/Linux/web-server fundamentals with theory and direct practice.
+- [BLR-0008](../decisions/BLR-0008.md): whole web request path as the cross-layer learning spine; advanced infra is deferred.
 
 ## Existing project boundaries (not re-authorized or changed here)
 
@@ -66,6 +67,8 @@ A project or exercise application is **not yet chosen**. The assistant proposed 
 - Large-scale Board's own repo and [GitHub Wiki](https://github.com/guseoh/large-scale-board/wiki) remain authoritative for its detailed project-specific design evolution and experiments. This central AI Wiki stores the cross-project plan and relevant decisions.
 
 ## Open questions and next actions
+
+- **Ubuntu track:** start [BLK-0001 phase 0](../knowledge/BLK-0001.md) by discovering the actual Windows/WSL installation state, then proceed only from observed outputs. The local Ubuntu version, VM product, installed tools, completed exercises and real configuration are **not yet verified**.
 
 - Continue the already established Board roadmap; actual next Slice/current code and tests must be checked in the Board repository before teaching or marking progress.
 - Practical exercise directions include logistics and streaming; a single production project/domain, detailed design boundaries, concrete AI feature scope and schedule have **not** been fixed.
