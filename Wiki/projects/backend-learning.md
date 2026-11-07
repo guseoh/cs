@@ -4,7 +4,7 @@ type: project
 project: backend-learning
 status: active
 created_at: 2026-11-04
-updated_at: 2026-11-05
+updated_at: 2026-11-08
 evidence_level: user-confirmed
 capture_mode: manual
 sources:
@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, AGT-0001, AGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, AGT-0001, AGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -32,6 +32,7 @@ The learning tracks have intentionally different formats:
 | System design books | Study the design reasoning chapter by chapter in **가상 면접 사례로 배우는 대규모 시스템 설계 기초** volumes 1 and 2; not a requirement to implement each chapter. |
 | Domain-based design & AI | Separate domain candidates for architectural choices and AI-assisted implementation/verification; logistics, event analytics and video streaming are **candidates**, not a final selection. |
 | Sentry | Learning integration planned in Board; portfolio adoption only after comparing trade-offs and actual need. |
+| Ubuntu / Linux / web server | First-phase scope: Linux fundamentals, web-server architecture, single Ubuntu server operations. Theory plus direct hands-on practice; learn commands in context, not by memorizing all commands. |
 
 ## 2026-11-05 clarification — design and AI roles
 
@@ -41,6 +42,12 @@ AI coding prompts, task delegation, harness practices, code review and verificat
 
 See [BLR-0005](../decisions/BLR-0005.md), [AGT-0001](../decisions/AGT-0001.md) and [AI adoption Q&A](../knowledge/AGK-0001.md).
 
+## 2026-11-08 — bounded Ubuntu / Linux learning scope
+
+The user confirmed a first phase covering **Linux fundamentals, the web-server request path and operation of a single Ubuntu server**. The delivery format combines **conceptual explanation and hands-on Ubuntu practice**, without rote memorization of an exhaustive command list. This supplements the Java/Spring-first plan rather than changing the separate in-depth cloud study priority.
+
+A project or exercise application is **not yet chosen**. The assistant proposed no project for initial Linux work, a static Nginx page later, and a minimal reusable Spring Boot API only when studying reverse proxy and server lifecycle. These remain recommendations pending user selection; no deployment is claimed. See [BLR-0007](../decisions/BLR-0007.md).
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -49,6 +56,7 @@ See [BLR-0005](../decisions/BLR-0005.md), [AGT-0001](../decisions/AGT-0001.md) a
 - [BLR-0004](../decisions/BLR-0004.md): chapter-by-chapter system-design reasoning from both volumes.
 - [BLR-0005](../decisions/BLR-0005.md): separate user-led domain design plus AI-assisted implementation.
 - [BLR-0006](../decisions/BLR-0006.md): learning Sentry vs portfolio-specific trade-off decision.
+- [BLR-0007](../decisions/BLR-0007.md): bounded Ubuntu/Linux/web-server fundamentals with theory and direct practice.
 
 ## Existing project boundaries (not re-authorized or changed here)
 
