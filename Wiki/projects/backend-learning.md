@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLK-0001, AGT-0001, AGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLK-0001, BLK-0002, AGT-0001, AGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -56,6 +56,12 @@ A full lecture-by-lecture summary is rejected: omit XML-configuration exercises,
 
 **Planning boundary:** the precise filtered syllabus, per-topic depth and additional topics remain **unverified/proposed** until the user-directed full-source review in ChatGPT Work. The supplied `Spring.zip` archive listing (72 PDFs plus example project files) was inspected, but the PDF contents were not comprehensively evaluated in this Wiki task. See [BLR-0009](../decisions/BLR-0009.md). No course completion, new source code or curriculum approval is implied.
 
+## 2026-11-08 — draft Spring Core/Boot 34-unit learning syllabus
+
+A follow-up assistant design proposed [BLK-0002](../knowledge/BLK-0002.md), a **draft** with **7 course tracks, 34 selected learning units and 17 priority deep-dive units**. It incorporates 15 Spring Advanced PDFs in addition to the original 72-PDF archive, and lists proposed omissions, consolidation, and modern Spring API/operations additions. The plan centers on current REST API backend work and reuses [the accepted teaching method](../decisions/BLR-0009.md). This is a proposed **topic map**, not 34 mandatory long essays.
+
+**Authority boundary:** the specific 34-unit split, depth choices, additional Spring topics and original-PDF mappings are **not yet explicitly approved by the user**. The prior assistant reported 87 PDFs/2,206 pages, but this Wiki update did not re-audit every PDF or execute code against Spring Boot 4. File contents and up-to-date API differences must be checked before presenting uncertain mappings as verified facts. Do not replace the accepted [BLR-0009](../decisions/BLR-0009.md) learning-method decision with the draft.
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -77,7 +83,7 @@ A full lecture-by-lecture summary is rejected: omit XML-configuration exercises,
 
 ## Open questions and next actions
 
-- **Spring curriculum:** review all supplied course PDFs and code references in ChatGPT Work; produce a proposed filtered roadmap, depth allocation and source-grounded additions/omissions. No final detailed syllabus is approved yet.
+- **Spring curriculum:** review the [BLK-0002 draft 7-course / 34-unit proposal](../knowledge/BLK-0002.md), verify the claimed PDF-to-topic mappings and modern API additions, and decide whether to approve/modify the topic split and 17 priority deep dives. The detailed syllabus is **not yet final**.
 
 - **Ubuntu track:** start [BLK-0001 phase 0](../knowledge/BLK-0001.md) by discovering the actual Windows/WSL installation state, then proceed only from observed outputs. The local Ubuntu version, VM product, installed tools, completed exercises and real configuration are **not yet verified**.
 
