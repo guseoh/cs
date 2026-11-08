@@ -4,7 +4,7 @@ type: project
 project: csforge
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-08
+updated_at: 2026-11-09
 evidence_level: source-verified
 capture_mode: full
 sources:
@@ -20,8 +20,9 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005]
 ---
 # CSForge — source-verified project snapshot
 
-## Current state (latest merge checks 2026-11-08; earlier entries noted separately)
-- Latest verified main: [5a675754](https://github.com/guseoh/csforge/commit/5a6757545a0ee16b845c5a83924e4b1b9e7840e9) (squash merge of pilot PR #297 on 2026-11-08). Previously observed main 5f7f5593 was 2026-10-31.
+## Current state (latest merge checks 2026-11-09; earlier entries noted separately)
+- **2026-11-09 최신 source-verified main:** [`425872f7`](https://github.com/guseoh/csforge/commit/425872f7c64cbddf214954e102f2e419adab229f) — [Network DIAGRAM 53/53 및 15개 문항 교정 PR #298](https://github.com/guseoh/csforge/pull/298) **squash 병합 완료**. 병합 직전 HEAD `0275ff1f`에서 [Repository Validation #42493209664](https://github.com/guseoh/csforge/actions/runs/42493209664), [Reader #42493209538](https://github.com/guseoh/csforge/actions/runs/42493209538), TCP/Heap 모두 PASS. **Issue #278은 OPEN**: Java·Network 전체 Concept 문체/깊이, 254개 모범답안의 주장별 공식 규격 대조 및 Reference 링크↔주장 전수 검토는 미완료이다. [병합 후 main Validation](https://github.com/guseoh/csforge/actions/runs/42494810524)은 확인 당시 in_progress. main Push는 Cloud Run deploy와 Production content-sync를 **조건부 트리거**하므로 실제 실행·완료·DB 동기화 결과는 따로 확인해야 한다. *병합 성공은 운영 배포·동기화 성공의 증거가 아니다.*
+- Previously verified main (before #298): [5a675754](https://github.com/guseoh/csforge/commit/5a6757545a0ee16b845c5a83924e4b1b9e7840e9) (squash merge of pilot PR #297 on 2026-11-08). Previously observed main 5f7f5593 was 2026-10-31.
 - Java G3 editorial diagrams: [PR #293](https://github.com/guseoh/csforge/pull/293) merged into main on 2026-10-31.
 - Follow-up Java G3 P2 quality polish: [PR #295](https://github.com/guseoh/csforge/pull/295) remains **OPEN/unmerged**, even though isolated Chromium QA and PR validation passed for head 997393f.
 - Cross-area Topic/Concept/Question guarded canonical sync implementation: [PR #288](https://github.com/guseoh/csforge/pull/288) merged; actual runtime sync is gated by role and repository variables in the content-sync workflow.
