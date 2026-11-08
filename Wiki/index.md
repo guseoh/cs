@@ -17,7 +17,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
 | Backend learning (cross-project) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) | 2026-11-08 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
-| CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network 53/53 PR #298 merged](https://github.com/guseoh/csforge/pull/298), Issue #278 quality review ongoing | 2026-11-09 |
+| CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-05 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
