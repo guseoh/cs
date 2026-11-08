@@ -27,7 +27,7 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004]
 - Cross-area Topic/Concept/Question guarded canonical sync implementation: [PR #288](https://github.com/guseoh/csforge/pull/288) merged; actual runtime sync is gated by role and repository variables in the content-sync workflow.
 - Source evidence does not prove current production canonical DB alignment, active sync flags, Vercel deployment SHA, authenticated Reader usage or latest production data state.
 
-- [CSForge Draft PR #298](https://github.com/guseoh/csforge/pull/298): N-01 TCP handshake editorial upgrade on a feature branch, not merged. First [Chromium QA #42451877548](https://github.com/guseoh/csforge/actions/runs/42451877548) passed; latest layout refinement requires separate CI. No canonical Markdown/DB changes.
+- [CSForge Draft PR #298](https://github.com/guseoh/csforge/pull/298): N-01 TCP handshake editorial upgrade on a feature branch, not merged. The final layout revision passed [Chromium QA #42452111245](https://github.com/guseoh/csforge/actions/runs/42452111245); full Repository Validation still pending. No canonical Markdown/DB changes.
 
 ## Accepted decisions
 - [CSF-0004](../decisions/CSF-0004.md): prioritize five compact Network diagram units beginning with N-01.
