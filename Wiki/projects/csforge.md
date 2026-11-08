@@ -16,7 +16,7 @@ sources:
   - https://github.com/guseoh/csforge/blob/main/.github/workflows/content-sync.yml
 depends_on: []
 supersedes: []
-related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004]
+related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005]
 ---
 # CSForge — source-verified project snapshot
 
@@ -27,9 +27,10 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004]
 - Cross-area Topic/Concept/Question guarded canonical sync implementation: [PR #288](https://github.com/guseoh/csforge/pull/288) merged; actual runtime sync is gated by role and repository variables in the content-sync workflow.
 - Source evidence does not prove current production canonical DB alignment, active sync flags, Vercel deployment SHA, authenticated Reader usage or latest production data state.
 
-- [CSForge Draft PR #298](https://github.com/guseoh/csforge/pull/298): N-01 TCP handshake editorial upgrade on a feature branch, not merged. The final layout revision passed [Chromium QA #42452111245](https://github.com/guseoh/csforge/actions/runs/42452111245); full Repository Validation still pending. No canonical Markdown/DB changes.
+- [CSForge Draft PR #298](https://github.com/guseoh/csforge/pull/298): expanded from N-01 to **all five Network Pilot Reader diagrams** on feature HEAD `87f7271`. Four canonical Markdown documents gained strict `network-core` example declarations with matching JS/Java validation; stable content keys and Questions unchanged. [Network Pilot Pack Chromium QA #42452923551](https://github.com/guseoh/csforge/actions/runs/42452923551) passed all five figures in two desktop widths/themes, including all TCP handshake/teardown steps. Full Repository Validation pending as of this snapshot; no production DB/Import writes were attempted.
 
 ## Accepted decisions
+- [CSF-0005](../decisions/CSF-0005.md): build and review N-01–N-05 together without serial user approval checkpoints.
 - [CSF-0004](../decisions/CSF-0004.md): prioritize five compact Network diagram units beginning with N-01.
 - [CSF-0003](../decisions/CSF-0003.md): user-approved textbook-style SVG-first visualization approach and three pilot quality gates, separate from Reader deployment.
 - [CSF-0001](../decisions/CSF-0001.md): protected canonical content sync.

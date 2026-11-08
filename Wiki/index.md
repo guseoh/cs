@@ -33,6 +33,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [CSF-0002](decisions/CSF-0002.md) | accepted | Java editorial diagram semantics | csforge |
 | [CSF-0003](decisions/CSF-0003.md) | accepted | Textbook-style static SVG first; three benchmark visuals before CSForge adoption | csforge |
 | [CSF-0004](decisions/CSF-0004.md) | accepted | Network Pilot Pack: five concept-sized diagram units beginning with TCP handshake | csforge |
+| [CSF-0005](decisions/CSF-0005.md) | accepted | Complete Network N-01–N-05 together, then consolidate QA without per-diagram approvals | csforge |
 | [DTD-0001](decisions/DTD-0001.md) | accepted | Neutral content-first UI | dark-todo |
 | [DTD-0002](decisions/DTD-0002.md) | accepted | Remove Inbox UI without deleting legacy data | dark-todo |
 | [DTD-0003](decisions/DTD-0003.md) | accepted | Today reorder and compact Calendar detail | dark-todo |
