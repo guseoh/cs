@@ -162,6 +162,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWK-0002](knowledge/PWK-0002.md) | published | JVM JIT warmup and CRaC restoration: 330s to 2–3s case study | shared |
 | [AGK-0001](knowledge/AGK-0001.md) | published | Backend AI adoption, Agent roles and learning FAQ (2026-11-05) | agentlab |
 | [BLK-0001](knowledge/BLK-0001.md) | published | Ubuntu/Linux/web-server 0–7 stage roadmap with evidence-based exercise gates | backend-learning |
+| [BLK-0002](knowledge/BLK-0002.md) | draft | Spring Core/Boot 7-course / 34-unit syllabus proposal; 17 priority deep dives (pending approval) | backend-learning |
 
 ## Lesson index
 
