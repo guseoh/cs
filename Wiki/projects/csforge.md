@@ -4,17 +4,18 @@ type: project
 project: csforge
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-03
+updated_at: 2026-11-08
 evidence_level: source-verified
 capture_mode: full
 sources:
+  - https://github.com/guseoh/agent-skills/pull/3
   - https://github.com/guseoh/csforge/pull/293
   - https://github.com/guseoh/csforge/pull/295
   - https://github.com/guseoh/csforge/pull/288
   - https://github.com/guseoh/csforge/blob/main/.github/workflows/content-sync.yml
 depends_on: []
 supersedes: []
-related_to: [CSF-0001, CSF-0002]
+related_to: [CSF-0001, CSF-0002, CSF-0003]
 ---
 # CSForge — source-verified project snapshot
 
@@ -26,6 +27,7 @@ related_to: [CSF-0001, CSF-0002]
 - Source evidence does not prove current production canonical DB alignment, active sync flags, Vercel deployment SHA, authenticated Reader usage or latest production data state.
 
 ## Accepted decisions
+- [CSF-0003](../decisions/CSF-0003.md): user-approved textbook-style SVG-first visualization approach and three pilot quality gates, separate from Reader deployment.
 - [CSF-0001](../decisions/CSF-0001.md): protected canonical content sync.
 - [CSF-0002](../decisions/CSF-0002.md): semantically appropriate Java editorial visualization.
 
@@ -35,6 +37,7 @@ related_to: [CSF-0001, CSF-0002]
 - PR #295 excludes Reader typography issue #294; it requires separate resolution.
 
 ## Open questions and next actions
+- [agent-skills Draft PR #3](https://github.com/guseoh/agent-skills/pull/3) contains the new visualization plugin and three self-authored SVG fixtures. Its format/fixture CI passed 2026-11-08, but real dark/light Reader visual QA, plugin installation and CSForge integration remain **unverified/not done**.
 - Review PR #295; actual authenticated Reader/PWA checks remain unverified by its PR description.
 - Inspect current production content-sync runs and data audit before claiming alignment.
 - Confirm live backend/frontend revisions when a production-specific question arises.

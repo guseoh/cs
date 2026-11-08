@@ -31,6 +31,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [WIKI-0003](decisions/WIKI-0003.md) | accepted | PawCycle AI Project Memory: exhaustive source dispositions and continuous capture | llm-wiki |
 | [CSF-0001](decisions/CSF-0001.md) | accepted | Guard canonical content sync to preserve history | csforge |
 | [CSF-0002](decisions/CSF-0002.md) | accepted | Java editorial diagram semantics | csforge |
+| [CSF-0003](decisions/CSF-0003.md) | accepted | Textbook-style static SVG first; three benchmark visuals before CSForge adoption | csforge |
 | [DTD-0001](decisions/DTD-0001.md) | accepted | Neutral content-first UI | dark-todo |
 | [DTD-0002](decisions/DTD-0002.md) | accepted | Remove Inbox UI without deleting legacy data | dark-todo |
 | [DTD-0003](decisions/DTD-0003.md) | accepted | Today reorder and compact Calendar detail | dark-todo |
