@@ -38,7 +38,7 @@ related_to: [CSF-0001, CSF-0002, CSF-0003]
 
 ## Open questions and next actions
 - [agent-skills Draft PR #3](https://github.com/guseoh/agent-skills/pull/3) contains the new visualization plugin and three self-authored SVG fixtures. Its format/fixture CI passed 2026-11-08, but real dark/light Reader visual QA, plugin installation and CSForge integration remain **unverified/not done**.
-- [CSForge Draft PR #297](https://github.com/guseoh/csforge/pull/297) contains a separate Heap index relation explorer and local preview, with automated Chromium theme/viewport checks passing on [run #42445683383](https://github.com/guseoh/csforge/actions/runs/42445683383). Actual Reader deployment and manual visual acceptance remain pending.
+- [CSForge Draft PR #297](https://github.com/guseoh/csforge/pull/297) contains a separate Heap index relation explorer and local preview, with automated Chromium theme/viewport checks passing on [run #42445683383](https://github.com/guseoh/csforge/actions/runs/42445683383). Actual Reader deployment and manual visual acceptance remain pending. The user approved the local Heap dark-view direction and the pilot PR was extended to Java Pass-by-Value and TCP Sliding Window static comparison views plus a three-example local preview; this is a design candidate, not a Reader rollout.
 - Review PR #295; actual authenticated Reader/PWA checks remain unverified by its PR description.
 - Inspect current production content-sync runs and data audit before claiming alignment.
 - Confirm live backend/frontend revisions when a production-specific question arises.
