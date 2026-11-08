@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLK-0001, BLK-0002, AGT-0001, AGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLK-0001, BLK-0002, AGT-0001, AGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -62,6 +62,12 @@ A follow-up assistant design proposed [BLK-0002](../knowledge/BLK-0002.md), a **
 
 **Authority boundary:** the specific 34-unit split, depth choices, additional Spring topics and original-PDF mappings are **not yet explicitly approved by the user**. The prior assistant reported 87 PDFs/2,206 pages, but this Wiki update did not re-audit every PDF or execute code against Spring Boot 4. File contents and up-to-date API differences must be checked before presenting uncertain mappings as verified facts. Do not replace the accepted [BLR-0009](../decisions/BLR-0009.md) learning-method decision with the draft.
 
+## 2026-11-08 — approved Spring Core/Boot 34-unit learning syllabus
+
+The user **approved the detailed curriculum** documented in [BLK-0002](../knowledge/BLK-0002.md): seven tracks, 34 concept units, 17 priority deep dives and targeted exclusions/additions. The earlier draft record has become **published / user-confirmed**, with a separate acceptance decision [BLR-0010](../decisions/BLR-0010.md). The older draft discussion remains in historical sections only.
+
+**Reset for a new ChatGPT session:** start again from **topic 01 (object-oriented design and IoC/DI)**, even though an earlier explanation exists. Do not mark topic 01 or any other unit completed from prior draft writing. The syllabus is approved, but PDF-to-topic evidence and exact Spring Boot version-specific behavior require topic-local source verification; user approval is not an execution or PDF-audit claim.
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -72,7 +78,8 @@ A follow-up assistant design proposed [BLK-0002](../knowledge/BLK-0002.md), a **
 - [BLR-0006](../decisions/BLR-0006.md): learning Sentry vs portfolio-specific trade-off decision.
 - [BLR-0007](../decisions/BLR-0007.md): bounded Ubuntu/Linux/web-server fundamentals with theory and direct practice.
 - [BLR-0008](../decisions/BLR-0008.md): whole web request path as the cross-layer learning spine; advanced infra is deferred.
-- [BLR-0009](../decisions/BLR-0009.md): selectively study modern Spring concepts from PDFs; full syllabus redesign pending Work review.
+- [BLR-0009](../decisions/BLR-0009.md): selectively study modern Spring concepts from PDFs; this method decision preceded the detailed syllabus approval.
+- [BLR-0010](../decisions/BLR-0010.md): accept the 7-track / 34-unit Spring learning curriculum and restart from topic 01.
 
 ## Existing project boundaries (not re-authorized or changed here)
 
@@ -83,7 +90,7 @@ A follow-up assistant design proposed [BLK-0002](../knowledge/BLK-0002.md), a **
 
 ## Open questions and next actions
 
-- **Spring curriculum:** review the [BLK-0002 draft 7-course / 34-unit proposal](../knowledge/BLK-0002.md), verify the claimed PDF-to-topic mappings and modern API additions, and decide whether to approve/modify the topic split and 17 priority deep dives. The detailed syllabus is **not yet final**.
+- **Spring curriculum:** start the [approved BLK-0002 curriculum](../knowledge/BLK-0002.md) in a new ChatGPT session from **unit 01**. At each unit, check the supplied PDF against current official Spring reference material where necessary; avoid marking any unit complete solely because an earlier draft explanation exists.
 
 - **Ubuntu track:** start [BLK-0001 phase 0](../knowledge/BLK-0001.md) by discovering the actual Windows/WSL installation state, then proceed only from observed outputs. The local Ubuntu version, VM product, installed tools, completed exercises and real configuration are **not yet verified**.
 
