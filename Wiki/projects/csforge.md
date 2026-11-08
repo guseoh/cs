@@ -43,5 +43,7 @@ related_to: [CSF-0001, CSF-0002, CSF-0003]
 - Inspect current production content-sync runs and data audit before claiming alignment.
 - Confirm live backend/frontend revisions when a production-specific question arises.
 
+- Current design-pilot evidence: [CSForge Java coordinate-fix QA #42447737670](https://github.com/guseoh/csforge/actions/runs/42447737670) passed, and [agent-skills plugin validation #42447803559](https://github.com/guseoh/agent-skills/actions/runs/42447803559) passed. Both PRs remain unmerged; plugin installation and Reader integration are outside the completed checks.
+
 ## Evidence and verification limits
 GitHub source, PR statuses and QA workflows checked 2026-11-03. No authenticated browser, production database, or cloud-control-plane access in this pass.
