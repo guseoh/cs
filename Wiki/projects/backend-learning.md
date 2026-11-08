@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLK-0001, AGT-0001, AGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLK-0001, AGT-0001, AGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -48,6 +48,14 @@ The user confirmed a first phase covering **Linux fundamentals, the web-server r
 
 The user reviewed the full Windows-host/WSL2-to-Ubuntu-VM curriculum and requested that the direction and roadmap be recorded and used for the immediate start. The chosen practice path is **no app project for early Linux fundamentals -> Nginx static HTML -> minimal Java/Spring Boot API -> single-server operational and failure-recovery exercises**. The cross-cutting learning spine is the request lifecycle through naming, TCP/ports, TLS, Nginx proxy, the Java process and HTTP response, with OS/socket/systemd/log evidence and layered incident diagnosis. This builds web-service operating-environment literacy, **not complete infrastructure/network/kernel specialization**. Preserve advanced cloud and multi-node subjects as deferred. See [BLR-0007](../decisions/BLR-0007.md), [BLR-0008](../decisions/BLR-0008.md), and [BLK-0001 roadmap](../knowledge/BLK-0001.md). **No lab setup or phase completion has yet been verified.**
 
+## 2026-11-08 — selective Spring Framework / Spring Boot curriculum method
+
+The user confirmed a Spring-first learning approach using the seven selected Kim Young-han course tracks **only as a progression scaffold**, with supplied PDFs and sample code as references. The learning output is a standalone, causally connected Spring explanation centered on modern REST API backend coding, component behavior, IoC/DI, MVC, transactions, AOP, Boot configuration and operations. Depth varies with engineering value rather than lecture length.
+
+A full lecture-by-lecture summary is rejected: omit XML-configuration exercises, Thymeleaf template syntax and repeated teaching-domain implementation when not needed; preserve just enough handwritten Servlet/MVC evolution to explain Spring MVC. Do not infer these technologies are unsupported. Add current essential Spring behavior missing from a PDF, using official sources, and avoid duplicating the separate JPA, database, HTTP and Security tracks. No mandatory quizzes or new test exercises.
+
+**Planning boundary:** the precise filtered syllabus, per-topic depth and additional topics remain **unverified/proposed** until the user-directed full-source review in ChatGPT Work. The supplied `Spring.zip` archive listing (72 PDFs plus example project files) was inspected, but the PDF contents were not comprehensively evaluated in this Wiki task. See [BLR-0009](../decisions/BLR-0009.md). No course completion, new source code or curriculum approval is implied.
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -58,6 +66,7 @@ The user reviewed the full Windows-host/WSL2-to-Ubuntu-VM curriculum and request
 - [BLR-0006](../decisions/BLR-0006.md): learning Sentry vs portfolio-specific trade-off decision.
 - [BLR-0007](../decisions/BLR-0007.md): bounded Ubuntu/Linux/web-server fundamentals with theory and direct practice.
 - [BLR-0008](../decisions/BLR-0008.md): whole web request path as the cross-layer learning spine; advanced infra is deferred.
+- [BLR-0009](../decisions/BLR-0009.md): selectively study modern Spring concepts from PDFs; full syllabus redesign pending Work review.
 
 ## Existing project boundaries (not re-authorized or changed here)
 
@@ -67,6 +76,8 @@ The user reviewed the full Windows-host/WSL2-to-Ubuntu-VM curriculum and request
 - Large-scale Board's own repo and [GitHub Wiki](https://github.com/guseoh/large-scale-board/wiki) remain authoritative for its detailed project-specific design evolution and experiments. This central AI Wiki stores the cross-project plan and relevant decisions.
 
 ## Open questions and next actions
+
+- **Spring curriculum:** review all supplied course PDFs and code references in ChatGPT Work; produce a proposed filtered roadmap, depth allocation and source-grounded additions/omissions. No final detailed syllabus is approved yet.
 
 - **Ubuntu track:** start [BLK-0001 phase 0](../knowledge/BLK-0001.md) by discovering the actual Windows/WSL installation state, then proceed only from observed outputs. The local Ubuntu version, VM product, installed tools, completed exercises and real configuration are **not yet verified**.
 
