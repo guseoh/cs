@@ -8,6 +8,7 @@ updated_at: 2026-11-08
 evidence_level: source-verified
 capture_mode: full
 sources:
+  - https://github.com/guseoh/csforge/pull/298
   - https://github.com/guseoh/agent-skills/pull/3
   - https://github.com/guseoh/csforge/pull/293
   - https://github.com/guseoh/csforge/pull/295
@@ -15,7 +16,7 @@ sources:
   - https://github.com/guseoh/csforge/blob/main/.github/workflows/content-sync.yml
 depends_on: []
 supersedes: []
-related_to: [CSF-0001, CSF-0002, CSF-0003]
+related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004]
 ---
 # CSForge — source-verified project snapshot
 
@@ -26,7 +27,10 @@ related_to: [CSF-0001, CSF-0002, CSF-0003]
 - Cross-area Topic/Concept/Question guarded canonical sync implementation: [PR #288](https://github.com/guseoh/csforge/pull/288) merged; actual runtime sync is gated by role and repository variables in the content-sync workflow.
 - Source evidence does not prove current production canonical DB alignment, active sync flags, Vercel deployment SHA, authenticated Reader usage or latest production data state.
 
+- [CSForge Draft PR #298](https://github.com/guseoh/csforge/pull/298): N-01 TCP handshake editorial upgrade on a feature branch, not merged. First [Chromium QA #42451877548](https://github.com/guseoh/csforge/actions/runs/42451877548) passed; latest layout refinement requires separate CI. No canonical Markdown/DB changes.
+
 ## Accepted decisions
+- [CSF-0004](../decisions/CSF-0004.md): prioritize five compact Network diagram units beginning with N-01.
 - [CSF-0003](../decisions/CSF-0003.md): user-approved textbook-style SVG-first visualization approach and three pilot quality gates, separate from Reader deployment.
 - [CSF-0001](../decisions/CSF-0001.md): protected canonical content sync.
 - [CSF-0002](../decisions/CSF-0002.md): semantically appropriate Java editorial visualization.
