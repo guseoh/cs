@@ -49,6 +49,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [BLR-0008](decisions/BLR-0008.md) | accepted | End-to-end web lifecycle links OS, network, Nginx, Java and layer-by-layer incident diagnosis | backend-learning |
 | [BLR-0009](decisions/BLR-0009.md) | accepted | Select Spring Core/Boot concepts from PDFs for proportional backend-focused study; full redesign pending | backend-learning |
 | [BLR-0010](decisions/BLR-0010.md) | accepted | Approve the 7-track 34-unit Spring curriculum and restart at unit 01 | backend-learning |
+| [BLR-0011](decisions/BLR-0011.md) | accepted | Explain project reverse engineering for backend job seekers | backend-learning |
 | [AGT-0001](decisions/AGT-0001.md) | accepted | AgentLab: backend-focused Agent fundamentals and 13-stage roadmap | agentlab |
 | [AGT-0002](decisions/AGT-0002.md) | accepted | AgentLab stage-bounded, theory-rich, evidence-aware teaching | agentlab |
 | [PWC-0003](decisions/PWC-0003.md) | accepted | First MVP: narrow SKU subscription scope | pawcycle |
