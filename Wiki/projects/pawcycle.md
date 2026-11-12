@@ -22,6 +22,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 ## 2026-11-13 고도화 후보 검토
 
 - 원격 `main` [b3b2235d](https://github.com/guseoh/pawcycle-commerce/commit/b3b2235db1d0b36f79b93ae6db3daa2b8e25a98b)을 기준으로 결제 복구·관리자 가시성과 발생·복구 알림을 시스템 우선 검토 후보로 정리했다. 신규 AI 후보는 PR 회귀 검증과 기존 AI 품질 평가를 우선 제안했고, 쇼핑·고객지원·카탈로그·운영 활용 조건을 함께 기록했다. 선택·구현·운영 검증은 미확정이다. [검토 기록](../journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토)
+- 후속 검토에서 운영 우선순위와 관리자 결제 적체 화면, 트랜잭션 학습 실험을 보강했다. 성능 실험 후보는 **프로젝트 전체의 대규모 데이터와 혼합 부하**이며, 데이터 규모·요청률을 분리해 기준선을 잡고 병목 개선 전후의 정합성을 검증하는 제안이다. [프로젝트 전체 성능 검증](../journal/pawcycle/2026-11.md#프로젝트-전체-대규모-성능-검증-제안)
 
 ## Current state (checked 2026-11-03)
 - Observed main commit: [aa264ff996e0](https://github.com/guseoh/pawcycle-commerce/commit/aa264ff996e0167815f9138264fded36128882f7) (2026-11-03).
