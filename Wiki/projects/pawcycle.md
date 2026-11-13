@@ -19,6 +19,10 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 ---
 # PawCycle Commerce — source-verified project snapshot
 
+## 2026-11-13 구독 스냅샷 코드 대조
+
+- `b3b2235d` 코드 기준 구독 생성 시 패키지 총액·배송 주기·SKU/수량을 별도 snapshot으로 저장하고, 회차 주문은 current 또는 pending effective snapshot을 사용한다. 이는 기존 PWC-0004·0005·0079 정책의 구현 관측이다. 한편 공통 주문 `order_items` 단가는 처리 시점의 SKU 현재가를 조회한다. 패키지 가격과 개별 항목 가격 표시/배분의 관계는 **미검증 검토 항목**이며, 실제 결함·운영 영향은 확인하지 않았다. [읽기 전용 대조](../journal/pawcycle/2026-11.md#2026-11-13-구독-스냅샷-코드-대조-source-only)
+
 ## 2026-11-13 고도화 후보 검토
 
 - 원격 `main` [b3b2235d](https://github.com/guseoh/pawcycle-commerce/commit/b3b2235db1d0b36f79b93ae6db3daa2b8e25a98b)을 기준으로 결제 복구·관리자 가시성과 발생·복구 알림을 시스템 우선 검토 후보로 정리했다. 신규 AI 후보는 PR 회귀 검증과 기존 AI 품질 평가를 우선 제안했고, 쇼핑·고객지원·카탈로그·운영 활용 조건을 함께 기록했다. 선택·구현·운영 검증은 미확정이다. [검토 기록](../journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토)
