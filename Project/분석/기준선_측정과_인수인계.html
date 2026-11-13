@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>기준선 측정과 인수인계</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+
+/* ---- 접을 수 있는 사이드 목차 ---- */
+.toc-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.toc-header .toc-title{margin-bottom:0}
+.toc-visibility-toggle,.toc-actions button,.toc-item-toggle{font:inherit;cursor:pointer;color:var(--text-secondary)}
+.toc-visibility-toggle{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:28px;border:1px solid var(--line);background:var(--surface-1);border-radius:6px;padding:2px 8px;font-size:12px}
+.toc-visibility-toggle:hover,.toc-actions button:hover,.toc-item-toggle:hover{color:var(--fg);background:var(--surface-2)}
+.toc-visibility-toggle:focus-visible,.toc-actions button:focus-visible,.toc-item-toggle:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.toc-visibility-icon::before{content:'‹';display:inline-block;font-size:19px;line-height:1}
+.toc-actions{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:12px}
+.toc-actions button{border:0;background:transparent;padding:2px 0;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px}
+.toc-actions button:hover{text-decoration-color:currentColor}
+.toc-actions button:disabled{opacity:.45;cursor:default;text-decoration:none}
+.toc li{position:relative;padding-left:18px}
+.toc li>.toc-item-toggle{position:absolute;left:0;top:1px;display:inline-flex;align-items:center;justify-content:center;width:17px;height:21px;border:0;background:transparent;border-radius:4px;padding:0;color:var(--muted)}
+.toc-item-toggle::before{content:'▸';font-size:13px;transition:transform .15s ease}
+.toc-item-toggle[aria-expanded="true"]::before{transform:rotate(90deg)}
+.toc li.toc-node-collapsed>ul{display:none}
+.layout.toc-collapsed{grid-template-columns:44px minmax(0,1fr);gap:24px}
+.layout.toc-collapsed .toc{padding-right:0;border-right:0;overflow:visible}
+.layout.toc-collapsed .toc-header{justify-content:flex-start}
+.layout.toc-collapsed .toc-title,.layout.toc-collapsed .toc-actions,.layout.toc-collapsed .toc>ul,.layout.toc-collapsed .toc-visibility-label{display:none}
+.layout.toc-collapsed .toc-visibility-toggle{width:36px;height:36px;padding:0}
+.layout.toc-collapsed .toc-visibility-icon::before{content:'›'}
+@media (max-width:900px){.layout.toc-collapsed{grid-template-columns:1fr;gap:12px}.layout.toc-collapsed .toc{border-bottom:0;padding-bottom:0}}
+@media (prefers-reduced-motion:reduce){.toc-item-toggle::before{transition:none}}
+
+/* SVG diagram copy / export actions */
+.diagram-actions{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap;margin:0 0 10px;min-height:30px}
+.diagram-actions button{border:1px solid var(--border-strong);border-radius:7px;padding:5px 10px;font:inherit;font-size:12px;font-weight:600;line-height:1.5;background:var(--surface-2);color:var(--fg);cursor:pointer;transition:background .15s,border-color .15s}
+.diagram-actions button:hover{background:#383838;border-color:var(--border-stronger)}
+.diagram-actions button:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.diagram-actions button:disabled{opacity:.6;cursor:progress}
+.diagram-actions .diagram-status{font-size:12px;color:var(--muted);margin-right:auto}
+.diagram-actions .diagram-status[data-state="success"]{color:var(--text-success)}
+.diagram-actions .diagram-status[data-state="error"]{color:var(--text-warning)}
+@media print{.diagram-actions{display:none!important}}
+
+
+/* ---- 33강 문서 전용: PDF처럼 읽히는 구성 ---- */
+.doc-cover{border:1px solid var(--line);border-radius:14px;padding:36px 36px 28px;background:linear-gradient(180deg,#1e1e1e,#181818);margin:8px 0 28px}
+.doc-cover .kicker{font-size:13px;letter-spacing:.08em;color:var(--accent);font-weight:650;margin:0 0 10px}
+.doc-cover h1{font-size:34px;margin:0 0 10px}
+.doc-cover .sub{font-size:17px;color:#d0d0d0;margin:0 0 22px}
+.doc-cover dl{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin:0;font-size:14px}
+.doc-cover dt{color:var(--muted)}.doc-cover dd{margin:0}
+.doc-tools{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 0}
+.doc-tools button{border:1px solid var(--border-strong);border-radius:7px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;background:var(--surface-2);color:var(--fg);cursor:pointer}
+.doc-tools button:hover{background:#383838}
+.doc-contents{border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:0 0 32px;background:var(--card)}
+.doc-contents h2{border:none;margin:0 0 8px;padding:0;font-size:18px}
+.doc-contents ol{margin:0;padding-left:22px}.doc-contents li{margin:5px 0}
+.doc-contents .desc{color:var(--muted);font-size:13.5px}
+.doc-section{border-top:3px solid var(--accent);margin-top:64px;padding-top:6px}
+.doc-section>h1:first-child{margin-top:18px}
+.doc-section h2{counter-increment:none}
+figure.widget{margin:24px 0}
+figure.widget figcaption{font-size:13px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.55}
+figure.widget figcaption b{color:#d8d8d8;font-weight:650;margin-right:6px}
+.tag-note{font-size:12.5px;color:var(--muted);margin-left:2px}
+.page-foot{font-size:12.5px;color:var(--muted);text-align:right;margin-top:28px;border-top:1px dashed var(--line);padding-top:8px}
+pre,code{font-variant-ligatures:none}
+@page{size:A4;margin:16mm 14mm 18mm}
+@media print{
+  :root{--bg:#ffffff;--fg:#1a1a1a;--muted:#555;--line:#cfcfcf;--card:#f7f7f7;--link:#1d4f91;--code-bg:#f5f5f5;--code-fg:#1a1a1a;--inline-code-bg:#efefef;--inline-code-fg:#7a2e12}
+  html,body{background:#fff!important;color:#1a1a1a}
+  strong,h1,h2,h3,h4,th{color:#000!important}
+  th{background:#eee!important}tr:nth-child(even) td{background:#fafafa!important}
+  blockquote{background:#f6f6f6!important;color:#222!important}
+  .doc-cover{background:#fff!important;break-after:page}
+  .doc-contents{break-after:page;background:#fff!important}
+  .doc-section{break-before:page;border-top:none;margin-top:0}
+  figure.widget{break-inside:avoid;background:#1e1e1e!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  figure.widget figcaption{color:#bbb}
+  pre,table{break-inside:avoid}
+  .doc-tools{display:none}
+  a{color:#1d4f91}
+  .page-foot{display:none}
+}
+</style>
+</head><body><div class="layout"><aside class="toc" aria-label="문서 목차"><div class="toc-header"><div class="toc-title"><a href="index.html">분석</a> › 기준선</div><button type="button" class="toc-visibility-toggle" id="toc-visibility-toggle" aria-expanded="true" aria-controls="toc-list" aria-label="목차 접기" title="목차 접기"><span class="toc-visibility-icon" aria-hidden="true"></span><span class="toc-visibility-label">접기</span></button></div><div class="toc-actions"><button type="button" id="toc-expand-all">모두 펼치기</button><button type="button" id="toc-collapse-all">모두 접기</button></div><ul id="toc-list">
+<li><a href="#s1-기준선-측정-결과와-인수인계">기준선 측정 결과와 인수인계</a><ul>
+<li><a href="#s1-이-문서의-용도">이 문서의 용도</a>
+</li>
+<li><a href="#s1-1-사용자-결정과-작업-경계">1. 사용자 결정과 작업 경계</a>
+</li>
+<li><a href="#s1-2-측정-대상과-환경">2. 측정 대상과 환경</a>
+<ul class="h3"><li><a href="#s1-대상-커밋">대상 커밋</a></li>
+<li><a href="#s1-환경-지문">환경 지문</a></li></ul>
+</li>
+<li><a href="#s1-3-측정-방법">3. 측정 방법</a>
+<ul class="h3"><li><a href="#s1-시나리오">시나리오</a></li>
+<li><a href="#s1-다시-재는-방법">다시 재는 방법</a></li></ul>
+</li>
+<li><a href="#s1-4-결과">4. 결과</a>
+<ul class="h3"><li><a href="#s1-상품-목록-데워진-jvm">상품 목록 (데워진 JVM)</a></li>
+<li><a href="#s1-상품-상세-데워진-jvm">상품 상세 (데워진 JVM)</a></li>
+<li><a href="#s1-요청당-db-명령-수-순차-100회-데워진-상태">요청당 DB 명령 수 (순차 100회, 데워진 상태)</a></li>
+<li><a href="#s1-구매-흐름-1-vu-60초">구매 흐름 (1 VU, 60초)</a></li>
+<li><a href="#s1-기능-기준선-gradle-전체-테스트">기능 기준선 (Gradle 전체 테스트)</a></li></ul>
+</li>
+<li><a href="#s1-5-측정-과정에서-배운-것">5. 측정 과정에서 배운 것</a>
+<ul class="h3"><li><a href="#s1-기동-직후와-과부하-직후는-따로-봐야-한다">기동 직후와 과부하 직후는 따로 봐야 한다</a></li>
+<li><a href="#s1-측정-도구-쪽-실수-세-가지">측정 도구 쪽 실수 세 가지</a></li>
+<li><a href="#s1-gradle-테스트를-다시-돌리는-방법">Gradle 테스트를 다시 돌리는 방법</a></li>
+<li><a href="#s1-gradle-테스트-db-준비">Gradle 테스트 DB 준비</a></li></ul>
+</li>
+<li><a href="#s1-6-측정-중-새로-찾은-것">6. 측정 중 새로 찾은 것</a>
+</li>
+<li><a href="#s1-7-현재-상태">7. 현재 상태</a>
+</li>
+<li><a href="#s1-8-다음-세션에서-할-일">8. 다음 세션에서 할 일</a>
+<ul class="h3"><li><a href="#s1-이어서-시작할-때-붙여-넣을-요청-예시">이어서 시작할 때 붙여 넣을 요청 예시</a></li></ul>
+</li>
+</ul></li>
+</ul></aside><main><div class="doc-cover" id="top">
+<p class="kicker">PAWCYCLE COMMERCE · 리팩터링 준비</p>
+<h1>기준선 측정과 인수인계</h1>
+<p class="sub">리팩터링 전 성능·기능 기준선을 잰 과정과 결과, 그리고 다른 세션이 이어서 진행하기 위한 정보</p>
+<dl>
+<dt>기준 커밋</dt><dd><a href="https://github.com/guseoh/pawcycle-commerce/tree/b3b2235d" target="_blank" rel="noopener"><code>b3b2235d</code></a> (2026-11-13, 백엔드는 f9ab9f87과 동일)</dd>
+<dt>작성일</dt><dd>2026-11-13</dd>
+<dt>범위</dt><dd>상품 목록·상세 처리 한계, 구매 흐름, Gradle 전체 테스트</dd>
+<dt>보존 자산</dt><dd>같은 폴더의 기준선_2026-11-13/ (k6 스크립트, 실행 스크립트, 오버레이, 결과 원본)</dd>
+<dt>실행 범위</dt><dd>원래 저장소는 건드리지 않았다. 작업 폴더 사본과 분리된 Docker 프로젝트에서 로컬로만 실행했다. 비밀 값은 출력하지 않았다</dd>
+</dl>
+<div class="legend" style="margin-top:16px"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div>
+<div class="doc-tools"><button type="button" onclick="window.print()">PDF로 저장(인쇄)</button></div>
+</div><div class="doc-contents"><h2>차례</h2><ol><li><a href="#s1-기준선-측정-결과와-인수인계">기준선 측정 결과와 인수인계</a><div class="desc">작업 경계, 측정 환경·방법·결과, 측정 중 배운 것, 새 발견, 현재 상태, 다음 할 일</div></li></ol></div><section class="doc-section" id="sec-1"><h1 id="s1-기준선-측정-결과와-인수인계">기준선 측정 결과와 인수인계</h1>
+<h2 id="s1-이-문서의-용도">이 문서의 용도</h2>
+<p>이 문서는 다른 세션이 이 작업을 <strong>처음부터 다시 조사하지 않고</strong> 이어받기 위한 인수인계 문서다. 2026-11-13에 정한 다음 단계의 작업 경계, 성능·기능 기준선 측정의 과정과 결과, 그리고 다음에 할 일을 담았다.</p>
+<p>배경은 같은 폴더의 강의 문서다. 1~34강은 PawCycle Commerce를 해체 분석한 기록이다. 그중 <code>33강_리팩터링_설계.html</code>이 리팩터링의 설계와 순서를, <code>34강_포트폴리오_정리.html</code>이 포트폴리오 주제를 다룬다. 이 문서는 33강 33-2에서 설계한 "안전망"의 첫 조각인 <strong>성능 기준선</strong>을 실제로 잰 결과다.</p>
+<h2 id="s1-1-사용자-결정과-작업-경계">1. 사용자 결정과 작업 경계</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>결정(2026-11-13)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>다음 단계 1</td>
+<td>코드 결함, 도메인 문제, 불필요한 문서, 실무에 맞지 않는 Java/Spring 코드와 디자인 패턴·OOP 위반 코드·구성을 <strong>전수 분석해 정리</strong>한다</td>
+</tr>
+<tr>
+<td>다음 단계 2</td>
+<td>대규모 데이터 추가 → 성능 측정·부하 테스트 → 성능 개선과 시스템 디자인 재설계를 모두 다시 한다</td>
+</tr>
+<tr>
+<td>순서</td>
+<td><strong>기준선 먼저</strong>, 그다음 결함 분석·수정</td>
+</tr>
+<tr>
+<td>분석 결과물</td>
+<td>분석 폴더 HTML 문서 + GitHub Issue. Issue는 외부 기록이므로 <strong>생성 직전에 목록과 함께 다시 확인</strong>받는다</td>
+</tr>
+<tr>
+<td>저장소 쓰기</td>
+<td><strong>아직 분석만.</strong> 파일 수정·커밋·브랜치·PR 없음</td>
+</tr>
+<tr>
+<td>로컬 실행</td>
+<td><strong>허용.</strong> Gradle 테스트, Docker Compose, k6</td>
+</tr>
+<tr>
+<td>운영·클라우드</td>
+<td>손대지 않는다(OCI <code>app01</code>, Managed MySQL, GitHub 설정 등)</td>
+</tr>
+<tr>
+<td>리팩터링 방향</td>
+<td>기존 저장소에서 점진적으로. 이후 기능 도입과 AI 활용으로 확장</td>
+</tr>
+</tbody>
+</table>
+<p>지켜야 할 기존 규칙은 다음과 같다.</p>
+<ul>
+<li>비밀 값(<code>.env.local</code>의 비밀번호, 토큰, 웹훅 주소)은 출력하거나 문서에 적지 않는다. 이 문서의 모든 명령도 값을 출력하지 않는다.</li>
+<li>사용자와 AI의 기여 경계는 추론하지 않는다.</li>
+<li>근거 수준을 <span class="tag tag-ok">확인</span> <span class="tag tag-rec">기록</span> <span class="tag tag-int">해석</span> <span class="tag tag-unk">미확인</span>으로 표시한다.</li>
+</ul>
+<h2 id="s1-2-측정-대상과-환경">2. 측정 대상과 환경</h2>
+<h3 id="s1-대상-커밋">대상 커밋</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>측정 커밋</td>
+<td><code>b3b2235d</code> (2026-11-13, 원격 main 최신)</td>
+</tr>
+<tr>
+<td>강의 분석 기준</td>
+<td><code>f9ab9f87</code> (2026-11-12)</td>
+</tr>
+<tr>
+<td>두 커밋의 차이</td>
+<td>프론트엔드 UI 커밋 #469 하나뿐. <strong>백엔드 코드는 같다</strong> <span class="tag tag-ok">확인</span></td>
+</tr>
+</tbody>
+</table>
+<p>원래 로컬 저장소(<code>C:\Users\guseo\IdeaProjects\pawcycle-commerce</code>)는 건드리지 않았다. 측정은 GitHub에서 작업 폴더로 새로 받은 사본에서 했다.</p>
+<blockquote>
+<p>원래 로컬 저장소에는 이 세션이 만들지 않은 변경이 있다. <code>docs/reports/OPS-OCI-CD-011/README.md</code> 수정과 추적되지 않는 <code>.task-worktrees/</code>다. 손대지 않았다.</p>
+</blockquote>
+<h3 id="s1-환경-지문">환경 지문</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>호스트</td>
+<td>Windows 11 Home</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td>Docker Desktop, Engine 29.9.2, CPU 8, 메모리 할당 약 3.74GiB</td>
+</tr>
+<tr>
+<td>Compose 프로젝트</td>
+<td><code>pawcycle-baseline</code> (기존 로컬 볼륨과 분리)</td>
+</tr>
+<tr>
+<td>구성</td>
+<td><code>infra/local-integration/compose.yaml</code> + <code>compose.phase9-envelope.yaml</code> + 카탈로그 오버레이</td>
+</tr>
+<tr>
+<td>backend 제한</td>
+<td>640MiB, CPU 0.75, PID 256, <code>MaxRAMPercentage=65</code>, <code>ExitOnOutOfMemoryError</code> (운영과 같은 값)</td>
+</tr>
+<tr>
+<td>카탈로그</td>
+<td>고객 카탈로그 v3 사용(<code>PAWCYCLE_LOCAL_CUSTOMER_CATALOG_V3_ENABLED=true</code>)</td>
+</tr>
+<tr>
+<td>데이터</td>
+<td>상품 128개(모두 PUBLIC), SKU 194개, 재고 있는 SKU 179개, 회원 29명</td>
+</tr>
+<tr>
+<td>데이터 조작</td>
+<td>측정 전용 DB에서 <strong>SKU 7번 재고만 100,000으로</strong> 올렸다</td>
+</tr>
+<tr>
+<td>결제</td>
+<td>local-integration 기본 <strong>샌드박스 결제 어댑터</strong>(외부 호출 없음, 어떤 결제 키든 성공)</td>
+</tr>
+<tr>
+<td>상품 목록 캐시</td>
+<td>설정은 켜져 있지만 <strong>코드가 캐시를 읽지 않는다</strong>(28강, PR #279). 이번 숫자는 캐시 없는 상태</td>
+</tr>
+<tr>
+<td>부하 도구</td>
+<td>k6 v2.2.0</td>
+</tr>
+</tbody>
+</table>
+<p>Phase 9(2026-08)의 측정 환경은 Docker 메모리가 약 8GiB였다. 이번에는 약 3.74GiB다. backend 컨테이너 제한은 같지만, MySQL과 다른 컨테이너가 쓸 수 있는 여유가 다르다. 두 측정의 숫자를 직접 비교하지 않는다.</p>
+<h2 id="s1-3-측정-방법">3. 측정 방법</h2>
+<h3 id="s1-시나리오">시나리오</h3>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>스크립트</th>
+<th>부하 모델</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>상품 목록</td>
+<td><code>k6/read.js</code> <code>TARGET=list</code></td>
+<td>예열 2 VU 30초 → <code>constant-arrival-rate</code> 60초</td>
+<td><code>GET /api/products</code></td>
+</tr>
+<tr>
+<td>상품 상세</td>
+<td><code>k6/read.js</code> <code>TARGET=detail</code></td>
+<td>같음</td>
+<td><code>GET /api/products/{id}</code> 무작위</td>
+</tr>
+<tr>
+<td>구매 흐름</td>
+<td><code>k6/flow.js</code></td>
+<td>1 VU 순차 60초</td>
+<td>로그인 → 담기 → 체크아웃 → 결제 승인 → 주문 목록</td>
+</tr>
+</tbody>
+</table>
+<p><code>run.sh</code>는 k6 실행 전후의 MySQL 명령 수(<code>Com_select</code>, <code>Com_insert</code>, <code>Com_update</code>, <code>Questions</code>)를 기록한다. 측정 60초 시점에 <code>docker stats</code>를 한 번 찍고, 끝난 뒤 backend 스레드 수와 재시작·OOM 여부를 남긴다.</p>
+<h3 id="s1-다시-재는-방법">다시 재는 방법</h3>
+<p>모든 파일은 이 폴더의 <code>기준선_2026-11-13/</code>에 있다.</p>
+<ol>
+<li>GitHub에서 측정할 커밋을 작업 폴더에 받는다. 원래 저장소에서 checkout하지 않는다.</li>
+<li>스택을 띄운다(비밀 값은 원래 저장소의 <code>.env.local</code>을 경로로만 참조).</li>
+</ol>
+<pre><code class="language-bash">cd &lt;작업폴더&gt;/repo/infra/local-integration
+docker compose -p pawcycle-baseline --env-file &lt;원래저장소&gt;/infra/local-integration/.env.local \
+  -f compose.yaml -f compose.phase9-envelope.yaml -f &lt;기준선폴더&gt;/compose.baseline-catalog.yaml \
+  up --build -d --wait --wait-timeout 600
+</code></pre>
+<ol start="3">
+<li>측정 전용 DB에서 구매 흐름용 재고를 올린다(값은 컨테이너 안의 환경 변수로만 쓴다).</li>
+</ol>
+<pre><code class="language-bash">docker exec pawcycle-baseline-mysql-1 sh -c 'MYSQL_PWD=&quot;$MYSQL_ROOT_PASSWORD&quot; mysql -uroot &quot;$MYSQL_DATABASE&quot; \
+  -e &quot;UPDATE inventories SET available_quantity=100000, version=version+1 WHERE sku_id=7;&quot;'
+</code></pre>
+<ol start="4">
+<li><strong>JVM을 데운 뒤</strong> 측정한다. 기동 직후 첫 측정은 버린다(5절 참고). 측정 사이에 20~30초 쉰다.</li>
+</ol>
+<pre><code class="language-bash">bash run.sh list75 read.js -e BASE_URL=http://127.0.0.1:8080 -e TARGET=list -e RATE=75
+bash run.sh detail50w read.js -e BASE_URL=http://127.0.0.1:8080 -e TARGET=detail -e RATE=50
+</code></pre>
+<ol start="5">
+<li>구매 흐름은 QA 계정을 환경 변수로만 넘긴다.</li>
+</ol>
+<pre><code class="language-bash">( set -a; . &lt;원래저장소&gt;/infra/local-integration/.env.local &gt;/dev/null 2&gt;&amp;1; set +a
+  export QA_EMAIL=&quot;$PAWCYCLE_LOCAL_QA_BOOTSTRAP_EMAIL&quot; QA_PASSWORD=&quot;$PAWCYCLE_LOCAL_QA_BOOTSTRAP_PASSWORD&quot;
+  bash run.sh flow5 flow.js -e BASE_URL=http://127.0.0.1:8080 -e SKU_ID=7 )
+</code></pre>
+<h2 id="s1-4-결과">4. 결과</h2>
+<h3 id="s1-상품-목록-데워진-jvm">상품 목록 (데워진 JVM)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">목표 RPS</th>
+<th style="text-align: right;">요청 수</th>
+<th style="text-align: right;">dropped</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p95</th>
+<th style="text-align: right;">p99</th>
+<th>판정</th>
+<th>근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">601</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">17.8ms</td>
+<td style="text-align: right;">30.5ms</td>
+<td style="text-align: right;">51.8ms</td>
+<td>안정</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1,501</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16.0ms</td>
+<td style="text-align: right;">37.7ms</td>
+<td style="text-align: right;">75.6ms</td>
+<td>안정</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">2,101</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15.8ms</td>
+<td style="text-align: right;">26.7ms</td>
+<td style="text-align: right;">34.8ms</td>
+<td>안정</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">3,001</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15.5ms</td>
+<td style="text-align: right;">23.5ms</td>
+<td style="text-align: right;">45.4ms</td>
+<td>안정</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">4,501</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14.0ms</td>
+<td style="text-align: right;">28.3ms</td>
+<td style="text-align: right;">66.8ms</td>
+<td>안정</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">5,419</td>
+<td style="text-align: right;">581</td>
+<td style="text-align: right;">1,881ms</td>
+<td style="text-align: right;">4,612ms</td>
+<td style="text-align: right;">6,636ms</td>
+<td><strong>붕괴</strong></td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">5,757</td>
+<td style="text-align: right;">3,243</td>
+<td style="text-align: right;">1,997ms</td>
+<td style="text-align: right;">5,363ms</td>
+<td style="text-align: right;">6,378ms</td>
+<td>붕괴, 처리 상한 약 95 RPS</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+</tbody>
+</table>
+<p>100 RPS에서 MySQL CPU가 117%, backend CPU가 한도의 약 100%(0.75 중 0.75)였다. 150 RPS에서는 backend 메모리가 <strong>631MiB/640MiB</strong>까지 올라갔다.</p>
+<h3 id="s1-상품-상세-데워진-jvm">상품 상세 (데워진 JVM)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">목표 RPS</th>
+<th style="text-align: right;">요청 수</th>
+<th style="text-align: right;">dropped</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p95</th>
+<th style="text-align: right;">p99</th>
+<th>판정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1,501</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">18.7ms</td>
+<td style="text-align: right;">23.6ms</td>
+<td style="text-align: right;">30.2ms</td>
+<td>안정</td>
+</tr>
+<tr>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">2,100</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">19.5ms</td>
+<td style="text-align: right;">25.8ms</td>
+<td style="text-align: right;">47.5ms</td>
+<td>안정</td>
+</tr>
+<tr>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">3,000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">18.7ms</td>
+<td style="text-align: right;">25.1ms</td>
+<td style="text-align: right;">52.4ms</td>
+<td>안정</td>
+</tr>
+<tr>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">4,369</td>
+<td style="text-align: right;">132</td>
+<td style="text-align: right;">1,307ms</td>
+<td style="text-align: right;">4,104ms</td>
+<td style="text-align: right;">5,876ms</td>
+<td><strong>붕괴</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="s1-요청당-db-명령-수-순차-100회-데워진-상태">요청당 DB 명령 수 (순차 100회, 데워진 상태)</h3>
+<table>
+<thead>
+<tr>
+<th>경로</th>
+<th style="text-align: right;">응답 크기</th>
+<th style="text-align: right;">SELECT/요청</th>
+<th style="text-align: right;">전체 명령/요청</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>상품 목록</td>
+<td style="text-align: right;">12,596 bytes</td>
+<td style="text-align: right;">약 2.1</td>
+<td style="text-align: right;">약 7.4</td>
+</tr>
+<tr>
+<td>상품 상세</td>
+<td style="text-align: right;">1,745 bytes</td>
+<td style="text-align: right;">약 9.2</td>
+<td style="text-align: right;">약 14.5</td>
+</tr>
+</tbody>
+</table>
+<p>목록의 SELECT 2개는 15강의 "2-query 계약"과 일치한다 <span class="tag tag-ok">확인</span>. SELECT 외의 명령(약 5개)은 트랜잭션 설정·커밋 같은 부가 명령으로 보인다 <span class="tag tag-int">해석</span>. 어떤 명령인지는 <code>performance_schema.events_statements_history</code>로 확인할 후보다 <span class="tag tag-unk">미확인</span>.</p>
+<h3 id="s1-구매-흐름-1-vu-60초">구매 흐름 (1 VU, 60초)</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>완주</td>
+<td>264회, 오류 0</td>
+</tr>
+<tr>
+<td>담기</td>
+<td>p50 29ms, p95 89ms</td>
+</tr>
+<tr>
+<td>체크아웃</td>
+<td>p50 59ms, p95 165ms</td>
+</tr>
+<tr>
+<td>결제 승인</td>
+<td>p50 76ms, p95 202ms</td>
+</tr>
+<tr>
+<td>주문 목록</td>
+<td>p50 9ms, p95 52ms</td>
+</tr>
+<tr>
+<td>DB 명령/회</td>
+<td>INSERT 약 10, UPDATE 약 10, SELECT 약 30</td>
+</tr>
+</tbody>
+</table>
+<h3 id="s1-기능-기준선-gradle-전체-테스트">기능 기준선 (Gradle 전체 테스트)</h3>
+<p>CI와 같은 조건으로 돌렸다. 조건은 MySQL 8.4.10 일회용 컨테이너, CI와 같은 계정·권한, 잠금 관측 옵션(<code>lock-ci.init.gradle</code>)이다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>테스트 클래스</td>
+<td>185개</td>
+</tr>
+<tr>
+<td>테스트</td>
+<td>4,526개</td>
+</tr>
+<tr>
+<td>실패</td>
+<td><strong>4개</strong> (모두 <code>BillingRecoveryPersistenceParityIntegrationTests</code>의 같은 파라미터 테스트)</td>
+</tr>
+<tr>
+<td>건너뜀</td>
+<td>4개</td>
+</tr>
+<tr>
+<td>소요 시간</td>
+<td>43분 15초(이 PC 기준)</td>
+</tr>
+</tbody>
+</table>
+<p>실패 4개의 차이는 <code>updated_at</code> 하나다. 기대값은 <code>23:59:59</code>, 실제값은 <code>14:59:59</code>로 <strong>정확히 9시간</strong> 차이가 난다. 같은 테스트 클래스를 JVM 시간대만 UTC로 바꿔(<code>utc.init.gradle</code>) 다시 돌리자 <strong>전부 통과</strong>했다 <span class="tag tag-ok">확인</span>. CI는 UTC로 돌고 이 PC는 한국 시간(UTC+9)이다. 그래서 <strong>테스트 결과가 실행 환경의 시간대에 따라 달라진다.</strong></p>
+<p>시스템 기본 시간대를 쓰는 곳이 운영 코드인지 테스트 픽스처인지는 아직 확인하지 않았다 <span class="tag tag-unk">미확인</span>. 33-3에서 다룬 시간 타입 혼용(<code>Timestamp</code>·<code>LocalDateTime</code>·<code>Instant</code>, <code>*TimestampJdbcType</code> 10개)과 같은 뿌리로 보인다 <span class="tag tag-int">해석</span>.</p>
+<p><strong>기준선 판정</strong>: 이 PC에서 기능 기준선은 "4,526개 중 4,522개 통과, 실패 4개는 시간대 의존"이다. 리팩터링 전후 비교는 <code>user.timezone=UTC</code>로 맞춰서 한다.</p>
+<h2 id="s1-5-측정-과정에서-배운-것">5. 측정 과정에서 배운 것</h2>
+<h3 id="s1-기동-직후와-과부하-직후는-따로-봐야-한다">기동 직후와 과부하 직후는 따로 봐야 한다</h3>
+<p>같은 50 RPS가 처음에는 p95 8.7초로 붕괴했고, 데워진 뒤에는 23ms로 안정적이었다. 상품 상세 50 RPS도 같은 일이 있었다.</p>
+<ul>
+<li><strong>기동 직후</strong>: JIT 컴파일 전이라 요청당 CPU가 크다. 30초·2 VU 예열로는 부족했다.</li>
+<li><strong>과부하 직후</strong>: Tomcat 스레드가 220개 넘게 늘어난 상태가 한동안 유지된다. 이 상태에서는 평소 버티던 부하에서도 다시 무너진다. 30초쯤 쉬면 스레드가 49개 수준으로 줄었다.</li>
+</ul>
+<p>이 현상은 운영에도 그대로 적용된다. <strong>배포 직후</strong>(JVM이 차가움)와 <strong>순간 과부하 직후</strong>가 가장 위험하다 <span class="tag tag-int">해석</span>. 앞으로 측정할 때는 "첫 측정 버리기"와 "측정 사이 휴식"을 절차로 고정한다.</p>
+<h3 id="s1-측정-도구-쪽-실수-세-가지">측정 도구 쪽 실수 세 가지</h3>
+<table>
+<thead>
+<tr>
+<th>증상</th>
+<th>원인</th>
+<th>서버 결함인가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>담기가 매번 실패</td>
+<td>담기는 성공 시 <strong>204</strong>를 돌려주는데 200·201만 성공으로 봤다</td>
+<td>아니다</td>
+</tr>
+<tr>
+<td>체크아웃 실패</td>
+<td>배송지 응답 필드가 <code>addressId</code>인데 <code>id</code>로 읽었다</td>
+<td>아니다</td>
+</tr>
+<tr>
+<td>첫 회차 뒤 401·403</td>
+<td><strong>k6는 기본으로 회차마다 쿠키를 지운다.</strong> <code>noCookiesReset: true</code>로 해결</td>
+<td>아니다</td>
+</tr>
+</tbody>
+</table>
+<p>세 번째는 curl로 같은 흐름을 세 번 연속 돌려 세션이 유지됨을 확인한 뒤에 결론 내렸다 <span class="tag tag-ok">확인</span>. 28강에서 PowerShell 래퍼가 무너졌던 것과 같은 종류의 실패다. 측정 도구를 먼저 검증해야 한다는 교훈이 다시 확인됐다.</p>
+<h3 id="s1-gradle-테스트를-다시-돌리는-방법">Gradle 테스트를 다시 돌리는 방법</h3>
+<pre><code class="language-bash">docker start pawcycle-baseline-testdb      # 처음이면 docker run (포트 127.0.0.1:33306, CI와 같은 계정)
+cd &lt;작업폴더&gt;/repo/backend
+SPRING_DATASOURCE_URL=jdbc:mysql://127.0.0.1:33306/pawcycle_test \
+SPRING_DATASOURCE_USERNAME=pawcycle_ci SPRING_DATASOURCE_PASSWORD=ci-only-not-a-secret \
+./gradlew test --no-daemon --init-script &lt;기준선폴더&gt;/utc.init.gradle
+</code></pre>
+<p>테스트 계정 정보는 CI 워크플로에 공개된 일회용 값(<code>ci-only-not-a-secret</code>)이다. 운영 비밀이 아니다.</p>
+<h3 id="s1-gradle-테스트-db-준비">Gradle 테스트 DB 준비</h3>
+<p>CI는 테스트 계정에 <code>PROCESS</code> 권한 말고도 <code>performance_schema</code>의 잠금 관측 테이블 조회 권한을 준다. 처음에는 이 단계를 빠뜨려 <code>AdminCatalogConcurrencyIntegrationTests</code> 등이 <code>SELECT command denied ... data_lock_waits</code>로 실패했다. CI 워크플로의 준비 SQL을 그대로 적용한 뒤 다시 돌렸다. 테스트 결함이 아니다.</p>
+<h2 id="s1-6-측정-중-새로-찾은-것">6. 측정 중 새로 찾은 것</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>분류</th>
+<th>내용</th>
+<th>근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BL-B-01</td>
+<td>결함</td>
+<td><strong>주문 목록 API에 페이지가 없다.</strong> <code>OrderController.list</code>가 회원의 주문 전체를 <code>List</code>로 돌려준다. 측정 회원은 주문 270건이었다</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td>BL-B-02</td>
+<td>위험</td>
+<td>과부하 때 backend 메모리가 639MiB/640MiB까지 올랐다. 30강 OOM 조건이 그대로다(BL-30-01)</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td>BL-B-03</td>
+<td>위험</td>
+<td>과부하 뒤 스레드가 줄기 전까지 처리 능력이 떨어진다. Tomcat 최대 스레드 상한이 없다</td>
+<td><span class="tag tag-ok">확인</span> <span class="tag tag-int">해석</span></td>
+</tr>
+<tr>
+<td>BL-B-04</td>
+<td>개선</td>
+<td>요청당 SELECT보다 부가 명령이 많다(목록 2 대 약 5)</td>
+<td><span class="tag tag-ok">확인</span> <span class="tag tag-unk">미확인</span><span class="tag-note">명령 종류</span></td>
+</tr>
+<tr>
+<td>BL-B-05</td>
+<td>코드 스타일·구성</td>
+<td>기동 로그에 Spring Data Redis가 JPA 리포지토리를 Redis 리포지토리 후보로 검사하는 경고가 리포지토리마다 찍힌다. <code>spring.data.redis.repositories.enabled=false</code> 후보</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td>BL-B-06</td>
+<td>결함(재확인)</td>
+<td>상품 목록 캐시가 켜져 있어도 읽히지 않는다(BL-28-01). 기준선은 캐시 없는 숫자</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+<tr>
+<td>BL-B-07</td>
+<td>결함</td>
+<td><strong>테스트가 실행 환경의 시간대에 의존한다.</strong> <code>BillingRecoveryPersistenceParityIntegrationTests</code>의 4개가 KST에서 9시간 차이로 실패하고 UTC에서 통과한다. 운영 코드인지 테스트 픽스처인지 확인 필요</td>
+<td><span class="tag tag-ok">확인</span> <span class="tag tag-unk">미확인</span><span class="tag-note">원인 위치</span></td>
+</tr>
+<tr>
+<td>BL-B-08</td>
+<td>개선</td>
+<td>백엔드 전체 테스트가 이 PC에서 43분 걸린다. 리팩터링 중 빠른 피드백을 위해 영역별 실행 묶음(태그)이 필요하다</td>
+<td><span class="tag tag-ok">확인</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="s1-7-현재-상태">7. 현재 상태</h2>
+<table>
+<thead>
+<tr>
+<th>대상</th>
+<th>상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>측정 스택 <code>pawcycle-baseline</code></td>
+<td><strong>멈춤</strong>(컨테이너와 볼륨은 남김). 다시 켜려면 3절 2번 명령을 그대로 실행한다. 측정 데이터(SKU 7번 재고, 측정 회원의 주문 약 270건)가 남아 있으므로, 깨끗한 기준선이 필요하면 <code>docker compose -p pawcycle-baseline down -v</code>로 볼륨까지 지우고 다시 만든다</td>
+</tr>
+<tr>
+<td>테스트 DB <code>pawcycle-baseline-testdb</code></td>
+<td><strong>멈춤.</strong> <code>docker start pawcycle-baseline-testdb</code>로 다시 켠다. 권한은 이미 부여돼 있다. 지우려면 <code>docker rm -f pawcycle-baseline-testdb</code></td>
+</tr>
+<tr>
+<td>작업 폴더 사본</td>
+<td>세션 작업 폴더에 있다. 세션이 끝나면 사라질 수 있다. 다시 받으면 된다</td>
+</tr>
+<tr>
+<td>측정 자산</td>
+<td><code>기준선_2026-11-13/</code>에 스크립트, 오버레이, 결과 원본(JSON·DB 명령·docker stats), 테스트 요약을 보존했다. 유효한 결과는 <code>list10·25·35b·50b·75·100·150</code>, <code>detail25w·35w·50w·75w</code>, <code>flow5</code>다. <code>list50</code>·<code>detail50</code>·<code>detail75</code>는 기동 직후·과부하 직후 측정(5절), <code>flow1~4</code>는 측정 도구 실수 중의 실행이다</td>
+</tr>
+</tbody>
+</table>
+<h2 id="s1-8-다음-세션에서-할-일">8. 다음 세션에서 할 일</h2>
+<ol>
+<li><strong>전수 분석</strong>(단계 1). 범위는 백엔드, 프론트엔드, 인프라, 문서 전체다.<ul>
+<li>코드 결함과 도메인 문제</li>
+<li>불필요하거나 낡은 문서(정본과 실행 보고서의 불일치, 역사 산출물의 검색 소음)</li>
+<li>실무에 맞지 않는 Java/Spring 코드, 디자인 패턴·OOP 위반, 구성 문제</li>
+<li>출발점: 1~34강 백로그(메모리 <code>pawcycle-refactoring-backlog</code>), 33강 33-1 분류표, 이 문서 6절</li>
+</ul>
+</li>
+<li>분석 결과를 33강 형식의 HTML로 만든다.</li>
+<li><strong>GitHub Issue 목록을 보여 주고 확인받은 뒤</strong> 생성한다.</li>
+<li>저장소 쓰기가 허용되면 33-8 로드맵 순서(안전망 → 공통 기반 → 결제 → 재고 → 정기 → 나머지)로 수정에 들어간다.</li>
+<li>단계 2(대규모 데이터)는 이 기준선과 같은 스크립트·절차로 비교한다.</li>
+</ol>
+<h3 id="s1-이어서-시작할-때-붙여-넣을-요청-예시">이어서 시작할 때 붙여 넣을 요청 예시</h3>
+<blockquote>
+<p>PawCycle 리팩터링 준비를 이어서 하자. <code>obsidian-vault\Project\분석\기준선_측정과_인수인계.pdf</code>(또는 html)를 먼저 읽고, 8절의 1번 전수 분석부터 시작해. 작업 경계는 1절을 따른다.</p>
+</blockquote><p class="page-foot">기준선 측정과 인수인계</p></section></main></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+<script>
+(function () {
+  'use strict';
+
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const STYLE_KEYS = [
+    'color', 'fill', 'fill-opacity', 'stroke', 'stroke-opacity', 'stroke-width',
+    'stroke-linecap', 'stroke-linejoin', 'stroke-dasharray', 'stroke-dashoffset',
+    'opacity', 'font-family', 'font-size', 'font-weight', 'font-style',
+    'text-anchor', 'dominant-baseline', 'letter-spacing', 'paint-order',
+    'visibility', 'display', 'white-space'
+  ];
+  const HTML_STYLE_KEYS = [
+    ...STYLE_KEYS, 'background', 'background-color', 'line-height',
+    'text-align', 'padding', 'margin', 'border', 'border-radius', 'width', 'height'
+  ];
+
+  function report(status, message, state) {
+    status.textContent = message;
+    status.dataset.state = state || '';
+    status.setAttribute('role', state === 'error' ? 'alert' : 'status');
+  }
+
+  // Standalone SVG files do not inherit this document's .widget CSS.
+  // Copy computed colors / typography into the SVG so the pasted diagram
+  // retains the same appearance in Obsidian, Word and image editors.
+  function portableSvg(original) {
+    const copy = original.cloneNode(true);
+    copy.setAttribute('xmlns', SVG_NS);
+    copy.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+    const viewBox = original.viewBox && original.viewBox.baseVal;
+    const rect = original.getBoundingClientRect();
+    const width = viewBox && viewBox.width > 0 ? viewBox.width : rect.width;
+    const height = viewBox && viewBox.height > 0 ? viewBox.height : rect.height;
+    if (!width || !height) throw new Error('도식 크기를 확인할 수 없습니다.');
+    if (!original.hasAttribute('viewBox')) copy.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    copy.setAttribute('width', String(width));
+    copy.setAttribute('height', String(height));
+    copy.style.maxWidth = 'none';
+    copy.style.width = width + 'px';
+    copy.style.height = height + 'px';
+
+    const originalNodes = [original, ...original.querySelectorAll('*')];
+    const copiedNodes = [copy, ...copy.querySelectorAll('*')];
+    originalNodes.forEach((node, i) => {
+      const destination = copiedNodes[i];
+      if (!destination) return;
+      const style = getComputedStyle(node);
+      const keys = node.namespaceURI === SVG_NS ? STYLE_KEYS : HTML_STYLE_KEYS;
+      keys.forEach(key => {
+        const value = style.getPropertyValue(key);
+        if (value) destination.style.setProperty(key, value);
+      });
+    });
+    return {svg: copy, width, height};
+  }
+
+  function svgBlob(original) {
+    const {svg, width, height} = portableSvg(original);
+    return {blob: new Blob([new XMLSerializer().serializeToString(svg)],
+      {type: 'image/svg+xml;charset=utf-8'}), width, height};
+  }
+
+  async function pngBlob(original) {
+    const {blob, width, height} = svgBlob(original);
+    const url = URL.createObjectURL(blob);
+    try {
+      const img = new Image();
+      img.src = url;
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = () => reject(new Error('SVG를 이미지로 변환하지 못했습니다.'));
+        if (img.complete && img.naturalWidth) resolve();
+      });
+      const margin = 16;
+      const scale = Math.min(2, 4096 / Math.max(width + margin * 2, height + margin * 2));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.ceil((width + margin * 2) * scale);
+      canvas.height = Math.ceil((height + margin * 2) * scale);
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('이미지 변환 기능을 사용할 수 없습니다.');
+      ctx.fillStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue('--card').trim() || '#1e1e1e';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, margin * scale, margin * scale, width * scale, height * scale);
+      return await new Promise((resolve, reject) => canvas.toBlob(
+        result => result ? resolve(result) : reject(new Error('PNG 변환에 실패했습니다.')),
+        'image/png'));
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
+
+  function saveBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.style.display = 'none';
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    // Delay revocation to allow the browser to process the download.
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+  }
+
+  function attachActions(figure) {
+    if (figure.dataset.copyActionsAdded === 'true') return true;
+    const svg = figure.querySelector('svg');
+    if (!svg) return false;
+    const name = (figure.dataset.title || 'diagram').replace(/[^a-zA-Z0-9_-]+/g, '_');
+    const bar = document.createElement('div');
+    bar.className = 'diagram-actions';
+    bar.setAttribute('aria-label', '도식 이미지 작업');
+    const status = document.createElement('span');
+    status.className = 'diagram-status';
+    status.setAttribute('aria-live', 'polite');
+    const copy = document.createElement('button');
+    copy.type = 'button';
+    copy.textContent = '이미지 복사';
+    copy.title = 'PNG 이미지로 클립보드에 복사하여 문서에 붙여넣기';
+    const savePng = document.createElement('button');
+    savePng.type = 'button';
+    savePng.textContent = 'PNG 저장';
+    const saveSvg = document.createElement('button');
+    saveSvg.type = 'button';
+    saveSvg.textContent = 'SVG 저장';
+    bar.append(status, copy, savePng, saveSvg);
+    const heading = figure.querySelector(':scope > .sr-only');
+    if (heading) heading.insertAdjacentElement('afterend', bar);
+    else figure.insertAdjacentElement('afterbegin', bar);
+    figure.dataset.copyActionsAdded = 'true';
+
+    async function run(button, message, callback) {
+      button.disabled = true;
+      report(status, message, '');
+      try {
+        await callback();
+      } catch (error) {
+        console.warn('도식 이미지 처리 실패:', error);
+        report(status, '처리 실패 · ' + (error.message || '브라우저 제한'), 'error');
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    copy.addEventListener('click', () => run(copy, '이미지 변환 중…', async () => {
+      if (!navigator.clipboard || !navigator.clipboard.write || !window.ClipboardItem) {
+        throw new Error('이 브라우저는 이미지 클립보드 복사를 지원하지 않습니다. PNG 저장을 이용하세요.');
+      }
+      // Start write immediately from the click gesture. The PNG is generated
+      // asynchronously, which is supported by Chromium's ClipboardItem API.
+      const imagePromise = pngBlob(svg);
+      await navigator.clipboard.write([new ClipboardItem({'image/png': imagePromise})]);
+      report(status, '복사 완료 · Ctrl+V로 붙여넣기', 'success');
+    }));
+    savePng.addEventListener('click', () => run(savePng, 'PNG 생성 중…', async () => {
+      const blob = await pngBlob(svg);
+      saveBlob(blob, name + '.png');
+      report(status, 'PNG 저장 요청 완료', 'success');
+    }));
+    saveSvg.addEventListener('click', () => run(saveSvg, 'SVG 생성 중…', async () => {
+      const {blob} = svgBlob(svg);
+      saveBlob(blob, name + '.svg');
+      report(status, 'SVG 저장 요청 완료', 'success');
+    }));
+    return true;
+  }
+
+  document.querySelectorAll('figure.widget').forEach(figure => {
+    if (attachActions(figure)) return;
+    // Mermaid diagrams are inserted later by the document's module scripts.
+    if (!figure.querySelector('script[type="module"]')) return;
+    const observer = new MutationObserver(() => {
+      if (attachActions(figure)) observer.disconnect();
+    });
+    observer.observe(figure, {childList:true, subtree:true});
+  });
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  const toc = document.querySelector('.toc');
+  const layout = document.querySelector('.layout');
+  const tocList = document.getElementById('toc-list');
+  const visibilityButton = document.getElementById('toc-visibility-toggle');
+  const visibilityLabel = visibilityButton.querySelector('.toc-visibility-label');
+  const expandAllButton = document.getElementById('toc-expand-all');
+  const collapseAllButton = document.getElementById('toc-collapse-all');
+  if (!toc || !layout || !tocList) return;
+
+  const items = [];
+  for (const li of tocList.querySelectorAll('li')) {
+    const childList = Array.from(li.children).find(child => child.tagName === 'UL');
+    if (!childList) continue;
+    const title = Array.from(li.children).find(child => child.tagName === 'A')?.textContent.trim() || '항목';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'toc-item-toggle';
+    childList.id = childList.id || 'toc-sublist-' + (items.length + 1);
+    button.setAttribute('aria-controls', childList.id);
+    li.insertBefore(button, li.firstChild);
+    items.push({li, button, title});
+    button.addEventListener('click', () => setItemExpanded(items.find(item => item.li === li), button.getAttribute('aria-expanded') !== 'true'));
+  }
+
+  function updateBulkButtons() {
+    const expanded = items.filter(item => item.button.getAttribute('aria-expanded') === 'true').length;
+    expandAllButton.disabled = expanded === items.length;
+    collapseAllButton.disabled = expanded === 0;
+  }
+
+  function setItemExpanded(item, expanded, deferBulkUpdate) {
+    if (!item) return;
+    item.li.classList.toggle('toc-node-collapsed', !expanded);
+    item.button.setAttribute('aria-expanded', String(expanded));
+    item.button.setAttribute('aria-label', item.title + ' 하위 목차 ' + (expanded ? '접기' : '펼치기'));
+    item.button.title = item.title + ' 하위 목차 ' + (expanded ? '접기' : '펼치기');
+    if (!deferBulkUpdate) updateBulkButtons();
+  }
+
+  // 처음에는 강의 단위만 보이고, 화살표를 누르면 세부 목차를 펼친다.
+  items.forEach(item => setItemExpanded(item, false, true));
+  updateBulkButtons();
+  expandAllButton.addEventListener('click', () => {
+    items.forEach(item => setItemExpanded(item, true, true));
+    updateBulkButtons();
+  });
+  collapseAllButton.addEventListener('click', () => {
+    items.forEach(item => setItemExpanded(item, false, true));
+    updateBulkButtons();
+  });
+
+  visibilityButton.addEventListener('click', () => {
+    const collapsed = layout.classList.toggle('toc-collapsed');
+    visibilityButton.setAttribute('aria-expanded', String(!collapsed));
+    visibilityButton.setAttribute('aria-label', collapsed ? '목차 펼치기' : '목차 접기');
+    visibilityButton.title = collapsed ? '목차 펼치기' : '목차 접기';
+    visibilityLabel.textContent = collapsed ? '펼치기' : '접기';
+  });
+
+  // 외부 링크나 직접 URL 해시로 들어오면 해당 목차의 상위 항목을 연다.
+  function revealCurrentLocation() {
+    if (!window.location.hash) return;
+    const target = Array.from(tocList.querySelectorAll('a[href^="#"]'))
+      .find(link => link.getAttribute('href') === window.location.hash);
+    if (!target) return;
+    let parent = target.closest('li');
+    while (parent && tocList.contains(parent)) {
+      const item = items.find(entry => entry.li === parent);
+      if (item) setItemExpanded(item, true, true);
+      parent = parent.parentElement.closest('li');
+    }
+    updateBulkButtons();
+  }
+  revealCurrentLocation();
+  window.addEventListener('hashchange', revealCurrentLocation);
+})();
+</script>
+</body></html>
