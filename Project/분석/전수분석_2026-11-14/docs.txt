@@ -1,0 +1,40 @@
+markdown docs: 542
+  docs/learning                    files= 218 lines=14823
+  docs/reports                     files= 115 lines=17624
+  docs/handoffs                    files=  73 lines=7969
+  docs/runbook                     files=  32 lines=5184
+  docs/adr                         files=  21 lines=3455
+  docs/performance                 files=  18 lines=2143
+  docs/design                      files=  15 lines=2643
+  docs/api                         files=  13 lines=2276
+  docs/data                        files=   8 lines=1142
+  docs/product                     files=   7 lines=1519
+  docs/roles                       files=   7 lines=229
+  docs/domain                      files=   6 lines=804
+  docs/qa                          files=   5 lines=328
+  docs/architecture                files=   3 lines=2019
+  docs/audits                      files=   1 lines=195
+missing local references: 136 in 48 docs
+  most referenced missing targets:
+    18 docs/runbook/OPS-010-production-single-release.md
+    12 scripts/test-validate-task-artifacts.py
+     8 docs/runbook/OPS-009-aws-operations-foundation.md
+     8 infra/production/release-common.sh
+     7 docs/runbook/OPS-013-production-db-backup-restore.md
+     6 docs/runbook/OPS-011-production-https.md
+     6 infra/production/deploy.sh
+     5 docs/runbook/OPS-025-production-db-restore.md
+     5 .github/scripts/record-merged-pr.py
+     4 infra/production/db-backup-restore.sh
+     4 infra/production/rollback.sh
+     4 infra/production/test-production-scripts.sh
+  docs with most missing refs:
+    11 docs/reports/OPS-024/tl-report.md
+    11 docs/reports/OPS-025/sre-report.md
+    10 docs/reports/OPS-021/sre-report.md
+     7 docs/reports/OPS-027/sre-report.md
+     6 docs/handoffs/OPS-013/sre-to-tl.md
+     5 docs/reports/BOOTSTRAP-006/tl-report.md
+     5 docs/reports/OPS-028/production-execution-report.md
+     5 docs/reports/OPS-IDEMP-001/be-report.md
+status labels (top): [('merged', 216), ('- Decision Required', 17), ('OPEN', 7), ('Open, Ready for review', 7), ('Approved Product Decision', 4), ('Proposed', 2), ('Approved API Contract', 2), ('Approved input 구현', 2), ('Approved Input 구현 계약', 2), ('Accepted Domain Design', 2)]

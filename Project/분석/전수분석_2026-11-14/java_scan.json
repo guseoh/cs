@@ -1,0 +1,522 @@
+{
+ "long_methods_60": 23,
+ "long_methods_top": [
+  [
+   189,
+   "recommendation/persistence/RecommendationJpaQueryRepository.java",
+   "memberSignals"
+  ],
+  [
+   183,
+   "commerce/order/api/OrderResponse.java",
+   "OrderResponse"
+  ],
+  [
+   160,
+   "catalog/maintenance/persistence/CustomerCatalogImportPersistence.java",
+   "validateManifest"
+  ],
+  [
+   148,
+   "catalog/maintenance/persistence/CustomerCatalogImportPersistence.java",
+   "importProduct"
+  ],
+  [
+   129,
+   "subscription/automation/SubscriptionOrderProcessor.java",
+   "processCandidate"
+  ],
+  [
+   102,
+   "catalog/product/persistence/ProductDiscoveryQueryRepository.java",
+   "readProductList"
+  ],
+  [
+   100,
+   "catalog/maintenance/persistence/CustomerCatalogImportPersistence.java",
+   "process"
+  ],
+  [
+   89,
+   "subscription/performance/SubscriptionBurstMeasurementService.java",
+   "drain"
+  ],
+  [
+   79,
+   "commerce/order/model/OrderView.java",
+   "OrderView"
+  ],
+  [
+   78,
+   "catalog/product/application/ProductDetailView.java",
+   "ProductDetailView"
+  ],
+  [
+   73,
+   "catalog/product/application/ProductSummary.java",
+   "ProductSummary"
+  ],
+  [
+   72,
+   "commerce/checkout/application/CheckoutApplicationService.java",
+   "checkout"
+  ],
+  [
+   71,
+   "catalog/maintenance/persistence/DemoCatalogImportPersistence.java",
+   "loadManifest"
+  ],
+  [
+   67,
+   "subscription/performance/SubscriptionBurstMeasurementService.java",
+   "insertFixtureRows"
+  ],
+  [
+   67,
+   "catalog/maintenance/persistence/DemoCatalogImportPersistence.java",
+   "ensureProduct"
+  ],
+  [
+   66,
+   "subscription/automation/SubscriptionOrderProcessor.java",
+   "createCommonOrder"
+  ],
+  [
+   65,
+   "commerce/order/persistence/QuickReorderPersistenceAdapter.java",
+   "reorder"
+  ],
+  [
+   63,
+   "foundation/bootstrap/LocalQaSubscriptionFixtureService.java",
+   "validateExistingPlan"
+  ],
+  [
+   63,
+   "catalog/product/persistence/ProductDiscoveryQueryRepository.java",
+   "readDetailSupplement"
+  ],
+  [
+   62,
+   "recommendation/persistence/RecommendationJpaQueryRepository.java",
+   "popularScores"
+  ]
+ ],
+ "wide_records_8": 77,
+ "wide_records_top": [
+  [
+   32,
+   "recommendation/domain/RecommendationMemberSignals.java",
+   "RecommendationMemberSignals"
+  ],
+  [
+   22,
+   "subscription/performance/SubscriptionDrainSummary.java",
+   "SubscriptionDrainSummary"
+  ],
+  [
+   22,
+   "commerce/order/api/OrderResponse.java",
+   "OrderResponse"
+  ],
+  [
+   21,
+   "commerce/order/model/OrderView.java",
+   "OrderView"
+  ],
+  [
+   16,
+   "commerce/coupon/application/CouponPatchCommand.java",
+   "CouponPatchCommand"
+  ],
+  [
+   16,
+   "catalog/application/DemoCatalogImportPostflight.java",
+   "DemoCatalogImportPostflight"
+  ],
+  [
+   16,
+   "catalog/admin/model/CatalogAdminCommands.java",
+   "ProductPatchCommand"
+  ],
+  [
+   15,
+   "commerce/order/persistence/OrderReadRows.java",
+   "Header"
+  ],
+  [
+   15,
+   "catalog/product/application/ProductSummary.java",
+   "ProductSummary"
+  ],
+  [
+   14,
+   "catalog/product/application/ProductDetailView.java",
+   "ProductDetailView"
+  ],
+  [
+   14,
+   "catalog/maintenance/persistence/CustomerCatalogImportPersistence.java",
+   "Product"
+  ],
+  [
+   13,
+   "subscription/model/SubscriptionReadModel.java",
+   "Detail"
+  ],
+  [
+   13,
+   "subscription/api/SubscriptionDetailResponse.java",
+   "SubscriptionDetailResponse"
+  ],
+  [
+   13,
+   "catalog/product/application/ProductComparisonFacts.java",
+   "ProductComparisonFacts"
+  ],
+  [
+   12,
+   "commerce/refund/persistence/RefundPersistenceAdapter.java",
+   "RefundView"
+  ]
+ ],
+ "inline_fqn_lines": 72,
+ "inline_fqn_files": 36,
+ "inline_fqn_top": [
+  [
+   "catalog/engagement/model/ProductEngagementViews.java",
+   8
+  ],
+  [
+   "subscription/application/SubscriptionReconciliationApplicationService.java",
+   6
+  ],
+  [
+   "commerce/billing/application/SubscriptionBillingRetryProcessor.java",
+   5
+  ],
+  [
+   "catalog/engagement/application/ProductEngagementService.java",
+   3
+  ],
+  [
+   "catalog/engagement/persistence/ProductEngagementPersistence.java",
+   3
+  ],
+  [
+   "catalog/maintenance/persistence/ProductDetailSectionFixturePersistence.java",
+   3
+  ],
+  [
+   "interaction/application/InteractionService.java",
+   3
+  ],
+  [
+   "recommendation/domain/RecommendationCandidate.java",
+   3
+  ]
+ ],
+ "broad_catches": 41,
+ "broad_catches_list": [
+  [
+   "catalog/engagement/application/ProductEngagementService.java",
+   73,
+   "RuntimeException",
+   "if (PersistenceExceptionClassifier.isDuplicateKey(failure)) { throw error(409, \"REVIEW_ALR"
+  ],
+  [
+   "catalog/engagement/application/ReviewSummaryService.java",
+   65,
+   "RuntimeException",
+   "return new ReviewSummaryResponse(\"UNAVAILABLE\", null, count, average); } if (!validAiText("
+  ],
+  [
+   "catalog/engagement/application/ReviewSummaryService.java",
+   122,
+   "Exception",
+   "throw new IllegalStateException(exception); } }"
+  ],
+  [
+   "catalog/maintenance/ProductionDemoCatalogImportCommand.java",
+   116,
+   "RuntimeException",
+   "error.println(ERROR_MESSAGE); return FAILURE; }"
+  ],
+  [
+   "catalog/maintenance/ProductionDemoCatalogImportCommand.java",
+   147,
+   "Throwable",
+   "System.setOut(output); System.setErr(error); throw new IllegalStateException(\"production c"
+  ],
+  [
+   "catalog/maintenance/persistence/CustomerCatalogImportPersistence.java",
+   604,
+   "IOException | RuntimeException",
+   "throw new CatalogManifestImportException( \"Customer Catalog V3 manifest cannot be read\", e"
+  ],
+  [
+   "catalog/maintenance/persistence/CustomerCatalogRealismCorrectionPersistence.java",
+   289,
+   "IOException | RuntimeException",
+   "if (exception instanceof CatalogManifestImportException catalogException) throw catalogExc"
+  ],
+  [
+   "catalog/maintenance/persistence/DemoCatalogImportPersistence.java",
+   659,
+   "IOException | RuntimeException",
+   "throw new CatalogManifestImportException(\"Demo Catalog manifest cannot be read\", exception"
+  ],
+  [
+   "catalog/maintenance/persistence/ProductDetailSectionFixturePersistence.java",
+   168,
+   "IOException | RuntimeException",
+   "if (exception instanceof CatalogManifestImportException importException) { throw importExc"
+  ],
+  [
+   "catalog/product/application/ProductComparisonService.java",
+   55,
+   "RuntimeException",
+   "} return new ProductComparisonResponse(facts, status, summary); }"
+  ],
+  [
+   "catalog/product/application/ProductListCache.java",
+   82,
+   "RuntimeException",
+   "errorCounter.increment(); return loader.get(); }"
+  ],
+  [
+   "catalog/product/application/ProductListCache.java",
+   96,
+   "RuntimeException",
+   "errorCounter.increment(); } return value;"
+  ],
+  [
+   "catalog/product/application/ProductListCache.java",
+   108,
+   "RuntimeException",
+   "errorCounter.increment(); } }"
+  ],
+  [
+   "catalog/product/application/ProductQueryService.java",
+   79,
+   "RuntimeException",
+   "throw new ProductListUnavailableException(exception); } }"
+  ],
+  [
+   "catalog/product/application/ProductQueryService.java",
+   124,
+   "RuntimeException",
+   "throw new ProductDetailUnavailableException(exception); } }"
+  ],
+  [
+   "commerce/billing/application/SubscriptionBillingProcessor.java",
+   96,
+   "RuntimeException",
+   "result = new TossBillingAdapter.ChargeResult(\"UNKNOWN\", \"NO_RESPONSE\"); } if (\"SUCCEEDED\"."
+  ],
+  [
+   "commerce/order/persistence/QuickReorderPersistenceAdapter.java",
+   91,
+   "Exception",
+   "throw new IllegalStateException(\"Quick Reorder 결과를 저장할 수 없습니다.\", exception); } return resu"
+  ],
+  [
+   "commerce/order/persistence/QuickReorderResultCodec.java",
+   50,
+   "Exception",
+   "throw new CommerceException(409, \"IDEMPOTENCY_KEY_CONFLICT\", \"저장된 Quick Reorder 결과를 읽을 수 없"
+  ],
+  [
+   "commerce/payment/application/PaymentApplicationService.java",
+   73,
+   "RuntimeException",
+   "return transaction.execute(status -> markProviderUnknown(work.paymentId())); } return tran"
+  ],
+  [
+   "commerce/payment/application/PaymentReconciliationService.java",
+   93,
+   "RuntimeException",
+   "observed = new ProviderResult(\"UNKNOWN\", \"NO_RESPONSE\"); } "
+  ],
+  [
+   "commerce/payment/application/PaymentReconciliationService.java",
+   121,
+   "RuntimeException",
+   "return new ProviderObservation(\"UNKNOWN\", \"NO_RESPONSE\"); } }"
+  ],
+  [
+   "commerce/payment/infrastructure/toss/TossTestPaymentAdapter.java",
+   108,
+   "IOException | RuntimeException",
+   "return new ConfirmResult(\"UNKNOWN\", \"QUERY_UNAVAILABLE\"); } }"
+  ],
+  [
+   "commerce/payment/infrastructure/toss/TossTestPaymentAdapter.java",
+   140,
+   "IOException | RuntimeException",
+   "throw providerUnknown(); } }"
+  ],
+  [
+   "commerce/payment/infrastructure/toss/TossTestPaymentAdapter.java",
+   159,
+   "RuntimeException",
+   "return \"TOSS_REJECTED\"; } }"
+  ],
+  [
+   "commerce/refund/application/RefundService.java",
+   67,
+   "RuntimeException",
+   "result = new TossRefundAdapter.RefundResult(\"UNKNOWN\", \"NO_RESPONSE\"); } finally { metrics"
+  ],
+  [
+   "commerce/refund/application/RefundService.java",
+   122,
+   "RuntimeException",
+   "result = new TossRefundAdapter.RefundResult(\"UNKNOWN\", \"NO_RESPONSE\"); } finally { metrics"
+  ],
+  [
+   "interaction/application/InteractionService.java",
+   166,
+   "Exception",
+   "throw invalid(\"context\"); } }"
+  ],
+  [
+   "member/maintenance/ProductionAuthSmokeMemberBootstrap.java",
+   90,
+   "RuntimeException",
+   "error.println(ERROR_MESSAGE); return FAILURE; }"
+  ],
+  [
+   "member/maintenance/ProductionAuthSmokeMemberBootstrap.java",
+   116,
+   "Throwable",
+   "throw new ProductionAuthSmokeMemberCreationException(); } output.println(ProductionAuthSmo"
+  ],
+  [
+   "member/maintenance/ProductionAuthSmokeMemberCommand.java",
+   47,
+   "RuntimeException",
+   "throw new ProductionAuthSmokeMemberCreationException(); } output.println(PASS_MESSAGE);"
+  ],
+  [
+   "member/maintenance/ProductionAuthSmokeMemberService.java",
+   35,
+   "RuntimeException",
+   "throw new ProductionAuthSmokeMemberCreationException(); } }"
+  ],
+  [
+   "recommendation/application/RecommendationService.java",
+   80,
+   "RuntimeException",
+   "aiRecommendations = List.of(); providerFallback = true; }"
+  ],
+  [
+   "subscription/application/SubscriptionIdempotencyCodec.java",
+   18,
+   "Exception",
+   "throw new IllegalStateException(\"요청 지문을 계산할 수 없습니다.\", exception); } }"
+  ],
+  [
+   "subscription/application/SubscriptionIdempotencyCodec.java",
+   27,
+   "Exception",
+   "throw new IllegalStateException(\"저장된 멱등 결과를 읽을 수 없습니다.\", exception); } }"
+  ],
+  [
+   "subscription/application/SubscriptionIdempotencyCodec.java",
+   35,
+   "Exception",
+   "throw new IllegalStateException(\"응답을 저장할 수 없습니다.\", exception); } }"
+  ],
+  [
+   "subscription/application/SubscriptionReconciliationApplicationService.java",
+   49,
+   "RuntimeException",
+   "failures++; log.error( \"Subscription reconciliation failed; subscriptionId={}\", subscripti"
+  ],
+  [
+   "subscription/application/SubscriptionReconciliationApplicationService.java",
+   55,
+   "RuntimeException",
+   "failures++; throw exception; } finally {"
+  ],
+  [
+   "subscription/automation/SubscriptionIdempotencyCleanupProcessor.java",
+   70,
+   "RuntimeException",
+   "if (!transactionSynchronized) { metrics.cleanupFailed(); }"
+  ],
+  [
+   "subscription/automation/SubscriptionMetrics.java",
+   98,
+   "RuntimeException",
+   "gaugeRefreshFailures.increment(); } }"
+  ],
+  [
+   "subscription/automation/SubscriptionOrderProcessor.java",
+   78,
+   "RuntimeException",
+   "failures++; log.error( AUTOMATION_FAILURE_LOG,"
+  ],
+  [
+   "subscription/automation/SubscriptionOrderProcessor.java",
+   88,
+   "RuntimeException",
+   "failures++; log.error( \"Subscription order automation batch failed; failureCategory={}\","
+  ]
+ ],
+ "transaction_template_files": [
+  [
+   "commerce/billing/application/BillingApplicationService.java",
+   1
+  ],
+  [
+   "commerce/billing/application/SubscriptionBillingProcessor.java",
+   1
+  ],
+  [
+   "commerce/billing/application/SubscriptionBillingRetryProcessor.java",
+   1
+  ],
+  [
+   "commerce/cancellation/application/CancellationService.java",
+   1
+  ],
+  [
+   "commerce/checkout/application/CheckoutApplicationService.java",
+   1
+  ],
+  [
+   "commerce/delivery/application/DeliveryService.java",
+   1
+  ],
+  [
+   "commerce/order/application/OrderApplicationService.java",
+   1
+  ],
+  [
+   "commerce/payment/application/PaymentApplicationService.java",
+   1
+  ],
+  [
+   "commerce/payment/application/PaymentReconciliationService.java",
+   1
+  ],
+  [
+   "commerce/refund/application/RefundService.java",
+   1
+  ],
+  [
+   "commerce/returning/application/ReturnService.java",
+   1
+  ],
+  [
+   "subscription/application/SubscriptionReconciliationApplicationService.java",
+   1
+  ],
+  [
+   "subscription/automation/SubscriptionOrderProcessor.java",
+   1
+  ]
+ ]
+}
