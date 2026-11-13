@@ -32,6 +32,7 @@ JSON 요청은 Content-Type: application/json, 로그인만 application/x-www-fo
 | sort | CREATED_DESC 기본, DEADLINE_ASC | 공개 모집 목록 |
 | status | UNDER_REVIEW/APPROVED/REJECTED/WITHDRAWN/AUTO_CLOSED | 내 지원·모집자 지원 목록 |
 | slotId | 해당 글의 양수 모집 역할 ID | 모집자 지원 목록 |
+| visibility | VISIBLE 기본값 / REMOVED | 내 모집글 전용. 공개 중인 본인 글 또는 공개 제거된 본인 글 조회 |
 
 서로 다른 모집 필터는 AND, 기술 배열 안에서는 OR다. 검색은 제목 OR 본문의 부분 문자열이며 `%`, `_`는 와일드카드가 아닌 입력 문자로 escape한다. 기준 ID 필터에 실제 데이터가 없으면 빈 목록이다. 모집자 지원 목록의 slotId는 잘못된 소속이면 SLOT_NOT_FOUND다.
 

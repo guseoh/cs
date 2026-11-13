@@ -18,9 +18,9 @@ MySQL 8.0.16 이상, InnoDB, utf8mb4. 총 **11개 테이블**이다. 프로필�
 
 [논리 ERD](03_논리_ERD.svg) · [영역별 물리 ERD 탐색](ERD_탐색.html)
 
-![11개 테이블과 외래키 관계를 표시한 물리 ERD. 상세 컬럼은 아래 사전과 영역별 상세도 참조](03_물리_ERD.svg)
+![11개 테이블과 외래키 관계를 표시한 물리 ERD. 상세 컬럼은 아래 사전 참조](03_물리_ERD.svg)
 
-논리 ERD는 한국어 업무 속성을, 물리 ERD는 SQL 컬럼과 타입을 보여준다. 전체 도면에 11개 테이블을 한 번씩 배치하고 18개 FK 관계를 직접 연결한다. 실선은 식별 관계, 점선은 비식별 관계다. 선택 부모는 0..1이며 각 부모의 자식은 0..N이다. 복합 UNIQUE/FK와 CHECK는 아래 DDL을 기준으로 한다. 영역별 컬럼 상세도도 함께 제공한다.
+논리 ERD는 한국어 업무 속성을, 물리 ERD는 SQL 컬럼과 타입을 보여준다. 논리·물리 도면은 각각 11개 테이블을 한 번씩 표시하는 통합 배치이다. 물리 도면은 회원·모집글·지원서를 중심으로 관련 테이블을 배치하고 18개 FK 관계를 연결한다. 실선은 식별 관계, 점선은 비식별 관계다. 선택 부모는 0..1이며 각 부모의 자식은 0..N이다. 복합 UNIQUE/FK와 CHECK는 아래 DDL을 기준으로 한다. 논리·물리 전체 ERD 두 파일을 제공한다. 탐색 화면에서 확대하여 확인한다. 관계선은 테이블 경계에 연결된다. 원본 SVG 또는 탐색 화면에서 선 위에 마우스를 올리면 부모·자식 컬럼 묶음을 확인할 수 있다. 정확한 복합 외래키·제약은 컬럼 사전과 함께 읽는다.
 
 ## 2. 컬럼 사전
 
@@ -28,17 +28,17 @@ NN = NOT NULL, NULL = null 허용. 기본값 없는 컬럼은 애플리케이션
 
 ### `members`
 
-| 컬럼              | SQL 타입        | NULL·기본값                | 의미                    |
-| --------------- | ------------- | ----------------------- | --------------------- |
-| `member_id`     | BIGINT        | NOT NULL AUTO_INCREMENT | 회원 ID                 |
-| `email`         | VARCHAR(254)  | NOT NULL                | 로그인 이메일; trim·소문자, 유일 |
-| `password_hash` | VARCHAR(255)  | NOT NULL                | BCrypt 비밀번호 해시        |
-| `nickname`      | VARCHAR(30)   | NOT NULL                | 공개 닉네임; trim, 유일      |
-| `bio`           | VARCHAR(500)  | NULL                    | 공개 소개                 |
-| `github_url`    | VARCHAR(2048) | NULL                    | 공개 GitHub URL         |
-| `portfolio_url` | VARCHAR(2048) | NULL                    | 공개 포트폴리오 URL          |
-| `created_at`    | DATETIME(6)   | NOT NULL                | 생성 시각(UTC)            |
-| `updated_at`    | DATETIME(6)   | NOT NULL                | 최근 변경 시각(UTC)         |
+| 컬럼 | SQL 타입 | NULL·기본값 | 의미 |
+|---|---|---|---|
+| `member_id` | BIGINT | NOT NULL AUTO_INCREMENT | 회원 ID |
+| `email` | VARCHAR(254) | NOT NULL | 로그인 이메일; trim·소문자, 유일 |
+| `password_hash` | VARCHAR(255) | NOT NULL | BCrypt 비밀번호 해시 |
+| `nickname` | VARCHAR(30) | NOT NULL | 공개 닉네임; trim, 유일 |
+| `bio` | VARCHAR(500) | NULL | 공개 소개 |
+| `github_url` | VARCHAR(2048) | NULL | 공개 GitHub URL |
+| `portfolio_url` | VARCHAR(2048) | NULL | 공개 포트폴리오 URL |
+| `created_at` | DATETIME(6) | NOT NULL | 생성 시각(UTC) |
+| `updated_at` | DATETIME(6) | NOT NULL | 최근 변경 시각(UTC) |
 
 ### `roles`
 
