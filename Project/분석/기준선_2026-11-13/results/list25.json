@@ -1,0 +1,13 @@
+{
+  "target": "list",
+  "rate": 25,
+  "requests": 1501,
+  "dropped": 0,
+  "errorRate": 0,
+  "latencyMs": {
+    "med": 15.9964,
+    "p(95)": 37.74,
+    "p(99)": 75.5857,
+    "max": 100.6062
+  }
+}

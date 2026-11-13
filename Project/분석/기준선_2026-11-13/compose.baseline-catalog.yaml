@@ -1,0 +1,4 @@
+services:
+  backend:
+    environment:
+      PAWCYCLE_LOCAL_CUSTOMER_CATALOG_V3_ENABLED: "true"

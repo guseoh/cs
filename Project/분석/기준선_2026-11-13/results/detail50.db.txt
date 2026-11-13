@@ -1,0 +1,3 @@
+before: Com_insert=1148 Com_select=109275 Com_update=2 Questions=371917 
+after:  Com_insert=1148 Com_select=141240 Com_update=2 Questions=421712 
+threads_after=229 restarts=0 oom=false

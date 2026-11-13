@@ -1,0 +1,5 @@
+pawcycle-baseline-backend-1 cpu=77.83% mem=495.2MiB / 640MiB
+pawcycle-baseline-proxy-1 cpu=6.05% mem=11.8MiB / 3.742GiB
+pawcycle-baseline-redis-1 cpu=0.26% mem=15.43MiB / 192MiB
+pawcycle-baseline-mysql-1 cpu=55.71% mem=518.9MiB / 3.742GiB
+pawcycle-baseline-frontend-1 cpu=0.00% mem=126.2MiB / 3.742GiB

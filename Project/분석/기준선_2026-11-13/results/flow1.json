@@ -1,0 +1,14 @@
+{
+  "flows": 0,
+  "errorRate": 1,
+  "failedSteps": 11830,
+  "cartAdd": {
+    "med": 3.42445,
+    "p(95)": 5.542504999999999,
+    "p(99)": 46.93831199999993,
+    "max": 493.4993
+  },
+  "checkout": null,
+  "confirm": null,
+  "orders": null
+}

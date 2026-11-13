@@ -1,0 +1,8 @@
+gradle.beforeProject { project ->
+  project.plugins.withId('java') {
+    project.tasks.withType(org.gradle.api.tasks.testing.Test).configureEach {
+      systemProperty 'pawcycle.t09.observeLocks', 'true'
+      testLogging.exceptionFormat = 'full'
+    }
+  }
+}
