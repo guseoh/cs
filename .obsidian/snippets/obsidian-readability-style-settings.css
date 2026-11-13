@@ -2,9 +2,12 @@
 /* =========================================
    Obsidian Readability
    Java / Spring Learning Notes
+   Version 2.0
 
    - Minimal Dark
    - Reading / Live Preview
+   - Strong / Inline Code
+   - Language-specific Code Colors
    - Image Grid / Image Captions
    - Mermaid / PDF Plus
    - Auto Card Link / Link Mention
@@ -25,18 +28,18 @@ settings:
     id: code-block-bg-alpha
     title: 배경 강도
     type: variable-number
-    default: 0.025
+    default: 0.035
     min: 0
     max: 0.12
-    step: 0.002
+    step: 0.005
   -
     id: code-block-border-alpha
     title: 테두리 강도
     type: variable-number
-    default: 0.035
+    default: 0.055
     min: 0
-    max: 0.12
-    step: 0.002
+    max: 0.15
+    step: 0.005
   -
     id: code-block-radius
     title: 모서리 둥글기
@@ -101,17 +104,17 @@ settings:
     id: inline-code-bg-alpha
     title: 배경 강도
     type: variable-number
-    default: 0.032
+    default: 0.075
     min: 0
-    max: 0.15
+    max: 0.2
     step: 0.005
   -
     id: inline-code-border-alpha
     title: 테두리 강도
     type: variable-number
-    default: 0.015
+    default: 0.065
     min: 0
-    max: 0.15
+    max: 0.2
     step: 0.005
   -
     id: inline-code-radius
@@ -184,10 +187,10 @@ settings:
     id: body-bold-weight
     title: 굵은 글씨 두께
     type: variable-number
-    default: 700
+    default: 750
     min: 600
     max: 800
-    step: 100
+    step: 50
   -
     id: h2-top-gap
     title: H2 위쪽 간격
@@ -288,8 +291,8 @@ settings:
    ========================================= */
 
 body {
-    --code-block-bg-alpha: 0.025;
-    --code-block-border-alpha: 0.035;
+    --code-block-bg-alpha: 0.035;
+    --code-block-border-alpha: 0.055;
     --code-block-radius: 6px;
     --code-block-padding-y: 9px;
     --code-block-padding-x: 14px;
@@ -297,8 +300,8 @@ body {
     --code-block-margin-bottom: 7px;
     --code-list-gap: -0.35em;
 
-    --inline-code-bg-alpha: 0.032;
-    --inline-code-border-alpha: 0.015;
+    --inline-code-bg-alpha: 0.075;
+    --inline-code-border-alpha: 0.065;
     --inline-code-radius: 4px;
 
     --body-line-height: 1.7;
@@ -307,7 +310,7 @@ body {
     --list-paragraph-gap: 0.9em;
     --list-line-height: 1.58;
     --list-item-gap: 0.16em;
-    --body-bold-weight: 700;
+    --body-bold-weight: 750;
 
     --h2-top-gap: 34px;
     --h2-bottom-gap: 14px;
@@ -326,6 +329,12 @@ body {
     --image-grid-width: 900px;
     --image-grid-height: 240px;
     --image-grid-caption-gap: 6px;
+
+    --readability-bold-color: #f0f2f6;
+    --readability-inline-color: #cad8ea;
+    --readability-code-color: #d8dce3;
+    --readability-code-font: "JetBrains Mono",
+        var(--font-monospace), monospace;
 }
 
 /* =========================================
@@ -357,10 +366,14 @@ body {
     margin-top: var(--list-paragraph-gap);
 }
 
-.markdown-rendered strong,
-.markdown-rendered b,
-.markdown-source-view.mod-cm6 .cm-strong {
-    font-weight: var(--body-bold-weight);
+/* Bold 강조 */
+
+.theme-dark .markdown-rendered strong,
+.theme-dark .markdown-rendered b,
+.theme-dark .markdown-source-view.mod-cm6 .cm-strong {
+    font-weight: var(--body-bold-weight) !important;
+    color: var(--readability-bold-color);
+    letter-spacing: 0.005em;
 }
 
 .markdown-rendered h2 {
@@ -401,80 +414,295 @@ body {
    ========================================= */
 
 .theme-dark .markdown-rendered :not(pre) > code,
-.theme-dark .markdown-source-view.mod-cm6
-.cm-inline-code {
+.theme-dark .markdown-source-view.mod-cm6 .cm-inline-code {
     background: rgba(
         255, 255, 255,
         var(--inline-code-bg-alpha)
-    );
+    ) !important;
+
     border: 1px solid rgba(
-        255, 255, 255,
+        180, 200, 225,
         var(--inline-code-border-alpha)
     );
+
     border-radius: var(--inline-code-radius);
     padding: 1px 5px;
-    color: #d8d8d8;
-    font-size: 0.9em;
-    font-family: "JetBrains Mono", monospace;
+
+    color: var(--readability-inline-color) !important;
+    font-size: 0.91em;
+    font-weight: 500;
+
+    font-family: var(--readability-code-font);
     font-feature-settings: "calt" 1, "liga" 1;
+
+    box-shadow: none !important;
 }
 
 .theme-dark .markdown-rendered :not(pre) > code {
+    font-weight: 550;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .cm-inline-code {
     font-weight: 500;
 }
 
-.theme-dark .markdown-source-view.mod-cm6
-.cm-inline-code {
-    font-weight: 400;
-}
-
 /* =========================================
-   04. 코드 블록
+   04. 코드 블록 기본 스타일
    ========================================= */
+
+/* 읽기 모드 */
 
 .theme-dark .markdown-rendered pre {
     position: relative;
+
     background: rgba(
         255, 255, 255,
         var(--code-block-bg-alpha)
     ) !important;
+
     border: 1px solid rgba(
         255, 255, 255,
         var(--code-block-border-alpha)
     ) !important;
-    border-radius:
-        var(--code-block-radius) !important;
+
+    border-radius: var(--code-block-radius) !important;
+
     padding:
         var(--code-block-padding-y)
         var(--code-block-padding-x);
+
     margin:
         var(--code-block-margin-top)
         0
         var(--code-block-margin-bottom);
+
     box-shadow: none !important;
+
+    --code-accent: #87919d;
 }
 
-.markdown-rendered pre:has(
+/* 언어가 있는 코드 블록 */
+
+.theme-dark .markdown-rendered pre:has(
     > code[class*="language-"]
 ) {
-    padding-right: 72px;
+    padding-top: 28px;
+    border-left: 2px solid
+        color-mix(
+            in srgb,
+            var(--code-accent) 55%,
+            transparent
+        ) !important;
 }
 
-.markdown-rendered pre > code[class*="language-"]::before {
+/* 언어명 표시 */
+
+.theme-dark .markdown-rendered
+pre > code[class*="language-"]::before {
     position: absolute;
     top: 9px;
     right: 12px;
-    color: var(--text-muted);
+
+    color: var(--code-accent);
     font-family: var(--font-interface);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    line-height: 1;
-    opacity: 0.95;
+    letter-spacing: 0.035em;
+    line-height: 1.1;
+
+    opacity: 0.9;
     pointer-events: none;
     user-select: none;
 }
 
-/* 코드 블록 언어명 */
+/* 코드 내부 */
+
+.theme-dark .markdown-rendered pre code {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+
+    color: var(--readability-code-color);
+    font-size: 0.92em;
+    line-height: 1.55;
+    font-weight: 450;
+
+    font-family: var(--readability-code-font);
+    tab-size: 4;
+    box-shadow: none !important;
+}
+
+/* =========================================
+   05. 언어별 코드 블록 표시
+   ========================================= */
+
+/* Java 계열 */
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-java) {
+    --code-accent: #d18d70;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-kotlin) {
+    --code-accent: #ac91d0;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-groovy) {
+    --code-accent: #83b9a7;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-gradle) {
+    --code-accent: #8fb7a2;
+}
+
+/* 데이터베이스 */
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-sql) {
+    --code-accent: #d6a174;
+}
+
+/* 웹과 네트워크 */
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-http) {
+    --code-accent: #83b3d5;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-nginx) {
+    --code-accent: #82b99b;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-html) {
+    --code-accent: #cc8e79;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-xml) {
+    --code-accent: #b78fb5;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-css) {
+    --code-accent: #a395d1;
+}
+
+/* 컨테이너와 설정 */
+
+.theme-dark .markdown-rendered
+pre:has(> code:is(
+    .language-docker,
+    .language-dockerfile
+)) {
+    --code-accent: #83b8c9;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-json) {
+    --code-accent: #c2a0c8;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code:is(
+    .language-yaml,
+    .language-yml
+)) {
+    --code-accent: #c4a479;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-properties) {
+    --code-accent: #a4b09c;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-toml) {
+    --code-accent: #b4a083;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-ini) {
+    --code-accent: #a4a3ba;
+}
+
+/* 스크립트 */
+
+.theme-dark .markdown-rendered
+pre:has(> code:is(
+    .language-javascript,
+    .language-js
+)) {
+    --code-accent: #d0b465;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code:is(
+    .language-typescript,
+    .language-ts
+)) {
+    --code-accent: #85a9d6;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code:is(
+    .language-python,
+    .language-py
+)) {
+    --code-accent: #9db8d2;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code:is(
+    .language-bash,
+    .language-shell,
+    .language-sh
+)) {
+    --code-accent: #95b88c;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-powershell) {
+    --code-accent: #84a9d4;
+}
+
+/* 시스템 언어 */
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-c) {
+    --code-accent: #a5abc9;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-cpp) {
+    --code-accent: #a4a5d7;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-go) {
+    --code-accent: #7cbdc8;
+}
+
+.theme-dark .markdown-rendered
+pre:has(> code.language-rust) {
+    --code-accent: #ca997f;
+}
+
+/* 문서 */
+
+.theme-dark .markdown-rendered
+pre:has(> code:is(
+    .language-markdown,
+    .language-md
+)) {
+    --code-accent: #a6b7d1;
+}
+
+/* 언어명 */
 
 .markdown-rendered pre > code.language-java::before {
     content: "Java";
@@ -605,27 +833,9 @@ body {
     content: "INI";
 }
 
-.markdown-rendered pre > code:is(
-    .language-text,
-    .language-plaintext,
-    .language-txt
-)::before {
-    content: none;
-}
-
-/* 코드 내용 */
-
-.theme-dark .markdown-rendered pre code {
-    background: transparent !important;
-    border: none !important;
-    padding: 0;
-    color: #d6d6d6;
-    font-size: 0.92em;
-    line-height: 1.55;
-    font-family: "JetBrains Mono", monospace;
-}
-
-/* 설명용 text 블록 */
+/* =========================================
+   06. 설명용 Text 코드 블록
+   ========================================= */
 
 .theme-dark .markdown-rendered pre:has(
     > code:is(
@@ -634,14 +844,19 @@ body {
         .language-txt
     )
 ) {
+    --code-accent: #89919a;
+
     background: rgba(
         255, 255, 255,
         var(--text-block-bg-alpha)
     ) !important;
+
     border-color: rgba(
         255, 255, 255,
         var(--text-block-border-alpha)
     ) !important;
+
+    padding-top: var(--code-block-padding-y);
     padding-right: var(--code-block-padding-x);
 }
 
@@ -653,7 +868,17 @@ body {
     color: var(--text-muted);
 }
 
-/* Live Preview 코드 블록 */
+.theme-dark .markdown-rendered pre > code:is(
+    .language-text,
+    .language-plaintext,
+    .language-txt
+)::before {
+    content: none;
+}
+
+/* =========================================
+   07. Live Preview 코드 블록
+   ========================================= */
 
 .theme-dark .markdown-source-view.mod-cm6
 .cm-line.HyperMD-codeblock {
@@ -661,21 +886,25 @@ body {
         255, 255, 255,
         var(--code-block-bg-alpha)
     );
+
+    font-family: var(--readability-code-font);
+    font-size: 0.92em;
+    line-height: 1.55;
 }
 
-.markdown-source-view.mod-cm6
+.theme-dark .markdown-source-view.mod-cm6
 .cm-line.HyperMD-codeblock-begin {
     border-top-left-radius: var(--code-block-radius);
     border-top-right-radius: var(--code-block-radius);
 }
 
-.markdown-source-view.mod-cm6
+.theme-dark .markdown-source-view.mod-cm6
 .cm-line.HyperMD-codeblock-end {
     border-bottom-left-radius: var(--code-block-radius);
     border-bottom-right-radius: var(--code-block-radius);
 }
 
-/* 코드 블록과 설명의 간격 */
+/* 코드 블록과 설명 간격 */
 
 .markdown-rendered .el-p + .el-pre {
     margin-top: 20px !important;
@@ -704,82 +933,99 @@ body {
 }
 
 /* =========================================
-   05. 코드 구문 색상
-   다크 테마에서만 사용자 정의 색 적용
+   08. 공통 코드 구문 색상
+   Reading Mode / Prism
    ========================================= */
 
 .theme-dark .markdown-rendered pre code
-.token:is(.keyword, .atrule) {
-    color: var(--syntax-keyword, #b98c77) !important;
+.token:is(
+    .keyword,
+    .atrule,
+    .directive,
+    .important
+) {
+    color: var(--syntax-keyword, #d19a78) !important;
 }
 
 .theme-dark .markdown-rendered pre code
-.token:is(.class-name, .builtin, .type) {
-    color: var(--syntax-type, #8faed0) !important;
+.token:is(
+    .class-name,
+    .builtin,
+    .type
+) {
+    color: var(--syntax-type, #a4c4e4) !important;
 }
 
 .theme-dark .markdown-rendered pre code
-.token:is(.function, .method) {
-    color: var(--syntax-function, #90abc4) !important;
+.token:is(
+    .function,
+    .method
+) {
+    color: var(--syntax-function, #af9acb) !important;
 }
 
 .theme-dark .markdown-rendered pre code
 .token.variable {
-    color: var(--syntax-variable, #d2d5db) !important;
+    color: var(--syntax-variable, #d5d9df) !important;
 }
 
 .theme-dark .markdown-rendered pre code
-.token:is(.property, .constant, .key) {
-    color: var(--syntax-property, #ae94b5) !important;
+.token:is(
+    .property,
+    .constant,
+    .key,
+    .attr-name
+) {
+    color: var(--syntax-property, #b9a0ca) !important;
 }
 
 .theme-dark .markdown-rendered pre code
-.token:is(.number, .boolean) {
-    color: var(--syntax-number, #b99bc4) !important;
+.token:is(
+    .number,
+    .boolean
+) {
+    color: var(--syntax-number, #c7a3d1) !important;
 }
 
 .theme-dark .markdown-rendered pre code
-.token:is(.string, .char, .template-string) {
-    color: var(--syntax-string, #8dad84) !important;
+.token:is(
+    .string,
+    .char,
+    .template-string,
+    .attr-value
+) {
+    color: var(--syntax-string, #96bb8e) !important;
 }
 
 .theme-dark .markdown-rendered pre code
 .token.operator {
-    color: var(--syntax-operator, #bfc4c9) !important;
+    color: var(--syntax-operator, #c7ccd3) !important;
 }
 
 .theme-dark .markdown-rendered pre code
 .token.punctuation {
-    color: var(--syntax-punctuation, #b8bec6) !important;
+    color: var(--syntax-punctuation, #bac2cc) !important;
 }
 
 .theme-dark .markdown-rendered pre code
 .token.annotation {
-    color: var(--syntax-annotation, #c1a16b) !important;
+    color: var(--syntax-annotation, #d4b574) !important;
 }
 
 .theme-dark .markdown-rendered pre code
-.token:is(.comment, .prolog, .doctype, .cdata) {
-    color: var(--syntax-comment, #818b92) !important;
+.token:is(
+    .comment,
+    .prolog,
+    .doctype,
+    .cdata
+) {
+    color: var(--syntax-comment, #858e99) !important;
     font-style: italic;
 }
 
-/* SQL */
-
-.theme-dark .markdown-rendered pre > code.language-sql {
-    --syntax-keyword: #55a9b4;
-    --syntax-type: #79a1d0;
-    --syntax-function: #79a1d0;
-    --syntax-variable: #d1d5dc;
-    --syntax-property: #8ba6cf;
-    --syntax-number: #ca9f69;
-    --syntax-string: #85ae7e;
-    --syntax-operator: #c5c5c5;
-    --syntax-punctuation: #b8bec7;
-    --syntax-comment: #818d94;
-}
-
-/* Java 계열 */
+/* =========================================
+   09. Java / Kotlin / Groovy / Gradle
+   ========================================= */
 
 .theme-dark .markdown-rendered pre > code:is(
     .language-java,
@@ -787,20 +1033,150 @@ body {
     .language-groovy,
     .language-gradle
 ) {
-    --syntax-keyword: #cf8665;
-    --syntax-type: #81a6d8;
-    --syntax-function: #af91ca;
-    --syntax-variable: #d2d5db;
-    --syntax-property: #ba99b9;
-    --syntax-number: #be94c3;
-    --syntax-string: #86ae7e;
-    --syntax-operator: #bfc5cc;
-    --syntax-punctuation: #b8bdc5;
-    --syntax-comment: #818b91;
-    --syntax-annotation: #c6a05d;
+    --syntax-keyword: #d89a76;
+    --syntax-type: #a9c7e6;
+    --syntax-function: #c3a2cf;
+    --syntax-variable: #d6d9e0;
+    --syntax-property: #c39ebd;
+    --syntax-number: #c6a4d6;
+    --syntax-string: #93b88b;
+    --syntax-operator: #c6ccd2;
+    --syntax-punctuation: #bac2cc;
+    --syntax-comment: #828d97;
+    --syntax-annotation: #d0b46f;
 }
 
-/* JavaScript / TypeScript */
+/* Java Annotation */
+
+.theme-dark .markdown-rendered
+code.language-java .token.annotation {
+    color: #d0b46f !important;
+}
+
+/* =========================================
+   10. SQL
+   ========================================= */
+
+.theme-dark .markdown-rendered
+pre > code.language-sql {
+    --syntax-keyword: #d8a078;
+    --syntax-type: #d1ba79;
+    --syntax-function: #97bddd;
+    --syntax-variable: #d7dbe1;
+    --syntax-property: #a9c3e5;
+    --syntax-number: #c5a2d0;
+    --syntax-string: #95b98d;
+    --syntax-operator: #c8cbd1;
+    --syntax-punctuation: #bac2cb;
+    --syntax-comment: #818c97;
+}
+
+/* SQL 테이블 및 컬럼 관련 */
+
+.theme-dark .markdown-rendered
+code.language-sql .token:is(
+    .entity,
+    .symbol
+) {
+    color: #a9c3e5 !important;
+}
+
+/* =========================================
+   11. HTTP
+   ========================================= */
+
+.theme-dark .markdown-rendered
+pre > code.language-http {
+    --syntax-keyword: #8bb7da;
+    --syntax-type: #a8c9e5;
+    --syntax-function: #8bb7da;
+    --syntax-variable: #d8dce3;
+    --syntax-property: #a3c2df;
+    --syntax-number: #c8a4d0;
+    --syntax-string: #9bbd94;
+    --syntax-operator: #c5cbd2;
+    --syntax-punctuation: #b8c0cb;
+    --syntax-comment: #858f99;
+}
+
+.theme-dark .markdown-rendered
+code.language-http .token:is(
+    .method,
+    .request-line,
+    .status-code
+) {
+    color: #8bb7da !important;
+}
+
+.theme-dark .markdown-rendered
+code.language-http .token:is(
+    .url,
+    .header-name,
+    .property
+) {
+    color: #a8c9e5 !important;
+}
+
+.theme-dark .markdown-rendered
+code.language-http .token.header-value {
+    color: #9bbd94 !important;
+}
+
+/* =========================================
+   12. Nginx
+   ========================================= */
+
+.theme-dark .markdown-rendered
+pre > code.language-nginx {
+    --syntax-keyword: #91c09d;
+    --syntax-type: #9ec6e0;
+    --syntax-function: #96bca4;
+    --syntax-variable: #b6a5d1;
+    --syntax-property: #a7c7dc;
+    --syntax-number: #c5a4ce;
+    --syntax-string: #a2bf90;
+    --syntax-operator: #c5cbd2;
+    --syntax-punctuation: #b9c1ca;
+    --syntax-comment: #858f98;
+}
+
+.theme-dark .markdown-rendered
+code.language-nginx .token.directive {
+    color: #91c09d !important;
+}
+
+/* =========================================
+   13. Docker / Dockerfile
+   ========================================= */
+
+.theme-dark .markdown-rendered pre > code:is(
+    .language-dockerfile,
+    .language-docker
+) {
+    --syntax-keyword: #89bbcc;
+    --syntax-type: #9fc7e4;
+    --syntax-function: #89bbcc;
+    --syntax-variable: #c8a7d3;
+    --syntax-property: #a3bfdc;
+    --syntax-number: #c7a4d0;
+    --syntax-string: #a4c092;
+    --syntax-operator: #c6cbd1;
+    --syntax-punctuation: #bac1ca;
+    --syntax-comment: #828e98;
+}
+
+.theme-dark .markdown-rendered
+code:is(.language-dockerfile, .language-docker)
+.token:is(
+    .instruction,
+    .keyword
+) {
+    color: #89bbcc !important;
+}
+
+/* =========================================
+   14. JavaScript / TypeScript
+   ========================================= */
 
 .theme-dark .markdown-rendered pre > code:is(
     .language-javascript,
@@ -808,81 +1184,124 @@ body {
     .language-typescript,
     .language-ts
 ) {
-    --syntax-keyword: #c6a34f;
-    --syntax-type: #a58bc7;
-    --syntax-function: #70a7c7;
-    --syntax-variable: #d4d0c4;
-    --syntax-property: #81a8d0;
-    --syntax-number: #b68fc2;
-    --syntax-string: #85ad7d;
-    --syntax-operator: #bfc5cb;
-    --syntax-punctuation: #b8bec7;
-    --syntax-comment: #828c92;
+    --syntax-keyword: #d0b465;
+    --syntax-type: #b4a2d5;
+    --syntax-function: #8bbbd5;
+    --syntax-variable: #d7d9df;
+    --syntax-property: #a0c1e1;
+    --syntax-number: #c5a4d2;
+    --syntax-string: #96ba8e;
+    --syntax-operator: #c8ccd2;
+    --syntax-punctuation: #bac2cb;
+    --syntax-comment: #858f98;
 }
 
-/* Python */
+/* =========================================
+   15. Python
+   ========================================= */
 
 .theme-dark .markdown-rendered pre > code:is(
     .language-python,
     .language-py
 ) {
-    --syntax-keyword: #79a4d8;
-    --syntax-type: #68aaa7;
-    --syntax-function: #c7a15e;
-    --syntax-variable: #d1d5db;
-    --syntax-property: #83a6cd;
-    --syntax-number: #b68ec1;
-    --syntax-string: #86ac7b;
-    --syntax-operator: #bdc4cc;
-    --syntax-punctuation: #b7bec6;
-    --syntax-comment: #818e92;
+    --syntax-keyword: #87afe0;
+    --syntax-type: #8dc4bc;
+    --syntax-function: #d4b478;
+    --syntax-variable: #d6d9df;
+    --syntax-property: #a0c1df;
+    --syntax-number: #c7a5d2;
+    --syntax-string: #9abc90;
+    --syntax-operator: #c7ccd2;
+    --syntax-punctuation: #bac2cc;
+    --syntax-comment: #828e98;
 }
 
-/* JSON / YAML */
+/* =========================================
+   16. JSON / YAML
+   ========================================= */
 
 .theme-dark .markdown-rendered pre > code:is(
     .language-json,
     .language-yaml,
     .language-yml
 ) {
-    --syntax-keyword: #ac8cbd;
-    --syntax-type: #7da4d0;
-    --syntax-function: #7da4d0;
-    --syntax-property: #7da4d0;
-    --syntax-number: #b992c3;
-    --syntax-string: #86ac7e;
-    --syntax-operator: #bdc2c8;
-    --syntax-punctuation: #aeb6c2;
+    --syntax-keyword: #c1a7d3;
+    --syntax-type: #a5c3e0;
+    --syntax-function: #a5c3e0;
+    --syntax-variable: #d6d9df;
+    --syntax-property: #a6c5e5;
+    --syntax-number: #c9a4d2;
+    --syntax-string: #9abc90;
+    --syntax-operator: #c6cbd1;
+    --syntax-punctuation: #b7c0cb;
+    --syntax-comment: #858e98;
 }
 
-/* HTML / XML */
+/* JSON 속성명 */
+
+.theme-dark .markdown-rendered
+code.language-json .token.property {
+    color: #a6c5e5 !important;
+}
+
+/* =========================================
+   17. HTML / XML
+   ========================================= */
 
 .theme-dark .markdown-rendered pre > code:is(
     .language-html,
     .language-xml
 ) {
-    --syntax-keyword: #bf819e;
-    --syntax-type: #82a6d1;
-    --syntax-function: #82a6d1;
-    --syntax-property: #c19d68;
-    --syntax-number: #b68fc1;
-    --syntax-string: #86ad80;
-    --syntax-punctuation: #b8bec6;
+    --syntax-keyword: #d49b8e;
+    --syntax-type: #a2c3e4;
+    --syntax-function: #a2c3e4;
+    --syntax-variable: #d5d9e0;
+    --syntax-property: #d0b17e;
+    --syntax-number: #c6a4d2;
+    --syntax-string: #9abc90;
+    --syntax-operator: #c7ccd2;
+    --syntax-punctuation: #bac2cc;
+    --syntax-comment: #858e98;
 }
 
-/* CSS */
-
-.theme-dark .markdown-rendered pre > code.language-css {
-    --syntax-keyword: #a189c3;
-    --syntax-type: #78a6cf;
-    --syntax-function: #c19d64;
-    --syntax-property: #81a3d0;
-    --syntax-number: #b78fc1;
-    --syntax-string: #86ac80;
-    --syntax-punctuation: #b7bdc6;
+.theme-dark .markdown-rendered
+code:is(.language-html, .language-xml)
+.token.tag {
+    color: #d49b8e !important;
 }
 
-/* Shell / PowerShell */
+.theme-dark .markdown-rendered
+code:is(.language-html, .language-xml)
+.token.attr-name {
+    color: #d0b17e !important;
+}
+
+/* =========================================
+   18. CSS
+   ========================================= */
+
+.theme-dark .markdown-rendered
+pre > code.language-css {
+    --syntax-keyword: #b6a1d8;
+    --syntax-type: #9ebfe0;
+    --syntax-function: #d0b17c;
+    --syntax-variable: #d6d9df;
+    --syntax-property: #a4c3e6;
+    --syntax-number: #c6a4d2;
+    --syntax-string: #99bc90;
+    --syntax-operator: #c8ccd2;
+    --syntax-punctuation: #b9c2cc;
+    --syntax-comment: #858f99;
+}
+
+.theme-dark .markdown-rendered
+code.language-css .token.selector {
+    color: #b6a1d8 !important;
+}
+
+/* =========================================
+   19. Shell / Bash / PowerShell
+   ========================================= */
 
 .theme-dark .markdown-rendered pre > code:is(
     .language-bash,
@@ -890,17 +1309,21 @@ body {
     .language-sh,
     .language-powershell
 ) {
-    --syntax-keyword: #78a886;
-    --syntax-type: #83a5cc;
-    --syntax-function: #c2a16b;
-    --syntax-variable: #a68dc3;
-    --syntax-property: #83a5ce;
-    --syntax-number: #b58dbf;
-    --syntax-string: #8caf80;
-    --syntax-operator: #bcc3cb;
+    --syntax-keyword: #95bc96;
+    --syntax-type: #a0c2e0;
+    --syntax-function: #d0b27b;
+    --syntax-variable: #baa4d4;
+    --syntax-property: #9fc0dd;
+    --syntax-number: #c6a4d1;
+    --syntax-string: #a1c093;
+    --syntax-operator: #c7ccd2;
+    --syntax-punctuation: #bac2cb;
+    --syntax-comment: #858f99;
 }
 
-/* C / C++ / Go / Rust */
+/* =========================================
+   20. C / C++ / Go / Rust
+   ========================================= */
 
 .theme-dark .markdown-rendered pre > code:is(
     .language-c,
@@ -908,88 +1331,119 @@ body {
     .language-go,
     .language-rust
 ) {
-    --syntax-keyword: #a58ac5;
-    --syntax-type: #79a4d2;
-    --syntax-function: #c49e64;
-    --syntax-variable: #d1d5dc;
-    --syntax-property: #82a6ce;
-    --syntax-number: #b58ebf;
-    --syntax-string: #85ac7c;
-    --syntax-operator: #bdc4cc;
+    --syntax-keyword: #b5a2d1;
+    --syntax-type: #9fc3e4;
+    --syntax-function: #d0b27a;
+    --syntax-variable: #d6d9df;
+    --syntax-property: #a2c2e0;
+    --syntax-number: #c5a2d0;
+    --syntax-string: #9abc90;
+    --syntax-operator: #c7ccd2;
+    --syntax-punctuation: #bac2cc;
+    --syntax-comment: #858f98;
 }
 
-/* 설정 파일 계열 */
+/* =========================================
+   21. Properties / TOML / INI
+   ========================================= */
 
 .theme-dark .markdown-rendered pre > code:is(
-    .language-dockerfile,
-    .language-docker,
-    .language-nginx,
-    .language-toml,
-    .language-ini,
     .language-properties,
-    .language-http
+    .language-toml,
+    .language-ini
 ) {
-    --syntax-keyword: #87a783;
-    --syntax-type: #7da3cf;
-    --syntax-function: #c29e67;
-    --syntax-property: #82a6d0;
-    --syntax-number: #b591c1;
-    --syntax-string: #85ad80;
+    --syntax-keyword: #a2b9a0;
+    --syntax-type: #a5c1dd;
+    --syntax-function: #d0b17c;
+    --syntax-variable: #d6d9df;
+    --syntax-property: #a2c2df;
+    --syntax-number: #c8a4d1;
+    --syntax-string: #9abc90;
+    --syntax-operator: #c7ccd2;
+    --syntax-punctuation: #bac1ca;
+    --syntax-comment: #858f98;
 }
 
-/* Live Preview 구문 색상 */
+/* =========================================
+   22. Live Preview 구문 색상
+   CodeMirror 공통 팔레트
+   ========================================= */
 
-.theme-dark .markdown-source-view.mod-cm6 .cm-keyword {
+/*
+   Obsidian Live Preview는 Prism의
+   language-* 클래스 구조와 다르므로
+   CodeMirror 토큰에 공통 팔레트를 적용한다.
+*/
+
+.theme-dark .markdown-source-view.mod-cm6
+.HyperMD-codeblock .cm-keyword {
     color: #d89a76 !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
-:is(.cm-type, .cm-def) {
+.HyperMD-codeblock :is(.cm-type, .cm-def) {
     color: #a9c7e6 !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .cm-variable {
-    color: #d2d2d2 !important;
+.theme-dark .markdown-source-view.mod-cm6
+.HyperMD-codeblock .cm-variable {
+    color: #d6d9df !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
-:is(.cm-variable-2, .cm-variable-3, .cm-property) {
-    color: #c89fbd !important;
+.HyperMD-codeblock :is(
+    .cm-variable-2,
+    .cm-variable-3,
+    .cm-property
+) {
+    color: #c3a2cf !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
-:is(.cm-number, .cm-bool, .cm-atom) {
-    color: #c3a6d8 !important;
+.HyperMD-codeblock :is(
+    .cm-number,
+    .cm-bool,
+    .cm-atom
+) {
+    color: #c6a4d6 !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
-:is(.cm-string, .cm-string-2) {
+.HyperMD-codeblock :is(
+    .cm-string,
+    .cm-string-2
+) {
     color: #93b88b !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .cm-operator {
-    color: #cccccc !important;
+.theme-dark .markdown-source-view.mod-cm6
+.HyperMD-codeblock .cm-operator {
+    color: #c8ccd2 !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .cm-comment {
-    color: #777f87 !important;
+.theme-dark .markdown-source-view.mod-cm6
+.HyperMD-codeblock .cm-comment {
+    color: #858e98 !important;
     font-style: italic;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .cm-meta {
-    color: #c7b65b !important;
+.theme-dark .markdown-source-view.mod-cm6
+.HyperMD-codeblock .cm-meta {
+    color: #d0b46f !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .cm-tag {
+.theme-dark .markdown-source-view.mod-cm6
+.HyperMD-codeblock .cm-tag {
     color: #d89a76 !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .cm-attribute {
+.theme-dark .markdown-source-view.mod-cm6
+.HyperMD-codeblock .cm-attribute {
     color: #a9c7e6 !important;
 }
 
 /* =========================================
-   06. Mermaid
+   23. Mermaid
    ========================================= */
 
 .markdown-rendered .mermaid {
@@ -1002,10 +1456,12 @@ body {
 
 .markdown-rendered .mermaid svg {
     display: block;
+
     width: min(
         var(--mermaid-diagram-size),
         var(--mermaid-diagram-max-width)
     ) !important;
+
     max-width: 100% !important;
     height: auto !important;
     margin-inline: auto;
@@ -1040,7 +1496,8 @@ body {
     font-weight: 600 !important;
 }
 
-.theme-dark .markdown-rendered .mermaid svg .actor-line {
+.theme-dark .markdown-rendered .mermaid svg
+.actor-line {
     stroke: #71849b !important;
     stroke-width: 1.1px !important;
 }
@@ -1088,7 +1545,7 @@ body {
 }
 
 /* =========================================
-   07. Image Grid
+   24. Image Grid
    ========================================= */
 
 .markdown-rendered .image-grid,
@@ -1098,7 +1555,7 @@ body {
     align-items: start;
 }
 
-/* 플러그인의 columns와 gap 설정을 존중 */
+/* 플러그인의 columns와 gap 설정 존중 */
 
 .image-grid .image-grid-cell {
     display: flex;
@@ -1106,10 +1563,12 @@ body {
     align-items: stretch;
     justify-content: flex-start;
     min-width: 0;
+
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+
     overflow: visible;
     cursor: zoom-in;
 }
@@ -1121,40 +1580,49 @@ body {
     width: 100% !important;
     height: var(--image-grid-height) !important;
     max-height: var(--image-grid-height) !important;
+
     object-fit: contain !important;
+
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+
     image-rendering: auto;
 }
 
-/* Image Captions 플러그인과 함께 쓰는 경우 */
+/* Image Captions 플러그인 호환 */
 
 .image-grid figure.image-captions-figure {
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
+
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+
     position: static !important;
     margin: 0 !important;
     padding: 0 !important;
+
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+
     overflow: visible !important;
 }
 
 .image-grid figure.image-captions-figure > img {
     display: block !important;
     position: static !important;
+
     width: 100% !important;
     max-width: 100% !important;
     height: var(--image-grid-height) !important;
     max-height: var(--image-grid-height) !important;
+
     object-fit: contain !important;
     transform: none !important;
     margin: 0 !important;
@@ -1168,29 +1636,37 @@ body {
 .image-grid .image-grid-caption {
     display: block !important;
     position: static !important;
+
     width: 100% !important;
     height: auto !important;
+
     inset: auto !important;
     transform: none !important;
+
     margin:
         var(--image-grid-caption-gap)
         0 0 !important;
+
     padding: 0 !important;
+
     background: transparent !important;
     color: var(--text-muted) !important;
+
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     text-shadow: none !important;
+
     font-size: 0.82em !important;
     font-weight: 400 !important;
     line-height: 1.45 !important;
     text-align: center !important;
+
     opacity: 1 !important;
     overflow: visible !important;
 }
 
-/* 편집 모드의 이미지 그리드 외곽 강조 제거 */
+/* 편집 모드 이미지 그리드 외곽 강조 제거 */
 
 .cm-embed-block:has(.block-language-image-grid) {
     background: transparent !important;
@@ -1199,7 +1675,7 @@ body {
 }
 
 /* =========================================
-   08. 일반 이미지 캡션
+   25. 일반 이미지 캡션
    ========================================= */
 
 .markdown-rendered figure.image-captions-figure {
@@ -1207,19 +1683,22 @@ body {
     box-shadow: none;
 }
 
-.markdown-rendered figcaption.image-captions-caption {
+.markdown-rendered
+figcaption.image-captions-caption {
     background: transparent !important;
     color: var(--text-muted);
+
     border: none;
     box-shadow: none;
     text-shadow: none;
+
     font-size: 0.82em;
     font-weight: 400;
     line-height: 1.45;
 }
 
 /* =========================================
-   09. Callout
+   26. Callout
    ========================================= */
 
 .callout:not([data-callout="more"]):not(
@@ -1227,9 +1706,11 @@ body {
 ) {
     background: rgba(255, 255, 255, 0.022);
     border: 1px solid rgba(255, 255, 255, 0.035);
+
     border-left: 2px solid rgba(
         var(--callout-color), 0.45
     );
+
     border-radius: 6px;
     padding: 9px 12px;
     margin: 12px 0;
@@ -1242,8 +1723,10 @@ body {
     display: flex;
     align-items: center;
     gap: 7px;
+
     padding: 0;
     margin: 0;
+
     color: var(--text-normal);
     background: transparent;
     border: none;
@@ -1263,6 +1746,7 @@ body {
 ) > .callout-title .callout-icon {
     color: rgb(var(--callout-color));
     opacity: 0.8;
+
     width: 16px;
     height: 16px;
     margin-top: 0;
@@ -1281,8 +1765,10 @@ body {
 ) > .callout-content {
     padding: 5px 0 0;
     margin: 0;
+
     color: var(--text-normal);
     background: transparent;
+
     border: none;
     box-shadow: none;
 }
@@ -1306,15 +1792,17 @@ body {
 }
 
 /* =========================================
-   10. 외부 링크
+   27. 외부 링크
    ========================================= */
 
 .markdown-rendered a.external-link {
     color: var(--text-normal);
+
     text-decoration-line: underline;
     text-decoration-color: var(--text-faint);
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
+
     transition:
         color 0.15s ease,
         text-decoration-color 0.15s ease;
@@ -1326,14 +1814,13 @@ body {
 }
 
 /* =========================================
-   11. PDF Plus 이미지
+   28. PDF Plus 이미지
    ========================================= */
 
 /*
- * 기존 WebP 정렬 규칙 유지.
- * 모든 WebP 이미지에 적용될 수 있으므로
- * 향후 PDF 전용 클래스로 분리하는 것이 바람직함.
- */
+   기존 WebP 정렬 규칙 유지.
+   모든 WebP 이미지에 적용될 수 있음.
+*/
 
 :is(
     .markdown-source-view.mod-cm6,
@@ -1341,11 +1828,14 @@ body {
     .markdown-rendered
 ) .internal-embed.image-embed[src*=".webp"] {
     display: block !important;
+
     width: var(--pdf-plus-image-width) !important;
     max-width: var(--pdf-plus-image-width) !important;
+
     position: relative !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
+
     margin-top: 18px !important;
     margin-bottom: 18px !important;
 }
@@ -1356,6 +1846,7 @@ body {
     .markdown-rendered
 ) .internal-embed.image-embed[src*=".webp"] img {
     display: block !important;
+
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
@@ -1364,30 +1855,25 @@ body {
 
 /* 이미지 그리드 내부에서는 중앙 정렬 해제 */
 
-.image-grid .internal-embed.image-embed[src*=".webp"] {
+.image-grid
+.internal-embed.image-embed[src*=".webp"] {
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+
     position: static !important;
     left: auto !important;
     transform: none !important;
+
     margin: 0 !important;
 }
 
 /* PDF Plus 좌표 링크 숨김 */
 
-:is(.markdown-preview-view, .markdown-rendered)
-p:has(
-    a.internal-link[data-href*=".pdf#page="]
-    [data-href*="&rect="]
-) {
-    display: none !important;
-}
-
-/* 속성이 같은 링크에 존재하는 경우 */
-
-:is(.markdown-preview-view, .markdown-rendered)
-p:has(
+:is(
+    .markdown-preview-view,
+    .markdown-rendered
+) p:has(
     a.internal-link[data-href*=".pdf#page="][data-href*="&rect="]
 ) {
     display: none !important;
@@ -1401,7 +1887,7 @@ p:has(
 }
 
 /* =========================================
-   12. GitHub 링크 아이콘
+   29. GitHub 링크 아이콘
    ========================================= */
 
 .theme-dark .markdown-rendered
@@ -1418,7 +1904,7 @@ a.external-link[href*="github.com"] .link-favicon {
 }
 
 /* =========================================
-   13. Link Mention
+   30. Link Mention
    ========================================= */
 
 body {
@@ -1430,14 +1916,17 @@ body {
 
 .markdown-rendered .link-mention {
     border-radius: 5px;
+
     transition:
         background-color 0.15s ease,
         box-shadow 0.15s ease;
 }
 
-.theme-dark .markdown-rendered .link-mention-title {
+.theme-dark .markdown-rendered
+.link-mention-title {
     color: #d9dfe8 !important;
     font-weight: 500;
+
     text-decoration-color: #69737f !important;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
@@ -1455,9 +1944,11 @@ body {
     opacity: 1 !important;
 }
 
-.theme-dark .markdown-rendered .link-mention:hover {
+.theme-dark .markdown-rendered
+.link-mention:hover {
     background-color:
         rgba(255, 255, 255, 0.055) !important;
+
     box-shadow:
         0 0 0 4px
         rgba(255, 255, 255, 0.055) !important;
@@ -1474,18 +1965,22 @@ body {
 }
 
 /* =========================================
-   14. Auto Card Link
+   31. Auto Card Link
    ========================================= */
 
 .theme-dark .auto-card-link-card {
     height: auto !important;
     min-height: 72px;
+
     background: var(--background-primary-alt) !important;
     color: var(--text-normal) !important;
+
     border: 1px solid
         var(--background-modifier-border) !important;
+
     border-radius: 5px !important;
     box-shadow: none !important;
+
     transition:
         background-color 0.15s,
         border-color 0.15s;
@@ -1494,6 +1989,7 @@ body {
 .theme-dark .auto-card-link-card:hover {
     background:
         var(--background-modifier-hover) !important;
+
     border-color: var(--text-faint) !important;
 }
 
@@ -1514,8 +2010,10 @@ body {
 .auto-card-link-description {
     height: auto !important;
     max-height: 4.5em !important;
+
     line-height: 1.5 !important;
     font-size: 0.85em !important;
+
     color: var(--text-muted) !important;
 }
 
@@ -1535,7 +2033,38 @@ body {
     width: 156px !important;
     max-width: 32% !important;
     height: auto !important;
+
     align-self: stretch;
     object-fit: cover !important;
+
     border-radius: 0 !important;
 }
+
+
+/* =========================================
+   인라인 코드 강조 완화
+   Reading / Live Preview
+   ========================================= */
+
+body {
+    --inline-code-bg-alpha: 0.040;
+    --inline-code-border-alpha: 0.020;
+    --readability-inline-color: #d4d9e0;
+}
+
+.theme-dark .markdown-rendered :not(pre) > code,
+.theme-dark .markdown-source-view.mod-cm6 .cm-inline-code {
+    background: rgba(255, 255, 255, 0.040) !important;
+    border: 1px solid rgba(180, 200, 225, 0.020) !important;
+    color: #d4d9e0 !important;
+    font-size: 0.90em;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+}
+
+
+/* =========================================
+   End of Obsidian Readability v2
+   ========================================= */
+
+   
