@@ -19,7 +19,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
-| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) · [구독 snapshot 코드 대조](journal/pawcycle/2026-11.md#2026-11-13-구독-스냅샷-코드-대조-source-only) | 2026-11-13 |
+| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) · [구독 스냅샷 코드 대조](journal/pawcycle/2026-11.md#2026-11-13-구독-스냅샷-코드-대조) | 2026-11-13 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
 ## Decision index
