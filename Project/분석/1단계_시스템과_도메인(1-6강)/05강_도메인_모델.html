@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>5강. 도메인 모델: 엔티티, 테이블, 애그리거트는 1:1이 아니다</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+</style></head><body><div class="layout"><aside class="toc"><div class="toc-title">목차</div><ul><li><a href="#1-구독은-하나의-묶음이다">1. 구독은 하나의 묶음이다</a></li><li><a href="#2-상품-vs-SKU-판매-상태-vs-구독-가능-여부">2. 상품 vs SKU, 판매 상태 vs 구독 가능 여부</a><ul><li><a href="#상품과-SKU는-보는-단위와-사는-단위다">상품과 SKU는 “보는 단위”와 “사는 단위”다</a></li><li><a href="#하나의-SKU에-독립된-두-스위치">하나의 SKU에 독립된 두 스위치</a></li></ul></li><li><a href="#3-스냅샷의-세-가지-역할">3. 스냅샷의 세 가지 역할</a></li><li><a href="#4-구독-상태-전이와-회차-상태">4. 구독 상태 전이와 회차 상태</a><ul><li><a href="#이것은-나쁜-설계인가-도메인-모델-vs-트랜잭션-스크립트">이것은 나쁜 설계인가: 도메인 모델 vs 트랜잭션 스크립트</a></li></ul></li><li><a href="#5-회차와-주문은-다르다">5. 회차와 주문은 다르다</a></li><li><a href="#6-주문과-결제는-다르다">6. 주문과 결제는 다르다</a></li><li><a href="#7-값-객체-문서에서는-채택-코드에서는-없음">7. 값 객체: 문서에서는 “채택”, 코드에서는 없음</a><ul><li><a href="#이-차이는-문제인가">이 차이는 문제인가</a></li><li><a href="#문서와-코드가-다를-때-읽는-법">문서와 코드가 다를 때 읽는 법</a></li></ul></li><li><a href="#5강-정리">5강 정리</a></li><li><a href="#보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</a></li><li><a href="#보강-참고-자료-문서화-때-추가">보강 참고 자료 (문서화 때 추가)</a></li></ul></aside><main><div class="crumbs"><a href="../index.html">분석</a> › <a href="00_1단계_전체.html">1단계 · 시스템과 도메인</a> › 5강</div><nav class="pager"><a href="04강_요구사항의_진화.html">← 4강 요구사항의 진화</a><a href="00_1단계_전체.html">1단계 전체</a><a href="06강_ERD.html">6강 ERD →</a></nav><p class="meta">기준 커밋 <a href="https://github.com/guseoh/pawcycle-commerce/tree/f9ab9f87f610908501b864f45b8bc5f7caf2d8d0" target="_blank" rel="noopener"><code>f9ab9f87</code></a> · 저장소는 읽기만 했고 테스트·서버는 실행하지 않았다 · 티스토리 그림은 2026-11-30 이후 깨질 수 있다</p><div class="legend"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div><h1 id="5강-도메인-모델-엔티티-테이블-애그리거트는-11이-아니다">5강. 도메인 모델: 엔티티, 테이블, 애그리거트는 1:1이 아니다</h1>
+<p><strong>이번 강의의 목표</strong></p>
+<ul>
+<li>구독을 하나의 <strong>묶음(애그리거트)</strong>으로 보는 이유와, 그 묶음을 지키는 장치(<code>version</code>)를 설명할 수 있다.</li>
+<li>상품과 SKU, 판매 상태와 구독 가능 여부, 회차와 주문, 주문과 결제처럼 <strong>헷갈리기 쉬운 쌍</strong>을 구분한다.</li>
+<li>문서에서는 "채택"했다고 적힌 설계(값 객체 등)가 코드에는 어떻게 남았는지, 문서와 코드가 다를 때 어떻게 읽는지 익힌다.</li>
+</ul>
+<blockquote>
+<p>표시: <strong><span class="tag tag-ok">확인</span></strong> 코드·설정·DDL · <strong><span class="tag tag-rec">기록</span></strong> 승인 문서·PR·이슈·결정 기록 · <strong><span class="tag tag-int">해석</span></strong> 내 판단 · <strong><span class="tag tag-pri">원리</span></strong> 일반 원리 · <strong><span class="tag tag-unk">미확인</span></strong></p>
+</blockquote>
+<h2 id="1-구독은-하나의-묶음이다">1. 구독은 하나의 묶음이다</h2>
+<p>구독 하나는 테이블 하나가 아니다. 구독 본체, 그 시점의 약속을 고정한 스냅샷과 스냅샷 항목, 다음 회차에 적용될 대기 변경, 회차 일정, 명령 이력이 모두 "구독 하나의 상태"를 이룬다. 개념으로 보면 하나의 묶음이고, 테이블로 보면 여러 개다.</p>
+<figure class="widget" data-title="subscription_aggregate_boundary_concept_vs_table"><svg width="100%" viewBox="0 0 680 400" role="img"><title>구독 애그리거트 경계와 바깥 개념</title><desc>점선 경계 안에 Subscription, 현재 스냅샷, pending 변경, 회차, 명령 이력이 한 트랜잭션으로 일관성을 지키는 묶음으로 있고, 경계 밖의 Pet, PlanVersion, SKU는 ID로만 참조한다. 회차를 처리한 결과인 Order와 그 결제 Payment는 별도 경계다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="190" y="30" width="300" height="270" rx="16" fill="none" stroke="var(--b)" stroke-width="1" stroke-dasharray="6 4"/>
+<text class="ts" x="340" y="50" text-anchor="middle">구독 일관성 경계 · version 하나로 보호</text>
+<g class="c-purple"><rect x="250" y="64" width="180" height="50" rx="8" stroke-width="0.5"/><text class="th" x="340" y="82" text-anchor="middle" dominant-baseline="central">Subscription</text><text class="ts" x="340" y="100" text-anchor="middle" dominant-baseline="central">상태 · version · 주기</text></g>
+<g class="c-teal"><rect x="210" y="132" width="125" height="44" rx="8" stroke-width="0.5"/><text class="th" x="272" y="154" text-anchor="middle" dominant-baseline="central">현재 스냅샷</text></g>
+<g class="c-teal"><rect x="345" y="132" width="125" height="44" rx="8" stroke-width="0.5"/><text class="th" x="407" y="154" text-anchor="middle" dominant-baseline="central">pending 변경</text></g>
+<g class="c-teal"><rect x="210" y="192" width="125" height="44" rx="8" stroke-width="0.5"/><text class="th" x="272" y="214" text-anchor="middle" dominant-baseline="central">회차 Schedule</text></g>
+<g class="c-teal"><rect x="345" y="192" width="125" height="44" rx="8" stroke-width="0.5"/><text class="th" x="407" y="214" text-anchor="middle" dominant-baseline="central">명령 이력</text></g>
+<text class="ts" x="340" y="268" text-anchor="middle">테이블 6개 이상 · 엔티티 클래스는 일부만</text>
+<g class="c-gray"><rect x="30" y="70" width="130" height="40" rx="8" stroke-width="0.5"/><text class="th" x="95" y="90" text-anchor="middle" dominant-baseline="central">Pet</text></g>
+<g class="c-gray"><rect x="30" y="140" width="130" height="40" rx="8" stroke-width="0.5"/><text class="th" x="95" y="160" text-anchor="middle" dominant-baseline="central">PlanVersion</text></g>
+<g class="c-gray"><rect x="30" y="210" width="130" height="40" rx="8" stroke-width="0.5"/><text class="th" x="95" y="230" text-anchor="middle" dominant-baseline="central">SKU</text></g>
+<line x1="248" y1="89" x2="162" y2="89" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+<line x1="208" y1="154" x2="162" y2="158" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+<text class="ts" x="95" y="275" text-anchor="middle">ID로만 참조</text>
+<g class="c-coral"><rect x="520" y="70" width="130" height="50" rx="8" stroke-width="0.5"/><text class="th" x="585" y="88" text-anchor="middle" dominant-baseline="central">Order</text><text class="ts" x="585" y="106" text-anchor="middle" dominant-baseline="central">회차 처리 결과</text></g>
+<g class="c-coral"><rect x="520" y="190" width="130" height="50" rx="8" stroke-width="0.5"/><text class="th" x="585" y="208" text-anchor="middle" dominant-baseline="central">Payment</text><text class="ts" x="585" y="226" text-anchor="middle" dominant-baseline="central">시도마다 한 행</text></g>
+<path d="M337 214 L500 214 L500 95 L518 95" fill="none" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="508" y="150" text-anchor="end">0..1</text>
+<line x1="585" y1="120" x2="585" y2="188" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="595" y="158">1..N</text>
+<text class="ts" x="585" y="275" text-anchor="middle">별도 경계</text>
+<text class="ts" x="340" y="330" text-anchor="middle">점선 안: 한 트랜잭션에서 함께 바뀌어야 하는 것</text>
+<text class="ts" x="340" y="350" text-anchor="middle">점선 밖: 다른 수명과 다른 잠금을 가진 것</text>
+</svg></figure>
+<p>그림의 점선이 DDD에서 말하는 <strong>애그리거트</strong>(aggregate)다. 위키독스의 <a href="https://wikidocs.net/298401" target="_blank" rel="noopener">「애그리거트와 루트 엔티티 설계: 트랜잭션 경계의 확립」</a>은 애그리거트를 “데이터 변경의 일관성을 유지하기 위해 하나의 단위로 취급되어야 하는 객체들의 묶음”으로 정의한다. 글이 강조하는 규칙은 세 가지다.</p>
+<ul>
+<li>외부는 <strong>루트</strong>(여기서는 Subscription)만 참조한다.</li>
+<li>내부 객체는 <strong>루트를 통해서만</strong> 바꾼다.</li>
+<li>묶음 전체가 <strong>한 트랜잭션</strong>으로 저장된다.</li>
+</ul>
+<p>그리고 다른 애그리거트는 객체가 아니라 <strong>ID로만</strong> 참조하라고 한다. 객체로 직접 참조하면 조회할 때마다 불필요한 로딩(JPA N+1)이 생기고, 두 애그리거트의 변경이 서로의 트랜잭션에 얽히기 때문이다.</p>
+<p>PawCycle에 대 보면 이렇다.</p>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span> ID 참조</strong>: 현재 <code>SubscriptionEntity</code>는 <code>long memberId</code>, <code>long skuId</code>, <code>Long petId</code>, <code>Long currentSnapshotId</code>처럼 <strong>ID 필드만</strong> 가진다. 반면 MVP1의 첫 <code>Subscription</code> 엔티티는 <code>@ManyToOne Member member</code>, <code>@ManyToOne Sku sku</code>로 <strong>객체를 참조</strong>했다. V2로 오면서 ID 참조로 바뀐 것이다.</li>
+<li><strong><span class="tag tag-ok">확인</span> 경계를 지키는 장치</strong>: 그림 위쪽 상자에 적힌 <code>version</code> 하나다. 플랜 변경, 건너뛰기, 일시정지, 자동 주문 등 무엇이 구독 묶음을 바꾸든 <strong>같은 version을 올린다</strong>. 4강에서 본 자동 주문 처리 규칙에도 “Subscription version 한 번 증가”가 들어 있었다. version이 묶음 전체의 <strong>일관성 경계를 대표하는 숫자</strong>다.</li>
+<li><strong><span class="tag tag-int">해석</span> 테이블과는 1:1이 아니다</strong>: 이 묶음은 <code>subscriptions</code>, <code>subscription_snapshots</code>, <code>subscription_snapshot_items</code>, <code>pending_plan_changes</code>, <code>subscription_schedules</code>, 명령 이력 테이블 등 <strong>여러 테이블</strong>에 걸쳐 있다. 반대로 <code>LegacyInitialSnapshot</code>이나 <code>PendingPlanChange</code>는 도메인 문서에 개념으로 있지만, 문서 스스로 “별도 엔티티 구현을 요구하지 않는다”고 적는다.</li>
+</ul>
+<h2 id="2-상품-vs-SKU-판매-상태-vs-구독-가능-여부">2. 상품 vs SKU, 판매 상태 vs 구독 가능 여부</h2>
+<h3 id="상품과-SKU는-보는-단위와-사는-단위다">상품과 SKU는 “보는 단위”와 “사는 단위”다</h3>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span></strong> 용어집의 정의:<ul>
+<li><strong>Product</strong>: 사용자에게 하나의 상품으로 인식되는 공통 정보다(“연어 사료”).</li>
+<li><strong>SKU</strong>: 용량·구성이 확정된 <strong>실제 선택 단위</strong>다(“연어 사료 5kg”).</li>
+</ul>
+</li>
+<li>가격도, 재고도, 구독 가능 여부도 <strong>SKU에</strong> 붙는다. 같은 사료라도 2kg과 10kg은 가격과 재고가 다르기 때문이다.</li>
+<li>도메인 문서는 Product에 “구독 생성 불변 조건을 직접 검증하지 않는다”고 못 박는다. Product는 <strong>보여 주는 책임</strong>, SKU는 <strong>선택되는 책임</strong>을 진다.</li>
+</ul>
+<h3 id="하나의-SKU에-독립된-두-스위치">하나의 SKU에 독립된 두 스위치</h3>
+<p>SKU에는 비슷해 보이지만 <strong>서로 독립인</strong> 두 속성이 있다.</p>
+<pre><code class="language-java">// catalog/sku/domain/Sku.java (발췌)
+private BigDecimal price;
+private boolean subscribable;   // 구독 가능 여부: 정기배송 대상으로 고를 수 있는가
+private SkuStatus status;       // 판매 상태(ACTIVE/INACTIVE): 공개 상품 API에 보이는가
+</code></pre>
+<p><strong><span class="tag tag-ok">확인</span></strong> 도메인 규칙은 “SKU 판매 status는 구독 적격성인 <code>subscribable</code>과 독립이다. INACTIVE라도 기존 구독 조건은 <code>subscribable</code>만 사용한다”고 적는다. 두 스위치를 조합하면 네 가지 상태가 나온다.</p>
+<table>
+<thead>
+<tr>
+<th><code>status</code></th>
+<th><code>subscribable</code></th>
+<th>의미하는 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACTIVE</td>
+<td>true</td>
+<td>일반 판매 중이고 정기배송도 가능</td>
+</tr>
+<tr>
+<td>ACTIVE</td>
+<td>false</td>
+<td>일반 구매만 가능 (예: 한정 수량 이벤트 상품)</td>
+</tr>
+<tr>
+<td>INACTIVE</td>
+<td>true</td>
+<td>공개 목록에서는 내렸지만 기존 정기배송 대상으로는 유지</td>
+</tr>
+<tr>
+<td>INACTIVE</td>
+<td>false</td>
+<td>판매도 구독도 불가</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>왜 하나로 합치지 않았나.</strong> <strong><span class="tag tag-int">해석</span></strong> 하나의 상태값(<code>SELLING</code>, <code>SUBSCRIPTION_ONLY</code>, …)으로 합치면 “공개 목록에서 내린다”는 운영 행위가 <strong>기존 구독자의 배송까지 끊는</strong> 부작용을 만들기 쉽다. 두 축을 나누면 각 변경의 영향 범위가 분명해진다.</li>
+<li><strong>같은 원칙이 곳곳에 있다.</strong> <strong><span class="tag tag-ok">확인</span></strong><ul>
+<li>Product 관리 상태는 <code>DRAFT → PUBLIC</code>, <code>PUBLIC → INACTIVE</code>, <code>INACTIVE → PUBLIC</code>만 허용하고 나머지 전이는 409다.</li>
+<li>카테고리를 비활성화해도 Product 공개 상태를 <strong>연쇄 변경하지 않는다</strong>.</li>
+<li>ACTIVE SKU가 하나도 없어도 PUBLIC Product는 <strong>빈 SKU 배열</strong>로 남는다.</li>
+</ul>
+</li>
+<li><strong>재고와 품절도 별개다.</strong> MVP1의 구독 생성 조건은 <code>subscribable</code> 하나뿐이었다. 재고, 품절, 판매 상태는 구독 생성과 연결하지 않았다. 재고는 실제 주문·결제 시점(MVP3)에서야 의미를 가진다.</li>
+</ul>
+<h2 id="3-스냅샷의-세-가지-역할">3. 스냅샷의 세 가지 역할</h2>
+<p>4강에서 “가격은 참조하지 않고 복사한다”를 봤다. 도메인 문서를 자세히 읽으면 같은 <code>subscription_snapshots</code> 테이블의 행이 <strong>세 가지 역할</strong>로 쓰인다.</p>
+<table>
+<thead>
+<tr>
+<th>역할</th>
+<th>무엇을 가리키나</th>
+<th>언제 바뀌나</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>현재 스냅샷</strong> (current)</td>
+<td>지금 구독에 적용 중인 가격·구성·주기</td>
+<td>pending이 적용될 때만 교체</td>
+</tr>
+<tr>
+<td><strong>pending 스냅샷</strong></td>
+<td>플랜 변경 후 <strong>다음 실행 가능한 회차</strong>에 적용할 값</td>
+<td>새 플랜 변경이 오면 최신 요청으로 <strong>교체</strong>(대기열 아님)</td>
+</tr>
+<tr>
+<td><strong>effective 스냅샷</strong></td>
+<td>특정 회차의 주문에 <strong>실제로 쓰인</strong> 값</td>
+<td>회차를 처리할 때 한 번 기록되고 이후 불변</td>
+</tr>
+</tbody>
+</table>
+<p>자동 주문이 회차를 처리할 때 도메인 규칙은 이렇다(<code>DOMAIN-003</code>).</p>
+<ol>
+<li>이 회차가 pending의 적용 대상이면 pending 스냅샷을, 아니면 현재 스냅샷을 <strong>effective</strong>로 정한다.</li>
+<li>effective 스냅샷의 가격과 항목을 <strong>주문에 다시 복사</strong>한다.</li>
+<li>pending을 썼다면 현재 스냅샷 포인터를 그것으로 바꾸고 pending을 지운다.</li>
+<li>이 모든 것을 version 증가와 함께 <strong>한 트랜잭션</strong>으로 커밋한다.</li>
+</ol>
+<p>명령들도 pending을 다르게 다룬다.</p>
+<ul>
+<li><strong>건너뛰기</strong>: pending의 적용 대상을 <strong>새 회차로 옮긴다</strong>.</li>
+<li><strong>일시정지</strong>: pending을 <strong>보존</strong>하고, 재개로 만든 회차에 적용한다.</li>
+<li><strong>해지</strong>: pending을 <strong>적용하지 않는다</strong>. 코드에서는 <code>deletePendingPlanChange</code>로 지운다.</li>
+</ul>
+<p><strong><span class="tag tag-int">해석</span></strong> 이 규칙들이 복잡해 보이는 이유는, 시간에 따라 변하는 값을 <strong>“언제부터 유효한가”</strong> 까지 함께 관리하기 때문이다. 스냅샷 하나로 보이는 개념이 실은 <strong>시점이 다른 세 값</strong>이라는 것을 알아야 22강(구독 명령)과 23강(자동 주문) 코드가 읽힌다.</p>
+<h2 id="4-구독-상태-전이와-회차-상태">4. 구독 상태 전이와 회차 상태</h2>
+<p>구독에는 상태가 세 개, 회차에는 네 개 있다. 둘은 <strong>함께 움직인다</strong>.</p>
+<figure class="widget" data-title="subscription_state_transitions_with_schedule_effects"><svg width="100%" viewBox="0 0 680 330" role="img"><title>구독 상태 전이와 회차 상태 변화</title><desc>ACTIVE에서 일시정지하면 PAUSED가 되고 예정 회차는 HELD가 된다. PAUSED에서 재개하면 ACTIVE가 되고 HELD 회차는 새 날짜의 SCHEDULED가 된다. ACTIVE나 PAUSED에서 해지하면 CANCELED가 되고 미래 회차는 CANCELED가 된다. CANCELED에서는 나가는 전이가 없다. 건너뛰기는 ACTIVE에 머물며 현재 회차를 SKIPPED로 바꾸고 다음 회차를 만든다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g class="c-teal"><rect x="60" y="110" width="150" height="56" rx="8" stroke-width="0.5"/><text class="th" x="135" y="130" text-anchor="middle" dominant-baseline="central">ACTIVE</text><text class="ts" x="135" y="150" text-anchor="middle" dominant-baseline="central">미래 SCHEDULED 정확히 1</text></g>
+<g class="c-amber"><rect x="470" y="110" width="150" height="56" rx="8" stroke-width="0.5"/><text class="th" x="545" y="130" text-anchor="middle" dominant-baseline="central">PAUSED</text><text class="ts" x="545" y="150" text-anchor="middle" dominant-baseline="central">HELD 회차 보유</text></g>
+<g class="c-gray"><rect x="265" y="250" width="150" height="56" rx="8" stroke-width="0.5"/><text class="th" x="340" y="270" text-anchor="middle" dominant-baseline="central">CANCELED</text><text class="ts" x="340" y="290" text-anchor="middle" dominant-baseline="central">나가는 전이 없음</text></g>
+<line x1="210" y1="124" x2="468" y2="124" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="116" text-anchor="middle">일시정지: 예정 회차 → HELD</text>
+<line x1="470" y1="152" x2="212" y2="152" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="172" text-anchor="middle">재개: HELD → 재개일+주기의 SCHEDULED</text>
+<path d="M135 166 L135 278 L263 278" fill="none" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<path d="M545 166 L545 278 L417 278" fill="none" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="232" text-anchor="middle">해지: 미래 회차 → CANCELED · pending 폐기 · 과거 이력 보존</text>
+<path d="M100 110 L100 70 L170 70 L170 108" fill="none" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="135" y="58" text-anchor="middle">건너뛰기 · 플랜 변경</text>
+<text class="ts" x="135" y="40" text-anchor="middle">ACTIVE에서만 · 상태 유지</text>
+</svg></figure>
+<p>그림의 핵심 불변 조건은 상자 안의 부제다. <strong>ACTIVE 구독은 미래 SCHEDULED 회차를 정확히 하나</strong> 갖고, PAUSED는 그 대신 <strong>HELD 회차</strong>를 갖는다. CANCELED는 되살리지 않으며, 다시 쓰려면 새 구독을 만든다. 이 규칙이 실제 코드에서는 이렇게 구현돼 있다.</p>
+<pre><code class="language-java">// subscription/application/SubscriptionCommandApplicationService.java (발췌)
+long expected = support.parseEtag(ifMatch);
+if (subscription.version() != expected)                       // ① 낙관적 버전 검사
+  throw new SubscriptionFailure(PRECONDITION_FAILED, &quot;SUBSCRIPTION_VERSION_MISMATCH&quot;, ...);
+switch (commandType) {
+  case PAUSE  -&gt; pause(subscription);
+  case RESUME -&gt; resume(subscription);
+  case CANCEL -&gt; cancel(subscription);
+  ...
+}
+if (!store.incrementVersion(subscriptionId, expected))         // ② CAS로 version 증가
+  throw new SubscriptionFailure(PRECONDITION_FAILED, ...);
+
+private void pause(SubscriptionProjection subscription) {
+  if (!&quot;ACTIVE&quot;.equals(subscription.status())) throw support.state();   // ③ 전이 규칙
+  ScheduleProjection schedule = store.lockNextScheduled(subscription.id());
+  store.setSubscriptionStatus(subscription.id(), &quot;PAUSED&quot;);
+  store.setScheduleStatus(schedule.id(), &quot;HELD&quot;);
+  store.deleteDeliveryReminder(schedule.id());
+}
+
+private void cancel(SubscriptionProjection subscription) {
+  if (!List.of(&quot;ACTIVE&quot;, &quot;PAUSED&quot;).contains(subscription.status())) throw support.state();
+  store.setSubscriptionStatus(subscription.id(), &quot;CANCELED&quot;);
+  store.cancelUnorderedSchedules(subscription.id());
+  store.deletePendingPlanChange(subscription.id());
+  ...
+}
+</code></pre>
+<ul>
+<li><strong>① → ②</strong>: 먼저 클라이언트가 보낸 <code>If-Match</code> 버전과 비교한다. 작업을 마친 뒤에는 <code>UPDATE ... SET version = version + 1 WHERE id = ? AND version = ?</code> 형태의 <strong>CAS</strong>(compare-and-set)로 다시 한번 확인하며 올린다. 4강에서 본 것처럼, 그 사이 자동 주문이 먼저 커밋했다면 ②가 실패해 <strong>덮어쓰기를 막는다</strong>. 낙관적 잠금의 원리는 22강에서 깊게 본다.</li>
+<li><strong>③</strong>: 전이 규칙이 <strong>애플리케이션 서비스의 문자열 비교</strong>로 구현돼 있다. <code>"ACTIVE".equals(...)</code> 검사가 이 파일에만 <strong>7번</strong> 나온다.</li>
+<li>상태를 바꾸는 일도 <code>store.setSubscriptionStatus(id, "PAUSED")</code>, 즉 <strong>저장소 메서드 호출</strong>이다. <code>SubscriptionEntity</code>에는 상태를 바꾸는 메서드가 하나도 없다. 생성자 하나뿐이고, 생성 시 <code>status = "ACTIVE"</code>로 고정된다.</li>
+</ul>
+<h3 id="이것은-나쁜-설계인가-도메인-모델-vs-트랜잭션-스크립트">이것은 나쁜 설계인가: 도메인 모델 vs 트랜잭션 스크립트</h3>
+<p>Martin Fowler는 <a href="https://martinfowler.com/bliki/AnemicDomainModel.html" target="_blank" rel="noopener">「Anemic Domain Model」</a>에서 이런 모양을 경고한다. 객체들이 도메인 명사의 이름을 갖고 관계도 갖췄지만, <strong>행위가 거의 없는 getter/setter 묶음</strong>이다. 로직은 전부 서비스 객체에 있다. 그는 이것이 도메인 모델의 비용(객체-DB 매핑)은 다 치르면서 이점은 얻지 못하는, 사실상 <strong>트랜잭션 스크립트</strong>라고 말한다. 다만 같은 글에서 “도메인 모델이 항상 최선의 도구는 아니다”라고도 덧붙인다.</p>
+<p>그런데 PawCycle의 구독 V2는 <strong>매핑 비용 자체를 치르지 않는 쪽을 택했다</strong>. <strong><span class="tag tag-ok">확인</span></strong> 구조 결정 문서(ARCH-011, Accepted)는 이렇게 정한다.</p>
+<ul>
+<li>구독 V2는 <strong>명시적 JDBC SQL, <code>FOR UPDATE</code>, version CAS 쓰기, UNIQUE 충돌 처리</strong>를 저장소에 둔다.</li>
+<li>저장소는 <strong>타입이 있는 조회 결과(projection)만</strong> 내놓는다. 검증, 멱등 판정, 상태 전이, 응답 조립은 하지 않는다.</li>
+<li>생성, 조회, 명령, 대사는 각각의 <strong>애플리케이션 서비스</strong>가 유스케이스와 트랜잭션 경계를 소유한다.</li>
+</ul>
+<p>즉 이 코드는 의도적으로 <strong>“트랜잭션 스크립트 + 명시 SQL”</strong> 을 택했다. 이유는 3강·4강에서 본 요구들에 있다. <strong><span class="tag tag-int">해석</span></strong></p>
+<ul>
+<li>어떤 행을 <strong>어떤 순서로 잠그는지</strong>(구독 행 → 회차 행)가 정합성의 핵심이다. JPA의 지연 로딩과 플러시 순서에 맡기면 이 순서가 코드에서 보이지 않는다.</li>
+<li>상태 변경 하나가 테이블 여러 개를 <strong>조건부 UPDATE</strong>로 함께 바꾼다. 엔티티 그래프를 불러와 고치는 방식보다 SQL이 의도를 더 정확히 드러낸다.</li>
+<li>MVP2에서 MVP1 데이터와 <strong>호환되는 경계</strong>를 유지해야 했다.</li>
+</ul>
+<p>그렇다고 개선할 점이 없는 것은 아니다.</p>
+<blockquote>
+<p><strong>개선 제안 <span class="tag tag-int">해석</span></strong> 트랜잭션 스크립트를 유지하더라도 <strong>전이 규칙만은 한 곳에</strong> 모을 수 있다. 지금은 “ACTIVE에서만 가능”이 7곳에 흩어져 있어, 새 상태(예: 결제 실패로 인한 <code>SUSPENDED</code>)를 추가하면 모든 곳을 찾아 고쳐야 한다.</p>
+<p><code>java
+// 제안 예시 — 저장소에 없는 코드다
+enum SubscriptionStatus {
+  ACTIVE, PAUSED, CANCELED;
+  boolean canPause()  { return this == ACTIVE; }
+  boolean canResume() { return this == PAUSED; }
+  boolean canCancel() { return this != CANCELED; }
+}</code></p>
+<p>SQL과 잠금 순서는 저장소에 그대로 두고, <strong>“무엇이 허용되는가”만</strong> 타입으로 옮기는 절충이다. DB의 <code>CHECK (status IN (...))</code>와 문자열이 어긋나는 실수도 컴파일 단계에서 줄어든다. 이 리팩터링은 33강(재설계) 후보로 남긴다.</p>
+</blockquote>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://wikidocs.net/298401" target="_blank" rel="noopener">위키독스 · 애그리거트와 루트 엔티티 설계: 트랜잭션 경계의 확립</a>: 애그리거트의 세 규칙과 ID 참조</li>
+<li><a href="https://martinfowler.com/bliki/AnemicDomainModel.html" target="_blank" rel="noopener">Martin Fowler · Anemic Domain Model</a>: 빈약한 도메인 모델이 사실상 트랜잭션 스크립트인 이유(영문)</li>
+<li><a href="https://martinfowler.com/eaaCatalog/transactionScript.html" target="_blank" rel="noopener">Martin Fowler · Transaction Script (P of EAA)</a>: 요청 하나를 절차 하나로 처리하는 패턴의 정의(영문)</li>
+</ul>
+<h2 id="5-회차와-주문은-다르다">5. 회차와 주문은 다르다</h2>
+<p><strong><span class="tag tag-ok">확인</span></strong> 자동화 도메인 문서는 둘을 이렇게 나눈다.</p>
+<ul>
+<li><strong>SubscriptionSchedule(회차)</strong>: 구독의 <strong>예정된</strong> 한 회차와 원래 예정일이다. “실제 처리 결과가 아니다.”</li>
+<li><strong>Recurring Order(주문)</strong>: 그 회차를 <strong>실제로 처리해 생긴</strong> 결과다.</li>
+<li>관계는 <strong>회차 1개 → 주문 0개 또는 1개</strong>다.</li>
+</ul>
+<p>왜 이것을 굳이 나눌까?</p>
+<ul>
+<li><strong>계획과 사실을 섞지 않기 위해서다.</strong> 회차는 바뀔 수 있는 <strong>계획</strong>이다. 건너뛰면 SKIPPED, 일시정지하면 HELD, 재개하면 날짜가 바뀐다. 주문은 바뀌면 안 되는 <strong>사실</strong>이다. 가격, 항목, 출처 PlanVersion, 예정일, 처리 시각이 생성 뒤 불변이다.</li>
+<li><strong>“처리 안 됨”을 정직하게 남기기 위해서다.</strong> 주문이 없는 지난 회차는 “아직 처리되지 않았다”는 뜻이다. <strong><span class="tag tag-ok">확인</span></strong> 대사(reconciliation) 작업은 이런 회차를 <strong>처리된 것으로 바꾸지 않는다</strong>. 이미 주문이 있는데 다음 회차가 빠진 경우처럼, 주문 원본만으로 안전하게 재구성할 수 있을 때만 보정한다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> 회차와 주문을 한 테이블에 합쳐 <code>status = ORDERED</code>로 표현하는 대안도 가능하다. 하지만 그러면 “계획을 바꾸는 명령”과 “사실을 기록하는 자동화”가 <strong>같은 행을 두고 경쟁</strong>한다. 분리해 두었기 때문에 4강의 <code>UNIQUE (schedule_id)</code> 한 줄로 중복 주문을 막을 수 있다.</li>
+</ul>
+<h2 id="6-주문과-결제는-다르다">6. 주문과 결제는 다르다</h2>
+<p>일반 구매로 오면 같은 원리가 한 번 더 나온다. <strong>주문은 “무엇을 샀는가”, 결제는 “돈을 받으려는 시도”</strong> 다.</p>
+<p><strong><span class="tag tag-ok">확인</span></strong> V14 마이그레이션의 상태값부터 다르다.</p>
+<ul>
+<li><strong>주문</strong>: <code>CREATED</code>, <code>PAYMENT_PENDING</code>, <code>PAID</code>, <code>PAYMENT_FAILED</code>, <code>EXPIRED</code>, <code>PAYMENT_ACTION_REQUIRED</code></li>
+<li><strong>결제</strong>: <code>READY</code>, <code>PROCESSING</code>, <code>SUCCEEDED</code>, <code>FAILED</code>, <code>UNKNOWN</code></li>
+</ul>
+<p>결제에만 <code>UNKNOWN</code>이 있다. 3강에서 본 대로, 외부 결제사와의 통신은 “모름”이라는 결과를 낳을 수 있기 때문이다. 주문의 상태는 결제 시도들의 결과를 <strong>요약한 것</strong>이다.</p>
+<p>결정적인 차이는 <strong>개수</strong>다. 주문 하나에 결제 시도는 여러 번 있을 수 있다. 정기결제가 실패해 재시도하면 같은 주문에 두 번째 결제 행이 생긴다. 그래도 <strong>성공한 결제는 하나뿐</strong>이어야 한다. 이 규칙을 SQL로 어떻게 강제하는지가 이 절의 핵심이다.</p>
+<pre><code class="language-sql">-- V14__add_common_order_payment_and_billing.sql — payments 테이블 (발췌)
+provider_order_id VARCHAR(100) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+idempotency_key   VARCHAR(128) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+attempt_no INT NOT NULL,
+reconciliation_attempts INT NOT NULL DEFAULT 0,
+succeeded_order_id BIGINT GENERATED ALWAYS AS
+    (CASE WHEN status = 'SUCCEEDED' THEN order_id ELSE NULL END) STORED,
+
+CONSTRAINT uk_payments_order_attempt   UNIQUE (order_id, attempt_no),
+CONSTRAINT uk_payments_successful_order UNIQUE (succeeded_order_id),
+CONSTRAINT uk_payments_idempotency      UNIQUE (idempotency_key),
+CONSTRAINT chk_payments_reconciliation_attempts CHECK (reconciliation_attempts BETWEEN 0 AND 10)
+</code></pre>
+<figure class="widget" data-title="order_payments_succeeded_unique_generated_column"><svg width="100%" viewBox="0 0 680 300" role="img"><title>주문 하나에 결제 시도 여러 개, 성공은 하나</title><desc>주문 101에 결제 시도 세 행이 있다. 시도 1은 FAILED, 시도 2는 UNKNOWN, 시도 3은 SUCCEEDED다. 생성 컬럼 succeeded_order_id는 SUCCEEDED 행에서만 101이고 나머지는 NULL이다. UNIQUE 인덱스는 NULL을 여러 개 허용하므로 실패 행들은 충돌하지 않고, 두 번째 SUCCEEDED 행이 생기면 101이 중복되어 거부된다</desc>
+<g class="c-purple"><rect x="40" y="110" width="130" height="56" rx="8" stroke-width="0.5"/><text class="th" x="105" y="130" text-anchor="middle" dominant-baseline="central">주문 101</text><text class="ts" x="105" y="150" text-anchor="middle" dominant-baseline="central">무엇을 샀나</text></g>
+<text class="ts" x="230" y="34">attempt</text><text class="ts" x="320" y="34">status</text><text class="ts" x="460" y="34">succeeded_order_id</text>
+<g class="c-gray"><rect x="210" y="46" width="430" height="40" rx="6" stroke-width="0.5"/><text class="t" x="240" y="66" dominant-baseline="central">1</text><text class="t" x="320" y="66" dominant-baseline="central">FAILED</text><text class="t" x="460" y="66" dominant-baseline="central">NULL</text></g>
+<g class="c-amber"><rect x="210" y="96" width="430" height="40" rx="6" stroke-width="0.5"/><text class="t" x="240" y="116" dominant-baseline="central">2</text><text class="t" x="320" y="116" dominant-baseline="central">UNKNOWN</text><text class="t" x="460" y="116" dominant-baseline="central">NULL</text></g>
+<g class="c-teal"><rect x="210" y="146" width="430" height="40" rx="6" stroke-width="0.5"/><text class="t" x="240" y="166" dominant-baseline="central">3</text><text class="t" x="320" y="166" dominant-baseline="central">SUCCEEDED</text><text class="t" x="460" y="166" dominant-baseline="central">101</text></g>
+<g class="c-red"><rect x="210" y="206" width="430" height="40" rx="6" stroke-width="0.5"/><text class="t" x="240" y="226" dominant-baseline="central">4</text><text class="t" x="320" y="226" dominant-baseline="central">SUCCEEDED?</text><text class="t" x="460" y="226" dominant-baseline="central">101 → 중복 거부</text></g>
+<line x1="170" y1="138" x2="208" y2="66" stroke="var(--b)" stroke-width="0.5"/>
+<line x1="170" y1="138" x2="208" y2="116" stroke="var(--b)" stroke-width="0.5"/>
+<line x1="170" y1="138" x2="208" y2="166" stroke="var(--b)" stroke-width="0.5"/>
+<line x1="170" y1="138" x2="208" y2="226" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text class="ts" x="425" y="276" text-anchor="middle">UNIQUE는 NULL을 여러 개 허용 → 실패한 시도는 몇 개든 괜찮다</text>
+</svg></figure>
+<p>그림의 트릭을 풀어 보자.</p>
+<ul>
+<li><strong>문제</strong>: “성공한 결제는 주문당 하나”는 <strong>조건부 유일성</strong>이다. 상태가 SUCCEEDED인 행에 대해서만 <code>order_id</code>가 유일해야 한다. PostgreSQL이라면 <code>CREATE UNIQUE INDEX ... WHERE status = 'SUCCEEDED'</code>처럼 <strong>부분 인덱스</strong>(partial index)로 한 줄에 끝난다. <strong>MySQL에는 부분 인덱스가 없다.</strong></li>
+<li><strong>해법</strong>: <strong>생성 컬럼</strong>(generated column)을 만든다. SUCCEEDED일 때만 <code>order_id</code>를 담고 나머지는 <code>NULL</code>을 담는다. 그 컬럼에 UNIQUE를 건다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> SQL 표준과 MySQL에서 UNIQUE 인덱스는 <strong>NULL을 여러 개 허용</strong>한다. NULL은 “모르는 값”이라 서로 같다고 판정하지 않기 때문이다. 그래서 실패·미확정 시도는 몇 개든 공존한다.</li>
+<li>SUCCEEDED 행이 두 번째로 생기는 순간 <code>101</code>이 중복되어 <strong>DB가 거부</strong>한다. 애플리케이션에 버그가 있어도 이중 성공은 기록되지 않는다.</li>
+<li><code>STORED</code>는 값을 실제로 디스크에 저장한다는 뜻이다. 기본값인 <code>VIRTUAL</code>은 읽을 때 계산한다. MySQL 공식 문서의 <a href="https://dev.mysql.com/doc/refman/8.0/en/create-table-secondary-indexes.html" target="_blank" rel="noopener">「Secondary Indexes and Generated Columns」</a>가 생성 컬럼 인덱스의 조건을 설명한다. <strong><span class="tag tag-unk">미확인</span></strong> 이 프로젝트가 왜 VIRTUAL 대신 STORED를 골랐는지는 기록을 찾지 못했다.</li>
+<li><strong>대가</strong>: 부분 인덱스와 달리, NULL인 행도 인덱스 항목을 차지해 공간을 쓴다.</li>
+</ul>
+</li>
+<li><strong><code>UNIQUE (order_id, attempt_no)</code></strong>: 같은 주문의 같은 번째 시도는 하나뿐이다. <strong><span class="tag tag-ok">확인</span></strong> 계약 문서는 “같은 실패 결제에 대한 중복 재시도 요청은 이미 만들어진 다음 시도를 재사용한다”고 적는다. 재시도 요청 자체도 멱등이다.</li>
+<li><strong><code>CHECK (reconciliation_attempts BETWEEN 0 AND 10)</code></strong>: 3강·4강에서 본 “UNKNOWN 결제는 최대 10회까지만 결제사에 조회한다”는 규칙이 DB 제약이 됐다.</li>
+<li><strong><code>CHARACTER SET ascii COLLATE ascii_bin</code></strong>: 결제 키와 멱등 키 컬럼만 문자셋이 다르다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> 테이블 기본값인 <code>utf8mb4_0900_ai_ci</code>의 <code>ai_ci</code>는 <strong>악센트 무시(accent-insensitive), 대소문자 무시(case-insensitive)</strong> 비교다. 그러면 <code>abc</code>와 <code>ABC</code>가 <strong>같은 키</strong>로 취급된다.</li>
+<li>외부 결제사가 준 ID나 클라이언트의 UUID는 <strong>바이트 그대로</strong> 비교해야 한다. <code>ascii_bin</code>은 바이트 단위로 비교하고, 문자당 1바이트라 utf8mb4(최대 4바이트)보다 인덱스도 작다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> 문자열 키를 대소문자 무시로 비교하면 서로 다른 두 키가 충돌하거나, 같은 키가 다르게 저장될 수 있다. 식별자 컬럼에는 이진 비교 콜레이션을 쓰는 것이 원칙이다.</li>
+</ul>
+</li>
+</ul>
+<p>한 가지 짚을 점이 있다.</p>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span></strong> <code>PaymentEntity</code>의 <code>markProcessing</code>, <code>markSucceeded</code>, <code>markFailed</code>, <code>markUnknown</code>은 <strong>이전 상태를 검사하지 않고</strong> 상태를 덮어쓴다. <code>CommerceOrderEntity.markPaid</code>도 마찬가지다.</li>
+<li><strong><span class="tag tag-unk">미확인</span></strong> 그렇다면 “READY에서만 PROCESSING으로 갈 수 있다” 같은 규칙은 어디서 지켜질까? 애플리케이션 서비스의 조건문인지, 조건부 UPDATE인지, 아니면 비어 있는지는 18강(결제 승인)에서 코드로 확인한다. 위 DB 제약들은 <strong>최후의 방어선</strong>이지, 전이 규칙 전체를 대신하지는 않는다.</li>
+</ul>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/create-table-secondary-indexes.html" target="_blank" rel="noopener">MySQL 8.0 Reference · Secondary Indexes and Generated Columns</a>: 생성 컬럼에 UNIQUE 인덱스를 거는 조건(영문)</li>
+<li><a href="https://sqlfordevs.com/unique-index-ignore-some-rows" target="_blank" rel="noopener">SQL for Devs · Unique Indexes With Some Rows Excluded</a>: DB별 부분 유일성 구현 비교(영문)</li>
+</ul>
+<h2 id="7-값-객체-문서에서는-채택-코드에서는-없음">7. 값 객체: 문서에서는 “채택”, 코드에서는 없음</h2>
+<p>이번 강의에서 가장 중요한 발견이다.</p>
+<p><strong><span class="tag tag-ok">확인</span></strong> 첫 MVP 도메인 설계(DOMAIN-001)는 값 객체 후보 다섯 개를 하나씩 따져, 두 개를 <strong>채택(Accepted)</strong> 했다.</p>
+<table>
+<thead>
+<tr>
+<th>후보</th>
+<th>판단</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SubscriptionQuantity</code></td>
+<td><strong>Accepted</strong></td>
+<td>1~10 범위를 생성 시점에 보장</td>
+</tr>
+<tr>
+<td><code>DeliveryCycle</code></td>
+<td><strong>Accepted</strong></td>
+<td>2·4·8주 검증과 날짜 계산 기간을 한 의미로 묶음</td>
+</tr>
+<tr>
+<td><code>SubscriptionCreatedDate</code></td>
+<td>Deferred</td>
+<td>추가 불변 조건이 없음</td>
+</tr>
+<tr>
+<td><code>NextOrderScheduledDate</code></td>
+<td>Deferred</td>
+<td>생성일과 주기에서 계산되는 파생 값, 별도 행위 없음</td>
+</tr>
+<tr>
+<td><code>SubscriptionEligibility</code></td>
+<td>Deferred</td>
+<td>저장 방식과 상태 모델 미정</td>
+</tr>
+</tbody>
+</table>
+<p>판단 기준 자체가 훌륭하다. <strong>해결하는 문제, 보장하는 불변 조건, 이점, 현재 단계의 복잡성</strong>을 나란히 놓고 결정했다. 4강의 YAGNI를 값 객체 단위로 적용한 것이다.</p>
+<p>그런데 <strong><span class="tag tag-ok">확인</span> 저장소 이력 전체에서 <code>SubscriptionQuantity</code> 클래스는 한 번도 만들어진 적이 없다.</strong> <code>DeliveryCycle</code>이라는 클래스도 없다.</p>
+<ul>
+<li>첫 구현(<a href="https://github.com/guseoh/pawcycle-commerce/pull/42" target="_blank" rel="noopener">PR #42</a>, 7/14)은 <code>Subscription</code> 엔티티 생성자 안에서 <code>int</code>를 직접 검사했다.</li>
+</ul>
+<pre><code class="language-java">// PR #42 시점의 subscription/domain/Subscription.java (발췌, 현재는 없음)
+private static final Set&lt;Integer&gt; ALLOWED_DELIVERY_CYCLES = Set.of(2, 4, 8);
+...
+if (quantity &lt; 1 || quantity &gt; 10) throw new IllegalArgumentException(...);
+if (!ALLOWED_DELIVERY_CYCLES.contains(deliveryCycleWeeks)) throw new IllegalArgumentException(...);
+if (!nextOrderDate.equals(createdDate.plusWeeks(deliveryCycleWeeks))) throw new IllegalArgumentException(...);
+</code></pre>
+<pre><code>값 객체는 아니지만, **불변 조건이 엔티티 안에 모여 있는** 풍부한 엔티티였다. 다음 주문 예정일의 정확한 등식(생성일 + 주기)도 여기서 검사했다. DB는 순서만 검사했다(4강).
+</code></pre>
+<ul>
+<li>V2 구조 정리 이후 이 엔티티는 사라졌다. 지금 같은 규칙은 <strong>세 곳으로 흩어져</strong> 있다.<ul>
+<li>API 경계의 <code>DeliveryCycleValidator</code>(요청 검증)</li>
+<li>DB의 <code>CHECK</code> 제약</li>
+<li><code>DeliverySchedulePolicy.firstFutureDate(...)</code> 같은 <strong>정적 계산 함수</strong></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">// subscription/domain/DeliverySchedulePolicy.java (현재)
+public static LocalDate firstFutureDate(LocalDate scheduledDate, int cycleWeeks, LocalDate today) {
+  LocalDate next = scheduledDate;
+  do { next = next.plusWeeks(cycleWeeks); } while (!next.isAfter(today));
+  return next;
+}
+</code></pre>
+<pre><code>4강에서 본 “장기 중단 뒤 오늘보다 미래인 첫 날짜로 건너뛰기” 규칙이 이 일곱 줄이다. 주석은 이 함수가 “조회, 잠금, 영속성과 독립적인 산술”이라고 밝힌다. **도메인 계층에 남은 것이 순수 계산뿐**이라는 점이 V2의 성격을 잘 보여 준다.
+</code></pre>
+<h3 id="이-차이는-문제인가">이 차이는 문제인가</h3>
+<p><strong><span class="tag tag-int">해석</span></strong> 판단은 두 갈래로 나뉜다.</p>
+<ul>
+<li><strong>문제가 아닌 이유</strong>:<ul>
+<li>불변 조건 자체는 지켜지고 있다. 수량과 주기는 API 검증과 DB <code>CHECK</code>의 <strong>이중 방어</strong>를 받는다.</li>
+<li>V2가 명시 SQL로 간 이상, 값 객체를 만들면 JDBC 매핑에서 매번 감싸고 푸는 비용이 생긴다.</li>
+<li>그리고 V2 신규 구독은 수량을 사용자가 고르지 않는다. 생성자의 <code>this.quantity = 1</code>이 보여 주듯 <strong>패키지 구성 수량이 PlanItem에 있다</strong>. <code>SubscriptionQuantity</code>가 지키려던 규칙이 <strong>도메인 자체에서 사라진</strong> 것이다.</li>
+</ul>
+</li>
+<li><strong>문제인 이유</strong>:<ul>
+<li><code>int cycleWeeks</code>는 <strong>아무 정수나</strong> 받는다. <code>firstFutureDate(date, 0, today)</code>를 부르면 <code>plusWeeks(0)</code> 때문에 루프가 <strong>영원히 끝나지 않는다</strong>. 지금은 호출 전에 값이 검증돼 있어 실제로 일어나지 않지만, <strong>함수 자체는 그 사실을 모른다</strong>.</li>
+<li>이것이 <strong>원시 타입 집착</strong>(primitive obsession)의 전형적 위험이다. 규칙이 타입에 있지 않고 호출자의 선의에 있다.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>개선 제안 <span class="tag tag-int">해석</span></strong> 가장 싼 개선은 <strong>주기만</strong> 값 객체로 만드는 것이다. 주기는 V2에서도 살아 있는 규칙이고, 날짜 계산이라는 <strong>행위</strong>를 가지기 때문이다.</p>
+<p><code>java
+// 제안 예시 — 저장소에 없는 코드다
+public record DeliveryCycle(int weeks) {
+  public DeliveryCycle {
+    if (weeks != 2 &amp;&amp; weeks != 4 &amp;&amp; weeks != 8)
+      throw new IllegalArgumentException("배송 주기는 2·4·8주");
+  }
+  public LocalDate firstFutureDate(LocalDate from, LocalDate today) {
+    LocalDate next = from;
+    do { next = next.plusWeeks(weeks); } while (!next.isAfter(today));
+    return next;
+  }
+}</code></p>
+<ul>
+<li>Java <code>record</code>는 불변이고, <strong>compact 생성자</strong>에서 검증하면 잘못된 값으로는 <strong>객체 자체를 만들 수 없다</strong>.</li>
+<li>저장소는 SQL에서 <code>int</code>를 읽어 <code>new DeliveryCycle(weeks)</code>로 감싸기만 하면 된다. 잠금과 SQL 구조는 건드리지 않는다.</li>
+<li>무한 루프 위험이 <strong>타입 수준에서</strong> 사라진다.</li>
+</ul>
+</blockquote>
+<h3 id="문서와-코드가-다를-때-읽는-법">문서와 코드가 다를 때 읽는 법</h3>
+<p>이번 발견에서 얻을 교훈은 특정 클래스의 유무보다 <strong>읽는 태도</strong>에 있다.</p>
+<ul>
+<li>설계 문서의 “Accepted”는 <strong>그 시점의 설계 판단</strong>이지 구현 증거가 아니다. 이 프로젝트의 결정 기록들도 “문서 병합은 구현 완료의 증거가 아니다”라고 반복해서 적는다.</li>
+<li>그래서 해체 분석에서는 <strong>문서 → 코드 → 이력</strong> 순으로 대조한다. 이번에는 <code>git log -S'SubscriptionQuantity'</code>로 그 이름이 한 번도 코드에 들어온 적이 없음을 확인했다.</li>
+<li>
+<p>포트폴리오에서는 이 차이를 숨기지 말고 설명할 수 있어야 한다. 예를 들면 이렇게다.</p>
+<blockquote>
+<p>“초기 설계에서 값 객체를 채택했지만, V2에서 명시 SQL과 트랜잭션 스크립트로 전환하며 불변 조건을 API 검증과 DB 제약으로 옮겼다. 주기 계산은 값 객체로 되돌릴 가치가 있다고 본다.”</p>
+</blockquote>
+<p>이것이 “DDD를 적용했다”보다 훨씬 강한 설명이다.</p>
+</li>
+</ul>
+<h2 id="5강-정리">5강 정리</h2>
+<table>
+<thead>
+<tr>
+<th>개념</th>
+<th>코드</th>
+<th>테이블</th>
+<th>핵심</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>구독 묶음 (애그리거트)</td>
+<td>서비스 + 명시 SQL, 엔티티는 생성 전용</td>
+<td>6개 이상</td>
+<td><code>version</code> 하나가 묶음 전체의 일관성 경계</td>
+</tr>
+<tr>
+<td>상품 / SKU</td>
+<td><code>Product</code>, <code>Sku</code></td>
+<td><code>products</code>, <code>skus</code></td>
+<td>보는 단위 / 사는 단위. 가격·재고·구독 가능 여부는 SKU에</td>
+</tr>
+<tr>
+<td>판매 상태 / 구독 가능 여부</td>
+<td><code>SkuStatus</code>, <code>subscribable</code></td>
+<td>같은 행의 두 컬럼</td>
+<td>독립된 두 스위치. 운영 행위의 영향 범위를 분리</td>
+</tr>
+<tr>
+<td>스냅샷</td>
+<td>projection</td>
+<td><code>subscription_snapshots</code> 하나</td>
+<td>current · pending · effective, <strong>시점이 다른 세 역할</strong></td>
+</tr>
+<tr>
+<td>회차 / 주문</td>
+<td>분리</td>
+<td>분리, <code>UNIQUE (schedule_id)</code></td>
+<td>바뀌는 계획 / 바뀌지 않는 사실</td>
+</tr>
+<tr>
+<td>주문 / 결제</td>
+<td>분리</td>
+<td>분리, 생성 컬럼 UNIQUE</td>
+<td>무엇을 샀나 / 돈을 받으려는 <strong>시도</strong>. 성공은 하나</td>
+</tr>
+<tr>
+<td>값 객체</td>
+<td><strong>없음</strong> (문서에서는 채택)</td>
+<td><code>CHECK</code> 제약</td>
+<td>규칙은 지켜지지만 타입에 있지 않다</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>애그리거트는 <strong>트랜잭션 경계</strong>이고, 다른 애그리거트는 <strong>ID로 참조</strong>한다. V2 구독은 객체 참조에서 ID 참조로 옮겨 왔다.</li>
+<li>구독 V2는 <strong>의도적으로</strong> 트랜잭션 스크립트 + 명시 SQL을 택했다. 잠금 순서와 조건부 UPDATE를 코드에 드러내기 위해서다. 대신 <strong>전이 규칙이 흩어진</strong> 비용이 있다.</li>
+<li>MySQL에는 부분 인덱스가 없어서 <strong>생성 컬럼 + UNIQUE + NULL 허용</strong>으로 조건부 유일성을 만든다.</li>
+<li>식별자 문자열은 <code>ascii_bin</code>처럼 <strong>이진 비교</strong> 콜레이션으로 저장한다.</li>
+<li>설계 문서의 “채택”은 구현 증거가 아니다. <strong>문서 → 코드 → 이력</strong> 순으로 대조한다.</li>
+</ul>
+<p><strong>5강에서 남긴 미확인 항목</strong></p>
+<ul>
+<li>결제·주문 엔티티의 <code>mark*</code> 메서드를 대신해 이전 상태를 검사하는 곳(18강)</li>
+<li><code>succeeded_order_id</code>를 VIRTUAL이 아닌 STORED로 둔 이유</li>
+<li>명령 이력 테이블과 멱등 예약 테이블의 정확한 관계(22·25강)</li>
+</ul>
+<h2 id="보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</h2>
+<p>강의 뒤에 별도로 조사한 개인 기술 블로그 글이다. 모든 글은 직접 열어 제목·작성일·본문 그림을 확인했다. 티스토리 그림 주소에는 2026-11-30 만료 서명이 붙어 있어 그 이후에는 보이지 않을 수 있다(옛 <code>t1.daumcdn.net/cfile</code> 주소는 만료 없음).</p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>글</th>
+<th>작성일</th>
+<th>그림</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>애그리거트와 트랜잭션 경계</td>
+<td><a href="https://devboi.tistory.com/864" target="_blank" rel="noopener">devboi · DDD 애그리거트와 트랜잭션 경계</a></td>
+<td>2026</td>
+<td>미확인</td>
+</tr>
+<tr>
+<td>애그리거트 루트 규칙</td>
+<td><a href="https://wikidocs.net/298401" target="_blank" rel="noopener">위키독스 · 애그리거트와 루트 엔티티 설계</a></td>
+<td>—</td>
+<td>없음</td>
+</tr>
+<tr>
+<td>VO · DTO · record</td>
+<td><a href="https://kcnsmoothie.tistory.com/20" target="_blank" rel="noopener">청산가리스무디 · VO, DTO 그리고 record</a></td>
+<td>2026.5</td>
+<td>2장</td>
+</tr>
+<tr>
+<td>도메인 보호 코드 스타일(VO, 트랜잭션 스크립트)</td>
+<td><a href="https://look-forest.tistory.com/244" target="_blank" rel="noopener">look-forest · 도메인을 보호하는 코드 스타일</a></td>
+<td>2026.9</td>
+<td>4장</td>
+</tr>
+<tr>
+<td>도메인 모델 vs 트랜잭션 스크립트</td>
+<td><a href="https://dev-jk93.tistory.com/" target="_blank" rel="noopener">dev-jk93 · 도메인 모델 패턴 vs 트랜잭션 스크립트 패턴</a> (블로그 메인)</td>
+<td>—</td>
+<td>미확인</td>
+</tr>
+<tr>
+<td>빈약한 도메인 모델</td>
+<td><a href="https://martinfowler.com/bliki/AnemicDomainModel.html" target="_blank" rel="noopener">Martin Fowler · Anemic Domain Model</a> (영문, 보조)</td>
+<td>—</td>
+<td>없음</td>
+</tr>
+</tbody>
+</table>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="도메인을 보호하는 코드 스타일 글의 본문 그림" src="https://blog.kakaocdn.net/dna/sEzOj/dJMcahzdm7j/AAAAAAAAAAAAAAAAAAAAADr21M2TWIqeTUyYiX5oYh2550EkQ08lfAyfWOzD2VGO/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=5%2BDLaUrnYHA99NoRPN0yrkXr89c%3D" /></p>
+<p><em>출처: <a href="https://look-forest.tistory.com/244" target="_blank" rel="noopener">look-forest</a></em></p>
+<blockquote>
+<p>devboi 애그리거트 글과 dev-jk93 글은 검색 결과에서 제목만 확인했습니다. 본문과 그림은 열어 보지 않았고, dev-jk93은 정확한 글 주소도 아직 확인하지 못했습니다.</p>
+</blockquote>
+<h2 id="보강-참고-자료-문서화-때-추가">보강 참고 자료 (문서화 때 추가)</h2>
+<ul>
+<li>
+<p>alstjr971, <a href="https://velog.io/@alstjr971/DDD-3.-%EC%95%A0%EA%B7%B8%EB%A6%AC%EA%B1%B0%ED%8A%B8-AGGREGATE" target="_blank" rel="noopener">[DDD] 3. 애그리거트 (AGGREGATE)</a> (2025-03-13) — 열어서 목차와 그림을 확인했다. 『도메인 주도 개발 시작하기』의 애그리거트 장을 정리한 글이다. 다루는 것은 다음과 같다.</p>
+<ul>
+<li>애그리거트 경계, 루트의 역할</li>
+<li>"한 트랜잭션에서는 한 애그리거트만 수정한다"는 규칙</li>
+<li>ID를 이용한 애그리거트 참조와 N+1</li>
+</ul>
+<p>1절의 세 규칙(루트만 참조, 루트를 통해서만 변경, ID로만 다른 애그리거트 참조)이 이 글의 목차와 그대로 대응한다. 아래 그림은 온라인 쇼핑몰 모델을 애그리거트 단위로 묶은 그림이다. PawCycle에서는 "구독"이 그림의 "주문"처럼 여러 테이블을 묶는 단위다.</p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="애그리거트 단위로 묶은 쇼핑몰 모델 (alstjr971)" src="https://velog.velcdn.com/images/alstjr971/post/b77b742f-01d5-49b8-9345-061acb97bb2a/image.png" />
+<em>(velog 이미지, 만료 없음. 책의 그림을 정리한 것으로 보인다.)</em></p>
+</li>
+</ul><nav class="pager"><a href="04강_요구사항의_진화.html">← 4강 요구사항의 진화</a><a href="00_1단계_전체.html">1단계 전체</a><a href="06강_ERD.html">6강 ERD →</a></nav></main></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+</body></html>

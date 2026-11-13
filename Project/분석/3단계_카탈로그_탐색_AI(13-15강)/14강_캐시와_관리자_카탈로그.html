@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>14강. 캐시와 관리자 카탈로그: 캐시가 효과를 낸 길이 사라졌을 때</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+</style></head><body><div class="layout"><aside class="toc"><div class="toc-title">목차</div><ul><li><a href="#1-캐시를-들인-이유-DB가-느리다고-가정하지-않았다">1. 캐시를 들인 이유: “DB가 느리다”고 가정하지 않았다</a></li><li><a href="#2-캐시-무효화의-함정-낡은-값-재적재">2. 캐시 무효화의 함정: 낡은 값 재적재</a></li><li><a href="#3-세대-번호와-Lua-스크립트">3. 세대 번호와 Lua 스크립트</a></li><li><a href="#4-커밋한-뒤에만-지운다">4. 커밋한 뒤에만 지운다</a></li><li><a href="#5-그런데-지금은-아무도-이-캐시를-읽지-않는다">5. 그런데, 지금은 아무도 이 캐시를 읽지 않는다</a></li><li><a href="#6-관리자-카탈로그-잠그고-검사하고-기록한다">6. 관리자 카탈로그: 잠그고, 검사하고, 기록한다</a><ul><li><a href="#상품-수정">상품 수정</a></li><li><a href="#감사-기록은-같은-트랜잭션에">감사 기록은 같은 트랜잭션에</a></li></ul></li><li><a href="#7-카테고리-2단계와-READ-COMMITTED-9강의-답">7. 카테고리 2단계와 READ COMMITTED: 9강의 답</a></li><li><a href="#14강-정리">14강 정리</a></li></ul></aside><main><div class="crumbs"><a href="../index.html">분석</a> › <a href="00_3단계_전체.html">3단계 · 카탈로그 · 탐색 · AI</a> › 14강</div><nav class="pager"><a href="13강_상품_조회와_성능.html">← 13강 상품 조회와 성능</a><a href="00_3단계_전체.html">3단계 전체</a><a href="15강_리뷰_문의와_AI.html">15강 리뷰·문의와 AI →</a></nav><p class="meta">기준 커밋 <a href="https://github.com/guseoh/pawcycle-commerce/tree/f9ab9f87f610908501b864f45b8bc5f7caf2d8d0" target="_blank" rel="noopener"><code>f9ab9f87</code></a> · 저장소는 읽기만 했고 테스트·서버는 실행하지 않았다 · 티스토리 그림은 2026-11-30 이후 깨질 수 있다</p><div class="legend"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div><h1 id="14강-캐시와-관리자-카탈로그-캐시가-효과를-낸-길이-사라졌을-때">14강. 캐시와 관리자 카탈로그: 캐시가 효과를 낸 길이 사라졌을 때</h1>
+<p><strong>이번 강의의 목표</strong></p>
+<ul>
+<li>PawCycle이 Redis 캐시를 <strong>어떤 측정에서 출발해</strong> 들였는지 안다.</li>
+<li>캐시를 비우는 순간과 다시 채우는 순간이 엇갈릴 때 생기는 <strong>낡은 값 재적재(stale refill)</strong> 경쟁과, 이를 막는 <strong>세대 번호 + Lua 스크립트 + 커밋 후 무효화</strong>를 이해한다.</li>
+<li><strong>[이번 강의의 핵심 발견]</strong> 그렇게 정교하게 만든 캐시가 지금은 <strong>읽히지 않는다</strong>는 사실과, 그 의미를 판단한다.</li>
+<li>관리자 카탈로그의 상태 전이, 감사 기록, 카테고리 2단계 규칙을 보고, 9강에서 남긴 “왜 READ COMMITTED인가”에 답한다.</li>
+</ul>
+<h2 id="1-캐시를-들인-이유-DB가-느리다고-가정하지-않았다">1. 캐시를 들인 이유: “DB가 느리다”고 가정하지 않았다</h2>
+<p><strong><span class="tag tag-rec">기록</span></strong> 3강과 13강에서 본 성능 9단계의 상황은 이랬다.</p>
+<ul>
+<li><code>GET /api/products</code>는 CPU를 늘리면 처리량이 좋아졌지만, CPU 2.0에서도 요청 드롭, 긴 꼬리 지연, 커넥션 대기가 남았다.</li>
+<li>관련 SQL 자체는 <strong>비교적 쌌다</strong>. 커넥션 풀을 늘리면 <strong>오히려 나빠졌다</strong>. Java 핫스팟을 짚을 유효한 프로파일링 결과도 없었다.</li>
+</ul>
+<p>그래서 결정 기록은 이렇게 적는다. “<strong>DB가 느리기 때문에 Redis가 필요하다</strong>고 가정하지 않고, 반복 조회의 JPA 객체화·DTO 조립과 커넥션 사용을 캐시 적중으로 <strong>우회할 수 있는지</strong> 시험했다.”</p>
+<p>결과는 극적이었다. <strong><span class="tag tag-rec">기록</span></strong> 로컬·합성 조건의 첫 결과 기준이다.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>처리량</th>
+<th>드롭</th>
+<th>p95</th>
+<th>p99</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before (CPU 2.0)</td>
+<td>약 193.5 RPS</td>
+<td>5,808</td>
+<td>6,854.56ms</td>
+<td>8,590.75ms</td>
+</tr>
+<tr>
+<td>Redis After</td>
+<td><strong>250 RPS</strong> (목표 상한)</td>
+<td><strong>0</strong></td>
+<td><strong>4.71ms</strong></td>
+<td><strong>26.99ms</strong></td>
+</tr>
+</tbody>
+</table>
+<p>판정은 <strong>KEEP</strong>이었다. 결정 기록은 이 수치를 “현재 운영 성능, 최대 RPS, SLO 달성으로 쓸 수 없다”고 선을 긋는다. 목표가 250 RPS였으니 <strong>최대치는 탐색하지 않았다</strong>는 한계도 적었다.</p>
+<h2 id="2-캐시-무효화의-함정-낡은-값-재적재">2. 캐시 무효화의 함정: 낡은 값 재적재</h2>
+<p>가장 흔한 캐시 방식은 <strong>캐시 어사이드</strong>(cache-aside, lazy loading)다.</p>
+<ul>
+<li>읽을 때 캐시에 있으면 쓰고, 없으면 DB에서 읽어 캐시에 넣는다.</li>
+<li>쓸 때는 DB를 바꾸고 캐시를 지운다.</li>
+</ul>
+<p>Inpa Dev의 <a href="https://inpa.tistory.com/entry/REDIS-📚-캐시Cache-설계-전략-지침-총정리" target="_blank" rel="noopener">「[REDIS] 캐시(Cache) 설계 전략 지침 총정리」</a>가 캐시 어사이드, 라이트 스루(write-through), 라이트 백(write-back) 같은 읽기·쓰기 전략을 그림과 함께 정리한다. 그림은 지연 로딩이라 직접 싣지 못했고, 원문에서 볼 수 있다.</p>
+<p>문제는 “지운다”와 “다시 채운다”가 <strong>동시에</strong> 일어날 때다. 정훈섭의 <a href="https://hunseop2772.tistory.com/415" target="_blank" rel="noopener">「Redis 캐시 동기화 문제와 해결 전략 - 일관성, Race Condition, 분산 락」</a>은 캐시 어사이드의 기본 동작부터 시작해, 캐시와 DB가 어긋나는 경쟁 상황과 해결책(분산 락 등)을 실무 경험과 함께 다룬다.</p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="Redis 캐시 동기화 문제 글의 본문 그림" src="https://blog.kakaocdn.net/dna/R2d9z/btsNYVjCXXU/AAAAAAAAAAAAAAAAAAAAAFkN4lnUqT1aINytAcRB8yAnp8g5pne41xb4fpCFsUkm/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=BBf7ViXepAosEJaPIHuHjn6ahtY%3D" /></p>
+<p><em>출처: <a href="https://hunseop2772.tistory.com/415" target="_blank" rel="noopener">정훈섭 · Redis 캐시 동기화 문제와 해결 전략</a>. tistory 그림이라 11월 30일 만료.</em></p>
+<p>PawCycle의 설계 문서(ARCH-014)가 짚은 경쟁을 그림으로 그리면 이렇다.</p>
+<figure class="widget" data-title="stale_refill_race_and_generation_guard"><svg width="100%" viewBox="0 0 680 470" role="img"><title>낡은 값 재적재 경쟁과 세대 번호 방어</title><desc>위쪽은 단순 삭제 방식이다. 읽기 요청 R이 캐시 미스 후 DB에서 옛 가격을 읽는 사이 관리자 W가 가격을 바꿔 커밋하고 캐시를 지운다. 그 뒤 R이 늦게 옛 가격을 캐시에 넣어 TTL 동안 낡은 값이 남는다. 아래쪽은 세대 번호 방식이다. R은 미스 직후 세대 5를 기억하고, W는 커밋 후 세대를 6으로 올리며 캐시를 지운다. R이 저장을 시도할 때 세대가 5가 아니므로 Lua 스크립트가 저장을 거부한다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="340" y="24" text-anchor="middle">A. 단순 삭제 (DEL만)</text>
+<g class="c-gray"><rect x="40" y="38" width="140" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="110" y="58" text-anchor="middle" dominant-baseline="central">R: 캐시 미스</text></g>
+<g class="c-gray"><rect x="200" y="38" width="140" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="270" y="58" text-anchor="middle" dominant-baseline="central">R: DB에서 옛 가격</text></g>
+<g class="c-purple"><rect x="360" y="38" width="140" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="430" y="58" text-anchor="middle" dominant-baseline="central">W: 커밋 → DEL</text></g>
+<g class="c-red"><rect x="520" y="38" width="120" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="580" y="58" text-anchor="middle" dominant-baseline="central">R: SET 옛 값</text></g>
+<line x1="180" y1="58" x2="198" y2="58" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="340" y1="58" x2="358" y2="58" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="500" y1="58" x2="518" y2="58" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="104" text-anchor="middle">결과: 관리자가 바꾼 가격이 TTL(5분) 동안 공개 목록에서 옛 값으로 보인다</text>
+<line x1="40" y1="130" x2="640" y2="130" stroke="var(--b)" stroke-width="0.5"/>
+<text class="th" x="340" y="156" text-anchor="middle">B. 세대 번호 + 조건부 저장 (PawCycle)</text>
+<g class="c-gray"><rect x="40" y="172" width="140" height="56" rx="8" stroke-width="0.5"/><text class="ts" x="110" y="190" text-anchor="middle" dominant-baseline="central">R: 캐시 미스</text><text class="ts" x="110" y="210" text-anchor="middle" dominant-baseline="central">세대 5 기억</text></g>
+<g class="c-gray"><rect x="200" y="172" width="140" height="56" rx="8" stroke-width="0.5"/><text class="ts" x="270" y="200" text-anchor="middle" dominant-baseline="central">R: DB에서 옛 가격</text></g>
+<g class="c-purple"><rect x="360" y="172" width="140" height="56" rx="8" stroke-width="0.5"/><text class="ts" x="430" y="190" text-anchor="middle" dominant-baseline="central">W: 커밋 후 Lua</text><text class="ts" x="430" y="210" text-anchor="middle" dominant-baseline="central">INCR 세대=6 · DEL</text></g>
+<g class="c-teal"><rect x="520" y="172" width="120" height="56" rx="8" stroke-width="0.5"/><text class="ts" x="580" y="190" text-anchor="middle" dominant-baseline="central">R: Lua 저장 시도</text><text class="ts" x="580" y="210" text-anchor="middle" dominant-baseline="central">6 ≠ 5 → 거부</text></g>
+<line x1="180" y1="200" x2="198" y2="200" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="340" y1="200" x2="358" y2="200" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="500" y1="200" x2="518" y2="200" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="254" text-anchor="middle">순서가 반대로 엇갈려도 안전하다:</text>
+<g class="c-gray"><rect x="40" y="270" width="280" height="56" rx="8" stroke-width="0.5"/><text class="ts" x="180" y="288" text-anchor="middle" dominant-baseline="central">R이 먼저 저장(세대 5 일치)</text><text class="ts" x="180" y="308" text-anchor="middle" dominant-baseline="central">옛 값이 잠깐 캐시에 들어감</text></g>
+<g class="c-teal"><rect x="360" y="270" width="280" height="56" rx="8" stroke-width="0.5"/><text class="ts" x="500" y="288" text-anchor="middle" dominant-baseline="central">W의 Lua가 같은 원자 연산에서</text><text class="ts" x="500" y="308" text-anchor="middle" dominant-baseline="central">세대 증가 + 그 값 삭제</text></g>
+<line x1="320" y1="298" x2="358" y2="298" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="40" y1="350" x2="640" y2="350" stroke="var(--b)" stroke-width="0.5"/>
+<text class="ts" x="340" y="376" text-anchor="middle">핵심 1: "세대 확인 + 저장"이 Redis 안에서 한 번에 일어난다 (Lua)</text>
+<text class="ts" x="340" y="398" text-anchor="middle">핵심 2: "세대 증가 + 삭제"도 한 번에 일어난다 (Lua)</text>
+<text class="ts" x="340" y="420" text-anchor="middle">핵심 3: 무효화는 DB 커밋 뒤에만 (롤백이면 하지 않음)</text>
+<text class="ts" x="340" y="446" text-anchor="middle">분산 락 없이 경쟁을 정리한다</text>
+</svg></figure>
+<h2 id="3-세대-번호와-Lua-스크립트">3. 세대 번호와 Lua 스크립트</h2>
+<pre><code class="language-java">// catalog/product/application/ProductListCache.java (발췌)
+static final String CACHE_KEY = &quot;pawcycle:catalog:product-list:v2&quot;;
+static final String GENERATION_KEY = CACHE_KEY + &quot;:generation&quot;;
+
+// 세대가 그대로일 때만 저장
+static final DefaultRedisScript&lt;Long&gt; STORE_IF_GENERATION_UNCHANGED_SCRIPT = new DefaultRedisScript&lt;&gt;(&quot;&quot;&quot;
+    local current = redis.call('GET', KEYS[1])
+    if not current then current = '0' end
+    if current ~= ARGV[1] then return 0 end
+    redis.call('SET', KEYS[2], ARGV[2], 'PX', ARGV[3])
+    return 1
+    &quot;&quot;&quot;, Long.class);
+
+// 세대 증가와 삭제를 한 번에
+static final DefaultRedisScript&lt;Long&gt; INVALIDATE_SCRIPT = new DefaultRedisScript&lt;&gt;(&quot;&quot;&quot;
+    redis.call('INCR', KEYS[1])
+    redis.call('DEL', KEYS[2])
+    return 1
+    &quot;&quot;&quot;, Long.class);
+
+public ProductListView getOrLoad(Supplier&lt;ProductListView&gt; loader) {
+  if (!enabled) return loader.get();                       // 기본은 꺼짐
+  String generation;
+  try {
+    String cached = redisTemplate.opsForValue().get(CACHE_KEY);
+    if (cached != null) { hitCounter.increment(); return objectMapper.readValue(cached, ProductListView.class); }
+    missCounter.increment();
+    generation = redisTemplate.opsForValue().get(GENERATION_KEY);   // ① DB 읽기 전에 세대 기억
+    if (generation == null) generation = &quot;0&quot;;
+  } catch (RuntimeException exception) {
+    errorCounter.increment();
+    return loader.get();                                   // ② Redis 장애 → DB로
+  }
+  ProductListView value = loader.get();                    // DB에서 읽기
+  try {
+    redisTemplate.execute(STORE_IF_GENERATION_UNCHANGED_SCRIPT, List.of(GENERATION_KEY, CACHE_KEY),
+        generation, objectMapper.writeValueAsString(value), Long.toString(ttl.toMillis()));
+  } catch (RuntimeException exception) { errorCounter.increment(); }
+  return value;
+}
+</code></pre>
+<ul>
+<li><strong>왜 Lua인가.</strong> 후디의 <a href="https://hudi.blog/redis-atomicity/" target="_blank" rel="noopener">「레디스 다중 명령에 대한 원자성 보장 방법」</a>이 정확히 이것을 다룬다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> Redis는 <strong>싱글 스레드</strong>라 명령 <strong>하나</strong>는 원자적이다. 하지만 <code>GET</code> 하고 비교한 뒤 <code>SET</code>하는 <strong>여러 명령</strong> 사이에는 다른 클라이언트의 명령이 끼어들 수 있다.</li>
+<li>이를 막는 방법은 <code>MULTI/EXEC</code> 트랜잭션과 <strong>Lua 스크립트</strong> 두 가지다. Lua 스크립트는 Redis 안에서 <strong>통째로 한 번에</strong> 실행되므로, 중간에 다른 명령이 끼지 않는다. <code>MULTI/EXEC</code>와 달리 스크립트 안에서 <strong>조건 분기</strong>(<code>if current ~= ARGV[1]</code>)도 할 수 있다.</li>
+<li>PawCycle의 “세대가 같으면 저장”은 조건 분기가 필요해서 Lua가 맞는 도구다.</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="레디스 원자성 글의 본문 그림" src="https://hudi.blog/static/9555f7c7c604bf128dd0e67fd79ae7fe/4219d/redis.png" /></p>
+<p><em>출처: <a href="https://hudi.blog/redis-atomicity/" target="_blank" rel="noopener">후디 · 레디스 다중 명령에 대한 원자성 보장 방법</a>(블로그 자체 서버, 만료 없음)</em></p>
+<ul>
+<li><strong>값은 명시적 JSON이다.</strong> <strong><span class="tag tag-rec">기록</span></strong> Spring Cache 추상화 + Java 기본 직렬화는 기각됐다. 키·값 형식과 장애 경계를 직접 통제하기 어렵고, Java 직렬화는 클래스가 바뀌면 호환이 깨지는 데다 역직렬화 보안 위험도 있다. 그래서 키에 <strong>형식 버전(<code>v2</code>)</strong> 을 넣었다. 응답 형식이 바뀌면 키 이름을 바꿔 옛 값과 섞이지 않게 한다.</li>
+<li><strong>② Redis가 죽어도 목록은 나온다(fail-open).</strong> 캐시는 “있으면 빠르고 없어도 맞는” 기능이다. 그래서 Redis 오류는 <code>error</code> 메트릭만 올리고 DB로 간다. 11강의 세션이나 3강의 결제처럼 <strong>틀리면 안 되는</strong> 것에는 fail-closed를, 캐시처럼 <strong>늦어도 되는</strong> 것에는 fail-open을 쓴다. 이 구분이 일관적이다.</li>
+<li><strong>TTL 5분은 안전망일 뿐이다.</strong> 정확성은 세대 번호가 지킨다. TTL은 무효화 자체가 실패했을 때(Redis 장애) 낡은 값이 <strong>최대 5분</strong>만 남게 하는 보조 장치다.</li>
+</ul>
+<h2 id="4-커밋한-뒤에만-지운다">4. 커밋한 뒤에만 지운다</h2>
+<pre><code class="language-java">// catalog/product/application/ProductListCacheInvalidator.java
+public void invalidateAfterCommit() {
+  if (TransactionSynchronizationManager.isActualTransactionActive()) {
+    if (!TransactionSynchronizationManager.isSynchronizationActive())
+      throw new IllegalStateException(&quot;active transaction has no synchronization&quot;);
+    TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+      @Override public void afterCommit() { productListCache.invalidate(); }
+    });
+    return;
+  }
+  productListCache.invalidate();       // 트랜잭션 밖이면 즉시
+}
+</code></pre>
+<ul>
+<li><strong>커밋 전에 지우면?</strong> 지운 직후, 아직 커밋되지 않은 DB를 다른 요청이 읽으면 <strong>옛 값</strong>을 가져와 캐시를 다시 채운다. 2절의 경쟁이 더 쉽게 일어난다.</li>
+<li><strong>롤백되면?</strong> <code>afterCommit</code>은 호출되지 않는다. 바뀌지 않은 데이터 때문에 캐시를 비울 이유가 없다.</li>
+<li><strong>“트랜잭션은 있는데 동기화가 없다”면 예외.</strong> 조용히 즉시 무효화로 빠지지 않고 <strong>시끄럽게 실패</strong>한다. 설정이 이상한 환경을 일찍 드러내는 방어적 코드다.</li>
+</ul>
+<p>같은 일을 Spring 이벤트로 하는 방법도 있다. 누블렛의 <a href="https://nooblette.tistory.com/entry/Spring-TransactionalEventListener-동작-방식" target="_blank" rel="noopener">「@TransactionalEventListener 동작 방식」</a>은 <code>@EventListener</code>와 <code>@TransactionalEventListener</code>의 차이, <code>AFTER_COMMIT</code> 같은 단계 옵션, 리스너에서 예외가 날 때의 동작, <code>@Async</code>와의 결합을 정리한다.</p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="TransactionalEventListener 동작 방식 글의 본문 그림" src="https://blog.kakaocdn.net/dna/bJhjp6/btsPHFy3Eb2/AAAAAAAAAAAAAAAAAAAAAJcTgh94BXWOP567sTcuKiMLdgMsZWUUOSYWQTNWy_Lu/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=eriLfVvveuEZzRbmyO%2BAZFucrfg%3D" /></p>
+<p><em>출처: <a href="https://nooblette.tistory.com/entry/Spring-TransactionalEventListener-동작-방식" target="_blank" rel="noopener">누블렛 · @TransactionalEventListener 동작 방식</a>. tistory 그림이라 11월 30일 만료.</em></p>
+<ul>
+<li><strong><span class="tag tag-int">해석</span></strong> 이벤트 방식은 상품 서비스가 캐시를 <strong>모르게</strong> 해 준다(느슨한 결합). PawCycle은 관리자 서비스가 무효화기를 <strong>직접 부르는</strong> 쪽을 택했다. 호출 지점이 코드에 명시적으로 보이지만, 무효화가 필요한 모든 쓰기 지점에 <strong>한 줄씩</strong> 넣어야 한다. 실제로 그 호출이 15곳에 흩어져 있다. 이 숫자가 다음 절의 실마리다.</li>
+</ul>
+<h2 id="5-그런데-지금은-아무도-이-캐시를-읽지-않는다">5. 그런데, 지금은 아무도 이 캐시를 읽지 않는다</h2>
+<p>여기까지 본 설계는 교과서적으로 훌륭하다. 그런데 코드를 검색하면 이상한 점이 나온다.</p>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span></strong> <code>getOrLoad(...)</code>를 호출하는 운영 코드가 <strong>한 곳도 없다</strong>. 호출은 테스트(<code>ProductListCacheTests</code>)에만 있다.</li>
+<li><strong><span class="tag tag-ok">확인</span></strong> 반면 <code>invalidateAfterCommit()</code>은 관리자 카탈로그, 브랜드, 패싯, 카탈로그 적재 도구 등 <strong>15곳</strong>에서 여전히 호출된다.</li>
+<li><strong><span class="tag tag-ok">확인</span></strong> <code>git log -S'getOrLoad('</code>로 추적하면 이렇다.<ul>
+<li>8/24 <a href="https://github.com/guseoh/pawcycle-commerce/pull/203" target="_blank" rel="noopener">PR #203</a>에서 캐시가 들어왔다.</li>
+<li>9/6 <a href="https://github.com/guseoh/pawcycle-commerce/pull/279" target="_blank" rel="noopener">PR #279</a> “backend persistence 구조 수렴”에서 <strong>호출이 사라졌다</strong>.</li>
+<li>영속성 수렴 문서는 “<code>ProductQueryService</code>는 … authoritative <code>ProductDiscoveryReader</code> 경로만 사용한다. <strong>nullable legacy/cache fallback은 없다</strong>”고 적는다.</li>
+</ul>
+</li>
+<li><strong><span class="tag tag-ok">확인</span></strong> 캐시 설계 문서(ARCH-014) 자체도 이미 이렇게 정했다. “pageable 공개 목록은 DB-native filter/sort/pagination reader를 직접 실행하며 <strong>Redis 전체 목록 cache를 우회</strong>한다. 기존 <code>ProductListReader</code>와 v2 키는 <strong>인자 없는 레거시 호환성 검증에만</strong> 남긴다.”<ul>
+<li>그 <code>ProductListReader</code>도 지금은 운영 코드 어디에서도 주입되지 않는다.</li>
+</ul>
+</li>
+</ul>
+<p>정리하면 이렇다.</p>
+<ul>
+<li>캐시가 극적인 효과(p95 6.8초 → 4.7ms)를 낸 것은 <strong>필터·정렬·페이지가 없던 옛 “전체 목록” API</strong>였다.</li>
+<li>8월 24일 공개 상품 탐색(13강의 필터·정렬·페이지)이 들어오면서 <strong>API의 모양이 바뀌었고</strong>, 새 API는 설계상 캐시를 우회했다.</li>
+<li>9월 6일 구조 정리에서 옛 경로가 사라지며 <strong>캐시 읽기도 함께 사라졌다</strong>.</li>
+<li>남은 것은 <strong>아무도 읽지 않는 키를 지우는 코드 15곳</strong>과, 기본값 <code>false</code>인 설정과, 측정 기록의 “KEEP” 판정이다.</li>
+</ul>
+<p><strong><span class="tag tag-int">해석</span> 이것을 어떻게 읽어야 할까.</strong></p>
+<ul>
+<li><strong>측정 결과는 코드 경로에 묶여 있다.</strong> 13강의 “힌트는 쿼리 모양에 묶여 있다”와 같은 교훈이다. “Redis로 p95 4.7ms”는 <strong>그 API에 대한</strong> 사실이었다. API가 바뀐 뒤에는 근거가 되지 못한다. 포트폴리오에서 이 숫자를 쓰려면 반드시 <strong>“필터 없는 옛 목록 API 기준”</strong> 이라고 함께 말해야 한다.</li>
+<li><strong>죽은 코드에도 비용이 있다.</strong> 4강 YAGNI의 “유지 비용”이다.<ul>
+<li>새 관리자 기능을 만들 때마다 “캐시 무효화를 넣어야 하나?”를 고민하게 된다.</li>
+<li>Redis 스타터 의존성, 헬스 설정, 테스트가 계속 유지된다.</li>
+<li>이 강의처럼 코드를 처음 읽는 사람이 “캐시가 동작한다”고 오해하게 된다.</li>
+</ul>
+</li>
+<li><strong>선택지는 셋이다.</strong><ol>
+<li><strong>제거</strong>: 읽기 경로가 없으니 무효화 호출, 설정, 의존성을 함께 걷어 낸다. 가장 정직하다.</li>
+<li><strong>새 API에 맞게 재설계</strong>: 필터 없는 첫 페이지(가장 많이 열리는 화면)만 키 하나로 캐시한다. 조건별로 키를 만들면 무효화가 “모든 조합 지우기”가 되므로, 세대 번호를 <strong>키 접두사</strong>로 쓰는 방식(<code>...:gen6:page0:newest</code>)이 어울린다. 세대를 올리면 옛 키는 아무도 찾지 않다가 TTL로 사라진다.</li>
+<li><strong>다른 층의 캐시</strong>: Nginx나 CDN의 짧은 HTTP 캐시(예: 10초)로 첫 페이지를 받는다. 애플리케이션 코드는 그대로 둔다.
+- 어느 쪽이든 <strong>13강 이후의 현재 API로 다시 측정</strong>하는 것이 먼저다. 13강의 힌트 최적화로 첫 페이지 쿼리가 이미 수 ms라면, 캐시의 이득은 예전보다 훨씬 작을 수 있다.</li>
+</ol>
+</li>
+</ul>
+<h2 id="6-관리자-카탈로그-잠그고-검사하고-기록한다">6. 관리자 카탈로그: 잠그고, 검사하고, 기록한다</h2>
+<h3 id="상품-수정">상품 수정</h3>
+<pre><code class="language-java">// catalog/admin/application/AdminCatalogService.java (발췌)
+@Transactional
+public ProductView updateProduct(Long productId, ProductPatchCommand request) {
+  CatalogAdminPatchValidation.validate(request);
+  Product product = requireProductForUpdate(productId);              // ① 행 잠금
+  ...
+  if (request.brandIdPresent()) {                                    // ② 보낸 필드만
+    if (request.brandId() == null) throw ... &quot;Brand cannot be cleared.&quot;;
+    requireActiveBrand(request.brandId());
+    product.updateBrandId(request.brandId());
+  }
+  product.update(category, request.categoryIdPresent(), request.name(), ...,
+                 request.description(), request.descriptionPresent(), ...);
+  if (request.statusPresent()) {
+    if (!product.canTransitionTo(request.status()))                  // ③ 상태 전이
+      throw new AdminCatalogConflictException(&quot;PRODUCT_STATUS_TRANSITION_CONFLICT&quot;, &quot;...&quot;);
+    product.transitionTo(request.status());
+  }
+  ProductView view = productView(productRepository.saveAndFlush(product));
+  productListCacheInvalidator.invalidateAfterCommit();               // ④
+  return view;
+}
+
+// catalog/product/domain/Product.java
+public boolean canTransitionTo(ProductStatus target) {
+  return (status == DRAFT &amp;&amp; target == PUBLIC)
+      || (status == PUBLIC &amp;&amp; target == INACTIVE)
+      || (status == INACTIVE &amp;&amp; target == PUBLIC);
+}
+</code></pre>
+<ul>
+<li><strong>① 행 잠금.</strong> <strong><span class="tag tag-rec">기록</span></strong> 두 관리자가 같은 상품을 동시에 PATCH하면 행 잠금으로 <strong>직렬화</strong>한다. 각자 다른 필드를 고쳐도 서로를 덮어쓰지 않는다. 10강의 갱신 분실을 막는 장치가 여기에는 있다.</li>
+<li><strong>② 진짜 PATCH.</strong> <code>...Present()</code> 플래그로 “필드를 보내지 않음”과 “<code>null</code>을 보냄(지움)”을 구분한다. 보낸 필드만 바꾼다. 10강의 배송지 PATCH(전체 대체)와 대비되는 <strong>부분 수정</strong>이다. 브랜드처럼 지울 수 없는 필드는 <code>null</code>을 거부한다.</li>
+<li><strong>③ 상태 전이 규칙이 엔티티에 있다.</strong> 5강에서 본 구독 V2(서비스의 문자열 비교)와 달리, 상품은 <code>canTransitionTo</code>라는 <strong>도메인 메서드</strong>가 규칙을 갖는다. 5강에서 “개선 제안”으로 보여 준 모양이 여기에는 이미 있다. 같은 프로젝트 안에서도 스타일이 다르다.</li>
+<li><strong>④ 커밋 후 캐시 무효화.</strong> 5절에서 본 대로 지금은 읽는 사람이 없는 키를 지운다.</li>
+</ul>
+<h3 id="감사-기록은-같은-트랜잭션에">감사 기록은 같은 트랜잭션에</h3>
+<pre><code class="language-java">// catalog/admin/application/AdminCatalogMutationService.java (발췌)
+private &lt;T&gt; T execute(long adminId, String action, String referenceType,
+                      Supplier&lt;T&gt; mutation, ToLongFunction&lt;T&gt; referenceId) {
+  T result = mutation.get();
+  audits.append(adminId, action, referenceType, referenceId.applyAsLong(result));
+  return result;
+}
+
+@Transactional
+public BrandView createBrand(long adminId, BrandCreateCommand request) {
+  return execute(adminId, &quot;CATALOG_BRAND_CREATE&quot;, &quot;BRAND&quot;,
+      () -&gt; adminCatalogService.createBrand(request), BrandView::brandId);
+}
+</code></pre>
+<ul>
+<li>변경과 감사 기록이 <strong>한 트랜잭션</strong>이다. <strong><span class="tag tag-rec">기록</span></strong> 5강의 MVP3 구조 정리 결정대로 “감사 실패 후 상태 변경만 커밋”은 허용하지 않는다. 감사 기록 INSERT가 실패하면 변경도 롤백된다. “누가 바꿨는지 모르는 변경”은 존재할 수 없다.</li>
+<li>그래서 이 바깥 메서드가 <strong>트랜잭션의 소유자</strong>다. 다음 절의 격리 수준 이야기가 여기서 이어진다.</li>
+</ul>
+<h2 id="7-카테고리-2단계와-READ-COMMITTED-9강의-답">7. 카테고리 2단계와 READ COMMITTED: 9강의 답</h2>
+<p>9강에서 “카테고리 관리가 왜 <code>READ_COMMITTED</code>인지 직접 적은 문장을 찾지 못했다”고 했다. <strong><span class="tag tag-ok">확인</span> 답은 코드 주석에 있었다.</strong></p>
+<pre><code class="language-java">// catalog/admin/application/AdminCatalogService.java (발췌)
+@Transactional(isolation = Isolation.READ_COMMITTED)
+public CategoryView updateCategory(Long categoryId, CategoryPatchCommand request) {
+  Category category = lockCategoryAndParent(categoryId, request.parentIdPresent() ? request.parentId() : null);
+  if (request.parentIdPresent()) {
+    Category parent = request.parentId() == null ? null : requireParentCategory(request.parentId(), categoryId);
+    // READ_COMMITTED observes children committed while the row locks were awaited.
+    // Child creation/reparenting must lock this target as its new parent first.
+    if (parent != null &amp;&amp; categoryRepository.existsByParentId(categoryId))
+      throw new AdminCatalogConflictException(&quot;CATEGORY_DEPTH_EXCEEDED&quot;, &quot;카테고리는 최대 2 depth까지만 지원합니다.&quot;);
+    category.updateParent(parent);
+  }
+  ...
+}
+
+private Category lockCategoryAndParent(Long categoryId, Long parentId) {
+  if (parentId != null &amp;&amp; parentId &lt; categoryId) requireCategoryForUpdate(parentId);   // 작은 ID 먼저
+  Category category = requireCategoryForUpdate(categoryId);
+  if (parentId != null &amp;&amp; parentId &gt; categoryId) requireCategoryForUpdate(parentId);
+  return category;
+}
+</code></pre>
+<p>주석을 9강의 MVCC로 풀면 이렇다.</p>
+<ul>
+<li>카테고리 A를 다른 부모 아래로 옮기려면 “A에 <strong>자식이 없는지</strong>”를 확인해야 한다. 있으면 3단계가 된다.</li>
+<li>그런데 동시에 다른 관리자가 A 아래에 자식을 만들고 있을 수 있다. 그래서 A의 행을 잠그고 기다린다.</li>
+<li>잠금을 얻은 뒤의 <code>existsByParentId(A)</code>는 <strong>일반 SELECT</strong>다.<ul>
+<li><strong>REPEATABLE READ였다면</strong> 트랜잭션 초반에 만든 스냅샷을 보므로, <strong>기다리는 동안 커밋된 자식을 보지 못한다</strong>. 9강의 재고 CAS 충돌과 똑같은 “오래된 스냅샷” 문제다.</li>
+<li><strong>READ COMMITTED</strong>는 SELECT마다 새 스냅샷을 만든다. 그래서 <strong>방금 커밋된 자식을 본다</strong>. 주석의 “잠금을 기다리는 동안 커밋된 자식을 관찰한다”가 바로 이것이다.</li>
+</ul>
+</li>
+<li>9강의 재고는 같은 문제를 <strong>잠금 읽기(<code>FOR UPDATE</code>)로</strong> 풀었고, 여기서는 <strong>격리 수준으로</strong> 풀었다. 해법은 다르지만 원인은 같다.</li>
+</ul>
+<p>함께 쓰인 장치도 9강의 내용 그대로다.</p>
+<ul>
+<li><strong>격리 수준은 바깥이 정한다.</strong> 6절의 감사 서비스(최상위 트랜잭션 소유자)에도 <code>READ_COMMITTED</code>를 붙인 이유다. 9강의 그 주석(“감사 소유자도 격리 수준을 설정해야 한다. 안쪽 <code>REQUIRED</code> 서비스는 이 트랜잭션에 참여한다”)이 여기와 짝을 이룬다.</li>
+<li><strong>잠금 순서는 ID 오름차순이다.</strong> <code>lockCategoryAndParent</code>는 이동 대상과 새 부모를 <strong>항상 작은 ID부터</strong> 잠근다. 두 관리자가 “A를 B 아래로”, “B를 A 아래로”를 동시에 하면, 순서가 제각각일 때 서로를 기다리는 <strong>교착</strong>이 난다. 순서를 고정하면 원천적으로 사라진다. 3강·9강의 교착 이야기에 대한 고전적인 해법이다.</li>
+<li><strong>부모를 자식 INSERT보다 먼저 잠근다.</strong> 카테고리 생성은 부모를 먼저 <code>FOR UPDATE</code>로 잡은 뒤 자식을 만든다(주석: “acquire the parent lock before the child's FK insert”). 이동과 생성이 <strong>같은 행(부모)</strong> 에서 줄을 서게 된다.</li>
+<li><strong><span class="tag tag-rec">기록</span></strong> 결정 기록은 트리 전체나 테이블 잠금, DDL 재설계 대신 <strong>최소 범위</strong>를 택했다고 적는다. 그리고 “모든 interleaving이나 과거의 잘못된 트리 자동 복구를 증명하지는 않는다”는 한계도 함께 남겼다(<a href="https://github.com/guseoh/pawcycle-commerce/issues/416" target="_blank" rel="noopener">이슈 #416</a>).</li>
+</ul>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://inpa.tistory.com/entry/REDIS-📚-캐시Cache-설계-전략-지침-총정리" target="_blank" rel="noopener">Inpa Dev · 캐시(Cache) 설계 전략 지침 총정리</a>: 캐시 읽기·쓰기 전략 전반</li>
+<li><a href="https://hunseop2772.tistory.com/415" target="_blank" rel="noopener">정훈섭 · Redis 캐시 동기화 문제와 해결 전략</a>: 캐시 일관성과 경쟁 조건</li>
+<li><a href="https://hudi.blog/redis-atomicity/" target="_blank" rel="noopener">후디 · 레디스 다중 명령에 대한 원자성 보장 방법</a>: <code>MULTI/EXEC</code>와 Lua 스크립트</li>
+<li><a href="https://nooblette.tistory.com/entry/Spring-TransactionalEventListener-동작-방식" target="_blank" rel="noopener">누블렛 · @TransactionalEventListener 동작 방식</a>: 커밋 후 실행의 이벤트 방식</li>
+<li><a href="https://mangkyu.tistory.com/53" target="_blank" rel="noopener">망나니개발자 · MVCC란?</a>, <a href="https://cactuslog.tistory.com/39" target="_blank" rel="noopener">cactuslog · MVCC 깊게 이해하기</a>: 7절의 스냅샷 문제(9강 참고 자료)</li>
+</ul>
+<h2 id="14강-정리">14강 정리</h2>
+<ul>
+<li><strong>캐시를 들인 방식이 모범적이었다.</strong><ul>
+<li>“DB가 느리다”고 가정하지 않고 우회 가능성을 시험했다.</li>
+<li>옛 전체 목록 API에서 p95 6.8초 → 4.7ms로 <strong>KEEP</strong> 판정을 받았다(로컬·합성 조건).</li>
+</ul>
+</li>
+<li><strong>정교한 무효화</strong><ul>
+<li>세대 번호를 미스 직후에 기억하고, Lua로 “세대 같을 때만 저장”, Lua로 “세대 증가 + 삭제”를 원자적으로 한다.</li>
+<li>무효화는 <strong>커밋 후에만</strong> 한다(<code>afterCommit</code>). 분산 락 없이 낡은 값 재적재를 막는다.</li>
+<li>Redis 장애는 fail-open, TTL은 안전망, 값은 버전 붙은 JSON이다.</li>
+</ul>
+</li>
+<li><strong>핵심 발견: 지금은 읽히지 않는다</strong><ul>
+<li>필터·페이지 API(8/24)는 설계상 캐시를 우회했다.</li>
+<li>9/6 구조 정리로 <code>getOrLoad</code> 호출이 사라졌다.</li>
+<li>무효화 호출 15곳만 남았다.</li>
+<li>측정 결과는 <strong>코드 경로에 묶여 있다</strong>. 제거, 재설계(세대 접두사 키), HTTP 캐시 중에서 <strong>현재 API로 다시 측정한 뒤</strong> 고른다.</li>
+</ul>
+</li>
+<li><strong>관리자 카탈로그</strong><ul>
+<li>행 잠금으로 동시 수정을 직렬화한다.</li>
+<li>진짜 PATCH(<code>present</code> 플래그)다.</li>
+<li>엔티티의 <code>canTransitionTo</code>가 전이 규칙을 갖는다.</li>
+<li>감사 기록은 같은 트랜잭션이라, 감사가 실패하면 변경도 롤백된다.</li>
+</ul>
+</li>
+<li><strong>카테고리 2단계와 READ COMMITTED (9강의 답)</strong><ul>
+<li>잠금을 기다린 뒤 <strong>방금 커밋된 자식</strong>을 보려고 RC를 썼다.</li>
+<li>바깥 감사 서비스에도 같은 격리 수준을 둔다.</li>
+<li>ID 오름차순으로 잠가 교착을 막는다.</li>
+<li>부모를 자식 INSERT보다 먼저 잠근다.</li>
+</ul>
+</li>
+</ul>
+<p><strong>14강에서 남긴 미확인 항목</strong></p>
+<ul>
+<li>현재 필터·페이지 API의 첫 페이지에 캐시를 다시 둘 때의 실제 이득: 실험 단계 후보</li>
+<li>캐시를 남겨 둔 것이 의도적인 보류인지, 정리에서 빠진 것인지에 대한 기록</li>
+<li>카테고리 경쟁 테스트가 어떤 interleaving을 다루는지(결정 기록은 “서로 다른 트랜잭션·커넥션에서 결정적 중첩”만 검증했다고 적음)</li>
+</ul><nav class="pager"><a href="13강_상품_조회와_성능.html">← 13강 상품 조회와 성능</a><a href="00_3단계_전체.html">3단계 전체</a><a href="15강_리뷰_문의와_AI.html">15강 리뷰·문의와 AI →</a></nav></main></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+</body></html>

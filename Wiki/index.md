@@ -19,7 +19,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
-| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-05 |
+| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) | 2026-11-13 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
 ## Decision index
@@ -49,6 +49,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [BLR-0008](decisions/BLR-0008.md) | accepted | End-to-end web lifecycle links OS, network, Nginx, Java and layer-by-layer incident diagnosis | backend-learning |
 | [BLR-0009](decisions/BLR-0009.md) | accepted | Select Spring Core/Boot concepts from PDFs for proportional backend-focused study; full redesign pending | backend-learning |
 | [BLR-0010](decisions/BLR-0010.md) | accepted | Approve the 7-track 34-unit Spring curriculum and restart at unit 01 | backend-learning |
+| [BLR-0011](decisions/BLR-0011.md) | accepted | Explain project reverse engineering for backend job seekers | backend-learning |
 | [AGT-0001](decisions/AGT-0001.md) | accepted | AgentLab: backend-focused Agent fundamentals and 13-stage roadmap | agentlab |
 | [AGT-0002](decisions/AGT-0002.md) | accepted | AgentLab stage-bounded, theory-rich, evidence-aware teaching | agentlab |
 | [PWC-0003](decisions/PWC-0003.md) | accepted | First MVP: narrow SKU subscription scope | pawcycle |
@@ -166,6 +167,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [AGK-0001](knowledge/AGK-0001.md) | published | Backend AI adoption, Agent roles and learning FAQ (2026-11-05) | agentlab |
 | [BLK-0001](knowledge/BLK-0001.md) | published | Ubuntu/Linux/web-server 0–7 stage roadmap with evidence-based exercise gates | backend-learning |
 | [BLK-0002](knowledge/BLK-0002.md) | published | Approved Spring Core/Boot 7-course / 34-unit curriculum; 17 priority deep dives | backend-learning |
+| [SHK-0001](knowledge/SHK-0001.md) | published | AWS Emulator: API fidelity, security boundaries, AI-agent validation loops (2026-11-13) | shared |
 
 ## Lesson index
 

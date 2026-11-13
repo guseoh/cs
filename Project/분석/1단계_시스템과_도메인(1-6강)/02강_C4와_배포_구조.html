@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>2강. C4로 본 시스템, 그리고 요청이 서버에 닿기까지</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+</style></head><body><div class="layout"><aside class="toc"><div class="toc-title">목차</div><ul><li><a href="#이번-강의의-목표">이번 강의의 목표</a></li><li><a href="#1-C4-모델-지도를-네-배율로-그리는-법">1. C4 모델: 지도를 네 배율로 그리는 법</a><ul><li><a href="#PawCycle의-System-Context">PawCycle의 System Context</a></li></ul></li><li><a href="#2-Container-수준-세-컨테이너와-세-네트워크">2. Container 수준: 세 컨테이너와 세 네트워크</a><ul><li><a href="#①②-DNS-이름을-주소로-바꾸기">①② DNS: 이름을 주소로 바꾸기</a></li><li><a href="#③-TCP-연결을-맺는-세-번의-악수">③ TCP: 연결을 맺는 세 번의 악수</a></li><li><a href="#④-TLS-암호화된-통로-만들기">④ TLS: 암호화된 통로 만들기</a></li><li><a href="#⑤⑥-리버스-프록시-Nginx가-요청을-대신-전달한다">⑤⑥ 리버스 프록시: Nginx가 요청을 대신 전달한다</a></li><li><a href="#Docker-안의-DNS-컨테이너-이름이-주소가-되는-원리">Docker 안의 DNS: 컨테이너 이름이 주소가 되는 원리</a></li></ul></li><li><a href="#4-Nginx가-맡은-보안-헤더와-로그인-속도-제한">4. Nginx가 맡은 보안: 헤더와 로그인 속도 제한</a><ul><li><a href="#보안-헤더">보안 헤더</a></li><li><a href="#로그인-속도-제한-새는-양동이">로그인 속도 제한: 새는 양동이</a></li></ul></li><li><a href="#5-컨테이너는-가상-머신이-아니다-namespace와-cgroup-깊게">5. 컨테이너는 가상 머신이 아니다: namespace와 cgroup (깊게)</a></li><li><a href="#6-JVM과-컨테이너-메모리-640MB는-어떻게-나뉘는가-깊게">6. JVM과 컨테이너 메모리: 640MB는 어떻게 나뉘는가 (깊게)</a></li><li><a href="#7-인증서는-누가-어떻게-갱신하는가-ACME-HTTP-01">7. 인증서는 누가, 어떻게 갱신하는가: ACME HTTP-01</a></li><li><a href="#8-배포와-운영-무엇을-했고-무엇을-일부러-미뤘나">8. 배포와 운영: 무엇을 했고, 무엇을 일부러 미뤘나</a></li><li><a href="#2강-정리">2강 정리</a></li><li><a href="#보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</a></li></ul></aside><main><div class="crumbs"><a href="../index.html">분석</a> › <a href="00_1단계_전체.html">1단계 · 시스템과 도메인</a> › 2강</div><nav class="pager"><a href="01강_서비스와_구조_개관.html">← 1강 서비스와 구조 개관</a><a href="00_1단계_전체.html">1단계 전체</a><a href="03강_비기능_요구와_위험_지도.html">3강 비기능 요구와 위험 지도 →</a></nav><p class="meta">기준 커밋 <a href="https://github.com/guseoh/pawcycle-commerce/tree/f9ab9f87f610908501b864f45b8bc5f7caf2d8d0" target="_blank" rel="noopener"><code>f9ab9f87</code></a> · 저장소는 읽기만 했고 테스트·서버는 실행하지 않았다 · 티스토리 그림은 2026-11-30 이후 깨질 수 있다</p><div class="legend"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div><h1 id="2강-C4로-본-시스템-그리고-요청이-서버에-닿기까지">2강. C4로 본 시스템, 그리고 요청이 서버에 닿기까지</h1>
+<blockquote>
+<p>기준: GitHub <code>main</code> = <code>f9ab9f87</code> · 깊이: L1 + 네트워크·OS 개념 L3
+표시: <strong><span class="tag tag-ok">확인</span></strong> 코드·설정 · <strong><span class="tag tag-rec">기록</span></strong> 문서·PR·이슈의 결정 · <strong><span class="tag tag-int">해석</span></strong> 내 판단 · <strong><span class="tag tag-pri">원리</span></strong> 일반 지식 · <strong><span class="tag tag-unk">미확인</span></strong></p>
+</blockquote>
+<h2 id="이번-강의의-목표">이번 강의의 목표</h2>
+<ul>
+<li>C4 모델로 PawCycle을 <strong>System Context → Container</strong> 수준에서 그릴 수 있다</li>
+<li>운영 Compose의 <strong>세 컨테이너와 세 네트워크</strong>가 각각 왜 그렇게 나뉘었는지 설명한다</li>
+<li>브라우저가 주소를 치는 순간부터 Spring 컨트롤러에 닿기까지 <strong>DNS → TCP → TLS → HTTP → 리버스 프록시</strong> 과정을 설명한다</li>
+<li>컨테이너가 사실은 <strong>namespace와 cgroup으로 둘러싼 프로세스</strong>라는 것, 그리고 그것이 JVM 메모리 설정과 어떻게 연결되는지 설명한다</li>
+<li>Nginx 보안 설정, 인증서 갱신, 배포 구조의 <strong>트레이드오프</strong>를 설명한다</li>
+</ul>
+<p>깊이 배분: 3절(요청의 여정)과 5절(컨테이너와 OS), 6절(JVM 메모리)을 가장 깊게 다룬다.</p>
+<hr />
+<h2 id="1-C4-모델-지도를-네-배율로-그리는-법">1. C4 모델: 지도를 네 배율로 그리는 법</h2>
+<p>아키텍처 그림이 쓸모없어지는 가장 흔한 이유는 <strong>한 장에 모든 것을 그리려 하기 때문</strong>이다. 사용자, 서버, 클래스, 테이블이 한 그림에 섞이면 아무도 읽지 못한다. C4 모델은 지도 앱처럼 배율을 나눈다.</p>
+<ul>
+<li><strong>Level 1 System Context</strong>: 우리 시스템을 상자 하나로 두고, 누가 쓰고 어떤 외부 시스템과 이야기하는가</li>
+<li><strong>Level 2 Container</strong>: 시스템을 <strong>따로 실행되는 단위</strong>(웹 앱, API 서버, DB)로 쪼갠다</li>
+<li><strong>Level 3 Component</strong>: 컨테이너 하나 안의 주요 구성 요소와 책임</li>
+<li><strong>Level 4 Code</strong>: 클래스 수준. 대부분 코드에서 자동 생성하고 손으로 그리지 않는다</li>
+</ul>
+<p>teamsmiley의 <a href="https://teamsmiley.gitbook.io/devops/modeling/c4-model.md" target="_blank" rel="noopener">「C4 model introduce」</a>가 네 단계를 레벨별로 정리하고, 코드 다이어그램은 손으로 그리기보다 자동 생성을 권한다고 적는다. 아래는 C4를 만든 Simon Brown의 공식 사이트에 있는 Container 다이어그램 예시다.</p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="C4 모델 공식 예시: 인터넷 뱅킹 시스템의 Container 다이어그램" src="https://c4model.com/images/examples/Containers.png" /></p>
+<p><em>출처: <a href="https://c4model.com/diagrams/container" target="_blank" rel="noopener">c4model.com · Container diagram</a>, Simon Brown, CC BY 4.0. 원본을 열어 내용을 확인했다.</em></p>
+<p>이 그림에서 볼 점은 세 가지다.</p>
+<ul>
+<li><strong>파란 테두리 안</strong>이 시스템 하나이고, 그 안의 상자(UI, Backend, Database)가 Container다. 바깥의 초록 사람과 빨강·주황 상자는 사용자와 외부 시스템이다.</li>
+<li><strong>화살표마다 “무엇을, 어떤 방식으로”</strong> 가 적혀 있다(“Makes API requests to [JSON/HTTPS]”). 선만 긋고 끝내지 않는다.</li>
+<li>여기서 <strong>Container는 Docker 컨테이너가 아니다.</strong> “따로 배포·실행되는 단위”라는 뜻이다. 우연히 PawCycle에서는 둘이 거의 일치하지만, 개념은 구분해야 한다.</li>
+</ul>
+<h3 id="PawCycle의-System-Context">PawCycle의 System Context</h3>
+<p>PawCycle을 상자 하나로 놓으면 다음과 같다.</p>
+<figure class="widget" data-title="pawcycle_c4_system_context"><svg width="100%" viewBox="0 0 680 290" role="img"><title>PawCycle System Context</title><desc>고객과 관리자가 PawCycle Commerce를 사용하고, PawCycle은 토스페이먼츠에 결제 승인과 조회를, 설정 시 OpenAI에 요약과 추천을 요청한다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect class="box" x="40" y="50" width="150" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="115" y="68" text-anchor="middle" dominant-baseline="central">고객</text>
+<text class="ts" x="115" y="88" text-anchor="middle" dominant-baseline="central">탐색 · 구매 · 구독</text>
+<rect class="box" x="40" y="190" width="150" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="115" y="208" text-anchor="middle" dominant-baseline="central">관리자</text>
+<text class="ts" x="115" y="228" text-anchor="middle" dominant-baseline="central">상품 · 재고 · 대사</text>
+<g class="c-purple"><rect x="260" y="100" width="160" height="96" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="138" text-anchor="middle" dominant-baseline="central">PawCycle Commerce</text>
+<text class="ts" x="340" y="160" text-anchor="middle" dominant-baseline="central">웹 · API · DB</text></g>
+<g class="c-teal"><rect x="490" y="50" width="150" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="565" y="68" text-anchor="middle" dominant-baseline="central">토스페이먼츠</text>
+<text class="ts" x="565" y="88" text-anchor="middle" dominant-baseline="central">결제 승인 · 조회</text></g>
+<g class="c-teal"><rect x="490" y="190" width="150" height="56" rx="8" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text class="th" x="565" y="208" text-anchor="middle" dominant-baseline="central">OpenAI</text>
+<text class="ts" x="565" y="228" text-anchor="middle" dominant-baseline="central">요약 · 추천 · 선택</text></g>
+<line x1="190" y1="88" x2="258" y2="124" class="arr" marker-end="url(#arrow)"/>
+<line x1="190" y1="208" x2="258" y2="172" class="arr" marker-end="url(#arrow)"/>
+<line x1="420" y1="124" x2="488" y2="88" class="arr" marker-end="url(#arrow)"/>
+<line x1="420" y1="172" x2="488" y2="208" fill="none" stroke="var(--t)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+</svg></figure>
+<ul>
+<li><strong>사람은 둘이다.</strong> 비회원·회원 고객과 관리자다. <strong><span class="tag tag-ok">확인</span></strong> 관리자 기능은 <code>/api/admin/**</code>가 <code>hasRole("ADMIN")</code>으로 분리돼 있다.</li>
+<li><strong>외부 시스템은 둘이다.</strong> 토스는 결제 승인과 조회, OpenAI는 리뷰 요약·상품 비교·추천에 쓰인다. 점선은 <strong>설정으로 켰을 때만 존재하는 연결</strong>이다. <strong><span class="tag tag-ok">확인</span></strong> AI 기능은 모두 기본값이 꺼짐이다.</li>
+<li><strong><span class="tag tag-int">해석</span> 이 그림에서 가장 중요한 정보는 “외부 시스템이 둘뿐”이라는 사실이다.</strong> 이 시스템의 정합성 설계가 대부분 “잠금 + DB 트랜잭션”으로 풀리고, 복잡한 상태(PROCESSING, UNKNOWN)는 이 두 외부 경계에서만 생기는 이유가 여기 있다.</li>
+</ul>
+<h2 id="2-Container-수준-세-컨테이너와-세-네트워크">2. Container 수준: 세 컨테이너와 세 네트워크</h2>
+<p>1강에서 컨테이너 셋(proxy, frontend, backend)을 봤다. 이번에는 <strong>그 컨테이너들이 어떤 네트워크에 붙어 있는가</strong>를 본다. 이 설계가 보안 경계를 만든다.</p>
+<pre><code class="language-yaml"># infra/production/compose.yaml (발췌)
+services:
+  backend:
+    expose: [&quot;8080&quot;]                        # 다른 컨테이너에게만 공개
+    networks: [app, database-egress]
+  frontend:
+    expose: [&quot;3000&quot;]
+    networks: [app]
+  proxy:
+    ports:
+      - &quot;${PAWCYCLE_HTTP_PORT:-80}:80&quot;      # 호스트 포트 → 컨테이너 포트
+      - &quot;${PAWCYCLE_HTTPS_PORT:-443}:443&quot;
+    networks: [edge, app]
+
+networks:
+  edge:
+    name: pawcycle-production-edge
+  app:
+    name: pawcycle-production-app
+    internal: true                          # 바깥으로 나가는 길이 없는 네트워크
+  database-egress:
+    name: pawcycle-production-database-egress
+</code></pre>
+<p>코드에서 읽어야 할 것은 두 가지다.</p>
+<ul>
+<li><strong><code>ports</code>와 <code>expose</code>는 다르다.</strong> <code>ports</code>는 호스트의 포트를 컨테이너 포트로 연결해 <strong>인터넷에서 닿을 수 있게</strong> 한다. <code>expose</code>는 같은 네트워크의 다른 컨테이너에게만 포트를 알린다. 인터넷에서 닿는 컨테이너는 proxy 하나뿐이다.</li>
+<li><strong><code>internal: true</code></strong> 인 <code>app</code> 네트워크는 <strong><span class="tag tag-pri">원리</span></strong> 외부로 나가는 경로(게이트웨이)가 없는 네트워크다. 그 네트워크에만 붙은 컨테이너는 같은 네트워크의 이웃과만 통신하고 인터넷으로 나갈 수 없다.</li>
+</ul>
+<p>이 설정을 그림으로 옮기면 다음과 같다.</p>
+<figure class="widget" data-title="pawcycle_docker_networks"><svg width="100%" viewBox="0 0 680 350" role="img"><title>PawCycle Docker 네트워크</title><desc>인터넷은 edge 네트워크로 proxy에만 닿고, proxy와 frontend와 backend는 외부로 나갈 수 없는 internal app 네트워크로 연결되며, backend만 database-egress 네트워크로 MySQL에 닿는다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect class="box" x="40" y="60" width="110" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="95" y="82" text-anchor="middle" dominant-baseline="central">인터넷</text>
+<rect x="180" y="30" width="340" height="300" rx="16" fill="none" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="5 4"/>
+<text class="ts" x="196" y="320">OCI app01 호스트</text>
+<rect class="box" x="220" y="60" width="140" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="290" y="82" text-anchor="middle" dominant-baseline="central">proxy</text>
+<line x1="150" y1="82" x2="218" y2="82" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="184" y="118" text-anchor="middle">edge</text>
+<line x1="230" y1="140" x2="480" y2="140" stroke="#7F77DD" stroke-width="2"/>
+<line x1="290" y1="104" x2="290" y2="140" stroke="#7F77DD" stroke-width="1.5"/>
+<line x1="280" y1="140" x2="280" y2="170" stroke="#7F77DD" stroke-width="1.5"/>
+<line x1="430" y1="140" x2="430" y2="170" stroke="#7F77DD" stroke-width="1.5"/>
+<text class="ts" x="330" y="158">app · internal</text>
+<g class="c-purple"><rect x="220" y="170" width="120" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="280" y="192" text-anchor="middle" dominant-baseline="central">frontend</text></g>
+<g class="c-purple"><rect x="370" y="170" width="120" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="430" y="192" text-anchor="middle" dominant-baseline="central">backend</text></g>
+<path d="M430 214 L430 272 L538 272" fill="none" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text class="ts" x="438" y="296">database-egress</text>
+<g class="c-teal"><rect x="540" y="250" width="100" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="590" y="272" text-anchor="middle" dominant-baseline="central">MySQL</text></g>
+</svg></figure>
+<figure class="widget" data-title="https_request_journey_sequence"><svg width="100%" viewBox="0 0 680 490" role="img"><title>HTTPS 요청의 여정</title><desc>브라우저가 DNS로 IP를 얻고, Nginx와 TCP 연결과 TLS 핸드셰이크를 맺은 뒤 암호화된 HTTP 요청을 보내면, Nginx가 TLS를 풀고 X-Forwarded 헤더를 붙여 Spring Boot에 평문 HTTP로 전달하고 응답을 다시 암호화해 돌려준다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect class="box" x="40" y="30" width="110" height="40" rx="8" stroke-width="0.5"/><text class="th" x="95" y="50" text-anchor="middle" dominant-baseline="central">DNS 리졸버</text>
+<rect class="box" x="190" y="30" width="110" height="40" rx="8" stroke-width="0.5"/><text class="th" x="245" y="50" text-anchor="middle" dominant-baseline="central">브라우저</text>
+<g class="c-gray"><rect x="375" y="30" width="110" height="40" rx="8" stroke-width="0.5"/><text class="th" x="430" y="50" text-anchor="middle" dominant-baseline="central">Nginx</text></g>
+<g class="c-purple"><rect x="545" y="30" width="110" height="40" rx="8" stroke-width="0.5"/><text class="th" x="600" y="50" text-anchor="middle" dominant-baseline="central">Spring Boot</text></g>
+<line x1="95" y1="70" x2="95" y2="470" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 4"/>
+<line x1="245" y1="70" x2="245" y2="470" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 4"/>
+<line x1="430" y1="70" x2="430" y2="470" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 4"/>
+<line x1="600" y1="70" x2="600" y2="470" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 4"/>
+<text class="ts" x="170" y="102" text-anchor="middle">① 도메인 질의</text>
+<line x1="243" y1="110" x2="99" y2="110" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="170" y="142" text-anchor="middle">② IP · TTL</text>
+<line x1="97" y1="150" x2="241" y2="150" fill="none" stroke="var(--t)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<text class="ts" x="337" y="192" text-anchor="middle">③ TCP 3-way · :443</text>
+<line x1="249" y1="200" x2="426" y2="200" class="arr" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text class="ts" x="337" y="242" text-anchor="middle">④ TLS 핸드셰이크 · SNI</text>
+<line x1="249" y1="250" x2="426" y2="250" stroke="#D85A30" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text class="ts" x="337" y="292" text-anchor="middle">⑤ 암호화된 HTTP 요청</text>
+<line x1="249" y1="300" x2="426" y2="300" stroke="#D85A30" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text class="ts" x="515" y="342" text-anchor="middle">⑥ 평문 HTTP · X-Forwarded</text>
+<line x1="434" y1="350" x2="596" y2="350" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="515" y="392" text-anchor="middle">⑦ JSON 응답</text>
+<line x1="596" y1="400" x2="434" y2="400" fill="none" stroke="var(--t)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<text class="ts" x="337" y="442" text-anchor="middle">⑧ 암호화해 응답</text>
+<line x1="426" y1="450" x2="249" y2="450" fill="none" stroke="#D85A30" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+</svg></figure>
+<p>주황색 화살표가 <strong>암호화된 구간</strong>이다. 브라우저와 Nginx 사이만 암호화되고, Nginx와 Spring 사이(⑥⑦)는 평문 HTTP다. 이 구조를 <strong>TLS 종료(TLS termination)</strong> 라고 한다. 단계별로 내려가 보자.</p>
+<h3 id="①②-DNS-이름을-주소로-바꾸기">①② DNS: 이름을 주소로 바꾸기</h3>
+<p>컴퓨터는 이름이 아니라 IP 주소로 통신한다. 브라우저는 먼저 OS에 이름을 묻고, OS는 설정된 <strong>재귀 리졸버</strong>(보통 통신사나 공용 DNS)에 묻는다. 리졸버는 답을 모르면 계층을 따라 내려간다.</p>
+<ul>
+<li><strong>루트 서버</strong>에 묻는다 → “<code>.org</code>는 이 TLD 서버에 물어라”</li>
+<li><strong>TLD 서버</strong>(<code>.org</code>)에 묻는다 → “<code>duckdns.org</code>는 이 권한 서버에 물어라”</li>
+<li><strong>권한 네임 서버</strong>(DuckDNS)에 묻는다 → “<code>pawcycle.duckdns.org</code>의 A 레코드는 이 IP다, TTL은 N초”</li>
+</ul>
+<p>리졸버는 받은 답을 <strong>TTL 동안 캐시</strong>한다. 그래서 두 번째 사용자부터는 루트까지 가지 않는다. 대신 IP를 바꾸면 TTL이 끝날 때까지 옛 주소로 가는 사용자가 생긴다. Dale Seo의 <a href="https://daleseo.com/dns/" target="_blank" rel="noopener">「DNS 서버 동작 원리」</a>가 이 질의 흐름을 단계별로 따라가고, 캐시와 TTL이 응답 속도와 변경 반영 지연에 어떤 영향을 주는지 설명한다.</p>
+<blockquote>
+<p><strong>트레이드오프: 왜 무료 동적 DNS인가?</strong> <strong><span class="tag tag-int">해석</span></strong> DuckDNS는 무료이고 IP가 바뀌어도 갱신할 수 있지만, 레코드 종류와 TTL 조절, 장애 시 지원을 직접 통제하지 못한다. 개인 프로젝트에서 비용을 0으로 유지하려는 방향(뒤의 8절)과 같은 선택이다. 실제 서비스라면 자기 도메인과 관리형 DNS를 쓰는 것이 기본이다. <strong><span class="tag tag-unk">미확인</span></strong> DuckDNS를 고른 기록은 찾지 못했다.</p>
+</blockquote>
+<h3 id="③-TCP-연결을-맺는-세-번의-악수">③ TCP: 연결을 맺는 세 번의 악수</h3>
+<p>IP를 알았으면 그 주소의 443번 포트로 <strong>TCP 연결</strong>을 맺는다. TCP는 데이터가 순서대로, 빠짐없이 도착하도록 보장하는 프로토콜이고, 그 전에 양쪽이 준비됐는지 확인하는 <strong>3-way handshake</strong>를 한다.</p>
+<ol>
+<li>클라이언트 → 서버: <code>SYN</code> (연결하고 싶다, 내 시작 번호는 x)</li>
+<li>서버 → 클라이언트: <code>SYN-ACK</code> (좋다, x+1을 기다리겠다, 내 시작 번호는 y)</li>
+<li>클라이언트 → 서버: <code>ACK</code> (y+1을 기다리겠다)</li>
+</ol>
+<p><strong><span class="tag tag-pri">원리</span></strong> 연결 하나는 <code>(출발지 IP, 출발지 포트, 목적지 IP, 목적지 포트)</code> 네 값으로 구분된다. 서버 쪽에서 443을 듣는 소켓은 하나지만, 연결마다 새 소켓이 만들어진다. 이 왕복 한 번이 지연 시간에 그대로 더해지므로, 연결을 재사용(keep-alive)하는 것이 성능에 중요하다.</p>
+<p><strong><span class="tag tag-pri">원리</span></strong> 여기서 OS가 하나 끼어든다. 호스트의 443번 포트로 들어온 패킷은 어떻게 proxy <strong>컨테이너</strong>의 443으로 갈까? Docker는 호스트 커널의 패킷 필터(iptables)에 <strong>목적지 주소를 바꾸는 규칙(DNAT)</strong> 을 넣는다. 호스트 443으로 온 패킷의 목적지를 proxy 컨테이너의 내부 IP:443으로 바꿔 보내는 것이다. Compose의 <code>ports: "443:443"</code> 한 줄이 커널 수준에서는 이 규칙이 된다.</p>
+<h3 id="④-TLS-암호화된-통로-만들기">④ TLS: 암호화된 통로 만들기</h3>
+<p>TCP 연결 위에서 <strong>TLS 핸드셰이크</strong>가 일어난다. 목적은 세 가지다. 내가 말하는 상대가 진짜 <code>pawcycle.duckdns.org</code>인지 확인하고(<strong>인증</strong>), 엿들을 수 없게 하고(<strong>기밀성</strong>), 중간에 바꿀 수 없게 한다(<strong>무결성</strong>).</p>
+<ul>
+<li>클라이언트가 지원하는 방식과 <strong>SNI</strong>(접속하려는 도메인 이름)를 보낸다.</li>
+<li>서버가 <strong>인증서</strong>를 보낸다. 브라우저는 “사이트 인증서 → 중간 인증서 → 브라우저가 이미 믿는 루트 인증서”로 서명 사슬을 따라가 검증한다.</li>
+<li>양쪽이 <strong>키 합의</strong>를 해서, 이후 데이터를 암호화할 <strong>대칭키</strong>를 만든다. 공개키 암호는 느리므로 키를 정할 때만 쓰고, 실제 데이터는 빠른 대칭키로 암호화한다.</li>
+</ul>
+<p>Dale Seo의 <a href="https://daleseo.com/https/" target="_blank" rel="noopener">「HTTPS란 무엇인가」</a>가 TLS가 HTTP 아래에서 기밀성·무결성·인증을 제공하는 구조와 인증서 신뢰 사슬을 설명한다. 이 개념이 Nginx 설정에 그대로 나타난다.</p>
+<pre><code class="language-nginx"># infra/production/nginx.https.conf (발췌)
+server {                                   # (가) 모르는 이름으로 온 HTTPS
+    listen 443 ssl default_server;
+    server_name _;
+    ssl_certificate ...;
+    ssl_reject_handshake on;
+}
+server {                                   # (나) 진짜 도메인
+    listen 443 ssl;
+    server_name __PAWCYCLE_DOMAIN__;
+    ssl_certificate     /etc/letsencrypt/live/pawcycle.duckdns.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pawcycle.duckdns.org/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1d;
+    ...
+}
+server {                                   # (다) 모르는 이름으로 온 HTTP
+    listen 80 default_server;
+    server_name _;
+    return 444;
+}
+</code></pre>
+<ul>
+<li><strong>(나)의 <code>fullchain.pem</code></strong>: 사이트 인증서와 <strong>중간 인증서</strong>를 함께 담은 파일이다. 중간 인증서를 빠뜨리면 사슬이 끊겨 일부 클라이언트에서 검증이 실패한다.</li>
+<li><strong><code>ssl_protocols TLSv1.2 TLSv1.3</code></strong>: 취약한 옛 버전(TLS 1.0·1.1)을 받지 않는다.</li>
+<li><strong><code>ssl_session_cache</code> + <code>ssl_session_timeout 1d</code></strong>: 한 번 핸드셰이크한 클라이언트가 다시 오면 키 합의를 생략하고 세션을 재개한다. 위 그림 ④의 비용을 줄인다.</li>
+<li><strong>(가) <code>ssl_reject_handshake on</code></strong>: SNI가 우리 도메인이 아니면 <strong>핸드셰이크 자체를 거절</strong>한다. <strong><span class="tag tag-int">해석</span></strong> 인터넷에는 IP 대역을 훑으며 아무 서버에나 접속해 보는 스캐너가 많다. 이들에게 인증서조차 보여 주지 않아, 이 IP에 어떤 도메인이 있는지 노출하지 않는다.</li>
+<li><strong>(다) <code>return 444</code></strong>: Nginx 고유 코드로, 응답 없이 연결을 끊는다. 모르는 Host로 온 HTTP 요청에 아무 정보도 주지 않는다.</li>
+</ul>
+<h3 id="⑤⑥-리버스-프록시-Nginx가-요청을-대신-전달한다">⑤⑥ 리버스 프록시: Nginx가 요청을 대신 전달한다</h3>
+<p>TLS를 푼 Nginx는 요청을 다시 Spring에 보낸다. 클라이언트 대신 서버를 대리하는 이런 서버를 <strong>리버스 프록시</strong>라 한다. Dale Seo의 <a href="https://daleseo.com/proxy-vs-reverse-proxy/" target="_blank" rel="noopener">「프록시 서버와 리버스 프록시」</a>가 구분 기준을 정리한다. 포워드 프록시는 <strong>클라이언트 편</strong>에서 접근 제어·익명성을 맡고, 리버스 프록시는 <strong>서버 편</strong>에서 로드 밸런싱·TLS 종료·보안 경계를 맡는다.</p>
+<p>문제는 Spring 입장에서 <strong>모든 요청이 Nginx에서 온 것처럼 보인다</strong>는 점이다. 접속자의 IP도, 원래 HTTPS였다는 사실도 사라진다. 그래서 Nginx가 헤더로 원래 정보를 실어 보낸다.</p>
+<pre><code class="language-nginx">location /api/ {
+    proxy_pass http://pawcycle_application_backend;
+    proxy_http_version 1.1;
+    proxy_set_header Host              $http_host;                  # 원래 요청한 호스트
+    proxy_set_header X-Real-IP         $remote_addr;                # Nginx가 본 접속자 IP
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;  # 지나온 IP 목록
+    proxy_set_header X-Forwarded-Proto https;                       # 원래는 HTTPS였다
+    proxy_read_timeout 60s;
+}
+</code></pre>
+<p>Spring은 이 헤더를 믿도록 설정돼 있다.</p>
+<pre><code class="language-yaml"># compose.yaml의 backend 환경 변수
+SERVER_FORWARD_HEADERS_STRATEGY: framework
+SESSION_COOKIE_SECURE: &quot;true&quot;
+</code></pre>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> <code>framework</code> 전략이면 Spring이 <code>X-Forwarded-*</code> 헤더를 읽어 요청의 스킴·호스트·접속자 주소를 원래 값으로 바꿔 끼운다. 그래야 Spring이 “이 요청은 HTTPS로 들어왔다”고 판단하고, 리다이렉트 주소를 <code>https://</code>로 만들 수 있다.</li>
+<li><strong>세션 쿠키 <code>Secure</code></strong>: 브라우저가 이 쿠키를 HTTPS로만 보내게 한다. Nginx와 Spring 사이가 평문이어도 상관없다. <code>Secure</code>는 <strong>브라우저가 언제 쿠키를 보내는가</strong>에 대한 속성이기 때문이다.</li>
+</ul>
+<blockquote>
+<p><strong>트레이드오프: 클라이언트가 보낸 헤더를 믿어도 되는가?</strong> <code>X-Forwarded-For</code>는 <strong>클라이언트가 위조할 수 있는 헤더</strong>다. <code>$proxy_add_x_forwarded_for</code>는 클라이언트가 보낸 값 <strong>뒤에</strong> Nginx가 본 IP를 덧붙인다. 그래서 목록의 <strong>맨 앞 값은 믿을 수 없고, Nginx가 붙인 맨 뒤 값만 믿을 수 있다.</strong> Dale Seo의 글도 이 헤더는 위조될 수 있으니 신뢰하는 프록시가 붙인 값만 믿어야 한다고 경고한다.
+- <strong><span class="tag tag-int">해석</span></strong> 이 프로젝트에서 헤더를 믿는 것이 안전한 근거는 <strong>2절의 네트워크 설계</strong>다. backend는 <code>app</code> 내부 네트워크에만 공개돼 있어서, 헤더를 조작해 backend에 직접 접속할 길이 없다. 모든 요청이 Nginx를 거친다는 전제 위에서만 이 설정이 성립한다.
+- <strong>개선 후보</strong>: <strong><span class="tag tag-unk">미확인</span></strong> Spring이 <code>X-Forwarded-For</code>의 어느 값을 접속자 IP로 쓰는지, 그리고 그 값을 로그나 보안 판단에 쓰는 코드가 있는지는 확인하지 않았다. 맨 앞 값을 쓴다면 로그의 IP가 위조될 수 있다. 신뢰할 수 있는 <code>X-Real-IP</code>를 쓰거나, Spring에 신뢰할 프록시를 명시하는 방법이 있다.</p>
+</blockquote>
+<h3 id="Docker-안의-DNS-컨테이너-이름이-주소가-되는-원리">Docker 안의 DNS: 컨테이너 이름이 주소가 되는 원리</h3>
+<p><code>proxy_pass http://backend:8080</code>의 <code>backend</code>는 도메인이 아니라 <strong>Compose 서비스 이름</strong>이다. 이것이 IP로 바뀌는 원리가 Nginx 설정 맨 위에 있다.</p>
+<pre><code class="language-nginx"># Re-resolve service addresses after application container replacement.
+resolver 127.0.0.11 valid=5s ipv6=off;
+
+upstream pawcycle_application_backend {
+    zone pawcycle_application_backend 64k;
+    server backend:8080 resolve;
+}
+</code></pre>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> Docker는 사용자 정의 네트워크에 붙은 컨테이너에게 <code>127.0.0.11</code>에서 동작하는 <strong>내장 DNS 서버</strong>를 제공한다. 이 서버가 같은 네트워크의 서비스 이름을 컨테이너 IP로 바꿔 준다. 그래서 IP를 하드코딩하지 않고 이름으로 부를 수 있다.</li>
+<li><strong>왜 <code>valid=5s</code>와 <code>resolve</code>인가.</strong> <strong><span class="tag tag-pri">원리</span></strong> Nginx는 기본적으로 <strong>시작할 때 한 번</strong> 이름을 IP로 바꾸고 그 값을 계속 쓴다. 그런데 새 버전을 배포하며 backend 컨테이너를 다시 만들면 <strong>IP가 바뀐다</strong>. Nginx가 옛 IP를 붙들고 있으면 모든 요청이 실패하고, Nginx를 재시작해야만 복구된다. 위 설정은 upstream 이름을 <strong>5초마다 다시 해석</strong>하게 해서 이 문제를 없앤다. 주석이 정확히 그 이유를 적고 있다(“컨테이너 교체 후 서비스 주소를 다시 해석한다”).</li>
+<li><strong><span class="tag tag-int">해석</span></strong> 이 설정 덕분에 backend만 새로 배포할 때 proxy를 건드리지 않아도 된다. 뒤의 8절에서 볼 “바뀐 서비스만 배포한다”는 배포 정책이 성립하는 전제다.</li>
+</ul>
+<h2 id="4-Nginx가-맡은-보안-헤더와-로그인-속도-제한">4. Nginx가 맡은 보안: 헤더와 로그인 속도 제한</h2>
+<h3 id="보안-헤더">보안 헤더</h3>
+<pre><code class="language-nginx">add_header Strict-Transport-Security &quot;max-age=31536000; includeSubDomains&quot; always;
+add_header X-Content-Type-Options &quot;nosniff&quot; always;
+add_header X-Frame-Options &quot;DENY&quot; always;
+add_header X-XSS-Protection &quot;0&quot; always;
+add_header Referrer-Policy &quot;strict-origin-when-cross-origin&quot; always;
+
+proxy_hide_header Strict-Transport-Security;   # 뒤쪽 앱이 보낸 같은 헤더는 지운다
+proxy_hide_header X-Frame-Options;
+...
+</code></pre>
+<ul>
+<li><strong>HSTS</strong>: “앞으로 1년 동안 이 도메인은 HTTPS로만 접속하라”고 브라우저에 기억시킨다. 사용자가 <code>http://</code>를 쳐도 브라우저가 알아서 HTTPS로 바꿔 보내므로, 첫 HTTP 요청을 가로채는 공격을 막는다.</li>
+<li><strong><code>nosniff</code></strong>: 브라우저가 응답 내용을 보고 타입을 멋대로 추측하지 못하게 한다.</li>
+<li><strong><code>X-Frame-Options: DENY</code></strong>: 다른 사이트가 이 페이지를 <code>iframe</code>에 넣지 못하게 해서, 투명한 프레임을 덮어 클릭을 훔치는 공격을 막는다.</li>
+<li><strong><code>X-XSS-Protection: 0</code></strong>: <strong><span class="tag tag-pri">원리</span></strong> 일부러 끄는 설정이다. 옛 브라우저의 XSS 필터는 오히려 오동작과 정보 유출 문제가 있어 현재는 끄는 것이 권장된다.</li>
+<li><strong><code>proxy_hide_header</code></strong>: Spring Security도 일부 보안 헤더를 기본으로 붙인다. 그대로 두면 같은 헤더가 두 번 나가므로, 앱이 보낸 것을 지우고 Nginx의 값 하나만 남긴다.</li>
+</ul>
+<h3 id="로그인-속도-제한-새는-양동이">로그인 속도 제한: 새는 양동이</h3>
+<pre><code class="language-nginx">limit_req_zone $binary_remote_addr zone=login_per_ip:10m rate=10r/m;
+
+location = /api/auth/login {
+    limit_req zone=login_per_ip burst=5 nodelay;
+    limit_req_status 429;
+    error_page 429 = @login_rate_limited;
+    proxy_pass http://pawcycle_application_backend;
+    ...
+}
+location @login_rate_limited {
+    default_type application/json;
+    return 429 '{&quot;code&quot;:&quot;RATE_LIMITED&quot;,&quot;message&quot;:&quot;로그인 요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.&quot;,&quot;fieldErrors&quot;:[]}';
+}
+</code></pre>
+<p><strong><span class="tag tag-pri">원리</span></strong> Nginx의 <code>limit_req</code>는 <strong>새는 양동이(leaky bucket)</strong> 방식이다. 양동이 바닥에 구멍이 있어 물이 일정한 속도로 빠지고, 요청이 올 때마다 물을 한 컵 붓는다고 생각하면 된다.</p>
+<ul>
+<li><code>rate=10r/m</code>: 구멍으로 <strong>6초에 한 컵</strong>씩 빠진다. 같은 IP는 평균 6초에 한 번 로그인을 시도할 수 있다.</li>
+<li><code>burst=5</code>: 양동이에 <strong>여분으로 5컵</strong>까지 담을 수 있다. 사람이 비밀번호를 몇 번 연달아 틀리는 정도는 허용한다.</li>
+<li><code>nodelay</code>: 여분 안의 요청을 <strong>줄 세워 기다리게 하지 않고 바로 처리</strong>한다. 여분까지 넘치면 즉시 429다.</li>
+<li><code>$binary_remote_addr</code>: IP를 문자열 대신 바이너리로 저장해 메모리를 아낀다. <code>10m</code>은 이 상태를 담을 공유 메모리 크기다.</li>
+<li><strong><code>location = /api/auth/login</code></strong>: <code>=</code>는 <strong>정확히 이 경로만</strong> 일치시킨다. 다른 API에는 제한을 걸지 않는다.</li>
+<li><strong><code>@login_rate_limited</code></strong>: 429 응답을 백엔드의 다른 오류와 <strong>같은 JSON 형식</strong>으로 맞춘다. 프론트가 오류를 한 가지 방식으로 처리할 수 있다.</li>
+</ul>
+<blockquote>
+<p><strong>트레이드오프: 왜 IP 기준이고, 왜 Nginx인가?</strong> <strong><span class="tag tag-rec">기록</span></strong> 이 제한은 세션·CSRF 제품 계약을 바꾸지 않고 공개 로그인 하나에만 IP당 제한을 추가한 변경이다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/296" target="_blank" rel="noopener">PR #296</a>). 당시 <strong>계정 잠금, 이메일별 제한, Redis 기반 제한, WAF, CSP, JWT 전환은 별도 범위로 남겼다.</strong>
+- <strong>얻는 것</strong>: 애플리케이션 코드를 바꾸지 않고, 요청이 Spring에 닿기도 전에 막는다. 비밀번호 대입 공격의 속도를 크게 늦춘다.
+- <strong>한계</strong>: <strong><span class="tag tag-int">해석</span></strong> 여러 사용자가 같은 공인 IP를 쓰는 환경(회사, 학교, 통신사 NAT)에서는 정상 사용자끼리 한도를 나눠 쓴다. 반대로 IP를 계속 바꾸는 공격자(봇넷, IPv6 주소 대역)는 막지 못한다. 한 계정에 여러 IP에서 대입하는 공격도 IP 기준으로는 보이지 않는다. 계정 기준 제한이 함께 있어야 하는 이유다.
+- <strong><span class="tag tag-rec">기록</span></strong> 이 값(10r/m, burst 5)은 당시 구현 계약이며, 실제 사용량을 측정해 정한 운영 임계치가 아니라고 남겨 두었다.</p>
+</blockquote>
+<h2 id="5-컨테이너는-가상-머신이-아니다-namespace와-cgroup-깊게">5. 컨테이너는 가상 머신이 아니다: namespace와 cgroup (깊게)</h2>
+<p>지금까지 “컨테이너”를 상자처럼 말했지만, OS 입장에서 컨테이너는 <strong>특별한 옷을 입은 일반 프로세스</strong>다. 가상 머신은 하드웨어를 흉내 내고 그 위에 운영체제를 통째로 하나 더 띄운다. 컨테이너는 <strong>호스트의 커널 하나를 함께 쓰면서</strong>, 커널 기능 두 가지로 프로세스를 가둔다.</p>
+<ul>
+<li><strong>namespace — 무엇이 보이는가(격리)</strong>: 프로세스가 볼 수 있는 세상을 좁힌다.<ul>
+<li>PID namespace: 컨테이너 안에서 <code>java</code>는 자신이 PID 1이라고 본다. 호스트에서는 그냥 수많은 프로세스 중 하나다.</li>
+<li>Network namespace: 컨테이너마다 자기만의 네트워크 인터페이스·IP·라우팅 표를 가진다. 2절의 네트워크 분리가 가능한 이유다.</li>
+<li>Mount namespace: 컨테이너마다 다른 파일 시스템 뷰를 가진다. 이미지의 파일이 루트(<code>/</code>)처럼 보인다.</li>
+<li>이 밖에 호스트 이름(UTS), 프로세스 간 통신(IPC), 사용자 ID(User) namespace가 있다.</li>
+</ul>
+</li>
+<li><strong>cgroup — 얼마나 쓸 수 있는가(제한)</strong>: 프로세스 묶음이 쓸 수 있는 CPU·메모리·프로세스 수를 커널이 세고 제한한다.</li>
+</ul>
+<p>이 두 기능이 PawCycle의 Compose 설정에 어떻게 대응하는지 그리면 다음과 같다.</p>
+<figure class="widget" data-title="container_namespace_cgroup_view"><svg width="100%" viewBox="0 0 680 320" role="img"><title>컨테이너는 격리되고 제한된 프로세스</title><desc>proxy, frontend, backend 세 컨테이너가 각자의 namespace 안에서 자기를 PID 1로 보지만, 모두 하나의 리눅스 커널을 공유하고 cgroup이 각각 메모리, CPU, 프로세스 수를 제한한다</desc>
+<g class="c-purple"><rect x="40" y="40" width="180" height="150" rx="10" stroke-width="0.5"/>
+<text class="th" x="130" y="64" text-anchor="middle" dominant-baseline="central">proxy · nginx</text>
+<text class="ts" x="130" y="92" text-anchor="middle" dominant-baseline="central">안에서 본 나: PID 1</text>
+<text class="ts" x="130" y="114" text-anchor="middle" dominant-baseline="central">자기 IP · 자기 파일 트리</text>
+<text class="ts" x="130" y="146" text-anchor="middle" dominant-baseline="central">메모리 128m</text>
+<text class="ts" x="130" y="166" text-anchor="middle" dominant-baseline="central">CPU 0.20 · pids 64</text></g>
+<g class="c-purple"><rect x="250" y="40" width="180" height="150" rx="10" stroke-width="0.5"/>
+<text class="th" x="340" y="64" text-anchor="middle" dominant-baseline="central">frontend · node</text>
+<text class="ts" x="340" y="92" text-anchor="middle" dominant-baseline="central">안에서 본 나: PID 1</text>
+<text class="ts" x="340" y="114" text-anchor="middle" dominant-baseline="central">자기 IP · 자기 파일 트리</text>
+<text class="ts" x="340" y="146" text-anchor="middle" dominant-baseline="central">메모리 768m</text>
+<text class="ts" x="340" y="166" text-anchor="middle" dominant-baseline="central">CPU 0.35 · pids 128</text></g>
+<g class="c-purple"><rect x="460" y="40" width="180" height="150" rx="10" stroke-width="0.5"/>
+<text class="th" x="550" y="64" text-anchor="middle" dominant-baseline="central">backend · java</text>
+<text class="ts" x="550" y="92" text-anchor="middle" dominant-baseline="central">안에서 본 나: PID 1</text>
+<text class="ts" x="550" y="114" text-anchor="middle" dominant-baseline="central">자기 IP · 자기 파일 트리</text>
+<text class="ts" x="550" y="146" text-anchor="middle" dominant-baseline="central">메모리 640m</text>
+<text class="ts" x="550" y="166" text-anchor="middle" dominant-baseline="central">CPU 0.75 · pids 256</text></g>
+<line x1="130" y1="190" x2="130" y2="228" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="340" y1="190" x2="340" y2="228" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="550" y1="190" x2="550" y2="228" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<g class="c-gray"><rect x="40" y="230" width="600" height="56" rx="10" stroke-width="0.5"/>
+<text class="th" x="340" y="248" text-anchor="middle" dominant-baseline="central">호스트 리눅스 커널 하나를 함께 쓴다</text>
+<text class="ts" x="340" y="268" text-anchor="middle" dominant-baseline="central">위쪽 두 줄 = namespace(보이는 것) · 아래 두 줄 = cgroup(쓸 수 있는 양)</text></g>
+</svg></figure>
+<p>컨테이너 안의 <code>java</code>는 자신이 PID 1이고 서버를 혼자 쓴다고 본다. 실제로는 커널이 namespace로 <strong>보이는 범위</strong>를 좁히고, cgroup으로 <strong>쓸 수 있는 양</strong>을 세고 있을 뿐이다. 이 관점으로 backend 컨테이너 설정을 한 줄씩 읽어 보자.</p>
+<pre><code class="language-yaml"># infra/production/compose.yaml — backend 서비스의 격리·제한 설정 (요지)
+backend:
+  read_only: true            # 루트 파일 시스템 읽기 전용
+  tmpfs:
+    - /tmp                   # 쓰기가 필요한 곳만 메모리 파일 시스템으로
+  security_opt:
+    - no-new-privileges:true # 실행 중 권한 상승 금지
+  mem_limit: 640m            # cgroup memory.max
+  cpus: 0.75                 # cgroup cpu.max (CFS quota)
+  pids_limit: 256            # cgroup pids.max
+</code></pre>
+<ul>
+<li><strong><code>read_only: true</code></strong>: 컨테이너의 파일 시스템 전체를 읽기 전용으로 마운트한다. <strong><span class="tag tag-int">해석</span></strong> 공격자가 애플리케이션 취약점으로 코드를 실행하게 되더라도 실행 파일을 내려받아 심거나 설정을 고쳐 쓰기 어렵다. 실행 중 디스크가 이미지와 달라지지 않으니 “어제와 오늘 같은 이미지인데 동작이 다르다”는 문제도 줄어든다.</li>
+<li><strong><code>tmpfs: /tmp</code></strong>: 그래도 쓰기가 꼭 필요한 곳이 있다. Spring Boot의 내장 Tomcat은 작업 디렉터리와 업로드 임시 파일을 <code>/tmp</code> 아래에 만든다. 그래서 <code>/tmp</code>만 <strong>메모리 위의 파일 시스템</strong>으로 열어 준다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> tmpfs에 쓴 데이터는 RAM에 있으므로 <strong>컨테이너의 메모리 사용량으로 계산된다</strong>. 큰 파일을 <code>/tmp</code>에 쓰면 디스크가 아니라 640MB 한도를 깎아 먹는다. 앞 절의 <code>client_max_body_size 1m</code>이 요청 본문 크기를 막아 주기 때문에 이 조합이 안전하다.</li>
+</ul>
+</li>
+<li><strong><code>no-new-privileges</code></strong>: <strong><span class="tag tag-pri">원리</span></strong> 리눅스 커널의 <code>PR_SET_NO_NEW_PRIVS</code> 플래그다. 이 플래그가 켜진 프로세스와 자식 프로세스는 <code>setuid</code> 프로그램(예: <code>sudo</code>)을 실행해도 권한이 올라가지 않는다. 아래의 non-root 사용자와 함께 쓰면 컨테이너 안에서 root가 될 길이 거의 막힌다.</li>
+<li><strong><code>pids_limit: 256</code></strong>: 컨테이너가 만들 수 있는 프로세스 수 상한이다. 원래 목적은 <code>fork</code>를 무한히 반복하는 <strong>fork bomb</strong>이 호스트 전체를 마비시키지 못하게 하는 것이다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> 리눅스 커널에게 <strong>스레드도 태스크 하나</strong>다. <code>pids.max</code>는 프로세스가 아니라 태스크 수를 센다. 그러니 이 숫자는 사실상 <strong>JVM 스레드 수 상한</strong>이다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> Tomcat의 기본 최대 작업 스레드는 200개다. 여기에 커넥션 풀, GC, JIT 컴파일러, 스케줄러 스레드가 더해진다. 부하가 몰려 Tomcat이 스레드를 끝까지 늘리면 256에 꽤 가까워진다. 이 한도에 닿으면 새 스레드를 만들지 못해 <code>OutOfMemoryError: unable to create native thread</code>가 난다. 이름은 메모리 오류지만 실제 원인은 pids 한도다.</li>
+<li><strong><span class="tag tag-unk">미확인</span></strong> 가상 스레드 사용 여부와 Tomcat 스레드 수 설정은 아직 확인하지 않았다. 9강(Spring 실행 구조)에서 함께 본다.</li>
+</ul>
+</li>
+<li><strong><code>cpus: 0.75</code></strong>: <strong><span class="tag tag-pri">원리</span></strong> CFS 스케줄러의 quota로 구현된다. 기본 100ms 주기마다 이 컨테이너는 <strong>75ms만큼만</strong> CPU를 쓸 수 있다. 다 쓰면 남은 25ms 동안 멈춘다(<strong>throttling</strong>). 평균 CPU 사용률이 낮아 보여도, 요청이 몰리는 짧은 순간에 응답 지연이 튀는 원인이 된다.</li>
+</ul>
+<p><code>cpus: 0.75</code>는 JVM의 판단에도 영향을 준다. 컨테이너를 인식하는 JVM은 CPU quota를 읽어 <code>availableProcessors()</code>를 <strong>1</strong>로 계산한다(0.75를 올림).</p>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> HotSpot JVM은 CPU가 2개 이상이고 메모리가 약 1792MB 이상일 때만 “서버급 머신”으로 보고 G1 GC를 고른다. 그 조건에 못 미치면 <strong>Serial GC</strong>를 기본으로 고른다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> <code>JAVA_TOOL_OPTIONS</code>에 GC를 지정하는 옵션이 없으므로, 이 backend는 <strong>Serial GC로 돌고 있을 가능성이 높다</strong>. Serial GC는 스레드 하나로 애플리케이션을 멈추고 수거한다. 힙이 400MB 남짓이면 감당할 만하지만, 멈춤 시간이 응답 시간에 그대로 더해진다.</li>
+<li><strong><span class="tag tag-unk">미확인</span></strong> 실제 GC 종류는 운영 서버의 <code>-Xlog:gc</code> 출력이나 <code>jcmd VM.flags</code>로 확인해야 한다. 실험은 프로젝트 이해를 마친 뒤 하기로 했으니 여기서는 질문으로 남긴다.</li>
+</ul>
+<p>이미지 쪽에도 같은 원칙이 있다.</p>
+<pre><code class="language-dockerfile"># infra/production/backend.Dockerfile (요지)
+FROM eclipse-temurin:25-jdk AS build      # 1단계: 빌드 도구가 있는 JDK
+WORKDIR /workspace
+COPY . .
+RUN ./gradlew bootJar
+
+FROM eclipse-temurin:25-jre               # 2단계: 실행만 하는 JRE
+RUN useradd --system --shell /usr/sbin/nologin pawcycle
+COPY --from=build /workspace/build/libs/*.jar /app/app.jar
+USER pawcycle
+ENTRYPOINT [&quot;java&quot;, &quot;-jar&quot;, &quot;/app/app.jar&quot;]
+</code></pre>
+<ul>
+<li><strong>멀티 스테이지 빌드</strong>: 1단계 이미지에는 JDK·Gradle·소스 코드가 있지만, 최종 이미지에는 <strong>JRE와 jar 하나만</strong> 남는다. 이미지가 작아지고, 공격자가 쓸 수 있는 컴파일러나 빌드 도구가 운영 컨테이너에 없다.</li>
+<li><strong><code>USER pawcycle</code> + <code>nologin</code></strong>: 컨테이너는 기본으로 root로 실행된다. <strong><span class="tag tag-pri">원리</span></strong> User namespace를 따로 켜지 않으면 컨테이너 안의 root는 <strong>호스트 커널 입장에서도 UID 0</strong>이다. 컨테이너 탈출 취약점이 생기면 피해 범위가 크게 달라진다. 그래서 로그인 셸이 없는 시스템 사용자로 낮춰 실행한다. frontend도 <code>USER node</code>로 같은 원칙을 따른다.</li>
+</ul>
+<h2 id="6-JVM과-컨테이너-메모리-640MB는-어떻게-나뉘는가-깊게">6. JVM과 컨테이너 메모리: 640MB는 어떻게 나뉘는가 (깊게)</h2>
+<p><code>mem_limit: 640m</code>은 <strong>컨테이너 전체</strong>의 한도다. JVM 프로세스가 쓰는 메모리는 힙만이 아니다.</p>
+<ul>
+<li><strong>힙(Heap)</strong>: <code>new</code>로 만든 객체가 사는 곳. GC가 관리한다.</li>
+<li><strong>메타스페이스(Metaspace)</strong>: 로드된 클래스의 정보. Spring Boot는 클래스를 수만 개 로드하므로 생각보다 크다.</li>
+<li><strong>스레드 스택</strong>: 스레드마다 기본 약 1MB까지 예약된다. 실제로 쓴 만큼만 물리 메모리를 차지한다.</li>
+<li><strong>코드 캐시</strong>: JIT 컴파일러가 만든 기계어.</li>
+<li><strong>Direct buffer, GC 자료구조, 네이티브 라이브러리</strong>: 네트워크 I/O 버퍼나 GC가 쓰는 표.</li>
+<li><strong>tmpfs의 <code>/tmp</code></strong>: 앞에서 본 것처럼 이것도 같은 한도에 포함된다.</li>
+</ul>
+<p><code>-XX:MaxRAMPercentage=65.0</code>은 <strong>최대 힙을 컨테이너 한도의 65%로</strong> 정한다. Braindetox의 <a href="https://braindetox.kr/posts/jvm_container_resource_limits.html" target="_blank" rel="noopener">「JVM 컨테이너 리소스 제한」</a> 글이 이 구조를 설명한다. JVM이 cgroup의 메모리 한도를 읽어 힙 크기를 정하고, 비율을 너무 높게 잡으면 힙 밖의 메모리 때문에 컨테이너가 강제 종료될 수 있다는 내용이다. PawCycle의 숫자를 넣어 보면 다음과 같다.</p>
+<figure class="widget" data-title="backend_jvm_memory_640m_split"><svg width="100%" viewBox="0 0 680 300" role="img"><title>backend 컨테이너 640MB 메모리 분배</title><desc>640MB 한도 중 최대 힙이 65%인 약 416MB, 나머지 약 224MB를 메타스페이스, 스레드 스택, 코드 캐시, direct buffer, tmpfs가 나눠 쓴다. 힙이 넘치면 JVM OutOfMemoryError, 전체가 넘치면 커널 OOM killer가 SIGKILL을 보내 exit 137</desc>
+<text class="th" x="40" y="34">mem_limit 640m = 컨테이너 cgroup 전체 한도</text>
+<g class="c-blue"><rect x="40" y="52" width="390" height="64" rx="8" stroke-width="0.5"/>
+<text class="th" x="235" y="74" text-anchor="middle" dominant-baseline="central">최대 힙 ≈ 416MB</text>
+<text class="ts" x="235" y="96" text-anchor="middle" dominant-baseline="central">MaxRAMPercentage=65 · GC가 관리</text></g>
+<g class="c-amber"><rect x="432" y="52" width="208" height="64" rx="8" stroke-width="0.5"/>
+<text class="th" x="536" y="74" text-anchor="middle" dominant-baseline="central">힙 밖 ≈ 224MB</text>
+<text class="ts" x="536" y="96" text-anchor="middle" dominant-baseline="central">GC가 관리하지 않음</text></g>
+<text class="ts" x="536" y="138" text-anchor="middle">메타스페이스 · 스레드 스택</text>
+<text class="ts" x="536" y="156" text-anchor="middle">코드 캐시 · direct buffer</text>
+<text class="ts" x="536" y="174" text-anchor="middle">GC 자료구조 · tmpfs /tmp</text>
+<g class="c-coral"><rect x="40" y="200" width="290" height="70" rx="8" stroke-width="0.5"/>
+<text class="th" x="185" y="222" text-anchor="middle" dominant-baseline="central">힙이 가득 참</text>
+<text class="ts" x="185" y="244" text-anchor="middle" dominant-baseline="central">JVM OutOfMemoryError → ExitOnOOM로 즉시 종료</text></g>
+<g class="c-red"><rect x="350" y="200" width="290" height="70" rx="8" stroke-width="0.5"/>
+<text class="th" x="495" y="222" text-anchor="middle" dominant-baseline="central">640MB 전체 초과</text>
+<text class="ts" x="495" y="244" text-anchor="middle" dominant-baseline="central">커널 OOM killer · SIGKILL · exit 137</text></g>
+<line x1="235" y1="116" x2="185" y2="198" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="536" y1="180" x2="495" y2="198" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+</svg></figure>
+<p>그림 아래쪽의 두 상자는 <strong>서로 다른 두 종류의 죽음</strong>이다. 운영 중 장애를 볼 때 이 둘을 구분하는 것이 핵심이다.</p>
+<ul>
+<li><strong>왼쪽: 힙 OOM.</strong> JVM이 객체를 둘 자리를 못 찾아 <code>OutOfMemoryError</code>를 던진다.<ul>
+<li>이 오류는 아무 스레드에서나 터질 수 있다. 어떤 스레드는 죽고 어떤 스레드는 살아남아, 서버가 <strong>반쯤 고장 난 채로 계속 요청을 받는</strong> 상태가 생길 수 있다.</li>
+<li><code>-XX:+ExitOnOutOfMemoryError</code>는 OOM이 한 번이라도 나면 JVM을 <strong>즉시 끝낸다</strong>. 어중간하게 살아 있는 서버보다 깨끗하게 죽은 서버가 낫다는 판단이다. 죽은 컨테이너는 healthcheck와 재시작 정책으로 처리하는 편이 예측 가능하다.</li>
+<li><strong><span class="tag tag-unk">미확인</span></strong> compose 파일에서 <code>restart</code> 정책을 다시 확인해야 한다. 정책이 없으면 “깨끗하게 죽은” 서버는 사람이 다시 띄울 때까지 그대로 멈춰 있다.</li>
+</ul>
+</li>
+<li><strong>오른쪽: 컨테이너 OOM.</strong> 힙은 여유가 있는데 힙 밖 메모리까지 합쳐 640MB를 넘은 경우다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> 이때는 JVM이 아니라 <strong>커널의 OOM killer</strong>가 나선다. 프로세스에 <code>SIGKILL</code>(9번 신호)을 보내 즉시 죽인다. JVM은 로그 한 줄 남길 기회도 없다.</li>
+<li>종료 코드는 <strong>137 = 128 + 9</strong>다. <code>docker inspect</code>에서 <code>OOMKilled: true</code>와 137을 보면 Java 로그가 아니라 메모리 설정을 의심해야 한다.</li>
+</ul>
+</li>
+<li><strong>왜 65%인가.</strong> <strong><span class="tag tag-int">해석</span></strong> 비율을 80%로 올리면 힙 밖에 남는 몫이 약 128MB로 줄어든다. Spring Boot 애플리케이션의 메타스페이스와 스레드 스택만으로도 그 정도를 쓰기 쉬워, 힙이 넉넉해 보이는데 커널이 죽이는 상황이 생긴다. 반대로 50%로 낮추면 컨테이너 OOM은 멀어지지만 GC가 더 자주 돌고 힙 OOM이 가까워진다. 65%는 그 사이의 절충이다.<ul>
+<li><strong><span class="tag tag-unk">미확인</span></strong> 이 숫자가 운영 부하에서 실제로 측정해 정한 값인지는 확인하지 못했다. 힙 밖 메모리를 실제로 재려면 <code>-XX:NativeMemoryTracking=summary</code>가 필요하다. 이 측정은 뒤의 실험 단계 후보로 둔다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-인증서는-누가-어떻게-갱신하는가-ACME-HTTP-01">7. 인증서는 누가, 어떻게 갱신하는가: ACME HTTP-01</h2>
+<p>HTTPS를 쓰려면 인증서가 있어야 하고, Let's Encrypt 인증서는 <strong>90일</strong>마다 만료된다. 사람이 손으로 갱신하면 언젠가 반드시 잊는다. 그래서 <strong>ACME</strong>라는 자동화 프로토콜을 쓴다. 핵심 질문은 하나다. “인증서를 요청한 사람이 정말 이 도메인의 주인인가?” HTTP-01 방식은 이것을 이렇게 증명한다.</p>
+<figure class="widget" data-title="acme_http01_webroot_renewal_flow"><svg width="100%" viewBox="0 0 680 380" role="img"><title>ACME HTTP-01 webroot 갱신 흐름</title><desc>systemd 타이머가 certbot을 실행하면 certbot이 Let's Encrypt에 토큰을 받아 공유 webroot 볼륨에 파일을 쓰고, Let's Encrypt가 80번 포트로 그 파일을 가져가 확인한 뒤 인증서를 발급한다. 새 인증서는 검증 뒤 nginx reload로 반영된다</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g class="c-gray"><rect x="20" y="30" width="150" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="95" y="50" text-anchor="middle" dominant-baseline="central">systemd timer</text>
+<text class="ts" x="95" y="70" text-anchor="middle" dominant-baseline="central">03:00 · 15:00</text></g>
+<g class="c-purple"><rect x="20" y="150" width="150" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="95" y="170" text-anchor="middle" dominant-baseline="central">certbot 컨테이너</text>
+<text class="ts" x="95" y="190" text-anchor="middle" dominant-baseline="central">digest 고정 이미지</text></g>
+<g class="c-teal"><rect x="265" y="150" width="150" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="170" text-anchor="middle" dominant-baseline="central">webroot 볼륨</text>
+<text class="ts" x="340" y="190" text-anchor="middle" dominant-baseline="central">nginx는 읽기 전용</text></g>
+<g class="c-blue"><rect x="265" y="290" width="150" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="310" text-anchor="middle" dominant-baseline="central">nginx :80</text>
+<text class="ts" x="340" y="330" text-anchor="middle" dominant-baseline="central">acme-challenge 경로</text></g>
+<g class="c-amber"><rect x="510" y="150" width="150" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="585" y="170" text-anchor="middle" dominant-baseline="central">Let's Encrypt</text>
+<text class="ts" x="585" y="190" text-anchor="middle" dominant-baseline="central">ACME 서버</text></g>
+<line x1="95" y1="86" x2="95" y2="148" stroke="var(--s)" stroke-width="1" marker-end="url(#ah)"/>
+<text class="ts" x="105" y="120">① 실행</text>
+<path d="M170 162 L508 162" fill="none" stroke="var(--s)" stroke-width="1" marker-end="url(#ah)"/>
+<text class="ts" x="420" y="154" text-anchor="middle">② 주문 · 토큰 받기</text>
+<line x1="170" y1="194" x2="263" y2="194" stroke="var(--s)" stroke-width="1" marker-end="url(#ah)"/>
+<text class="ts" x="216" y="226" text-anchor="middle">③ 토큰 파일 쓰기</text>
+<path d="M585 206 L585 318 L417 318" fill="none" stroke="var(--s)" stroke-width="1" marker-end="url(#ah)"/>
+<text class="ts" x="595" y="270">④ GET /.well-known/</text>
+<text class="ts" x="595" y="288">acme-challenge/토큰</text>
+<line x1="340" y1="288" x2="340" y2="208" stroke="var(--s)" stroke-width="1" marker-end="url(#ah)"/>
+<text class="ts" x="350" y="252">파일 읽기</text>
+<path d="M508 196 L440 196 L440 120 L180 120 L180 152" fill="none" stroke="var(--s)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#ah)"/>
+<text class="ts" x="310" y="112" text-anchor="middle">⑤ 확인 완료 · 인증서 발급 → 검증 후 nginx reload</text>
+</svg></figure>
+<p>그림의 각 단계는 앞에서 본 설정과 그대로 연결된다.</p>
+<ul>
+<li><strong>③④가 80번 포트를 남겨 둔 이유다.</strong> 3절의 HTTP server 블록은 도메인으로 온 요청을 모두 HTTPS로 301 리다이렉트하지만, <code>/.well-known/acme-challenge/</code>만은 예외로 <code>/var/www/certbot</code>에서 파일을 직접 내준다. 인증서가 만료돼 HTTPS가 깨진 상황에서도 갱신이 가능하도록 <strong>평문 HTTP로 증명할 길</strong>을 남겨 둔 것이다.</li>
+<li><strong>볼륨 공유와 읽기 전용.</strong> certbot 컨테이너는 webroot에 토큰을 쓰고, nginx는 같은 볼륨을 <code>:ro</code>로 읽기만 한다. 발급된 인증서가 들어 있는 <code>letsencrypt</code> 볼륨도 nginx에는 읽기 전용이다. <strong><span class="tag tag-int">해석</span></strong> nginx가 털려도 개인 키를 바꿔치기할 수 없다.</li>
+<li><strong>타이머 <code>03:00 · 15:00</code>, <code>Persistent=true</code>.</strong> certbot은 만료가 30일 이내로 남았을 때만 실제로 갱신하므로, 하루 두 번 실행해도 대부분은 “아직 갱신할 필요 없음”으로 끝난다. 하루 두 번 시도하는 것은 Let's Encrypt가 권장하는 방식이다. <strong><span class="tag tag-pri">원리</span></strong> <code>Persistent=true</code>는 서버가 꺼져 있던 동안 놓친 실행을 <strong>부팅 직후 한 번 따라잡게</strong> 한다. 일반 cron에는 이 기능이 없다.</li>
+<li><strong>reload-pending 상태 파일.</strong> <strong><span class="tag tag-ok">확인</span></strong> 갱신 스크립트는 실제로 인증서가 바뀌었고 검증이 통과한 경우에만 nginx를 reload한다. reload가 실패하면 그 사실을 상태 파일에 남겨, 다음 실행 때 reload를 다시 시도한다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> nginx는 인증서 파일을 <strong>시작하거나 reload할 때 한 번 읽어</strong> 메모리에 들고 있다. 디스크의 파일만 바뀌고 reload가 빠지면, 갱신은 “성공”했는데 nginx는 30일 뒤 만료될 옛 인증서를 계속 내보낸다. 이 실패는 만료일까지 아무도 모른다. 상태 파일은 이 <strong>조용한 실패</strong>를 막는 장치다.</li>
+<li><code>reload</code>는 <code>restart</code>와 다르다. nginx는 새 설정으로 새 worker를 띄우고, 옛 worker는 처리 중인 연결을 마친 뒤 종료한다. 그래서 인증서를 바꿀 때 <strong>연결이 끊기지 않는다</strong>.</li>
+</ul>
+</li>
+<li><strong>certbot 이미지를 digest로 고정.</strong> 태그(<code>latest</code>)는 같은 이름으로 내용이 바뀔 수 있지만, <code>@sha256:...</code> digest는 내용이 1비트만 달라도 값이 바뀐다. 인증서 개인 키를 다루는 도구가 어느 날 몰래 바뀌는 일을 막는다. proxy의 nginx 이미지도 같은 방식으로 고정돼 있다.</li>
+</ul>
+<blockquote>
+<p><strong>트레이드오프: 왜 DNS-01이 아니라 HTTP-01인가?</strong> <strong><span class="tag tag-int">해석</span></strong> DNS-01은 도메인의 DNS에 TXT 레코드를 써서 증명한다. 80번 포트를 열지 않아도 되고 와일드카드 인증서(<code>*.example.com</code>)도 받을 수 있다. 대신 DNS 제공자의 API 토큰을 서버에 두어야 하고, 그 토큰이 새면 도메인 전체를 빼앗길 수 있다. 이 서비스는 도메인이 하나이고 80번은 리다이렉트용으로 어차피 열려 있다. 그러니 <strong>비밀 정보를 하나 덜 두는 HTTP-01</strong>이 더 단순하고 안전하다.</p>
+</blockquote>
+<h2 id="8-배포와-운영-무엇을-했고-무엇을-일부러-미뤘나">8. 배포와 운영: 무엇을 했고, 무엇을 일부러 미뤘나</h2>
+<p>마지막으로 이 구조가 어떻게 배포되고, 어떤 위험을 받아들였는지 본다. 포트폴리오 면접에서 가장 많이 묻는 부분이다. “왜 이렇게 했나요?”보다 <strong>“이 구조의 약점이 뭔가요?”</strong> 를 더 자주 묻는다.</p>
+<pre><code class="language-yaml">backend:
+  image: ghcr.io/.../pawcycle-backend:${BACKEND_RELEASE_SHA:-${RELEASE_SHA}}
+</code></pre>
+<ul>
+<li><strong>이미지를 커밋 SHA로 부른다.</strong> <strong><span class="tag tag-ok">확인</span></strong> 이미지 태그가 <code>latest</code>가 아니라 커밋 SHA다. 어떤 코드가 운영에 떠 있는지 정확히 알 수 있다. 롤백은 “이전 SHA로 태그를 바꾸고 다시 올리기”가 된다.</li>
+<li><strong><code>${BACKEND_RELEASE_SHA:-${RELEASE_SHA}}</code>.</strong> 셸의 기본값 문법이다. backend 전용 SHA가 있으면 그것을, 없으면 공통 SHA를 쓴다. <strong><span class="tag tag-int">해석</span></strong> frontend는 그대로 두고 <strong>backend만 새 버전으로 바꾸는 배포</strong>가 가능하다. 3절에서 본 Nginx의 <code>resolve</code> 재해석이 이 배포의 전제다. 배포 쪽에서는 호스트가 바뀐 서비스만 반영하고, 위험한 변경(스키마 마이그레이션 등)은 별도로 확인받는 방향으로 다듬어졌다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/474" target="_blank" rel="noopener">PR #474</a>, <a href="https://github.com/guseoh/pawcycle-commerce/pull/486" target="_blank" rel="noopener">#486</a>, <a href="https://github.com/guseoh/pawcycle-commerce/pull/490" target="_blank" rel="noopener">#490</a>).</li>
+<li><strong>서버 한 대, 수동 배포.</strong> <strong><span class="tag tag-rec">기록</span></strong> 운영 대상은 OCI의 app01 한 대(1 OCPU / 6GB)다. 자동 배포(CD)와 무중단 배포는 <strong>의도적으로 미뤘다(DEFER)</strong>. 무료 등급 안에서 운영하려는 선택이었고, 다른 클라우드 대안을 비교한 결과다(<a href="https://github.com/guseoh/pawcycle-commerce/issues/276" target="_blank" rel="noopener">이슈 #276</a>).</li>
+<li><strong>DB는 컴포즈 밖에.</strong> MySQL은 관리형 서비스로 분리돼 있고, backend만 <code>database-egress</code> 네트워크로 나간다. <strong><span class="tag tag-int">해석</span></strong> 서버 한 대가 통째로 날아가도 <strong>데이터는 남는다</strong>. 컨테이너는 이미지와 설정으로 다시 만들 수 있지만 데이터는 다시 만들 수 없다. “상태가 있는 것과 없는 것을 분리한다”는 원칙이 서버 한 대 구조에서도 지켜진다.</li>
+<li><strong>관측 도구도 같은 서버에.</strong> 메트릭·로그 수집을 같은 호스트에 두었고, 앞에서 본 <code>app</code> 내부 네트워크는 그 과정에서도 느슨하게 풀지 않았다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/287" target="_blank" rel="noopener">PR #287</a>, <a href="https://github.com/guseoh/pawcycle-commerce/pull/293" target="_blank" rel="noopener">#293</a>).</li>
+</ul>
+<p>이 선택들이 받아들인 위험을 정리하면 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>받아들인 위험</th>
+<th>구체적으로 무슨 일이 생기나</th>
+<th>미룬 대안과 그 비용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>단일 장애 지점</strong></td>
+<td>호스트가 죽으면 proxy·frontend·backend가 함께 멈춘다</td>
+<td>서버 2대 + 로드 밸런서: 비용과 세션 공유 문제(세션이 서버 메모리에 있다)</td>
+</tr>
+<tr>
+<td><strong>배포 중 짧은 중단</strong></td>
+<td>backend 컨테이너를 교체하는 동안 <code>/api</code> 요청이 실패한다</td>
+<td>블루-그린 배포: 같은 서버에 두 벌을 띄울 메모리가 6GB에 빠듯하다</td>
+</tr>
+<tr>
+<td><strong>같은 곳에 있는 감시자</strong></td>
+<td>호스트가 죽으면 모니터링도 같이 죽어 <strong>장애 알림이 오지 않는다</strong></td>
+<td>외부 업타임 체크: 비용은 거의 없지만 아직 없다</td>
+</tr>
+<tr>
+<td><strong>사람이 하는 배포</strong></td>
+<td>절차를 빠뜨릴 수 있다</td>
+<td>CD 파이프라인: 운영 서버에 접근할 비밀을 CI에 맡겨야 한다</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>개선 우선순위 제안 <span class="tag tag-int">해석</span></strong> 비용 대비 효과로 보면 첫 번째는 <strong>외부 업타임 체크</strong>다. 돈이 거의 들지 않고, “같은 곳에 있는 감시자” 문제를 바로 해결한다. 세션 저장소를 Redis로 옮기는 것은 서버 2대로 가는 데 필요한 전제지만, 지금 트래픽 규모에서는 이르다. 세션 구조는 Security 파트에서 자세히 본다.</p>
+</blockquote>
+<p>마지막으로, 문서끼리 맞지 않는 부분이 하나 있다.</p>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span></strong> 운영 개요 문서는 운영 대상을 OCI app01로 적고, 2026-10-25에 읽기 전용으로 점검한 결과(컨테이너 healthy, 주요 GET 200, 인증서 갱신 타이머 동작)를 남겼다. 동시에 <strong>“Production Verified”는 아니라고</strong> 분명히 적어 두었다.</li>
+<li><strong><span class="tag tag-ok">확인</span></strong> 그런데 README에는 운영 대상이 “없음”으로 남아 있다. 어느 한쪽이 갱신되지 않은 <strong>문서 드리프트</strong>다.</li>
+<li>포트폴리오로 정리할 때는 이 차이를 정확히 말할 수 있어야 한다. “운영 중입니다”가 아니라 <strong>“단일 서버에 배포해 읽기 전용 점검까지 했고, 운영 검증 단계는 아니다”</strong> 가 사실에 맞는 표현이다.</li>
+</ul>
+<h2 id="2강-정리">2강 정리</h2>
+<ul>
+<li><strong>C4 System Context·Container 수준</strong>에서 PawCycle은 브라우저 → Nginx(proxy) → Next.js(frontend) / Spring(backend) → 관리형 MySQL 구조다. Toss와 OpenAI는 기본 설정에서 꺼져 있다.</li>
+<li><strong>네트워크 경계</strong>: 외부로 공개된 것은 proxy의 80/443뿐이다. <code>app</code> 네트워크는 <code>internal: true</code>라 backend는 인터넷에서 직접 닿을 수 없다. 이 경계 덕분에 <code>X-Forwarded-*</code> 헤더를 믿을 수 있다.</li>
+<li><strong>요청 한 번의 여정</strong>은 DNS → TCP 3-way → TLS(SNI·인증서 사슬·대칭키) → Nginx에서 TLS 종료 → Docker 내장 DNS(<code>127.0.0.11</code>) → backend 순이다.</li>
+<li><strong>Nginx 보안</strong>은 모르는 이름 거절(<code>444</code>, <code>ssl_reject_handshake</code>), 보안 헤더, 로그인 IP당 속도 제한(leaky bucket)이다.</li>
+<li><strong>컨테이너 = namespace(보이는 것) + cgroup(쓸 수 있는 양)</strong>: <code>read_only</code>, <code>tmpfs</code>, <code>no-new-privileges</code>, non-root, <code>pids_limit</code>(= 스레드 상한), <code>cpus</code>(= throttling, JVM의 CPU 수 판단과 GC 선택)다.</li>
+<li><strong>640MB = 힙 65% + 힙 밖 35%</strong>: 힙 OOM과 컨테이너 OOM(exit 137)은 원인과 대응이 다르다.</li>
+<li><strong>운영</strong>: SHA 이미지, 서비스별 배포, ACME HTTP-01 자동 갱신(reload-pending으로 조용한 실패 방지), 그리고 의도적으로 받아들인 단일 서버 위험.</li>
+</ul>
+<p><strong>2강에서 남긴 미확인 항목</strong> (뒤 강의나 실험 단계에서 확인한다)</p>
+<ul>
+<li>실제 GC 종류</li>
+<li>Tomcat 스레드 수와 가상 스레드 사용 여부</li>
+<li><code>restart</code> 정책</li>
+<li>Spring이 접속자 IP로 쓰는 <code>X-Forwarded-For</code> 값</li>
+<li>힙 밖 메모리 실측</li>
+</ul>
+<h2 id="보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</h2>
+<p>강의 뒤에 별도로 조사한 개인 기술 블로그 글이다. 모든 글은 직접 열어 제목·작성일·본문 그림을 확인했다. 티스토리 그림 주소에는 2026-11-30 만료 서명이 붙어 있어 그 이후에는 보이지 않을 수 있다(옛 <code>t1.daumcdn.net/cfile</code> 주소는 만료 없음).</p>
+<p><strong>TCP 연결과 TIME_WAIT</strong></p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>글</th>
+<th>작성일</th>
+<th>그림</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3-way / 4-way, TIME_WAIT를 두는 이유</td>
+<td><a href="https://je-rome.tistory.com/2" target="_blank" rel="noopener">Dev Journal · TCP 3 way handshake &amp; 4 way handshake</a></td>
+<td>2024</td>
+<td>2장</td>
+</tr>
+<tr>
+<td>3-way handshake 단계별</td>
+<td><a href="https://korshika.tistory.com/182" target="_blank" rel="noopener">코르시카 · 3 way handshake - 연결</a></td>
+<td>—</td>
+<td>4장</td>
+</tr>
+<tr>
+<td>TIME_WAIT 소켓</td>
+<td><a href="https://rygus.tistory.com/80" target="_blank" rel="noopener">rygus · TCP TIME_WAIT 소켓</a></td>
+<td>2026.1</td>
+<td>6장</td>
+</tr>
+</tbody>
+</table>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="TCP 3 way &amp; 4 way handshake 글의 본문 그림" src="https://blog.kakaocdn.net/dna/9Dam8/btsETWLjCHo/AAAAAAAAAAAAAAAAAAAAAGv3Pn_Kq8NrZGVjWsfe0YE2e8PeWyTSKxobQfQxhV74/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=TAvZ%2BuZugi6qo2Itilyut1cjoa8%3D" /></p>
+<p><em>출처: <a href="https://je-rome.tistory.com/2" target="_blank" rel="noopener">Dev Journal</a></em></p>
+<p><strong>DNS · HTTPS · 리버스 프록시</strong></p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>글</th>
+<th>그림</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DNS 계층, 재귀·반복 질의, 캐싱</td>
+<td><a href="https://oneonlee.tistory.com/107" target="_blank" rel="noopener">One Only · DNS</a></td>
+<td>3장</td>
+</tr>
+<tr>
+<td>DNS와 Route53</td>
+<td><a href="https://junhyunny.github.io/information/dns/aws/route53/dns-and-aws-route53/" target="_blank" rel="noopener">준현 · DNS와 AWS Route53</a></td>
+<td>7장</td>
+</tr>
+<tr>
+<td>HTTPS, 대칭·비대칭 키, 인증서</td>
+<td><a href="https://junhyunny.github.io/information/https/" target="_blank" rel="noopener">준현 · HTTPS</a></td>
+<td>8장</td>
+</tr>
+<tr>
+<td>TLS 핸드셰이크</td>
+<td><a href="https://gilbert9172.tistory.com/47" target="_blank" rel="noopener">gilbert9172 · SSL/TLS Handshake</a></td>
+<td>1장</td>
+</tr>
+<tr>
+<td>SSL/TLS 개념 정리</td>
+<td><a href="https://syy00.tistory.com/77" target="_blank" rel="noopener">쏭's blog · SSL/TLS</a></td>
+<td>1장</td>
+</tr>
+<tr>
+<td>포워드 vs 리버스 프록시</td>
+<td><a href="https://junhyunny.github.io/information/forward-reverse-proxy/" target="_blank" rel="noopener">준현 · 포워드/리버스 프록시</a></td>
+<td>3장</td>
+</tr>
+<tr>
+<td>Nginx 리버스 프록시 실습</td>
+<td><a href="https://junhyunny.github.io/nginx/spring-boot/docker/docker-compose/using-nginx-as-reverse-proxy/" target="_blank" rel="noopener">준현 · Nginx 리버스 프록시 활용하기</a></td>
+<td>3장</td>
+</tr>
+<tr>
+<td>포워드·리버스 프록시와 실습</td>
+<td><a href="https://jaylenhan.tistory.com/182" target="_blank" rel="noopener">AI의 정석 · 프록시 서버란?</a></td>
+<td>6장</td>
+</tr>
+</tbody>
+</table>
+<figure class="widget" data-title="lecture02_blog_images_dns_https_proxy"><h2 class="sr-only">2강 참고 블로그 그림: 준현 블로그의 DNS, HTTPS, 포워드·리버스 프록시 본문 그림</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:0.5rem 0">
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2025@main/dns-and-aws-route53-02.png" alt="DNS와 AWS Route53 글의 본문 그림 2" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">DNS 질의 흐름 · <a href="https://junhyunny.github.io/information/dns/aws/route53/dns-and-aws-route53/" target="_blank" rel="noopener">준현 · DNS와 Route53</a></figcaption></figure>
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2021@main/https-03.png" alt="HTTPS 글의 본문 그림 3" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">HTTPS 암호화 과정 · <a href="https://junhyunny.github.io/information/https/" target="_blank" rel="noopener">준현 · HTTPS</a></figcaption></figure>
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2023@main/forward-reverse-proxy-02.png" alt="포워드 리버스 프록시 글의 본문 그림 2" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">포워드 · 리버스 프록시 · <a href="https://junhyunny.github.io/information/forward-reverse-proxy/" target="_blank" rel="noopener">준현 · 포워드/리버스 프록시</a></figcaption></figure>
+</div></figure>
+<p><strong>컨테이너 · JVM · 인증서</strong></p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>글</th>
+<th>작성일</th>
+<th>그림</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>namespace · cgroup 원리</td>
+<td><a href="https://devboi.tistory.com/796" target="_blank" rel="noopener">devboi · 도커 컨테이너는 VM이 아니다</a></td>
+<td>2026.10</td>
+<td>6장</td>
+</tr>
+<tr>
+<td>namespace · cgroups · Union FS</td>
+<td><a href="https://mjlog.tistory.com/6" target="_blank" rel="noopener">mjlog · Docker는 어떻게 컨테이너를 만들까?</a></td>
+<td>2026.8</td>
+<td>2장</td>
+</tr>
+<tr>
+<td>JVM이 컨테이너 한도를 읽는 방식</td>
+<td><a href="https://braindetox.kr/posts/jvm_container_resource_limits.html" target="_blank" rel="noopener">Braindetox · JVM 컨테이너 리소스 제한</a></td>
+<td>2026</td>
+<td>없음</td>
+</tr>
+<tr>
+<td>Nginx + certbot 자동 갱신 구조</td>
+<td><a href="https://jsm77.tistory.com/62" target="_blank" rel="noopener">jsm77 · Cloudflare 526 장애로 배운 HTTPS 인증서 자동 갱신 구조</a></td>
+<td>2026.10</td>
+<td>없음(텍스트 도식)</td>
+</tr>
+</tbody>
+</table>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="도커 컨테이너는 VM이 아니다 글의 본문 그림" src="https://blog.kakaocdn.net/dna/u07Wk/dJMcagAxyIg/AAAAAAAAAAAAAAAAAAAAAB8-Bcb9bVSWDvMcfST7f1HPHowNHuD967unzQF4_f4S/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=U6aNxNHEa16q1apcPh699W44JZ4%3D" /></p>
+<p><em>출처: <a href="https://devboi.tistory.com/796" target="_blank" rel="noopener">devboi</a></em></p><nav class="pager"><a href="01강_서비스와_구조_개관.html">← 1강 서비스와 구조 개관</a><a href="00_1단계_전체.html">1단계 전체</a><a href="03강_비기능_요구와_위험_지도.html">3강 비기능 요구와 위험 지도 →</a></nav></main></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+</body></html>

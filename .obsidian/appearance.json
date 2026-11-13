@@ -4,5 +4,6 @@
     "obsidian-readability-style-settings",
     "more-callout",
     "table-style"
-  ]
+  ],
+  "showRibbon": true
 }

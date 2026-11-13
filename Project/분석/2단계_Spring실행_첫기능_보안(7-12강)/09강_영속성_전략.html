@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>9강. 영속성 전략: JPA, 네이티브 SQL, 트랜잭션, 그리고 MVCC</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+</style></head><body><div class="layout"><aside class="toc"><div class="toc-title">목차</div><ul><li><a href="#1-다섯-가지-도구-하나의-기준">1. 다섯 가지 도구, 하나의 기준</a></li><li><a href="#2-영속성-컨텍스트와-플러시-재고-예약-코드로-보기-깊게">2. 영속성 컨텍스트와 플러시: 재고 예약 코드로 보기 (깊게)</a></li><li><a href="#3-트랜잭션을-여는-두-가지-방법과-OSIV">3. 트랜잭션을 여는 두 가지 방법과 OSIV</a><ul><li><a href="#Transactional-메서드-전체가-하나의-트랜잭션">@Transactional: 메서드 전체가 하나의 트랜잭션</a></li><li><a href="#TransactionTemplate-한-메서드-안에서-여러-번-열고-닫기">TransactionTemplate: 한 메서드 안에서 여러 번 열고 닫기</a></li><li><a href="#격리-수준은-바깥-트랜잭션이-정한다">격리 수준은 “바깥 트랜잭션”이 정한다</a></li><li><a href="#OSIV를-끈-이유">OSIV를 끈 이유</a></li></ul></li><li><a href="#4-MVCC와-격리-수준-깊게">4. MVCC와 격리 수준 (깊게)</a><ul><li><a href="#읽기는-기다리지-않는다-다중-버전">읽기는 기다리지 않는다: 다중 버전</a></li><li><a href="#그래서-일어난-일-공유-SKU-재고-충돌">그래서 일어난 일: 공유 SKU 재고 충돌</a></li><li><a href="#간격-잠금-없는-행도-잠근다">간격 잠금: 없는 행도 잠근다</a></li></ul></li><li><a href="#9강-정리">9강 정리</a></li><li><a href="#보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</a></li></ul></aside><main><div class="crumbs"><a href="../index.html">분석</a> › <a href="00_2단계_전체.html">2단계 · Spring 실행 구조 · 첫 기능 · 보안</a> › 9강</div><nav class="pager"><a href="08강_요청_하나의_처리_경로.html">← 8강 요청 하나의 처리 경로</a><a href="00_2단계_전체.html">2단계 전체</a><a href="10강_회원_배송지_CRUD.html">10강 회원 배송지 CRUD →</a></nav><p class="meta">기준 커밋 <a href="https://github.com/guseoh/pawcycle-commerce/tree/f9ab9f87f610908501b864f45b8bc5f7caf2d8d0" target="_blank" rel="noopener"><code>f9ab9f87</code></a> · 저장소는 읽기만 했고 테스트·서버는 실행하지 않았다 · 티스토리 그림은 2026-11-30 이후 깨질 수 있다</p><div class="legend"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div><h1 id="9강-영속성-전략-JPA-네이티브-SQL-트랜잭션-그리고-MVCC">9강. 영속성 전략: JPA, 네이티브 SQL, 트랜잭션, 그리고 MVCC</h1>
+<p><strong>이번 강의의 목표</strong></p>
+<ul>
+<li>PawCycle이 JPA, JPQL, Querydsl, 네이티브 SQL, JdbcTemplate을 <strong>어떤 기준으로</strong> 나눠 쓰는지 안다.</li>
+<li>영속성 컨텍스트, 플러시, 벌크 UPDATE의 관계를 코드로 이해한다.</li>
+<li>트랜잭션을 <code>@Transactional</code>과 <code>TransactionTemplate</code> 두 방식으로 여는 이유, 그리고 OSIV를 끈 이유를 안다.</li>
+<li><strong>MySQL InnoDB의 MVCC와 격리 수준</strong>을 깊게 이해한다. 그리고 그것이 재고 충돌 사고와 어떻게 이어졌는지 본다.</li>
+</ul>
+<h2 id="1-다섯-가지-도구-하나의-기준">1. 다섯 가지 도구, 하나의 기준</h2>
+<p><strong><span class="tag tag-ok">확인</span></strong> 기준 커밋의 운영 코드를 세어 보면 영속성 도구가 이렇게 섞여 있다.</p>
+<table>
+<thead>
+<tr>
+<th>도구</th>
+<th>사용량</th>
+<th>주로 쓰는 곳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@Entity</code> / <code>JpaRepository</code></td>
+<td>엔티티 54개, 리포지토리 36개</td>
+<td>장바구니, 체크아웃, 결제, 카탈로그 관리</td>
+</tr>
+<tr>
+<td><code>EntityManager</code> (네이티브 SQL 포함)</td>
+<td>39개 파일</td>
+<td>구독 V2 저장소, upsert, <code>FOR UPDATE</code></td>
+</tr>
+<tr>
+<td>Querydsl <code>JPAQueryFactory</code></td>
+<td>11개 파일</td>
+<td>선택 조건이 많은 조회(추천, 패싯)</td>
+</tr>
+<tr>
+<td><code>JdbcTemplate</code></td>
+<td><strong>9개 파일</strong></td>
+<td>전부 유지보수·로컬 픽스처·마이그레이션·성능 측정</td>
+</tr>
+<tr>
+<td>트랜잭션</td>
+<td><code>@Transactional</code> 257곳(읽기 전용 110), <code>TransactionTemplate</code> 13개 파일</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>JdbcTemplate</code>이 9개 파일에만, 그것도 <strong>일반 요청 경로 밖에만</strong> 남은 것은 우연이 아니다. <strong><span class="tag tag-rec">기록</span></strong> 10월 8일 사용자가 승인한 결정은 다음과 같다.</p>
+<ul>
+<li>일반 런타임(고객, 스케줄러, 관리자, 운영, 추천, 구독)의 직접 <code>JdbcTemplate</code> 소유자를 <strong>0</strong>으로 만든다.</li>
+<li>JPA/Spring Data를 <strong>기본</strong> 경계로 삼는다.</li>
+<li>다만 MySQL 고유 <code>UPSERT</code>, <code>FOR UPDATE</code>, 조건부 UPDATE, 잠금 순서처럼 <strong>의미가 정밀한 SQL</strong>은 <code>EntityManager</code> 네이티브 SQL로 <strong>근거를 남기고 유지</strong>한다.</li>
+</ul>
+<p>같은 결정이 명시적으로 <strong>승인하지 않은</strong> 것도 있다.</p>
+<ul>
+<li>JdbcTemplate SQL을 네이티브 SQL로 <strong>이름만 바꾸는</strong> 활동</li>
+<li>“네이티브 SQL 0개”라는 목표</li>
+</ul>
+<p>이유는 결정 기록의 한 문장에 있다.</p>
+<blockquote>
+<p>SQL을 단지 JPA API로 감싼다고 MySQL의 <code>FOR UPDATE</code>, missing-row/gap, unique/CAS, microsecond timestamp, provider I/O의 의미가 같아지는 것은 아니다.</p>
+</blockquote>
+<p>그래서 도구 선택 기준은 <strong>“쿼리의 성격”</strong> 이다.</p>
+<ul>
+<li><strong>엔티티 상태 전이</strong>(결제 <code>READY → PROCESSING</code>, 장바구니 수량 변경) → JPA 엔티티 + 리포지토리</li>
+<li><strong>고정된 조회</strong>(주문 목록 8종, 멤버십) → 타입 있는 JPQL</li>
+<li><strong>조건이 선택적으로 붙는 조회</strong>(추천 필터) → Querydsl</li>
+<li><strong>MySQL만의 문법이나 정밀한 잠금</strong>(<code>ON DUPLICATE KEY UPDATE</code>, <code>UNION</code>과 <code>JSON_TABLE</code>이 섞인 운영 조회 16종, <code>FOR UPDATE</code> 순서) → 네이티브 SQL</li>
+<li><strong>일반 요청 경로 밖의 도구</strong>(픽스처 적재, 일회성 이행, 부하 측정) → JdbcTemplate 유지. 그 격리는 7강의 ArchUnit <code>runtime-maintenance</code> 규칙이 지킨다.</li>
+</ul>
+<p><strong><span class="tag tag-rec">기록</span> Querydsl을 전면에 쓰지 않은 이유.</strong> 7.7 버전을 패싯 조회 한 곳에 <strong>시범 적용</strong>했다. 기존 SQL과 결과가 같고 SELECT가 한 번인지 비교한 뒤, <strong>범위를 제한해 유지</strong>했다. 단순 고정 조회까지 Querydsl로 바꾸면 Q타입 보일러플레이트만 늘기 때문이다. 이것도 4강의 YAGNI가 도구 선택에 적용된 예다.</p>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://wikidocs.net/298010" target="_blank" rel="noopener">위키독스 · OSIV의 진실: 성능인가, 편의성인가</a>: 이 강의 3절의 OSIV와, DTO로 조회하는 습관의 근거</li>
+</ul>
+<h2 id="2-영속성-컨텍스트와-플러시-재고-예약-코드로-보기-깊게">2. 영속성 컨텍스트와 플러시: 재고 예약 코드로 보기 (깊게)</h2>
+<p>JPA의 핵심 개념인 <strong>영속성 컨텍스트</strong>(persistence context)부터 짚자.</p>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> <code>EntityManager</code>는 트랜잭션 동안 조회한 엔티티를 <strong>1차 캐시</strong>에 보관한다. 같은 ID를 다시 조회하면 SQL 없이 캐시에서 돌려준다.</li>
+<li>엔티티의 필드를 바꾸면 <strong>즉시 UPDATE하지 않는다</strong>. 커밋 직전(또는 JPQL 실행 직전)에 처음 상태와 비교해(dirty checking) 바뀐 것만 SQL로 내보낸다. 이 내보내기를 <strong>플러시</strong>(flush)라 한다.</li>
+<li>편리하지만, <strong>DB와 메모리가 잠시 어긋나는 구간</strong>이 생긴다. 그 구간을 정확히 다뤄야 하는 코드가 재고 예약이다.</li>
+</ul>
+<pre><code class="language-java">// commerce/inventory/persistence/InventoryRepository.java
+@Lock(LockModeType.PESSIMISTIC_WRITE)                               // ① 잠금 읽기
+@Query(&quot;select inventory from InventoryEntity inventory where inventory.skuId = :skuId&quot;)
+Optional&lt;InventoryEntity&gt; findLockedBySkuId(@Param(&quot;skuId&quot;) long skuId);
+
+@Modifying(flushAutomatically = true, clearAutomatically = true)   // ③ 벌크 UPDATE 앞뒤 처리
+@Query(&quot;&quot;&quot;
+    update InventoryEntity inventory
+    set inventory.availableQuantity = inventory.availableQuantity - :quantity,
+        inventory.reservedQuantity  = inventory.reservedQuantity  + :quantity,
+        inventory.version = inventory.version + 1
+    where inventory.skuId = :skuId
+      and inventory.version = :expectedVersion                     -- ② CAS
+      and inventory.availableQuantity &gt;= :quantity
+    &quot;&quot;&quot;)
+int reserveIfVersionMatches(...);
+</code></pre>
+<pre><code class="language-java">// commerce/inventory/application/InventoryService.java
+public void reserve(long skuId, int quantity, long paymentId) {
+  InventoryEntity inventory = inventories.findLockedBySkuId(skuId).orElse(null);   // SELECT ... FOR UPDATE
+  if (inventory == null || inventory.availableQuantity() &lt; quantity) throw ... &quot;INVENTORY_INSUFFICIENT&quot;;
+  int changed = inventories.reserveIfVersionMatches(skuId, quantity, inventory.version());
+  if (changed != 1) throw ... &quot;INVENTORY_CONFLICT&quot;;
+  movements.save(InventoryMovementEntity.payment(skuId, paymentId, ...));           // 재고 이동 이력
+}
+</code></pre>
+<ul>
+<li><strong>① <code>PESSIMISTIC_WRITE</code></strong> 는 SQL로 <code>SELECT ... FOR UPDATE</code>가 된다. 이 행을 다른 트랜잭션이 바꾸지 못하게 <strong>커밋까지 잠근다</strong>.</li>
+<li><strong>② CAS</strong>: <code>WHERE version = :expectedVersion</code>. 읽은 뒤 누가 바꿨다면 영향받은 행이 0이 되고 <code>INVENTORY_CONFLICT</code>가 된다. 재고 부족 조건(<code>availableQuantity &gt;= :quantity</code>)도 <strong>같은 UPDATE 안에서</strong> 다시 검사한다.</li>
+<li><strong>③ 벌크 UPDATE와 영속성 컨텍스트.</strong> <strong><span class="tag tag-pri">원리</span></strong> <code>@Modifying</code> JPQL은 엔티티를 거치지 않고 <strong>DB에 바로</strong> 실행된다. 영속성 컨텍스트는 이 변경을 모른다. 그래서 두 옵션이 필요하다.<ul>
+<li><code>flushAutomatically = true</code>: UPDATE <strong>전에</strong> 아직 내보내지 않은 엔티티 변경을 먼저 플러시한다. 순서가 뒤집히지 않는다.</li>
+<li><code>clearAutomatically = true</code>: UPDATE <strong>후에</strong> 1차 캐시를 비운다. 그러지 않으면 ①에서 읽은 <code>inventory</code> 객체가 <strong>옛 수량</strong>을 가진 채 남는다. 이후 코드가 그 값을 다시 읽으면 DB와 다른 숫자를 쓰게 된다.</li>
+<li>그래서 코드는 UPDATE <strong>전에</strong> <code>availableBefore</code>, <code>reservedBefore</code>를 미리 변수에 담아 이동 이력에 쓴다. 캐시가 비워진 뒤 객체를 다시 믿지 않는 것이다.</li>
+</ul>
+</li>
+</ul>
+<p>그런데 이상한 점이 있다. ①에서 이미 행을 잠갔으니 ②의 CAS는 절대 실패하지 않아야 한다. <strong>왜 둘 다 있을까?</strong> 이 질문의 답이 5절의 MVCC다.</p>
+<h2 id="3-트랜잭션을-여는-두-가지-방법과-OSIV">3. 트랜잭션을 여는 두 가지 방법과 OSIV</h2>
+<h3 id="Transactional-메서드-전체가-하나의-트랜잭션"><code>@Transactional</code>: 메서드 전체가 하나의 트랜잭션</h3>
+<p>8강에서 본 구독 명령처럼, 메서드 경계가 곧 트랜잭션 경계인 경우다. 대부분(257곳)이 이 방식이다. 조회 메서드 110곳은 <code>readOnly = true</code>를 붙였다.</p>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> <code>readOnly = true</code>면 Hibernate는 플러시를 생략하고, 변경 감지를 위한 스냅샷을 만들지 않아 메모리를 아낀다.</li>
+<li>JDBC 드라이버에도 읽기 전용 힌트가 전달된다. MySQL은 읽기 전용 트랜잭션에 트랜잭션 ID를 할당하지 않아 내부 비용이 조금 줄어든다.</li>
+</ul>
+<h3 id="TransactionTemplate-한-메서드-안에서-여러-번-열고-닫기"><code>TransactionTemplate</code>: 한 메서드 안에서 여러 번 열고 닫기</h3>
+<p><strong><span class="tag tag-ok">확인</span></strong> 13개 서비스가 <code>TransactionTemplate</code>을 쓴다. 결제 승인, 정기결제, 환불, 취소, 반품, 배송, 체크아웃, 구독 대사다. 공통점은 <strong>외부 결제사 호출이 끼어 있다</strong>는 것이다. 결제 승인 코드가 그 이유를 가장 잘 보여 준다.</p>
+<pre><code class="language-java">// commerce/payment/application/PaymentApplicationService.java (발췌)
+public PaymentResult confirm(long memberId, String paymentKey, String providerOrderId, BigDecimal amount) {
+  PaymentWork work = transaction.execute(status -&gt; {                         // 트랜잭션 ①
+    PaymentWork payment = payments.findByProviderOrderIdForUpdate(providerOrderId, memberId);
+    if (payment == null) throw notFound();
+    if (&quot;SUCCEEDED&quot;.equals(payment.status()) &amp;&amp; ... ) return payment;        // 이미 성공 → 재생
+    if (!&quot;READY&quot;.equals(payment.status()) || !&quot;PAYMENT_PENDING&quot;.equals(payment.orderStatus())
+        || payment.amount().compareTo(amount) != 0)
+      throw new CommerceException(409, &quot;PAYMENT_CONFIRM_CONFLICT&quot;, ...);
+    payments.markProcessing(payment.paymentId(), paymentKey);                // READY → PROCESSING
+    return payment;
+  });                                                                        // 커밋 · 커넥션 반납
+
+  TossPaymentAdapter.ConfirmResult result;
+  try {
+    result = tossPaymentAdapter.confirm(paymentKey, providerOrderId, amount);  // 외부 호출: 트랜잭션 밖
+  } catch (RuntimeException exception) {
+    return transaction.execute(status -&gt; markProviderUnknown(work.paymentId()));   // 트랜잭션 ② 모름
+  }
+  return transaction.execute(status -&gt; finalizePayment(work.paymentId(), result.status(), paymentKey)); // ② 확정
+}
+</code></pre>
+<ul>
+<li><strong>외부 호출 동안 DB 커넥션을 쥐지 않는다.</strong> 토스 응답이 몇 초 걸려도, 그동안 커넥션과 <code>FOR UPDATE</code> 잠금은 이미 풀려 있다. <code>@Transactional</code> 하나로 메서드 전체를 감쌌다면 결제사 지연이 그대로 <strong>커넥션 풀 고갈과 잠금 대기</strong>로 번진다. 3강의 HikariCP 이야기, 5강 MVP3 구조 정리의 “외부 Provider I/O는 트랜잭션 밖”이 바로 이 코드다.</li>
+<li><strong>5강 미확인 항목의 답.</strong> 5강에서 “<code>PaymentEntity.markProcessing</code>은 이전 상태를 검사하지 않는데, <code>READY</code>에서만 <code>PROCESSING</code>으로 가는 규칙은 어디서 지키는가?”를 남겼다. <strong><span class="tag tag-ok">확인</span></strong> 답은 트랜잭션 ① 안이다. <code>FOR UPDATE</code>로 결제와 주문을 함께 잠근 상태에서 <code>READY</code> / <code>PAYMENT_PENDING</code> / 금액 일치를 확인한다. 하나라도 어긋나면 409다. 엔티티가 아니라 <strong>잠금 아래의 서비스</strong>가 전이를 지킨다.</li>
+<li><strong>대가: 트랜잭션 사이의 틈.</strong> ①이 커밋된 뒤 ②가 시작되기 전에 서버가 죽으면 결제는 <code>PROCESSING</code>에 남는다. 3강 위험 지도 1순위였던 <code>PROCESSING</code> 고립 문제(<a href="https://github.com/guseoh/pawcycle-commerce/issues/417" target="_blank" rel="noopener">이슈 #417</a>)가 정확히 이 틈이다. <strong>커넥션을 쥐지 않는 이득과 상태가 갈라질 위험을 맞바꾼 것</strong>이고, 18·19강에서 복구 설계를 본다.</li>
+</ul>
+<h3 id="격리-수준은-바깥-트랜잭션이-정한다">격리 수준은 “바깥 트랜잭션”이 정한다</h3>
+<p>두 곳이 기본값이 아닌 격리 수준을 쓴다. 그중 카테고리 관리 코드의 주석이 중요한 함정을 알려 준다.</p>
+<pre><code class="language-java">// catalog/admin/application/AdminCatalogMutationService.java (발췌)
+// The audit owner must set isolation too: a REQUIRED inner service joins this transaction.
+@Transactional(isolation = Isolation.READ_COMMITTED)
+public CategoryView createCategory(long adminId, CategoryCreateCommand request) {
+  return execute(adminId, &quot;CATALOG_CATEGORY_CREATE&quot;, &quot;CATEGORY&quot;,
+      () -&gt; adminCatalogService.createCategory(request), CategoryView::categoryId);
+}
+</code></pre>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> 격리 수준은 트랜잭션을 <strong>시작할 때 한 번</strong> 정해진다. 안쪽 서비스(<code>AdminCatalogService.createCategory</code>)에도 <code>READ_COMMITTED</code>가 붙어 있다. 하지만 바깥 감사 서비스가 이미 트랜잭션을 열었다면, 안쪽은 기본 전파 <code>REQUIRED</code>로 <strong>참여만</strong> 한다. 안쪽에 적힌 격리 수준은 <strong>조용히 무시된다</strong>.</li>
+<li>그래서 트랜잭션을 실제로 여는 바깥쪽(감사 기록 소유자)에도 같은 격리 수준을 적었다. 주석이 정확히 그 이유를 말한다.</li>
+<li><strong><span class="tag tag-rec">기록</span></strong> 이 변경은 카테고리 2단계 깊이 불변식과 동시성 보호 작업(<a href="https://github.com/guseoh/pawcycle-commerce/issues/416" target="_blank" rel="noopener">이슈 #416</a>)에서 들어왔다. 카테고리를 다른 부모 아래로 옮길 때 이미 자식이 있으면 3단계가 생길 수 있었고, 동시 생성·이동과의 경쟁도 함께 막아야 했다.</li>
+<li><strong><span class="tag tag-unk">미확인</span></strong> 왜 하필 <code>READ_COMMITTED</code>를 골랐는지 직접 적은 문장은 찾지 못했다. <strong><span class="tag tag-int">해석</span></strong> 5절을 읽고 나면 이유를 추론할 수 있다. 자식 존재 여부를 검사할 때 <strong>가장 최근에 커밋된 상태</strong>를 봐야 하고, <code>REPEATABLE READ</code>의 간격 잠금으로 인한 교착도 줄이려는 선택으로 보인다.</li>
+</ul>
+<h3 id="OSIV를-끈-이유">OSIV를 끈 이유</h3>
+<p>1강에서 본 <code>spring.jpa.open-in-view=false</code>의 의미를 이제 정확히 말할 수 있다. 위키독스의 <a href="https://wikidocs.net/298010" target="_blank" rel="noopener">「OSIV의 진실」</a>이 정리한 핵심은 두 가지다.</p>
+<ul>
+<li>OSIV가 켜져 있으면 HTTP 요청의 시작부터 끝까지 <strong>DB 커넥션을 물고</strong> 있게 된다.</li>
+<li>컨트롤러나 JSON 변환 중에 지연 로딩이 일어나 <strong>의도하지 않은 SQL</strong>(N+1)이 생긴다.</li>
+</ul>
+<p>글은 운영에서는 꺼야 하고, 그때 나는 <code>LazyInitializationException</code>은 숨겨진 문제를 드러내는 “건강한 예외”라고 말한다.</p>
+<p>한 가지는 정밀하게 보충해야 한다.</p>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> Spring의 OSIV는 요청 내내 <strong>트랜잭션</strong>을 유지하는 것이 아니다. <strong><code>EntityManager</code>(영속성 컨텍스트)</strong> 를 열어 두는 것이다. 서비스의 <code>@Transactional</code>이 끝나면 트랜잭션은 커밋된다.</li>
+<li>그 뒤 컨트롤러에서 일어나는 지연 로딩은 <strong>트랜잭션 없이</strong>(자동 커밋 모드로) 실행된다.</li>
+<li>그리고 <code>EntityManager</code>가 처음 커넥션을 얻은 순간부터 닫힐 때까지 <strong>커넥션을 놓지 않는다</strong>. 이것이 커넥션 점유의 실제 원인이다.</li>
+</ul>
+<p>PawCycle은 8강에서 본 대로 “완성된 View → 커밋 후 DTO 조립”으로 이 문제를 구조적으로 피했다. 그리고 응답 조립 중 SQL이 0회임을 테스트로 지킨다.</p>
+<blockquote>
+<p><strong>작은 발견 <span class="tag tag-int">해석</span></strong> 리뷰 요약 저장 코드(<code>ReviewSummaryQueryRepository.saveSummaryIfCurrent</code>)에 “OpenEntityManagerInView가 AI 호출 이전의 엔티티 값을 1차 캐시에 들고 있을 수 있다”는 주석이 있다. 현재 설정은 OSIV가 꺼져 있으므로 이 이유는 그대로 맞지 않는다. 다만 “같은 영속성 컨텍스트의 1차 캐시가 오래된 값을 줄 수 있으니 잠금 SQL로 다시 읽는다”는 <strong>결론 자체는 여전히 옳다</strong>. 주석의 근거만 낡은 것이다. 15강에서 이 코드를 다시 본다.</p>
+</blockquote>
+<h2 id="4-MVCC와-격리-수준-깊게">4. MVCC와 격리 수준 (깊게)</h2>
+<p>이제 2절의 질문으로 돌아가자. 잠금 읽기를 했는데 왜 CAS도 필요하고, 실제로 CAS 충돌이 났을까? 답을 위해 InnoDB가 동시성을 다루는 방식부터 이해해야 한다.</p>
+<h3 id="읽기는-기다리지-않는다-다중-버전">읽기는 기다리지 않는다: 다중 버전</h3>
+<p><strong><span class="tag tag-pri">원리</span></strong> InnoDB는 행을 고칠 때 이전 값을 <strong>undo 로그</strong>에 남긴다. 그래서 같은 행의 <strong>여러 버전</strong>이 잠시 공존한다. 이것이 MVCC(Multi-Version Concurrency Control)다.</p>
+<ul>
+<li>잠금 없는 일반 <code>SELECT</code>는 <strong>스냅샷</strong>을 읽는다. 다른 트랜잭션이 그 행을 고치는 중이어도 <strong>기다리지 않고</strong>, 자기 시점에 보이는 버전을 undo 로그에서 찾아 읽는다.</li>
+<li>“읽기가 쓰기를 막지 않고, 쓰기가 읽기를 막지 않는다.” 동시성이 높은 이유다.</li>
+</ul>
+<p>문제는 <strong>어느 시점의 스냅샷인가</strong>다. MySQL 공식 문서 <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-consistent-read.html" target="_blank" rel="noopener">「Consistent Nonlocking Reads」</a>가 정확히 적는다.</p>
+<ul>
+<li><strong>REPEATABLE READ (InnoDB 기본값)</strong>: 같은 트랜잭션 안의 모든 일반 읽기는 <strong>그 트랜잭션의 첫 읽기가 만든 스냅샷</strong>을 계속 본다.</li>
+<li><strong>READ COMMITTED</strong>: 일반 읽기마다 <strong>새 스냅샷</strong>을 만든다. 매번 최신 커밋 상태를 본다.</li>
+</ul>
+<p>그리고 같은 문서는 결정적인 문장을 덧붙인다.</p>
+<blockquote>
+<p>스냅샷은 트랜잭션 안의 SELECT에 적용되며, 반드시 DML에 적용되는 것은 아니다. … 다른 REPEATABLE READ 트랜잭션의 DELETE나 UPDATE는 방금 커밋된 행들에 영향을 줄 수 있다. 그 세션이 그 행들을 조회로는 볼 수 없었더라도. (요지)</p>
+</blockquote>
+<p>즉 REPEATABLE READ에서는 <strong>같은 트랜잭션 안에서 두 개의 다른 세계</strong>를 본다.</p>
+<ul>
+<li>일반 <code>SELECT</code>는 <strong>과거 스냅샷</strong>을 본다.</li>
+<li><code>UPDATE</code>, <code>DELETE</code>, <code>SELECT ... FOR UPDATE</code>(잠금 읽기)는 <strong>최신 커밋 버전</strong>을 보고, 잠근다.</li>
+</ul>
+<h3 id="그래서-일어난-일-공유-SKU-재고-충돌">그래서 일어난 일: 공유 SKU 재고 충돌</h3>
+<p>이 차이가 PawCycle에서 실제 문제를 일으켰다. <strong><span class="tag tag-rec">기록</span></strong> 같은 SKU를 여러 주문이 동시에 체크아웃하는 부하에서 <code>INVENTORY_CONFLICT</code>가 쏟아졌고, <a href="https://github.com/guseoh/pawcycle-commerce/pull/336" target="_blank" rel="noopener">PR #336</a>이 이를 고쳤다.</p>
+<ul>
+<li>그 전 코드는 재고를 <strong>일반 SELECT</strong>로 읽고(버전 5), CAS UPDATE(<code>WHERE version = 5</code>)를 했다.</li>
+<li>체크아웃 트랜잭션은 앞에서 이미 회원 행, 장바구니 등을 읽었다. 그래서 REPEATABLE READ의 스냅샷은 <strong>트랜잭션 초반에</strong> 고정돼 있었다.</li>
+<li>그 사이 다른 체크아웃이 같은 SKU 재고를 커밋해 버전이 6이 됐다. 그래도 이 트랜잭션의 일반 SELECT는 <strong>여전히 버전 5</strong>를 보여 준다.</li>
+<li>그런데 UPDATE는 <strong>최신 버전 6</strong>을 기준으로 <code>WHERE version = 5</code>를 평가한다. 영향받은 행은 0, 즉 <strong>CAS 실패</strong>다.</li>
+<li>결과적으로 재고가 충분한데도 “재고가 변경되었습니다”가 반복됐다. 오래된 스냅샷과 최신 DML이 <strong>서로 다른 세계를 보고 있었기</strong> 때문이다.</li>
+</ul>
+<p>그림으로 정리하면 이렇다.</p>
+<figure class="widget" data-title="repeatable_read_stale_snapshot_cas_conflict"><svg width="100%" viewBox="0 0 680 430" role="img"><title>REPEATABLE READ 스냅샷과 CAS 충돌</title><desc>트랜잭션 A가 초반에 첫 읽기로 스냅샷을 고정한다. 트랜잭션 B가 같은 SKU 재고를 예약해 버전 6으로 커밋한다. A의 일반 SELECT는 스냅샷 때문에 여전히 버전 5를 보고, UPDATE WHERE version 5는 최신 버전 6에 대해 평가되어 0행이 된다. 개선 후에는 A가 SELECT FOR UPDATE로 잠금 읽기를 하므로 최신 버전 6을 보고 B가 끝날 때까지 기다린 뒤 CAS가 성공한다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="170" y="28" text-anchor="middle">트랜잭션 A (체크아웃)</text>
+<text class="th" x="510" y="28" text-anchor="middle">트랜잭션 B (다른 체크아웃)</text>
+<line x1="170" y1="40" x2="170" y2="250" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="510" y1="40" x2="510" y2="250" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<g class="c-gray"><rect x="40" y="48" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="170" y="68" text-anchor="middle" dominant-baseline="central">첫 읽기(회원·장바구니) → 스냅샷 고정</text></g>
+<g class="c-teal"><rect x="380" y="98" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="510" y="118" text-anchor="middle" dominant-baseline="central">재고 예약 · version 5→6 · COMMIT</text></g>
+<g class="c-amber"><rect x="40" y="148" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="170" y="168" text-anchor="middle" dominant-baseline="central">일반 SELECT 재고 → version 5 (과거)</text></g>
+<g class="c-red"><rect x="40" y="198" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="170" y="218" text-anchor="middle" dominant-baseline="central">UPDATE … WHERE version=5 → 0행</text></g>
+<path d="M300 218 L340 218 L340 118 L378 118" fill="none" stroke="#E24B4A" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+<text class="ts" x="350" y="176">최신 버전 6을</text>
+<text class="ts" x="350" y="192">기준으로 평가</text>
+<line x1="40" y1="266" x2="640" y2="266" stroke="var(--b)" stroke-width="0.5"/>
+<text class="th" x="340" y="290" text-anchor="middle">PR #336 이후</text>
+<g class="c-purple"><rect x="40" y="306" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="170" y="326" text-anchor="middle" dominant-baseline="central">SELECT … FOR UPDATE → B 커밋까지 대기</text></g>
+<g class="c-purple"><rect x="40" y="356" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="170" y="376" text-anchor="middle" dominant-baseline="central">최신 version 6을 읽음 → CAS 성공</text></g>
+<g class="c-gray"><rect x="380" y="306" width="260" height="90" rx="8" stroke-width="0.5"/><text class="ts" x="510" y="336" text-anchor="middle" dominant-baseline="central">잠금 읽기는 스냅샷이 아니라</text><text class="ts" x="510" y="356" text-anchor="middle" dominant-baseline="central">최신 커밋 버전을 읽는다</text><text class="ts" x="510" y="376" text-anchor="middle" dominant-baseline="central">→ 같은 SKU 예약이 줄을 선다</text></g>
+<line x1="170" y1="346" x2="170" y2="354" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+</svg></figure>
+<p>이제 2절의 질문에 답할 수 있다. <strong>잠금 읽기(①)가 진짜 해결책이고, CAS(②)는 이력상 먼저 있던 방어선</strong>이다.</p>
+<ul>
+<li><strong><span class="tag tag-rec">기록</span></strong> 순서는 CAS가 먼저였고, 잠금 읽기는 PR #336에서 <strong>나중에</strong> 추가됐다. 잠금 읽기가 최신 버전을 읽고 행을 잠그므로, 같은 트랜잭션 안의 CAS는 정상 경로에서는 실패하지 않는다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> 그래도 CAS를 지우지 않은 이유는 <strong>방어선을 겹치는 것이 싸기 때문</strong>이다. 누군가 나중에 <code>findLockedBySkuId</code>를 일반 조회로 바꿔도 이중 예약은 일어나지 않는다. 대신 충돌 오류로 드러난다. 조건(<code>availableQuantity &gt;= :quantity</code>)이 UPDATE 안에 있는 것도 같은 이유다.</li>
+</ul>
+<p>같은 문제를 푸는 다른 방법들과 비교하면 선택의 의미가 보인다.</p>
+<table>
+<thead>
+<tr>
+<th>방법</th>
+<th>동작</th>
+<th>이 코드에서의 평가 <strong><span class="tag tag-int">해석</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>잠금 읽기 + CAS</strong> (현재)</td>
+<td><code>FOR UPDATE</code>로 최신 값을 잠그고 읽은 뒤 조건부 UPDATE</td>
+<td>같은 SKU 예약이 <strong>줄을 선다</strong>. 충돌 오류는 사라지는 대신 대기가 생긴다. 인기 SKU에서는 이 대기가 처리량 상한이 된다.</td>
+</tr>
+<tr>
+<td>READ COMMITTED로 전환</td>
+<td>일반 SELECT도 매번 최신 스냅샷</td>
+<td>읽기와 UPDATE 사이에 <strong>여전히 틈</strong>이 있어 CAS 충돌은 줄 뿐 사라지지 않는다. 트랜잭션 전체의 의미도 바뀐다.</td>
+</tr>
+<tr>
+<td>낙관적 잠금 + 재시도</td>
+<td>충돌하면 처음부터 다시</td>
+<td>결제·쿠폰·장바구니가 한 트랜잭션이라 재시도 범위가 크다. 인기 SKU에서는 재시도 폭주가 난다.</td>
+</tr>
+<tr>
+<td>읽지 않고 조건부 UPDATE 한 번</td>
+<td><code>UPDATE … SET available = available - n WHERE available &gt;= n</code></td>
+<td>가장 짧다. 하지만 이동 이력에 남길 “이전 값”을 얻으려면 다시 읽어야 하고, <code>version</code> 의미도 사라진다.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="간격-잠금-없는-행도-잠근다">간격 잠금: 없는 행도 잠근다</h3>
+<p>REPEATABLE READ에는 하나가 더 있다. <strong><span class="tag tag-pri">원리</span></strong> 잠금 읽기와 UPDATE·DELETE는 찾은 행만 잠그지 않는다. <strong>인덱스상 그 행들 사이의 간격</strong>까지 잠근다(next-key lock = 레코드 잠금 + 간격 잠금). 그 범위에 <strong>새 행이 끼어드는 것</strong>(팬텀)을 막기 위해서다. READ COMMITTED는 대부분의 간격 잠금을 쓰지 않는다.</p>
+<p>PawCycle에는 이 성질을 <strong>의도적으로 쓴 곳</strong>과 <strong>당한 곳</strong>이 둘 다 있다.</p>
+<ul>
+<li><strong>의도적으로 쓴 곳</strong>: 리뷰 요약 저장.</li>
+</ul>
+<pre><code class="language-java">// catalog/engagement/persistence/ReviewSummaryQueryRepository.java (발췌)
+@Transactional(isolation = Isolation.REPEATABLE_READ)
+public boolean saveSummaryIfCurrent(long productId, ...) {
+  // The product_id index range includes hidden reviews and protects concurrent inserts
+  // through InnoDB next-key locks at this method's explicit REPEATABLE READ isolation.
+  entityManager.createNativeQuery(&quot;&quot;&quot;
+      SELECT id, rating, content, updated_at, visible
+      FROM reviews FORCE INDEX (ix_reviews_product_visible_created)
+      WHERE product_id = :productId FOR UPDATE
+      &quot;&quot;&quot;, Tuple.class) ...
+</code></pre>
+<pre><code>- AI 요약을 만드는 동안 새 리뷰가 달리면, 요약은 **이미 낡은** 것이 된다.
+- 저장 직전에 그 상품의 리뷰 **범위 전체**를 next-key 잠금으로 잡는다. 그러면 저장이 끝날 때까지 **새 리뷰 INSERT가 끼어들 수 없다**. 그 상태에서 “요약을 만들 때 본 리뷰 = 지금 리뷰”인지 비교하고, 같을 때만 저장한다.
+- 격리 수준을 메서드에 **명시**하고, `FORCE INDEX`로 잠글 인덱스 범위까지 고정했다. 옵티마이저가 다른 인덱스를 고르면 잠금 범위가 달라지기 때문이다. 15강에서 다시 본다.
+</code></pre>
+<ul>
+<li><strong>당한 곳</strong>: 3강에서 본 체크아웃 멱등 행 교착(<a href="https://github.com/guseoh/pawcycle-commerce/pull/332" target="_blank" rel="noopener">PR #332</a>).<ul>
+<li><strong>아직 없는</strong> 멱등 키를 <code>FOR UPDATE</code>로 조회하면, 행이 없으니 그 자리의 <strong>간격</strong>이 잠긴다.</li>
+<li>서로 다른 회원 둘이 같은 간격을 잠근 뒤 각자 INSERT하려 하면, 서로의 간격 잠금을 기다리며 <strong>교착</strong>이 난다.</li>
+<li>그래서 그 잠금을 제거했다. 같은 메커니즘이 한 곳에서는 보호막이고 다른 곳에서는 함정이었던 것이다.</li>
+</ul>
+</li>
+</ul>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-consistent-read.html" target="_blank" rel="noopener">MySQL 8.0 Reference · Consistent Nonlocking Reads</a>: REPEATABLE READ 스냅샷과 DML이 다른 세계를 보는 이유의 원문(영문)</li>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html" target="_blank" rel="noopener">MySQL 8.0 Reference · Transaction Isolation Levels</a>: 격리 수준별 잠금 범위와 간격 잠금(영문)</li>
+<li><a href="https://wikidocs.net/298010" target="_blank" rel="noopener">위키독스 · OSIV의 진실</a>: OSIV를 끄고 DTO로 조회하는 습관</li>
+</ul>
+<h2 id="9강-정리">9강 정리</h2>
+<ul>
+<li><strong>도구 선택 기준은 쿼리의 성격이다.</strong><ul>
+<li>엔티티 상태 전이 → JPA</li>
+<li>고정 조회 → JPQL</li>
+<li>선택 조건 → Querydsl(범위 제한)</li>
+<li>MySQL 고유 문법·정밀 잠금 → 네이티브 SQL</li>
+<li>일반 경로 밖 도구 → JdbcTemplate</li>
+<li>“네이티브 0개”는 목표가 아니다. <strong>SQL의 의미를 보존하는 것</strong>이 목표다.</li>
+</ul>
+</li>
+<li><strong>영속성 컨텍스트</strong>: 벌크 <code>@Modifying</code> UPDATE는 1차 캐시를 거치지 않는다. 그래서 <code>flushAutomatically</code>(앞)와 <code>clearAutomatically</code>(뒤)가 필요하고, 비운 뒤에는 옛 객체를 믿지 않는다.</li>
+<li><strong>트랜잭션 두 방식</strong><ul>
+<li><code>@Transactional</code>은 메서드 단위다.</li>
+<li><code>TransactionTemplate</code>은 외부 결제사 호출을 <strong>트랜잭션 밖으로</strong> 빼기 위해 쓴다. 대가는 <code>PROCESSING</code> 고립 틈이다.</li>
+<li>격리 수준은 <strong>트랜잭션을 여는 바깥쪽</strong>이 정한다. 안쪽 <code>REQUIRED</code>의 격리 수준은 무시된다.</li>
+</ul>
+</li>
+<li><strong>OSIV를 끈 이유</strong>: 요청 내내 <strong>커넥션</strong>을 쥐고, 뷰에서 예측 못 한 SQL이 나가기 때문이다. 트랜잭션이 아니라 <code>EntityManager</code>가 열려 있는 것이다.</li>
+<li><strong>MVCC</strong><ul>
+<li>REPEATABLE READ의 일반 SELECT는 <strong>첫 읽기의 스냅샷</strong>을, UPDATE와 잠금 읽기는 <strong>최신 커밋</strong>을 본다.</li>
+<li>이 차이가 재고 CAS 충돌을 만들었고, 잠금 읽기 추가(PR #336)로 풀었다. CAS는 겹친 방어선으로 남았다.</li>
+</ul>
+</li>
+<li><strong>간격 잠금</strong>: 리뷰 요약은 이것으로 새 리뷰 끼어들기를 막았고, 체크아웃 멱등 행은 이것 때문에 교착이 났다.</li>
+<li><strong>5강 미확인 해결</strong>: <code>READY → PROCESSING</code> 전이는 결제 엔티티가 아니라, <code>FOR UPDATE</code> 아래의 서비스 조건문(트랜잭션 ①)이 지킨다.</li>
+</ul>
+<p><strong>9강에서 남긴 미확인 항목</strong></p>
+<ul>
+<li>카테고리 관리에서 <code>READ_COMMITTED</code>를 고른 직접적인 이유</li>
+<li>공유 SKU 잠금 읽기 이후 인기 SKU의 대기 시간과 처리량 측정치(28강)</li>
+<li>리뷰 요약 주석의 OSIV 언급이 남은 경위(15강)</li>
+</ul>
+<h2 id="보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</h2>
+<p>강의 뒤에 별도로 조사한 개인 기술 블로그 글이다. 모든 글은 직접 열어 제목·작성일·본문 그림을 확인했다. 티스토리 그림 주소에는 2026-11-30 만료 서명이 붙어 있어 그 이후에는 보이지 않을 수 있다(옛 <code>t1.daumcdn.net/cfile</code> 주소는 만료 없음).</p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>글</th>
+<th>작성일</th>
+<th>그림</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MVCC, 낙관적·비관적 동시성 제어</td>
+<td><a href="https://mangkyu.tistory.com/53" target="_blank" rel="noopener">망나니개발자 · MVCC란?</a></td>
+<td>—</td>
+<td>3장</td>
+</tr>
+<tr>
+<td>MVCC와 Undo Log, ReadView</td>
+<td><a href="https://cactuslog.tistory.com/39" target="_blank" rel="noopener">cactuslog · MVCC 깊게 이해하기</a></td>
+<td>2025.3</td>
+<td>1장 이상</td>
+</tr>
+<tr>
+<td>레코드 · 갭 · 넥스트 키 락</td>
+<td><a href="https://mangkyu.tistory.com/298" target="_blank" rel="noopener">망나니개발자 · 스토리지 엔진 수준의 락의 종류</a></td>
+<td>2023.5</td>
+<td>5장</td>
+</tr>
+<tr>
+<td>갭 락과 넥스트 키 락</td>
+<td><a href="https://idea-sketch.tistory.com/46" target="_blank" rel="noopener">idea-sketch · MySQL 벼락치기(5) 갭락과 넥스트 키 락</a></td>
+<td>2018.9</td>
+<td>8장</td>
+</tr>
+<tr>
+<td>트랜잭션 격리 수준</td>
+<td><a href="https://junhyunny.github.io/information/transcation-isolation/" target="_blank" rel="noopener">준현 · 트랜잭션 격리성 특징</a></td>
+<td>2021</td>
+<td>6장</td>
+</tr>
+<tr>
+<td>영속성 컨텍스트와 엔티티 생명주기</td>
+<td><a href="https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/" target="_blank" rel="noopener">준현 · 영속성 컨텍스트와 엔티티 생명주기</a></td>
+<td>2021</td>
+<td>2장</td>
+</tr>
+<tr>
+<td>1차 캐시 · 변경 감지 · 쓰기 지연</td>
+<td><a href="https://jangabc3.tistory.com/158" target="_blank" rel="noopener">주농의 하루 · JPA 영속성 컨텍스트란?</a></td>
+<td>2026.10</td>
+<td>4장</td>
+</tr>
+<tr>
+<td>플러시와 FlushModeType</td>
+<td><a href="https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/" target="_blank" rel="noopener">준현 · JPA 플러쉬</a></td>
+<td>2021</td>
+<td>없음</td>
+</tr>
+<tr>
+<td>OSIV</td>
+<td><a href="https://junhyunny.github.io/spring-mvc/jpa/open-session-in-view/" target="_blank" rel="noopener">준현 · OSIV</a></td>
+<td>2022</td>
+<td>12장</td>
+</tr>
+<tr>
+<td>전파 타입(REQUIRED, REQUIRES_NEW)</td>
+<td><a href="https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/" target="_blank" rel="noopener">준현 · @Transactional 전파 타입</a></td>
+<td>2021</td>
+<td>9장</td>
+</tr>
+<tr>
+<td>낙관적·비관적 락 개념</td>
+<td><a href="https://junhyunny.github.io/information/database/database-lock/lock-mechanism/" target="_blank" rel="noopener">준현 · 데이터베이스 락</a></td>
+<td>2021</td>
+<td>2장</td>
+</tr>
+<tr>
+<td>교착 상태 조건과 해결</td>
+<td><a href="https://junhyunny.github.io/information/operating-system/dead-lock/" target="_blank" rel="noopener">준현 · 교착 상태(deadlock)</a></td>
+<td>2021</td>
+<td>4장</td>
+</tr>
+</tbody>
+</table>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="MVCC란? 글의 본문 그림" src="https://blog.kakaocdn.net/dna/YYwAw/btqAhqpozl2/AAAAAAAAAAAAAAAAAAAAAHEfjDNYYdwqwyw-8TO4dlNt0v11YJkSlPhovYkuwAvE/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=sIQ5fqGUWxakHkk70qUrTQz2gwk%3D" /></p>
+<p><em>출처: <a href="https://mangkyu.tistory.com/53" target="_blank" rel="noopener">망나니개발자 · MVCC란?</a></em></p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="MVCC 깊게 이해하기 글의 본문 그림" src="https://blog.kakaocdn.net/dna/kXStc/btsM2Xt7InY/AAAAAAAAAAAAAAAAAAAAAIt19JYnzTjmq8Bbw6Sn3lZ5CNzBERrxHqxHod85eCz3/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=sktmgxqWF3rdyJpg1J7UbgaLiX8%3D" /></p>
+<p><em>출처: <a href="https://cactuslog.tistory.com/39" target="_blank" rel="noopener">cactuslog · MVCC 깊게 이해하기</a></em></p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="갭락과 넥스트 키 락 글의 본문 그림" src="https://t1.daumcdn.net/cfile/tistory/99EE76445B895C831B" /></p>
+<p><em>출처: <a href="https://idea-sketch.tistory.com/46" target="_blank" rel="noopener">idea-sketch · 갭락과 넥스트 키 락</a>(만료 없는 옛 주소)</em></p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="스토리지 엔진 수준의 락의 종류 글의 본문 그림" src="https://blog.kakaocdn.net/dna/bmVaIl/btsMJzBEnOz/AAAAAAAAAAAAAAAAAAAAAH7lIrQj1McISXIJMKT0Atkn5TyLoPsieSQ9lwMwjsPb/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=nBFNenVSwKp1Gp%2Bh0J3bLToAK%2FA%3D" /></p>
+<p><em>출처: <a href="https://mangkyu.tistory.com/298" target="_blank" rel="noopener">망나니개발자 · 락의 종류</a></em></p>
+<figure class="widget" data-title="lecture09_blog_images_jpa_isolation_lock"><h2 class="sr-only">9강 참고 블로그 그림: 준현 블로그의 영속성 컨텍스트, OSIV, 트랜잭션 격리 수준, 교착 상태 본문 그림</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:0.5rem 0">
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2021@main/jpa-persistence-context-01.png" alt="영속성 컨텍스트와 엔티티 생명주기 글의 본문 그림 1" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">영속성 컨텍스트 · <a href="https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/" target="_blank" rel="noopener">준현 · 영속성 컨텍스트</a></figcaption></figure>
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2022@main/open-session-in-view-01.png" alt="OSIV 글의 본문 그림 1" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">OSIV · <a href="https://junhyunny.github.io/spring-mvc/jpa/open-session-in-view/" target="_blank" rel="noopener">준현 · OSIV</a></figcaption></figure>
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2021@main/transcation-isolation-01.png" alt="트랜잭션 격리성 특징 글의 본문 그림 1" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">트랜잭션 격리 수준 · <a href="https://junhyunny.github.io/information/transcation-isolation/" target="_blank" rel="noopener">준현 · 트랜잭션 격리성</a></figcaption></figure>
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2021@main/dead-lock-01.png" alt="교착 상태 글의 본문 그림 1" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">교착 상태 · <a href="https://junhyunny.github.io/information/operating-system/dead-lock/" target="_blank" rel="noopener">준현 · 교착 상태</a></figcaption></figure>
+</div></figure><nav class="pager"><a href="08강_요청_하나의_처리_경로.html">← 8강 요청 하나의 처리 경로</a><a href="00_2단계_전체.html">2단계 전체</a><a href="10강_회원_배송지_CRUD.html">10강 회원 배송지 CRUD →</a></nav></main></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+</body></html>

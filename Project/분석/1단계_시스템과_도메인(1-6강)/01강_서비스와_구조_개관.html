@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>1강. PawCycle Commerce는 무엇이고, 어떻게 생겼는가</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+</style></head><body><div class="layout"><aside class="toc"><div class="toc-title">목차</div><ul><li><a href="#이번-강의에서-설명할-수-있게-되는-것">이번 강의에서 설명할 수 있게 되는 것</a></li><li><a href="#1-이-서비스가-푸는-문제-반복-구매">1. 이 서비스가 푸는 문제: 반복 구매</a></li><li><a href="#2-도메인-판단이-스키마에-남긴-흔적-깊게">2. 도메인 판단이 스키마에 남긴 흔적 (깊게)</a><ul><li><a href="#1차-MVP의-구독-SKU-하나를-고르는-단순한-약속">1차 MVP의 구독: SKU 하나를 고르는 단순한 약속</a></li><li><a href="#2차-MVP의-구독-스냅샷으로-약속을-고정한다">2차 MVP의 구독: 스냅샷으로 약속을 고정한다</a></li><li><a href="#멱등성-테이블이-네-개라는-것의-의미">멱등성 테이블이 네 개라는 것의 의미</a></li></ul></li><li><a href="#3-어떻게-자라-왔는가">3. 어떻게 자라 왔는가</a></li><li><a href="#4-실행하면-무엇이-떠-있는가-깊게">4. 실행하면 무엇이 떠 있는가 (깊게)</a><ul><li><a href="#요청의-길">요청의 길</a></li><li><a href="#컨테이너-설정이-말해-주는-운영-판단">컨테이너 설정이 말해 주는 운영 판단</a></li><li><a href="#Compose에-없는-것">Compose에 없는 것</a></li><li><a href="#애플리케이션-설정이-말해-주는-것">애플리케이션 설정이 말해 주는 것</a></li><li><a href="#시작점에-숨은-운영-도구">시작점에 숨은 운영 도구</a></li><li><a href="#지금-운영-중인가-정정">지금 운영 중인가: 정정</a></li></ul></li><li><a href="#5-코드는-어떻게-나뉘어-있는가-깊게">5. 코드는 어떻게 나뉘어 있는가 (깊게)</a><ul><li><a href="#패키지를-나누는-두-방식">패키지를 나누는 두 방식</a></li><li><a href="#PawCycle의-선택-도메인-먼저-그-안에서-계층">PawCycle의 선택: 도메인 먼저, 그 안에서 계층</a></li><li><a href="#규칙을-테스트로-강제한다">규칙을 테스트로 강제한다</a></li><li><a href="#도메인-사이의-경계는-아직-느슨하다">도메인 사이의 경계는 아직 느슨하다</a></li></ul></li><li><a href="#6-기술-스택과-그-선택-근거-요약">6. 기술 스택과 그 선택 근거 (요약)</a></li><li><a href="#7-문서와-결정-기록을-읽는-법-짧게">7. 문서와 결정 기록을 읽는 법 (짧게)</a></li><li><a href="#1강을-마치며-이제-설명할-수-있어야-하는-것">1강을 마치며: 이제 설명할 수 있어야 하는 것</a></li><li><a href="#보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</a></li><li><a href="#보강-참고-자료-문서화-때-추가">보강 참고 자료 (문서화 때 추가)</a></li></ul></aside><main><div class="crumbs"><a href="../index.html">분석</a> › <a href="00_1단계_전체.html">1단계 · 시스템과 도메인</a> › 1강</div><nav class="pager"><span></span><a href="00_1단계_전체.html">1단계 전체</a><a href="02강_C4와_배포_구조.html">2강 C4와 배포 구조 →</a></nav><p class="meta">기준 커밋 <a href="https://github.com/guseoh/pawcycle-commerce/tree/f9ab9f87f610908501b864f45b8bc5f7caf2d8d0" target="_blank" rel="noopener"><code>f9ab9f87</code></a> · 저장소는 읽기만 했고 테스트·서버는 실행하지 않았다 · 티스토리 그림은 2026-11-30 이후 깨질 수 있다</p><div class="legend"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div><h1 id="1강-PawCycle-Commerce는-무엇이고-어떻게-생겼는가">1강. PawCycle Commerce는 무엇이고, 어떻게 생겼는가</h1>
+<blockquote>
+<p>기준: GitHub <code>main</code> = <code>f9ab9f87</code> (2026-11-12) · 깊이: L1 전체 지도
+표시: <strong><span class="tag tag-ok">확인</span></strong> 코드·설정·DDL · <strong><span class="tag tag-rec">기록</span></strong> 승인 문서·PR·이슈·결정 기록 · <strong><span class="tag tag-int">해석</span></strong> 내 판단 · <strong><span class="tag tag-unk">미확인</span></strong></p>
+</blockquote>
+<h2 id="이번-강의에서-설명할-수-있게-되는-것">이번 강의에서 설명할 수 있게 되는 것</h2>
+<ul>
+<li>PawCycle이 어떤 문제를 푸는 서비스이고, 왜 <strong>정기배송</strong>이 도메인의 중심인가</li>
+<li>그 도메인 판단이 <strong>DB 스키마에 어떤 모양으로 남았는가</strong> (가장 깊게 다룸)</li>
+<li>실행하면 <strong>어떤 컨테이너가 어떻게 연결</strong>되어 떠 있는가</li>
+<li>코드가 <strong>도메인 → 계층</strong> 순서로 나뉜 방식과, 그 규칙을 <strong>테스트로 강제하는 방법</strong></li>
+<li>기술 스택 각각을 <strong>왜 골랐는지</strong>, 근거가 어디에 있는가</li>
+</ul>
+<p>중요도에 따라 깊이를 다르게 했다. 2절(도메인이 스키마에 남긴 흔적)과 4절(실행 구성), 5절(코드 구조)을 깊게 다루고, 나머지는 지도를 그리는 수준으로 짧게 간다.</p>
+<hr />
+<h2 id="1-이-서비스가-푸는-문제-반복-구매">1. 이 서비스가 푸는 문제: 반복 구매</h2>
+<p>PawCycle은 사료·간식·모래·배변 패드 같은 <strong>반려동물 소모품</strong>을 파는 커머스다. 이 상품군의 특징은 한 번 사고 끝나지 않는다는 것이다. 사료는 몇 주마다 떨어지므로 같은 물건을 정해진 주기로 계속 받고 싶은 수요가 생긴다. 그래서 이 프로젝트에는 구매 흐름이 두 개 있다.</p>
+<p>위 <strong>두 번째 그림(두 구매 흐름)</strong> 이 그 구조다.</p>
+<ul>
+<li><strong>일반 구매(청록)</strong>: 장바구니에 담고 → 체크아웃에서 재고·쿠폰을 <strong>예약</strong>하고 → 토스 결제 승인에서 <strong>확정</strong>하고 → 배송한다.</li>
+<li><strong>정기배송(보라)</strong>: 플랜을 고르고 → 구독을 만들 때 가격·구성을 <strong>스냅샷으로 고정</strong>하고 → 회차가 오면 → 스케줄러가 자동으로 주문을 만들고 → 정기결제한다.</li>
+<li><strong>공유 기반(회색)</strong>: 두 흐름은 회원, 상품·SKU, 재고, 결제 테이블을 함께 쓴다. <strong><span class="tag tag-ok">확인</span></strong> 결제 테이블은 <code>type</code> 컬럼으로 일반 결제(<code>NORMAL</code>)와 정기결제(<code>BILLING</code>)를 구분한다. 결제 대사 코드가 이 값으로 분기한다.</li>
+</ul>
+<p>도메인 용어 가운데 코드를 읽을 때 반드시 구분해야 하는 것만 추리면 다음과 같다.</p>
+<figure class="widget" data-title="pawcycle_two_purchase_flows"><svg width="100%" viewBox="0 0 680 360" role="img"><title>일반 구매와 정기배송 흐름</title><desc>일반 구매는 장바구니, 체크아웃, 결제 승인, 배송으로, 정기배송은 플랜 선택, 구독 생성, 회차 도래, 자동 주문, 정기결제로 이어지고 둘은 회원, 상품과 SKU, 재고, 결제 테이블을 공유한다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="ts" x="40" y="36">일반 구매 · 3차 MVP</text>
+<g class="c-teal"><rect x="40" y="50" width="120" height="56" rx="8" stroke-width="0.5"/><text class="th" x="100" y="68" text-anchor="middle" dominant-baseline="central">장바구니</text><text class="ts" x="100" y="88" text-anchor="middle" dominant-baseline="central">예약 없음</text></g>
+<g class="c-teal"><rect x="200" y="50" width="120" height="56" rx="8" stroke-width="0.5"/><text class="th" x="260" y="68" text-anchor="middle" dominant-baseline="central">체크아웃</text><text class="ts" x="260" y="88" text-anchor="middle" dominant-baseline="central">재고·쿠폰 예약</text></g>
+<g class="c-teal"><rect x="360" y="50" width="120" height="56" rx="8" stroke-width="0.5"/><text class="th" x="420" y="68" text-anchor="middle" dominant-baseline="central">결제 승인</text><text class="ts" x="420" y="88" text-anchor="middle" dominant-baseline="central">토스 · 확정</text></g>
+<g class="c-teal"><rect x="520" y="50" width="120" height="56" rx="8" stroke-width="0.5"/><text class="th" x="580" y="68" text-anchor="middle" dominant-baseline="central">배송</text><text class="ts" x="580" y="88" text-anchor="middle" dominant-baseline="central">준비 · 완료</text></g>
+<line x1="160" y1="78" x2="198" y2="78" class="arr" marker-end="url(#arrow)"/>
+<line x1="320" y1="78" x2="358" y2="78" class="arr" marker-end="url(#arrow)"/>
+<line x1="480" y1="78" x2="518" y2="78" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="40" y="176">정기배송 · 1·2차 MVP와 자동화</text>
+<g class="c-purple"><rect x="40" y="190" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="92" y="208" text-anchor="middle" dominant-baseline="central">플랜 선택</text><text class="ts" x="92" y="228" text-anchor="middle" dominant-baseline="central">PlanVersion</text></g>
+<g class="c-purple"><rect x="164" y="190" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="216" y="208" text-anchor="middle" dominant-baseline="central">구독 생성</text><text class="ts" x="216" y="228" text-anchor="middle" dominant-baseline="central">스냅샷 고정</text></g>
+<g class="c-purple"><rect x="288" y="190" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="340" y="208" text-anchor="middle" dominant-baseline="central">회차 도래</text><text class="ts" x="340" y="228" text-anchor="middle" dominant-baseline="central">Schedule</text></g>
+<g class="c-purple"><rect x="412" y="190" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="464" y="208" text-anchor="middle" dominant-baseline="central">자동 주문</text><text class="ts" x="464" y="228" text-anchor="middle" dominant-baseline="central">스케줄러</text></g>
+<g class="c-purple"><rect x="536" y="190" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="588" y="208" text-anchor="middle" dominant-baseline="central">정기결제</text><text class="ts" x="588" y="228" text-anchor="middle" dominant-baseline="central">Billing</text></g>
+<line x1="144" y1="218" x2="162" y2="218" class="arr" marker-end="url(#arrow)"/>
+<line x1="268" y1="218" x2="286" y2="218" class="arr" marker-end="url(#arrow)"/>
+<line x1="392" y1="218" x2="410" y2="218" class="arr" marker-end="url(#arrow)"/>
+<line x1="516" y1="218" x2="534" y2="218" class="arr" marker-end="url(#arrow)"/>
+<rect class="box" x="40" y="286" width="600" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="308" text-anchor="middle" dominant-baseline="central">공유 기반 · 회원 · 상품/SKU · 재고 · 결제(payments)</text>
+</svg></figure>
+<table>
+<thead>
+<tr>
+<th>용어</th>
+<th>뜻</th>
+<th>구분하는 이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>상품 · SKU</td>
+<td>상품은 “연어 사료”, SKU는 “연어 사료 2kg”</td>
+<td>가격·재고·주문은 SKU에 걸린다</td>
+</tr>
+<tr>
+<td>판매 상태 · 구독 가능 여부</td>
+<td>일반 구매로 팔 수 있는가 · 정기배송 대상으로 고를 수 있는가</td>
+<td><strong><span class="tag tag-rec">기록</span></strong> 1차 MVP부터 별개 개념으로 정의했다</td>
+</tr>
+<tr>
+<td>플랜 · 플랜 버전</td>
+<td>종별 패키지 상품 · 그 가격과 구성의 한 판</td>
+<td>가격이 바뀌면 버전을 새로 만든다</td>
+</tr>
+<tr>
+<td>스냅샷</td>
+<td>가입 시점의 가격·구성 복사본</td>
+<td>플랜이 바뀌어도 기존 고객 조건을 지킨다</td>
+</tr>
+<tr>
+<td>회차 · 정기 주문</td>
+<td>예정된 배송 · 그 회차를 실제로 처리한 결과</td>
+<td>한 회차에 주문은 최대 하나</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-도메인-판단이-스키마에-남긴-흔적-깊게">2. 도메인 판단이 스키마에 남긴 흔적 (깊게)</h2>
+<p>도메인 설명을 문서로만 읽으면 추상적이다. 이 프로젝트에서는 <strong>마이그레이션 파일이 도메인 결정의 화석</strong>이다. 같은 <code>subscriptions</code> 테이블이 1차 MVP와 2차 MVP에서 어떻게 달라졌는지 보면 도메인이 어떻게 자랐는지가 그대로 보인다.</p>
+<h3 id="1차-MVP의-구독-SKU-하나를-고르는-단순한-약속">1차 MVP의 구독: SKU 하나를 고르는 단순한 약속</h3>
+<pre><code class="language-sql">-- backend/src/main/resources/db/migration/V2__create_subscriptions.sql
+CREATE TABLE subscriptions (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    member_id BIGINT NOT NULL,
+    sku_id BIGINT NOT NULL,
+    quantity INT NOT NULL,
+    delivery_cycle_weeks INT NOT NULL,
+    created_date DATE NOT NULL,
+    next_order_date DATE NOT NULL,
+    ...
+    CONSTRAINT chk_subscriptions_quantity CHECK (quantity BETWEEN 1 AND 10),
+    CONSTRAINT chk_subscriptions_delivery_cycle CHECK (delivery_cycle_weeks IN (2, 4, 8)),
+    CONSTRAINT chk_subscriptions_date_order CHECK (next_order_date &gt; created_date)
+);
+</code></pre>
+<p>이 DDL은 1차 MVP 요구사항(PS-002)을 거의 한 줄씩 옮긴 것이다.</p>
+<ul>
+<li><code>sku_id</code> 하나 → <strong><span class="tag tag-rec">기록</span></strong> “구독 하나는 SKU 하나만 대상으로 한다”</li>
+<li><code>quantity BETWEEN 1 AND 10</code> → “구독 수량은 1~10”</li>
+<li><code>delivery_cycle_weeks IN (2, 4, 8)</code> → “배송 주기는 2주, 4주, 8주”</li>
+<li><code>next_order_date &gt; created_date</code> → “다음 주문 예정일 = 생성일 + 배송 주기”</li>
+</ul>
+<p><strong><span class="tag tag-int">해석</span></strong> 규칙을 애플리케이션 코드뿐 아니라 <strong>DB의 CHECK 제약에도 걸어 둔 것</strong>이 이 프로젝트의 습관이다. 코드에 버그가 있거나 누군가 SQL로 직접 넣어도 규칙을 어기는 행은 저장되지 않는다. <strong><span class="tag tag-rec">기록</span></strong> 결정 기록 PWC-0044는 여기서 한 가지를 더 구분한다. 도메인 코드는 “정확히 생성일 + 주기”라는 등식을 검사하고, DB는 “예정일이 생성일보다 뒤”라는 순서만 검사한다. DB 제약은 최후 방어선이고, 정확한 규칙은 도메인이 가진다는 역할 분담이다.</p>
+<h3 id="2차-MVP의-구독-스냅샷으로-약속을-고정한다">2차 MVP의 구독: 스냅샷으로 약속을 고정한다</h3>
+<p>2차 MVP에서 구독은 “SKU 하나”가 아니라 “종별 패키지 플랜”을 구독하는 것으로 바뀌었다. 핵심 문제는 이것이다. <strong>판매자가 플랜 가격을 올리면, 이미 가입한 고객의 다음 결제 금액도 바뀌어야 하는가?</strong> <strong><span class="tag tag-rec">기록</span></strong> 2차 MVP 요구사항(PS-004)의 답은 “아니다”였다. 가격·구성 변경은 새 플랜 버전으로만 하고, 기존 구독 가격은 자동으로 바꾸지 않는다.</p>
+<pre><code class="language-sql">-- V3__add_second_mvp_subscription_schema.sql (발췌)
+CREATE TABLE plan_versions (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    plan_id BIGINT NOT NULL,
+    package_price_krw BIGINT NOT NULL,
+    ...
+);
+ALTER TABLE subscription_plans
+    ADD CONSTRAINT fk_subscription_plans_current_version
+        FOREIGN KEY (current_plan_version_id, id) REFERENCES plan_versions (id, plan_id);
+
+CREATE TABLE subscription_snapshots (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    subscription_id BIGINT NULL,
+    source_plan_version_id BIGINT NOT NULL,
+    package_total_krw BIGINT NOT NULL,
+    delivery_cycle_weeks INT NOT NULL,
+    ...
+);
+CREATE TABLE subscription_schedules (
+    ...
+    effective_snapshot_id BIGINT NULL,
+    CONSTRAINT uk_schedules_subscription_date UNIQUE (subscription_id, scheduled_date),
+    CONSTRAINT chk_schedules_status CHECK (status IN ('SCHEDULED', 'SKIPPED', 'HELD', 'CANCELED'))
+);
+CREATE TABLE pending_plan_changes (
+    subscription_id BIGINT NOT NULL,          -- PK: 구독당 대기 변경 하나
+    snapshot_id BIGINT NOT NULL,
+    target_schedule_id BIGINT NOT NULL,       -- 어느 회차부터 적용할지
+    ...
+);
+</code></pre>
+<p>이 DDL에서 읽어야 할 설계 판단은 네 가지다.</p>
+<ul>
+<li><strong>가격이 두 번 저장된다.</strong> <code>plan_versions.package_price_krw</code>는 “지금 파는 가격”, <code>subscription_snapshots.package_total_krw</code>는 “이 고객이 약속받은 가격”이다. 정규화 원칙만 보면 중복이지만, 둘은 <strong>의미가 다른 값</strong>이다. 스냅샷이 플랜 버전을 참조하지 않고 금액을 복사해 두므로, 플랜이 바뀌어도 고객의 약속은 그대로다.</li>
+<li><strong>복합 외래 키로 “엉뚱한 버전”을 막는다.</strong> <code>(current_plan_version_id, id) → plan_versions(id, plan_id)</code>는 “플랜의 현재 버전은 반드시 그 플랜의 버전이어야 한다”를 DB가 보장하게 한다. 단순히 <code>current_plan_version_id → plan_versions(id)</code>로 걸면 다른 플랜의 버전을 가리켜도 막을 수 없다.</li>
+<li><strong>플랜 변경은 “다음 회차부터”다.</strong> <code>pending_plan_changes</code>는 구독당 한 행(PK가 <code>subscription_id</code>)이고, 어느 회차부터 적용할지(<code>target_schedule_id</code>)를 가진다. 변경을 즉시 덮어쓰지 않고 대기시켜 두었다가, 그 회차의 주문을 만들 때 현재 스냅샷으로 승격한다.</li>
+<li><strong>회차 하나에 날짜 하나.</strong> <code>UNIQUE (subscription_id, scheduled_date)</code>는 같은 구독에 같은 날 회차가 두 번 생기지 않게 한다. 뒤에서 볼 “스케줄러가 여러 번 돌아도 결과는 하나” 규칙의 바닥이 된다.</li>
+</ul>
+<blockquote>
+<p><strong><span class="tag tag-int">해석</span> 테이블 = 엔티티 = 애그리거트가 아니다.</strong> 스냅샷·대기 변경·회차는 모두 별도 테이블이지만, 도메인으로는 “구독 하나의 상태”를 이루는 부분들이다. 결정 기록의 학습 가이드(PWK-0001)가 “DB 테이블을 도메인 애그리거트와 동일시하지 않는다”고 따로 적어 둔 이유가 여기 있다. 이 차이는 5강(도메인 모델)에서 코드와 함께 본다.</p>
+</blockquote>
+<figure class="widget" data-title="pawcycle_subscription_snapshot_relations"><svg width="100%" viewBox="0 0 680 340" role="img"><title>플랜 버전과 구독 스냅샷의 관계</title><desc>판매 쪽은 플랜이 현재 플랜 버전을 가리키고, 고객 쪽은 구독이 현재 스냅샷을 가리킨다. 스냅샷은 플랜 버전을 출처로만 기록하고 가격을 복사해 둔다. 대기 변경은 대기 스냅샷과 적용할 회차를 가리킨다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="ts" x="40" y="28">판매 쪽</text>
+<text class="ts" x="460" y="28">고객과의 약속 쪽</text>
+<g class="c-teal"><rect x="40" y="40" width="180" height="56" rx="8" stroke-width="0.5"/><text class="th" x="130" y="58" text-anchor="middle" dominant-baseline="central">subscription_plans</text><text class="ts" x="130" y="78" text-anchor="middle" dominant-baseline="central">판매 중인 플랜</text></g>
+<g class="c-teal"><rect x="40" y="150" width="180" height="56" rx="8" stroke-width="0.5"/><text class="th" x="130" y="168" text-anchor="middle" dominant-baseline="central">plan_versions</text><text class="ts" x="130" y="188" text-anchor="middle" dominant-baseline="central">지금 파는 가격</text></g>
+<g class="c-purple"><rect x="460" y="40" width="180" height="56" rx="8" stroke-width="0.5"/><text class="th" x="550" y="58" text-anchor="middle" dominant-baseline="central">subscriptions</text><text class="ts" x="550" y="78" text-anchor="middle" dominant-baseline="central">고객의 구독</text></g>
+<g class="c-purple"><rect x="460" y="150" width="180" height="56" rx="8" stroke-width="0.5"/><text class="th" x="550" y="168" text-anchor="middle" dominant-baseline="central">subscription_snapshots</text><text class="ts" x="550" y="188" text-anchor="middle" dominant-baseline="central">약속한 가격 복사</text></g>
+<g class="c-purple"><rect x="460" y="260" width="180" height="56" rx="8" stroke-width="0.5"/><text class="th" x="550" y="278" text-anchor="middle" dominant-baseline="central">subscription_schedules</text><text class="ts" x="550" y="298" text-anchor="middle" dominant-baseline="central">회차 · 날짜 유일</text></g>
+<rect class="box" x="250" y="260" width="180" height="56" rx="8" stroke-width="0.5"/><text class="th" x="340" y="278" text-anchor="middle" dominant-baseline="central">pending_plan_changes</text><text class="ts" x="340" y="298" text-anchor="middle" dominant-baseline="central">다음 회차부터 적용</text>
+<line x1="130" y1="96" x2="130" y2="148" class="arr" marker-end="url(#arrow)"/>
+<line x1="550" y1="96" x2="550" y2="148" class="arr" marker-end="url(#arrow)"/>
+<line x1="460" y1="178" x2="222" y2="178" fill="none" stroke="var(--t)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<path d="M340 260 L340 198 L458 198" fill="none" class="arr" marker-end="url(#arrow)"/>
+<line x1="430" y1="288" x2="458" y2="288" class="arr" marker-end="url(#arrow)"/>
+</svg></figure>
+<h3 id="멱등성-테이블이-네-개라는-것의-의미">멱등성 테이블이 네 개라는 것의 의미</h3>
+<p><strong><span class="tag tag-ok">확인</span></strong> 같은 V3에 <code>subscription_creation_idempotency_results</code>와 <code>subscription_command_idempotency_results</code>가 함께 생겼고, 이후 V14에 체크아웃, V22에 빠른 재주문의 결과 테이블이 생겼다. 모두 <code>(회원, 키)</code>를 기본 키로 삼고, 요청 지문과 응답을 저장한다.</p>
+<p><strong><span class="tag tag-int">해석</span></strong> 이 프로젝트는 “두 번 실행되면 사고가 나는 요청”을 처음부터 의식했다. 구독 생성, 구독 변경, 체크아웃, 재주문이 그렇다. <strong><span class="tag tag-rec">기록</span></strong> 다만 처음부터 그랬던 것은 아니다. 결정 기록 PWC-0031은 1차 MVP 구독 API에서 <strong>멱등성을 도입하지 않았고, 그 대가를 당시에 받아들였다</strong>고 기록한다. 2차 MVP에서 구독 변경 명령이 생기면서 도입됐다.</p>
+<h2 id="3-어떻게-자라-왔는가">3. 어떻게 자라 왔는가</h2>
+<figure class="widget" data-title="pawcycle_mvp_timeline"><svg width="100%" viewBox="0 0 680 260" role="img"><title>PawCycle MVP 이력</title><desc>7월 1차 MVP 단일 SKU 구독, 8월 2일 2차 MVP 플랜과 스냅샷, 8월 11일 자동 정기 주문, 8월 13일 3차 MVP 장바구니와 결제, 8월 24일 4차 MVP 리뷰와 추천, 9월부터 11월까지 구조 정리와 정합성 보강</desc>
+<g class="c-purple"><rect x="40" y="40" width="112" height="56" rx="8" stroke-width="0.5"/><text class="th" x="96" y="58" text-anchor="middle" dominant-baseline="central">7월 · MVP1</text><text class="ts" x="96" y="78" text-anchor="middle" dominant-baseline="central">단일 SKU 구독</text></g>
+<g class="c-purple"><rect x="162" y="40" width="112" height="56" rx="8" stroke-width="0.5"/><text class="th" x="218" y="58" text-anchor="middle" dominant-baseline="central">8/2 · MVP2</text><text class="ts" x="218" y="78" text-anchor="middle" dominant-baseline="central">플랜·스냅샷</text></g>
+<g class="c-purple"><rect x="284" y="40" width="112" height="56" rx="8" stroke-width="0.5"/><text class="th" x="340" y="58" text-anchor="middle" dominant-baseline="central">8/11 · 자동화</text><text class="ts" x="340" y="78" text-anchor="middle" dominant-baseline="central">자동 정기 주문</text></g>
+<g class="c-teal"><rect x="406" y="40" width="112" height="56" rx="8" stroke-width="0.5"/><text class="th" x="462" y="58" text-anchor="middle" dominant-baseline="central">8/13 · MVP3</text><text class="ts" x="462" y="78" text-anchor="middle" dominant-baseline="central">장바구니·결제</text></g>
+<g class="c-teal"><rect x="528" y="40" width="112" height="56" rx="8" stroke-width="0.5"/><text class="th" x="584" y="58" text-anchor="middle" dominant-baseline="central">8/24 · MVP4</text><text class="ts" x="584" y="78" text-anchor="middle" dominant-baseline="central">리뷰·추천·관리</text></g>
+<line x1="40" y1="122" x2="640" y2="122" stroke="var(--b)" stroke-width="0.5"/>
+<circle cx="96" cy="122" r="4" fill="var(--t)"/><circle cx="218" cy="122" r="4" fill="var(--t)"/><circle cx="340" cy="122" r="4" fill="var(--t)"/><circle cx="462" cy="122" r="4" fill="var(--t)"/><circle cx="584" cy="122" r="4" fill="var(--t)"/>
+<rect class="box" x="40" y="150" width="600" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="168" text-anchor="middle" dominant-baseline="central">9월 ~ 11월 · 구조 정리와 정합성 보강</text>
+<text class="ts" x="340" y="188" text-anchor="middle" dominant-baseline="central">패키지 재배치 · 영속성 수렴 · 트랜잭션 분리 · 잠금 교정</text>
+<rect class="c-purple" x="40" y="226" width="12" height="12" rx="2" stroke-width="0.5"/><text class="ts" x="60" y="236">정기배송 축</text>
+<rect class="c-teal" x="160" y="226" width="12" height="12" rx="2" stroke-width="0.5"/><text class="ts" x="180" y="236">일반 구매·카탈로그 축</text>
+</svg></figure>
+<p>위 <strong>세 번째 그림(MVP 이력)</strong> 이 커밋 이력(681개)을 단계로 묶은 것이다. 이 그림에서 기억할 것은 두 가지다.</p>
+<ul>
+<li><strong>정기배송(보라)이 먼저, 일반 구매(청록)가 나중이다.</strong> 결제·재고·장바구니는 첫 커밋 한 달 뒤인 8월 13일에야 붙었다. 그래서 같은 “주문”이 <code>subscription_orders</code>(V9)와 <code>orders</code>(V14) 두 벌로 존재한다. <strong><span class="tag tag-ok">확인</span></strong> V15의 이름이 <code>backfill_legacy_subscription_orders</code>인 것으로 보아 둘을 잇는 이행 작업이 있었다. <strong><span class="tag tag-unk">미확인</span></strong> 두 주문 모델의 현재 관계는 6강(ERD)에서 확인한다.</li>
+<li><strong>과거를 고치지 않고 덧붙인다.</strong> <strong><span class="tag tag-rec">기록</span></strong> PS-005는 “PS-004는 당시의 역사적 계약이며 소급 수정하지 않는다”고 적는다. 마이그레이션도 V1부터 V28까지 기존 파일을 고치지 않고 새 파일을 쌓는다. 그래서 코드 곳곳에 “예전 형식의 데이터”를 다루는 분기가 남는다. 체크아웃이 최초 장바구니 버전이 없는 예전 멱등성 결과를 거절하던 코드가 그 예다.</li>
+</ul>
+<h2 id="4-실행하면-무엇이-떠-있는가-깊게">4. 실행하면 무엇이 떠 있는가 (깊게)</h2>
+<p>위 <strong>첫 번째 그림(컨테이너 구성)</strong> 이 운영 Compose 파일을 그대로 옮긴 것이다.</p>
+<figure class="widget" data-title="pawcycle_container_view"><svg width="100%" viewBox="0 0 680 430" role="img"><title>PawCycle 컨테이너 구성</title><desc>브라우저 요청이 Nginx 프록시를 거쳐 /api는 Spring Boot, 나머지는 Next.js로 가고, 백엔드는 Compose 밖의 MySQL과 설정 시에만 외부 API를 호출한다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect class="box" x="270" y="30" width="140" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="52" text-anchor="middle" dominant-baseline="central">브라우저</text>
+<line x1="340" y1="74" x2="340" y2="130" class="arr" marker-end="url(#arrow)"/>
+<rect x="40" y="95" width="600" height="220" rx="16" fill="none" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="5 4"/>
+<text class="ts" x="56" y="116">OCI app01 · Docker Compose</text>
+<rect class="box" x="230" y="132" width="220" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="150" text-anchor="middle" dominant-baseline="central">Nginx proxy</text>
+<text class="ts" x="340" y="170" text-anchor="middle" dominant-baseline="central">TLS 종료 · 경로 분기</text>
+<path d="M300 188 L300 206 L190 206 L190 226" fill="none" class="arr" marker-end="url(#arrow)"/>
+<path d="M380 188 L380 206 L490 206 L490 226" fill="none" class="arr" marker-end="url(#arrow)"/>
+<g class="c-purple"><rect x="90" y="228" width="200" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="190" y="246" text-anchor="middle" dominant-baseline="central">Next.js frontend</text>
+<text class="ts" x="190" y="266" text-anchor="middle" dominant-baseline="central">:3000 · / 경로</text></g>
+<g class="c-purple"><rect x="390" y="228" width="200" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="490" y="246" text-anchor="middle" dominant-baseline="central">Spring Boot backend</text>
+<text class="ts" x="490" y="266" text-anchor="middle" dominant-baseline="central">:8080 · /api 경로</text></g>
+<line x1="490" y1="284" x2="490" y2="343" class="arr" marker-end="url(#arrow)"/>
+<path d="M430 284 L430 330 L190 330 L190 343" fill="none" stroke="var(--t)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<g class="c-teal"><rect x="390" y="345" width="200" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="490" y="363" text-anchor="middle" dominant-baseline="central">Managed MySQL</text>
+<text class="ts" x="490" y="383" text-anchor="middle" dominant-baseline="central">Compose 밖 · 별도 운영</text></g>
+<g class="c-teal"><rect x="90" y="345" width="200" height="56" rx="8" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text class="th" x="190" y="363" text-anchor="middle" dominant-baseline="central">Toss · OpenAI</text>
+<text class="ts" x="190" y="383" text-anchor="middle" dominant-baseline="central">설정으로 켤 때만</text></g>
+</svg></figure>
+<h3 id="요청의-길">요청의 길</h3>
+<p><strong><span class="tag tag-ok">확인</span></strong> <code>infra/production/nginx.conf</code>의 핵심은 두 줄이다.</p>
+<pre><code class="language-nginx">location /api/ { proxy_pass http://backend:8080; }   # Spring Boot
+location /     { proxy_pass http://frontend:3000; }  # Next.js
+</code></pre>
+<p>브라우저는 서버 하나(Nginx)에만 말을 건다. 주소가 <code>/api/</code>로 시작하면 Spring Boot로, 나머지는 Next.js로 간다. 같은 도메인을 쓰므로 세션 쿠키와 CSRF 처리가 단순해진다. <strong><span class="tag tag-int">해석</span></strong> 프론트와 백엔드가 서로 다른 도메인이었다면 CORS와 쿠키의 SameSite 설정을 따로 다뤄야 했을 것이다. 세션 인증을 고른 결정(PWC-0007)과 이 라우팅은 함께 읽어야 한다.</p>
+<h3 id="컨테이너-설정이-말해-주는-운영-판단">컨테이너 설정이 말해 주는 운영 판단</h3>
+<pre><code class="language-yaml"># infra/production/compose.yaml (backend 서비스 발췌)
+backend:
+  image: ${BACKEND_IMAGE}:${BACKEND_RELEASE_SHA:-${RELEASE_SHA}}
+  environment:
+    JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=65.0 -XX:+ExitOnOutOfMemoryError
+    SPRING_PROFILES_ACTIVE: production
+  healthcheck:
+    test: [CMD, curl, --fail, ..., http://127.0.0.1:8080/api/products]
+  read_only: true
+  security_opt: [no-new-privileges:true]
+  networks: [app, database-egress]
+  mem_limit: 640m
+  cpus: 0.75
+</code></pre>
+<ul>
+<li><strong>이미지 태그가 커밋 SHA다.</strong> <code>latest</code> 같은 이름이 아니라 정확한 커밋으로 배포한다. 어떤 코드가 떠 있는지 항상 알 수 있고, 되돌릴 때도 그 SHA로 돌아간다. <strong><span class="tag tag-rec">기록</span></strong> PWC-0025가 “정확한 이미지·소스·DB 호환 근거를 승인한다”고 정한 결정의 구현이다.</li>
+<li><strong>JVM 힙을 컨테이너 메모리의 비율로 정한다.</strong> 컨테이너 한도 640MB의 65%를 힙 상한으로 쓰고, 메모리가 부족하면 어정쩡하게 버티지 않고 프로세스를 종료한다. <strong><span class="tag tag-rec">기록</span></strong> 교훈 PWL-0032에 따르면 AWS 시절 250 RPS 장애의 원인은 힙 부족이 아니라 <strong>컨테이너 메모리 한도 초과(cgroup OOM)</strong> 였다. 힙 바깥 메모리까지 컨테이너 한도 안에 들어가야 한다는 경험이 이 설정에 남아 있다.</li>
+<li><strong>헬스 체크가 실제 API를 부른다.</strong> <code>/api/products</code>가 응답해야 건강하다고 본다. <strong><span class="tag tag-int">해석</span></strong> 프로세스가 떠 있는지만이 아니라 DB까지 연결돼 상품을 읽을 수 있는지를 본다는 뜻이다. Nginx는 <code>depends_on: condition: service_healthy</code>로 백엔드가 건강해진 뒤에 뜬다.</li>
+<li><strong>파일 시스템은 읽기 전용이다.</strong> 쓰기는 <code>/tmp</code> 메모리 영역만 허용하고, 권한 상승도 막는다.</li>
+</ul>
+<h3 id="Compose에-없는-것">Compose에 없는 것</h3>
+<ul>
+<li><strong>MySQL이 없다.</strong> <strong><span class="tag tag-ok">확인</span></strong> 백엔드는 <code>database-egress</code> 네트워크로 바깥의 DB에 붙는다. <strong><span class="tag tag-rec">기록</span></strong> 운영 개요는 이를 OCI의 Managed MySQL로 적는다. DB의 생명주기를 애플리케이션 Compose가 소유하지 않게 한 결정이다(ARCH-012).</li>
+<li><strong>Redis가 없다.</strong> <strong><span class="tag tag-ok">확인</span></strong> 상품 목록 캐시는 <code>PAWCYCLE_PRODUCT_LIST_CACHE_ENABLED</code> 기본값이 <code>false</code>다. <strong><span class="tag tag-unk">미확인</span></strong> 운영 환경 파일에서 켜져 있는지는 확인하지 않았다.</li>
+</ul>
+<h3 id="애플리케이션-설정이-말해-주는-것">애플리케이션 설정이 말해 주는 것</h3>
+<pre><code class="language-properties"># backend/src/main/resources/application.properties (발췌, 비밀값 생략)
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.open-in-view=false
+spring.jpa.properties.hibernate.jdbc.time_zone=UTC
+spring.flyway.validate-on-migrate=true
+server.servlet.session.cookie.http-only=true
+server.servlet.session.cookie.same-site=lax
+management.endpoints.web.exposure.include=health,prometheus
+pawcycle.toss.test.enabled=${PAWCYCLE_TOSS_TEST_ENABLED:false}
+pawcycle.ai.review-summary.enabled=${PAWCYCLE_AI_REVIEW_SUMMARY_ENABLED:false}
+</code></pre>
+<ul>
+<li><strong>스키마는 Flyway만 바꾼다.</strong> <code>ddl-auto=validate</code>는 Hibernate가 엔티티와 테이블이 맞는지 검사만 하고 스키마를 고치지 않게 한다. 그래서 2절의 DDL이 곧 실제 스키마다.</li>
+<li><strong>OSIV를 끈다.</strong> 영속성 컨텍스트가 요청 내내 열려 있지 않다. 리뷰 요약·결제 승인에서 본 “트랜잭션 밖 외부 호출” 설계가 성립하는 전제다.</li>
+<li><strong>시간은 UTC로 저장한다.</strong> <strong><span class="tag tag-rec">기록</span></strong> PWC-0021은 장바구니·찜 시각을 UTC로 바꾸면서, 기존 행의 표시 재해석을 “승인된 대가”로 받아들였다.</li>
+<li><strong>외부 연동은 기본이 꺼짐이다.</strong> 토스 실결제, 리뷰 요약 AI, 상품 비교 AI, 추천 AI가 모두 기본값 <code>false</code>다. 켜지 않으면 서비스는 외부 없이 동작한다.</li>
+</ul>
+<h3 id="시작점에-숨은-운영-도구">시작점에 숨은 운영 도구</h3>
+<pre><code class="language-java">// PawcycleBackendApplication.java
+public static void main(String[] args) {
+  int catalogImportExitCode = ProductionDemoCatalogImportCommand.runIfRequested(args);
+  if (catalogImportExitCode != ProductionDemoCatalogImportCommand.NOT_REQUESTED) { ... return; }
+  int maintenanceExitCode = ProductionAuthSmokeMemberBootstrap.runIfRequested(args);
+  if (maintenanceExitCode != ProductionAuthSmokeMemberBootstrap.NOT_REQUESTED) { ... return; }
+  SpringApplication.run(PawcycleBackendApplication.class, args);
+}
+</code></pre>
+<p>평범한 Spring Boot 시작점처럼 보이지만, 웹 서버를 띄우기 <strong>전에</strong> 두 가지 일회성 명령을 확인한다. 특정 인자가 오면 카탈로그 적재나 점검용 회원 생성만 하고 종료한다. <strong><span class="tag tag-rec">기록</span></strong> PWC-0024는 운영 카탈로그를 “서버가 뜰 때 자동으로 넣는 방식(startup seed)” 대신 “명시적으로 검증·확인한 뒤 한 번만 적용하는 방식”으로 정했다. 같은 이미지를 웹 서버로도, 일회성 도구로도 쓰게 만든 구조다.</p>
+<h3 id="지금-운영-중인가-정정">지금 운영 중인가: 정정</h3>
+<p>이전 1강에서 “README는 운영 배포 대상이 없다고 밝힌다”고만 썼는데, 그것은 반쪽 사실이었다.</p>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span></strong> README: “Production deployment target: 없음”</li>
+<li><strong><span class="tag tag-ok">확인</span></strong> 같은 커밋의 <code>production-operations-overview.md</code>: “Production deployment target: <strong>OCI app01</strong>”, 단 “Production Verified가 아니다”</li>
+<li><strong><span class="tag tag-rec">기록</span></strong> 프로젝트 결정 기록도 이 불일치를 짚고 “현재 운영 대상과 상태는 미해결”로 두었다.</li>
+</ul>
+<p>정확한 표현은 <strong>“문서끼리 충돌하고, 실제 운영 상태는 확인되지 않았다”</strong> 이다. 이 강의 시리즈의 설명은 모두 소스와 기록에서 읽은 것이며, 운영 관측이 아니다.</p>
+<h2 id="5-코드는-어떻게-나뉘어-있는가-깊게">5. 코드는 어떻게 나뉘어 있는가 (깊게)</h2>
+<h3 id="패키지를-나누는-두-방식">패키지를 나누는 두 방식</h3>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="계층형 패키지 구조와 도메인 패키지 구조 비교" src="https://velog.velcdn.com/images/ogu1208/post/565c4e48-9664-4a06-a431-ed782cb51380/image.png" /></p>
+<p><em>출처: Ogu, <a href="https://velog.io/@ogu1208/Spring-%ED%8C%A8%ED%82%A4%EC%A7%80-%EA%B5%AC%EC%A1%B0" target="_blank" rel="noopener">「[Spring] Spring 패키지 구조」</a> (velog). 이미지는 원문을 직접 열어 내용을 확인했다.</em></p>
+<p>이 그림의 왼쪽이 <strong>계층형</strong>, 오른쪽이 <strong>도메인형</strong>이다. 왼쪽은 <code>Controller</code> 폴더 안에 상품·회원·주문 컨트롤러가 모여 있고, 오른쪽은 <code>상품</code> 폴더 안에 상품의 Entity·Repository·Controller·Service가 모여 있다. 원문은 계층형은 전체 구조를 빨리 파악할 수 있지만 클래스가 한 폴더에 쌓이고, 도메인형은 응집도가 높지만 처음에는 전체를 파악하기 어렵다고 정리한다.</p>
+<h3 id="PawCycle의-선택-도메인-먼저-그-안에서-계층">PawCycle의 선택: 도메인 먼저, 그 안에서 계층</h3>
+<p>위 <strong>네 번째 그림(패키지와 계층)</strong> 이 그 구조다.</p>
+<ul>
+<li><strong>위쪽</strong>: 최상위는 도메인이다. 그림 속 숫자는 손으로 쓴 소스 파일 수다. <strong><span class="tag tag-ok">확인</span></strong> <code>commerce</code>(232개)가 가장 크고, 그 안에 장바구니·체크아웃·결제·재고 등 하위 기능이 18개 있다.</li>
+<li><strong>아래쪽</strong>: 기능 하나를 열면 다섯 계층이 있다. <code>application</code>이 중심에서 <code>domain</code>·<code>persistence</code>·<code>infrastructure</code>를 부르고, <code>api</code>는 <code>application</code>만 부른다.</li>
+</ul>
+<p><strong><span class="tag tag-rec">기록</span></strong> 아키텍처 문서(<code>backend-architecture-v2.md</code>)는 계층마다 금지 사항을 정해 두었다.</p>
+<ul>
+<li><code>api</code>: HTTP·검증·DTO만. 저장소·엔티티·SQL 도구를 직접 참조하지 않는다.</li>
+<li><code>application</code>: 유스케이스와 <strong>트랜잭션의 주인</strong>. API DTO를 참조하거나 SQL을 직접 실행하지 않는다.</li>
+<li><code>domain</code>: 엔티티·값·불변식·상태 전이. <code>api</code>와 <code>infrastructure</code>에 의존하지 않는다.</li>
+<li><code>persistence</code>: JPA·잠금·쿼리·이유 있는 네이티브 SQL.</li>
+<li><code>infrastructure</code>: 토스·AI·Redis 세부 구현. 외부 DTO를 안으로 흘리지 않는다.</li>
+</ul>
+<figure class="widget" data-title="pawcycle_package_layers"><svg width="100%" viewBox="0 0 680 380" role="img"><title>PawCycle 패키지와 계층</title><desc>최상위는 catalog, commerce, subscription, member 등 기능 패키지로 나뉘고, 각 기능 안은 api, application, domain, persistence, infrastructure 계층으로 나뉘며 application이 나머지를 호출한다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="40" y="20" width="600" height="110" rx="16" fill="none" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="5 4"/>
+<text class="ts" x="56" y="42">com.pawcycle.backend · 소스 666개</text>
+<g class="c-purple"><rect x="60" y="56" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="112" y="74" text-anchor="middle" dominant-baseline="central">catalog</text><text class="ts" x="112" y="94" text-anchor="middle" dominant-baseline="central">214개</text></g>
+<g class="c-purple"><rect x="174" y="56" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="226" y="74" text-anchor="middle" dominant-baseline="central">commerce</text><text class="ts" x="226" y="94" text-anchor="middle" dominant-baseline="central">232개</text></g>
+<g class="c-purple"><rect x="288" y="56" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="340" y="74" text-anchor="middle" dominant-baseline="central">subscription</text><text class="ts" x="340" y="94" text-anchor="middle" dominant-baseline="central">131개</text></g>
+<g class="c-purple"><rect x="402" y="56" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="454" y="74" text-anchor="middle" dominant-baseline="central">member</text><text class="ts" x="454" y="94" text-anchor="middle" dominant-baseline="central">35개</text></g>
+<rect class="box" x="516" y="56" width="104" height="56" rx="8" stroke-width="0.5"/><text class="th" x="568" y="74" text-anchor="middle" dominant-baseline="central">그 외 4개</text><text class="ts" x="568" y="94" text-anchor="middle" dominant-baseline="central">53개</text>
+<text class="ts" x="40" y="160">기능 하나의 내부 · 예: commerce/checkout</text>
+<g class="c-teal"><rect x="40" y="236" width="130" height="50" rx="8" stroke-width="0.5"/><text class="th" x="105" y="252" text-anchor="middle" dominant-baseline="central">api</text><text class="ts" x="105" y="271" text-anchor="middle" dominant-baseline="central">HTTP · DTO</text></g>
+<g class="c-teal"><rect x="210" y="236" width="170" height="50" rx="8" stroke-width="0.5"/><text class="th" x="295" y="252" text-anchor="middle" dominant-baseline="central">application</text><text class="ts" x="295" y="271" text-anchor="middle" dominant-baseline="central">유스케이스 · 트랜잭션</text></g>
+<g class="c-teal"><rect x="440" y="176" width="200" height="50" rx="8" stroke-width="0.5"/><text class="th" x="540" y="192" text-anchor="middle" dominant-baseline="central">domain</text><text class="ts" x="540" y="211" text-anchor="middle" dominant-baseline="central">엔티티 · 불변식</text></g>
+<g class="c-teal"><rect x="440" y="236" width="200" height="50" rx="8" stroke-width="0.5"/><text class="th" x="540" y="252" text-anchor="middle" dominant-baseline="central">persistence</text><text class="ts" x="540" y="271" text-anchor="middle" dominant-baseline="central">JPA · 잠금 · SQL</text></g>
+<g class="c-teal"><rect x="440" y="296" width="200" height="50" rx="8" stroke-width="0.5"/><text class="th" x="540" y="312" text-anchor="middle" dominant-baseline="central">infrastructure</text><text class="ts" x="540" y="331" text-anchor="middle" dominant-baseline="central">Toss · AI · Redis</text></g>
+<line x1="170" y1="261" x2="208" y2="261" class="arr" marker-end="url(#arrow)"/>
+<path d="M380 250 L410 250 L410 201 L438 201" fill="none" class="arr" marker-end="url(#arrow)"/>
+<line x1="380" y1="261" x2="438" y2="261" class="arr" marker-end="url(#arrow)"/>
+<path d="M380 272 L410 272 L410 321 L438 321" fill="none" class="arr" marker-end="url(#arrow)"/>
+</svg></figure>
+<h3 id="규칙을-테스트로-강제한다">규칙을 테스트로 강제한다</h3>
+<p>이 규칙은 문서로만 있지 않다. <strong><span class="tag tag-ok">확인</span></strong> 테스트 의존성에 <code>com.tngtech.archunit:archunit:1.5.0</code>이 있고, <strong><span class="tag tag-rec">기록</span></strong> <code>BackendArchitectureTests</code>가 위 규칙을 위반하면 빌드를 실패시킨다. ArchUnit의 사용법은 lango의 <a href="https://velog.io/@langoustine/archunit-to-architecture-test" target="_blank" rel="noopener">「ArchUnit을 활용한 아키텍처 테스트 작성하기」</a>가 <code>layeredArchitecture()</code>로 “어느 계층이 어느 계층에만 접근할 수 있다”를 쓰는 예제로 보여 준다. 규칙을 테스트로 남기면 그 자체가 살아 있는 문서가 된다는 것이 그 글의 요지다.</p>
+<p>여기서 이 프로젝트만의 현실적인 장치가 나온다.</p>
+<ul>
+<li><strong><span class="tag tag-rec">기록</span></strong> 이미 있던 위반 <strong>204개를 목록 파일에 동결</strong>했다(<code>legacy-dependencies.txt</code>). 그중 <strong>186개가 금지한 바로 그 방향(application → api)</strong> 이다.</li>
+<li>새 위반은 막고, 사라진 위반은 목록에서 지우게 한다. 테스트가 목록을 자동으로 고치지 않는다.</li>
+</ul>
+<p><strong><span class="tag tag-int">해석</span></strong> 대규모 리팩터링 없이 아키텍처 규칙을 도입하는 방법이다. 동시에 <strong>계층 규칙은 목표이지 현재 상태가 아니다</strong>. 코드를 읽다 규칙상 있으면 안 되는 의존을 만나도 놀랄 필요가 없다. <strong><span class="tag tag-rec">기록</span></strong> 결정 기록은 OOP·DDD 리팩터링이 별도로 진행 중이라고 적고 있다. <strong><span class="tag tag-ok">확인</span></strong> 기준 커밋(<code>main</code>)에는 아직 들어오지 않았다.</p>
+<h3 id="도메인-사이의-경계는-아직-느슨하다">도메인 사이의 경계는 아직 느슨하다</h3>
+<p><strong><span class="tag tag-int">해석</span></strong> 계층 규칙에 비해 <strong>도메인끼리의 경계</strong>는 강제되지 않는다. 체크아웃 저장소 어댑터 하나가 주문·결제·쿠폰·회원 주소·SKU·장바구니 저장소 아홉 개를 직접 쓰는 것을 앞선 분석에서 봤다. 하나의 배포 단위 안에서 도메인 모듈 사이 경계까지 지키는 구조를 <strong>모듈러 모놀리스</strong>라 부른다. <a href="https://msbaek.github.io/codetemplate/spring-modulith-with-ddd.html" target="_blank" rel="noopener">msbaek의 「Spring Modulith with DDD」 정리</a>는 바운디드 컨텍스트를 모듈로 삼고, 계층별 패키징은 정의상 응집도가 낮아 모듈이 되지 못한다고 설명한다. PawCycle은 도메인별 패키징까지 했지만 도메인 사이 경계는 아직 강제하지 않는 단계에 있다.</p>
+<h2 id="6-기술-스택과-그-선택-근거-요약">6. 기술 스택과 그 선택 근거 (요약)</h2>
+<p><strong><span class="tag tag-ok">확인</span></strong> <code>backend/build.gradle</code>에서 읽은 스택과, 각 선택의 근거가 된 결정 기록을 짝지으면 다음과 같다. 근거를 찾지 못한 것은 비워 두었다.</p>
+<table>
+<thead>
+<tr>
+<th>기술</th>
+<th>쓰는 곳</th>
+<th>왜</th>
+<th>근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spring Boot 4.1 · Java 25</td>
+<td>백엔드 전체</td>
+<td>기술 버전 추천안은 Proposed였고 일부만 별도 승인</td>
+<td>PWC-0032</td>
+</tr>
+<tr>
+<td>세션 인증 + CSRF</td>
+<td>로그인</td>
+<td>사용자가 승인한 세션·CSRF 계약 기준</td>
+<td>PWC-0007·0019</td>
+</tr>
+<tr>
+<td>JPA + QueryDSL + 네이티브 SQL</td>
+<td>영속성</td>
+<td>QueryDSL은 복잡한 조회에만, 네이티브 SQL은 잠금·원자성이 필요한 곳에</td>
+<td>PWC-0110·0023</td>
+</tr>
+<tr>
+<td>Flyway</td>
+<td>스키마</td>
+<td>마이그레이션을 고치지 않고 덧붙임</td>
+<td>PS-005 등</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>저장소</td>
+<td>초기 CI는 8.4 계열을 쓰고 실제 버전을 검사</td>
+<td>PWC-0041</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>상품 목록 캐시 한 곳</td>
+<td>반복 읽기 비용을 <strong>제한적으로</strong> 우회</td>
+<td>PWC-0009</td>
+</tr>
+<tr>
+<td>Spring AI(OpenAI)</td>
+<td>리뷰 요약·비교·추천</td>
+<td>AI는 구매 가능 상품을 결정하지 않고 검증된 후보만 재정렬</td>
+<td>PWC-0010</td>
+</tr>
+<tr>
+<td>Kafka·큐</td>
+<td><strong>쓰지 않음</strong></td>
+<td>정기배송 대량 처리에서 스케줄러 튜닝을 유지하고 큐 도입은 선택하지 않음</td>
+<td>PWC-0012</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span class="tag tag-int">해석</span></strong> 마지막 줄이 이 프로젝트의 태도를 잘 보여 준다. 기술을 먼저 늘리지 않고, <strong>측정해서 필요가 확인될 때만</strong> 도입한다. README의 로드맵(“Measured Optimization → Technology Decision → Scale when justified”)과 같은 말이다.</p>
+<h2 id="7-문서와-결정-기록을-읽는-법-짧게">7. 문서와 결정 기록을 읽는 법 (짧게)</h2>
+<p>이 저장소는 코드만큼 문서가 많다. 요구사항(PS), 도메인(DOMAIN), 데이터(DATA), API, ADR, 그리고 별도로 정리된 결정 기록(결정 129건, 교훈 49건)다. 근거로 쓸 때 지킬 것은 세 가지다.</p>
+<ul>
+<li><strong>상태를 본다.</strong> 첫 아키텍처 결정 ARCH-001은 “Proposed”이고, 결정 기록 129건 중 9건도 proposed다. 제안과 승인과 구현은 다르다.</li>
+<li><strong>코드와 대조한다.</strong> 이번 강의에서도 README와 운영 개요가 충돌했고, 결정 기록 PWC-0020이 리뷰 요약의 원래 트랜잭션을 “read-only”라고 적었지만 실제 코드는 그냥 <code>@Transactional</code>이었다.</li>
+<li><strong>기여를 추정하지 않는다.</strong> <strong><span class="tag tag-rec">기록</span></strong> <code>AGENTS.md</code>는 사용자가 Product Owner·Tech Lead로 결정과 병합을 승인하고 AI가 구현한다고 정한다. 어떤 판단이 누구의 것인지는 내가 추정하지 않는다.</li>
+</ul>
+<hr />
+<h2 id="1강을-마치며-이제-설명할-수-있어야-하는-것">1강을 마치며: 이제 설명할 수 있어야 하는 것</h2>
+<ul>
+<li>정기배송이 도메인의 중심인 이유와, 두 구매 흐름이 공유하는 것</li>
+<li>스냅샷이 왜 가격을 <strong>복사</strong>해 두는지, 복합 외래 키와 CHECK 제약이 무엇을 보장하는지</li>
+<li><code>/api/</code>와 <code>/</code>가 어디로 가는지, MySQL과 Redis가 Compose에 없는 이유</li>
+<li>도메인 → 계층 패키징, ArchUnit 규칙과 동결된 위반 204개의 의미</li>
+<li>기술 선택마다 근거가 어디에 있는지</li>
+</ul>
+<p>다음 2강은 이번 그림 1을 더 깊게 판다. <strong>C4의 System Context·Container·Component</strong> 를 그리고, DNS → TLS → Nginx → 컨테이너 → DB로 가는 배포 경로를 실제 설정 파일과 대조한다. 운영 상태의 문서 불일치도 그때 정리한다.</p>
+<blockquote>
+<p><strong>한계</strong>: 그림 4개는 실제 설정·DDL·디렉터리 구조를 바탕으로 이 강의에서 직접 그렸다. 외부 이미지는 원문을 열어 내용을 확인한 한 장만 넣었다. 테스트는 실행하지 않았다.</p>
+</blockquote>
+<h2 id="보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</h2>
+<p>강의 뒤에 별도로 조사한 개인 기술 블로그 글이다. 모든 글은 직접 열어 제목·작성일·본문 그림을 확인했다. 티스토리 그림 주소에는 2026-11-30 만료 서명이 붙어 있어 그 이후에는 보이지 않을 수 있다(옛 <code>t1.daumcdn.net/cfile</code> 주소는 만료 없음).</p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>글</th>
+<th>그림</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>계층형 vs 도메인형 패키지 구조</td>
+<td><a href="https://velog.io/@ogu1208/Spring-패키지-구조" target="_blank" rel="noopener">velog @ogu1208 · Spring 패키지 구조</a></td>
+<td>있음</td>
+</tr>
+<tr>
+<td>C4 모델 4단계</td>
+<td><a href="https://teamsmiley.github.io/2021/08/20/c4-model/" target="_blank" rel="noopener">teamsmiley · C4 model introduce</a></td>
+<td>있음</td>
+</tr>
+</tbody>
+</table>
+<h2 id="보강-참고-자료-문서화-때-추가">보강 참고 자료 (문서화 때 추가)</h2>
+<p>문서로 정리하면서 새로 찾은 개인 기술 블로그 글이다. 직접 열어 제목, 작성일, 목차를 확인했다.</p>
+<ul>
+<li>kcm02.log(chanmi125), <a href="https://velog.io/@chanmi125/Spring-Boot-%ED%8C%A8%ED%82%A4%EC%A7%80-%EA%B5%AC%EC%A1%B0-%EA%B3%84%EC%B8%B5%ED%98%95-vs-%EB%8F%84%EB%A9%94%EC%9D%B8%ED%98%95" target="_blank" rel="noopener">[Spring Boot] 패키지 구조: 계층형 vs 도메인형</a> (2024-07-02)<ul>
+<li>다루는 것: 계층형과 도메인형 구조의 패키지 설명, 장단점, 비교표</li>
+<li>5절과 연결: PawCycle은 <strong>도메인을 먼저 나누고, 그 안에서 계층을 나누는</strong> 혼합형이다. 이 글의 비교표를 기준으로 "왜 순수 계층형이 아닌가"를 설명해 보자.</li>
+<li>그림: 대표 그림이 표지라 싣지 않았다.</li>
+</ul>
+</li>
+</ul><nav class="pager"><span></span><a href="00_1단계_전체.html">1단계 전체</a><a href="02강_C4와_배포_구조.html">2강 C4와 배포 구조 →</a></nav></main></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+</body></html>
