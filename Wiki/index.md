@@ -167,6 +167,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [AGK-0001](knowledge/AGK-0001.md) | published | Backend AI adoption, Agent roles and learning FAQ (2026-11-05) | agentlab |
 | [BLK-0001](knowledge/BLK-0001.md) | published | Ubuntu/Linux/web-server 0–7 stage roadmap with evidence-based exercise gates | backend-learning |
 | [BLK-0002](knowledge/BLK-0002.md) | published | Approved Spring Core/Boot 7-course / 34-unit curriculum; 17 priority deep dives | backend-learning |
+| [SHK-0001](knowledge/SHK-0001.md) | published | AWS Emulator: API fidelity, security boundaries, AI-agent validation loops (2026-11-13) | shared |
 
 ## Lesson index
 
