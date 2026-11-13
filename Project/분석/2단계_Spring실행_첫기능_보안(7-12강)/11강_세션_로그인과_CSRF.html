@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>11강. 세션 로그인과 CSRF: 로그인 한 번이 만드는 것들</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+</style></head><body><div class="layout"><aside class="toc"><div class="toc-title">목차</div><ul><li><a href="#1-왜-JWT가-아니라-세션인가">1. 왜 JWT가 아니라 세션인가</a><ul><li><a href="#두-방식의-차이">두 방식의 차이</a></li></ul></li><li><a href="#3-세션-고정-공격-로그인하면-열쇠를-바꾼다">3. 세션 고정 공격: 로그인하면 열쇠를 바꾼다</a></li><li><a href="#4-CSRF-쿠키-인증의-숙제">4. CSRF: 쿠키 인증의 숙제</a><ul><li><a href="#공격의-원리">공격의 원리</a></li><li><a href="#두-겹의-방어">두 겹의 방어</a></li><li><a href="#로그인에도-CSRF가-필요하다">로그인에도 CSRF가 필요하다</a></li><li><a href="#프론트는-실패한-POST를-자동으로-다시-보내지-않는다">프론트는 실패한 POST를 자동으로 다시 보내지 않는다</a></li></ul></li><li><a href="#5-비밀번호와-응답-시간">5. 비밀번호와 응답 시간</a></li><li><a href="#6-쿠키-속성-하나하나의-의미">6. 쿠키 속성 하나하나의 의미</a></li><li><a href="#7-메모리-세션의-한계">7. 메모리 세션의 한계</a></li><li><a href="#8-로그아웃">8. 로그아웃</a></li><li><a href="#11강-정리">11강 정리</a></li></ul></aside><main><div class="crumbs"><a href="../index.html">분석</a> › <a href="00_2단계_전체.html">2단계 · Spring 실행 구조 · 첫 기능 · 보안</a> › 11강</div><nav class="pager"><a href="10강_회원_배송지_CRUD.html">← 10강 회원 배송지 CRUD</a><a href="00_2단계_전체.html">2단계 전체</a><a href="12강_인가와_소유권.html">12강 인가와 소유권 →</a></nav><p class="meta">기준 커밋 <a href="https://github.com/guseoh/pawcycle-commerce/tree/f9ab9f87f610908501b864f45b8bc5f7caf2d8d0" target="_blank" rel="noopener"><code>f9ab9f87</code></a> · 저장소는 읽기만 했고 테스트·서버는 실행하지 않았다 · 티스토리 그림은 2026-11-30 이후 깨질 수 있다</p><div class="legend"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div><h1 id="11강-세션-로그인과-CSRF-로그인-한-번이-만드는-것들">11강. 세션 로그인과 CSRF: 로그인 한 번이 만드는 것들</h1>
+<p><strong>이번 강의의 목표</strong></p>
+<ul>
+<li>PawCycle이 JWT가 아니라 <strong>서버 세션</strong>을 고른 이유와 그 대가를 안다.</li>
+<li>로그인 요청 하나가 <strong>세션, 쿠키, CSRF 토큰</strong>을 어떤 순서로 만들고 바꾸는지 코드로 따라간다.</li>
+<li>세션 고정 공격, CSRF, 계정 존재 노출이라는 세 가지 공격을 각각 무엇이 막는지 이해한다.</li>
+<li>메모리 세션의 한계(재시작, 확장, 권한 변경 반영)를 알고 개선 방향을 판단한다.</li>
+</ul>
+<h2 id="1-왜-JWT가-아니라-세션인가">1. 왜 JWT가 아니라 세션인가</h2>
+<h3 id="두-방식의-차이">두 방식의 차이</h3>
+<p>HTTP는 요청마다 독립적이라 서버가 “이 요청이 누구인지”를 매번 알아내야 한다. 방법은 크게 둘이다.</p>
+<ul>
+<li><strong>세션</strong>: 서버가 로그인 정보를 <strong>자기 메모리(또는 저장소)</strong> 에 두고, 브라우저에는 그것을 찾는 <strong>열쇠(세션 ID)</strong> 만 쿠키로 준다.</li>
+<li><strong>JWT</strong>: 서버가 로그인 정보를 <strong>서명한 토큰</strong>으로 만들어 브라우저에 주고, 요청마다 그 토큰을 <strong>검증</strong>한다. 서버는 아무것도 저장하지 않는다.</li>
+</ul>
+<p>kimgunwooo의 <a href="https://velog.io/@kimgunwooo/로그인-인증-방식-차이-쿠키-세션-JWT" target="_blank" rel="noopener">「로그인 인증 방식 차이 (쿠키, 세션, JWT)」</a>는 이전 프로젝트에서 “JWT가 제일 좋다는 얕은 지식으로” JWT를 골랐던 경험에서 출발한다. 그리고 HTTP의 비연결성·무상태성부터 세 방식을 차례로 비교한다.</p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="로그인 인증 방식 차이 글의 본문 그림" src="https://velog.velcdn.com/images/kimgunwooo/post/7387350d-db58-4fb0-9917-fd35121cae32/image.png" /></p>
+<p><em>출처: <a href="https://velog.io/@kimgunwooo/로그인-인증-방식-차이-쿠키-세션-JWT" target="_blank" rel="noopener">velog @kimgunwooo · 로그인 인증 방식 차이</a>(velog 그림은 만료되지 않습니다)</em></p>
+<p>쿠키와 세션이 실제로 주고받는 모습은 준현의 <a href="https://junhyunny.github.io/information/cookie-and-session/" target="_blank" rel="noopener">「쿠키와 세션」</a>이 그림으로 보여 준다.</p>
+<figure class="widget" data-title="lecture11_blog_images_cookie_session_tomcat"><h2 class="sr-only">11강 참고 블로그 그림: 준현 블로그의 쿠키와 세션, 톰캣 세션 관리 본문 그림</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;padding:0.5rem 0">
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2021@main/cookie-and-session-02.png" alt="쿠키와 세션 글의 본문 그림 2" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">쿠키와 세션 · <a href="https://junhyunny.github.io/information/cookie-and-session/" target="_blank" rel="noopener">준현 · 쿠키와 세션</a></figcaption></figure>
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2021@main/tomcat-session-management-02.png" alt="톰캣 세션 관리 글의 본문 그림 2" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">톰캣이 세션을 만들고 찾는 과정 · <a href="https://junhyunny.github.io/information/server/tomcat-session-management/" target="_blank" rel="noopener">준현 · 톰캣 세션 관리</a></figcaption></figure>
+</div></figure>
+<figure class="widget" data-title="pawcycle_session_login_csrf_sequence"><svg width="100%" viewBox="0 0 680 560" role="img"><title>세션 로그인과 CSRF 토큰 흐름</title><desc>브라우저가 먼저 GET /api/auth/csrf로 익명 세션 S1과 CSRF 토큰 T1을 받는다. 그다음 POST /api/auth/login에 X-CSRF-TOKEN T1을 담아 보낸다. CSRF 필터가 T1을 세션의 값과 비교해 통과시키고, 컨트롤러가 이메일을 정규화한 뒤 AuthenticationManager와 MemberAuthenticationProvider가 BCrypt로 비밀번호를 검사한다. 성공하면 세션 ID를 S2로 바꾸고 CSRF 토큰도 T2로 새로 만들며, SecurityContext를 세션에 저장한다. 응답에는 새 JSESSIONID 쿠키가 실린다. 브라우저는 이후 변경 요청 전에 새 CSRF 토큰 T2를 다시 받는다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g class="c-gray"><rect x="40" y="20" width="140" height="40" rx="8" stroke-width="0.5"/><text class="th" x="110" y="40" text-anchor="middle" dominant-baseline="central">브라우저</text></g>
+<g class="c-purple"><rect x="270" y="20" width="140" height="40" rx="8" stroke-width="0.5"/><text class="th" x="340" y="40" text-anchor="middle" dominant-baseline="central">Security 필터</text></g>
+<g class="c-teal"><rect x="500" y="20" width="140" height="40" rx="8" stroke-width="0.5"/><text class="th" x="570" y="40" text-anchor="middle" dominant-baseline="central">AuthController</text></g>
+<line x1="110" y1="60" x2="110" y2="540" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="340" y1="60" x2="340" y2="540" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="570" y1="60" x2="570" y2="540" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="110" y1="88" x2="566" y2="88" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="225" y="80" text-anchor="middle">① GET /api/auth/csrf</text>
+<line x1="566" y1="118" x2="114" y2="118" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="110" text-anchor="middle">{ token: T1 } · Set-Cookie JSESSIONID=S1 (익명 세션)</text>
+<line x1="110" y1="164" x2="336" y2="164" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="225" y="148" text-anchor="middle">② POST /api/auth/login</text>
+<text class="ts" x="225" y="160" text-anchor="middle">Cookie S1 · X-CSRF-TOKEN T1</text>
+<g class="c-purple"><rect x="250" y="178" width="180" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="340" y="198" text-anchor="middle" dominant-baseline="central">T1 = 세션 S1의 토큰? 통과</text></g>
+<line x1="340" y1="218" x2="566" y2="238" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<g class="c-teal"><rect x="470" y="246" width="200" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="570" y="266" text-anchor="middle" dominant-baseline="central">③ 이메일 정규화 · 입력 검증</text></g>
+<g class="c-teal"><rect x="470" y="296" width="200" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="570" y="316" text-anchor="middle" dominant-baseline="central">④ BCrypt 비교 (없는 회원은 더미 해시)</text></g>
+<g class="c-amber"><rect x="470" y="346" width="200" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="570" y="366" text-anchor="middle" dominant-baseline="central">⑤ 세션 ID S1→S2 · 토큰 T1→T2</text></g>
+<g class="c-amber"><rect x="470" y="396" width="200" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="570" y="416" text-anchor="middle" dominant-baseline="central">⑥ SecurityContext → 세션 저장</text></g>
+<line x1="566" y1="462" x2="114" y2="462" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="454" text-anchor="middle">200 { memberId } · Set-Cookie JSESSIONID=S2</text>
+<line x1="110" y1="506" x2="566" y2="506" stroke="var(--s)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="498" text-anchor="middle">⑦ 다음 변경 요청 전에 GET /api/auth/csrf로 T2를 다시 받음</text>
+</svg></figure>
+<p>그림의 ③~⑥이 이 코드 한 메서드다.</p>
+<pre><code class="language-java">// member/application/AuthApplicationService.java (발췌)
+@Transactional(readOnly = true)
+public AuthenticatedMemberPrincipal login(String email, String password,
+                                         HttpServletRequest request, HttpServletResponse response) {
+  NormalizedLoginCredentials credentials = emailNormalizer.normalize(email, password);   // ③
+  Authentication authentication =
+      credentialAuthenticator.authenticate(credentials.email(), credentials.password());  // ④
+  sessionAuthenticationStrategy.onAuthentication(authentication, request, response);      // ⑤
+  SecurityContext context = SecurityContextHolder.createEmptyContext();
+  context.setAuthentication(authentication);
+  SecurityContextHolder.setContext(context);
+  securityContextRepository.saveContext(context, request, response);                     // ⑥
+  return (AuthenticatedMemberPrincipal) authentication.getPrincipal();
+}
+</code></pre>
+<ul>
+<li><strong>Spring Security의 기본 로그인 폼(<code>formLogin</code>)을 쓰지 않았다.</strong> 기본 폼은 HTML 폼 POST와 리다이렉트를 전제로 한다. PawCycle은 JSON을 받고 JSON을 돌려주는 API다(<code>{ memberId }</code>, 실패 시 401 <code>INVALID_CREDENTIALS</code>). 그래서 컨트롤러에서 <strong>필요한 부품만 직접 조립</strong>했다.<ul>
+<li>인증: <code>AuthenticationManager</code> → <code>MemberAuthenticationProvider</code></li>
+<li>세션 처리: <code>SessionAuthenticationStrategy</code></li>
+<li>저장: <code>SecurityContextRepository</code></li>
+<li>7강에서 본 <code>SecurityConfig</code>가 이 부품들을 Bean으로 만든다.</li>
+</ul>
+</li>
+<li><strong>⑥을 직접 해야 하는 이유.</strong> <strong><span class="tag tag-pri">원리</span></strong> Spring Security 6부터 <code>SecurityContextHolder</code>에 인증을 넣는 것만으로는 <strong>세션에 자동 저장되지 않는다</strong>. 명시적으로 <code>securityContextRepository.saveContext(...)</code>를 불러야 한다. 이 줄을 빼면 로그인 응답은 성공인데 <strong>다음 요청에서 다시 익명</strong>이 된다. 직접 로그인 API를 만들 때 가장 흔한 실수다.<ul>
+<li><code>SecurityContextHolder</code>가 스레드에 컨텍스트를 두는 방식은 준현의 <a href="https://junhyunny.github.io/java/spring/spring-boot/spring-security/security-context-holder-strategy/" target="_blank" rel="noopener">「스프링 시큐리티 SecurityContextHolderStrategy」</a>가 정리한다. 8강의 <code>ThreadLocal</code> 이야기가 여기서도 이어진다.</li>
+</ul>
+</li>
+<li><strong>세션에는 엔티티가 아니라 작은 기록이 들어간다.</strong> 인증 성공 시 세션에 저장되는 주체는 <code>AuthenticatedMemberPrincipal(memberId, role)</code>이라는 <code>record</code> 하나다. 비밀번호 해시도, <code>Member</code> 엔티티도 넣지 않는다. 클래스 주석도 “session-safe principal만 반환한다”고 적는다. 8강에서 <code>@AuthenticationPrincipal</code>로 꺼내 쓰던 그 객체다.</li>
+</ul>
+<h2 id="3-세션-고정-공격-로그인하면-열쇠를-바꾼다">3. 세션 고정 공격: 로그인하면 열쇠를 바꾼다</h2>
+<p>그림의 ⑤에서 세션 ID가 <code>S1 → S2</code>로 바뀌었다. 왜 바꿀까?</p>
+<p>pjs-world의 <a href="https://pjs-world.tistory.com/entry/세션-고정-공격Session-Fixation과-Spring-Security의-대응-전략" target="_blank" rel="noopener">「세션 고정 공격(Session Fixation)과 Spring Security의 대응 전략」</a>이 공격을 이렇게 정의한다.</p>
+<ul>
+<li>공격자가 먼저 정상적인 세션 ID를 하나 발급받는다.</li>
+<li>그 ID를 피해자의 브라우저에 심는다(링크, 쿠키 주입 등).</li>
+<li>피해자가 그 세션으로 로그인하게 유도한다.</li>
+<li>서버가 로그인 후에도 <strong>같은 세션 ID를 유지</strong>하면, 공격자는 자기가 아는 그 ID로 피해자의 로그인 상태를 그대로 쓴다.</li>
+</ul>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="세션 고정 공격 글의 본문 그림" src="https://blog.kakaocdn.net/dna/Oo2y6/btsNrmITlI7/AAAAAAAAAAAAAAAAAAAAAJ_AKwi2tqwD6XsxCTsy64a2NxBh_ZRG2S7V8l3Mm0i0/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=VtRCAPwJSyacM7JyUx828Da9yFE%3D" /></p>
+<p><em>출처: <a href="https://pjs-world.tistory.com/entry/세션-고정-공격Session-Fixation과-Spring-Security의-대응-전략" target="_blank" rel="noopener">pjs-world · 세션 고정 공격과 Spring Security의 대응 전략</a>. tistory 그림이라 11월 30일 만료.</em></p>
+<p>PawCycle의 방어는 두 줄이다.</p>
+<pre><code class="language-java">// common/security/SecurityConfig.java (발췌)
+.sessionManagement(session -&gt; session.sessionFixation(fixation -&gt; fixation.changeSessionId()));
+
+@Bean
+SessionAuthenticationStrategy sessionAuthenticationStrategy(HttpSessionCsrfTokenRepository csrfTokenRepository) {
+  return new CompositeSessionAuthenticationStrategy(List.of(
+      new ChangeSessionIdAuthenticationStrategy(),          // 세션 ID 교체
+      new CsrfAuthenticationStrategy(csrfTokenRepository)));  // CSRF 토큰 교체
+}
+</code></pre>
+<ul>
+<li><strong><code>changeSessionId</code> vs <code>newSession</code>·<code>migrateSession</code>.</strong> <strong><span class="tag tag-pri">원리</span></strong> 서블릿 3.1의 <code>HttpServletRequest.changeSessionId()</code>는 <strong>세션 내용은 그대로 두고 ID만 바꾼다</strong>. 새 세션을 만들어 속성을 복사하는 방식보다 가볍다. 공격자가 아는 옛 ID는 그 순간부터 쓸모없어진다.</li>
+<li><strong>두 전략을 묶었다.</strong> 로그인 순간 세션 ID와 <strong>CSRF 토큰도 함께</strong> 바꾼다. 로그인 전의 토큰이 노출됐더라도 로그인 후에는 쓸 수 없다. 대신 브라우저는 로그인 직후 새 토큰을 받아야 한다(그림의 ⑦).</li>
+<li><strong>[주의]</strong> 2절의 코드가 이 전략을 <strong>직접 호출</strong>한다(<code>sessionAuthenticationStrategy.onAuthentication(...)</code>). 기본 로그인 폼을 쓰면 필터가 알아서 부르지만, 직접 만든 로그인 API에서는 빼먹기 쉬운 부분이다.</li>
+</ul>
+<h2 id="4-CSRF-쿠키-인증의-숙제">4. CSRF: 쿠키 인증의 숙제</h2>
+<h3 id="공격의-원리">공격의 원리</h3>
+<p>준현의 <a href="https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/" target="_blank" rel="noopener">「CSRF 공격과 방어」</a>가 원리와 방어 방법을 GET·POST 공격 예제와 함께 정리한다. 방어 방법으로는 Referrer 검사, CSRF 토큰, 더블 서브밋 쿠키를 다룬다.</p>
+<p>핵심은 이것이다. 브라우저는 <code>pawcycle.duckdns.org</code>로 가는 요청이라면, <strong>그 요청을 누가 시작했든</strong> 쿠키를 붙인다. 악성 사이트가 숨겨 둔 폼이 <code>POST /api/subscriptions/42/commands/cancel</code>을 보내도 피해자의 세션 쿠키가 따라간다. 서버는 정상 요청과 구분할 수 없다.</p>
+<h3 id="두-겹의-방어">두 겹의 방어</h3>
+<p><strong><span class="tag tag-ok">확인</span></strong> PawCycle은 두 가지를 함께 쓴다.</p>
+<p><strong>① CSRF 토큰 (서버 세션에 저장, 헤더로 전송)</strong></p>
+<pre><code class="language-java">@Bean
+HttpSessionCsrfTokenRepository csrfTokenRepository() {
+  HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+  repository.setHeaderName(&quot;X-CSRF-TOKEN&quot;);
+  repository.setParameterName(&quot;_csrf&quot;);
+  return repository;
+}
+
+// member/api/AuthController.java
+@GetMapping(&quot;/csrf&quot;)
+ResponseEntity&lt;CsrfTokenResponse&gt; csrf(CsrfToken csrfToken) {
+  return ResponseEntity.ok().cacheControl(CacheControl.noStore())       // 캐시 금지
+      .body(new CsrfTokenResponse(csrfToken.getToken()));
+}
+</code></pre>
+<ul>
+<li>토큰은 <strong>서버 세션</strong>에 있고, 브라우저는 <code>GET /api/auth/csrf</code>로 받아 <strong>메모리</strong>에 들고 있다가 변경 요청마다 <code>X-CSRF-TOKEN</code> 헤더에 싣는다.</li>
+<li>악성 사이트는 이 토큰을 <strong>읽을 수 없다</strong>. 다른 출처의 응답 본문은 브라우저의 동일 출처 정책(SOP) 때문에 읽히지 않는다. 그래서 위조 요청에 올바른 헤더를 실을 수 없다.</li>
+<li>응답에 <code>Cache-Control: no-store</code>를 붙였다. 토큰이 브라우저나 프록시 캐시에 남지 않게 한다.</li>
+</ul>
+<p><strong><span class="tag tag-rec">기록</span> 쿠키 저장소 대신 세션 저장소를 고른 이유.</strong> 설계 단계에서 <code>CookieCsrfTokenRepository</code>(자바스크립트가 읽을 수 있는 <code>XSRF-TOKEN</code> 쿠키)를 대안으로 검토했다.</p>
+<ul>
+<li>쿠키 방식은 SPA에서 쓰기 편하지만, 쿠키·요청 처리기·재발급 처리에 비용이 든다.</li>
+<li>응답 헤더로 토큰을 주는 방식은 헤더 노출과 CORS 계약 비용이 든다.</li>
+<li>최종적으로 <strong>세션 저장 + JSON 엔드포인트 + 프론트 메모리 보관</strong>을 추천안으로 승인했다.</li>
+<li>대가도 함께 적었다. <strong>익명 사용자의 <code>csrf</code> 호출도 세션을 만든다</strong>(그림 ①의 S1). 새로고침하면 토큰을 다시 받아야 한다.</li>
+</ul>
+<p><strong>② <code>SameSite=Lax</code> 쿠키</strong></p>
+<pre><code class="language-properties"># application.properties
+server.servlet.session.cookie.name=JSESSIONID
+server.servlet.session.cookie.http-only=true
+server.servlet.session.cookie.same-site=lax
+server.servlet.session.cookie.secure=${SESSION_COOKIE_SECURE:true}
+server.servlet.session.cookie.path=/
+server.servlet.session.timeout=30m
+</code></pre>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> <code>SameSite=Lax</code>면 <strong>다른 사이트에서 시작한 POST</strong> 요청에는 쿠키가 붙지 않는다. 위의 숨긴 폼 공격은 쿠키 없이 도착해 익명 요청이 된다.</li>
+<li>다른 사이트의 링크를 눌러 <strong>최상위 GET으로 이동</strong>할 때는 쿠키가 붙는다. 그래서 <strong>GET은 절대 상태를 바꾸면 안 된다.</strong> PawCycle의 모든 변경은 POST·PATCH·PUT·DELETE다.</li>
+</ul>
+<p>준현의 <a href="https://junhyunny.github.io/spring-boot/spring-security/security/is-chrome-samesite-policy-safe-against-csrf/" target="_blank" rel="noopener">「크롬 기본 SameSite 정책은 CSRF 공격에 안전한가?」</a>는 여기에 중요한 함정을 짚는다.</p>
+<ul>
+<li>크롬 80부터 <code>SameSite</code>가 <strong>지정되지 않은</strong> 쿠키를 Lax처럼 취급한다.</li>
+<li>그런데 OAuth 리다이렉트 호환을 위해, 지정되지 않은 쿠키는 <strong>저장 후 처음 2분 동안</strong> 다른 사이트의 POST 폼 요청에도 붙도록 완화했다.</li>
+<li>즉 <strong>“기본값 Lax”는 진짜 Lax보다 약하고</strong>, 그 2분 동안은 CSRF에 여전히 취약하다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> PawCycle은 <code>same-site=lax</code>를 <strong>명시</strong>했으므로 이 완화 대상이 아니다. 설정 한 줄의 차이가 보안 경계를 바꾼다. 그리고 SameSite에 기대지 않고 토큰을 <strong>함께</strong> 쓰는 이유도 여기에 있다. 브라우저 정책은 바뀌고, 브라우저마다 다르다.</li>
+</ul>
+<figure class="widget" data-title="lecture11_blog_images_csrf_samesite"><h2 class="sr-only">11강 참고 블로그 그림: 준현 블로그의 CSRF 공격과 방어, 크롬 SameSite 정책 본문 그림</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;padding:0.5rem 0">
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2021@main/cross-site-reqeust-forgery-01.png" alt="CSRF 공격과 방어 글의 본문 그림 1" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">CSRF 공격 흐름 · <a href="https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/" target="_blank" rel="noopener">준현 · CSRF 공격과 방어</a></figcaption></figure>
+<figure style="margin:0;border:0.5px solid var(--border);border-radius:12px;padding:10px"><img loading="lazy" referrerpolicy="no-referrer" src="https://cdn.jsdelivr.net/gh/Junhyunny/junhyunny-blog-2024@main/is-chrome-samesite-policy-safe-against-csrf-02.png" alt="크롬 SameSite 정책 글의 본문 그림 2" style="width:100%;background:#fff;border-radius:6px"><figcaption style="font-size:12px;color:var(--text-secondary);margin-top:6px">동일 사이트 판단 · <a href="https://junhyunny.github.io/spring-boot/spring-security/security/is-chrome-samesite-policy-safe-against-csrf/" target="_blank" rel="noopener">준현 · 크롬 SameSite와 CSRF</a></figcaption></figure>
+</div></figure>
+<h3 id="로그인에도-CSRF가-필요하다">로그인에도 CSRF가 필요하다</h3>
+<p><code>POST /api/auth/login</code>은 <code>permitAll</code>이지만, <strong><span class="tag tag-ok">확인</span></strong> CSRF 검사는 인가 규칙과 별개로 모든 POST에 적용된다. 그래서 로그인 전에도 토큰을 받아야 한다(그림 ①). 이것이 막는 공격이 <strong>로그인 CSRF</strong>다.</p>
+<ul>
+<li>공격자가 피해자의 브라우저로 <strong>공격자 자신의 계정</strong>에 로그인시킨다.</li>
+<li>피해자는 모른 채 그 계정으로 결제 수단이나 주소를 등록하고, 공격자는 나중에 그 정보를 본다.</li>
+<li><strong><span class="tag tag-rec">기록</span></strong> 설계 단계 문서도 “CSRF는 인증 검사보다 먼저 403이 될 수 있다”고 적는다. 8강에서 본 대로 CSRF 필터가 인가 필터보다 앞에 있기 때문이다.</li>
+</ul>
+<h3 id="프론트는-실패한-POST를-자동으로-다시-보내지-않는다">프론트는 실패한 POST를 자동으로 다시 보내지 않는다</h3>
+<p><strong><span class="tag tag-rec">기록</span></strong> 프론트엔드는 토큰을 메모리에 lazy하게 받고, 로그인 후 회전되면 새로 받으며, 익명이 되면 버린다.</p>
+<p><code>CSRF_INVALID</code>(8강의 403 코드)를 받으면 토큰은 새로 받지만, <strong>원래 POST는 자동으로 재실행하지 않는다.</strong> 사용자가 결과를 확인하고 직접 다시 시도한다.</p>
+<ul>
+<li><strong><span class="tag tag-int">해석</span> 이유는 3강의 멱등성이다.</strong> 그 POST가 정말 실패했는지 클라이언트는 확신할 수 없다. 첫 구독 API처럼 멱등성 저장소가 없는 요청을 자동으로 다시 보내면 <strong>중복 생성</strong>이 될 수 있다. 4강의 “이전 POST 자동 재실행 금지” 결정과 같은 뿌리다.</li>
+</ul>
+<h2 id="5-비밀번호와-응답-시간">5. 비밀번호와 응답 시간</h2>
+<pre><code class="language-java">// member/application/MemberAuthenticationProvider.java (발췌)
+public MemberAuthenticationProvider(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+  this.dummyPasswordHash = passwordEncoder.encode(UUID.randomUUID().toString());   // 시작 시 한 번
+}
+
+public Authentication authenticate(Authentication authentication) {
+  Optional&lt;Member&gt; candidate = memberRepository.findByEmail(email);
+  String passwordHash = candidate.map(Member::getPasswordHash).orElse(dummyPasswordHash);
+  boolean passwordMatches = passwordEncoder.matches(password, passwordHash);        // 항상 정확히 한 번
+  if (candidate.isEmpty() || !passwordMatches) throw new InvalidCredentialsException();
+  ...
+}
+</code></pre>
+<p>3강에서 본 <strong>타이밍 부채널 방어</strong>의 실제 코드다.</p>
+<ul>
+<li>가입되지 않은 이메일에도 더미 해시로 BCrypt 비교를 <strong>한 번</strong> 한다. 그래서 “없는 회원”과 “틀린 비밀번호”가 비슷한 시간이 걸리고, <strong>같은 401 <code>INVALID_CREDENTIALS</code></strong> 를 받는다.</li>
+<li>인증 책임은 처음에 애플리케이션 서비스에 있었다. 이후 Spring Security의 <code>AuthenticationProvider</code>로 옮겼다(ARCH-010). 3강에서 미확인으로 남긴 “현재 코드 구조”가 이것이다.</li>
+</ul>
+<p>BCrypt가 왜 일부러 느린지는 comgu의 <a href="https://comgu.tistory.com/entry/보안-bcrypt-보안-분석-Salt와-Cost-Factor를-통한-패스워드-보호" target="_blank" rel="noopener">「bcrypt 보안 분석: Salt와 Cost Factor를 통한 패스워드 보호」</a>가 설명한다.</p>
+<ul>
+<li>MD5·SHA-1 같은 일반 해시는 <strong>빠르기 때문에</strong> 대입 공격에 약하다.</li>
+<li>BCrypt는 <strong>의도적으로 느린 연산(cost factor)</strong> 과 <strong>매번 다른 salt</strong>로 같은 비밀번호도 다른 해시를 만든다.</li>
+<li><strong><span class="tag tag-ok">확인</span></strong> PawCycle은 <code>new BCryptPasswordEncoder()</code>(기본 cost 10)를 쓴다. 설계 문서는 해시 컬럼을 <code>VARCHAR(100)</code>으로 잡고 <strong>cost는 측정 전 미확정</strong>이라고 적었다. BCrypt 해시(60자)와 인코더 접두사가 바뀔 여유를 둔 길이다.</li>
+</ul>
+<p>이메일 처리에도 세심한 결정이 있다. <strong><span class="tag tag-rec">기록</span></strong></p>
+<ul>
+<li>앞뒤 공백·탭만 지운다.</li>
+<li><strong>도메인만 소문자로</strong> 바꾸고, <code>@</code> 앞부분(local-part)의 대소문자는 <strong>보존</strong>한다. 표준상 local-part는 대소문자를 구별할 수 있어서, 전부 소문자로 바꾸면 서로 다른 주소가 하나로 합쳐질 위험이 있기 때문이다.</li>
+<li>별칭 통합(<code>+tag</code>, Gmail의 점 무시)은 하지 않는다.</li>
+</ul>
+<h2 id="6-쿠키-속성-하나하나의-의미">6. 쿠키 속성 하나하나의 의미</h2>
+<table>
+<thead>
+<tr>
+<th>속성</th>
+<th>값</th>
+<th>막는 것</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HttpOnly</code></td>
+<td>true</td>
+<td>자바스크립트(<code>document.cookie</code>)로 세션 ID 읽기. XSS가 나도 세션 ID는 직접 훔칠 수 없다.</td>
+</tr>
+<tr>
+<td><code>Secure</code></td>
+<td>true (기본값)</td>
+<td>HTTP 평문으로 쿠키 전송. 2강의 HSTS와 짝을 이룬다.</td>
+</tr>
+<tr>
+<td><code>SameSite</code></td>
+<td>lax (명시)</td>
+<td>다른 사이트의 POST에 쿠키가 붙는 것(4절)</td>
+</tr>
+<tr>
+<td><code>Path</code></td>
+<td><code>/</code></td>
+<td>— 사이트 전체에서 사용</td>
+</tr>
+<tr>
+<td>만료</td>
+<td>없음(세션 쿠키) + 서버 유휴 30분</td>
+<td>브라우저를 닫으면 쿠키가 사라지고, 30분 동안 요청이 없으면 서버 세션이 만료된다.</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span class="tag tag-rec">기록</span> 설정이 새어 나간 교훈.</strong> 로컬 HTTP 개발을 위해 <code>local-integration</code> 프로필에 <code>Secure=false</code>를 두었던 적이 있다. 그런데 <code>local-integration,production</code>을 함께 켜는 조합에서 실행기는 막았지만, <strong>프로필의 쿠키 완화 설정은 계속 로드</strong>됐다.</p>
+<ul>
+<li>“기능을 실행하지 않는 것”과 “설정이 적용되지 않는 것”은 다르다.</li>
+<li>그래서 쿠키 완화를 프로필에서 빼고, 로컬 HTTP용 <strong>프로세스 환경 변수</strong>(<code>SESSION_COOKIE_SECURE</code>)로만 한정했다. 지금 <code>${SESSION_COOKIE_SECURE:true}</code>의 기본값이 <code>true</code>인 이유다. 7강의 “관문이 보지 못하는 설정 경로” 교훈과 같은 계열이다.</li>
+</ul>
+<h2 id="7-메모리-세션의-한계">7. 메모리 세션의 한계</h2>
+<p><strong><span class="tag tag-ok">확인</span></strong> <code>build.gradle</code>에 Spring Session 의존성이 없다. 세션은 <strong>Tomcat 프로세스 메모리</strong>에 있다. 이 선택의 대가는 이렇다. <strong><span class="tag tag-int">해석</span></strong></p>
+<ul>
+<li><strong>재시작·재배포 = 전원 로그아웃.</strong> 2강의 배포에서 backend 컨테이너를 교체하면 모든 세션이 사라진다. 사용자는 다음 요청에서 401을 받고 다시 로그인해야 한다. 무중단 배포를 미룬(DEFER) 상태라 지금은 큰 문제가 아니지만, 배포가 잦아지면 체감된다.</li>
+<li><strong>서버를 늘리면 깨진다.</strong> 서버 B는 서버 A의 메모리 세션을 모른다. 해결책은 둘이다.<ul>
+<li>로드 밸런서가 같은 사용자를 같은 서버로 보내는 <strong>스티키 세션</strong>: 서버가 죽으면 그 서버 사용자는 로그아웃된다.</li>
+<li><strong>공유 세션 저장소</strong>: 준현의 <a href="https://junhyunny.github.io/information/spring-boot/redis/spring-session-with-redis/" target="_blank" rel="noopener">「Redis를 활용한 Spring Session」</a>이 설정 방법과 동작을 보여 준다.</li>
+<li>2강 트레이드오프 표에서 “서버 2대로 가려면 세션 공유 문제가 있다”고 했던 것이 이 이야기다.</li>
+</ul>
+</li>
+<li><strong>권한 변경이 바로 반영되지 않는다.</strong> 세션의 주체는 로그인 순간의 <code>AuthenticatedMemberPrincipal(memberId, role)</code> <strong>복사본</strong>이다. 관리자가 어떤 회원의 역할을 USER로 낮춰도, 그 회원이 <strong>다시 로그인할 때까지</strong> 세션 속 역할은 ADMIN이다. 4강의 스냅샷이 여기서는 <strong>원치 않는 스냅샷</strong>이 된다. <strong><span class="tag tag-rec">기록</span></strong> 당시 관리자 기능은 역할 변경 API를 제공하지 않으므로 지금은 실제 문제가 아니다. 역할 변경 기능을 만들면 세션 무효화도 함께 설계해야 한다.</li>
+</ul>
+<h2 id="8-로그아웃">8. 로그아웃</h2>
+<pre><code class="language-java">// common/security/SecurityConfig.java (발췌)
+.logout(logout -&gt; logout.disable())        // 기본 로그아웃 필터는 끈다
+
+@Bean
+LogoutHandler logoutHandler(HttpSessionCsrfTokenRepository csrfTokenRepository) {
+  return new CompositeLogoutHandler(
+      new CsrfLogoutHandler(csrfTokenRepository),     // CSRF 토큰 제거
+      new SecurityContextLogoutHandler(),             // 세션 무효화 + 컨텍스트 비우기
+      new CookieClearingLogoutHandler(&quot;JSESSIONID&quot;)); // 브라우저 쿠키 삭제
+}
+</code></pre>
+<ul>
+<li>기본 로그아웃 필터는 리다이렉트를 하므로 끄고, 같은 일을 하는 처리기 세 개를 묶어 <code>POST /api/auth/logout</code>(204)에서 호출한다. 8강에서 “로그아웃도 같은 JSON 계약을 따르게 하려는 것”이라고 해석한 부분이다.</li>
+<li><strong>로그아웃도 인증과 CSRF가 필요하다</strong>(<code>.requestMatchers(POST, "/api/auth/logout").authenticated()</code>). CSRF가 없으면 악성 사이트가 피해자를 <strong>강제로 로그아웃</strong>시킬 수 있다. 피해는 작지만, 로그인 CSRF와 엮으면 공격 흐름의 한 단계가 된다.</li>
+<li>세 처리기의 순서와 역할이 서버(세션), 보안 컨텍스트(스레드), 브라우저(쿠키) <strong>세 곳을 모두</strong> 정리한다는 점이 중요하다. 하나라도 빠지면 어딘가에 로그인 흔적이 남는다.</li>
+</ul>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://velog.io/@kimgunwooo/로그인-인증-방식-차이-쿠키-세션-JWT" target="_blank" rel="noopener">velog @kimgunwooo · 로그인 인증 방식 차이 (쿠키, 세션, JWT)</a></li>
+<li><a href="https://junhyunny.github.io/information/cookie-and-session/" target="_blank" rel="noopener">준현 · 쿠키와 세션</a> · <a href="https://junhyunny.github.io/information/server/tomcat-session-management/" target="_blank" rel="noopener">톰캣 세션 관리</a> · <a href="https://junhyunny.github.io/java/spring/spring-boot/spring-security/security-context-holder-strategy/" target="_blank" rel="noopener">SecurityContextHolderStrategy</a></li>
+<li><a href="https://pjs-world.tistory.com/entry/세션-고정-공격Session-Fixation과-Spring-Security의-대응-전략" target="_blank" rel="noopener">pjs-world · 세션 고정 공격과 Spring Security의 대응 전략</a></li>
+<li><a href="https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/" target="_blank" rel="noopener">준현 · CSRF 공격과 방어</a> · <a href="https://junhyunny.github.io/spring-boot/spring-security/security/is-chrome-samesite-policy-safe-against-csrf/" target="_blank" rel="noopener">크롬 기본 SameSite 정책은 CSRF에 안전한가?</a> · <a href="https://junhyunny.github.io/react/spring-boot/spring-security/issue-csrf-token-between-spring-security-and-react/" target="_blank" rel="noopener">리액트에서 CSRF 토큰 발급</a></li>
+<li><a href="https://comgu.tistory.com/entry/보안-bcrypt-보안-분석-Salt와-Cost-Factor를-통한-패스워드-보호" target="_blank" rel="noopener">comgu · bcrypt 보안 분석: Salt와 Cost Factor</a></li>
+<li><a href="https://junhyunny.github.io/information/spring-boot/redis/spring-session-with-redis/" target="_blank" rel="noopener">준현 · Redis를 활용한 Spring Session</a></li>
+</ul>
+<h2 id="11강-정리">11강 정리</h2>
+<ul>
+<li><strong>세션을 고른 이유</strong>: 같은 도메인, 서버 한 대, 즉시 무효화, <code>HttpOnly</code>로 숨기는 세션 ID. 대가는 <strong>CSRF 방어 필수</strong>와 메모리 세션의 한계다. JWT는 “기술 목록용 선도입”으로 기각됐다.</li>
+<li><strong>로그인 흐름</strong><ul>
+<li>CSRF 토큰 받기 → 로그인 POST(토큰 헤더) → 정규화 → BCrypt(더미 해시) → <strong>세션 ID와 CSRF 토큰 교체</strong> → <code>SecurityContext</code>를 <strong>직접</strong> 세션에 저장 → 새 토큰 다시 받기</li>
+<li>Spring Security 6에서는 <code>saveContext</code>를 빼면 로그인이 유지되지 않는다.</li>
+</ul>
+</li>
+<li><strong>세 가지 공격과 방어</strong><ul>
+<li>세션 고정 → <code>changeSessionId</code></li>
+<li>CSRF → 세션 저장 토큰 + <code>X-CSRF-TOKEN</code> 헤더 + <strong>명시적</strong> <code>SameSite=Lax</code>(기본값 Lax는 2분 완화가 있어 더 약하다). 로그인·로그아웃에도 적용한다.</li>
+<li>계정 존재 노출 → 더미 해시와 같은 오류 응답</li>
+</ul>
+</li>
+<li><strong>쿠키 완화는 프로필이 아니라 프로세스 환경 변수로만</strong>: 설정은 실행하지 않아도 로드된다.</li>
+<li><strong>메모리 세션의 한계</strong>: 재배포하면 전원 로그아웃, 확장하려면 Redis 세션, 권한 변경은 재로그인 전까지 반영되지 않는다.</li>
+<li><strong>실패한 POST는 자동 재실행하지 않는다</strong>: 멱등성이 없는 요청의 중복을 막는다.</li>
+</ul>
+<p><strong>11강에서 남긴 미확인 항목</strong></p>
+<ul>
+<li>운영 환경에서 실제 로그인·CSRF 흐름이 정상 동작하는지: 결정 기록도 “운영 로그인·CSRF 정상 동작을 다시 검증한 것은 아니다”라고 적는다.</li>
+<li>BCrypt cost 10이 운영 서버(1 OCPU)에서 로그인 한 번에 걸리는 시간: 실험 단계 후보</li>
+<li>Spring Security 6의 기본 CSRF 토큰 처리기(BREACH 대응 마스킹)가 <code>GET /api/auth/csrf</code> 응답 값과 어떻게 맞물리는지</li>
+</ul><nav class="pager"><a href="10강_회원_배송지_CRUD.html">← 10강 회원 배송지 CRUD</a><a href="00_2단계_전체.html">2단계 전체</a><a href="12강_인가와_소유권.html">12강 인가와 소유권 →</a></nav></main></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+</body></html>

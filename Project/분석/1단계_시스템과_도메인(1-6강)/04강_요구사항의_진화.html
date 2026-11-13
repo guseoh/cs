@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>4강. 요구사항의 진화: 무엇을 만들었고, 무엇을 일부러 뺐는가</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+</style></head><body><div class="layout"><aside class="toc"><div class="toc-title">목차</div><ul><li><a href="#1-한-장으로-보는-흐름">1. 한 장으로 보는 흐름</a></li><li><a href="#2-MVP1-7월-SKU-하나를-고르는-구독">2. MVP1 (7월): SKU 하나를 고르는 구독</a><ul><li><a href="#일부러-뺀-것과-그-대가">일부러 뺀 것과 그 대가</a></li></ul></li><li><a href="#3-MVP2-82-가격이-바뀌면이라는-질문">3. MVP2 (8/2): “가격이 바뀌면?”이라는 질문</a><ul><li><a href="#왜-참조가-아니라-복사인가">왜 참조가 아니라 복사인가</a></li><li><a href="#멱등성이-돌아왔다">멱등성이 돌아왔다</a></li><li><a href="#기존-데이터라는-청구서">기존 데이터라는 청구서</a></li></ul></li><li><a href="#4-자동-주문-811-스케줄러는-최소-한-번-실행된다">4. 자동 주문 (8/11): 스케줄러는 최소 한 번 실행된다</a></li><li><a href="#5-MVP3-813-돈이-움직이기-시작했다">5. MVP3 (8/13): 돈이 움직이기 시작했다</a></li><li><a href="#6-MVP4-824828-신뢰와-추천-그리고-AI의-자리">6. MVP4 (8/24–8/28): 신뢰와 추천, 그리고 AI의 자리</a></li><li><a href="#7-판단의-틀-YAGNI와-네-가지-비용">7. 판단의 틀: YAGNI와 네 가지 비용</a></li><li><a href="#4강-정리">4강 정리</a></li><li><a href="#보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</a></li><li><a href="#보강-참고-자료-문서화-때-추가">보강 참고 자료 (문서화 때 추가)</a></li></ul></aside><main><div class="crumbs"><a href="../index.html">분석</a> › <a href="00_1단계_전체.html">1단계 · 시스템과 도메인</a> › 4강</div><nav class="pager"><a href="03강_비기능_요구와_위험_지도.html">← 3강 비기능 요구와 위험 지도</a><a href="00_1단계_전체.html">1단계 전체</a><a href="05강_도메인_모델.html">5강 도메인 모델 →</a></nav><p class="meta">기준 커밋 <a href="https://github.com/guseoh/pawcycle-commerce/tree/f9ab9f87f610908501b864f45b8bc5f7caf2d8d0" target="_blank" rel="noopener"><code>f9ab9f87</code></a> · 저장소는 읽기만 했고 테스트·서버는 실행하지 않았다 · 티스토리 그림은 2026-11-30 이후 깨질 수 있다</p><div class="legend"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div><h1 id="4강-요구사항의-진화-무엇을-만들었고-무엇을-일부러-뺐는가">4강. 요구사항의 진화: 무엇을 만들었고, 무엇을 일부러 뺐는가</h1>
+<p><strong>이번 강의의 목표</strong></p>
+<ul>
+<li>MVP1부터 MVP4까지 요구사항이 어떤 순서로 자랐는지 한 줄로 설명할 수 있다.</li>
+<li>각 단계에서 <strong>일부러 뺀 것</strong>이 무엇이고, 그것이 나중에 어떤 비용으로 돌아왔는지 말할 수 있다.</li>
+<li>제품 결정이 SQL 제약(<code>CHECK</code>, 복합 외래 키, <code>UNIQUE</code>)으로 굳어지는 과정을 코드로 확인한다.</li>
+</ul>
+<blockquote>
+<p>표시: <strong><span class="tag tag-ok">확인</span></strong> 코드·설정·DDL · <strong><span class="tag tag-rec">기록</span></strong> 승인 문서·PR·이슈·결정 기록 · <strong><span class="tag tag-int">해석</span></strong> 내 판단 · <strong><span class="tag tag-pri">원리</span></strong> 일반 원리 · <strong><span class="tag tag-unk">미확인</span></strong></p>
+</blockquote>
+<h2 id="1-한-장으로-보는-흐름">1. 한 장으로 보는 흐름</h2>
+<p>PawCycle은 처음부터 지금의 모습이 아니었다. 7월의 MVP1은 "SKU 하나를 고르는 구독"뿐이었다. 8월 초 MVP2에서 반려동물·플랜 버전·불변 스냅샷·구독 상태가 생겼고, 8월 11일 자동 주문, 8월 13일 MVP3에서 일반 구매와 결제가, 8월 말 MVP4에서 신뢰·추천·직접 관리가 붙었다. 9~11월은 기능 추가보다 구조 정리와 운영의 시간이었다. 아래 타임라인이 그 흐름이다.</p>
+<figure class="widget" data-title="pawcycle_requirements_evolution_timeline"><svg width="100%" viewBox="0 0 680 430" role="img"><title>PawCycle 요구사항 진화 타임라인</title><desc>7월 MVP1 단일 SKU 구독, 8월 2일 MVP2 반려동물·플랜 버전·스냅샷, 8월 11일 자동 주문, 8월 13일 MVP3 일반 구매, 8월 24일에서 28일 MVP4 신뢰와 추천, 9월부터 11월 구조 정리와 운영. 각 단계에서 추가한 것과 일부러 뺀 것을 함께 표시</desc>
+<line x1="60" y1="40" x2="60" y2="400" stroke="var(--b)" stroke-width="0.5"/>
+<g class="c-purple"><circle cx="60" cy="56" r="6" stroke-width="0.5"/></g>
+<text class="th" x="80" y="52">7/2–7/15 · MVP1 단일 SKU 구독</text>
+<text class="ts" x="80" y="72">추가: 상품 탐색, SKU 하나 구독, 다음 주문 예정일</text>
+<text class="ts" x="80" y="90" fill="var(--text-danger)">뺌: 주문·결제·재고·배송, 상태, 멱등성, 구독 변경</text>
+<g class="c-purple"><circle cx="60" cy="126" r="6" stroke-width="0.5"/></g>
+<text class="th" x="80" y="122">8/2 · MVP2 반려동물 · 플랜 버전 · 스냅샷</text>
+<text class="ts" x="80" y="142">추가: Pet, PlanVersion, 불변 스냅샷, 상태, 명령 멱등성</text>
+<text class="ts" x="80" y="160" fill="var(--text-danger)">뺌: 실제 주문 생성, 관리자 플랜 관리, 수량 임의 변경</text>
+<g class="c-teal"><circle cx="60" cy="196" r="6" stroke-width="0.5"/></g>
+<text class="th" x="80" y="192">8/11 · 정기배송 자동 주문</text>
+<text class="ts" x="80" y="212">추가: 회차당 주문 하나, 구독별 독립 트랜잭션</text>
+<text class="ts" x="80" y="230" fill="var(--text-danger)">뺌: 결제·재고·배송, 재시도 API, DLQ, 누락 회차 일괄 생성</text>
+<g class="c-teal"><circle cx="60" cy="266" r="6" stroke-width="0.5"/></g>
+<text class="th" x="80" y="262">8/13 · MVP3 일반 구매 Commerce</text>
+<text class="ts" x="80" y="282">추가: 장바구니, 체크아웃, 토스 결제, 정기결제, 환불, 관리자</text>
+<text class="ts" x="80" y="300" fill="var(--text-danger)">뺌: 실결제(테스트 키만), 결제 대사 스케줄러 실행</text>
+<g class="c-coral"><circle cx="60" cy="336" r="6" stroke-width="0.5"/></g>
+<text class="th" x="80" y="332">8/24–8/28 · MVP4 신뢰 · 추천 · 직접 관리</text>
+<text class="ts" x="80" y="352">추가: 리뷰·문의, AI 재정렬 추천, 구독 직접 관리, 장바구니 버전</text>
+<text class="ts" x="80" y="370" fill="var(--text-danger)">뺌: AI가 후보 결정, RAG·임베딩, AI 기본 활성화</text>
+<g class="c-gray"><circle cx="60" cy="396" r="6" stroke-width="0.5"/></g>
+<text class="th" x="80" y="400">9월–11월 · 구조 정리 · 측정 · 운영 (AWS → OCI)</text>
+</svg></figure>
+<h2 id="2-MVP1-7월-SKU-하나를-고르는-구독">2. MVP1 (7월): SKU 하나를 고르는 구독</h2>
+<p>MVP1의 요구사항 문서(PS-001)에는 제품 범위를 그린 mermaid 도식이 들어 있다. 저장소의 원문 도식을 그대로 렌더링하면 다음과 같다.</p>
+<figure class="widget" data-title="ps001_first_mvp_product_scope_mermaid"><h2 class="sr-only">PS-001 첫 MVP 제품 범위 도식: 회원이 상품을 탐색하고 SKU 하나와 배송 주기로 구독을 만들어 다음 주문 예정일을 확인한다</h2>
+<div id="w04_1_m1" style="padding:0.5rem 0"></div>
+<div style="font-size:12px;color:var(--text-secondary)">출처: pawcycle-commerce · docs/product/diagrams/PS-001-first-mvp-flow.md (저장소의 mermaid 원문을 그대로 렌더링)</div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const themeMode = document.documentElement.dataset.mode;
+const dark = themeMode ? themeMode === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({startOnLoad:false,theme:'base',fontFamily:'"anthropic-sans", sans-serif',themeVariables:{darkMode:dark,fontSize:'13px',fontFamily:'"anthropic-sans", sans-serif',lineColor:dark?'#9c9a92':'#73726c',textColor:dark?'#c2c0b6':'#3d3d3a',primaryColor:dark?'#3C3489':'#EEEDFE',primaryBorderColor:dark?'#AFA9EC':'#534AB7',primaryTextColor:dark?'#EEEDFE':'#26215C'}});
+const src = `flowchart LR
+    MEMBER[회원]
+    PRODUCT[상품]
+    SKU[구독 가능한 SKU]
+    SUBSCRIPTION[구독]
+    CYCLE[배송 주기]
+    NEXT_ORDER_DATE[다음 주문 예정일]
+    MEMBER -->|탐색| PRODUCT
+    PRODUCT -->|옵션 제공| SKU
+    MEMBER -->|구독 생성| SUBSCRIPTION
+    SKU -->|SKU 하나| SUBSCRIPTION
+    CYCLE -->|2주·4주·8주| SUBSCRIPTION
+    SUBSCRIPTION -->|예정 정보 제공| NEXT_ORDER_DATE`;
+const { svg } = await mermaid.render('w04_1_m1svg', src);
+document.getElementById('w04_1_m1').innerHTML = svg;
+</script></figure>
+<p>도식에서 눈여겨볼 점은 <strong>배송 주기와 다음 주문 예정일이 독립된 상자</strong>로 그려졌지만, 문서는 이것을 “구독을 설명하는 값이지 별도 엔티티가 아니다”라고 못 박았다는 것이다. 개념을 그리는 것과 테이블을 만드는 것을 구분한 것이다. 실제로 이 요구사항은 테이블 <strong>하나</strong>로 굳었다.</p>
+<pre><code class="language-sql">-- V2__create_subscriptions.sql (MVP1의 구독 전부)
+CREATE TABLE subscriptions (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    member_id BIGINT NOT NULL,
+    sku_id BIGINT NOT NULL,                       -- 구독 하나 = SKU 하나
+    quantity INT NOT NULL,
+    delivery_cycle_weeks INT NOT NULL,
+    created_date DATE NOT NULL,                   -- 시각이 아니라 날짜
+    next_order_date DATE NOT NULL,
+    CONSTRAINT chk_subscriptions_quantity CHECK (quantity BETWEEN 1 AND 10),
+    CONSTRAINT chk_subscriptions_delivery_cycle CHECK (delivery_cycle_weeks IN (2, 4, 8)),
+    CONSTRAINT chk_subscriptions_date_order CHECK (next_order_date &gt; created_date),
+    ...
+);
+CREATE INDEX idx_subscriptions_member_id ON subscriptions (member_id, id);
+</code></pre>
+<ul>
+<li><strong><code>CHECK (quantity BETWEEN 1 AND 10)</code>, <code>IN (2, 4, 8)</code></strong>: 제품 결정(“수량 1~10, 주기 2·4·8주 고정, 임의 주기 금지”)이 <strong>DB 제약으로 그대로 옮겨졌다</strong>. 애플리케이션 검증이 뚫려도 DB가 마지막으로 막는다. <strong><span class="tag tag-pri">원리</span></strong> MySQL은 8.0.16부터 <code>CHECK</code>를 실제로 강제한다. 그 전 버전은 문법만 받아들이고 무시했다.</li>
+<li><strong><code>created_date DATE</code></strong>: 시각이 아니라 <strong>날짜</strong>다. 정기배송은 “몇 시 몇 분”이 아니라 “며칠”의 문제이고, 기준 시간대는 Asia/Seoul로 정했다. 휴일 보정은 하지 않기로 했다.</li>
+<li><strong><code>CHECK (next_order_date &gt; created_date)</code></strong>: 정확한 계산(생성일 + 주기)은 도메인 코드가 책임진다. DB는 <strong>순서만</strong> 검사한다. 정확한 등식까지 DB에 넣지 않은 이유는 계산 규칙이 바뀔 때 마이그레이션이 필요해지기 때문이다. 책임을 나눈 것이다.</li>
+<li><strong><code>INDEX (member_id, id)</code></strong>: “내 구독 목록을 최신순으로” 조회 한 가지를 위해 만든 인덱스다. <strong><span class="tag tag-rec">기록</span></strong> 측정 없이 추가 인덱스를 만들지 않는다는 원칙도 함께 정했다.</li>
+<li><strong><code>status</code> 컬럼이 없다.</strong> 일시정지도 해지도 없으니 상태가 필요 없었다.</li>
+</ul>
+<h3 id="일부러-뺀-것과-그-대가">일부러 뺀 것과 그 대가</h3>
+<p><strong><span class="tag tag-ok">확인</span></strong> 제외 목록은 30개가 넘는다. 주문 생성, 장바구니, 결제, PG 연동, 재고, 배송, 구독 변경·일시정지·해지, 쿠폰, 추천, 관리자 화면 등이다. 문서는 “제외된 기능은 전체 제품 방향에서 삭제하지 않는다. 후속 후보로 남긴다”고 덧붙인다.</p>
+<p>그중 세 가지 결정이 이후 설계에 큰 흔적을 남겼다.</p>
+<ul>
+<li><strong>멱등성을 일부러 넣지 않았다.</strong> <strong><span class="tag tag-rec">기록</span></strong> 첫 구독 API 계약은 같은 회원이 같은 조건으로 구독을 <strong>여러 개 만드는 것을 허용</strong>했다. <code>Idempotency-Key</code> 저장소도 두지 않았다. 클라이언트는 처리 중 제출 버튼만 비활성화했다.<ul>
+<li>문서는 “타임아웃 후 반복 POST가 실제 중복 구독을 만들 수 있는 위험”을 <strong>사용자가 승인한 트레이드오프</strong>로 남겼다.</li>
+<li>3강의 언어로 말하면, 이 API는 <strong>최소 한 번 전달 + 중복 제거 없음</strong>이었다. 결제가 없으니 중복이 생겨도 돈이 움직이지 않는다. 그래서 감수할 수 있는 위험이었다.</li>
+<li>돈이 움직이기 시작한 MVP2·MVP3에서는 이 결정이 뒤집힌다(아래 3·5절).</li>
+</ul>
+</li>
+<li><strong>남의 구독은 403이 아니라 404로 숨긴다.</strong> “없음”, “남의 것”, “숫자가 아닌 ID”를 모두 같은 404로 돌려준다. 403(“있지만 권한 없음”)으로 구분하면 <strong>그 ID가 존재한다는 사실</strong>이 새어 나가기 때문이다. 3강의 타이밍 부채널과 같은 계열의 정보 누설 방지이고, 12강(인가와 소유권)에서 코드로 본다.</li>
+<li><strong>다음 주문 예정일은 서버만 계산한다.</strong> 생성 전에는 화면에 정확한 날짜를 보여 주지 않는다.<ul>
+<li>브라우저가 미리 계산하면 시간대(사용자 PC가 Asia/Seoul이 아닐 수 있다)와 날짜 기준이 서버와 어긋날 수 있다.</li>
+<li>그래서 “생성 후 확인” 안내만 하고, 생성 직후 <strong>구독 상세 화면</strong>으로 이동해 서버가 확정한 날짜를 보여 준다.</li>
+<li>로그인 후에는 <strong>서비스 내부의 GET 경로로만</strong> 복귀시킨다. 외부 URL로 돌아가게 허용하면 <strong>Open Redirect</strong> 공격(피싱 사이트로 보내는 신뢰 링크)이 되기 때문이다. 이전 POST를 자동으로 다시 실행하는 것도 금지했다. 중복 구독 위험 때문이다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-MVP2-82-가격이-바뀌면이라는-질문">3. MVP2 (8/2): “가격이 바뀌면?”이라는 질문</h2>
+<p>MVP1의 구독은 <code>sku_id</code>와 <code>quantity</code>만 들고 있었다. 그러면 SKU 가격이 오를 때 <strong>기존 구독자의 다음 결제 금액도 조용히 바뀐다</strong>. 반려동물별 패키지(사료 + 간식 + 모래)도 표현할 수 없다.</p>
+<p><strong><span class="tag tag-rec">기록</span></strong> MVP2는 이 문제를 네 개념으로 풀었다.</p>
+<ul>
+<li><strong>Pet</strong>: 회원이 소유하는 반려동물. 이름과 종(DOG/CAT)만 있다.</li>
+<li><strong>SubscriptionPlan → PlanVersion → PlanItem</strong>: 종별 패키지 플랜과 그 버전, 버전의 구성 SKU·수량.</li>
+<li><strong>불변 스냅샷</strong>: 구독할 때 선택한 PlanVersion의 <strong>가격·구성·배송 주기를 복사</strong>해 둔 기록.</li>
+<li><strong>pending 변경</strong>: 플랜을 바꾸면 즉시 적용하지 않고 <strong>다음 실행 가능한 회차</strong>에 적용할 스냅샷을 대기시킨다.</li>
+</ul>
+<h3 id="왜-참조가-아니라-복사인가">왜 참조가 아니라 복사인가</h3>
+<p>이 설계의 핵심은 <strong>가격을 참조하지 않고 복사한다</strong>는 것이다. 영수증을 생각하면 쉽다. 영수증에 “상품 #42의 현재 가격”이라고 적혀 있으면, 상품 가격이 바뀔 때마다 과거 영수증의 금액도 바뀐다. 영수증은 <strong>그 순간의 값을 그대로 적어 두는 문서</strong>여야 한다.</p>
+<ul>
+<li>가격·구성을 바꾸고 싶으면 <strong>새 PlanVersion을 만든다</strong>. 기존 버전은 고치지 않는다.</li>
+<li>이미 구독 중인 사람은 자기 스냅샷의 가격을 유지한다. 판매가 끝나도 <strong>자동 해지하거나 다른 플랜으로 옮기지 않는다</strong>.</li>
+<li><strong><span class="tag tag-rec">기록</span> 기각한 대안</strong>: 활성 PlanVersion이나 과거 스냅샷을 제자리에서 수정하는 방식이다. 이미 생성된 구독의 가격 의미가 바뀌기 때문에 기각됐다.</li>
+</ul>
+<p>이 규칙들이 SQL에서 어떻게 강제되는지 보자. V3 마이그레이션에서 중요한 세 덩어리다.</p>
+<pre><code class="language-sql">-- V3__add_second_mvp_subscription_schema.sql (발췌)
+
+-- (가) &quot;플랜의 현재 버전&quot;은 반드시 그 플랜의 버전이어야 한다
+ALTER TABLE plan_versions
+    ADD CONSTRAINT uk_plan_versions_id_plan UNIQUE (id, plan_id);
+ALTER TABLE subscription_plans
+    ADD CONSTRAINT fk_subscription_plans_current_version
+        FOREIGN KEY (current_plan_version_id, id) REFERENCES plan_versions (id, plan_id);
+
+-- (나) 스냅샷: 출처 버전을 기억하되, 금액·주기는 복사본을 들고 있다
+CREATE TABLE subscription_snapshots (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    subscription_id BIGINT NULL,
+    source_plan_version_id BIGINT NOT NULL,
+    package_total_krw BIGINT NOT NULL,
+    delivery_cycle_weeks INT NOT NULL,
+    CONSTRAINT chk_subscription_snapshots_total
+        CHECK (package_total_krw BETWEEN 0 AND 9007199254740991),
+    ...
+);
+
+-- (다) 구독당 pending 변경은 최대 하나
+CREATE TABLE pending_plan_changes (
+    subscription_id BIGINT NOT NULL,
+    snapshot_id BIGINT NOT NULL,
+    target_schedule_id BIGINT NOT NULL,
+    CONSTRAINT pk_pending_plan_changes PRIMARY KEY (subscription_id),
+    CONSTRAINT uk_pending_snapshot UNIQUE (snapshot_id),
+    CONSTRAINT uk_pending_target_schedule UNIQUE (target_schedule_id),
+    ...
+);
+</code></pre>
+<ul>
+<li><strong>(가) 복합 외래 키 트릭.</strong> 단순히 <code>current_plan_version_id → plan_versions(id)</code>로 걸면, 플랜 A의 현재 버전으로 <strong>플랜 B의 버전</strong>을 가리키는 실수를 DB가 막지 못한다.<ul>
+<li>그래서 <code>plan_versions</code>에 <code>(id, plan_id)</code> 조합 UNIQUE를 만든다. <code>id</code>가 이미 PK라 이 조합은 당연히 유일하지만, 외래 키의 <strong>참조 대상</strong>이 되려고 만든 것이다.</li>
+<li>그다음 <code>(current_plan_version_id, 자기 id)</code>가 그 조합을 참조하게 한다. 이렇게 하면 “현재 버전의 plan_id = 나의 id”가 <strong>DB 수준에서 보장</strong>된다.</li>
+<li>애플리케이션 버그 하나로 다른 플랜의 가격이 섞이는 일을 구조적으로 막는 기법이고, 6강(ERD)에서 다시 쓴다.</li>
+</ul>
+</li>
+<li><strong>(나) <code>9007199254740991</code>이라는 이상한 상한.</strong> 이 수는 <strong>2⁵³ − 1</strong>이고, JavaScript의 <code>Number.MAX_SAFE_INTEGER</code>다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> JavaScript의 숫자는 64비트 부동소수점(IEEE 754 double)이라 가수부가 53비트다. 그보다 큰 정수는 <strong>정확히 표현되지 않는다</strong>. 예를 2⁵³ + 1은 2⁵³으로 반올림된다.</li>
+<li>서버의 <code>BIGINT</code>는 2⁶³ − 1까지 담지만, JSON으로 프론트에 가는 순간 큰 금액이 <strong>조용히 다른 숫자로 바뀔</strong> 수 있다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> 그래서 금액 상한을 프론트가 안전하게 다룰 수 있는 범위로 DB에서 묶었다. 화면(Next.js)까지 고려한 제약이다.</li>
+</ul>
+</li>
+<li><strong>(다) “최대 하나”를 PK로 표현.</strong> <code>PRIMARY KEY (subscription_id)</code>이니 한 구독에 pending 행은 <strong>물리적으로 하나만</strong> 존재할 수 있다.<ul>
+<li>제품 규칙도 이에 맞춰져 있다. 적용 전에 새 변경이 오면 대기열에 쌓지 않고 <strong>최신 요청으로 교체</strong>한다. 교체 전 명령은 명령 이력에 남긴다.</li>
+<li>대기열로 쌓는 대안은 “어느 변경이 언제 적용되는가”라는 복잡한 규칙을 만든다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="멱등성이-돌아왔다">멱등성이 돌아왔다</h3>
+<p>MVP2의 구독 명령(플랜 변경, 건너뛰기, 일시정지, 재개, 해지)에는 <strong><code>Idempotency-Key</code>와 <code>If-Match</code>(버전 검사)가 들어갔다</strong>. MVP1에서 뺐던 것이 돌아온 것이다. 구독 상태가 생기고 명령이 상태를 바꾸기 시작했으니, “같은 해지 요청이 두 번 들어오는” 문제가 현실이 됐기 때문이다. 동시 수정 보호(<code>If-Match</code>, 낙관적 버전)는 22강에서 본다.</p>
+<h3 id="기존-데이터라는-청구서">기존 데이터라는 청구서</h3>
+<p>MVP1 구독은 스냅샷 없이 이미 만들어져 있었다. <strong><span class="tag tag-rec">기록</span></strong> MVP2는 이 데이터를 버리거나 초기화하지 않고 <strong>손실 없이 이행</strong>하기로 했다. 규칙은 이렇다.</p>
+<ul>
+<li>기존 구독의 가격은 <strong>마이그레이션 시점의 SKU 단가 × 기존 수량</strong>으로 계산한다. 문서는 이것이 “구독 생성 당시 가격이 아니다”라고 정직하게 적는다. 당시 가격을 기록해 두지 않았으니 복원할 방법이 없다.</li>
+<li>기존 구독 보존 전용 PlanVersion·PlanItem을 만들어 연결한다. 이 버전은 신규 구독의 선택 후보가 아니다.</li>
+<li>변환할 수 없는 행이 <strong>하나라도</strong> 있으면, 값을 추측·반올림·절삭하지 않고 <strong>쓰기 전에 전체 마이그레이션을 중단</strong>한다.</li>
+</ul>
+<p>이것이 MVP1에서 스냅샷을 뺀 결정의 <strong>대가</strong>다. 이 대가를 어떻게 평가할지는 7절에서 YAGNI의 틀로 다시 본다.</p>
+<h2 id="4-자동-주문-811-스케줄러는-최소-한-번-실행된다">4. 자동 주문 (8/11): 스케줄러는 최소 한 번 실행된다</h2>
+<p>MVP2까지 “다음 주문 예정일”은 <strong>화면에 보여 주는 값</strong>일 뿐, 실제로 주문이 생기지는 않았다. 8월 11일 자동 주문이 들어오면서 처음으로 시스템이 <strong>스스로</strong> 데이터를 만들기 시작했다.</p>
+<p><strong><span class="tag tag-ok">확인</span></strong> 요구사항 문서의 핵심 문장은 이것이다.</p>
+<blockquote>
+<p>Scheduler 실행은 at-least-once여도 DB 결과는 Schedule당 Order 하나다.
+— <code>docs/product/PS-005-subscription-automation-requirements.md</code></p>
+</blockquote>
+<p>3강에서 배운 “최소 한 번 전달 + 중복 제거 = 정확히 한 번의 효과”가 그대로 요구사항이 됐다. 스케줄러가 같은 회차를 두 번 집거나 서버 두 대가 동시에 돌아도, 결과는 주문 하나여야 한다. 그 마지막 방어선이 SQL 한 줄이다.</p>
+<pre><code class="language-sql">-- V9__create_subscription_orders.sql (발췌)
+CREATE TABLE subscription_orders (
+    ...
+    schedule_id BIGINT NOT NULL,
+    effective_snapshot_id BIGINT NOT NULL,       -- 이 주문에 적용된 스냅샷
+    source_plan_version_id BIGINT NOT NULL,
+    scheduled_date DATE NOT NULL,                -- 원래 예정일
+    processed_at DATETIME(6) NOT NULL,           -- 실제 처리 시각
+    package_total_krw BIGINT NOT NULL,           -- 금액도 다시 복사
+    status VARCHAR(20) NOT NULL,
+    CONSTRAINT uk_subscription_orders_schedule UNIQUE (schedule_id),
+    CONSTRAINT chk_subscription_orders_status CHECK (status = 'CREATED'),
+    ...
+);
+</code></pre>
+<ul>
+<li><strong><code>UNIQUE (schedule_id)</code></strong>: 회차 하나에 주문 하나. 경쟁에서 진 쪽은 중복 키 오류를 받는다.<ul>
+<li><strong><span class="tag tag-rec">기록</span></strong> 이 오류를 바로 실패로 보지 않는다. <strong>실제 주문이 존재하는지 다시 확인한 뒤에만</strong> 정상적인 “이미 처리됨(no-op)”으로 처리한다.</li>
+</ul>
+</li>
+<li><strong><code>scheduled_date</code>와 <code>processed_at</code>을 둘 다 저장</strong>: “언제 처리됐어야 했나”와 “실제로 언제 처리됐나”를 구분한다. 스케줄러가 멈췄다 재개되면 둘이 벌어지는데, 이 차이가 운영의 증거가 된다.</li>
+<li><strong><code>CHECK (status = 'CREATED')</code></strong>: 상태가 하나뿐이다. 결제·배송이 없으니 다른 상태가 필요 없다. 필요해질 때 늘린다. 이것도 MVP1의 <code>status</code> 없음과 같은 원칙이다.</li>
+</ul>
+<p>처리 방식에서 일부러 하지 않은 것들이 특히 중요하다.</p>
+<ul>
+<li><strong>배치 전체를 한 트랜잭션으로 묶지 않았다.</strong> 후보마다 <code>REQUIRES_NEW</code>로 독립 트랜잭션을 연다. 3강에서 본 <a href="https://github.com/guseoh/pawcycle-commerce/pull/106" target="_blank" rel="noopener">PR #106</a>의 실패 격리 원칙이 그대로 이어진다.</li>
+<li><strong>누락된 회차를 몰아서 만들지 않는다.</strong> 스케줄러가 3주 멈췄다가 살아나도 <strong>가장 오래된 회차의 주문 하나만</strong> 만든다. 그다음 원래 예정일에서 주기를 반복해 오늘보다 미래인 첫 날짜로 건너뛴다.<ul>
+<li>예: 2주 주기, 예정일 10/1, 오늘 10/20 → 10/1 회차 주문 1건 생성 → 다음 회차는 10/15를 지나 <strong>10/29</strong>.</li>
+<li>이유: 장애 뒤에 의도하지 않은 <strong>대량 주문</strong>이 생기는 위험이 회차 누락보다 크다고 판단했다.</li>
+</ul>
+</li>
+<li><strong><span class="tag tag-rec">기록</span> 기각한 대안</strong>:<ul>
+<li>애플리케이션 메모리 락, Redis 분산 락, Kafka: DB 행 잠금과 UNIQUE 제약만으로 불변식을 표현할 수 있어서, 새 운영 의존성을 정당화하지 못했다.</li>
+<li>HTTP 명령의 멱등 행 재사용: 스케줄러의 처리 단위와 보관 의미가 다르다.</li>
+<li>재시도 API, backoff, DLQ, 새 <code>PROCESSED</code> 상태: 다음 스케줄러 실행이 다시 집으면 되므로 두지 않았다.</li>
+</ul>
+</li>
+<li><strong>기본값은 꺼짐.</strong> 명시적으로 켜야만 동작한다. 운영 DB에 자동으로 데이터를 만드는 기능은 <strong>켜는 것 자체가 별도 결정</strong>이어야 하기 때문이다.</li>
+</ul>
+<h2 id="5-MVP3-813-돈이-움직이기-시작했다">5. MVP3 (8/13): 돈이 움직이기 시작했다</h2>
+<p>MVP3는 하루에 거대한 PR 하나(<a href="https://github.com/guseoh/pawcycle-commerce/pull/138" target="_blank" rel="noopener">PR #138</a>)로 일반 구매 Commerce를 들여왔다. MVP1에서 뺐던 목록 대부분이 한꺼번에 돌아왔다.</p>
+<ul>
+<li>장바구니, 찜, 배송지</li>
+<li>체크아웃(재고 예약, 쿠폰), 토스 결제 승인, 정기결제(빌링키)</li>
+<li>배송·취소·반품·환불, 알림</li>
+<li>관리자: 재고 조정, 쿠폰, 회원 등급, 운영 조회, 감사 로그</li>
+</ul>
+<p><strong><span class="tag tag-ok">확인</span></strong> 계약 문서에서 MVP1과 대비되는 문장들을 골라 보면 진화가 선명하다.</p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>MVP1</th>
+<th>MVP3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>중복 요청</td>
+<td>멱등성 없음, 버튼 비활성화만</td>
+<td>체크아웃에 <code>Idempotency-Key</code> <strong>필수</strong>, 회원 단위로 직렬화해 동시 요청도 기존 결과를 재생</td>
+</tr>
+<tr>
+<td>가격의 권위</td>
+<td>서버가 계산한 날짜만 신뢰</td>
+<td>장바구니는 가격·재고를 예약하지 않고, 체크아웃에서 현재 가격·재고를 <strong>다시 검증</strong>. 결제 금액은 서버의 체크아웃 응답 값을 쓰고, 토스 리다이렉트 URL의 금액은 일치 검사에만 사용</td>
+</tr>
+<tr>
+<td>남의 자원</td>
+<td>남의 구독은 404</td>
+<td>남의 결제 <code>providerOrderId</code>도 똑같이 <code>404 PAYMENT_NOT_FOUND</code></td>
+</tr>
+</tbody>
+</table>
+<p>일부러 막아 둔 것들도 분명하다.</p>
+<ul>
+<li><strong>실결제는 없다.</strong> 토스 연동은 <code>local-integration</code> 프로필에서 <code>test_sk_</code> 테스트 키로만 동작한다. <strong>라이브 키는 거부</strong>한다.</li>
+<li><strong>결제사가 없으면 실패한다(fail-closed).</strong> 실제 결제사가 구성되지 않은 환경에서는 결제 승인과 빌링 등록이 실패로 끝난다. <strong>가짜 결제 성공을 만들지 않는다.</strong> 3강 관측 축의 “모를 때는 정상이라 하지 않는다”와 같은 원칙이다.</li>
+<li><strong><code>UNKNOWN</code> 결제는 재시도 대상으로 바꾸지 않는다.</strong> 예약된 재고와 쿠폰은 유지한다. 결제 대사는 최대 10회까지만 하며, 대사 <strong>스케줄러 실행 자체는 범위 밖</strong>이다. 이 빈칸이 3강 위험 지도의 1순위였던 <code>PROCESSING</code> 고립 문제로 이어진다(18·19강).</li>
+<li><strong>결제 응답 대기 시간 30분.</strong> 결제창으로 넘어간 뒤 30분 안에 승인되지 않으면 주문을 만료시키고 재고와 쿠폰을 돌려준다. <code>PROCESSING</code>·<code>UNKNOWN</code> 결제는 이 만료 대상이 아니다. 돈이 움직였을지도 모르는 상태를 함부로 되돌리지 않기 위해서다.</li>
+</ul>
+<p>같은 날 바로 구조 정리 PR(<a href="https://github.com/guseoh/pawcycle-commerce/pull/139" target="_blank" rel="noopener">PR #139</a>)이 뒤따랐다. <strong><span class="tag tag-rec">기록</span></strong> 여기서 정한 원칙은 이렇다.</p>
+<ul>
+<li>API와 기존 스키마는 유지한다.</li>
+<li>일반 엔티티는 JPA로 옮기되, <strong>잠금·CAS·운영 조회·구독 V2 호환 경계는 명시 SQL로 남긴다</strong>.</li>
+<li><strong>외부 결제사 호출은 DB 트랜잭션 밖에 둔다.</strong> 느리거나 실패하는 외부 I/O가 DB 커넥션과 잠금 점유로 번지지 않게 하기 위해서다. 3강의 HikariCP 이야기와 연결된다.</li>
+<li>관리자 변경은 <strong>감사 기록까지 한 트랜잭션</strong>에서 처리한다. 감사 기록이 실패하면 상태 변경도 커밋하지 않는다.</li>
+</ul>
+<h2 id="6-MVP4-824828-신뢰와-추천-그리고-AI의-자리">6. MVP4 (8/24–8/28): 신뢰와 추천, 그리고 AI의 자리</h2>
+<p>MVP4는 “살 수 있다”를 넘어 “<strong>믿고 살 수 있다</strong>”로 갔다.</p>
+<ul>
+<li><strong>구독 직접 관리</strong>: 회원이 구독 명령을 더 넓게 스스로 수행한다. 기존 <code>Idempotency-Key</code>, <code>If-Match</code>, <code>ETag</code> 계약을 그대로 이어받고, <strong>성공 재생을 버전 검사보다 먼저</strong> 판정한다.<ul>
+<li>왜 순서가 중요한가: 이미 성공한 요청을 재시도하면, 그 사이 버전이 올라가 있으므로 버전 검사를 먼저 하면 <strong>충돌로 오판</strong>한다. 3강 그림의 “저장된 결과 재전송”이 먼저여야 한다.</li>
+</ul>
+</li>
+<li><strong>상품 신뢰</strong>: 리뷰와 상품 문의. 공개 응답에 작성자의 이메일이나 회원 ID를 넣지 않는다.</li>
+<li><strong>구매 정합성</strong>: 장바구니에 <code>version</code>을 추가했다. 내용이 실제로 바뀔 때만 올라가고, 변화 없는 요청은 버전을 올리지 않는다(16·17강).</li>
+<li><strong>반려동물 프로필</strong>: 품종과 체중을 추가했다. 삭제 API는 없다.</li>
+</ul>
+<p>가장 흥미로운 결정은 <strong>AI 추천의 경계</strong>다. <strong><span class="tag tag-rec">기록</span></strong></p>
+<ul>
+<li>서버가 후보, 소유권, 의료 관련 상품 제외, 최종 구매 가능 여부를 <strong>모두 결정</strong>한다.</li>
+<li>AI에는 최대 10개로 제한된 후보 ID와 공개 상품 정보만 넘긴다. AI는 <strong>순서와 짧은 이유만 제안</strong>한다. 회원 식별자, 이름, 연락처, 주소, 결제 정보는 넘기지 않는다.</li>
+<li>AI가 후보 밖 ID나 중복을 돌려주거나 오류가 나면, 그 결과를 버리고 <strong>결정적인 기본 순서</strong>로 채운다.</li>
+<li>AI 호출 <strong>뒤에</strong> 최신 카탈로그 조건을 다시 조회한다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> 이것을 <strong>TOCTOU</strong>(Time-Of-Check to Time-Of-Use) 문제라 한다. 검사한 시점과 사용하는 시점 사이에 상태가 바뀌는 문제다. AI 호출이 몇 초 걸리는 동안 상품이 품절될 수 있다.</li>
+</ul>
+</li>
+<li>외부 AI 호출 중에는 DB 트랜잭션을 열어 두지 않는다. MVP3 구조 정리와 같은 원칙이다.</li>
+<li><strong>기본값은 꺼짐.</strong> 실제 API 키, 모델, 운영 비용 승인은 별도다.</li>
+<li><strong><span class="tag tag-rec">기록</span> 기각한 대안</strong>: AI가 후보 선택과 유효성까지 판단하는 방식(확률적 응답에 정책을 맡김), 추천 전용 Redis·RAG·임베딩·큐 도입(근거 부족).</li>
+</ul>
+<p><strong><span class="tag tag-int">해석</span></strong> 이 결정은 포트폴리오에서 가장 설명하기 좋은 소재 중 하나다. “AI를 붙였다”가 아니라 <strong>“AI가 틀려도 시스템이 틀리지 않게 경계를 그었다”</strong> 고 말할 수 있기 때문이다. 15강에서 코드로 확인한다.</p>
+<h2 id="7-판단의-틀-YAGNI와-네-가지-비용">7. 판단의 틀: YAGNI와 네 가지 비용</h2>
+<p>다섯 단계를 관통하는 원칙은 하나다. <strong>필요가 확인되기 전에는 만들지 않는다.</strong> 이것을 <strong>YAGNI</strong>(You Aren't Gonna Need It)라 한다. 데브원영의 <a href="https://voidmainvoid.tistory.com/511" target="_blank" rel="noopener">「YAGNI, 그 기능이 필요할 때 만들어라!」</a>는 Ron Jeffries의 말로 이 원칙을 소개한다. 미래에 필요할 것 같을 때가 아니라 <strong>실제로 필요할 때</strong> 구현하라는 것이다. 그리고 한계로 장기 설계를 간과하거나 과도하게 단순화할 위험도 함께 짚는다.</p>
+<p>Martin Fowler는 <a href="https://martinfowler.com/bliki/Yagni.html" target="_blank" rel="noopener">「Yagni」</a>에서 이 원칙을 <strong>비용</strong>으로 분해한다. 미리 만든 기능(presumptive feature)은 네 가지 비용을 낳는다는 것이다.</p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="미리 만든 기능의 세 부류와 네 가지 비용(만드는 비용, 지연 비용, 유지 비용, 수리 비용)을 그린 Martin Fowler의 스케치" src="https://martinfowler.com/bliki/images/yagni/sketch.png" /></p>
+<p><em>출처: <a href="https://martinfowler.com/bliki/Yagni.html" target="_blank" rel="noopener">Martin Fowler · Yagni (2015)</a>.</em></p>
+<ul>
+<li><strong>만드는 비용</strong>(cost of build): 결국 필요 없었던 기능에 쓴 분석·개발·테스트 노력.</li>
+<li><strong>지연 비용</strong>(cost of delay): 그 시간에 <strong>지금 필요한 기능</strong>을 만들지 못해 가치가 늦게 나온 비용. 필요한 기능이었더라도 생긴다.</li>
+<li><strong>유지 비용</strong>(cost of carry): 미리 만든 코드가 복잡도를 더해, 이후 <strong>모든 기능</strong>의 개발과 디버깅을 느리게 하는 비용.</li>
+<li><strong>수리 비용</strong>(cost of repair): 필요한 기능을 <strong>잘못된 모양으로</strong> 미리 만들어, 나중에 고쳐야 하는 비용. 그 사이 팀은 도메인과 코드를 더 배우기 때문에 이런 일이 흔하다.</li>
+</ul>
+<p>Fowler는 중요한 단서를 하나 붙인다. <strong>YAGNI는 미리 만든 기능에만 적용되고, 코드를 바꾸기 쉽게 만드는 노력에는 적용되지 않는다.</strong> 리팩터링, 자가 테스트 코드, 지속적 전달은 YAGNI 위반이 아니라 <strong>YAGNI를 가능하게 하는 조건</strong>이다. 코드가 바꾸기 어려우면 YAGNI는 저주가 된다.</p>
+<p>이 틀로 PawCycle의 결정들을 평가해 보자. 아래 판정은 모두 <strong><span class="tag tag-int">해석</span></strong> 이다.</p>
+<table>
+<thead>
+<tr>
+<th>결정</th>
+<th>YAGNI 관점의 평가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MVP1에서 주문·결제·재고 제외</td>
+<td><strong>잘 맞았다.</strong> 구독 흐름이 먼저 동작했고, 결제 설계는 실제 요구가 생긴 MVP3에서 했다. 지연 비용을 피했다.</td>
+</tr>
+<tr>
+<td>MVP1에서 <code>status</code> 없음, V9의 <code>CREATED</code> 하나</td>
+<td><strong>잘 맞았다.</strong> 필요한 상태만 그때그때 추가했다. 미리 만든 상태 머신은 대부분 틀린 모양이 된다(수리 비용).</td>
+</tr>
+<tr>
+<td>Redis 락·Kafka·DLQ 기각</td>
+<td><strong>잘 맞았다.</strong> DB 제약으로 충분했고, 새 운영 의존성의 유지 비용을 피했다.</td>
+</tr>
+<tr>
+<td>MVP1에서 가격 스냅샷 없음</td>
+<td><strong>비용이 실제로 청구됐다.</strong> MVP2에서 손실 없는 이행 규칙을 따로 설계해야 했고, <strong>원래 생성 당시 가격은 영원히 복원할 수 없게</strong> 됐다. 데이터는 코드와 달리 나중에 리팩터링으로 되살릴 수 없다.</td>
+</tr>
+<tr>
+<td>MVP1에서 멱등성 없음</td>
+<td><strong>조건부로 맞았다.</strong> 돈이 움직이지 않는 동안에는 위험이 작았다. 돈이 움직이기 시작한 MVP2·MVP3에서 바로 들어왔다.</td>
+</tr>
+</tbody>
+</table>
+<p>여기서 실무 교훈 하나가 나온다. <strong>YAGNI는 코드에는 관대하지만 데이터에는 가혹하다.</strong> 코드는 나중에 고치면 되지만, <strong>기록하지 않은 사실</strong>(생성 당시 가격, 처리 시각, 누가 바꿨는지)은 나중에 만들어 낼 수 없다. 그래서 다음은 “미리 만드는 기능”이 아니라 <strong>비용이 작은 보험</strong>으로 보는 편이 맞다.</p>
+<ul>
+<li>시점 값을 복사해 두는 스냅샷</li>
+<li>예정 시각과 실제 처리 시각을 함께 남기는 컬럼</li>
+<li>감사 기록</li>
+</ul>
+<p>Fowler가 말한 “지금 하기 쉽고, 복잡도를 거의 늘리지 않으면서, 나중 비용을 크게 줄이는 것”에 해당한다. PawCycle은 V9에서 <code>scheduled_date</code>와 <code>processed_at</code>을 처음부터 둘 다 저장해, 이 교훈을 반영했다.</p>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://martinfowler.com/bliki/Yagni.html" target="_blank" rel="noopener">Martin Fowler · Yagni</a>: 네 가지 비용, YAGNI가 리팩터링과 충돌하지 않는 이유(영문)</li>
+<li><a href="https://voidmainvoid.tistory.com/511" target="_blank" rel="noopener">데브원영 · YAGNI, 그 기능이 필요할 때 만들어라!</a>: 원칙과 한계를 한국어로 짧게 정리</li>
+<li><a href="https://www.tosspayments.com/blog/articles/dev-1" target="_blank" rel="noopener">토스페이먼츠 · 멱등성이 뭔가요?</a>: MVP1에서 뺐다가 MVP3에서 필수가 된 <code>Idempotency-Key</code>의 동작</li>
+</ul>
+<h2 id="4강-정리">4강 정리</h2>
+<ul>
+<li><strong>흐름</strong>: MVP1(7월, 단일 SKU 구독) → MVP2(8/2, Pet·플랜 버전·불변 스냅샷·상태) → 자동 주문(8/11) → MVP3(8/13, 일반 구매·결제) → MVP4(8/24–28, 신뢰·추천·직접 관리) → 9–11월 구조 정리와 운영.</li>
+<li><strong>수직 슬라이스</strong>: 모든 층을 관통하되 기능 폭을 하나로 좁혀, 첫 주부터 동작하는 흐름을 얻는다.</li>
+<li><strong>제품 결정은 SQL 제약으로 굳는다.</strong><ul>
+<li>수량·주기 <code>CHECK</code></li>
+<li>복합 외래 키로 “현재 버전은 그 플랜의 버전”을 보장</li>
+<li><code>PRIMARY KEY (subscription_id)</code>로 pending 최대 하나</li>
+<li><code>UNIQUE (schedule_id)</code>로 회차당 주문 하나</li>
+<li>금액 상한 2⁵³ − 1로 JavaScript 숫자 정밀도까지 보호</li>
+</ul>
+</li>
+<li><strong>뺀 것은 사라지지 않고 돌아온다.</strong><ul>
+<li>멱등성은 상태가 생기자(MVP2), 돈이 움직이자(MVP3) 돌아왔다.</li>
+<li>스냅샷 부재는 이행 비용과 영구적인 가격 정보 손실로 청구됐다.</li>
+</ul>
+</li>
+<li><strong>AI의 자리</strong>: 서버가 결정하고 AI는 재정렬만 한다. TOCTOU를 막으려고 호출 뒤 다시 검증하고, 기본값은 꺼짐이다.</li>
+<li><strong>YAGNI의 네 비용</strong>(만들기·지연·유지·수리). YAGNI는 코드에는 관대하지만 <strong>데이터에는 가혹하다</strong>.</li>
+</ul>
+<p><strong>4강에서 남긴 미확인 항목</strong></p>
+<ul>
+<li>MVP2 레거시 이행이 실제로 중단 없이 적용됐는지: 이행 마이그레이션 실행 기록(6강·22강)</li>
+<li>구독 V2 명령의 <code>If-Match</code> 충돌 응답과 replay 우선 순서의 실제 코드(22강)</li>
+<li>AI 추천이 기본 순서로 대체되는 정확한 조건(15강)</li>
+</ul>
+<h2 id="보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</h2>
+<p>강의 뒤에 별도로 조사한 개인 기술 블로그 글이다. 모든 글은 직접 열어 제목·작성일·본문 그림을 확인했다. 티스토리 그림 주소에는 2026-11-30 만료 서명이 붙어 있어 그 이후에는 보이지 않을 수 있다(옛 <code>t1.daumcdn.net/cfile</code> 주소는 만료 없음).</p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>글</th>
+<th>그림</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YAGNI 원칙과 한계</td>
+<td><a href="https://voidmainvoid.tistory.com/511" target="_blank" rel="noopener">데브원영 · YAGNI, 그 기능이 필요할 때 만들어라!</a></td>
+<td>없음</td>
+</tr>
+<tr>
+<td>YAGNI의 네 가지 비용</td>
+<td><a href="https://martinfowler.com/bliki/Yagni.html" target="_blank" rel="noopener">Martin Fowler · Yagni</a> (영문, 보조)</td>
+<td>1장</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>이 주제는 개인 블로그 중 그림이 있는 좋은 글을 아직 찾지 못했습니다. 10강 이후 보강 대상으로 남깁니다.</p>
+</blockquote>
+<h2 id="보강-참고-자료-문서화-때-추가">보강 참고 자료 (문서화 때 추가)</h2>
+<ul>
+<li>
+<p>Nuevo(saucecode), <a href="https://saucecode.tistory.com/8" target="_blank" rel="noopener">최소 기능 제품, Minimum Viable Product(MVP)</a> (2019-08-08) — 열어서 본문을 읽었다. 고객이 원하는 "자동차"를 두 방식으로 만드는 시나리오를 비교한다.</p>
+<ul>
+<li>첫째, 바퀴·차체·엔진을 팀별로 나눠 만들고 마지막에 조립한다. 끝나기 전까지 고객은 쓸 수 있는 것을 하나도 받지 못한다.</li>
+<li>둘째, 작은 기능을 가진 제품을 먼저 내고 반복해서 개선한다.</li>
+<li>PawCycle의 MVP1이 "SKU 하나를 고르는 구독"만으로 화면 → API → DB를 관통한 것이 두 번째 방식이다. 4강의 <strong>수직 슬라이스</strong>와 같은 생각이다.</li>
+</ul>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="두 가지 개발 시나리오 비교 (saucecode)" src="https://blog.kakaocdn.net/dna/kDmJ0/btqxiNpk9MO/AAAAAAAAAAAAAAAAAAAAAFLobrhP86DwkaIsZtQKycQn0h5MHUOFo71tFMEyaVby/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=M9jGb6jyAdj1YG%2F7NprI0g9oqi4%3D" />
+<em>(본문 첫 그림. 티스토리 서명 URL이라 2026-11-30에 만료된다.)</em>
+- velog에서 "소프트웨어 개발 3대 원칙 (KISS, YAGNI, DRY)" 글 여러 편을 검색 결과로 봤다. <strong>제목만 확인했다.</strong> 7절의 YAGNI 네 비용(만들기·지연·유지·수리)은 본문에 링크한 Martin Fowler 원문이 출처다.</p>
+</li>
+</ul><nav class="pager"><a href="03강_비기능_요구와_위험_지도.html">← 3강 비기능 요구와 위험 지도</a><a href="00_1단계_전체.html">1단계 전체</a><a href="05강_도메인_모델.html">5강 도메인 모델 →</a></nav></main></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+</body></html>

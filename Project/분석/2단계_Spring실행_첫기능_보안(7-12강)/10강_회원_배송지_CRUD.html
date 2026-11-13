@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>10강. 회원 배송지 CRUD: 가장 단순한 기능으로 모든 층을 꿰기</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+</style></head><body><div class="layout"><aside class="toc"><div class="toc-title">목차</div><ul><li><a href="#1-왜-배송지가-기준점인가">1. 왜 배송지가 기준점인가</a></li><li><a href="#2-물리-ERD-기본-배송지를-어디에-저장할까">2. 물리 ERD: “기본 배송지”를 어디에 저장할까</a></li><li><a href="#3-JPA-엔티티-같은-컬럼을-두-번-매핑하는-이유">3. JPA 엔티티: 같은 컬럼을 두 번 매핑하는 이유</a></li><li><a href="#4-HTTP-계약-검증과-PATCH의-의미">4. HTTP 계약: 검증과 PATCH의 의미</a><ul><li><a href="#PATCH인데-사실은-PUT">PATCH인데 사실은 PUT</a></li></ul></li><li><a href="#5-소유권-남의-배송지는-없다">5. 소유권: 남의 배송지는 “없다”</a></li><li><a href="#6-트랜잭션과-플러시-saveAndFlush가-꼭-필요했던-이유">6. 트랜잭션과 플러시: saveAndFlush가 꼭 필요했던 이유</a></li><li><a href="#7-동시성-단순한-기능에도-빈틈은-있다">7. 동시성: 단순한 기능에도 빈틈은 있다</a></li><li><a href="#8-배송지를-지워도-과거-주문은-안전한가">8. 배송지를 지워도 과거 주문은 안전한가</a></li><li><a href="#9-테스트-무엇이-지켜지고-있고-무엇이-비어-있나">9. 테스트: 무엇이 지켜지고 있고, 무엇이 비어 있나</a></li><li><a href="#10강-정리">10강 정리</a></li></ul></aside><main><div class="crumbs"><a href="../index.html">분석</a> › <a href="00_2단계_전체.html">2단계 · Spring 실행 구조 · 첫 기능 · 보안</a> › 10강</div><nav class="pager"><a href="09강_영속성_전략.html">← 9강 영속성 전략</a><a href="00_2단계_전체.html">2단계 전체</a><a href="11강_세션_로그인과_CSRF.html">11강 세션 로그인과 CSRF →</a></nav><p class="meta">기준 커밋 <a href="https://github.com/guseoh/pawcycle-commerce/tree/f9ab9f87f610908501b864f45b8bc5f7caf2d8d0" target="_blank" rel="noopener"><code>f9ab9f87</code></a> · 저장소는 읽기만 했고 테스트·서버는 실행하지 않았다 · 티스토리 그림은 2026-11-30 이후 깨질 수 있다</p><div class="legend"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div><h1 id="10강-회원-배송지-CRUD-가장-단순한-기능으로-모든-층을-꿰기">10강. 회원 배송지 CRUD: 가장 단순한 기능으로 모든 층을 꿰기</h1>
+<p><strong>이번 강의의 목표</strong></p>
+<ul>
+<li>1~9강에서 배운 층(요청 경로, 소유권, 트랜잭션, 엔티티, SQL, 테스트)이 <strong>가장 단순한 기능 하나</strong>에서 어떻게 맞물리는지 처음부터 끝까지 따라간다.</li>
+<li>“기본 배송지는 하나만”이라는 규칙을 <strong>어디에 두느냐</strong>에 따라 설계가 어떻게 달라지는지 비교한다.</li>
+<li><code>saveAndFlush</code>가 꼭 필요했던 이유를 9강의 플러시 개념으로 설명한다.</li>
+<li>이 단순한 기능에도 남아 있는 <strong>동시성 빈틈</strong>과 <strong>테스트 빈틈</strong>을 찾는다.</li>
+</ul>
+<h2 id="1-왜-배송지가-기준점인가">1. 왜 배송지가 기준점인가</h2>
+<p>배송지는 회원이 자기 배송지를 만들고, 보고, 고치고, 지우고, 기본으로 지정하는 기능이다. 외부 결제사도, 재고도, 상태 전이도 없다. 그래서 지금까지 배운 층을 <strong>잡음 없이</strong> 볼 수 있다. 이후 강의에서 체크아웃이나 구독 명령이 복잡해 보일 때, “배송지에서는 이 층이 어떻게 생겼었지?”로 돌아오면 된다.</p>
+<p><strong><span class="tag tag-ok">확인</span></strong> API는 다섯 개, 구독 배송지까지 여섯 개다.</p>
+<pre><code class="language-java">// member/address/api/MemberAddressController.java (요지)
+@GetMapping(&quot;/addresses&quot;)                         → 200 목록
+@PostMapping(&quot;/addresses&quot;)                        → 201 Created + Location: /api/addresses/{id}
+@PatchMapping(&quot;/addresses/{addressId}&quot;)           → 204 No Content
+@DeleteMapping(&quot;/addresses/{addressId}&quot;)          → 204 No Content
+@PutMapping(&quot;/addresses/{addressId}/default&quot;)     → 204 No Content
+@PutMapping(&quot;/subscriptions/{subscriptionId}/shipping-address&quot;) → 204 (구독 배송지 스냅샷)
+</code></pre>
+<ul>
+<li>생성은 <strong>201 + <code>Location</code> 헤더</strong>, 본문 없는 성공은 <strong>204</strong>다. 3강에서 본 HTTP 계약 정리 결정이 여기서도 지켜진다.</li>
+<li>모든 메서드의 첫 인자는 <code>@AuthenticationPrincipal AuthenticatedMemberPrincipal principal</code>이다. 8강에서 본 대로 <strong>회원 ID는 세션 인증에서만</strong> 온다.</li>
+</ul>
+<h2 id="2-물리-ERD-기본-배송지를-어디에-저장할까">2. 물리 ERD: “기본 배송지”를 어디에 저장할까</h2>
+<p><strong><span class="tag tag-ok">확인</span></strong> 배송지 테이블은 V13에서 생겼다.</p>
+<pre><code class="language-sql">-- V13__add_commerce_supporting_domains.sql (발췌)
+CREATE TABLE member_addresses (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    member_id BIGINT NOT NULL,
+    name VARCHAR(100) NOT NULL,              -- &quot;집&quot;, &quot;회사&quot; 같은 별칭
+    recipient_name VARCHAR(100) NOT NULL,
+    recipient_phone VARCHAR(30) NOT NULL,
+    postal_code VARCHAR(20) NOT NULL,
+    address_line1 VARCHAR(255) NOT NULL,
+    address_line2 VARCHAR(255) NULL,
+    created_at DATETIME(6) NOT NULL,
+    updated_at DATETIME(6) NOT NULL,
+    CONSTRAINT pk_member_addresses PRIMARY KEY (id),
+    CONSTRAINT fk_member_addresses_member FOREIGN KEY (member_id) REFERENCES members (id)
+) ...;
+
+ALTER TABLE members
+    ADD COLUMN default_address_id BIGINT NULL,
+    ADD CONSTRAINT fk_members_default_address
+        FOREIGN KEY (default_address_id) REFERENCES member_addresses (id);
+</code></pre>
+<p>눈여겨볼 점은 <strong><code>member_addresses</code>에 <code>is_default</code> 컬럼이 없다</strong>는 것이다. 대신 <strong><code>members</code> 행이 기본 배송지를 가리킨다</strong>. 두 설계를 나란히 놓으면 차이가 보인다.</p>
+<figure class="widget" data-title="default_address_pointer_vs_flag_design"><svg width="100%" viewBox="0 0 680 380" role="img"><title>기본 배송지 저장 방식 비교</title><desc>왼쪽은 PawCycle 방식으로 members 행의 default_address_id 하나가 배송지 하나를 가리키므로 기본 배송지가 구조적으로 최대 하나다. 오른쪽은 배송지마다 is_default 플래그를 두는 방식으로, 두 행이 동시에 true가 되는 것을 막으려면 조건부 유일성이나 애플리케이션 규칙이 필요하다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="170" y="28" text-anchor="middle">A. 부모가 가리키기 (PawCycle)</text>
+<text class="th" x="510" y="28" text-anchor="middle">B. 자식에 플래그 두기</text>
+<g class="c-purple"><rect x="70" y="46" width="200" height="50" rx="8" stroke-width="0.5"/><text class="th" x="170" y="64" text-anchor="middle" dominant-baseline="central">members #7</text><text class="ts" x="170" y="82" text-anchor="middle" dominant-baseline="central">default_address_id = 12</text></g>
+<g class="c-gray"><rect x="40" y="150" width="120" height="44" rx="8" stroke-width="0.5"/><text class="t" x="100" y="172" text-anchor="middle" dominant-baseline="central">주소 #11 집</text></g>
+<g class="c-teal"><rect x="180" y="150" width="120" height="44" rx="8" stroke-width="0.5"/><text class="t" x="240" y="172" text-anchor="middle" dominant-baseline="central">주소 #12 회사</text></g>
+<line x1="210" y1="96" x2="235" y2="148" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="170" y="230" text-anchor="middle">값이 하나뿐인 컬럼 → 기본은 최대 1개</text>
+<text class="ts" x="170" y="250" text-anchor="middle">기본 변경 = UPDATE 한 행</text>
+<g class="c-gray"><rect x="380" y="46" width="260" height="50" rx="8" stroke-width="0.5"/><text class="th" x="510" y="64" text-anchor="middle" dominant-baseline="central">members #7</text><text class="ts" x="510" y="82" text-anchor="middle" dominant-baseline="central">기본 정보 없음</text></g>
+<g class="c-gray"><rect x="380" y="150" width="120" height="44" rx="8" stroke-width="0.5"/><text class="t" x="440" y="164" text-anchor="middle" dominant-baseline="central">#11 집</text><text class="ts" x="440" y="182" text-anchor="middle" dominant-baseline="central">is_default=1</text></g>
+<g class="c-red"><rect x="520" y="150" width="120" height="44" rx="8" stroke-width="0.5"/><text class="t" x="580" y="164" text-anchor="middle" dominant-baseline="central">#12 회사</text><text class="ts" x="580" y="182" text-anchor="middle" dominant-baseline="central">is_default=1 ?</text></g>
+<text class="ts" x="510" y="230" text-anchor="middle">동시 요청이면 두 행이 모두 1이 될 수 있음</text>
+<text class="ts" x="510" y="250" text-anchor="middle">기본 변경 = 기존 해제 + 새로 지정 (두 행)</text>
+<line x1="40" y1="280" x2="640" y2="280" stroke="var(--b)" stroke-width="0.5"/>
+<text class="ts" x="170" y="306" text-anchor="middle">약점: FK가 "같은 회원의 주소"까지는 보장 안 함</text>
+<text class="ts" x="170" y="326" text-anchor="middle">순환 참조 (members ↔ member_addresses)</text>
+<text class="ts" x="510" y="306" text-anchor="middle">막으려면: 생성 컬럼 + UNIQUE (5강 기법)</text>
+<text class="ts" x="510" y="326" text-anchor="middle">또는 회원 행 잠금으로 직렬화</text>
+</svg></figure>
+<ul>
+<li><strong>A의 강점: 규칙이 구조에 있다.</strong> 컬럼 하나에는 값이 하나만 들어간다. 그래서 “기본 배송지는 최대 하나”가 <strong>어떤 코드 버그로도 깨지지 않는다</strong>. 기본을 바꾸는 일도 <code>members</code> 한 행의 UPDATE 하나다. 4강의 <code>PRIMARY KEY (subscription_id)</code>로 pending을 최대 하나로 만든 것과 같은 발상이다. 개수 제약을 <strong>조건문이 아니라 스키마 모양</strong>으로 표현했다.</li>
+<li><strong>B의 약점.</strong> 플래그 방식은 직관적이지만, 두 요청이 동시에 서로 다른 주소를 기본으로 지정하면 <strong>두 행이 모두 1</strong>이 될 수 있다. 막으려면 5강에서 본 “생성 컬럼 + UNIQUE”(MySQL에는 부분 인덱스가 없으니)를 쓰거나, 회원 행을 잠가 직렬화해야 한다.</li>
+<li><strong>A의 약점 1: 같은 회원의 주소라는 보장이 없다.</strong> <strong><span class="tag tag-int">해석</span></strong> <code>fk_members_default_address</code>는 <code>default_address_id</code>가 <strong>어떤 배송지든</strong> 존재하기만 하면 통과시킨다. 회원 7의 기본 배송지로 <strong>회원 8의 주소</strong>를 가리키는 행도 DB는 막지 못한다.<ul>
+<li>지금은 애플리케이션이 <code>findByIdAndMemberId</code>로 소유권을 확인한 주소만 지정하므로 실제로 일어나지 않는다(5절).</li>
+<li>DB로 막으려면 4강의 복합 외래 키 기법을 쓰면 된다. <code>member_addresses</code>에 <code>UNIQUE (id, member_id)</code>를 두고, <code>members</code>의 <code>(default_address_id, id)</code>가 그것을 참조하게 한다. 플랜과 플랜 버전에서 이미 쓴 방법인데 여기서는 쓰지 않았다.</li>
+</ul>
+</li>
+<li><strong>A의 약점 2: 순환 참조.</strong> <code>member_addresses → members</code>, <code>members → member_addresses</code>로 서로를 가리킨다. 6강에서 본 대로 테이블을 다 만든 뒤 <code>ALTER TABLE</code>로 FK를 나중에 붙였다. 삭제 순서도 신경 써야 한다(6절).</li>
+</ul>
+<h2 id="3-JPA-엔티티-같은-컬럼을-두-번-매핑하는-이유">3. JPA 엔티티: 같은 컬럼을 두 번 매핑하는 이유</h2>
+<pre><code class="language-java">// member/domain/MemberAddress.java (발췌)
+@Entity
+@Table(name = &quot;member_addresses&quot;)
+@Getter
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+public class MemberAddress {
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(name = &quot;member_id&quot;, nullable = false)
+  private Long memberId;                                    // ① 값으로 매핑
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = &quot;member_id&quot;, insertable = false, updatable = false)
+  private Member member;                                    // ② 같은 컬럼을 연관관계로, 읽기 전용
+  ...
+}
+
+// member/domain/Member.java (발췌)
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = &quot;default_address_id&quot;)
+private MemberAddress defaultAddress;
+
+public void assignDefaultAddress(MemberAddress address) { this.defaultAddress = address; }
+public void clearDefaultAddress() { this.defaultAddress = null; }
+</code></pre>
+<ul>
+<li><strong>① 과 ② 가 같은 <code>member_id</code> 컬럼을 가리킨다.</strong> <strong><span class="tag tag-pri">원리</span></strong> JPA는 한 컬럼을 두 필드가 <strong>동시에 쓰면</strong> 어느 값을 INSERT할지 정할 수 없어 시작 시 오류를 낸다. 그래서 ②에 <code>insertable = false, updatable = false</code>를 붙여 <strong>읽기 전용</strong>으로 만들었다. 쓰기는 ①의 <code>Long memberId</code>로만 한다.<ul>
+<li><strong><span class="tag tag-int">해석</span></strong> 이렇게 하면 배송지를 만들 때 <code>Member</code> 엔티티를 불러오지 않고 <strong>ID만으로</strong> 저장할 수 있다. 5강에서 본 “다른 애그리거트는 ID로 참조” 원칙을 지키면서, 필요하면 연관관계로 탐색할 길도 남긴 절충이다.</li>
+</ul>
+</li>
+<li><strong><code>@NoArgsConstructor(access = PROTECTED)</code>.</strong> <strong><span class="tag tag-pri">원리</span></strong> JPA(Hibernate)는 조회 결과로 객체를 만들 때와 지연 로딩 프록시를 만들 때 <strong>인자 없는 생성자</strong>가 필요하다. <code>protected</code>로 두면 JPA는 쓸 수 있지만, 다른 패키지의 코드가 빈 배송지를 함부로 만들 수는 없다.</li>
+<li><strong><code>IDENTITY</code> 전략.</strong> MySQL의 <code>AUTO_INCREMENT</code>를 쓴다. <strong><span class="tag tag-pri">원리</span></strong> ID는 INSERT를 해야 알 수 있으므로, Hibernate는 이 엔티티를 <code>persist</code>하는 <strong>즉시 INSERT를 실행</strong>한다. 트랜잭션 끝까지 모았다가 보내는 쓰기 지연이 이 엔티티의 INSERT에는 적용되지 않는다.</li>
+<li><strong>기본 배송지는 <code>@ManyToOne</code>이다.</strong> 회원 한 명이 가리키는 주소는 하나지만, DB 모양은 단순한 외래 키 컬럼이다. <code>@ManyToOne</code>은 그 FK 컬럼을 가장 있는 그대로 매핑하는 방법이다.</li>
+<li><strong>상태 변경 메서드가 있다.</strong> <code>MemberAddress.update(...)</code>, <code>Member.assignDefaultAddress(...)</code>. 5강의 구독 V2 엔티티(생성자뿐)와 달리, 여기는 <strong>엔티티 메서드 + 변경 감지(dirty checking)</strong> 로 수정하는 평범한 JPA 스타일이다. 9강에서 본 “엔티티 상태 전이 → JPA”의 전형이다.</li>
+</ul>
+<h2 id="4-HTTP-계약-검증과-PATCH의-의미">4. HTTP 계약: 검증과 PATCH의 의미</h2>
+<pre><code class="language-java">// member/address/api/MemberAddressRequest.java
+public record MemberAddressRequest(
+    @NotBlank @Size(max = 100) String name,
+    @NotBlank @Size(max = 100) String recipientName,
+    @NotBlank @Size(max = 30)  String recipientPhone,
+    @NotBlank @Size(max = 20)  String postalCode,
+    @NotBlank @Size(max = 255) String addressLine1,
+    @Size(max = 255)           String addressLine2) {}
+</code></pre>
+<ul>
+<li><strong>검증 길이가 DB 컬럼 길이와 같다.</strong> <code>VARCHAR(100)</code>이면 <code>@Size(max = 100)</code>이다. 길이 초과를 DB가 거절하면 SQL 오류(500)가 되지만, 여기서 막으면 필드별 400(<code>VALIDATION_FAILED</code>)이 된다. 8강에서 본 공통 검증 처리기가 이 오류를 <strong>필드 이름순으로 정렬</strong>해 돌려준다.<ul>
+<li><code>@Valid</code>가 언제, 누구에 의해 실행되는지는 망나니개발자의 <a href="https://mangkyu.tistory.com/174" target="_blank" rel="noopener">「@Valid와 @Validated를 이용한 유효성 검증의 동작 원리」</a>가 자세히 설명한다. 컨트롤러 인자에 붙은 <code>@Valid</code>는 인자를 만드는 단계(<code>ArgumentResolver</code>)에서 검증되고, 실패하면 <code>MethodArgumentNotValidException</code>이 난다.</li>
+</ul>
+</li>
+<li><strong><span class="tag tag-int">해석</span> 전화번호·우편번호 형식은 검사하지 않는다.</strong> 길이만 본다. <code>recipientPhone = "아무 글자"</code>도 통과한다. 배송사 연동을 하면 바로 문제가 될 부분이라, 개선 후보다(<code>@Pattern</code> 또는 값 객체).</li>
+<li><strong><code>addressLine2</code>만 <code>@NotBlank</code>가 없다.</strong> 상세 주소는 비워도 되고, DB도 <code>NULL</code> 허용이다. 검증과 스키마가 서로 맞는다.</li>
+</ul>
+<h3 id="PATCH인데-사실은-PUT">PATCH인데 사실은 PUT</h3>
+<p>수정 API는 <code>@PatchMapping</code>인데 요청은 생성과 <strong>같은</strong> <code>MemberAddressRequest</code>다. 필수 필드 다섯 개를 다 보내야 하고, 서비스는 <strong>모든 필드를 덮어쓴다</strong>.</p>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> HTTP 의미로 보면 “리소스 전체를 보낸 값으로 바꾼다”는 <strong>PUT</strong>이다. <strong>PATCH</strong>는 “보낸 필드만 바꾼다”는 부분 수정이다.</li>
+<li>개발하는 곰돌이의 <a href="https://colabear754.tistory.com/233" target="_blank" rel="noopener">「실무에서의 PUT과 PATCH에 대한 개인적인 생각 정리」</a>는 이 혼동이 실무에서 흔하다고 짚는다. 교과서 정의(PUT은 전체 대체, 빠진 속성은 null)와 달리, 실무에서는 일부만 수정하는 API도 PUT으로 부르는 경우가 많다는 것이다. 글은 결국 <strong>클라이언트 관점</strong>에서, 팀이 규칙을 정하고 협의해 쓰면 된다고 결론 낸다.</li>
+</ul>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="실무에서의 PUT과 PATCH 글의 본문 그림" src="https://blog.kakaocdn.net/dna/dd60e3/dJMcachhqay/AAAAAAAAAAAAAAAAAAAAANrU_0kxYkeTe9I_rrMW8e7IReT48nC98ovCD2i6T8Wk/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=22pDa5KYAWaAoi%2FDjneob5UZ2Dk%3D" /></p>
+<p><em>출처: <a href="https://colabear754.tistory.com/233" target="_blank" rel="noopener">개발하는 곰돌이 · 실무에서의 PUT과 PATCH</a>. tistory 그림이라 11월 30일 만료.</em></p>
+<ul>
+<li><strong><span class="tag tag-int">해석</span></strong> PawCycle 안에도 두 방식이 섞여 있다. 3강에서 본 쿠폰 관리 <code>PATCH</code>는 <strong>보낸 필드만 병합</strong>하고, 명시적 <code>null</code>과 생략을 구분한다(진짜 PATCH). 배송지 <code>PATCH</code>는 전체 대체다. 같은 동사가 다른 의미로 쓰이는 셈이다. 계약 문서에 “배송지 PATCH는 전체 필드 필수”라고 적혀 있는 한 동작에는 문제가 없지만, <strong>일관성</strong>의 관점에서는 <code>PUT</code>이 더 정직하다.</li>
+</ul>
+<h2 id="5-소유권-남의-배송지는-없다">5. 소유권: 남의 배송지는 “없다”</h2>
+<pre><code class="language-java">// MemberAddressApplicationService (발췌)
+MemberAddress address = addresses
+    .findByIdAndMemberId(addressId, memberId)                    // SELECT ... WHERE id=? AND member_id=?
+    .orElseThrow(() -&gt; notFound(&quot;ADDRESS_NOT_FOUND&quot;));           // 404
+</code></pre>
+<ul>
+<li><strong>조회 조건에 회원 ID를 넣는다.</strong> “일단 ID로 찾고, 주인인지 검사”가 아니라 <strong>처음부터 내 것만 찾는다</strong>. 남의 주소는 조회 결과가 비어 있으니 “존재하지 않음”과 구별되지 않는다. 4강 MVP1부터 이어진 “타인 자원은 403이 아니라 404” 원칙이다.</li>
+<li>이 방식이 막는 공격을 <strong>IDOR</strong>(Insecure Direct Object Reference)라 한다. URL의 ID 숫자만 바꿔서 남의 자원에 접근하는 공격이다. 배움을 남기다의 <a href="https://airforce836.tistory.com/entry/authorization-idor-security-review" target="_blank" rel="noopener">「인증은 있는데 인가가 없었다: IDOR 허점 분석」</a>은 제목 그대로 이 문제를 다룬다. 로그인(인증)은 확인했지만, <strong>그 자원이 그 사람 것인지(인가)</strong> 는 확인하지 않은 상황이다.</li>
+<li><strong><span class="tag tag-rec">기록</span> 다른 기능은 한 단계 더 나아갔다.</strong> 결제 승인, 리뷰·문의 수정, 회원 쿠폰은 <strong>ID와 회원 ID를 함께 <code>PESSIMISTIC_WRITE</code>(<code>FOR UPDATE</code>) 조건에 넣는다</strong>. 소유권 확인과 잠금을 한 번에 하는 것이다. 배송지는 소유권만 확인하고 <strong>잠그지는 않는다</strong>. 이 차이가 7절의 동시성 빈틈으로 이어진다. 인가 전체 구조는 12강에서 본다.</li>
+</ul>
+<h2 id="6-트랜잭션과-플러시-saveAndFlush가-꼭-필요했던-이유">6. 트랜잭션과 플러시: <code>saveAndFlush</code>가 꼭 필요했던 이유</h2>
+<p>기본 배송지를 바꾸는 코드를 보자.</p>
+<pre><code class="language-java">@Transactional
+public void makeDefault(long memberId, long addressId) {
+  Member member = requireMember(memberId);
+  MemberAddress address = addresses.findByIdAndMemberId(addressId, memberId)
+      .orElseThrow(() -&gt; notFound(&quot;ADDRESS_NOT_FOUND&quot;));
+  member.assignDefaultAddress(address);
+  members.saveAndFlush(member);                   // ← 왜 그냥 save가 아니라 saveAndFlush인가
+  subscriptionShipping.releaseAddressHolds(memberId);
+}
+</code></pre>
+<p><code>member</code>는 이미 영속 상태라 변경 감지로 커밋 때 UPDATE가 나간다. 그런데도 <code>saveAndFlush</code>로 <strong>지금 당장</strong> UPDATE를 보낸다. 이유는 바로 다음 줄에 있다.</p>
+<pre><code class="language-java">// subscription/persistence/SubscriptionShippingPersistenceAdapter.java (발췌)
+public void releaseAddressHolds(long memberId) {
+  mutation(&quot;&quot;&quot;
+      UPDATE subscription_schedules schedule
+      JOIN subscriptions subscription ON subscription.id=schedule.subscription_id
+      JOIN members member ON member.id=subscription.member_id
+      ...
+      SET schedule.status='SCHEDULED', schedule.hold_reason=NULL
+      WHERE subscription.member_id=:member
+        AND member.default_address_id IS NOT NULL               -- ← DB에서 직접 읽는다
+        AND subscription.status='ACTIVE' AND snapshot.subscription_id IS NULL
+        AND schedule.status='HELD' AND schedule.hold_reason='MISSING_SHIPPING_ADDRESS'
+        AND context.order_id IS NULL
+      &quot;&quot;&quot;).setParameter(&quot;member&quot;, memberId).executeUpdate();
+}
+
+private MutationQuery mutation(String sql) {
+  // Preserve JDBC visibility: the address service owns its explicit saveAndFlush calls.
+  return entities.unwrap(Session.class).createNativeMutationQuery(sql)
+      .setHibernateFlushMode(FlushMode.COMMIT);
+}
+</code></pre>
+<ul>
+<li><strong>이 SQL이 하는 일.</strong> 4강에서 정기배송 회차가 배송지가 없어 <code>HELD / MISSING_SHIPPING_ADDRESS</code>로 보류될 수 있다고 봤다. 회원이 기본 배송지를 만들거나 지정하면, 그 보류를 <strong>즉시 풀어</strong> 다음 자동 주문이 처리할 수 있게 한다.</li>
+<li><strong>조건이 DB의 <code>members.default_address_id</code>를 직접 읽는다.</strong> 그런데 방금 바꾼 기본 배송지는 아직 <strong>영속성 컨텍스트(메모리)에만</strong> 있을 수 있다.</li>
+<li><strong>이 네이티브 UPDATE는 자동 플러시를 하지 않는다.</strong> <code>FlushMode.COMMIT</code>은 “커밋 때만 플러시하라”는 뜻이다. <strong><span class="tag tag-pri">원리</span></strong> 9강에서 본 대로 Hibernate는 보통 JPQL이나 네이티브 쿼리 직전에 관련 변경을 자동으로 플러시한다(<code>AUTO</code>). 이 쿼리는 일부러 그것을 끄고, <strong>플러시 책임을 호출하는 배송지 서비스에 넘겼다</strong>. 주석이 그 계약을 적는다. “배송지 서비스가 명시적 <code>saveAndFlush</code> 호출을 소유한다.”</li>
+<li><strong><code>saveAndFlush</code>를 빼면?</strong> 메모리에서는 기본 배송지가 지정됐는데 DB에는 아직 <code>NULL</code>이다. 그러면 보류 해제 SQL이 <code>default_address_id IS NOT NULL</code> 조건에 걸려 <strong>아무것도 풀지 않는다</strong>. 사용자는 배송지를 등록했는데 정기배송은 계속 멈춰 있게 된다.</li>
+<li><strong><span class="tag tag-ok">확인</span> 이 순서는 테스트가 지킨다.</strong> <code>SubscriptionOrderAutomationServiceIntegrationTests.makeDefaultFlushesBeforeReleasingShippingHolds()</code>가 이 시나리오를 검증한다.<ul>
+<li>회원의 기본 배송지를 <code>NULL</code>로 만들고, 회차 세 개를 <code>HELD</code>로 둔다.</li>
+<li><code>makeDefault</code>를 호출한 뒤 <strong>자격이 있는 회차만 <code>SCHEDULED</code>로 풀렸는지</strong> 확인한다.</li>
+<li>이미 주문이 생긴 회차, 구독 배송지 스냅샷이 있는 회차는 풀리지 않아야 한다.</li>
+</ul>
+</li>
+<li>영속성 컨텍스트와 플러시의 기본은 행복한 개발자의 <a href="https://happyer16.tistory.com/entry/Spring-jpa-save-saveAndFlush-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%95%8C%EA%B3%A0-%EC%93%B0%EA%B8%B0" target="_blank" rel="noopener">「Spring jpa save(), saveAndFlush() 제대로 알고 쓰기」</a>와 9강 참고 자료의 <a href="https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/" target="_blank" rel="noopener">준현 · JPA 플러쉬</a>가 설명한다. 두 글 모두 <code>save</code>는 영속성 컨텍스트에만 반영하고 커밋 때 SQL을 보내지만, <code>saveAndFlush</code>는 <strong>즉시 SQL을 보낸다</strong>는 차이를 다룬다.</li>
+</ul>
+<blockquote>
+<p><strong>설계 평가 <span class="tag tag-int">해석</span></strong> 배송지 서비스가 정기배송의 회차 상태까지 바꾸는 것은 <strong>도메인 간 결합</strong>이다. 장점은 “배송지 등록 = 보류 해제”가 <strong>한 트랜잭션</strong>이라 어긋날 수 없다는 것이다. 단점은 배송지 코드가 정기배송의 보류 규칙을 알아야 하고, 플러시 순서라는 <strong>보이지 않는 계약</strong>이 생긴다는 것이다. 대안은 배송지 변경 이벤트를 발행하고 정기배송 쪽이 반응하게 하는 것이다(Spring <code>@TransactionalEventListener</code> 등). 그러면 결합은 줄지만 같은 트랜잭션 보장을 어떻게 유지할지 다시 설계해야 한다.</p>
+</blockquote>
+<h2 id="7-동시성-단순한-기능에도-빈틈은-있다">7. 동시성: 단순한 기능에도 빈틈은 있다</h2>
+<p><strong><span class="tag tag-ok">확인</span></strong> 배송지 서비스는 회원 행도, 배송지 행도 <strong>잠그지 않는다</strong>. <code>requireMember</code>는 <code>members.findById</code>(일반 조회)이고, 배송지도 <code>findByIdAndMemberId</code>(일반 조회)다. 동시 요청이 오면 어떻게 될까? 세 가지 상황을 따져 보자. <strong>이 절의 분석은 모두 <span class="tag tag-int">해석</span>이며, 테스트로 재현된 것은 아니다.</strong></p>
+<p><strong>상황 1. 첫 배송지를 두 개 동시에 만든다.</strong></p>
+<ul>
+<li>두 트랜잭션 모두 “기본 배송지 없음”을 읽고, 각자 자기 주소를 기본으로 지정한다.</li>
+<li>같은 <code>members</code> 행을 UPDATE하므로 둘째는 첫째의 커밋을 기다렸다가 <strong>덮어쓴다</strong>. 결과적으로 나중에 커밋한 주소가 기본이 된다.</li>
+<li>그래도 <strong>기본은 여전히 하나다</strong>. 2절의 “부모가 가리키기” 설계가 바로 여기서 값을 한다. 플래그 방식이었다면 두 행이 모두 기본이 됐을 것이다.</li>
+</ul>
+<p><strong>상황 2. 같은 주소를 동시에 고친다.</strong></p>
+<ul>
+<li>두 <code>PATCH</code>가 같은 주소를 읽고 각자 덮어쓴다. 나중 커밋이 먼저 커밋을 <strong>통째로 지운다</strong>.</li>
+<li>이것을 <strong>갱신 분실</strong>(lost update)이라 한다. <code>@Version</code> 같은 낙관적 잠금이 없어서 생긴다.</li>
+<li>배송지는 전체 대체 수정이라 “둘 중 마지막 사람의 의도”가 남는다. 업무적으로 큰 문제는 아닐 수 있다.</li>
+</ul>
+<p><strong>상황 3. 기본 배송지 A를 지우는 동시에 A를 다시 기본으로 지정한다.</strong> 이것이 가장 흥미롭다.</p>
+<figure class="widget" data-title="address_delete_vs_make_default_race"><svg width="100%" viewBox="0 0 680 400" role="img"><title>배송지 삭제와 기본 지정의 경쟁</title><desc>트랜잭션 1은 주소 A를 삭제하기 위해 기본 배송지를 비우고 A를 지운 뒤 커밋한다. 트랜잭션 2는 그보다 먼저 A를 조회해 존재를 확인했고, 이후 회원의 기본 배송지를 A로 바꾸는 UPDATE를 보낸다. 이 UPDATE는 회원 행 잠금 때문에 트랜잭션 1의 커밋을 기다린 뒤 실행되는데, 그때 A는 이미 없으므로 외래 키 위반으로 실패하고 응답은 500이 된다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="170" y="28" text-anchor="middle">T1: DELETE /addresses/A</text>
+<text class="th" x="510" y="28" text-anchor="middle">T2: PUT /addresses/A/default</text>
+<line x1="170" y1="40" x2="170" y2="330" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="510" y1="40" x2="510" y2="330" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<g class="c-gray"><rect x="380" y="50" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="510" y="70" text-anchor="middle" dominant-baseline="central">A 조회 → 내 것, 존재함 (잠금 없음)</text></g>
+<g class="c-gray"><rect x="40" y="104" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="170" y="124" text-anchor="middle" dominant-baseline="central">members.default = NULL (행 잠금)</text></g>
+<g class="c-gray"><rect x="40" y="154" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="170" y="174" text-anchor="middle" dominant-baseline="central">DELETE A → COMMIT</text></g>
+<g class="c-amber"><rect x="380" y="134" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="510" y="154" text-anchor="middle" dominant-baseline="central">UPDATE default = A → T1 대기</text></g>
+<path d="M378 154 L330 154 L330 174 L302 174" fill="none" stroke="var(--s)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="198" text-anchor="middle">회원 행 잠금</text>
+<g class="c-red"><rect x="380" y="214" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="510" y="234" text-anchor="middle" dominant-baseline="central">A가 이미 없음 → FK 위반</text></g>
+<g class="c-red"><rect x="380" y="270" width="260" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="510" y="290" text-anchor="middle" dominant-baseline="central">500 MEMBER_ADDRESS_UNAVAILABLE</text></g>
+<line x1="510" y1="174" x2="510" y2="212" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="510" y1="254" x2="510" y2="268" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="356" text-anchor="middle">데이터는 깨지지 않는다(FK가 막음) · 대신 사용자는 이해할 수 없는 500을 받는다</text>
+<text class="ts" x="340" y="376" text-anchor="middle">회원 행을 먼저 FOR UPDATE로 잠그면 T2가 처음부터 기다리고, 깨끗하게 404가 된다</text>
+</svg></figure>
+<ul>
+<li><strong>데이터는 지켜진다.</strong> 외래 키가 “없는 주소를 기본으로 지정”하는 것을 DB에서 거절한다. 6강의 “제약은 마지막 방어선”이 여기서 일한다.</li>
+<li><strong>사용자 경험은 지켜지지 않는다.</strong> 그 거절은 Spring에서 <code>DataIntegrityViolationException</code>이 되고, 배송지 예외 처리기의 catch-all에 걸려 <strong>500 <code>MEMBER_ADDRESS_UNAVAILABLE</code></strong> 이 된다. 정상적인 경쟁 상황인데 서버 오류로 보인다.<ul>
+<li><strong><span class="tag tag-unk">미확인</span></strong> 이 시나리오를 재현하는 테스트는 저장소에서 찾지 못했다. 위 흐름은 코드와 InnoDB 잠금 동작으로 추론한 것이다.</li>
+</ul>
+</li>
+</ul>
+<p>갱신 분실과 그 해결책은 개인 블로그 두 편이 그림과 함께 잘 설명한다.</p>
+<ul>
+<li>주니의 <a href="https://iamjooon2.tistory.com/66" target="_blank" rel="noopener">「갱신 분실(lost update) 문제를 어떻게 해결할 수 있을까」</a>는 “매일 자정 재화 1개 지급”과 “사용자의 재화 사용”이 겹치는 실제 상황에서 출발한다. <code>synchronized</code>가 <code>@Transactional</code>과 왜 잘 맞지 않는지 검토하고, 최종적으로 <code>balance = balance + 1</code> 같은 <strong>원자적 UPDATE 쿼리</strong>를 택한 과정을 적는다. 9강에서 비교한 “읽지 않고 조건부 UPDATE 한 번” 방식과 같은 결론이다.</li>
+</ul>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="갱신 분실 문제 글의 본문 그림" src="https://blog.kakaocdn.net/dna/npDMT/btsL3lYWDpl/AAAAAAAAAAAAAAAAAAAAAKG6RZyrM84FP2ayZGjzJuXFv-Z5HPGchnbn63rjMIRp/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=z6vHj4AuzbQDuTN6oN5LGy41vOE%3D" /></p>
+<p><em>출처: <a href="https://iamjooon2.tistory.com/66" target="_blank" rel="noopener">주니 · 갱신 분실(lost update) 문제를 어떻게 해결할 수 있을까</a>. tistory 그림이라 11월 30일 만료.</em></p>
+<ul>
+<li>후디의 <a href="https://hudi.blog/jpa-concurrency-control-optimistic-lock-and-pessimistic-lock/" target="_blank" rel="noopener">「JPA의 낙관적 락과 비관적 락을 통해 엔티티에 대한 동시성 제어하기」</a>는 <code>@Version</code>(낙관적)과 <code>@Lock(PESSIMISTIC_WRITE)</code>(비관적)을 JPA 코드로 비교한다. 이 블로그의 그림은 자체 사이트에 있어 만료되지 않는다.</li>
+</ul>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="JPA 낙관적 락과 비관적 락 글의 본문 그림 1" src="https://hudi.blog/static/b90f1c447ad3cf3654fe9106b0931cc5/02d09/1.png" /></p>
+<p><em>출처: <a href="https://hudi.blog/jpa-concurrency-control-optimistic-lock-and-pessimistic-lock/" target="_blank" rel="noopener">후디 · JPA의 낙관적 락과 비관적 락</a></em></p>
+<blockquote>
+<p><strong>개선 제안 <span class="tag tag-int">해석</span></strong> 체크아웃이 이미 쓰는 방법(회원 행 잠금)을 배송지의 <strong>쓰기 메서드에만</strong> 적용하면 세 상황이 모두 정리된다.</p>
+<p><code>java
+// 제안 예시 — 저장소에 없는 코드다
+@Transactional
+public void makeDefault(long memberId, long addressId) {
+  Member member = members.findByIdForUpdate(memberId)      // SELECT ... FOR UPDATE
+      .orElseThrow(() -&gt; notFound("MEMBER_NOT_FOUND"));
+  MemberAddress address = addresses.findByIdAndMemberId(addressId, memberId)
+      .orElseThrow(() -&gt; notFound("ADDRESS_NOT_FOUND"));    // T1이 커밋한 뒤라 깨끗한 404
+  ...
+}</code></p>
+<ul>
+<li>같은 회원의 배송지 쓰기가 <strong>한 줄로 선다</strong>. 상황 3의 T2는 처음부터 기다렸다가, T1 커밋 후 주소가 없음을 보고 <strong>404</strong>를 받는다.</li>
+<li>상황 1에서는 둘째 요청이 첫째가 지정한 기본 배송지를 보고 그대로 둔다. “첫 주소가 기본”이라는 의도가 지켜진다.</li>
+<li>대가는 같은 회원의 배송지 요청이 동시에 처리되지 못한다는 것뿐이다. 한 사람이 배송지를 초당 여러 번 바꾸는 일은 드물다. 이 경우 비관적 잠금의 비용은 거의 없다.</li>
+</ul>
+</blockquote>
+<h2 id="8-배송지를-지워도-과거-주문은-안전한가">8. 배송지를 지워도 과거 주문은 안전한가</h2>
+<p>배송지는 수정·삭제가 자유롭다. 그런데 이미 그 주소로 나간 주문은 어떻게 될까?</p>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span> 주문은 주소를 참조하지 않고 복사한다.</strong> 6강에서 본 <code>orders</code> 테이블에는 <code>address_id</code> 같은 FK가 <strong>없다</strong>. 대신 <code>recipient_name</code>, <code>recipient_phone</code>, <code>postal_code</code>, <code>address_line1</code>, <code>address_line2</code>를 <strong>주문 시점의 값으로</strong> 갖고 있다. 4강의 스냅샷 원칙이 주소에도 적용된 것이다.<ul>
+<li>배송지를 고쳐도 과거 주문의 배송 주소는 바뀌지 않는다.</li>
+<li>배송지를 지워도 FK 충돌이 없다.</li>
+</ul>
+</li>
+<li><strong><span class="tag tag-ok">확인</span> 정기배송 배송지도 별도 스냅샷이다.</strong> <code>subscription_shipping_snapshots</code>가 구독마다 주소 사본을 갖는다. 계약 문서는 “회원 주소 변경은 기존 구독 스냅샷이나 생성된 주문을 변경하지 않는다”고 적는다. 그래서 6절의 보류 해제 SQL에도 <code>snapshot.subscription_id IS NULL</code> 조건이 있다. 구독 전용 주소가 이미 있는 구독은 회원 기본 주소와 무관하다.</li>
+<li><strong>삭제 순서.</strong> 지우려는 주소가 기본이면 먼저 <code>members.default_address_id</code>를 <code>NULL</code>로 바꾸고 나서 주소를 지운다. 순서가 반대면 <code>fk_members_default_address</code>가 삭제를 막는다. 2절의 순환 참조가 여기서 순서를 강제한다.</li>
+<li><strong><span class="tag tag-unk">미확인</span> 기본 주소를 지우면 다른 주소가 자동으로 기본이 되지 않는다.</strong> 코드는 기본을 비우기만 한다. 이것이 의도된 제품 결정인지는 기록을 찾지 못했다. 그 상태에서 정기결제 회차가 오면 <code>HELD / MISSING_SHIPPING_ADDRESS</code>가 될 수 있다(23강).</li>
+</ul>
+<h2 id="9-테스트-무엇이-지켜지고-있고-무엇이-비어-있나">9. 테스트: 무엇이 지켜지고 있고, 무엇이 비어 있나</h2>
+<p><strong><span class="tag tag-ok">확인</span></strong> 배송지 관련 테스트는 세 곳에 있다.</p>
+<table>
+<thead>
+<tr>
+<th>테스트</th>
+<th>지키는 것</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MemberAddressApiIntegrationTests</code> (4개)</td>
+<td>빈 이름·긴 전화번호의 <strong>필드 오류 형식</strong>, 없는 주소의 <strong>404 계약</strong>, 구독 배송지의 옛 요청 형식(이름 없음) 허용</td>
+</tr>
+<tr>
+<td><code>SubscriptionOrderAutomationServiceIntegrationTests</code></td>
+<td>기본 배송지 지정·첫 배송지 생성 시 <strong>플러시 후 자격 있는 보류만 해제</strong></td>
+</tr>
+<tr>
+<td><code>SubscriptionShippingWriteProtocolIntegrationTests</code> 등</td>
+<td>다른 시나리오의 준비 단계로 배송지 생성·기본 지정을 사용</td>
+</tr>
+</tbody>
+</table>
+<p>비어 있는 것도 분명하다.</p>
+<ul>
+<li>“첫 배송지는 자동으로 기본이 된다”는 규칙을 <strong>직접</strong> 검증하는 테스트가 없다.</li>
+<li>“기본 배송지를 지우면 기본이 비워진다”를 검증하는 테스트가 없다.</li>
+<li><strong>다른 회원의 주소를 기본으로 지정하려 하면 404</strong>인지 검증하는 테스트가 없다. 2절에서 본 대로 DB가 이것을 막지 못하므로, 이 테스트가 사실상 <strong>유일한 방어선</strong>이어야 한다.</li>
+<li>7절의 동시성 시나리오 테스트가 없다.</li>
+</ul>
+<p><strong><span class="tag tag-int">해석</span></strong> 배송지는 “단순한 CRUD라 테스트할 게 없다”고 여기기 쉬운 기능이다. 하지만 이 기능에도 <strong>스키마가 보장하지 않는 규칙</strong>(같은 회원 소유)과 <strong>도메인 간 부수 효과</strong>(보류 해제)가 있다. 테스트는 정확히 그 두 곳에 가장 먼저 필요하다. 지금은 부수 효과 쪽만 지켜지고 있다.</p>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://mangkyu.tistory.com/174" target="_blank" rel="noopener">망나니개발자 · @Valid와 @Validated를 이용한 유효성 검증의 동작 원리</a>: <code>@Valid</code>가 실행되는 위치와 예외</li>
+<li><a href="https://colabear754.tistory.com/233" target="_blank" rel="noopener">개발하는 곰돌이 · 실무에서의 PUT과 PATCH</a>: 교과서 정의와 실무 관행의 차이</li>
+<li><a href="https://airforce836.tistory.com/entry/authorization-idor-security-review" target="_blank" rel="noopener">배움을 남기다 · 인증은 있는데 인가가 없었다: IDOR 허점 분석</a>: 소유권 검증이 빠졌을 때</li>
+<li><a href="https://happyer16.tistory.com/entry/Spring-jpa-save-saveAndFlush-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%95%8C%EA%B3%A0-%EC%93%B0%EA%B8%B0" target="_blank" rel="noopener">행복한 개발자 · Spring jpa save(), saveAndFlush() 제대로 알고 쓰기</a>: 플러시 시점의 차이</li>
+<li><a href="https://iamjooon2.tistory.com/66" target="_blank" rel="noopener">주니 · 갱신 분실 문제를 어떻게 해결할 수 있을까</a>: 원자적 UPDATE로 푼 실제 사례</li>
+<li><a href="https://hudi.blog/jpa-concurrency-control-optimistic-lock-and-pessimistic-lock/" target="_blank" rel="noopener">후디 · JPA의 낙관적 락과 비관적 락</a>: <code>@Version</code>과 <code>@Lock</code> 비교</li>
+</ul>
+<h2 id="10강-정리">10강 정리</h2>
+<ul>
+<li><strong>“기본 하나”를 스키마 모양으로 표현했다.</strong> <code>members.default_address_id</code> 포인터 하나라서 어떤 버그로도 기본이 둘이 될 수 없다. 대신 FK는 “같은 회원의 주소”까지는 보장하지 않는다. 4강의 복합 FK 기법으로 막을 수 있지만 적용하지 않았다.</li>
+<li><strong>JPA 매핑</strong><ul>
+<li>같은 <code>member_id</code> 컬럼을 값(쓰기)과 읽기 전용 연관관계로 <strong>두 번</strong> 매핑해, ID 참조와 탐색을 함께 얻었다.</li>
+<li><code>IDENTITY</code>라서 INSERT가 즉시 나간다.</li>
+</ul>
+</li>
+<li><strong>HTTP 계약</strong><ul>
+<li>검증 길이와 DB 길이가 같다. 형식 검증(전화번호)은 없다.</li>
+<li><code>PATCH</code>인데 실제로는 전체 대체(PUT 의미)다. 쿠폰의 진짜 PATCH와 일관되지 않는다.</li>
+</ul>
+</li>
+<li><strong>소유권</strong>: 조회 조건에 회원 ID를 넣어 남의 주소는 404다(IDOR 방어). 다만 다른 기능처럼 잠금과 함께 쓰지는 않는다.</li>
+<li><strong><code>saveAndFlush</code>의 이유</strong>: 바로 뒤의 네이티브 보류 해제 SQL이 <code>FlushMode.COMMIT</code>이라 자동 플러시를 하지 않는다. 기본 배송지 변경이 먼저 DB에 있어야 한다. 테스트가 이 순서를 지킨다.</li>
+<li><strong>동시성 빈틈</strong>: 잠금이 없어서 다음 세 가지가 생길 수 있다. 회원 행 <code>FOR UPDATE</code> 하나로 정리된다.<ul>
+<li>첫 기본 배송지가 뒤바뀜</li>
+<li>갱신 분실</li>
+<li>삭제와 기본 지정이 겹칠 때 FK 위반이 500으로 보임</li>
+</ul>
+</li>
+<li><strong>스냅샷</strong>: 주문과 구독은 주소를 복사해 갖는다. 그래서 배송지 수정·삭제가 과거를 바꾸지 않는다.</li>
+<li><strong>테스트 빈틈</strong>: 기본 배송지 규칙, 타인 주소 기본 지정, 동시성 테스트가 없다.</li>
+</ul>
+<p><strong>10강에서 남긴 미확인 항목</strong></p>
+<ul>
+<li>기본 주소 삭제 시 다른 주소를 자동 승격하지 않는 것이 의도된 제품 결정인지</li>
+<li>7절 상황 3(삭제와 기본 지정의 경쟁)이 실제로 500이 되는지: 실험 단계 후보</li>
+<li>계약 문서가 배송지 <code>PATCH</code>의 전체 대체 의미를 명시하는지(API-006에는 “수정”으로만 적혀 있음)</li>
+</ul><nav class="pager"><a href="09강_영속성_전략.html">← 9강 영속성 전략</a><a href="00_2단계_전체.html">2단계 전체</a><a href="11강_세션_로그인과_CSRF.html">11강 세션 로그인과 CSRF →</a></nav></main></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+</body></html>

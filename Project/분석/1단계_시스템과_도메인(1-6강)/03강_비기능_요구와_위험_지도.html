@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="ko" data-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>3강. 비기능 요구와 위험 지도: 이 시스템은 무엇을 두려워하는가</title>
+<style>:root{
+  color-scheme:dark;
+  --bg:#121212;--fg:#e6e6e6;--muted:#9e9e9e;--line:#333333;--accent:#d97757;--card:#1e1e1e;--link:#86b3f0;
+  --code-bg:#1a1a1a;--code-fg:#e6e6e6;--inline-code-bg:#2a2a2a;--inline-code-fg:#f0c6b4;
+  --text-primary:#e6e6e6;--text-secondary:#b0b0b0;--text-muted:#8a8a8a;--text-accent:#85b7eb;--text-danger:#f09595;--text-success:#97c459;--text-warning:#ef9f27;
+  --surface-0:#121212;--surface-1:#1e1e1e;--surface-2:#262626;--bg-accent:#0c447c;--bg-danger:#791f1f;--bg-success:#27500a;--bg-warning:#633806;
+  --border:#333333;--border-strong:#5c5c5c;--border-stronger:#858585;--radius:8px;
+  --font-sans:Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;--font-voice:Georgia,serif;
+  --t:#9a9a9a;--p:#e6e6e6;--s:#b0b0b0;--bg2:#1e1e1e;--b:#333333;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:16px;line-height:1.78;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+strong{color:#ffffff;font-weight:650}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;max-width:1280px;margin:0 auto;padding:24px}
+.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;line-height:1.5;border-right:1px solid var(--line);padding-right:16px}
+.toc-title{font-weight:600;margin-bottom:8px;color:var(--muted)}
+.toc ul{list-style:none;margin:0;padding-left:12px}.toc>ul{padding-left:0}.toc li{margin:4px 0}.toc a{color:#c8c8c8}.toc a:hover{color:#fff}
+main{max-width:880px;min-width:0}
+main.index{margin:0 auto;padding:32px 24px;max-width:1100px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 16px;color:#ffffff}
+h2{font-size:23px;margin:48px 0 12px;padding-top:14px;border-top:1px solid var(--line);color:#ffffff}
+h3{font-size:18.5px;margin:32px 0 8px;color:#f2f2f2}
+h4{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+ul,ol{padding-left:24px}li{margin:4px 0}li::marker{color:#8a8a8a}
+blockquote{margin:16px 0;padding:10px 16px;border-left:4px solid var(--accent);background:#1c1c1c;border-radius:0 8px 8px 0;color:#dddddd}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:#242424;color:#ffffff}
+tr:nth-child(even) td{background:#181818}
+code{font-family:var(--font-mono);font-size:.87em;background:var(--inline-code-bg);color:var(--inline-code-fg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;margin:12px 0}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+em{color:#c8c8c8}
+.crumbs{font-size:13px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:16px 0;font-size:14px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.meta{font-size:13px;color:var(--muted)}
+.legend{font-size:12.5px;color:var(--muted);margin:8px 0 24px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.lead{font-size:17px;color:#d0d0d0}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.45;padding:0 6px;border-radius:5px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.tag-ok{background:#085041;color:#9fe1cb}.tag-rec{background:#0c447c;color:#b5d4f4}.tag-int{background:#633806;color:#fac775}.tag-pri{background:#3c3489;color:#cecbf6}.tag-unk{background:#3d3d3d;color:#d0d0d0}
+.widget{margin:20px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.lecture{border-top:3px solid var(--accent);margin-top:56px;padding-top:8px}
+.back{font-size:13px;text-align:right}
+.lecture-list li{margin:2px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h2{border:none;margin:0 0 6px;padding:0;font-size:19px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+::selection{background:#264f78}
+@media (max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding-bottom:12px}}
+@media print{.toc,.pager{display:none}.layout{display:block}}
+
+/* ---- code highlighting: dark palette modeled on the chat code blocks ---- */
+.hljs{color:var(--code-fg);background:transparent}
+.hljs-comment,.hljs-quote{color:#7f7f7f;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link{color:#e8926e}
+.hljs-string,.hljs-regexp,.hljs-addition,.hljs-attribute{color:#a8cc7d}
+.hljs-number,.hljs-symbol,.hljs-bullet{color:#e2b766}
+.hljs-title,.hljs-title.function_,.hljs-function .hljs-title{color:#7fb6e8}
+.hljs-type,.hljs-title.class_,.hljs-class .hljs-title,.hljs-built_in{color:#e5c07b}
+.hljs-meta,.hljs-meta .hljs-keyword{color:#c39ad8}
+.hljs-attr,.hljs-variable,.hljs-template-variable,.hljs-params{color:#dcdcdc}
+.hljs-deletion{color:#f09595}
+.hljs-name,.hljs-tag{color:#7fb6e8}
+.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+/* ---- diagram (SVG widget) styles: dark ramps (800 fill, 200 stroke, 100 title, 200 subtitle) ---- */
+.widget svg{max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--font-sans)}
+.widget svg text{font-family:var(--font-sans)}
+.widget .t{font-size:14px;fill:#e6e6e6}
+.widget .ts{font-size:12px;fill:#b0b0b0}
+.widget .th{font-size:14px;font-weight:500;fill:#e6e6e6}
+.widget .box{fill:#262626;stroke:#6e6e6e}
+.widget .arr{stroke:#9a9a9a;stroke-width:1.5;fill:none}
+.widget .leader{stroke:#858585;stroke-width:.6;stroke-dasharray:3 3;fill:none}
+.widget .c-purple>rect,.widget .c-purple>circle,.widget .c-purple>ellipse,.widget rect.c-purple,.widget circle.c-purple{fill:#3c3489;stroke:#afa9ec}
+.widget .c-purple>.t,.widget .c-purple>.th{fill:#cecbf6}.widget .c-purple>.ts{fill:#afa9ec}
+.widget .c-teal>rect,.widget .c-teal>circle,.widget .c-teal>ellipse,.widget rect.c-teal,.widget circle.c-teal{fill:#085041;stroke:#5dcaa5}
+.widget .c-teal>.t,.widget .c-teal>.th{fill:#9fe1cb}.widget .c-teal>.ts{fill:#5dcaa5}
+.widget .c-coral>rect,.widget .c-coral>circle,.widget .c-coral>ellipse,.widget rect.c-coral,.widget circle.c-coral{fill:#712b13;stroke:#f0997b}
+.widget .c-coral>.t,.widget .c-coral>.th{fill:#f5c4b3}.widget .c-coral>.ts{fill:#f0997b}
+.widget .c-pink>rect,.widget rect.c-pink{fill:#72243e;stroke:#ed93b1}
+.widget .c-pink>.t,.widget .c-pink>.th{fill:#f4c0d1}.widget .c-pink>.ts{fill:#ed93b1}
+.widget .c-gray>rect,.widget .c-gray>circle,.widget rect.c-gray,.widget circle.c-gray{fill:#3d3d3d;stroke:#b0b0b0}
+.widget .c-gray>.t,.widget .c-gray>.th{fill:#d0d0d0}.widget .c-gray>.ts{fill:#b0b0b0}
+.widget .c-blue>rect,.widget rect.c-blue{fill:#0c447c;stroke:#85b7eb}
+.widget .c-blue>.t,.widget .c-blue>.th{fill:#b5d4f4}.widget .c-blue>.ts{fill:#85b7eb}
+.widget .c-green>rect,.widget rect.c-green{fill:#27500a;stroke:#97c459}
+.widget .c-green>.t,.widget .c-green>.th{fill:#c0dd97}.widget .c-green>.ts{fill:#97c459}
+.widget .c-amber>rect,.widget rect.c-amber{fill:#633806;stroke:#ef9f27}
+.widget .c-amber>.t,.widget .c-amber>.th{fill:#fac775}.widget .c-amber>.ts{fill:#ef9f27}
+.widget .c-red>rect,.widget rect.c-red{fill:#791f1f;stroke:#f09595}
+.widget .c-red>.t,.widget .c-red>.th{fill:#f7c1c1}.widget .c-red>.ts{fill:#f09595}
+</style></head><body><div class="layout"><aside class="toc"><div class="toc-title">목차</div><ul><li><a href="#1-비기능-요구란-무엇이고-이-프로젝트에서는-무엇인가">1. 비기능 요구란 무엇이고, 이 프로젝트에서는 무엇인가</a></li><li><a href="#2-정합성멱등성-정확히-한-번은-왜-불가능한가-깊게">2. 정합성·멱등성: “정확히 한 번”은 왜 불가능한가 (깊게)</a><ul><li><a href="#네트워크는-응답이-안-왔다와-처리가-안-됐다를-구분해-주지-않는다">네트워크는 “응답이 안 왔다”와 “처리가 안 됐다”를 구분해 주지 않는다</a></li></ul></li><li><a href="#3-보안개인정보-응답이-같아도-시간은-다를-수-있다">3. 보안·개인정보: 응답이 같아도 시간은 다를 수 있다</a><ul><li><a href="#타이밍-부채널-응답-본문이-같아도-정보가-샌다">타이밍 부채널: 응답 본문이 같아도 정보가 샌다</a></li><li><a href="#로그에-새는-개인정보">로그에 새는 개인정보</a></li></ul></li><li><a href="#4-가용성복구-200-OK는-무엇을-증명하는가">4. 가용성·복구: “200 OK”는 무엇을 증명하는가</a><ul><li><a href="#어디서-재느냐가-결과를-바꾼다">어디서 재느냐가 결과를 바꾼다</a></li><li><a href="#SLO가-없다는-것의-의미">SLO가 없다는 것의 의미</a></li><li><a href="#복구-아직-증명되지-않은-것">복구: 아직 증명되지 않은 것</a></li></ul></li><li><a href="#5-성능비용-측정이-직관을-뒤집은-세-사건-깊게">5. 성능·비용: 측정이 직관을 뒤집은 세 사건 (깊게)</a><ul><li><a href="#사건-1-N1-측정하고-나서-고쳤다">사건 1: N+1, 측정하고 나서 고쳤다</a></li><li><a href="#사건-2-커넥션-풀을-늘렸더니-더-나빠졌다">사건 2: 커넥션 풀을 늘렸더니 더 나빠졌다</a></li><li><a href="#사건-3-포트가-바닥났다--TIME_WAIT와-임시-포트-깊게">사건 3: 포트가 바닥났다 — TIME_WAIT와 임시 포트 (깊게)</a></li><li><a href="#2강-보충-640MB-컨테이너의-실제-OOM-기록">2강 보충: 640MB 컨테이너의 실제 OOM 기록</a></li></ul></li><li><a href="#6-관측-모르는-것을-정상이라고-말하지-않기">6. 관측: 모르는 것을 “정상”이라고 말하지 않기</a></li><li><a href="#7-위험-지도-남은-31강을-어디에-집중할-것인가">7. 위험 지도: 남은 31강을 어디에 집중할 것인가</a></li><li><a href="#3강-정리">3강 정리</a></li><li><a href="#보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</a></li></ul></aside><main><div class="crumbs"><a href="../index.html">분석</a> › <a href="00_1단계_전체.html">1단계 · 시스템과 도메인</a> › 3강</div><nav class="pager"><a href="02강_C4와_배포_구조.html">← 2강 C4와 배포 구조</a><a href="00_1단계_전체.html">1단계 전체</a><a href="04강_요구사항의_진화.html">4강 요구사항의 진화 →</a></nav><p class="meta">기준 커밋 <a href="https://github.com/guseoh/pawcycle-commerce/tree/f9ab9f87f610908501b864f45b8bc5f7caf2d8d0" target="_blank" rel="noopener"><code>f9ab9f87</code></a> · 저장소는 읽기만 했고 테스트·서버는 실행하지 않았다 · 티스토리 그림은 2026-11-30 이후 깨질 수 있다</p><div class="legend"><span class="tag tag-ok">확인</span> 코드·설정·DDL에서 직접 확인 <span class="tag tag-rec">기록</span> 승인 문서·PR·이슈·결정 기록 <span class="tag tag-int">해석</span> 판단 <span class="tag tag-pri">원리</span> 일반 원리 <span class="tag tag-unk">미확인</span> 확인하지 못함</div><h1 id="3강-비기능-요구와-위험-지도-이-시스템은-무엇을-두려워하는가">3강. 비기능 요구와 위험 지도: 이 시스템은 무엇을 두려워하는가</h1>
+<p><strong>이번 강의의 목표</strong></p>
+<ul>
+<li>기능 요구(“무엇을 하는가”)와 비기능 요구(“얼마나 잘, 얼마나 안전하게 하는가”)를 구분한다.</li>
+<li>PawCycle의 다섯 가지 비기능 축이 <strong>어떤 실제 사건과 측정</strong>에서 나왔고, <strong>어떤 기술 선택</strong>으로 이어졌는지 연결한다.</li>
+<li>네트워크·OS 쪽에서는 두 가지를 깊게 본다.<ul>
+<li>“정확히 한 번”이 왜 불가능하고 멱등성이 왜 그 대안인가</li>
+<li>TIME_WAIT와 임시 포트 고갈은 왜 생기는가</li>
+</ul>
+</li>
+<li>마지막에 <strong>위험 지도</strong>를 만든다. 남은 강의에서 무엇을 깊게 볼지 정하는 기준이 된다.</li>
+</ul>
+<h2 id="1-비기능-요구란-무엇이고-이-프로젝트에서는-무엇인가">1. 비기능 요구란 무엇이고, 이 프로젝트에서는 무엇인가</h2>
+<p>“주문을 생성한다”, “구독을 변경한다”는 <strong>기능 요구</strong>다. 그런데 같은 기능이라도 다음 질문에 어떻게 답하느냐에 따라 코드가 완전히 달라진다.</p>
+<ul>
+<li>버튼을 두 번 누르면 주문이 두 개 생기는가?</li>
+<li>결제사 응답이 안 오면 돈은 빠져나갔는가?</li>
+<li>서버가 죽으면 누가 언제 알게 되는가?</li>
+</ul>
+<p>이런 “얼마나 잘”에 대한 요구를 <strong>비기능 요구</strong>(품질 속성)라 한다. 문제는 비기능 요구가 요구사항 문서에 잘 적히지 않는다는 점이다. 보통은 <strong>사고가 나고 나서야</strong> 드러난다.</p>
+<p>PawCycle도 그랬다. README는 이 프로젝트를 “기술을 먼저 늘리기보다 현재 구조에서 문제를 재현·측정하고, 필요가 확인될 때 다음 기술을 선택한다”고 소개한다. 그래서 이 프로젝트의 비기능 요구는 <strong>문서의 선언보다 사건과 측정 기록에서 더 정확히 읽힌다</strong>. 아래 다섯 축이 그 결과다.</p>
+<figure class="widget" data-title="pawcycle_nfr_to_tech_choice_map"><svg width="100%" viewBox="0 0 680 350" role="img"><title>PawCycle 비기능 요구 다섯 축과 기술 선택</title><desc>정합성과 멱등성, 보안과 개인정보, 가용성과 복구, 성능과 비용, 관측의 다섯 비기능 요구가 각각 어떤 기술 선택으로 이어졌는지 연결한 지도</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="ts" x="140" y="26" text-anchor="middle">비기능 요구</text>
+<text class="ts" x="470" y="26" text-anchor="middle">이어진 기술 선택</text>
+<g class="c-purple"><rect x="40" y="40" width="200" height="50" rx="8" stroke-width="0.5"/><text class="th" x="140" y="57" text-anchor="middle" dominant-baseline="central">정합성 · 멱등성</text><text class="ts" x="140" y="76" text-anchor="middle" dominant-baseline="central">돈과 재고가 틀리면 안 된다</text></g>
+<g class="c-purple"><rect x="40" y="102" width="200" height="50" rx="8" stroke-width="0.5"/><text class="th" x="140" y="119" text-anchor="middle" dominant-baseline="central">보안 · 개인정보</text><text class="ts" x="140" y="138" text-anchor="middle" dominant-baseline="central">남의 것을 볼 수 없다</text></g>
+<g class="c-purple"><rect x="40" y="164" width="200" height="50" rx="8" stroke-width="0.5"/><text class="th" x="140" y="181" text-anchor="middle" dominant-baseline="central">가용성 · 복구</text><text class="ts" x="140" y="200" text-anchor="middle" dominant-baseline="central">죽으면 알고 되살린다</text></g>
+<g class="c-purple"><rect x="40" y="226" width="200" height="50" rx="8" stroke-width="0.5"/><text class="th" x="140" y="243" text-anchor="middle" dominant-baseline="central">성능 · 비용</text><text class="ts" x="140" y="262" text-anchor="middle" dominant-baseline="central">측정한 만큼만 고친다</text></g>
+<g class="c-purple"><rect x="40" y="288" width="200" height="50" rx="8" stroke-width="0.5"/><text class="th" x="140" y="305" text-anchor="middle" dominant-baseline="central">관측</text><text class="ts" x="140" y="324" text-anchor="middle" dominant-baseline="central">상태를 정직하게 판정</text></g>
+<g class="c-teal"><rect x="300" y="40" width="340" height="50" rx="8" stroke-width="0.5"/><text class="ts" x="470" y="65" text-anchor="middle" dominant-baseline="central">멱등 테이블 4개 · 지문 · 행 잠금 + CAS · UNKNOWN</text></g>
+<g class="c-teal"><rect x="300" y="102" width="340" height="50" rx="8" stroke-width="0.5"/><text class="ts" x="470" y="127" text-anchor="middle" dominant-baseline="central">세션 + CSRF · BCrypt 더미 해시 · 로그 검사</text></g>
+<g class="c-teal"><rect x="300" y="164" width="340" height="50" rx="8" stroke-width="0.5"/><text class="ts" x="470" y="189" text-anchor="middle" dominant-baseline="central">경계별 헬스체크 · 상태 알림 · 관리형 DB 분리</text></g>
+<g class="c-teal"><rect x="300" y="226" width="340" height="50" rx="8" stroke-width="0.5"/><text class="ts" x="470" y="251" text-anchor="middle" dominant-baseline="central">N+1 측정 후 개선 · 풀 증설 기각 · 단일 서버</text></g>
+<g class="c-teal"><rect x="300" y="288" width="340" height="50" rx="8" stroke-width="0.5"/><text class="ts" x="470" y="313" text-anchor="middle" dominant-baseline="central">Prometheus · Grafana · fail-closed 상태 판정</text></g>
+<line x1="240" y1="65" x2="298" y2="65" stroke="var(--b)" stroke-width="0.5" marker-end="url(#arrow)"/>
+<line x1="240" y1="127" x2="298" y2="127" stroke="var(--b)" stroke-width="0.5" marker-end="url(#arrow)"/>
+<line x1="240" y1="189" x2="298" y2="189" stroke="var(--b)" stroke-width="0.5" marker-end="url(#arrow)"/>
+<line x1="240" y1="251" x2="298" y2="251" stroke="var(--b)" stroke-width="0.5" marker-end="url(#arrow)"/>
+<line x1="240" y1="313" x2="298" y2="313" stroke="var(--b)" stroke-width="0.5" marker-end="url(#arrow)"/>
+</svg></figure>
+<p>다섯 축 중 첫 번째가 가장 무겁다. 이커머스에서 <strong>돈과 재고가 틀리는 것</strong>은 느린 것보다 훨씬 나쁘다. 느리면 사용자가 기다리지만, 두 번 결제되면 환불과 신뢰 문제가 생긴다.</p>
+<h2 id="2-정합성멱등성-정확히-한-번은-왜-불가능한가-깊게">2. 정합성·멱등성: “정확히 한 번”은 왜 불가능한가 (깊게)</h2>
+<h3 id="네트워크는-응답이-안-왔다와-처리가-안-됐다를-구분해-주지-않는다">네트워크는 “응답이 안 왔다”와 “처리가 안 됐다”를 구분해 주지 않는다</h3>
+<p>사용자가 “결제하기”를 눌렀는데 응답이 오지 않았다고 하자. 가능한 경우는 셋이다.</p>
+<ol>
+<li>요청이 서버에 <strong>도착하지 못했다</strong>. 아무 일도 일어나지 않았다.</li>
+<li>서버가 <strong>처리하는 중에 죽었다</strong>. 일부만 일어났을 수 있다.</li>
+<li>서버는 <strong>처리를 끝냈는데 응답이 돌아오다 사라졌다</strong>. 결제는 이미 됐다.</li>
+</ol>
+<p><strong><span class="tag tag-pri">원리</span></strong> 클라이언트 쪽에서는 이 셋이 <strong>똑같이 “타임아웃”으로 보인다</strong>. 분산 시스템에서 유명한 <strong>두 장군 문제</strong>(Two Generals' Problem)가 이것이다. 메시지가 사라질 수 있는 통신로에서는, 상대가 받았다는 확인조차 사라질 수 있다. 그래서 양쪽이 “확실히 합의했다”고 확신할 방법이 없다. 결과적으로 클라이언트가 고를 수 있는 전략은 둘뿐이다.</p>
+<ul>
+<li><strong>재시도하지 않는다 → 최대 한 번(at-most-once)</strong>: 3번 경우가 아니었다면 결제가 누락된다.</li>
+<li><strong>재시도한다 → 최소 한 번(at-least-once)</strong>: 3번 경우였다면 결제가 두 번 된다.</li>
+</ul>
+<p>“정확히 한 번 전달(exactly-once delivery)”은 네트워크 수준에서 보장할 수 없다. 대신 실무에서는 <strong>“최소 한 번 전달 + 받는 쪽의 중복 제거”</strong> 로 <strong>“정확히 한 번의 효과(effect)”</strong> 를 만든다. 그 중복 제거 장치가 <strong>멱등성</strong>이다.</p>
+<p>토스페이먼츠의 <a href="https://www.tosspayments.com/blog/articles/dev-1" target="_blank" rel="noopener">「멱등성이 뭔가요?」</a>가 이 흐름을 결제 취소 예제로 설명한다.</p>
+<ul>
+<li>결제 API가 멱등하지 않으면 타임아웃 후 실제 결제 여부를 사람이 확인해야 한다.</li>
+<li>멱등하면 같은 요청을 다시 보내 <strong>못 받은 결과만 다시 받을 수 있다</strong>.</li>
+<li>서버는 <code>Idempotency-Key</code> 헤더의 키로 요청 기록을 저장하고, 같은 키가 다시 오면 처리하지 않고 저장된 응답을 돌려준다.</li>
+<li>같은 키에 <strong>다른 본문</strong>이 오면 <code>422</code>, <strong>앞 요청이 아직 처리 중</strong>이면 <code>409</code>로 거절하라는 IETF 초안의 권고도 소개한다.</li>
+</ul>
+<p>글의 결제 취소 흐름 그림은 원문에서 보면 된다. 토스페이먼츠가 콘텐츠의 무단 전재를 금하고 있어, 여기서는 직접 싣지 않고 같은 구조를 도식으로 다시 그린다.</p>
+<figure class="widget" data-title="idempotent_retry_after_lost_response"><svg width="100%" viewBox="0 0 680 400" role="img"><title>응답 유실 후 멱등 재시도</title><desc>클라이언트가 멱등키 K로 요청하고 서버가 처리와 결과 저장을 한 트랜잭션으로 끝냈지만 응답이 유실된다. 클라이언트가 같은 키로 재시도하면 서버는 다시 처리하지 않고 저장된 결과를 돌려준다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g class="c-gray"><rect x="40" y="20" width="140" height="40" rx="8" stroke-width="0.5"/><text class="th" x="110" y="40" text-anchor="middle" dominant-baseline="central">클라이언트</text></g>
+<g class="c-purple"><rect x="270" y="20" width="140" height="40" rx="8" stroke-width="0.5"/><text class="th" x="340" y="40" text-anchor="middle" dominant-baseline="central">서버</text></g>
+<g class="c-teal"><rect x="500" y="20" width="140" height="40" rx="8" stroke-width="0.5"/><text class="th" x="570" y="40" text-anchor="middle" dominant-baseline="central">멱등 결과 테이블</text></g>
+<line x1="110" y1="60" x2="110" y2="380" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="340" y1="60" x2="340" y2="380" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="570" y1="60" x2="570" y2="380" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="110" y1="92" x2="336" y2="92" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="223" y="84" text-anchor="middle">POST 키 K · 본문 B</text>
+<line x1="340" y1="128" x2="566" y2="128" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="455" y="120" text-anchor="middle">K 기록 없음 → 처리</text>
+<g class="c-teal"><rect x="360" y="146" width="280" height="40" rx="8" stroke-width="0.5"/><text class="ts" x="500" y="166" text-anchor="middle" dominant-baseline="central">업무 처리 + 결과 저장, 한 트랜잭션 커밋</text></g>
+<line x1="336" y1="214" x2="180" y2="214" stroke="#E24B4A" stroke-width="1" stroke-dasharray="5 4"/>
+<text class="ts" x="160" y="218" text-anchor="end">응답 유실</text>
+<text class="ts" x="258" y="206" text-anchor="middle">200 결과 R</text>
+<line x1="110" y1="262" x2="336" y2="262" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="223" y="254" text-anchor="middle">재시도: 같은 키 K · 같은 본문 B</text>
+<line x1="340" y1="298" x2="566" y2="298" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="455" y="290" text-anchor="middle">K 기록 있음 · 지문 일치</text>
+<line x1="336" y1="346" x2="114" y2="346" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="223" y="338" text-anchor="middle">저장된 결과 R 재전송 (replay)</text>
+<text class="ts" x="340" y="376" text-anchor="middle">돈은 한 번만 움직이고, 클라이언트는 결과를 받는다</text>
+</svg></figure>
+<p>그림에서 가장 중요한 칸은 가운데 초록 상자다. <strong>업무 처리와 결과 저장이 한 트랜잭션</strong>이어야 한다.</p>
+<ul>
+<li>처리만 커밋되고 저장이 빠지면, 재시도가 왔을 때 기록이 없으니 <strong>다시 처리한다</strong>. 이중 결제다.</li>
+<li>저장만 되고 처리가 빠지면, <strong>결과가 거짓</strong>이 된다.</li>
+</ul>
+<p>PawCycle에서 이 원리가 어디에 쓰였는지 보자.</p>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span></strong> 체크아웃, 구독 명령 등에 <strong>멱등 결과 테이블이 4개</strong> 있다.<ul>
+<li>키만 보지 않고 요청 내용의 <strong>지문</strong>(fingerprint)을 함께 저장한다. 같은 키로 다른 내용을 보내는 요청을 구분하기 위해서다. 토스페이먼츠 글의 <code>422</code> 상황과 같은 문제를 푸는 장치다.</li>
+<li><strong><span class="tag tag-unk">미확인</span></strong> 지문이 다를 때 돌려주는 HTTP 상태 코드는 17강에서 코드로 확인한다.</li>
+</ul>
+</li>
+<li><strong><span class="tag tag-rec">기록</span> 멱등 기록도 영원히 둘 수는 없다.</strong> 성공 결과를 다시 보낼 수 있게 유지하면서 데이터가 무한히 늘지 않도록 <strong>완료 시각 기준 30일 보관 + 한 번에 정해진 양만 지우는 정리(bounded cleanup)</strong> 를 넣었다. 정리 작업과 replay가 경쟁하는 경우도 검증했다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/108" target="_blank" rel="noopener">PR #108</a>). 토스페이먼츠 글이 말한 “멱등키의 유효 기간”과 같은 개념이다.</li>
+<li><strong><span class="tag tag-rec">기록</span> 멱등성 장치 자체가 사고를 냈다.</strong> 체크아웃은 처음에 멱등 행을 <code>SELECT ... FOR UPDATE</code>로 잠갔다. 그런데 <strong>아직 없는 행</strong>을 잠그면 InnoDB는 그 자리의 <strong>간격(gap)</strong> 을 잠근다. 서로 다른 회원의 INSERT가 같은 간격에 걸려 <strong>교착 상태</strong>(deadlock)가 났고, 그 잠금은 제거됐다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/332" target="_blank" rel="noopener">PR #332</a>). 간격 잠금의 원리는 17강에서 깊게 본다.</li>
+<li><strong><span class="tag tag-rec">기록</span> 외부 결제는 멱등 테이블만으로 해결되지 않는다.</strong> 결제사 승인은 우리 DB 트랜잭션 <strong>밖</strong>에서 일어난다. 그래서 위 그림의 초록 상자처럼 “한 트랜잭션”으로 묶을 수 없다.<ul>
+<li>PawCycle은 결제를 <code>PROCESSING</code>으로 먼저 기록하고, 토스를 호출한 뒤, 결과를 반영한다. 응답을 알 수 없으면 <code>UNKNOWN</code>으로 남긴다.</li>
+<li>그 사이에 서버가 죽으면 <strong><code>PROCESSING</code>에 고립된 결제</strong>가 남을 수 있다(<a href="https://github.com/guseoh/pawcycle-commerce/issues/417" target="_blank" rel="noopener">이슈 #417</a>). 결제사에 상태를 조회만 하는 1단계는 들어갔고(<a href="https://github.com/guseoh/pawcycle-commerce/pull/450" target="_blank" rel="noopener">PR #450</a>), 자동으로 바로잡는 2단계는 아직이다. 18·19강의 핵심 주제다.</li>
+</ul>
+</li>
+<li><strong><span class="tag tag-rec">기록</span> 실패를 가두는 것도 정합성이다.</strong> 정기배송 배치가 여러 구독을 <strong>한 트랜잭션</strong>에서 처리하면, 구독 하나의 실패가 배치 전체를 롤백시킨다. 그래서 구독마다 독립 트랜잭션으로 나눠, 실패한 구독만 롤백하고 나머지는 계속 처리하게 했다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/106" target="_blank" rel="noopener">PR #106</a>).</li>
+</ul>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://www.tosspayments.com/blog/articles/dev-1" target="_blank" rel="noopener">토스페이먼츠 · 멱등성이 뭔가요?</a>: 멱등키 저장, replay, 409/422 처리</li>
+<li><a href="https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/" target="_blank" rel="noopener">IETF · The Idempotency-Key HTTP Header Field (초안)</a>: 위 글이 근거로 든 표준 초안</li>
+</ul>
+<h2 id="3-보안개인정보-응답이-같아도-시간은-다를-수-있다">3. 보안·개인정보: 응답이 같아도 시간은 다를 수 있다</h2>
+<p>보안 축의 기본 장치는 1강과 2강에서 봤다.</p>
+<ul>
+<li>세션 로그인과 CSRF 헤더 (11강)</li>
+<li><code>/api/admin/**</code>는 ADMIN만, 나머지는 기본 거부</li>
+<li>Nginx 로그인 속도 제한</li>
+</ul>
+<p>여기서는 <strong>눈에 잘 띄지 않는 두 가지 위험</strong>을 본다.</p>
+<h3 id="타이밍-부채널-응답-본문이-같아도-정보가-샌다">타이밍 부채널: 응답 본문이 같아도 정보가 샌다</h3>
+<p><strong><span class="tag tag-rec">기록</span></strong> 로그인 기능의 첫 초안은 이렇게 동작했다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/34" target="_blank" rel="noopener">PR #34</a>).</p>
+<ul>
+<li>가입되지 않은 이메일 → DB에 회원이 없으니 <strong>즉시</strong> 401</li>
+<li>가입된 이메일 + 틀린 비밀번호 → BCrypt로 비밀번호를 비교한 뒤 401</li>
+</ul>
+<p>두 경우 모두 응답은 똑같은 401 JSON이다. 하지만 <strong><span class="tag tag-pri">원리</span></strong> BCrypt는 <strong>일부러 느리게 만든</strong> 해시 함수다. 비밀번호 대입 공격을 늦추려고 비교 한 번에 수십~수백 ms를 쓴다. 그러니 가입된 이메일에서만 응답이 눈에 띄게 늦다. 공격자는 응답 <strong>시간</strong>만 재서 “이 이메일은 가입돼 있다”를 알아낼 수 있다. 이런 공격을 <strong>타이밍 부채널 공격</strong>이라 한다.</p>
+<ul>
+<li><strong>고친 방식</strong>: 시작할 때 무작위 <strong>더미 해시</strong>를 한 번 만들어 둔다. 가입되지 않은 이메일에도 그 더미 해시로 BCrypt 비교를 <strong>정확히 한 번</strong> 수행해 두 경로의 비용을 맞췄다. 요청마다 새로 해시를 만드는 방식은 쓰지 않았다. 그렇게 하면 비용이 오히려 달라지기 때문이다.</li>
+<li><strong>증명한 범위</strong>: 두 실패 경로의 비교 횟수, 응답, 미인증 상태 유지까지만 테스트로 확인했다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/38" target="_blank" rel="noopener">PR #38</a>). <strong><span class="tag tag-rec">기록</span></strong> 모든 타이밍 차이가 통계적으로 사라졌다는 실측은 없다. 형식이 틀린 이메일의 검증 경로도 같은 비용이라는 주장은 아니다.</li>
+<li>이후 인증 책임은 Spring Security의 <code>AuthenticationProvider</code> 구조로 옮겨졌다. 11강에서 현재 코드로 다시 확인한다.</li>
+</ul>
+<h3 id="로그에-새는-개인정보">로그에 새는 개인정보</h3>
+<p><strong><span class="tag tag-rec">기록</span></strong> 정기결제 처리의 INFO 로그에 회원 ID가 그대로 찍히는 부분을 제거했다. 그리고 Java 소스의 구문 트리(AST)를 검사하는 테스트를 넣었다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/298" target="_blank" rel="noopener">PR #298</a>). 비밀번호·토큰·세션·CSRF·결제·빌링키 같은 값을 <strong>로거 인자로 직접 넘기면 빌드가 실패</strong>한다.</p>
+<ul>
+<li><strong>한계 <span class="tag tag-rec">기록</span></strong>: 이 검사는 <strong>직접 인자</strong>만 본다. 변수에 담았다가 넘기거나, 예외 메시지 안에 섞여 들어가는 경로(데이터 흐름, taint)는 추적하지 않는다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> 정적 검사는 “실수로 찍는 것”을 싸게 막는 1차 방어선이다. 완전한 보장이 필요하면 로그 출력 단계에서 패턴을 가리는 마스킹 필터를 추가로 둬야 한다. 비용(성능, 오탐)과 보장 수준의 트레이드오프다.</li>
+</ul>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html" target="_blank" rel="noopener">OWASP · Authentication Cheat Sheet</a>: 응답 시간 차이로 계정 존재를 노출하지 말라는 권고(“Authentication and Error Messages” 절)</li>
+<li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html" target="_blank" rel="noopener">OWASP · Logging Cheat Sheet</a>: 로그에 남기면 안 되는 데이터 목록</li>
+</ul>
+<h2 id="4-가용성복구-200-OK는-무엇을-증명하는가">4. 가용성·복구: “200 OK”는 무엇을 증명하는가</h2>
+<h3 id="어디서-재느냐가-결과를-바꾼다">어디서 재느냐가 결과를 바꾼다</h3>
+<p><strong><span class="tag tag-rec">기록</span></strong> 2026-08-14, AWS 운영 환경에서 일부러 장애를 내는 훈련(drill)을 했다(<a href="https://github.com/guseoh/pawcycle-commerce/issues/146" target="_blank" rel="noopener">이슈 #146</a>).</p>
+<ul>
+<li>backend 컨테이너 하나만 멈췄다.</li>
+<li>Prometheus의 backend 대상은 <code>up → down → up</code>으로 정확히 변했다.</li>
+<li>그런데 <strong>backend가 멈춘 동안에도 <code>/products</code> 페이지는 HTTP 200</strong>이었다. 프론트 페이지는 backend에 실제로 묻지 않고도 200을 돌려줄 수 있기 때문이다.</li>
+</ul>
+<p>교훈은 <strong>“검사가 어떤 실행 경계를 지나가는가”를 알아야 한다</strong>는 것이다. 이후 backend API, Docker 헬스 상태, 메트릭 수집 대상을 <strong>함께</strong> 읽는 진단 도구가 만들어졌다(<a href="https://github.com/guseoh/pawcycle-commerce/issues/147" target="_blank" rel="noopener">이슈 #147</a>).</p>
+<p>이 교훈을 2강의 설정에 대 보면 흥미로운 점이 보인다.</p>
+<ul>
+<li>backend 헬스체크는 <code>/api/products</code>로 <strong>backend 자신</strong>을 검사한다. 옳다.</li>
+<li>proxy 헬스체크는 <code>127.0.0.1:8081/products</code>다. 이 경로는 Nginx → <strong>frontend</strong>로만 간다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> 그래서 proxy가 healthy라는 것은 “Nginx와 frontend 경로가 산다”까지만 증명하고, <strong>backend 상태는 증명하지 않는다</strong>. <code>depends_on: condition: service_healthy</code>는 <strong>시작 순서</strong>만 보장할 뿐, 실행 중 backend가 죽은 것은 proxy 헬스에 반영되지 않는다. 이것이 의도된 설계인지는 29강에서 배포 검증 스크립트와 함께 확인한다.</li>
+</ul>
+<p>Dale Seo의 <a href="https://daleseo.com/sli-slo-sla/" target="_blank" rel="noopener">「SLI, SLO, SLA 정리」</a>도 같은 지점을 짚는다. 같은 “성공률”이라도 서버 로그로 재면 서버까지 도달한 요청만 세고, 로드 밸런서에서 재면 서버가 죽어 응답하지 못한 요청까지 센다. <strong>사용자에게 가까운 곳에서 잴수록 정직한 지표</strong>가 된다.</p>
+<h3 id="SLO가-없다는-것의-의미">SLO가 없다는 것의 의미</h3>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span></strong> README는 성능 수치를 소개하면서 “Production SLO나 현재 Production 성능으로 표현하지 않는다”고 명시한다. 즉 <strong>이 서비스에는 아직 SLO(서비스 수준 목표)가 없다.</strong></li>
+<li><strong><span class="tag tag-pri">원리</span></strong> SLO는 “어떤 지표를, 어느 값 이상으로, 어느 기간 동안”의 세 요소로 이루어진다. 예를 들어 99.9%/30일은 한 달에 약 43분, 99%/30일은 약 7시간 12분의 장애를 허용한다. 이 숫자가 있어야 “지금 알림을 울릴 만큼 나쁜가”, “이번 배포는 위험을 감수해도 되는가”를 판단할 수 있다.</li>
+<li><strong><span class="tag tag-int">해석</span></strong> 2강에서 본 단일 서버, 수동 배포, 무중단 배포 보류는 <strong>SLO가 없기 때문에 정당화되는 선택</strong>이기도 하다. 포트폴리오에서 “가용성 목표를 정하지 않은 상태에서 비용 0을 우선했다”고 정확히 말하는 편이, 근거 없는 “고가용성”보다 강하다.</li>
+</ul>
+<h3 id="복구-아직-증명되지-않은-것">복구: 아직 증명되지 않은 것</h3>
+<ul>
+<li><strong><span class="tag tag-ok">확인</span></strong> 운영 개요 문서는 OCI 환경에서 다음 항목을 <strong>검증하지 않았다</strong>고 적는다. 애플리케이션 롤백, 인증서 갱신 중단 복구, <strong>DB 백업·특정 시점 복구(PITR)·복원</strong>, 전체 알림 연결, 로그인·주문 같은 업무 흐름이다.</li>
+<li>AWS 시절에는 S3 논리 백업과 격리 복원을 실제로 했던 기록이 남아 있다(30강).</li>
+<li><strong><span class="tag tag-pri">원리</span></strong> 백업은 <strong>복원해 보기 전까지 백업이 아니다</strong>. 복구 목표는 보통 두 숫자로 말한다.<ul>
+<li><strong>RPO</strong>(Recovery Point Objective): 얼마만큼의 데이터를 잃어도 되는가</li>
+<li><strong>RTO</strong>(Recovery Time Objective): 얼마 안에 되살려야 하는가</li>
+<li>PawCycle은 둘 다 아직 정의돼 있지 않다.</li>
+</ul>
+</li>
+</ul>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://daleseo.com/sli-slo-sla/" target="_blank" rel="noopener">Dale Seo · SLI, SLO, SLA 정리</a>: 측정 위치에 따른 지표 차이, SLO의 세 요소</li>
+<li><a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener">Google SRE Book · Service Level Objectives</a>: SLI·SLO·SLA 정의의 원전</li>
+</ul>
+<h2 id="5-성능비용-측정이-직관을-뒤집은-세-사건-깊게">5. 성능·비용: 측정이 직관을 뒤집은 세 사건 (깊게)</h2>
+<p>이 축의 원칙은 README 그대로다. <strong>최적화를 먼저 하지 않고, 측정한 뒤 고친다.</strong> 세 사건이 이 원칙을 잘 보여 준다.</p>
+<h3 id="사건-1-N1-측정하고-나서-고쳤다">사건 1: N+1, 측정하고 나서 고쳤다</h3>
+<p><strong><span class="tag tag-rec">기록</span></strong> 페이지 크기를 바꿔 가며 API 하나가 실행하는 SQL 수를 먼저 쟀다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/102" target="_blank" rel="noopener">PR #102</a>). 그다음 batch 조회로 바꾸고 같은 조건에서 다시 쟀다(<a href="https://github.com/guseoh/pawcycle-commerce/pull/103" target="_blank" rel="noopener">PR #103</a>).</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>개선 전 10 / 20 / 100건</th>
+<th>개선 후 10 / 20 / 100건</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plans</td>
+<td>32 / 52 / 212</td>
+<td>14 / 14 / 14</td>
+</tr>
+<tr>
+<td>Subscriptions</td>
+<td>51 / 91 / 411</td>
+<td>15 / 15 / 19</td>
+</tr>
+</tbody>
+</table>
+<p>개선 전 쿼리 수가 <strong>페이지 크기에 비례해 늘어난다</strong>는 것이 N+1의 지문이다. 개선 후에는 거의 상수다. 원리와 JPA의 해결 방법(fetch join, <code>@BatchSize</code>, DTO 조회)은 9강과 13강에서 본다.</p>
+<h3 id="사건-2-커넥션-풀을-늘렸더니-더-나빠졌다">사건 2: 커넥션 풀을 늘렸더니 더 나빠졌다</h3>
+<p><strong><span class="tag tag-rec">기록</span></strong> 로컬 부하 실험에서 HikariCP 커넥션이 10개 모두 사용 중이고 대기 요청이 117개까지 쌓였다. 직관적인 처방은 “풀을 늘리자”다.</p>
+<table>
+<thead>
+<tr>
+<th>후보</th>
+<th>실제 처리량</th>
+<th>버려진 요청</th>
+<th>p95</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기준(CPU 1.5, 풀 10)</td>
+<td>약 154 RPS</td>
+<td>10,497</td>
+<td>약 8.0초</td>
+</tr>
+<tr>
+<td>풀 10 → <strong>20</strong></td>
+<td>약 142 RPS (<strong>악화</strong>)</td>
+<td>11,950</td>
+<td>약 8.0초</td>
+</tr>
+<tr>
+<td>CPU 1.5 → <strong>2.0</strong>, 풀 10</td>
+<td>약 193 RPS (개선)</td>
+<td>5,808</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>(<a href="https://github.com/guseoh/pawcycle-commerce/issues/191" target="_blank" rel="noopener">이슈 #191</a>, <a href="https://github.com/guseoh/pawcycle-commerce/issues/193" target="_blank" rel="noopener">#193</a>, <a href="https://github.com/guseoh/pawcycle-commerce/issues/195" target="_blank" rel="noopener">#195</a>)</p>
+<ul>
+<li><strong><span class="tag tag-int">해석</span></strong> 커넥션 대기는 <strong>증상</strong>이지 원인이 아니다. CPU가 부족하면 각 요청이 커넥션을 쥐고 있는 시간이 길어지고, 그래서 대기가 쌓인다. 이 상태에서 풀을 늘리면 더 많은 요청이 <strong>동시에</strong> CPU와 DB를 두고 경쟁해 오히려 느려진다.</li>
+<li>그래서 풀 20은 기각하고 원래대로 돌렸다. CPU 증설은 처리량을 올렸지만 대기가 여전히 남아 <strong>부분 원인</strong>으로만 판정했다.</li>
+</ul>
+<p>커넥션 풀이 단순히 “부족”한 것을 넘어 <strong>완전히 멈추는</strong> 경우도 있다. 우아한형제들의 <a href="https://techblog.woowahan.com/2664/" target="_blank" rel="noopener">「HikariCP Dead lock에서 벗어나기 (이론편)」</a>이 그 사례다.</p>
+<ul>
+<li>메시지 플랫폼에서 소비 스레드 16개가 크기 10인 풀을 나눠 썼다.</li>
+<li>메시지 하나를 저장하는 트랜잭션이 <strong>커넥션을 동시에 2개</strong> 필요로 했다.</li>
+<li>스레드들이 커넥션 1개씩을 쥔 채 두 번째 커넥션을 서로 기다리며 멈췄다.</li>
+</ul>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="HikariCP 커넥션 풀 교착 상태에서 스레드들이 커넥션을 하나씩 쥔 채 두 번째 커넥션을 기다리는 흐름" src="https://techblog.woowahan.com/wp-content/uploads/img/2020-02-06/dead-lock-thread-flow.png" /></p>
+<p><em>출처: <a href="https://techblog.woowahan.com/2664/" target="_blank" rel="noopener">우아한형제들 기술블로그 · HikariCP Dead lock에서 벗어나기 (이론편)</a>, 이재훈. 이미지가 자리표시자로 보이면 링크에서 원문 그림을 볼 수 있다.</em></p>
+<ul>
+<li>그림에서 각 스레드는 커넥션 하나를 이미 쥐고 있고, 풀은 비어 있다. 아무도 두 번째 커넥션을 얻지 못하니 아무도 첫 번째를 반납하지 못한다. 2강에서 본 교착 상태 조건(점유하며 대기, 순환 대기)이 DB 행이 아니라 <strong>커넥션 풀</strong>에서 성립한 것이다.</li>
+<li>글은 교착을 피하는 최소 풀 크기를 <code>스레드 수 × (작업당 동시 필요 커넥션 수 − 1) + 1</code>로 제시한다.</li>
+<li><strong><span class="tag tag-int">해석</span> PawCycle과의 연결</strong>: 한 요청이 커넥션 2개를 동시에 쥐는 대표적인 경우는 바깥 트랜잭션이 열린 채 <code>REQUIRES_NEW</code>로 <strong>새 트랜잭션</strong>을 여는 것이다. 리뷰 요약 Slice에서 트랜잭션을 나눈 방식이 이 패턴에 해당하는지는 15강에서 코드로 확인한다.</li>
+</ul>
+<h3 id="사건-3-포트가-바닥났다--TIME_WAIT와-임시-포트-깊게">사건 3: 포트가 바닥났다 — TIME_WAIT와 임시 포트 (깊게)</h3>
+<p><strong><span class="tag tag-rec">기록</span></strong> 로컬 부하 실험에서 초당 832건을 처리한 것처럼 보였다. 그런데 <strong>오류율이 44.7%</strong> 였다(<a href="https://github.com/guseoh/pawcycle-commerce/issues/166" target="_blank" rel="noopener">이슈 #166</a>, <a href="https://github.com/guseoh/pawcycle-commerce/pull/167" target="_blank" rel="noopener">PR #167</a>).</p>
+<ul>
+<li>Nginx 로그에는 backend로 연결할 때 <code>EADDRNOTAVAIL</code>(쓸 수 있는 주소 없음)과 <strong>502</strong>가 찍혔다.</li>
+<li>proxy 컨테이너의 TIME_WAIT 소켓은 26개에서 <strong>약 28,300개</strong>로 늘었다.</li>
+<li>이 502는 Spring까지 오지도 않았으니 <strong>Spring의 메트릭에는 보이지 않았다</strong>. 4절의 “어디서 재느냐” 문제가 성능에서도 그대로 나타난 것이다.</li>
+<li>목표를 초당 250건으로 맞추면 오류 0%였고, 500건에서는 오류 10.8%로 실패했다.</li>
+</ul>
+<p>왜 이런 일이 생기는지 OS 수준에서 보자.</p>
+<figure class="widget" data-title="nginx_time_wait_ephemeral_port_exhaustion"><svg width="100%" viewBox="0 0 680 330" role="img"><title>TIME_WAIT로 인한 임시 포트 고갈</title><desc>Nginx가 backend로 요청마다 새 TCP 연결을 열면 연결마다 임시 포트 하나를 쓰고, 연결을 닫은 쪽은 60초 동안 TIME_WAIT로 그 포트를 붙잡는다. 포트 범위 32768에서 60999까지 28232개를 60초로 나누면 초당 약 470개의 새 연결이 상한이다</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g class="c-purple"><rect x="40" y="30" width="190" height="56" rx="8" stroke-width="0.5"/><text class="th" x="135" y="50" text-anchor="middle" dominant-baseline="central">Nginx proxy</text><text class="ts" x="135" y="70" text-anchor="middle" dominant-baseline="central">여기서는 클라이언트 역할</text></g>
+<g class="c-purple"><rect x="450" y="30" width="190" height="56" rx="8" stroke-width="0.5"/><text class="th" x="545" y="50" text-anchor="middle" dominant-baseline="central">backend:8080</text><text class="ts" x="545" y="70" text-anchor="middle" dominant-baseline="central">목적지는 항상 같다</text></g>
+<line x1="230" y1="50" x2="448" y2="50" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="230" y1="66" x2="448" y2="66" stroke="var(--s)" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="340" y="100" text-anchor="middle">요청마다 새 연결 · 출발 포트만 달라진다</text>
+<text class="ts" x="40" y="138">임시 포트 범위 32768–60999 = 28,232개</text>
+<rect x="40" y="150" width="600" height="34" rx="4" fill="none" stroke="var(--b)" stroke-width="0.5"/>
+<g class="c-amber"><rect x="41" y="151" width="540" height="32" rx="3" stroke-width="0"/><text class="ts" x="311" y="167" text-anchor="middle" dominant-baseline="central">TIME_WAIT로 60초간 묶인 포트</text></g>
+<g class="c-teal"><rect x="583" y="151" width="56" height="32" rx="3" stroke-width="0"/><text class="ts" x="611" y="167" text-anchor="middle" dominant-baseline="central">남은</text></g>
+<g class="c-gray"><rect x="40" y="210" width="290" height="56" rx="8" stroke-width="0.5"/><text class="th" x="185" y="230" text-anchor="middle" dominant-baseline="central">상한 ≈ 28,232 ÷ 60초</text><text class="ts" x="185" y="250" text-anchor="middle" dominant-baseline="central">≈ 초당 470개의 새 연결</text></g>
+<g class="c-red"><rect x="350" y="210" width="290" height="56" rx="8" stroke-width="0.5"/><text class="th" x="495" y="230" text-anchor="middle" dominant-baseline="central">포트가 바닥나면</text><text class="ts" x="495" y="250" text-anchor="middle" dominant-baseline="central">EADDRNOTAVAIL → 즉시 502</text></g>
+<text class="ts" x="340" y="300" text-anchor="middle">해법: 연결 재사용(upstream keepalive) → 포트를 다시 쓰지 않고 소켓을 재활용</text>
+</svg></figure>
+<p>그림의 숫자가 기록과 맞아떨어지는지 확인해 보자.</p>
+<ul>
+<li><strong><span class="tag tag-pri">원리</span> 연결 하나는 네 값으로 구분된다.</strong> 2강에서 본 <code>(출발 IP, 출발 포트, 목적지 IP, 목적지 포트)</code>다. Nginx → backend 연결은 출발 IP, 목적지 IP, 목적지 포트(8080)가 모두 고정이다. <strong>달라질 수 있는 것은 출발 포트 하나뿐</strong>이다. 리눅스는 이 출발 포트를 <strong>임시 포트 범위</strong>(기본 <code>32768–60999</code>, 28,232개)에서 골라 쓴다. 기록에 남은 포트 범위가 바로 이 값이다.</li>
+<li><strong><span class="tag tag-pri">원리</span> TIME_WAIT는 버그가 아니라 안전장치다.</strong> TCP 연결을 <strong>먼저 닫은 쪽</strong>은 소켓을 바로 버리지 않고 일정 시간 TIME_WAIT 상태로 둔다. 이유는 두 가지다.<ul>
+<li>내가 보낸 마지막 <code>ACK</code>가 사라졌다면 상대가 <code>FIN</code>을 다시 보낼 것이다. 그때 다시 답하려면 소켓이 남아 있어야 한다.</li>
+<li>네트워크를 떠돌던 옛 연결의 늦은 패킷이, 같은 네 값을 재사용한 <strong>새 연결</strong>에 섞여 들어가는 것을 막는다.</li>
+<li>리눅스는 이 시간을 <strong>60초로 고정</strong>해 두었다.</li>
+</ul>
+</li>
+<li><strong><span class="tag tag-int">해석</span> 계산이 기록과 맞는다.</strong> 포트 28,232개를 각각 60초씩 붙잡으면, 같은 목적지로 만들 수 있는 새 연결은 <strong>초당 약 470개</strong>가 상한이다.<ul>
+<li>목표 250건에서 오류가 0이고 500건에서 실패한 결과가 이 상한과 일치한다.</li>
+<li>TIME_WAIT가 약 28,300개까지 쌓인 것은 <strong>포트 범위를 거의 다 쓴 상태</strong>다.</li>
+<li>처음의 “초당 832건”은 실제 처리량이 아니었다. 포트가 없어 <strong>즉시 실패한 502가 빠르게 쌓인 숫자</strong>였다. 빠른 실패는 처리량으로 세면 안 된다.</li>
+</ul>
+</li>
+<li><strong>해법과 트레이드오프.</strong><ul>
+<li><strong>upstream keepalive</strong>: Nginx가 backend 연결을 닫지 않고 재사용한다. 근본 해법이다. 다만 <code>upstream</code> 블록의 <code>keepalive N</code>, <code>proxy_http_version 1.1</code>, 빈 <code>Connection</code> 헤더가 함께 있어야 동작한다.</li>
+<li><strong>커널 튜닝</strong>: 포트 범위를 넓히거나 <code>tcp_tw_reuse</code>를 켜는 방법도 있지만, 증상을 미루는 성격이 강하다.</li>
+<li><strong><span class="tag tag-rec">기록</span></strong> 이 개선은 측정 PR에 섞지 않고 다음 단계로 넘겼다. 측정과 개선을 한 PR에 섞으면 무엇이 효과를 냈는지 알 수 없기 때문이다.</li>
+<li><strong><span class="tag tag-unk">미확인</span></strong> 현재 운영 설정에 upstream keepalive가 들어갔는지는 28강에서 확인한다. 2강에서 본 <code>proxy_http_version 1.1</code>은 필요조건의 하나일 뿐이다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="2강-보충-640MB-컨테이너의-실제-OOM-기록">2강 보충: 640MB 컨테이너의 실제 OOM 기록</h3>
+<p>2강에서 “힙 밖 메모리 실측은 미확인”이라고 했는데, AWS 시절 기록이 이 질문에 답을 준다.</p>
+<ul>
+<li><strong><span class="tag tag-rec">기록</span></strong> 단일 backend + RDS 구성에서 초당 200건은 정상이었다. <strong>250건에서 실패</strong>했다. 오류율 약 6.9%, p95 약 4.2초, backend 재시작 1회였다(<a href="https://github.com/guseoh/pawcycle-commerce/issues/166" target="_blank" rel="noopener">이슈 #166</a>, <a href="https://github.com/guseoh/pawcycle-commerce/issues/168" target="_blank" rel="noopener">#168</a>).</li>
+<li>커널 로그의 <strong>cgroup OOM kill</strong> 시각과 재시작 시각을 대조해, 종료 원인을 <strong>컨테이너 OOM</strong>으로 확정했다.</li>
+<li>그 순간 힙은 <strong>274MiB / 최대 402MiB</strong>로 여유가 있었다. 힙 밖 메모리는 152MiB였고, 스레드는 217개였다.</li>
+<li>즉 2강 그림의 <strong>오른쪽 상자(커널이 죽임, exit 137)</strong> 가 실제로 일어난 것이다. 원인은 힙이 아니라 스레드 스택과 네이티브 메모리를 포함한 <strong>전체 메모리 압력</strong>이었다.</li>
+<li><strong><span class="tag tag-rec">기록</span></strong> 스레드와 네이티브 메모리가 각각 얼마를 차지했는지는 NMT 측정이 없어 <strong>가설로 남겼다</strong>. 풀과 힙을 바로 늘리지 않고, 동시 요청 수·커넥션 점유 시간·스레드 예산을 같은 조건에서 실험하는 과제로 넘겼다.</li>
+<li>스레드 217개라는 숫자를 2강의 <code>pids_limit: 256</code>과 나란히 놓아 보자. 메모리가 먼저 터지지 않았다면 다음은 스레드 한도였을 수 있다. <strong><span class="tag tag-int">해석</span></strong></li>
+</ul>
+<p><strong>같이 읽을 자료</strong></p>
+<ul>
+<li><a href="https://techblog.woowahan.com/2664/" target="_blank" rel="noopener">우아한형제들 · HikariCP Dead lock에서 벗어나기 (이론편)</a> · <a href="https://techblog.woowahan.com/2663/" target="_blank" rel="noopener">(실전편)</a>: 풀 교착 원리와 실제 장애 분석</li>
+<li><a href="https://www.f5.com/company/blog/nginx/overcoming-ephemeral-port-exhaustion-nginx-plus" target="_blank" rel="noopener">F5 NGINX · Overcoming Ephemeral Port Exhaustion</a>: upstream keepalive로 포트 소비를 줄이는 방법(영문)</li>
+<li><a href="https://braindetox.kr/posts/jvm_container_resource_limits.html" target="_blank" rel="noopener">Braindetox · JVM 컨테이너 리소스 제한</a>: 2강에서 본 힙 비율과 컨테이너 OOM</li>
+</ul>
+<h2 id="6-관측-모르는-것을-정상이라고-말하지-않기">6. 관측: 모르는 것을 “정상”이라고 말하지 않기</h2>
+<p>관측 축의 핵심은 <strong>정직한 판정</strong>이다. 운영 상태 알림 스크립트의 판정 규칙이 이를 잘 보여 준다.</p>
+<pre><code class="language-text"># docs/runbook/OPS-AUTO-010 — 판정 결과별 동작 (요지)
+NORMAL                   → 알림 없이 종료
+BACKEND_DOWN             → Discord와 Slack에 각각 독립적으로 전송 시도
+OBSERVABILITY_DEGRADED   → 〃
+DEGRADED                 → 〃
+UNKNOWN                  → 〃
+형식이 깨졌거나 믿을 수 없는 입력 → UNKNOWN (fail-closed)
+알림 전송 결과는 운영 상태 판정을 바꾸지 않음
+</code></pre>
+<ul>
+<li><strong><code>OBSERVABILITY_DEGRADED</code>가 따로 있다.</strong> “backend는 살아 있는데 <strong>감시 장치</strong>가 고장 났다”는 상태를 구분한다. 감시가 죽은 것을 “장애 없음”으로 읽으면, 4절의 <code>/products</code> 200처럼 <strong>조용한 거짓 정상</strong>이 된다.</li>
+<li><strong>fail-closed</strong>: 입력을 해석할 수 없으면 정상으로 넘기지 않고 <code>UNKNOWN</code>으로 알린다.<ul>
+<li><strong><span class="tag tag-pri">원리</span></strong> 보안의 기본 거부(<code>anyRequest().denyAll()</code>)와 같은 사고방식이다. <strong>모를 때는 안전한 쪽으로 실패한다.</strong></li>
+<li>알림 쪽에서 안전한 실패는 “일단 사람을 부르는 것”이다. 그 대가로 거짓 알람이 늘 수 있는데, 이것이 트레이드오프다.</li>
+</ul>
+</li>
+<li><strong>두 채널에 독립 전송</strong>: Discord가 실패해도 Slack 전송은 시도한다. 한 채널의 장애가 알림 전체를 막지 않게 한 것이다.</li>
+<li><strong><span class="tag tag-rec">기록</span></strong> 측정 자체의 정직성도 반복된 주제였다. 다음을 구분하지 않으면 Before/After 비교가 무효가 된다.<ul>
+<li><strong>측정 실패</strong>: 부하 도구가 목표만큼 요청을 보내지 못했다.</li>
+<li><strong>수집 실패</strong>: Prometheus가 값을 긁어 오지 못했다.</li>
+<li><strong>표본 부재</strong>: 비교할 데이터가 아예 없었다.</li>
+<li>이것은 28강(성능 측정의 방법과 실패)의 주제다.</li>
+</ul>
+</li>
+<li><strong><span class="tag tag-ok">확인</span></strong> 실제 Webhook 생성, 비밀 배치, 운영 전송은 <strong>별도 승인 뒤에만</strong> 하도록 문서에 경계가 그어져 있다. 운영 개요 문서도 OCI에서 “전체 알림 연결”은 검증하지 않았다고 적는다. 2강에서 지적한 “같은 서버에 있는 감시자” 문제와 함께, 이 축은 <strong>설계는 있으나 운영 증명은 남은</strong> 상태다.</li>
+</ul>
+<h2 id="7-위험-지도-남은-31강을-어디에-집중할-것인가">7. 위험 지도: 남은 31강을 어디에 집중할 것인가</h2>
+<p>지금까지를 한 표로 모은다. <strong>영향</strong>은 사고가 나면 얼마나 아픈가, <strong>통제</strong>는 지금 무엇이 막고 있는가, <strong>빈틈</strong>은 무엇이 남았는가다. 판정은 지금까지 읽은 근거를 바탕으로 한 <strong><span class="tag tag-int">해석</span></strong> 이다.</p>
+<table>
+<thead>
+<tr>
+<th>위험</th>
+<th>영향</th>
+<th>현재 통제</th>
+<th>남은 빈틈</th>
+<th>깊게 볼 강의</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>결제가 <code>PROCESSING</code>에 고립</td>
+<td><strong>매우 큼</strong> (돈)</td>
+<td>상태 조회 1단계, <code>UNKNOWN</code> 상태</td>
+<td>자동 복구 2단계 없음</td>
+<td>18 · 19</td>
+</tr>
+<tr>
+<td>중복 주문·중복 결제</td>
+<td><strong>매우 큼</strong></td>
+<td>멱등 테이블 4개, 지문, replay</td>
+<td>지문 불일치 처리 확인 필요</td>
+<td>17 · 25</td>
+</tr>
+<tr>
+<td>재고·쿠폰 동시성</td>
+<td>큼</td>
+<td>행 잠금 + CAS, 회원 행 잠금</td>
+<td>간격 잠금 교착 이력</td>
+<td>17</td>
+</tr>
+<tr>
+<td>정기배송 배치 부분 실패</td>
+<td>큼</td>
+<td>구독별 독립 트랜잭션</td>
+<td>재시도 정책 검증</td>
+<td>23 · 24</td>
+</tr>
+<tr>
+<td>계정 존재 노출·대입 공격</td>
+<td>중간</td>
+<td>더미 해시, IP 속도 제한</td>
+<td>계정 단위 제한 없음</td>
+<td>11</td>
+</tr>
+<tr>
+<td>남의 자원 접근</td>
+<td>큼</td>
+<td>소유권 경계, 기본 거부</td>
+<td>—</td>
+<td>12</td>
+</tr>
+<tr>
+<td>로그의 개인정보</td>
+<td>중간</td>
+<td>AST 직접 인자 검사</td>
+<td>데이터 흐름 미추적</td>
+<td>11 · 27</td>
+</tr>
+<tr>
+<td>서버 한 대 장애</td>
+<td>큼</td>
+<td>관리형 DB 분리</td>
+<td>단일 장애 지점, 외부 감시 없음</td>
+<td>31</td>
+</tr>
+<tr>
+<td>DB 복구 불가</td>
+<td><strong>매우 큼</strong></td>
+<td>관리형 MySQL</td>
+<td>OCI 백업·복원 미검증, RPO·RTO 없음</td>
+<td>31</td>
+</tr>
+<tr>
+<td>부하 시 메모리·포트 고갈</td>
+<td>중간</td>
+<td>640m 한도, ExitOnOOM</td>
+<td>keepalive 미확인, 스레드 예산 미정</td>
+<td>28 · 29</td>
+</tr>
+<tr>
+<td>감시의 거짓 정상</td>
+<td>중간</td>
+<td>경계별 진단, fail-closed</td>
+<td>운영 알림 연결 미검증</td>
+<td>27</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span class="tag tag-int">해석</span></strong> 이 표에서 영향이 “매우 큼”인 위험은 모두 <strong>돈과 데이터</strong>에 관한 것이다. 그래서 1강의 로드맵이 Part 7·8(구매·정기배송)에 가장 많은 강의를 배정했다. 이 위험 지도가 그 배분의 근거다.</p>
+<h2 id="3강-정리">3강 정리</h2>
+<ul>
+<li><strong>비기능 요구</strong>는 “얼마나 잘”에 대한 요구다. PawCycle에서는 문서보다 <strong>사건과 측정 기록</strong>에서 더 정확히 드러난다.</li>
+<li><strong>정합성</strong><ul>
+<li>네트워크에서 “정확히 한 번 전달”은 불가능하다.</li>
+<li>그래서 <strong>최소 한 번 전달 + 멱등성</strong>으로 “정확히 한 번의 효과”를 만든다.</li>
+<li>핵심은 처리와 결과 저장을 <strong>한 트랜잭션</strong>에 묶는 것이다. 외부 결제처럼 묶을 수 없는 곳이 가장 위험하다.</li>
+</ul>
+</li>
+<li><strong>보안</strong><ul>
+<li>응답 본문이 같아도 <strong>응답 시간</strong>으로 정보가 샐 수 있다(타이밍 부채널).</li>
+<li>정적 로그 검사는 직접 인자만 막는다.</li>
+</ul>
+</li>
+<li><strong>가용성</strong><ul>
+<li>“200 OK”는 그 검사가 <strong>지나간 경계</strong>까지만 증명한다.</li>
+<li>SLO·RPO·RTO가 아직 없다. 이 사실이 단일 서버 선택의 맥락이다.</li>
+</ul>
+</li>
+<li><strong>성능</strong><ul>
+<li>커넥션 대기는 증상이고 풀 증설은 악화를 불렀다.</li>
+<li>TIME_WAIT 60초 × 임시 포트 28,232개가 <strong>초당 약 470 연결</strong>이라는 상한을 만든다.</li>
+<li>640MB 컨테이너는 힙이 아니라 <strong>전체 메모리</strong>로 죽었다.</li>
+</ul>
+</li>
+<li><strong>관측</strong>: 모를 때는 정상이라 하지 않는다(fail-closed). 감시 장치의 고장도 별도 상태로 판정한다.</li>
+</ul>
+<p><strong>3강에서 남긴 미확인 항목</strong></p>
+<ul>
+<li>멱등 지문이 불일치할 때의 응답 코드</li>
+<li>리뷰 요약의 트랜잭션 분리가 커넥션 2개를 동시에 쥐는지</li>
+<li>proxy 헬스체크가 backend를 보지 않는 것이 의도인지</li>
+<li>운영 Nginx의 upstream keepalive 적용 여부</li>
+</ul>
+<h2 id="보강-참고-자료-일반-기술-블로그">보강 참고 자료: 일반 기술 블로그</h2>
+<p>강의 뒤에 별도로 조사한 개인 기술 블로그 글이다. 모든 글은 직접 열어 제목·작성일·본문 그림을 확인했다. 티스토리 그림 주소에는 2026-11-30 만료 서명이 붙어 있어 그 이후에는 보이지 않을 수 있다(옛 <code>t1.daumcdn.net/cfile</code> 주소는 만료 없음).</p>
+<table>
+<thead>
+<tr>
+<th>주제</th>
+<th>글</th>
+<th>작성일</th>
+<th>그림</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>멱등성 키로 중복 주문 막기(Spring AOP)</td>
+<td><a href="https://sorryisme.tistory.com/101" target="_blank" rel="noopener">sorryisme · 스프링 AOP와 멱등성 키를 활용한 중복주문 방지</a></td>
+<td>2025.1</td>
+<td>8장</td>
+</tr>
+<tr>
+<td>멱등성 개념과 결제 취소 흐름</td>
+<td><a href="https://www.tosspayments.com/blog/articles/dev-1" target="_blank" rel="noopener">토스페이먼츠 · 멱등성이 뭔가요?</a> (기업, 보조)</td>
+<td>2023.1</td>
+<td>있음</td>
+</tr>
+<tr>
+<td>커넥션 풀 크기와 데드락 공식</td>
+<td><a href="https://will-of-rough.tistory.com/117" target="_blank" rel="noopener">will-of-rough · 커넥션 풀과 HikariCP 사이징</a></td>
+<td>2026.9</td>
+<td>6장</td>
+</tr>
+<tr>
+<td>REQUIRES_NEW가 풀을 고갈시키는 순간</td>
+<td><a href="https://dev-youngjae.tistory.com/18" target="_blank" rel="noopener">What If · REQUIRES_NEW와 커넥션 점유</a></td>
+<td>2026.10</td>
+<td>없음</td>
+</tr>
+<tr>
+<td>HikariCP 데드락 실제 장애</td>
+<td><a href="https://techblog.woowahan.com/2664/" target="_blank" rel="noopener">우아한형제들 · HikariCP Dead lock에서 벗어나기</a> (기업, 보조)</td>
+<td>2020</td>
+<td>있음</td>
+</tr>
+<tr>
+<td>SLI · SLO · SLA</td>
+<td><a href="https://daleseo.com/sli-slo-sla/" target="_blank" rel="noopener">Dale Seo · SLI, SLO, SLA 정리</a></td>
+<td>—</td>
+<td>1장</td>
+</tr>
+</tbody>
+</table>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="HikariCP 사이징 글의 본문 그림" src="https://blog.kakaocdn.net/dna/kP7Qs/dJMcacROxS1/AAAAAAAAAAAAAAAAAAAAANoanzAnq8eKZXEkNGCRgjRg6YpTgPTsHY3KLjVPSY-R/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=Zl6cVyIXmb1Y%2Fhlrn9G5Ip8yI%2Fs%3D" /></p>
+<p><em>출처: <a href="https://will-of-rough.tistory.com/117" target="_blank" rel="noopener">will-of-rough</a></em></p>
+<p><img loading="lazy" referrerpolicy="no-referrer" alt="멱등성 키 중복주문 방지 글의 본문 그림" src="https://blog.kakaocdn.net/dna/bexjGp/btsL1BzJpsN/AAAAAAAAAAAAAAAAAAAAAELk-dvB0dwSVer5fyloEnTOcykBgz4QqPYcZOEJn4gK/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1796050799&amp;allow_ip=&amp;allow_referer=&amp;signature=GSy4%2FrbxYiglOlAcViUEQzX9fZs%3D" /></p>
+<p><em>출처: <a href="https://sorryisme.tistory.com/101" target="_blank" rel="noopener">sorryisme</a></em></p><nav class="pager"><a href="02강_C4와_배포_구조.html">← 2강 C4와 배포 구조</a><a href="00_1단계_전체.html">1단계 전체</a><a href="04강_요구사항의_진화.html">4강 요구사항의 진화 →</a></nav></main></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>document.querySelectorAll('pre code').forEach(function(el){try{hljs.highlightElement(el)}catch(e){}});</script>
+</body></html>
