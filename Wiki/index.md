@@ -15,9 +15,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | Project | Snapshot | Last checked |
 | --- | --- | --- |
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
-| Backend learning (cross-project) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) | 2026-11-05 |
+| Backend learning (cross-project) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) | 2026-11-08 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
-| CSForge | [PRJ-CSFORGE](projects/csforge.md) | 2026-11-03 |
+| CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) | 2026-11-05 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
@@ -31,6 +31,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [WIKI-0003](decisions/WIKI-0003.md) | accepted | PawCycle AI Project Memory: exhaustive source dispositions and continuous capture | llm-wiki |
 | [CSF-0001](decisions/CSF-0001.md) | accepted | Guard canonical content sync to preserve history | csforge |
 | [CSF-0002](decisions/CSF-0002.md) | accepted | Java editorial diagram semantics | csforge |
+| [CSF-0003](decisions/CSF-0003.md) | accepted | Textbook-style static SVG first; three benchmark visuals before CSForge adoption | csforge |
+| [CSF-0004](decisions/CSF-0004.md) | accepted | Network Pilot Pack: five concept-sized diagram units beginning with TCP handshake | csforge |
+| [CSF-0005](decisions/CSF-0005.md) | accepted | Complete Network N-01–N-05 together, then consolidate QA without per-diagram approvals | csforge |
 | [DTD-0001](decisions/DTD-0001.md) | accepted | Neutral content-first UI | dark-todo |
 | [DTD-0002](decisions/DTD-0002.md) | accepted | Remove Inbox UI without deleting legacy data | dark-todo |
 | [DTD-0003](decisions/DTD-0003.md) | accepted | Today reorder and compact Calendar detail | dark-todo |
@@ -42,6 +45,10 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [BLR-0004](decisions/BLR-0004.md) | accepted | Study both system design volumes chapter by chapter | backend-learning |
 | [BLR-0005](decisions/BLR-0005.md) | accepted | Separate domain architecture and AI-assisted implementation track | backend-learning |
 | [BLR-0006](decisions/BLR-0006.md) | accepted | Sentry learning in Board; portfolio requires trade-off review | backend-learning |
+| [BLR-0007](decisions/BLR-0007.md) | accepted | Ubuntu phase 1: Linux basics, web-server architecture, single-server operation with theory + practice | backend-learning |
+| [BLR-0008](decisions/BLR-0008.md) | accepted | End-to-end web lifecycle links OS, network, Nginx, Java and layer-by-layer incident diagnosis | backend-learning |
+| [BLR-0009](decisions/BLR-0009.md) | accepted | Select Spring Core/Boot concepts from PDFs for proportional backend-focused study; full redesign pending | backend-learning |
+| [BLR-0010](decisions/BLR-0010.md) | accepted | Approve the 7-track 34-unit Spring curriculum and restart at unit 01 | backend-learning |
 | [AGT-0001](decisions/AGT-0001.md) | accepted | AgentLab: backend-focused Agent fundamentals and 13-stage roadmap | agentlab |
 | [AGT-0002](decisions/AGT-0002.md) | accepted | AgentLab stage-bounded, theory-rich, evidence-aware teaching | agentlab |
 | [PWC-0003](decisions/PWC-0003.md) | accepted | First MVP: narrow SKU subscription scope | pawcycle |
@@ -157,6 +164,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle 전체 시스템·아키텍처·설계 이력·운영 리버스 엔지니어링 가이드 (2026-11-05) | pawcycle |
 | [PWK-0002](knowledge/PWK-0002.md) | published | JVM JIT warmup and CRaC restoration: 330s to 2–3s case study | shared |
 | [AGK-0001](knowledge/AGK-0001.md) | published | Backend AI adoption, Agent roles and learning FAQ (2026-11-05) | agentlab |
+| [BLK-0001](knowledge/BLK-0001.md) | published | Ubuntu/Linux/web-server 0–7 stage roadmap with evidence-based exercise gates | backend-learning |
+| [BLK-0002](knowledge/BLK-0002.md) | published | Approved Spring Core/Boot 7-course / 34-unit curriculum; 17 priority deep dives | backend-learning |
 
 ## Lesson index
 
