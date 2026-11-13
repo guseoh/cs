@@ -34,19 +34,23 @@ related_to: []
 
 Relations reference **IDs**, never raw titles. IDs in these three arrays must resolve to another existing record. A file path, Markdown link, or Obsidian wikilink can be included in the body for human navigation. Do not infer causation from `related_to`.
 
+## 문서 작성 언어
+
+새로 작성하는 Wiki 문서의 제목·소제목·표 머리글·본문·요약은 한국어로 작성한다. 기술 식별자(예: `SubscriptionSnapshot`, `current_snapshot_id`), 경로·URL, 참조용 ID, YAML 메타데이터 키와 고정 값은 원문을 보존한다. 아래 본문 템플릿은 한국어를 기준으로 하며, 기존 영어 기록의 일괄 번역을 요구하지 않는다.
+
 ## Body contracts
 
 ### Decision
 
 ```md
-# Decision summary
-## Context
-## Decision
-## Rejected alternatives
-## Consequences and constraints
-## Implementation/verification
-## Provenance
-## Related records
+# 결정 요약
+## 배경
+## 결정
+## 선택하지 않은 대안
+## 결과와 제약
+## 구현 및 검증
+## 출처와 결정 경위
+## 관련 기록
 ```
 
 A decision's `status: accepted` means a choice was confirmed; implementation and production verification are **separate facts**. Record them only with evidence.
@@ -54,12 +58,12 @@ A decision's `status: accepted` means a choice was confirmed; implementation and
 ### Project snapshot
 
 ```md
-# Project name
-## Current state (as of date)
-## Accepted decisions
-## Constraints
-## Open questions and next actions
-## Evidence and verification limits
+# 프로젝트 이름
+## 현재 상태 (기준일)
+## 확정된 결정
+## 제약 조건
+## 미해결 질문과 다음 작업
+## 근거와 검증 범위
 ```
 
 Project snapshots are mutable and summarize the current known state, but must not silently rewrite historical decisions. If the current state is unknown, say **unverified** instead of filling it from past chat.
