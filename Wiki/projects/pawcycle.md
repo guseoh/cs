@@ -22,7 +22,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 ## 2026-11-14 문서 분류와 PR 학습 노트 이동
 
 - 문서 542개를 현행 기준·현행화 원천·역사 증거·이동 후보로 분류했다(제안). 운영 상태 표기 상충, 커머스 도메인 문서 공백, 색인 누락 6건을 확인했다. 0~8단계 통합 고도화 순서도 제안 상태로 남겼다. [작업 기록](../journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동)
-- PR별 학습 노트 218개를 cs `Project/pawCycle/PR학습노트/`로 옮기기로 확정했다. [PWC-0130](../decisions/PWC-0130.md). 두 저장소의 Draft PR은 병합 전이다.
+- PR별 학습 노트 218개를 cs `Project/pawCycle/PR학습노트/`로 옮기기로 확정했다. [PWC-0130](../decisions/PWC-0130.md). [cs #50](https://github.com/guseoh/cs/pull/50)와 [PawCycle #520](https://github.com/guseoh/pawcycle-commerce/pull/520)를 병합해 이동을 마쳤다(PawCycle `main` `46d732c0`).
 
 ## 2026-11-14 고도화 설계 구체화
 
