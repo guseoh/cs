@@ -19,7 +19,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
-| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [0단계 정리 마무리](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-0단계-정리-마무리) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) | 2026-11-14 |
+| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [1단계 정합성 착수](journal/pawcycle/2026-11.md#2026-11-15-pawcycle-1단계-정합성-착수) · [0단계 정리 마무리](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-0단계-정리-마무리) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) | 2026-11-14 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
 ## Decision index
@@ -264,6 +264,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0131](decisions/PWC-0131.md) | 현재 API 문서는 Spring 매핑에서 만든 색인 검사와 REST Docs로 관리하고 springdoc은 보류한다 |
 | [PWC-0132](decisions/PWC-0132.md) | 과거 문서는 고치지 않고, 현재 상태는 색인과 현재 상태 문서에서 관리한다 |
 | [PWL-0050](lessons/PWL-0050.md) | 저장소 파일을 비교하는 테스트는 그 파일을 Gradle 입력으로 등록해야 실제로 다시 실행된다 |
+| [PWC-0133](decisions/PWC-0133.md) | 고립 NORMAL/PROCESSING 결제는 결제사 DONE이 확인된 경우에만 유지보수 명령으로 성공 확정한다 |
+| [PWL-0051](lessons/PWL-0051.md) | 운영 명령은 서비스 테스트가 아니라 실제 진입점으로 한 번은 실행해 봐야 한다 |
 
 ## Cross-project learning
 
