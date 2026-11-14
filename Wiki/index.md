@@ -19,7 +19,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
-| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) | 2026-11-14 |
+| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) | 2026-11-14 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
 ## Decision index
@@ -255,6 +255,12 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0128](decisions/PWC-0128.md) | Desktop UI는 승인된 시안 변화와 fixture·실인증 검증 범위를 함께 남긴다 |
 | [PWC-0129](decisions/PWC-0129.md) | A1 단기 스케줄러는 조회 호출만 옮기고 실제 실행 연속성을 별도로 검증한다 |
 | [PWL-0048](lessons/PWL-0048.md) | 같은 HEAD의 후속 성공은 최초 물리 잠금 실패의 원인 규명이 아니다 |
+
+## 2026-11-14 문서 정리 신규 기록
+
+| ID | 내용 |
+| --- | --- |
+| [PWC-0130](decisions/PWC-0130.md) | PR별 학습 노트는 cs Vault로 옮기고 PawCycle 저장소에는 작업 기준 문서와 증거만 둔다 |
 
 ## Cross-project learning
 
