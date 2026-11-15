@@ -17,7 +17,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
 | Backend learning (cross-project) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) | 2026-11-08 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
-| CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
+| CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) · [Database G1 (Draft)](https://github.com/guseoh/csforge/pull/301) | 2026-11-15 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [1단계 정합성 착수](journal/pawcycle/2026-11.md#2026-11-15-pawcycle-1단계-정합성-착수) · [0단계 정리 마무리](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-0단계-정리-마무리) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) | 2026-11-14 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
