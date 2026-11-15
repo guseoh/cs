@@ -4,10 +4,12 @@ type: project
 project: csforge
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-09
+updated_at: 2026-11-15
 evidence_level: source-verified
 capture_mode: full
 sources:
+  - https://github.com/guseoh/csforge/pull/303
+  - https://github.com/guseoh/csforge/actions/runs/43706478668
   - https://github.com/guseoh/csforge/pull/298
   - https://github.com/guseoh/agent-skills/pull/3
   - https://github.com/guseoh/csforge/pull/293
@@ -16,11 +18,13 @@ sources:
   - https://github.com/guseoh/csforge/blob/main/.github/workflows/content-sync.yml
 depends_on: []
 supersedes: []
-related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005]
+related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006]
 ---
 # CSForge — source-verified project snapshot
 
-## Current state (latest merge checks 2026-11-09; earlier entries noted separately)
+## 현재 확인된 상태 (2026-11-15; 과거 관측 시점은 아래에 별도 표기)
+- **2026-11-15 Network G1 → refactor 통합 검증·병합 완료:** [CSForge PR #303](https://github.com/guseoh/csforge/pull/303)은 기존 [main PR #298](https://github.com/guseoh/csforge/pull/298)의 53개 Network 도식 실행 의존성만 `refactor`로 이식했다. 초기에 공유 Reference 메타데이터 변경으로 재수입 시 `UNCHANGED` 대신 `UPDATED`가 발생하여 CI 실패(16개 테스트)했고, `cookie-scope.md`·`connection-teardown.md`의 기존 refactor 메타데이터를 보존해 해결했다. [CI #43706478668](https://github.com/guseoh/csforge/actions/runs/43706478668)에서 frontend 1,001개 테스트·backend 전체 테스트·Reader 53개(Guest 212 / Owner 4) 검증 PASS. Squash [`8f01a8ba`](https://github.com/guseoh/csforge/commit/8f01a8ba820f0a3f33a234e93b400f8101f1c3a7)를 실제 `refactor` HEAD로 확인했다. G2 브랜치 `viz/network-g2`는 `1dc5215a`로 세 변경 파일을 보존하며 통합 후 재기준화·개선은 **별도 미완료 작업**. `main` 운영 배포·Neon DB 동기화까지 검증했다고 주장하지 않는다. 결정은 [CSF-0006](../decisions/CSF-0006.md).
+
 - **2026-11-09 Network 최종 품질 게이트: BLOCKED** — [Issue #278](https://github.com/guseoh/csforge/issues/278), [Draft PR #299](https://github.com/guseoh/csforge/pull/299), [전수 감사 보고서](https://github.com/guseoh/csforge/blob/8e098edc301daef7438b94dc95329349d6a8b4d2/docs/content-audit/issue-278/network-final-quality-gate-2026-11-09.md). 실제 Network Concept **127개**는 아직 Issue가 요구하는 합쇼체가 아니라 대부분 `~이다/~한다` 서술체이다. 383 Question(129 MC·127 descriptive·127 scenario)은 키/연결/정답 구조 오류는 없지만 짧은 객관식 선택지 rationale **33개**, 짧은 scenario prompt **22개**, 매우 짧은 descriptive model answer **3개**가 재검토 후보이다. 기존 56개 manifest 외 현재 원문에 2개 한국 기술 블로그 링크를 확인한 Reference **58 URL**, 직접 열기 54개/HTTP 429로 미확인 4개. 각 Answer의 RFC 주장별 독립 최종 승인 및 Reference claim relevance는 미완료. 신규 Draft 소스에서 [RFC 9520](https://www.rfc-editor.org/rfc/rfc9520.html)의 DNS failure cache MUST(1~300초)와 재시도 상한만 국소 교정; 미병합이다. **별도 P0 운영 사고 [#300](https://github.com/guseoh/csforge/issues/300)**: [main Validation #42494810524](https://github.com/guseoh/csforge/actions/runs/42494810524)·Cloud Run backend deploy/readiness SUCCESS이나 [Production sync #42495542007](https://github.com/guseoh/csforge/actions/runs/42495542007)은 기본 APPLY 성공 뒤 `ALL_CONCEPTS` execution `csforge-content-sync-8z57t` FAIL. 애플리케이션 내부 로그/DB 영향 미확인. Production canonical parity는 검증되지 않았고 재실행은 보류.
 - **2026-11-09 최신 source-verified main:** [`425872f7`](https://github.com/guseoh/csforge/commit/425872f7c64cbddf214954e102f2e419adab229f) — [Network DIAGRAM 53/53 및 15개 문항 교정 PR #298](https://github.com/guseoh/csforge/pull/298) **squash 병합 완료**. 병합 직전 HEAD `0275ff1f`에서 [Repository Validation #42493209664](https://github.com/guseoh/csforge/actions/runs/42493209664), [Reader #42493209538](https://github.com/guseoh/csforge/actions/runs/42493209538), TCP/Heap 모두 PASS. **Issue #278은 OPEN**: Java·Network 전체 Concept 문체/깊이, 254개 모범답안의 주장별 공식 규격 대조 및 Reference 링크↔주장 전수 검토는 미완료이다. [병합 후 main Validation](https://github.com/guseoh/csforge/actions/runs/42494810524)은 확인 당시 in_progress. main Push는 Cloud Run deploy와 Production content-sync를 **조건부 트리거**하므로 실제 실행·완료·DB 동기화 결과는 따로 확인해야 한다. *병합 성공은 운영 배포·동기화 성공의 증거가 아니다.*
 - Previously verified main (before #298): [5a675754](https://github.com/guseoh/csforge/commit/5a6757545a0ee16b845c5a83924e4b1b9e7840e9) (squash merge of pilot PR #297 on 2026-11-08). Previously observed main 5f7f5593 was 2026-10-31.
