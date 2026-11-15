@@ -266,6 +266,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0050](lessons/PWL-0050.md) | 저장소 파일을 비교하는 테스트는 그 파일을 Gradle 입력으로 등록해야 실제로 다시 실행된다 |
 | [PWC-0133](decisions/PWC-0133.md) | 고립 NORMAL/PROCESSING 결제는 결제사 DONE이 확인된 경우에만 유지보수 명령으로 성공 확정한다 |
 | [PWL-0051](lessons/PWL-0051.md) | 운영 명령은 서비스 테스트가 아니라 실제 진입점으로 한 번은 실행해 봐야 한다 |
+| [PWL-0052](lessons/PWL-0052.md) | 외부 연동 설정은 끝까지 한 번 실행해 봐야 키 종류 같은 전제 오류가 드러난다 |
+| [PWL-0053](lessons/PWL-0053.md) | 과거 문서 비소급 원칙은 지금도 유효한 계약 원본에는 적용하지 않는다 |
 
 ## Cross-project learning
 
