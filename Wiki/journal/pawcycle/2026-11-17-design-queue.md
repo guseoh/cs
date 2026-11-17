@@ -1,5 +1,7 @@
 # 결제 실패 복구와 SKU 재입고 알림 설계
 
+> 초기 제안 원문이다. 이후 [결제 실패 복구](../../decisions/PWC-0134.md)와 [이메일 재입고 알림](../../decisions/PWC-0135.md)이 승인됐다. 재입고 발송 채널과 발송 트랜잭션은 이메일 결정 기록을 따른다.
+
 두 설계안의 상태는 `proposed`입니다. 원격 `main`은 인수인계서와 같은 `f1eeda5fb1ac39b37e3a7bbd291cda6c2ceb7f87`입니다. 해당 리비전의 코드·문서·테스트 소스를 검토했습니다. 테스트 실행과 저장소 변경은 이번 작업 범위에서 제외했습니다. [기준 커밋](https://github.com/guseoh/pawcycle-commerce/commit/f1eeda5fb1ac39b37e3a7bbd291cda6c2ceb7f87)
 
 ## 설계 1 — #417 고립 결제 실패 확정과 예약 해제
