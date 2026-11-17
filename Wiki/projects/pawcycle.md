@@ -32,7 +32,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 ## 2026-11-17 2단계 로컬 장애 리허설 — 실행 완료, 보정 PR 미병합
 
-- 6종 리허설을 일회용 로컬 스택에서 실행했다. 5종 PASS, 외부 호출 INTERNAL 결함은 SKIP(규칙 테스트만). Alertmanager 전달은 가짜 webhook 수신기까지만 확인했고 **실제 Discord 수신은 미확인**이다.
+- 6종 리허설을 일회용 로컬 스택에서 실행했다. 6종 모두 PASS이고, 외부 호출 시나리오의 하위 변형인 INTERNAL 결함만 재현 수단이 없어 SKIP(규칙 테스트만)했다. Alertmanager 전달은 가짜 webhook 수신기까지만 확인했고 **실제 Discord 수신은 미확인**이다.
 - 발견한 결함(꺼져 있던 로컬 회차 보정, 동작하지 않던 INC-BASE-001 스크립트, 재시작 중 거짓 resolved, 저트래픽 p95 늦은 오탐, 회차 보정 정지 오탐)의 수정은 [PR #544](https://github.com/guseoh/pawcycle-commerce/pull/544)에 있으며 **open·미병합**이다. `keep_firing_for: 2m` 도입은 proposed다.
 - 결정 필요: MySQL 전체 중단 시 critical 부재, 경보 폭주 억제. [세부 기록](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과)
 
