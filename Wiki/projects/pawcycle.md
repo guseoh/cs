@@ -21,6 +21,7 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/pull/541
   - https://github.com/guseoh/pawcycle-commerce/pull/542
   - https://github.com/guseoh/pawcycle-commerce/pull/543
+  - https://github.com/guseoh/pawcycle-commerce/pull/544
   - https://github.com/guseoh/pawcycle-commerce/issues/470
   - https://github.com/guseoh/pawcycle-commerce/issues/417
 depends_on: []
@@ -28,6 +29,12 @@ supersedes: []
 related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034, PWC-0078, PWC-0079, PWC-0080, PWC-0081, PWC-0082, PWC-0083, PWC-0084, PWC-0085, PWC-0086, PWC-0087, PWC-0088, PWC-0089, PWC-0090, PWC-0091, PWC-0092, PWC-0093, PWC-0094, PWC-0095, PWC-0096, PWC-0097, PWC-0098, PWC-0099, PWL-0035, PWL-0036, PWL-0037, PWL-0038, PWL-0039, PWL-0040, PWC-0108, PWC-0109, PWC-0110, PWC-0111, PWC-0112, PWC-0113, PWC-0114, PWC-0115, PWC-0116, PWC-0117, PWC-0118, PWC-0119, PWC-0120, PWC-0121, PWL-0043, PWL-0044, PWL-0045, PWL-0046, PWL-0047, PWC-0122, PWC-0123, PWC-0124, PWC-0125, PWC-0126, PWC-0127, PWC-0128, PWC-0129, PWL-0048, PWC-0130, PWC-0131, PWC-0132, PWL-0050, PWC-0133, PWL-0051, PWL-0052, PWL-0053]
 ---
 # PawCycle Commerce — source-verified project snapshot
+
+## 2026-11-17 2단계 로컬 장애 리허설 — 실행 완료, 보정 PR 병합
+
+- 6종 리허설을 일회용 로컬 스택에서 실행했다. 6종 모두 PASS이고, 외부 호출 시나리오의 하위 변형인 INTERNAL 결함만 재현 수단이 없어 SKIP(규칙 테스트만)했다. Alertmanager 전달은 가짜 webhook 수신기까지만 확인했고 **실제 Discord 수신은 미확인**이다.
+- 발견한 결함(꺼져 있던 로컬 회차 보정, 동작하지 않던 INC-BASE-001 스크립트, 재시작 중 거짓 resolved, 저트래픽 p95 늦은 오탐, 회차 보정 정지 오탐)의 수정은 [PR #544](https://github.com/guseoh/pawcycle-commerce/pull/544)에 있으며 2026-11-17 `main` [`f1eeda5f`](https://github.com/guseoh/pawcycle-commerce/commit/f1eeda5fb1ac39b37e3a7bbd291cda6c2ceb7f87)으로 **병합**됐다. `keep_firing_for: 2m`은 로컬 알림 설정에 반영됐고 운영 반영은 별도 결정이다. 병합은 운영 검증이 아니다.
+- 결정 필요: MySQL 전체 중단 시 critical 부재, 경보 폭주 억제. [세부 기록](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과)
 
 ## 2026-11-17 2단계 장애 관측 — 저장소 구현 병합, 로컬 검증 완료, 전달·리허설 미완료
 
@@ -41,8 +48,8 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 ## 전체 고도화 로드맵의 현재 위치 (2026-11-17)
 
 - 2026-11-14 제안한 **0~8단계 순서**는 그대로 유지한다. 단계 전체가 일괄 승인됐다는 뜻은 아니며, 각 단계의 구현·검증과 운영 적용은 따로 판정한다. [원안](../journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동).
-- **0단계 정리:** PR #521~#527 병합 완료. **1단계 정합성:** #530~#535 일부 검증/수정 완료, 하지만 고립 결제 실패 확정(#417)과 Toss S1은 이월. **2단계 장애 관측:** #536~#543 저장소 병합 및 로컬 관측 스택 검증 완료, **리허설·실제 Discord 전달은 미완료**.
-- **지금 다음 작업(제안):** [2단계 로컬 장애 리허설·알림 전달 검증 계획](../journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증). 테스트와 복구 후 3단계 배포·보안 기반 → 4단계 전체 규모·혼합 부하 측정 → 5단계 실측 병목 개선 → 6단계 운영·관리자 → 7단계 제품 기능 → 8단계 AI 고도화 순으로 검토한다.
+- **0단계 정리:** PR #521~#527 병합 완료. **1단계 정합성:** #530~#535 일부 검증/수정 완료, 하지만 고립 결제 실패 확정(#417)과 Toss S1은 이월. **2단계 장애 관측:** #536~#543 저장소 병합 및 로컬 관측 스택 검증 완료, 로컬 리허설 실행 및 보정 PR #544 병합, **실제 Discord 전달은 미완료**.
+- **지금 다음 작업(제안):** 실제 Discord 전달 검증과 MySQL 중단 심각도·경보 억제 결정([리허설 결과](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과), [착수 전 계획](../journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증)). 테스트와 복구 후 3단계 배포·보안 기반 → 4단계 전체 규모·혼합 부하 측정 → 5단계 실측 병목 개선 → 6단계 운영·관리자 → 7단계 제품 기능 → 8단계 AI 고도화 순으로 검토한다.
 - **별도 운영 트랙:** [#470](https://github.com/guseoh/pawcycle-commerce/issues/470)의 OCI/CD G0~G4와 로컬 장애 관측 2단계를 혼동하지 않는다. 운영 반영은 별도 운영 승인·안전 조건이 필요하다.
 
 ## 2026-11-16 로컬 OCI A1 감시 로그 충돌 — 종료 원인 확인, 수정 미검증
