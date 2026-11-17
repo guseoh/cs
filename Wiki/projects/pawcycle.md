@@ -31,7 +31,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 ## 2026-11-17 2단계 장애 관측 — 저장소 구현 병합, 로컬 검증 완료, 전달·리허설 미완료
 
-- PawCycle \`main\` [\`7f380077\`](https://github.com/guseoh/pawcycle-commerce/commit/7f38007782ada03518954aca61a4514017d20f35) 기준. [PR #536~#543](https://github.com/guseoh/pawcycle-commerce/pulls?q=is%3Apr+is%3Amerged+536..543)이 병합되어 외부 호출 실패 분류, 스케줄러·업무 적체 지표, 구조화 로그·요청 ID, 업무 이벤트, 역할별 scheduler, 로컬 로그 수집·알림 스택이 구현됐다.
+- PawCycle `main` [`7f380077`](https://github.com/guseoh/pawcycle-commerce/commit/7f38007782ada03518954aca61a4514017d20f35) 기준. [PR #536~#543](https://github.com/guseoh/pawcycle-commerce/pulls?q=is%3Apr+is%3Amerged+536..543)이 병합되어 외부 호출 실패 분류, 스케줄러·업무 적체 지표, 구조화 로그·요청 ID, 업무 이벤트, 역할별 scheduler, 로컬 로그 수집·알림 스택이 구현됐다.
 - #543은 local-integration 범위다. Loki·Alloy·Prometheus·Alertmanager·Grafana를 연결하고 PR 본문 기준 Backend 4,641개 테스트 통과·4개 건너뜀 및 설정 검사를 보고했다. 실제 Discord 채널 전달, 6종 장애 리허설, 임계값 보정은 미완료이며 운영 관측 스택은 반영되지 않았다.
 - **다음 작업 제안:** 6종 로컬 장애 리허설과 실제 Discord 전달을 수행하고 pending/firing/resolved·복구 증거를 수집한 뒤 임계값을 보정한다. [세부 기록](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-장애-관측-구현).
 - **1단계 이월:** #417의 결제사 실패 고립 PROCESSING 처리와 실제 Toss 승인·Backend confirm(S1)은 미완료다. #417의 실패 확정·예약 해제는 별도 정책 승인 전 구현하지 않는다.
