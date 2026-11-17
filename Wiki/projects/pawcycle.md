@@ -30,6 +30,10 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 ---
 # PawCycle Commerce — source-verified project snapshot
 
+## 2026-11-17 결제 실패 복구와 SKU 재입고 알림 설계
+
+- `proposed`. [설계 전문](../journal/pawcycle/2026-11-17-design-queue.md)
+
 ## 2026-11-17 2단계 로컬 장애 리허설 — 실행 완료, 보정 PR 병합
 
 - 6종 리허설을 일회용 로컬 스택에서 실행했다. 6종 모두 PASS이고, 외부 호출 시나리오의 하위 변형인 INTERNAL 결함만 재현 수단이 없어 SKIP(규칙 테스트만)했다. Alertmanager 전달은 가짜 webhook 수신기까지만 확인했고 **실제 Discord 수신은 미확인**이다.
