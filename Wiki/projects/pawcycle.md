@@ -4,7 +4,7 @@ type: project
 project: pawcycle
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-16
+updated_at: 2026-11-17
 evidence_level: source-verified
 capture_mode: full
 sources:
@@ -13,11 +13,37 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/blob/main/README.md
   - https://github.com/guseoh/pawcycle-commerce/blob/main/docs/architecture/production-operations-overview.md
   - https://github.com/guseoh/pawcycle-commerce/actions/runs/41583493924
+  - https://github.com/guseoh/pawcycle-commerce/pull/536
+  - https://github.com/guseoh/pawcycle-commerce/pull/537
+  - https://github.com/guseoh/pawcycle-commerce/pull/538
+  - https://github.com/guseoh/pawcycle-commerce/pull/539
+  - https://github.com/guseoh/pawcycle-commerce/pull/540
+  - https://github.com/guseoh/pawcycle-commerce/pull/541
+  - https://github.com/guseoh/pawcycle-commerce/pull/542
+  - https://github.com/guseoh/pawcycle-commerce/pull/543
+  - https://github.com/guseoh/pawcycle-commerce/issues/470
+  - https://github.com/guseoh/pawcycle-commerce/issues/417
 depends_on: []
 supersedes: []
 related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034, PWC-0078, PWC-0079, PWC-0080, PWC-0081, PWC-0082, PWC-0083, PWC-0084, PWC-0085, PWC-0086, PWC-0087, PWC-0088, PWC-0089, PWC-0090, PWC-0091, PWC-0092, PWC-0093, PWC-0094, PWC-0095, PWC-0096, PWC-0097, PWC-0098, PWC-0099, PWL-0035, PWL-0036, PWL-0037, PWL-0038, PWL-0039, PWL-0040, PWC-0108, PWC-0109, PWC-0110, PWC-0111, PWC-0112, PWC-0113, PWC-0114, PWC-0115, PWC-0116, PWC-0117, PWC-0118, PWC-0119, PWC-0120, PWC-0121, PWL-0043, PWL-0044, PWL-0045, PWL-0046, PWL-0047, PWC-0122, PWC-0123, PWC-0124, PWC-0125, PWC-0126, PWC-0127, PWC-0128, PWC-0129, PWL-0048, PWC-0130, PWC-0131, PWC-0132, PWL-0050, PWC-0133, PWL-0051, PWL-0052, PWL-0053]
 ---
 # PawCycle Commerce — source-verified project snapshot
+
+## 2026-11-17 2단계 장애 관측 — 저장소 구현 병합, 로컬 검증 완료, 전달·리허설 미완료
+
+- PawCycle `main` [`7f380077`](https://github.com/guseoh/pawcycle-commerce/commit/7f38007782ada03518954aca61a4514017d20f35) 기준. [PR #536~#543](https://github.com/guseoh/pawcycle-commerce/pulls?q=is%3Apr+is%3Amerged+536..543)이 병합되어 외부 호출 실패 분류, 스케줄러·업무 적체 지표, 구조화 로그·요청 ID, 업무 이벤트, 역할별 scheduler, 로컬 로그 수집·알림 스택이 구현됐다.
+- #543은 local-integration 범위다. Loki·Alloy·Prometheus·Alertmanager·Grafana를 연결하고 PR 본문 기준 Backend 4,641개 테스트 통과·4개 건너뜀 및 설정 검사를 보고했다. 실제 Discord 채널 전달, 6종 장애 리허설, 임계값 보정은 미완료이며 운영 관측 스택은 반영되지 않았다.
+- **다음 작업 제안:** 6종 로컬 장애 리허설과 실제 Discord 전달을 수행하고 pending/firing/resolved·복구 증거를 수집한 뒤 임계값을 보정한다. [세부 기록](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-장애-관측-구현).
+- **1단계 이월:** #417의 결제사 실패 고립 PROCESSING 처리와 실제 Toss 승인·Backend confirm(S1)은 미완료다. #417의 실패 확정·예약 해제는 별도 정책 승인 전 구현하지 않는다.
+- **별도 OCI/CD 경로:** [#470](https://github.com/guseoh/pawcycle-commerce/issues/470)은 운영 전환·자동 배포·rollback·DB 복원 검증을 계속 추적한다. G1 저장소 작업 #473 종료와 Production 활성화·검증 완료를 혼동하지 않는다.
+
+
+## 전체 고도화 로드맵의 현재 위치 (2026-11-17)
+
+- 2026-11-14 제안한 **0~8단계 순서**는 그대로 유지한다. 단계 전체가 일괄 승인됐다는 뜻은 아니며, 각 단계의 구현·검증과 운영 적용은 따로 판정한다. [원안](../journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동).
+- **0단계 정리:** PR #521~#527 병합 완료. **1단계 정합성:** #530~#535 일부 검증/수정 완료, 하지만 고립 결제 실패 확정(#417)과 Toss S1은 이월. **2단계 장애 관측:** #536~#543 저장소 병합 및 로컬 관측 스택 검증 완료, **리허설·실제 Discord 전달은 미완료**.
+- **지금 다음 작업(제안):** [2단계 로컬 장애 리허설·알림 전달 검증 계획](../journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증). 테스트와 복구 후 3단계 배포·보안 기반 → 4단계 전체 규모·혼합 부하 측정 → 5단계 실측 병목 개선 → 6단계 운영·관리자 → 7단계 제품 기능 → 8단계 AI 고도화 순으로 검토한다.
+- **별도 운영 트랙:** [#470](https://github.com/guseoh/pawcycle-commerce/issues/470)의 OCI/CD G0~G4와 로컬 장애 관측 2단계를 혼동하지 않는다. 운영 반영은 별도 운영 승인·안전 조건이 필요하다.
 
 ## 2026-11-16 로컬 OCI A1 감시 로그 충돌 — 종료 원인 확인, 수정 미검증
 
@@ -36,7 +62,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 ## 2026-11-15 Toss 테스트 부분 검증과 2단계 제안
 
 - #533~#535 병합(main `a5b49c9a`). 로컬 Toss 테스트 환경을 만들고 키 종류를 결제위젯 연동 키(`test_gck_`/`test_gsk_`)로 고쳤다. 결제위젯 표시와 결제창 취소(S2)는 확인했다. **실제 승인·backend confirm(S1)은 미실행**이라 R10은 부분 검증 상태다. [PWL-0052](../lessons/PWL-0052.md) · [PWL-0053](../lessons/PWL-0053.md) · [작업 기록](../journal/pawcycle/2026-11.md#2026-11-15-pawcycle-toss-테스트-환경-준비와-부분-검증)
-- 2단계(장애 관측) 설계는 제안 상태이며 사용자 승인을 기다린다. [작업 기록](../journal/pawcycle/2026-11.md#2026-11-15-pawcycle-2단계-장애-관측-설계-제안)
+- 2026-11-15 당시 2단계(장애 관측) 설계는 제안 상태였다. 이후 PR #536~#543이 병합되어 로컬 관측 구현이 진행됐으며, 실제 Discord 전달·6종 장애 리허설과 운영 반영은 별도 미완료 항목이다. [초기 제안](../journal/pawcycle/2026-11.md#2026-11-15-pawcycle-2단계-장애-관측-설계-제안) · [후속 구현](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-장애-관측-구현)
 - 0단계의 진행 과정과 결과 수치를 [상세 기록](../journal/pawcycle/2026-11.md#2026-11-15-pawcycle-0단계-정리-과정과-결과-상세)으로 보강했다.
 
 ## 2026-11-15 1단계 정합성 착수
