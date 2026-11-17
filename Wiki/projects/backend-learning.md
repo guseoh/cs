@@ -4,7 +4,7 @@ type: project
 project: backend-learning
 status: active
 created_at: 2026-11-04
-updated_at: 2026-11-12
+updated_at: 2026-11-17
 evidence_level: user-confirmed
 capture_mode: manual
 sources:
@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLK-0001, BLK-0002, AGT-0001, AGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -68,6 +68,18 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 
 **Reset for a new ChatGPT session:** start again from **topic 01 (object-oriented design and IoC/DI)**, even though an earlier explanation exists. Do not mark topic 01 or any other unit completed from prior draft writing. The syllabus is approved, but PDF-to-topic evidence and exact Spring Boot version-specific behavior require topic-local source verification; user approval is not an execution or PDF-audit claim.
 
+## 2026-11-17 — Java·Spring 재시작과 네 과정 학습 운영 경량화 (확정)
+
+**현재 학습 방향:** Java와 Spring을 기초부터 다시 공부하며, JPA·Spring Security는 나중에 각각 독립된 과정으로 학습한다. 인프라·네트워크 전문직 준비는 당장 병행하지 않는다. 핵심 개념을 정확히 이해하고 코드·실무·코딩 테스트(별도 문제 풀이 필요)와 연결하는 것이 우선이다.
+
+- **완료 기준:** 개념이 필요한 이유, 코드의 동작과 결과, 언제 사용하고 주의할지 설명할 수 있으면 우선 다음으로 진행한다. 모든 세부 구현을 암기하거나 매번 긴 설명을 완성할 필요는 없다.
+- **AI 설명:** 핵심 원리와 실행 흐름은 충분히 설명하지만 비핵심 내부 구조·자료·이미지 수집은 필요에 따라 선별한다. 요청하지 않은 퀴즈·실습·일일 진도는 강제하지 않는다.
+- **Obsidian:** 기존 Study 노트를 유지한다. 전체 내용을 완벽하게 다시 정리하지 않고, 혼동한 부분이나 재사용할 실무 판단만 선택적으로 기록한다.
+- **로드맵:** 기존 Spring 7과정·34개 주제·17개 우선 심화는 변경하지 않는다. Java의 김영한 7과정, JPA·Security의 별도 과정도 유지한다. JPA 43개·Security 25개 상세 원본 목차는 이 Wiki 작업에서 재대조하지 않았으므로 개수 자체를 학습 의무량으로 삼지 않는다.
+- **학습 재개:** Java 입문부터, Spring 01 「객체지향 설계와 IoC·DI」부터. 두 과정을 정해진 시간표로 반드시 병행하지 않는다. JPA·Security 시작 날짜와 실제 학습 진도는 아직 확정·검증되지 않았다.
+
+근거: [확정 운영 결정 BLR-0012](../decisions/BLR-0012.md), [과정별 학습 가이드 BLK-0003](../knowledge/BLK-0003.md). 과거 지침 [BLR-0009](../decisions/BLR-0009.md)과 [BLR-0010](../decisions/BLR-0010.md)의 **주제 선택·현대 REST 백엔드 중심 방향은 계속 유효**하며, 과도한 장문 문서/도식 작성 의무에 대한 **최신 운영 방식만 갱신**한다.
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -81,6 +93,7 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 - [BLR-0009](../decisions/BLR-0009.md): selectively study modern Spring concepts from PDFs; this method decision preceded the detailed syllabus approval.
 - [BLR-0010](../decisions/BLR-0010.md): accept the 7-track / 34-unit Spring learning curriculum and restart from topic 01.
 - [BLR-0011](../decisions/BLR-0011.md): explain the whole project at a job-seeker level and study portfolio-worthy design choices in depth using code and evidence.
+- [BLR-0012](../decisions/BLR-0012.md): Java/Spring 처음부터 재시작, JPA/Security 별도 운영, 핵심 이해와 선택적 Obsidian 정리.
 
 ## Existing project boundaries (not re-authorized or changed here)
 
