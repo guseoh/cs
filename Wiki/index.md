@@ -19,10 +19,11 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
-| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [로컬 장애 리허설 결과](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과) · [리허설 착수 전 계획](journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증) · [2단계 장애 관측 구현](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-장애-관측-구현) · [1단계 정합성 착수](journal/pawcycle/2026-11.md#2026-11-15-pawcycle-1단계-정합성-착수) · [0단계 정리 마무리](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-0단계-정리-마무리) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) · [로컬 A1 감시 11/16](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-용량-감시-타임아웃-개선과-복구-관찰) · [A1 로그 잠금 종료 진단](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-감시-로그-파일-잠금으로-인한-종료-원인-확인) | 2026-11-17 |
+| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [결제 실패 복구와 SKU 재입고 알림 설계](journal/pawcycle/2026-11-17-design-queue.md) · [로컬 장애 리허설 결과](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과) · [리허설 착수 전 계획](journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증) · [2단계 장애 관측 구현](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-장애-관측-구현) · [1단계 정합성 착수](journal/pawcycle/2026-11.md#2026-11-15-pawcycle-1단계-정합성-착수) · [0단계 정리 마무리](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-0단계-정리-마무리) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) · [로컬 A1 감시 11/16](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-용량-감시-타임아웃-개선과-복구-관찰) · [A1 로그 잠금 종료 진단](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-감시-로그-파일-잠금으로-인한-종료-원인-확인) | 2026-11-17 |
 | DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
 
 ## Decision index
+
 
 | ID | State | Decision | Project |
 | --- | --- | --- | --- |
@@ -267,6 +268,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0132](decisions/PWC-0132.md) | 과거 문서는 고치지 않고, 현재 상태는 색인과 현재 상태 문서에서 관리한다 |
 | [PWL-0050](lessons/PWL-0050.md) | 저장소 파일을 비교하는 테스트는 그 파일을 Gradle 입력으로 등록해야 실제로 다시 실행된다 |
 | [PWC-0133](decisions/PWC-0133.md) | 고립 NORMAL/PROCESSING 결제는 결제사 DONE이 확인된 경우에만 유지보수 명령으로 성공 확정한다 |
+| [PWC-0134](decisions/PWC-0134.md) | accepted | 고립 결제의 확정 실패는 별도 관리자 명령으로 처리한다 | pawcycle |
+| [PWC-0135](decisions/PWC-0135.md) | accepted | SKU 재입고 알림은 신청당 이메일 한 번으로 시작한다 | pawcycle |
 | [PWL-0051](lessons/PWL-0051.md) | 운영 명령은 서비스 테스트가 아니라 실제 진입점으로 한 번은 실행해 봐야 한다 |
 | [PWL-0052](lessons/PWL-0052.md) | 외부 연동 설정은 끝까지 한 번 실행해 봐야 키 종류 같은 전제 오류가 드러난다 |
 | [PWL-0053](lessons/PWL-0053.md) | 과거 문서 비소급 원칙은 지금도 유효한 계약 원본에는 적용하지 않는다 |
