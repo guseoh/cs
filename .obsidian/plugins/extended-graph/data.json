@@ -1,7 +1,7 @@
 {
   "enableFeatures": {
     "graph": {
-      "auto-enabled": false,
+      "auto-enabled": true,
       "tags": false,
       "properties": false,
       "property-key": false,
@@ -13,7 +13,7 @@
       "imagesForAttachments": false,
       "focus": false,
       "shapes": false,
-      "elements-stats": false,
+      "elements-stats": true,
       "names": false,
       "icons": false,
       "arrows": false,
@@ -79,26 +79,62 @@
   },
   "additionalProperties": {},
   "backupGraphOptions": {
-    "collapse-filter": true,
-    "search": "",
+    "collapse-filter": false,
+    "search": "-path:/^(Attachments|Excalidraw|Templates)\\// -path:/(^|\\/)AGENTS\\.md$/",
     "showTags": false,
     "showAttachments": false,
-    "hideUnresolved": false,
-    "showOrphans": true,
-    "collapse-color-groups": true,
-    "colorGroups": [],
+    "hideUnresolved": true,
+    "showOrphans": false,
+    "collapse-color-groups": false,
+    "colorGroups": [
+      {
+        "query": "path:/^Wiki\\//",
+        "color": {
+          "a": 1,
+          "rgb": 10848954
+        }
+      },
+      {
+        "query": "path:/^Study\\//",
+        "color": {
+          "a": 1,
+          "rgb": 8365771
+        }
+      },
+      {
+        "query": "path:/^Project\\//",
+        "color": {
+          "a": 1,
+          "rgb": 8301718
+        }
+      },
+      {
+        "query": "path:/^References\\//",
+        "color": {
+          "a": 1,
+          "rgb": 12165482
+        }
+      },
+      {
+        "query": "path:/^Book\\//",
+        "color": {
+          "a": 1,
+          "rgb": 9541281
+        }
+      }
+    ],
     "collapse-display": true,
     "showArrow": false,
-    "textFadeMultiplier": 0,
+    "textFadeMultiplier": 0.3,
     "nodeSizeMultiplier": 1,
-    "lineSizeMultiplier": 1,
+    "lineSizeMultiplier": 0.8,
     "collapse-forces": true,
-    "centerStrength": 0.518713248970312,
-    "repelStrength": 10,
-    "linkStrength": 1,
-    "linkDistance": 250,
-    "scale": 0.0705816756704648,
-    "close": true
+    "centerStrength": 0.4,
+    "repelStrength": 12,
+    "linkStrength": 0.8,
+    "linkDistance": 290,
+    "scale": 0.2498931172208525,
+    "close": false
   },
   "openInNewTab": false,
   "canonicalizePropertiesWithDataview": true,
@@ -159,9 +195,222 @@
       "pinNodes": {},
       "hiddenLegendRows": [],
       "collapsedLegendRows": []
+    },
+    {
+      "id": "knowledge-network-overview",
+      "name": "전체 지식 네트워크",
+      "engineOptions": {
+        "search": "-path:/^(Attachments|Excalidraw|Templates)\\// -path:/(^|\\/)AGENTS\\.md$/",
+        "colorGroups": [
+          {
+            "query": "path:/^Wiki\\//",
+            "color": {
+              "a": 1,
+              "rgb": 10848954
+            }
+          },
+          {
+            "query": "path:/^Study\\//",
+            "color": {
+              "a": 1,
+              "rgb": 8365771
+            }
+          },
+          {
+            "query": "path:/^Project\\//",
+            "color": {
+              "a": 1,
+              "rgb": 8301718
+            }
+          },
+          {
+            "query": "path:/^References\\//",
+            "color": {
+              "a": 1,
+              "rgb": 12165482
+            }
+          },
+          {
+            "query": "path:/^Book\\//",
+            "color": {
+              "a": 1,
+              "rgb": 9541281
+            }
+          }
+        ],
+        "showTags": false,
+        "showAttachments": false,
+        "hideUnresolved": true,
+        "showOrphans": false,
+        "showArrow": false,
+        "textFadeMultiplier": 0.25,
+        "nodeSizeMultiplier": 1,
+        "lineSizeMultiplier": 0.8,
+        "centerStrength": 0.4,
+        "repelStrength": 12,
+        "linkStrength": 0.8,
+        "linkDistance": 290
+      },
+      "toggleTypes": {
+        "tag": [],
+        "link": [],
+        "folder": []
+      },
+      "logicTypes": {
+        "tag": "OR",
+        "link": "OR",
+        "folder": "OR"
+      },
+      "enableLayers": false,
+      "currentLayerLevel": 0,
+      "pinNodes": {},
+      "hiddenLegendRows": [],
+      "collapsedLegendRows": []
+    },
+    {
+      "id": "knowledge-network-study",
+      "name": "학습 개념 네트워크",
+      "engineOptions": {
+        "search": "path:/^(Study|Book|Wiki\\/(knowledge|lessons))\\// -path:/^(Attachments|Excalidraw|Templates)\\// -path:/(^|\\/)AGENTS\\.md$/",
+        "colorGroups": [
+          {
+            "query": "path:/^Wiki\\//",
+            "color": {
+              "a": 1,
+              "rgb": 10848954
+            }
+          },
+          {
+            "query": "path:/^Study\\//",
+            "color": {
+              "a": 1,
+              "rgb": 8365771
+            }
+          },
+          {
+            "query": "path:/^Project\\//",
+            "color": {
+              "a": 1,
+              "rgb": 8301718
+            }
+          },
+          {
+            "query": "path:/^References\\//",
+            "color": {
+              "a": 1,
+              "rgb": 12165482
+            }
+          },
+          {
+            "query": "path:/^Book\\//",
+            "color": {
+              "a": 1,
+              "rgb": 9541281
+            }
+          }
+        ],
+        "showTags": false,
+        "showAttachments": false,
+        "hideUnresolved": true,
+        "showOrphans": false,
+        "showArrow": false,
+        "textFadeMultiplier": -0.15,
+        "nodeSizeMultiplier": 1,
+        "lineSizeMultiplier": 0.8,
+        "centerStrength": 0.46,
+        "repelStrength": 11,
+        "linkStrength": 0.8,
+        "linkDistance": 230
+      },
+      "toggleTypes": {
+        "tag": [],
+        "link": [],
+        "folder": []
+      },
+      "logicTypes": {
+        "tag": "OR",
+        "link": "OR",
+        "folder": "OR"
+      },
+      "enableLayers": false,
+      "currentLayerLevel": 0,
+      "pinNodes": {},
+      "hiddenLegendRows": [],
+      "collapsedLegendRows": []
+    },
+    {
+      "id": "knowledge-network-projects",
+      "name": "프로젝트·설계 네트워크",
+      "engineOptions": {
+        "search": "path:/^(Project|Study|Wiki\\/(projects|decisions|history))\\// -path:/^(Attachments|Excalidraw|Templates)\\// -path:/(^|\\/)AGENTS\\.md$/",
+        "colorGroups": [
+          {
+            "query": "path:/^Wiki\\//",
+            "color": {
+              "a": 1,
+              "rgb": 10848954
+            }
+          },
+          {
+            "query": "path:/^Study\\//",
+            "color": {
+              "a": 1,
+              "rgb": 8365771
+            }
+          },
+          {
+            "query": "path:/^Project\\//",
+            "color": {
+              "a": 1,
+              "rgb": 8301718
+            }
+          },
+          {
+            "query": "path:/^References\\//",
+            "color": {
+              "a": 1,
+              "rgb": 12165482
+            }
+          },
+          {
+            "query": "path:/^Book\\//",
+            "color": {
+              "a": 1,
+              "rgb": 9541281
+            }
+          }
+        ],
+        "showTags": false,
+        "showAttachments": false,
+        "hideUnresolved": true,
+        "showOrphans": false,
+        "showArrow": false,
+        "textFadeMultiplier": 0.15,
+        "nodeSizeMultiplier": 1,
+        "lineSizeMultiplier": 0.8,
+        "centerStrength": 0.42,
+        "repelStrength": 12,
+        "linkStrength": 0.8,
+        "linkDistance": 270
+      },
+      "toggleTypes": {
+        "tag": [],
+        "link": [],
+        "folder": []
+      },
+      "logicTypes": {
+        "tag": "OR",
+        "link": "OR",
+        "folder": "OR"
+      },
+      "enableLayers": false,
+      "currentLayerLevel": 0,
+      "pinNodes": {},
+      "hiddenLegendRows": [],
+      "collapsedLegendRows": []
     }
   ],
-  "startingStateID": "default-vault",
+  "startingStateID": "knowledge-network-overview",
   "syncDefaultState": false,
   "saveConfigsWithState": false,
   "customColorMaps": {},
@@ -174,10 +423,10 @@
   "nodesSizeProperties": [
     ""
   ],
-  "nodesSizeFunction": "default",
+  "nodesSizeFunction": "totalUniquelinksCount",
   "nodesSizeRange": {
-    "min": 0.5,
-    "max": 1.5
+    "min": 0.8,
+    "max": 2
   },
   "nodesColorColormap": "YlOrRd",
   "nodesColorFunction": "default",
@@ -190,7 +439,7 @@
   "focusScaleFactor": 1.8,
   "highlightOpenNodes": false,
   "highlightSearchResults": false,
-  "maxNodes": 1000,
+  "maxNodes": 1200,
   "delay": 500,
   "revertAction": false,
   "enableCSS": false,
@@ -359,7 +608,7 @@
     "focus": true,
     "shapes": true,
     "layers": true,
-    "elements-stats": true,
+    "elements-stats": false,
     "names": true,
     "zoom": true,
     "local-graph": true,

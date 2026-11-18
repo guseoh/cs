@@ -1,22 +1,58 @@
 {
-  "collapse-filter": true,
-  "search": "",
+  "collapse-filter": false,
+  "search": "-path:/^(Attachments|Excalidraw|Templates)\\// -path:/(^|\\/)AGENTS\\.md$/",
   "showTags": false,
   "showAttachments": false,
-  "hideUnresolved": false,
-  "showOrphans": true,
-  "collapse-color-groups": true,
-  "colorGroups": [],
+  "hideUnresolved": true,
+  "showOrphans": false,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:/^Wiki\\//",
+      "color": {
+        "a": 1,
+        "rgb": 10848954
+      }
+    },
+    {
+      "query": "path:/^Study\\//",
+      "color": {
+        "a": 1,
+        "rgb": 8365771
+      }
+    },
+    {
+      "query": "path:/^Project\\//",
+      "color": {
+        "a": 1,
+        "rgb": 8301718
+      }
+    },
+    {
+      "query": "path:/^References\\//",
+      "color": {
+        "a": 1,
+        "rgb": 12165482
+      }
+    },
+    {
+      "query": "path:/^Book\\//",
+      "color": {
+        "a": 1,
+        "rgb": 9541281
+      }
+    }
+  ],
   "collapse-display": true,
   "showArrow": false,
-  "textFadeMultiplier": 0,
+  "textFadeMultiplier": 0.3,
   "nodeSizeMultiplier": 1,
-  "lineSizeMultiplier": 1,
+  "lineSizeMultiplier": 0.8,
   "collapse-forces": true,
-  "centerStrength": 0.518713248970312,
-  "repelStrength": 10,
-  "linkStrength": 1,
-  "linkDistance": 250,
-  "scale": 0.0705816756704648,
-  "close": true
+  "centerStrength": 0.4,
+  "repelStrength": 12,
+  "linkStrength": 0.8,
+  "linkDistance": 290,
+  "scale": 0.2498931172208525,
+  "close": false
 }

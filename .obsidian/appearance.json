@@ -3,7 +3,8 @@
   "enabledCssSnippets": [
     "obsidian-readability-style-settings",
     "more-callout",
-    "table-style"
+    "table-style",
+    "knowledge-network-graph"
   ],
   "showRibbon": true
 }

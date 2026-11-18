@@ -1,0 +1,29 @@
+/* Obsidian reads these graph swatches to render the canvas. */
+.theme-dark .graph-view.color-fill {
+  color: #9196a1;
+}
+
+.theme-dark .graph-view.color-line {
+  color: #515b6b;
+}
+
+.theme-dark .graph-view.color-text {
+  color: #dce1ea;
+}
+
+.theme-dark .graph-view.color-fill-highlight,
+.theme-dark .graph-view.color-line-highlight {
+  color: #b8c6de;
+}
+
+.theme-dark .graph-controls {
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace-leaf-content:is([data-type="graph"], [data-type="localgraph"]) .graph-controls,
+  .workspace-leaf-content:is([data-type="graph"], [data-type="localgraph"]) .graph-controls button {
+    animation: none;
+    transition: none;
+  }
+}
