@@ -91,35 +91,35 @@
         "query": "path:/^Wiki\\//",
         "color": {
           "a": 1,
-          "rgb": 10848954
+          "rgb": 8284561
         }
       },
       {
         "query": "path:/^Study\\//",
         "color": {
           "a": 1,
-          "rgb": 8365771
+          "rgb": 10272241
         }
       },
       {
         "query": "path:/^Project\\//",
         "color": {
           "a": 1,
-          "rgb": 8301718
+          "rgb": 9557167
         }
       },
       {
         "query": "path:/^References\\//",
         "color": {
           "a": 1,
-          "rgb": 12165482
+          "rgb": 14861445
         }
       },
       {
         "query": "path:/^Book\\//",
         "color": {
           "a": 1,
-          "rgb": 9541281
+          "rgb": 12106950
         }
       }
     ],
@@ -127,13 +127,13 @@
     "showArrow": false,
     "textFadeMultiplier": 0.3,
     "nodeSizeMultiplier": 1,
-    "lineSizeMultiplier": 0.8,
+    "lineSizeMultiplier": 0.55,
     "collapse-forces": true,
-    "centerStrength": 0.4,
+    "centerStrength": 0.43,
     "repelStrength": 12,
-    "linkStrength": 0.8,
+    "linkStrength": 0.65,
     "linkDistance": 290,
-    "scale": 0.2498931172208525,
+    "scale": 0.225,
     "close": false
   },
   "openInNewTab": false,
@@ -206,35 +206,35 @@
             "query": "path:/^Wiki\\//",
             "color": {
               "a": 1,
-              "rgb": 10848954
+              "rgb": 8284561
             }
           },
           {
             "query": "path:/^Study\\//",
             "color": {
               "a": 1,
-              "rgb": 8365771
+              "rgb": 10272241
             }
           },
           {
             "query": "path:/^Project\\//",
             "color": {
               "a": 1,
-              "rgb": 8301718
+              "rgb": 9557167
             }
           },
           {
             "query": "path:/^References\\//",
             "color": {
               "a": 1,
-              "rgb": 12165482
+              "rgb": 14861445
             }
           },
           {
             "query": "path:/^Book\\//",
             "color": {
               "a": 1,
-              "rgb": 9541281
+              "rgb": 12106950
             }
           }
         ],
@@ -245,10 +245,10 @@
         "showArrow": false,
         "textFadeMultiplier": 0.25,
         "nodeSizeMultiplier": 1,
-        "lineSizeMultiplier": 0.8,
-        "centerStrength": 0.4,
+        "lineSizeMultiplier": 0.55,
+        "centerStrength": 0.43,
         "repelStrength": 12,
-        "linkStrength": 0.8,
+        "linkStrength": 0.65,
         "linkDistance": 290
       },
       "toggleTypes": {
@@ -277,42 +277,42 @@
             "query": "path:/^Wiki\\//",
             "color": {
               "a": 1,
-              "rgb": 10848954
+              "rgb": 8284561
             }
           },
           {
             "query": "path:/^Study\\//",
             "color": {
               "a": 1,
-              "rgb": 8365771
+              "rgb": 10272241
             }
           },
           {
             "query": "path:/^Project\\//",
             "color": {
               "a": 1,
-              "rgb": 8301718
+              "rgb": 9557167
             }
           },
           {
             "query": "path:/^References\\//",
             "color": {
               "a": 1,
-              "rgb": 12165482
+              "rgb": 14861445
             }
           },
           {
             "query": "path:/^Book\\//",
             "color": {
               "a": 1,
-              "rgb": 9541281
+              "rgb": 12106950
             }
           }
         ],
         "showTags": false,
         "showAttachments": false,
         "hideUnresolved": true,
-        "showOrphans": false,
+        "showOrphans": true,
         "showArrow": false,
         "textFadeMultiplier": -0.15,
         "nodeSizeMultiplier": 1,
@@ -348,35 +348,35 @@
             "query": "path:/^Wiki\\//",
             "color": {
               "a": 1,
-              "rgb": 10848954
+              "rgb": 8284561
             }
           },
           {
             "query": "path:/^Study\\//",
             "color": {
               "a": 1,
-              "rgb": 8365771
+              "rgb": 10272241
             }
           },
           {
             "query": "path:/^Project\\//",
             "color": {
               "a": 1,
-              "rgb": 8301718
+              "rgb": 9557167
             }
           },
           {
             "query": "path:/^References\\//",
             "color": {
               "a": 1,
-              "rgb": 12165482
+              "rgb": 14861445
             }
           },
           {
             "query": "path:/^Book\\//",
             "color": {
               "a": 1,
-              "rgb": 9541281
+              "rgb": 12106950
             }
           }
         ],
