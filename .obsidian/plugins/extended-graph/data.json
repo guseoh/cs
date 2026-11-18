@@ -97,7 +97,7 @@
     "repelStrength": 10,
     "linkStrength": 1,
     "linkDistance": 250,
-    "scale": 0.19450022690615912,
+    "scale": 0.0705816756704648,
     "close": true
   },
   "openInNewTab": false,
@@ -107,29 +107,58 @@
       "id": "default-vault",
       "name": "Default state",
       "engineOptions": {
-        "colorGroups": [],
+        "colorGroups": [
+          {
+            "query": "path:Wiki/ ",
+            "color": {
+              "a": 1,
+              "rgb": 11424480
+            }
+          },
+          {
+            "query": "path:Study",
+            "color": {
+              "a": 1,
+              "rgb": 14725458
+            }
+          },
+          {
+            "query": "path:Project  ",
+            "color": {
+              "a": 1,
+              "rgb": 11657298
+            }
+          }
+        ],
         "search": "",
-        "hideUnresolved": false,
+        "hideUnresolved": true,
         "showAttachments": false,
-        "showOrphans": true,
+        "showOrphans": false,
         "showTags": false,
-        "localBacklinks": true,
-        "localForelinks": true,
-        "localInterlinks": false,
-        "localJumps": 1,
         "lineSizeMultiplier": 1,
         "nodeSizeMultiplier": 1,
         "showArrow": false,
         "textFadeMultiplier": 0,
-        "centerStrength": 0.5187132489703118,
+        "centerStrength": 0.518713248970312,
         "linkDistance": 250,
         "linkStrength": 1,
         "repelStrength": 10
       },
-      "toggleTypes": {},
-      "logicTypes": {},
+      "toggleTypes": {
+        "tag": [],
+        "link": [],
+        "folder": []
+      },
+      "logicTypes": {
+        "tag": "OR",
+        "link": "OR",
+        "folder": "OR"
+      },
       "enableLayers": false,
-      "currentLayerLevel": 0
+      "currentLayerLevel": 0,
+      "pinNodes": {},
+      "hiddenLegendRows": [],
+      "collapsedLegendRows": []
     }
   ],
   "startingStateID": "default-vault",
@@ -161,7 +190,7 @@
   "focusScaleFactor": 1.8,
   "highlightOpenNodes": false,
   "highlightSearchResults": false,
-  "maxNodes": 20,
+  "maxNodes": 1000,
   "delay": 500,
   "revertAction": false,
   "enableCSS": false,
@@ -315,7 +344,7 @@
   "selectNodeModifier": "Shift",
   "filterAbstractFiles": [],
   "ignoreInlineLinks": false,
-  "collapseState": true,
+  "collapseState": false,
   "collapseLegend": true,
   "resetAfterChanges": false,
   "collapsedSettings": {
