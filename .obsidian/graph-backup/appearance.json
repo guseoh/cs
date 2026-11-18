@@ -1,0 +1,9 @@
+{
+  "baseFontSize": 14,
+  "enabledCssSnippets": [
+    "obsidian-readability-style-settings",
+    "more-callout",
+    "table-style"
+  ],
+  "showRibbon": true
+}
