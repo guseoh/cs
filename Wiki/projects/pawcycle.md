@@ -4,7 +4,7 @@ type: project
 project: pawcycle
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-17
+updated_at: 2026-11-18
 evidence_level: source-verified
 capture_mode: full
 sources:
@@ -28,6 +28,8 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/pull/549
   - https://github.com/guseoh/pawcycle-commerce/pull/550
   - https://github.com/guseoh/pawcycle-commerce/pull/551
+  - https://github.com/guseoh/pawcycle-commerce/pull/552
+  - https://github.com/guseoh/pawcycle-commerce/pull/553
   - https://github.com/guseoh/pawcycle-commerce/issues/548
   - https://github.com/guseoh/pawcycle-commerce/issues/470
   - https://github.com/guseoh/pawcycle-commerce/issues/417
@@ -36,6 +38,11 @@ supersedes: []
 related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034, PWC-0078, PWC-0079, PWC-0080, PWC-0081, PWC-0082, PWC-0083, PWC-0084, PWC-0085, PWC-0086, PWC-0087, PWC-0088, PWC-0089, PWC-0090, PWC-0091, PWC-0092, PWC-0093, PWC-0094, PWC-0095, PWC-0096, PWC-0097, PWC-0098, PWC-0099, PWL-0035, PWL-0036, PWL-0037, PWL-0038, PWL-0039, PWL-0040, PWC-0108, PWC-0109, PWC-0110, PWC-0111, PWC-0112, PWC-0113, PWC-0114, PWC-0115, PWC-0116, PWC-0117, PWC-0118, PWC-0119, PWC-0120, PWC-0121, PWL-0043, PWL-0044, PWL-0045, PWL-0046, PWL-0047, PWC-0122, PWC-0123, PWC-0124, PWC-0125, PWC-0126, PWC-0127, PWC-0128, PWC-0129, PWL-0048, PWC-0130, PWC-0131, PWC-0132, PWL-0050, PWC-0133, PWL-0051, PWL-0052, PWL-0053, PWC-0134, PWC-0135]
 ---
 # PawCycle Commerce — source-verified project snapshot
+
+## 2026-11-18 3단계 배포·보안 기반 저장소 범위 완료
+
+- `main` [`f0767bcb`](https://github.com/guseoh/pawcycle-commerce/commit/f0767bcb382dca3eca55644aee8aacc3f656db46) 기준. 운영 세션 Redis sibling([#553](https://github.com/guseoh/pawcycle-commerce/pull/553), 운영 세션 저장소는 `memory` 유지)과 운영 Alertmanager·critical 알림([#552](https://github.com/guseoh/pawcycle-commerce/pull/552), ARCH-016, Loki 보류)을 병합해 **3단계를 저장소 범위에서 완료**했다. 앱 release 계약은 바꾸지 않았다.
+- 운영 미적용: 세션 Redis 기동·`redis` 전환, 운영 Discord 채널·webhook 파일, 운영 관측 재적용은 [#470](https://github.com/guseoh/pawcycle-commerce/issues/470)에서 별도 승인한다. [세부 기록](../journal/pawcycle/2026-11.md#2026-11-18-pawcycle-3단계-운영-배포-계약-확장과-저장소-범위-완료)
 
 ## 2026-11-17 2단계 종료, 3단계 R3·R4·R11 저장소 반영
 
@@ -70,11 +77,11 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 - **별도 OCI/CD 경로:** [#470](https://github.com/guseoh/pawcycle-commerce/issues/470)은 운영 전환·자동 배포·rollback·DB 복원 검증을 계속 추적한다. G1 저장소 작업 #473 종료와 Production 활성화·검증 완료를 혼동하지 않는다.
 
 
-## 전체 고도화 로드맵의 현재 위치 (2026-11-17)
+## 전체 고도화 로드맵의 현재 위치 (2026-11-18)
 
 - 2026-11-14 제안한 **0~8단계 순서**는 그대로 유지한다. 단계 전체가 일괄 승인됐다는 뜻은 아니며, 각 단계의 구현·검증과 운영 적용은 따로 판정한다. [원안](../journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동).
-- **0단계 정리:** PR #521~#527 병합 완료. **1단계 정합성:** #530~#535 일부 검증/수정 완료, 하지만 고립 결제 실패 확정(#417)과 Toss S1은 이월. **2단계 장애 관측:** #536~#543 저장소 병합 및 로컬 관측 스택 검증 완료, 로컬 리허설 실행 및 보정 PR #544 병합, MySQL 중단 critical #546 병합, 실제 Discord 전달 확인(#551)으로 **로컬 검증 종료**. **3단계 배포·보안 기반:** #545 검색 이스케이프, #550 세션 Redis(운영 기본 memory), #549 요청 제한·운영 로그 저장소 반영, 운영 배포 계약 확장 남음. 4단계 준비(#547 측정 도구)는 선행했다.
-- **지금 다음 작업(제안):** 3단계 마무리로 운영 배포 계약 확장(운영 Redis 사양·배포 계약 변경 결정 필요), 이후 4단계 본 측정([2단계 종료·3단계 기록](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-종료와-3단계-r3r4r11-저장소-반영), [병렬 트랙 결과](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-병렬-트랙-3개-병합), [리허설 결과](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과), [착수 전 계획](../journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증)). 테스트와 복구 후 3단계 배포·보안 기반 → 4단계 전체 규모·혼합 부하 측정 → 5단계 실측 병목 개선 → 6단계 운영·관리자 → 7단계 제품 기능 → 8단계 AI 고도화 순으로 검토한다.
+- **0단계 정리:** PR #521~#527 병합 완료. **1단계 정합성:** #530~#535 일부 검증/수정 완료, 하지만 고립 결제 실패 확정(#417)과 Toss S1은 이월. **2단계 장애 관측:** #536~#543 저장소 병합 및 로컬 관측 스택 검증 완료, 로컬 리허설 실행 및 보정 PR #544 병합, MySQL 중단 critical #546 병합, 실제 Discord 전달 확인(#551)으로 **로컬 검증 종료**. **3단계 배포·보안 기반:** #545 검색 이스케이프, #550 세션 Redis(운영 기본 memory), #549 요청 제한·운영 로그, #553 운영 세션 Redis sibling, #552 운영 Alertmanager 병합으로 **저장소 범위 완료**(운영 적용은 #470). 4단계 준비(#547 측정 도구)는 선행했다.
+- **지금 다음 작업(제안):** 4단계 본 측정(10만·100만 합성 데이터, 혼합 부하 기준선. 데이터 규모·측정 시간 결정 필요). 이후 5단계 실측 병목 개선 → 6단계 운영·관리자 → 7단계 제품 기능 → 8단계 AI 고도화 순으로 검토한다. 3단계 운영 적용은 #470에서 별도로 진행한다([3단계 완료 기록](../journal/pawcycle/2026-11.md#2026-11-18-pawcycle-3단계-운영-배포-계약-확장과-저장소-범위-완료), [2단계 종료·3단계 기록](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-종료와-3단계-r3r4r11-저장소-반영)).
 - **별도 운영 트랙:** [#470](https://github.com/guseoh/pawcycle-commerce/issues/470)의 OCI/CD G0~G4와 로컬 장애 관측 2단계를 혼동하지 않는다. 운영 반영은 별도 운영 승인·안전 조건이 필요하다.
 
 ## 2026-11-16 로컬 OCI A1 감시 로그 충돌 — 종료 원인 확인, 수정 미검증
