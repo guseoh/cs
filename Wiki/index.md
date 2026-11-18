@@ -10,11 +10,13 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 4. Confirm runtime claims separately from merged source and green CI; cite linked evidence and mark unresolved conflicts explicitly.
 5. Only read needed records; do not load the entire Vault by default.Use the candidate inbox as an untrusted evidence queue, never as an accepted source of decisions.
 
+[검색·관계 분석 및 공통 클라이언트 가이드](retrieval.md) · [Wiki 결정 탐색 Base](decision-dashboard.base)
+
 ## Project index
 
 | Project | Snapshot | Last checked |
 | --- | --- | --- |
-| LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
+| LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-18 |
 | 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [학습 운영 결정](decisions/BLR-0012.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-17 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |

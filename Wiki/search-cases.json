@@ -1,0 +1,58 @@
+[
+  {
+    "intent": "선택 이유",
+    "question": "왜 기존 GitHub Markdown 저장소를 LLM Wiki 공통 근거로 선택했는가?",
+    "project": "llm-wiki",
+    "expected_id": "WIKI-0002",
+    "status": "accepted",
+    "evidence": "Use Markdown tracked in `guseoh/cs` as the shared Wiki source"
+  },
+  {
+    "intent": "당시 대안",
+    "question": "Java Spring 재시작과 JPA Security 분리 학습 때 채택하지 않은 대안은?",
+    "project": "backend-learning",
+    "expected_id": "BLR-0012",
+    "status": "accepted",
+    "evidence": "채택하지 않은 대안"
+  },
+  {
+    "intent": "과거 실패",
+    "question": "Discord false-green과 HTTP 403 및 한글 PR 본문 손상은 어떻게 발생했는가?",
+    "project": "pawcycle",
+    "expected_id": "PWL-0010",
+    "status": "published",
+    "evidence": "false-green"
+  },
+  {
+    "intent": "실패 해결",
+    "question": "Discord Webhook 실패를 종료 코드 1로 바꾼 false-green 해결은?",
+    "project": "pawcycle",
+    "expected_id": "PWL-0010",
+    "status": "published",
+    "evidence": "종료 코드 1"
+  },
+  {
+    "intent": "대체 결정",
+    "question": "PWC-0011 AWS RDS 선택을 대체한 결정은?",
+    "project": "pawcycle",
+    "expected_id": "PWC-0013",
+    "status": "accepted",
+    "evidence": "supersedes: [PWC-0011]"
+  },
+  {
+    "intent": "검증된 상태",
+    "question": "LLM Wiki PR #10 병합 및 열린 후보 PR #19가 있는 수집 실행의 현재 검증 상태는?",
+    "project": "llm-wiki",
+    "expected_id": "PRJ-LLM-WIKI",
+    "status": "active",
+    "evidence": "44237946734"
+  },
+  {
+    "intent": "포트폴리오 근거",
+    "question": "PawCycle의 PR별 학습 노트와 작업 기준 문서 분리 근거는?",
+    "project": "pawcycle",
+    "expected_id": "PWC-0130",
+    "status": "accepted",
+    "evidence": "Rejected alternatives"
+  }
+]

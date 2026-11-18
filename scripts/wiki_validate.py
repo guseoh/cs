@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Validate canonical Markdown Wiki record IDs, metadata, relations and links."""
+from datetime import date
 from pathlib import Path
 import re
 import sys
@@ -74,7 +75,14 @@ def find_errors():
             if fields.get("evidence_level") not in {"source-verified", "user-confirmed", "unverified"}:
                 problems.append(label + ": invalid evidence_level")
             for field in ("created_at", "updated_at"):
-                if field in fields and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", fields[field]):
+                if field not in fields:
+                    continue
+                value = fields[field]
+                try:
+                    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+                        raise ValueError(value)
+                    date.fromisoformat(value)
+                except ValueError:
                     problems.append(label + ": invalid " + field)
             for relation in RELATIONS:
                 if relation in fields:

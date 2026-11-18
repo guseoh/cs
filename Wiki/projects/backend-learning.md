@@ -98,7 +98,7 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 ## Existing project boundaries (not re-authorized or changed here)
 
 - [DevPedia](devpedia.md) remains the user-implemented project with **design-only** Wiki capture; AI may support explanations and reviews but must not claim code authorship.
-- [PawCycle](pawcycle.md) retains its existing AI-assisted/harness/reverse-engineering/operations track and **full** Wiki capture policy. Historical audit belongs in [Draft PR #18](https://github.com/guseoh/cs/pull/18), separate from this learning decision set.
+- [PawCycle](pawcycle.md) retains its existing AI-assisted/harness/reverse-engineering/operations track and **full** Wiki capture policy. Historical audit belongs in [merged PR #18](https://github.com/guseoh/cs/pull/18), separate from this learning decision set.
 - CSForge remains on its existing **full** mode and Dark Todo on **manual** capture; this learning note does not change them.
 - Large-scale Board's own repo and [GitHub Wiki](https://github.com/guseoh/large-scale-board/wiki) remain authoritative for its detailed project-specific design evolution and experiments. This central AI Wiki stores the cross-project plan and relevant decisions.
 
