@@ -43,6 +43,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 - `main` [`f0767bcb`](https://github.com/guseoh/pawcycle-commerce/commit/f0767bcb382dca3eca55644aee8aacc3f656db46) 기준. 운영 세션 Redis sibling([#553](https://github.com/guseoh/pawcycle-commerce/pull/553), 운영 세션 저장소는 `memory` 유지)과 운영 Alertmanager·critical 알림([#552](https://github.com/guseoh/pawcycle-commerce/pull/552), ARCH-016, Loki 보류)을 병합해 **3단계를 저장소 범위에서 완료**했다. 앱 release 계약은 바꾸지 않았다.
 - 운영 미적용: 세션 Redis 기동·`redis` 전환, 운영 Discord 채널·webhook 파일, 운영 관측 재적용은 [#470](https://github.com/guseoh/pawcycle-commerce/issues/470)에서 별도 승인한다. [세부 기록](../journal/pawcycle/2026-11.md#2026-11-18-pawcycle-3단계-운영-배포-계약-확장과-저장소-범위-완료)
+- **인수인계:** 다른 PC에서 운영 적용 준비와 4단계 본 측정을 이어가기 위한 상세 절차·미비점·시작 프롬프트는 [세션 인수인계서](../journal/pawcycle/2026-11-18-session-handoff.md)에 있다.
 
 ## 2026-11-17 2단계 종료, 3단계 R3·R4·R11 저장소 반영
 
@@ -81,7 +82,7 @@ related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-000
 
 - 2026-11-14 제안한 **0~8단계 순서**는 그대로 유지한다. 단계 전체가 일괄 승인됐다는 뜻은 아니며, 각 단계의 구현·검증과 운영 적용은 따로 판정한다. [원안](../journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동).
 - **0단계 정리:** PR #521~#527 병합 완료. **1단계 정합성:** #530~#535 일부 검증/수정 완료, 하지만 고립 결제 실패 확정(#417)과 Toss S1은 이월. **2단계 장애 관측:** #536~#543 저장소 병합 및 로컬 관측 스택 검증 완료, 로컬 리허설 실행 및 보정 PR #544 병합, MySQL 중단 critical #546 병합, 실제 Discord 전달 확인(#551)으로 **로컬 검증 종료**. **3단계 배포·보안 기반:** #545 검색 이스케이프, #550 세션 Redis(운영 기본 memory), #549 요청 제한·운영 로그, #553 운영 세션 Redis sibling, #552 운영 Alertmanager 병합으로 **저장소 범위 완료**(운영 적용은 #470). 4단계 준비(#547 측정 도구)는 선행했다.
-- **지금 다음 작업(제안):** 4단계 본 측정(10만·100만 합성 데이터, 혼합 부하 기준선. 데이터 규모·측정 시간 결정 필요). 이후 5단계 실측 병목 개선 → 6단계 운영·관리자 → 7단계 제품 기능 → 8단계 AI 고도화 순으로 검토한다. 3단계 운영 적용은 #470에서 별도로 진행한다([3단계 완료 기록](../journal/pawcycle/2026-11.md#2026-11-18-pawcycle-3단계-운영-배포-계약-확장과-저장소-범위-완료), [2단계 종료·3단계 기록](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-종료와-3단계-r3r4r11-저장소-반영)).
+- **지금 다음 작업(제안, [인수인계서](../journal/pawcycle/2026-11-18-session-handoff.md)):** 4단계 본 측정(10만·100만 합성 데이터, 혼합 부하 기준선. 데이터 규모·측정 시간 결정 필요). 이후 5단계 실측 병목 개선 → 6단계 운영·관리자 → 7단계 제품 기능 → 8단계 AI 고도화 순으로 검토한다. 3단계 운영 적용은 #470에서 별도로 진행한다([3단계 완료 기록](../journal/pawcycle/2026-11.md#2026-11-18-pawcycle-3단계-운영-배포-계약-확장과-저장소-범위-완료), [2단계 종료·3단계 기록](../journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-종료와-3단계-r3r4r11-저장소-반영)).
 - **별도 운영 트랙:** [#470](https://github.com/guseoh/pawcycle-commerce/issues/470)의 OCI/CD G0~G4와 로컬 장애 관측 2단계를 혼동하지 않는다. 운영 반영은 별도 운영 승인·안전 조건이 필요하다.
 
 ## 2026-11-16 로컬 OCI A1 감시 로그 충돌 — 종료 원인 확인, 수정 미검증
