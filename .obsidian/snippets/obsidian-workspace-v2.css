@@ -1,0 +1,30 @@
+/* Workspace V2 agenda, scoped to the calendar note. */
+.developer-agenda .developer-calendar-day {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    text-align: left;
+    min-width: 0;
+    justify-items: start;
+    padding: 0.3rem 0.4rem;
+    background: var(--background-primary);
+}
+.developer-agenda .developer-calendar-day[aria-pressed="true"] {
+    background: var(--background-secondary);
+    outline: 1px solid var(--interactive-accent);
+}
+.developer-agenda .developer-calendar-day small,
+.developer-agenda .developer-agenda-empty,
+.developer-agenda .developer-agenda-event > span {
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+}
+.developer-agenda .developer-agenda-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+.developer-agenda .developer-agenda-event + .developer-agenda-event {
+    margin-top: 0.45rem;
+}
