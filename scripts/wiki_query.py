@@ -72,16 +72,37 @@ def lookup(records, question, project=None, limit=5):
     return [r for _, r in sorted(ranked, key=lambda item: (-item[0], item[1].id))[:limit]]
 
 
-def relation_data(records, selected=None):
+def source_urls(record):
+    """Read the repository's canonical multiline frontmatter source list."""
+    header = record.text.split("---", 2)[1]
+    match = re.search(r"^sources:[^\S\n]*\n((?:[ \t]+- .+\n)+)", header, re.M)
+    if not match:
+        return []
+    values = [line.strip()[2:].strip("'\"") for line in match[1].splitlines()]
+    return [value for value in values if value.startswith("https://")]
+
+
+def relation_data(records, selected=None, relation=None, depth=1):
     if selected and selected not in records:
         raise ValueError(f"unknown record ID: {selected}")
     edges = [{"source": r.id, "relation": name, "target": target}
              for r in records.values() for name in RELATIONS
+             if relation is None or name == relation
              for target in list_ids(r.fields[name])]
+    nodes = set(records)
     if selected:
-        edges = [edge for edge in edges if selected in (edge["source"], edge["target"])]
-    included = {node for edge in edges for node in (edge["source"], edge["target"])}
-    nodes = records.keys() if not selected else included | {selected}
+        nodes = {selected}
+        selected_edges = []
+        for _ in range(depth):
+            nearby = [edge for edge in edges
+                      if edge["source"] in nodes or edge["target"] in nodes]
+            expanded = nodes | {node for edge in nearby
+                                for node in (edge["source"], edge["target"])}
+            selected_edges = nearby
+            if expanded == nodes:
+                break
+            nodes = expanded
+        edges = selected_edges
     return {
         "nodes": [{"id": node, "title": records[node].title, "path": records[node].path,
                    "status": records[node].fields["status"]}
@@ -111,6 +132,10 @@ def audit(records, as_of, max_age):
         "relation_counts": dict(sorted(Counter(edge["relation"] for edge in edges).items())),
         "duplicate_title_candidates": [ids for ids in sorted(titles.values()) if len(ids) > 1],
         "supersedes_review": issues,
+        "source_verified_without_listed_https": sorted(
+            r.id for r in records.values()
+            if r.fields["evidence_level"] == "source-verified" and not source_urls(r)
+        ),
         "stale_project_records": [
             { "id": r.id, "updated_at": r.fields["updated_at"] }
             for r in records.values() if r.fields["type"] == "project" and
@@ -128,10 +153,21 @@ def evaluate(records, limit):
         expected = records[case["expected_id"]]
         evidence_matches = (case["evidence"] in expected.text
                             and expected.fields["status"] == case["status"])
-        ok = expected.id in ids and evidence_matches
+        url = case.get("source_url")
+        source_matches = url is None or url in source_urls(expected)
+        superseded = case.get("supersedes")
+        replacement_matches = superseded is None or (
+            superseded in records
+            and records[superseded].fields["status"] == "superseded"
+            and superseded in list_ids(expected.fields["supersedes"])
+            and (superseded not in ids or
+                 (expected.id in ids and ids.index(expected.id) < ids.index(superseded)))
+        )
+        ok = expected.id in ids and evidence_matches and source_matches and replacement_matches
         passed += ok
         position = ids.index(expected.id) + 1 if expected.id in ids else "-"
-        print(f"{'PASS' if ok else 'FAIL'} {case['intent']}: {expected.id} rank={position} evidence={evidence_matches}")
+        print(f"{'PASS' if ok else 'FAIL'} {case['intent']}: {expected.id} rank={position} "
+              f"evidence={evidence_matches} source={source_matches} replacement={replacement_matches}")
     print(f"{passed}/{len(cases)} cases passed at top {limit}")
     return 0 if passed == len(cases) else 1
 
@@ -145,6 +181,8 @@ def main():
     search.add_argument("--limit", type=int, default=5)
     relations = commands.add_parser("relations")
     relations.add_argument("record_id", nargs="?")
+    relations.add_argument("--relation", choices=RELATIONS)
+    relations.add_argument("--depth", type=int, choices=range(1, 6), default=1)
     report = commands.add_parser("audit")
     report.add_argument("--as-of", type=date.fromisoformat, default=date.today())
     report.add_argument("--max-age", type=int, default=14)
@@ -161,7 +199,8 @@ def main():
     if args.command == "evaluate":
         return evaluate(records, args.limit)
     try:
-        output = (relation_data(records, args.record_id) if args.command == "relations"
+        output = (relation_data(records, args.record_id, args.relation, args.depth)
+                  if args.command == "relations"
                   else audit(records, args.as_of, args.max_age))
     except ValueError as exc:
         parser.error(str(exc))

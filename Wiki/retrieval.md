@@ -18,7 +18,7 @@
 
 ```bash
 python scripts/wiki_query.py search "OCI Always Free 장기 운영" --project pawcycle
-python scripts/wiki_query.py relations PWC-0013
+python scripts/wiki_query.py relations PWC-0011 --relation supersedes --depth 3
 python scripts/wiki_query.py audit
 python scripts/wiki_query.py evaluate
 ```
@@ -38,3 +38,10 @@ python scripts/wiki_query.py evaluate
 공통 요청 예시: “최신 `main`의 Wiki 인덱스에서 프로젝트와 관련 ID를 찾고 근거를 읽어줘. 대체 관계, 결정 상태, 확인 날짜를 명시하고 실제 운영 확인 여부를 구분해줘.” 권한이나 연결이 없는 클라이언트는 접근 가능한 원문을 명시하고 이전 대화에서 검색 결과를 추정하지 않는다.
 
 Obsidian에서 [Wiki 결정 탐색 Base](decision-dashboard.base)를 열면 프로젝트별 결정, 관계, 최근 갱신 및 재확인 후보를 볼 수 있다. 편집은 해당 노트와 기존 리뷰 절차에서 이뤄진다.
+
+## 출처와 확인 범위
+
+- `relations --relation supersedes --depth 3`은 선택한 기록부터 대체 관계를 양방향으로 탐색한다. 출력된 간선은 새 결정에서 옛 결정으로 향한다.
+- 검색 회귀 사례는 본문 근거에 더해 일부 출처 URL의 frontmatter 등재, 대체 대상 상태와 순위를 확인한다. 출처의 현재 외부 상태는 사용 시 다시 읽는다.
+- `audit`의 HTTPS 출처 누락은 검토 후보로 취급한다. 본문 근거를 먼저 확인하며 기록의 승인 상태를 자동 변경하지 않는다.
+- PawCycle의 [PR #552](https://github.com/guseoh/pawcycle-commerce/pull/552) 병합, [운영 Issue #470](https://github.com/guseoh/pawcycle-commerce/issues/470) 열림, [재입고 이메일 Issue #548](https://github.com/guseoh/pawcycle-commerce/issues/548)의 설계 승인·구현 대기는 2026-11-18 공개 원본과 각각 대조했다. 이 확인은 운영 동작 검증과 별개다.

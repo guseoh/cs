@@ -21,7 +21,8 @@
     "project": "pawcycle",
     "expected_id": "PWL-0010",
     "status": "published",
-    "evidence": "false-green"
+    "evidence": "false-green",
+    "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/9"
   },
   {
     "intent": "실패 해결",
@@ -29,7 +30,8 @@
     "project": "pawcycle",
     "expected_id": "PWL-0010",
     "status": "published",
-    "evidence": "종료 코드 1"
+    "evidence": "종료 코드 1",
+    "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/9"
   },
   {
     "intent": "대체 결정",
@@ -37,7 +39,9 @@
     "project": "pawcycle",
     "expected_id": "PWC-0013",
     "status": "accepted",
-    "evidence": "supersedes: [PWC-0011]"
+    "evidence": "supersedes: [PWC-0011]",
+    "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/276",
+    "supersedes": "PWC-0011"
   },
   {
     "intent": "검증된 상태",
@@ -45,7 +49,8 @@
     "project": "llm-wiki",
     "expected_id": "PRJ-LLM-WIKI",
     "status": "active",
-    "evidence": "44237946734"
+    "evidence": "44237946734",
+    "source_url": "https://github.com/guseoh/cs/actions/runs/44237946734"
   },
   {
     "intent": "포트폴리오 근거",
@@ -54,5 +59,23 @@
     "expected_id": "PWC-0130",
     "status": "accepted",
     "evidence": "Rejected alternatives"
+  },
+  {
+    "intent": "승인과 구현 대기의 구분",
+    "question": "PWC-0135 SKU 재입고 이메일 알림에서 앱 내 알림 대신 무엇을 승인했는가?",
+    "project": "pawcycle",
+    "expected_id": "PWC-0135",
+    "status": "accepted",
+    "evidence": "승인된 이메일 채널",
+    "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/548"
+  },
+  {
+    "intent": "저장소 완료와 운영 미확인",
+    "question": "PawCycle 운영 Alertmanager와 Redis 3단계에서 저장소 범위는 무엇이고 운영 적용은 어느 이슈인가?",
+    "project": "pawcycle",
+    "expected_id": "PRJ-PAWCYCLE",
+    "status": "active",
+    "evidence": "3단계를 저장소 범위에서 완료",
+    "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/470"
   }
 ]
