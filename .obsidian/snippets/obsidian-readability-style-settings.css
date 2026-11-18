@@ -2067,4 +2067,103 @@ body {
    End of Obsidian Readability v2
    ========================================= */
 
-   
+/* Developer workspace chrome */
+.theme-dark .workspace {
+    --workspace-outline: var(--background-modifier-border);
+    --workspace-active: var(--background-modifier-hover);
+}
+
+.theme-dark .workspace-ribbon .clickable-icon,
+.theme-dark .workspace .nav-action-button,
+.theme-dark .workspace .view-header .clickable-icon {
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.theme-dark .workspace-ribbon .clickable-icon:hover,
+.theme-dark .workspace .nav-action-button:hover,
+.theme-dark .workspace .view-header .clickable-icon:hover {
+    border-color: var(--workspace-outline);
+    background-color: var(--workspace-active);
+}
+
+.theme-dark .workspace .nav-file-title.is-active,
+.theme-dark .workspace .workspace-tab-header.is-active .workspace-tab-header-inner {
+    background-color: var(--workspace-active);
+    box-shadow: inset 0 0 0 1px var(--workspace-outline);
+}
+
+.theme-dark .workspace .nav-folder-title,
+.theme-dark .workspace .search-result-file-title {
+    font-weight: 550;
+}
+
+.theme-dark .workspace .search-input-container input:focus-visible,
+.theme-dark .workspace .clickable-icon:focus-visible {
+    outline: 1px solid var(--interactive-accent);
+    outline-offset: 2px;
+}
+
+.theme-dark .workspace {
+    scrollbar-color: var(--scrollbar-thumb-bg) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-dark .workspace .nav-file-title,
+    .theme-dark .workspace .workspace-tab-header-inner,
+    .theme-dark .workspace-ribbon .clickable-icon {
+        transition: none;
+    }
+}
+
+/* Workspace board and calendar */
+.callout[data-callout="developer-board"] > .callout-title {
+    display: none;
+}
+
+.callout[data-callout="developer-board"] > .callout-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+    gap: 0.75rem;
+}
+
+.callout[data-callout="developer-stage"] {
+    min-width: 0;
+    margin: 0;
+    --callout-color: 128, 139, 154;
+}
+
+.developer-calendar-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.developer-calendar-toolbar strong {
+    margin-inline-end: auto;
+}
+
+.developer-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.25rem;
+}
+
+.developer-calendar-weekday {
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.developer-calendar-day {
+    min-height: 3rem;
+    padding: 0.25rem;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    overflow-wrap: anywhere;
+}
+
+.developer-calendar-day.is-today {
+    border-color: var(--interactive-accent);
+}

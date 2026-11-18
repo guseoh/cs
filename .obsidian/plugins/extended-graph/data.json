@@ -130,11 +130,11 @@
     "lineSizeMultiplier": 0.55,
     "collapse-forces": true,
     "centerStrength": 0.43,
-    "repelStrength": 12,
+    "repelStrength": 12.4,
     "linkStrength": 0.65,
-    "linkDistance": 290,
+    "linkDistance": 280,
     "scale": 0.225,
-    "close": false
+    "close": true
   },
   "openInNewTab": false,
   "canonicalizePropertiesWithDataview": true,
@@ -247,9 +247,9 @@
         "nodeSizeMultiplier": 1,
         "lineSizeMultiplier": 0.55,
         "centerStrength": 0.43,
-        "repelStrength": 12,
+        "repelStrength": 12.4,
         "linkStrength": 0.65,
-        "linkDistance": 290
+        "linkDistance": 280
       },
       "toggleTypes": {
         "tag": [],
