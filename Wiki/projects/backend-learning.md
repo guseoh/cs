@@ -109,7 +109,7 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 
 **운영 방식:** [BLR-0015](../decisions/BLR-0015.md) — 사용자는 `src/main`, AI는 테스트·스크립트·측정 도구를 작성한다.
 
-**다음 작업:** 사용자가 1-B 가입 API main 코드(7개 중 5개 남음)를 작성하고 보류된 테스트 4개로 검증한 뒤, 1-C(Spring Security 필터 체인, 401/403 통일) → 1-D(JWT·Refresh 회전) → 1-E(인가) → 1-F(100만 건 데이터, BCrypt·인덱스 실험, 장애 훈련 2건). 이어갈 정확한 지점과 정답 코드는 Board Wiki의 [Handoff §4](https://github.com/guseoh/large-scale-board/wiki/Handoff-Continue-On-Another-PC)와 [Step-1-Plan §11](https://github.com/guseoh/large-scale-board/wiki/Step-1-Plan)이 정본이다.
+**다음 작업(다른 PC에서 1-B부터 이어서 진행하기로 함, 2026-11-19):** 사용자가 1-B 가입 API main 코드(7개 중 5개 남음)를 작성하고 보류된 테스트 4개로 검증한 뒤, 1-C(Spring Security 필터 체인, 401/403 통일) → 1-D(JWT·Refresh 회전) → 1-E(인가) → 1-F(100만 건 데이터, BCrypt·인덱스 실험, 장애 훈련 2건). 이어갈 정확한 지점과 정답 코드는 Board Wiki의 [Handoff §4](https://github.com/guseoh/large-scale-board/wiki/Handoff-Continue-On-Another-PC)와 [Step-1-Plan §11](https://github.com/guseoh/large-scale-board/wiki/Step-1-Plan)이 정본이다.
 
 **미검증:** 로그인·JWT·Security는 아직 구현되지 않았다. BCrypt 강도·인덱스·부하 실험 수치는 없다. 위 테스트 결과는 사용자 PC(Windows, Testcontainers MySQL 8.4)에서의 실행 기준이며 배포 환경 검증이 아니다.
 
