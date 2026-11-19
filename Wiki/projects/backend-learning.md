@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, PRJ-BACKEND-SYSTEMS-LAB, BSL-0001, BSL-0002, BSK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, PRJ-BACKEND-SYSTEMS-LAB, BSL-0001, BSL-0002, BSL-0003, BSK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -122,6 +122,12 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 이 통합 학습 프로젝트는 AI 채팅의 정답 코드 제공·사용자 로컬 작성과 어려운 기술의 힌트 우선 방식을 따른다. 물류는 [기존 세부 학습 기록](logistics-learning.md)을 보존한 **첫 도메인 앱**이다. 다른 [Large-scale Board의 1단계 역할 분담 결정 BLR-0015](../decisions/BLR-0015.md)는 별개이며 **변경하지 않는다**.
 
 **검증 경계:** 저장소 이름 `backend-systems-lab`은 가칭이다. 새 저장소, GitHub Wiki, Gradle 멀티 프로젝트, 6개 실행 앱, 교재 장별 실습/테스트는 아직 생성·검증되지 않았다.
+
+## 2026-11-19 — 백엔드·시스템 설계·RAG 중심으로 학습 축 구체화
+
+신규 통합 연구실의 현재 중심은 **Backend Engineering(Java/Spring) + System Design + RAG**로 사용자 확정되었다. 여섯 개 독립 실행 도메인 앱은 유지하면서 RAG 검색·임베딩·벡터/하이브리드 검색·평가를 새로운 학습 대상으로 추가한다. RAG 구현 위치(별도 앱 또는 실험)는 아직 선택되지 않았다.
+
+두 권의 시스템 설계 교재는 **같은 저장소에서 공부하기로 한 과거 결정은 유지하되 즉시 착수하지 않는 후순위 항목**으로 변경했다. 프로젝트/저장소 명칭은 `backend-systems-lab` 등이 **추천 후보**이고 아직 선택되지 않았다. [최신 학습 운영 결정 BSL-0003](../decisions/BSL-0003.md) 및 [통합 학습 프로젝트 현황](backend-systems-lab.md)을 참조한다.
 
 ## Accepted decisions
 
