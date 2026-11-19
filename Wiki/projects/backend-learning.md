@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -98,7 +98,7 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 ## Existing project boundaries (not re-authorized or changed here)
 
 - [DevPedia](devpedia.md) remains the user-implemented project with **design-only** Wiki capture; AI may support explanations and reviews but must not claim code authorship.
-- [PawCycle](pawcycle.md) retains its existing AI-assisted/harness/reverse-engineering/operations track and **full** Wiki capture policy. Historical audit belongs in [Draft PR #18](https://github.com/guseoh/cs/pull/18), separate from this learning decision set.
+- [PawCycle](pawcycle.md) retains its existing AI-assisted/harness/reverse-engineering/operations track and **full** Wiki capture policy. Historical audit belongs in [merged PR #18](https://github.com/guseoh/cs/pull/18), separate from this learning decision set.
 - CSForge remains on its existing **full** mode and Dark Todo on **manual** capture; this learning note does not change them.
 - Large-scale Board's own repo and [GitHub Wiki](https://github.com/guseoh/large-scale-board/wiki) remain authoritative for its detailed project-specific design evolution and experiments. This central AI Wiki stores the cross-project plan and relevant decisions.
 
@@ -117,3 +117,10 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 ## Evidence and verification limits
 
 The learning intent and priorities come from the 2026-11-04 discussion plus user clarifications on 2026-11-05. Linked Large-scale Board source documents were checked to preserve the existing order and scope; this does **not** certify actual daily study, completed phases, successful experiments, the existence of a newly built domain service, a Sentry deployment or live portfolio observability. No private conversation transcript or image is published.
+
+
+## 2026-11-06 학습 운영 결정 보존 — 2026-11-19 ID 충돌 조정
+
+- [BLR-0013](../decisions/BLR-0013.md): 독립적 시스템 설계 이전에 설명형 아키텍처 학습과 Java/Spring 실행 예제, 국내 기술 사례, 역설계 및 점진적 가이드 설계를 결합합니다. 공개 강의의 8개 섹션·59개 주제는 주제 목차의 참고 근거이고, 6단계 교수법 구성은 별도의 미확정 세부 제안입니다.
+- 원래 [#35](https://github.com/guseoh/cs/pull/35)·[#36](https://github.com/guseoh/cs/pull/36)은 이 결정을 `BLR-0007`로 기록하려 했으나 해당 ID는 Ubuntu 학습 결정과 충돌합니다. 기존 Ubuntu 기록은 수정하지 않았습니다.
+- [BLR-0012](../decisions/BLR-0012.md)의 Java/Spring 핵심 집중·선택적 심화 원칙을 우선해 적용하며, 실제 강의 수강/개별 예제 실행/학습 완료 여부는 별도입니다.

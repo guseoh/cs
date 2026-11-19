@@ -22,5 +22,7 @@ jobs:
           python-version: "3.12"
       - name: Check Wiki references and metadata
         run: python scripts/wiki_validate.py
+      - name: Evaluate Wiki retrieval and evidence
+        run: python scripts/wiki_query.py evaluate
       - name: Test source-intake safety and determinism
         run: python -m unittest discover -s scripts -p 'test_wiki_*.py' -v
