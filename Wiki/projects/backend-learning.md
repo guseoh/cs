@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -86,6 +86,14 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 
 [확정 결정 BLR-0014](../decisions/BLR-0014.md)는 기존 [BLR-0005](../decisions/BLR-0005.md)의 협업 역할을 구체화한다. 구체적인 도메인, 구현·배포 여부는 **미확정**이다. Large-scale Board·DevPedia·PawCycle의 기존 프로젝트별 구현 규칙 및 Wiki capture mode는 자동으로 바뀌지 않는다.
 
+## 2026-11-19 — 별도 물류 학습 프로젝트의 범위·채팅 진행 확정
+
+사용자는 이전의 물류·이벤트 분석 등 도메인 후보 중 **물류 시스템**을 선택하고 현재 채팅 세션에서 학습을 시작하기로 했다. [프로젝트 현황](logistics-learning.md)과 [확정 결정 LGR-0001](../decisions/LGR-0001.md)을 따른다. 이 프로젝트는 처음에는 **포트폴리오가 아닌 학습 목적**이며, 결과가 고도화되었을 때 포트폴리오 전환 여부를 검토한다.
+
+[BLR-0014](../decisions/BLR-0014.md)의 AI 협업 방식은 **채팅에 완성 코드를 제공하고 사용자가 빠르게 로컬에서 작성·실행**하는 형태로 구체화되었다. 요구사항·도메인 모델·핵심 비즈니스 로직·알고리즘·트랜잭션·동시성·성능과 기술적 판단은 공동 설계하되 사용자가 최종 결정한다. Kafka·장애 복구·데이터 파이프라인·캐시·고급 최적화는 **첫 경험에서 힌트를 우선** 제공하고, 필요하면 정답 코드를 제시한다. 중요한 결정·실험·진척은 중앙 Wiki에 기록하며 새 원본 저장소·프로젝트 Wiki가 준비되면 그곳에도 상세 기록한다.
+
+**확인 한계:** 새 저장소·코드·테스트·GitHub Wiki는 아직 없다. 첫 제품 범위(출고센터 결정·재고 할당)는 [제안 단계](../knowledge/LGK-0001.md)이다. 기존 Large-scale Board·PawCycle·DevPedia 규칙은 바뀌지 않는다.
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -100,7 +108,8 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 - [BLR-0010](../decisions/BLR-0010.md): accept the 7-track / 34-unit Spring learning curriculum and restart from topic 01.
 - [BLR-0011](../decisions/BLR-0011.md): explain the whole project at a job-seeker level and study portfolio-worthy design choices in depth using code and evidence.
 - [BLR-0012](../decisions/BLR-0012.md): Java/Spring 처음부터 재시작, JPA/Security 별도 운영, 핵심 이해와 선택적 Obsidian 정리.
-- [BLR-0014](../decisions/BLR-0014.md): 신규 도메인 프로젝트에서 AI 공동 설계·구현과 사용자 최종 의사결정.
+- [BLR-0014](../decisions/BLR-0014.md): AI 채팅의 코드 제공·사용자 로컬 작성, 설계 공동 검토·사용자 결정, 어려운 기술은 힌트 우선.
+- [LGR-0001](../decisions/LGR-0001.md): 물류 학습 프로젝트를 현재 채팅에서 시작하고 중앙·프로젝트 Wiki에 결정·진척·실험 기록.
 
 ## Existing project boundaries (not re-authorized or changed here)
 
@@ -116,7 +125,7 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 - **Ubuntu track:** start [BLK-0001 phase 0](../knowledge/BLK-0001.md) by discovering the actual Windows/WSL installation state, then proceed only from observed outputs. The local Ubuntu version, VM product, installed tools, completed exercises and real configuration are **not yet verified**.
 
 - Continue the already established Board roadmap; actual next Slice/current code and tests must be checked in the Board repository before teaching or marking progress.
-- Practical exercise directions include logistics and streaming; a single production project/domain, detailed design boundaries, concrete AI feature scope and schedule have **not** been fixed.
+- **신규 학습 프로젝트 도메인은 물류로 확정**했지만 세부 서비스/기능 범위·정확한 기술 스택·신규 저장소·실제 코드·일정은 아직 정해지지 않았다. 과거 스트리밍 등 다른 후보는 이 프로젝트에서 별도로 선택하지 않았다.
 - Sentry installation milestone, portfolio tool selection and measured benefits are **not verified**.
 - Cloud and AI study expansion has no fixed start date. Backend-versus-adjacent-role boundaries may be refined through actual requirements.
 - Economic-literacy study appeared in the original planning diagram, but a specific curriculum or schedule was **not confirmed** and is not an accepted decision here.
