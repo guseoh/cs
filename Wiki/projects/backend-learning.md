@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, PRJ-BACKEND-SYSTEMS-LAB, BSL-0001, BSL-0002, BSK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -113,6 +113,16 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 
 **미검증:** 로그인·JWT·Security는 아직 구현되지 않았다. BCrypt 강도·인덱스·부하 실험 수치는 없다. 위 테스트 결과는 사용자 PC(Windows, Testcontainers MySQL 8.4)에서의 실행 기준이며 배포 환경 검증이 아니다.
 
+## 2026-11-19 — 여섯 도메인과 설계 교재 1·2권의 통합 저장소 운영 확정
+
+사용자는 물류·대중교통 경로 검색·실거래가 분석·티켓팅·주차장·이벤트 분석을 **서로 독립 실행할 수 있는 여섯 Spring Boot 앱**으로 개발하되 **하나의 신규 GitHub 저장소**에서 모듈별로 관리하기로 확정했다. [통합 학습 프로젝트 현황](backend-systems-lab.md), [6개 앱 결정 BSL-0001](../decisions/BSL-0001.md).
+
+기존 [두 권의 시스템 설계 학습 결정 BLR-0004](../decisions/BLR-0004.md)는 유지한다. 두 권의 장별 설계 실습도 **같은 저장소의 별도 설계 트랙**으로 배치하며 매 장을 개별 애플리케이션으로 구현할 의무는 없다. [교재 통합 결정 BSL-0002](../decisions/BSL-0002.md), [교재-도메인 대응 초안](../knowledge/BSK-0001.md).
+
+이 통합 학습 프로젝트는 AI 채팅의 정답 코드 제공·사용자 로컬 작성과 어려운 기술의 힌트 우선 방식을 따른다. 물류는 [기존 세부 학습 기록](logistics-learning.md)을 보존한 **첫 도메인 앱**이다. 다른 [Large-scale Board의 1단계 역할 분담 결정 BLR-0015](../decisions/BLR-0015.md)는 별개이며 **변경하지 않는다**.
+
+**검증 경계:** 저장소 이름 `backend-systems-lab`은 가칭이다. 새 저장소, GitHub Wiki, Gradle 멀티 프로젝트, 6개 실행 앱, 교재 장별 실습/테스트는 아직 생성·검증되지 않았다.
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -145,7 +155,7 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 - **Ubuntu track:** start [BLK-0001 phase 0](../knowledge/BLK-0001.md) by discovering the actual Windows/WSL installation state, then proceed only from observed outputs. The local Ubuntu version, VM product, installed tools, completed exercises and real configuration are **not yet verified**.
 
 - Large-scale Board: **1단계 1-B(가입 API) 마무리 → 1-C**부터 이어간다(위 2026-11-19 항목). 실제 코드·테스트 상태는 항상 Board 저장소와 Wiki 진행표에서 다시 확인한다.
-- **신규 학습 프로젝트 도메인은 물류로 확정**했지만 세부 서비스/기능 범위·정확한 기술 스택·신규 저장소·실제 코드·일정은 아직 정해지지 않았다. 과거 스트리밍 등 다른 후보는 이 프로젝트에서 별도로 선택하지 않았다.
+- **새 통합 학습 프로젝트는 여섯 독립 앱 및 설계 교재 1·2권 트랙으로 확정**했다. 첫 집중 분야는 물류이며 실제 저장소·코드·세부 기술 스택과 각 영역의 일정/완료 기준은 아직 미정이다.
 - Sentry installation milestone, portfolio tool selection and measured benefits are **not verified**.
 - Cloud and AI study expansion has no fixed start date. Backend-versus-adjacent-role boundaries may be refined through actual requirements.
 - Economic-literacy study appeared in the original planning diagram, but a specific curriculum or schedule was **not confirmed** and is not an accepted decision here.
