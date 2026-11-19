@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, BLR-0015]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -93,6 +93,12 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 [BLR-0014](../decisions/BLR-0014.md)의 AI 협업 방식은 **채팅에 완성 코드를 제공하고 사용자가 빠르게 로컬에서 작성·실행**하는 형태로 구체화되었다. 요구사항·도메인 모델·핵심 비즈니스 로직·알고리즘·트랜잭션·동시성·성능과 기술적 판단은 공동 설계하되 사용자가 최종 결정한다. Kafka·장애 복구·데이터 파이프라인·캐시·고급 최적화는 **첫 경험에서 힌트를 우선** 제공하고, 필요하면 정답 코드를 제시한다. 중요한 결정·실험·진척은 중앙 Wiki에 기록하며 새 원본 저장소·프로젝트 Wiki가 준비되면 그곳에도 상세 기록한다.
 
 **확인 한계:** 새 저장소·코드·테스트·GitHub Wiki는 아직 없다. 첫 제품 범위(출고센터 결정·재고 할당)는 [제안 단계](../knowledge/LGK-0001.md)이다. 기존 Large-scale Board·PawCycle·DevPedia 규칙은 바뀌지 않는다.
+
+## 2026-11-19 — 여섯 학습 도메인 단일 저장소 운영 제안 (미확정)
+
+현재 확정된 물류 학습 프로젝트를 포함하여 대중교통 경로 검색, 실거래가 데이터 분석, 티켓 예매, 주차장 검색·예약, 이벤트 수집·분석을 **하나의 저장소 안에서 각각 독립적인 Gradle 하위 프로젝트**로 진행하는 구성이 제안되었다. [BLR-0015](../decisions/BLR-0015.md)는 **proposed**이며 소스 저장소·모듈·CI가 이미 생성되었다는 의미가 아니다.
+
+선택 시 첫 모듈부터 시작하고 공통 비즈니스 코드는 무리하게 추출하지 않으며 각 도메인의 테스트·데이터·실행 환경을 격리하는 방식을 권장한다. 추후 사용자 확정 이전에는 기존 [물류 프로젝트 결정](../decisions/LGR-0001.md)을 폐기하거나 전환된 것으로 기록하지 않는다.
 
 ## Accepted decisions
 
