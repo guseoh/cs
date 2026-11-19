@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -94,6 +94,25 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 
 **확인 한계:** 새 저장소·코드·테스트·GitHub Wiki는 아직 없다. 첫 제품 범위(출고센터 결정·재고 할당)는 [제안 단계](../knowledge/LGK-0001.md)이다. 기존 Large-scale Board·PawCycle·DevPedia 규칙은 바뀌지 않는다.
 
+## 2026-11-19 — Large-scale Board 1단계 1-A 완료, 1-B 진행 중
+
+**확인된 상태(저장소 근거):** [large-scale-board PR #5](https://github.com/guseoh/large-scale-board/pull/5)를 병합했다(`main` `5631212`, 테스트 72개 통과). 0단계는 이미 완료([PR #4](https://github.com/guseoh/large-scale-board/pull/4)). 1단계(회원과 인증)는 6개 묶음(1-A~1-F) 중 **1-A와 1-B-3이 완료, 1-B-1/1-B-2는 사용자의 main 코드 작성 대기**다.
+
+| 스텝 | 결과 | 근거 |
+| --- | --- | --- |
+| 1-A-1 시간 탐침 | `Instant` + UTC `DATETIME(6)` 채택. `LocalDateTime`은 KST JVM에서 DB 값이 9시간 어긋나는데 같은 JVM에서 읽으면 정상처럼 보인다(변환 상쇄) | [ADR-008](https://github.com/guseoh/large-scale-board/wiki/ADR-008-Instant-and-UTC-Datetime) |
+| 1-A-2 `BaseEntity` | 직접 할당 ID의 `save()`는 SQL 2번(SELECT+INSERT), `Persistable` 구현 후 1번. JPA Auditing을 `Clock` 기반으로 사용 | [ADR-009](https://github.com/guseoh/large-scale-board/wiki/ADR-009-BaseEntity-Persistable-Auditing) |
+| 1-A-3 `Member` | 직접 쓴 DDL과 Hibernate 생성 DDL이 같아지려면 enum을 `VARCHAR`로 고정하고 유니크 제약에 이름을 붙여야 한다 | [Step-1-Plan §11.3](https://github.com/guseoh/large-scale-board/wiki/Step-1-Plan) |
+| 1-A-4 ID 문자열화 | 응답 DTO의 ID는 `String`, ArchUnit R7로 누락을 막는다 | ADR-005, R7 |
+| 1-B-2 안티패턴 | UNIQUE 없이 선조회하면 동시 요청 두 개가 모두 통과해 중복 행이 생긴다(테스트로 재현) | `CheckThenActAntiPatternTest` |
+| 1-B-3 트랜잭션 실험 | self-invocation·private·체크 예외 커밋·삼킨 예외의 `UnexpectedRollbackException`·`REQUIRES_NEW` 8가지를 테스트로 고정 | `TransactionTrapTest` |
+
+**운영 방식:** [BLR-0015](../decisions/BLR-0015.md) — 사용자는 `src/main`, AI는 테스트·스크립트·측정 도구를 작성한다.
+
+**다음 작업:** 사용자가 1-B 가입 API main 코드(7개 중 5개 남음)를 작성하고 보류된 테스트 4개로 검증한 뒤, 1-C(Spring Security 필터 체인, 401/403 통일) → 1-D(JWT·Refresh 회전) → 1-E(인가) → 1-F(100만 건 데이터, BCrypt·인덱스 실험, 장애 훈련 2건). 이어갈 정확한 지점과 정답 코드는 Board Wiki의 [Handoff §4](https://github.com/guseoh/large-scale-board/wiki/Handoff-Continue-On-Another-PC)와 [Step-1-Plan §11](https://github.com/guseoh/large-scale-board/wiki/Step-1-Plan)이 정본이다.
+
+**미검증:** 로그인·JWT·Security는 아직 구현되지 않았다. BCrypt 강도·인덱스·부하 실험 수치는 없다. 위 테스트 결과는 사용자 PC(Windows, Testcontainers MySQL 8.4)에서의 실행 기준이며 배포 환경 검증이 아니다.
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -109,6 +128,7 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 - [BLR-0011](../decisions/BLR-0011.md): explain the whole project at a job-seeker level and study portfolio-worthy design choices in depth using code and evidence.
 - [BLR-0012](../decisions/BLR-0012.md): Java/Spring 처음부터 재시작, JPA/Security 별도 운영, 핵심 이해와 선택적 Obsidian 정리.
 - [BLR-0014](../decisions/BLR-0014.md): AI 채팅의 코드 제공·사용자 로컬 작성, 설계 공동 검토·사용자 결정, 어려운 기술은 힌트 우선.
+- [BLR-0015](../decisions/BLR-0015.md): Large-scale Board 1단계 — 사용자는 main 코드, AI는 테스트·스크립트·측정 도구, 정답 코드 우선 제시.
 - [LGR-0001](../decisions/LGR-0001.md): 물류 학습 프로젝트를 현재 채팅에서 시작하고 중앙·프로젝트 Wiki에 결정·진척·실험 기록.
 
 ## Existing project boundaries (not re-authorized or changed here)
@@ -124,7 +144,7 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 
 - **Ubuntu track:** start [BLK-0001 phase 0](../knowledge/BLK-0001.md) by discovering the actual Windows/WSL installation state, then proceed only from observed outputs. The local Ubuntu version, VM product, installed tools, completed exercises and real configuration are **not yet verified**.
 
-- Continue the already established Board roadmap; actual next Slice/current code and tests must be checked in the Board repository before teaching or marking progress.
+- Large-scale Board: **1단계 1-B(가입 API) 마무리 → 1-C**부터 이어간다(위 2026-11-19 항목). 실제 코드·테스트 상태는 항상 Board 저장소와 Wiki 진행표에서 다시 확인한다.
 - **신규 학습 프로젝트 도메인은 물류로 확정**했지만 세부 서비스/기능 범위·정확한 기술 스택·신규 저장소·실제 코드·일정은 아직 정해지지 않았다. 과거 스트리밍 등 다른 후보는 이 프로젝트에서 별도로 선택하지 않았다.
 - Sentry installation milestone, portfolio tool selection and measured benefits are **not verified**.
 - Cloud and AI study expansion has no fixed start date. Backend-versus-adjacent-role boundaries may be refined through actual requirements.
