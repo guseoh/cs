@@ -4,7 +4,7 @@ type: project
 project: backend-learning
 status: active
 created_at: 2026-11-04
-updated_at: 2026-11-17
+updated_at: 2026-11-19
 evidence_level: user-confirmed
 capture_mode: manual
 sources:
@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014]
 ---
 
 # Backend learning — cross-project decision snapshot
@@ -80,6 +80,12 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 
 근거: [확정 운영 결정 BLR-0012](../decisions/BLR-0012.md), [과정별 학습 가이드 BLK-0003](../knowledge/BLK-0003.md). 과거 지침 [BLR-0009](../decisions/BLR-0009.md)과 [BLR-0010](../decisions/BLR-0010.md)의 **주제 선택·현대 REST 백엔드 중심 방향은 계속 유효**하며, 과도한 장문 문서/도식 작성 의무에 대한 **최신 운영 방식만 갱신**한다.
 
+## 2026-11-19 — 신규 대규모 도메인 프로젝트의 AI 공동 설계·구현 방식 확정
+
+신규 도메인 기반 프로젝트는 **AI 기본 틀 + 전 영역 공동 설계·구현 + 사용자 최종 의사결정** 방식으로 진행한다. 요구사항·도메인·핵심 로직·알고리즘·트랜잭션·동시성·Kafka·장애 복구·데이터 처리·캐싱·성능 분석까지 함께 검토하고 코드를 작성할 수 있다. 처음 접하는 기술은 AI가 문제와 개념을 설명하고 힌트·대안을 제시한 다음 사용자가 결정하도록 안내한다. 직접 코딩을 필수 통과 조건으로 두지 않고, 의사결정의 근거와 검증 결과를 이해하는지를 중심으로 학습한다.
+
+[확정 결정 BLR-0014](../decisions/BLR-0014.md)는 기존 [BLR-0005](../decisions/BLR-0005.md)의 협업 역할을 구체화한다. 구체적인 도메인, 구현·배포 여부는 **미확정**이다. Large-scale Board·DevPedia·PawCycle의 기존 프로젝트별 구현 규칙 및 Wiki capture mode는 자동으로 바뀌지 않는다.
+
 ## Accepted decisions
 
 - [BLR-0001](../decisions/BLR-0001.md): CS subject/chapter curriculum with later contextual review.
@@ -94,6 +100,7 @@ The user **approved the detailed curriculum** documented in [BLK-0002](../knowle
 - [BLR-0010](../decisions/BLR-0010.md): accept the 7-track / 34-unit Spring learning curriculum and restart from topic 01.
 - [BLR-0011](../decisions/BLR-0011.md): explain the whole project at a job-seeker level and study portfolio-worthy design choices in depth using code and evidence.
 - [BLR-0012](../decisions/BLR-0012.md): Java/Spring 처음부터 재시작, JPA/Security 별도 운영, 핵심 이해와 선택적 Obsidian 정리.
+- [BLR-0014](../decisions/BLR-0014.md): 신규 도메인 프로젝트에서 AI 공동 설계·구현과 사용자 최종 의사결정.
 
 ## Existing project boundaries (not re-authorized or changed here)
 
