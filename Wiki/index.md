@@ -165,6 +165,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | ID | Status | Knowledge | Project |
 | --- | --- | --- | --- |
 | [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle 전체 시스템·아키텍처·설계 이력·운영 리버스 엔지니어링 가이드 (2026-11-05) | pawcycle |
+| [PWK-0003](knowledge/PWK-0003.md) | published | PawCycle 4단계 G-1 학습 노트 — 합성 데이터에 backend를 붙이는 규모 측정 환경(설계·코드·트레이드오프) | pawcycle |
 | [PWK-0002](knowledge/PWK-0002.md) | published | JVM JIT warmup and CRaC restoration: 330s to 2–3s case study | shared |
 | [AGK-0001](knowledge/AGK-0001.md) | published | Backend AI adoption, Agent roles and learning FAQ (2026-11-05) | agentlab |
 | [BLK-0001](knowledge/BLK-0001.md) | published | Ubuntu/Linux/web-server 0–7 stage roadmap with evidence-based exercise gates | backend-learning |
@@ -273,6 +274,15 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0051](lessons/PWL-0051.md) | 운영 명령은 서비스 테스트가 아니라 실제 진입점으로 한 번은 실행해 봐야 한다 |
 | [PWL-0052](lessons/PWL-0052.md) | 외부 연동 설정은 끝까지 한 번 실행해 봐야 키 종류 같은 전제 오류가 드러난다 |
 | [PWL-0053](lessons/PWL-0053.md) | 과거 문서 비소급 원칙은 지금도 유효한 계약 원본에는 적용하지 않는다 |
+
+## 2026-11-19 4단계 G-1 신규 기록
+
+| ID | 내용 |
+| --- | --- |
+| [PWC-0136](decisions/PWC-0136.md) | 4단계 규모 측정은 Flyway schema 위에 합성 데이터를 채우고 backend에 직접 요청한다 |
+| [PWC-0137](decisions/PWC-0137.md) | 성능 작업은 AI가 측정하고 사용자가 해석·개선한다 |
+| [PWL-0054](lessons/PWL-0054.md) | GitHub Actions 재실행은 처음 이벤트의 PR 본문을 다시 쓴다 |
+| [PWK-0003](knowledge/PWK-0003.md) | 4단계 G-1 학습 노트(설계·코드·트레이드오프·되돌아볼 질문) |
 
 ## Cross-project learning
 
