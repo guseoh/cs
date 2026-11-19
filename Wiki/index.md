@@ -18,7 +18,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | --- | --- | --- |
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
 | 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [학습 운영 결정](decisions/BLR-0012.md) · [AI 공동 개발 결정](decisions/BLR-0014.md) · [Board 1단계 작업 분담](decisions/BLR-0015.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-19 |
-| 물류 시스템 학습 (채팅 기반·저장소 생성 전) | [PRJ-LOGISTICS-LEARNING](projects/logistics-learning.md) · [도메인·기록 결정](decisions/LGR-0001.md) · [학습 로드맵 초안](knowledge/LGK-0001.md) · [진척 기록](journal/logistics-learning/2026-11.md) | 2026-11-19 |
+| 통합 백엔드 학습 연구실 (독립 앱 6개·교재 1·2권) | [PRJ-BACKEND-SYSTEMS-LAB](projects/backend-systems-lab.md) · [도메인 앱 결정](decisions/BSL-0001.md) · [교재 설계 결정](decisions/BSL-0002.md) · [학습 맵](knowledge/BSK-0001.md) · [진행 기록](journal/backend-systems-lab/2026-11.md) | 2026-11-19 |
+| 물류 모듈 상세 학습 (통합 저장소의 첫 독립 앱) | [PRJ-LOGISTICS-LEARNING](projects/logistics-learning.md) · [도메인·기록 결정](decisions/LGR-0001.md) · [학습 로드맵 초안](knowledge/LGK-0001.md) · [진척 기록](journal/logistics-learning/2026-11.md) | 2026-11-19 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
@@ -484,6 +485,9 @@ UTC 승인/STOP/재승인, F07 query-only, lease 범위 종료, 최종 HEAD revi
 | [BLR-0013](decisions/BLR-0013.md) | accepted | 예제 중심 아키텍처 학습 및 공개 8섹션 커리큘럼 | [#35](https://github.com/guseoh/cs/pull/35), [#36](https://github.com/guseoh/cs/pull/36) |
 | [BLR-0014](decisions/BLR-0014.md) | accepted | 채팅에 완성 코드 제공·사용자 로컬 작성, 어려운 기술은 힌트 우선, 사용자 최종 결정 | backend-learning |
 | [BLR-0015](decisions/BLR-0015.md) | accepted | Large-scale Board 1단계: 사용자는 main 코드, AI는 테스트·스크립트·측정 도구 작성 | backend-learning |
+| [BSL-0001](decisions/BSL-0001.md) | accepted | 6개 도메인의 독립 실행 Spring Boot 앱을 단일 학습 저장소에 구성 | backend-systems-lab |
+| [BSL-0002](decisions/BSL-0002.md) | accepted | 시스템 설계 교재 1·2권을 같은 저장소의 별도 설계 트랙으로 운영 | backend-systems-lab |
+| [BSK-0001](knowledge/BSK-0001.md) | draft | 6개 도메인과 교재 1·2권의 학습 목표·연계·실험 가이드 초안 | backend-systems-lab |
 | [LGR-0001](decisions/LGR-0001.md) | accepted | 물류 학습 프로젝트 선택·현재 채팅 진행·중앙/프로젝트 Wiki 이중 기록 | logistics-learning |
 | [LGK-0001](knowledge/LGK-0001.md) | draft | 물류 시스템 요구사항·설계·구현·실험 로드맵 초안 | logistics-learning |
 | [PWC-0138](decisions/PWC-0138.md) | accepted | A1 확보와 로컬 개발 병렬 진행(당시 결정) | [#26](https://github.com/guseoh/cs/pull/26) |
