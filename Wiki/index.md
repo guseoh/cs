@@ -483,6 +483,7 @@ UTC 승인/STOP/재승인, F07 query-only, lease 범위 종료, 최종 HEAD revi
 | [CSF-0006](decisions/CSF-0006.md) | accepted | Network G1 의존성 선별 통합과 Import 회귀 교정 | [#56](https://github.com/guseoh/cs/pull/56) |
 | [BLR-0013](decisions/BLR-0013.md) | accepted | 예제 중심 아키텍처 학습 및 공개 8섹션 커리큘럼 | [#35](https://github.com/guseoh/cs/pull/35), [#36](https://github.com/guseoh/cs/pull/36) |
 | [BLR-0014](decisions/BLR-0014.md) | accepted | 채팅에 완성 코드 제공·사용자 로컬 작성, 어려운 기술은 힌트 우선, 사용자 최종 결정 | backend-learning |
+| [BLR-0015](decisions/BLR-0015.md) | proposed | 물류 포함 6개 도메인을 독립 Gradle 모듈로 구성하는 단일 학습 저장소 제안 | backend-learning |
 | [LGR-0001](decisions/LGR-0001.md) | accepted | 물류 학습 프로젝트 선택·현재 채팅 진행·중앙/프로젝트 Wiki 이중 기록 | logistics-learning |
 | [LGK-0001](knowledge/LGK-0001.md) | draft | 물류 시스템 요구사항·설계·구현·실험 로드맵 초안 | logistics-learning |
 | [PWC-0138](decisions/PWC-0138.md) | accepted | A1 확보와 로컬 개발 병렬 진행(당시 결정) | [#26](https://github.com/guseoh/cs/pull/26) |
