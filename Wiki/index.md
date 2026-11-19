@@ -169,6 +169,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | ID | Status | Knowledge | Project |
 | --- | --- | --- | --- |
 | [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle 전체 시스템·아키텍처·설계 이력·운영 리버스 엔지니어링 가이드 (2026-11-05) | pawcycle |
+| [PWK-0007](knowledge/PWK-0007.md) | published | PawCycle 4단계 G-2 학습 노트 — 혼합 부하 측정 도구와 1만 기준선(설계·코드·리뷰 7건·질문) | pawcycle |
 | [PWK-0003](knowledge/PWK-0003.md) | published | PawCycle 4단계 G-1 학습 노트 — 합성 데이터에 backend를 붙이는 규모 측정 환경(설계·코드·트레이드오프) | pawcycle |
 | [PWK-0004](knowledge/PWK-0004.md) | published | PawCycle 1단계 학습 노트 — 결제·재고·정기배송 정합성(동시성 특성 테스트, 고립 결제 성공 확정, Toss) | pawcycle |
 | [PWK-0005](knowledge/PWK-0005.md) | published | PawCycle 2단계 학습 노트 — 장애 관측과 로깅(실패 분류, 작업 지표, 요청 ID, 알림 규칙, 리허설) | pawcycle |
@@ -282,12 +283,21 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0052](lessons/PWL-0052.md) | 외부 연동 설정은 끝까지 한 번 실행해 봐야 키 종류 같은 전제 오류가 드러난다 |
 | [PWL-0053](lessons/PWL-0053.md) | 과거 문서 비소급 원칙은 지금도 유효한 계약 원본에는 적용하지 않는다 |
 
+## 2026-11-19 4단계 G-2 신규 기록
+
+| ID | 내용 |
+| --- | --- |
+| [PWC-0140](decisions/PWC-0140.md) | 백엔드·인프라 코드는 사용자가 직접 구현하고, 스크립트·문서는 AI가 작성한다(PWC-0137 대체) |
+| [PWL-0055](lessons/PWL-0055.md) | 측정 도구의 수정도 실제로 한 번 돌려 봐야 한다 — k6 `json(undefined)`는 `json()`과 다르다 |
+| [PWL-0056](lessons/PWL-0056.md) | 측정 보고서의 원인 서술은 수치 대조로 뒷받침될 때만 쓴다 |
+| [PWK-0007](knowledge/PWK-0007.md) | 4단계 G-2 학습 노트(혼합 부하 설계·코드·리뷰·질문) |
+
 ## 2026-11-19 4단계 G-1 신규 기록
 
 | ID | 내용 |
 | --- | --- |
 | [PWC-0136](decisions/PWC-0136.md) | 4단계 규모 측정은 Flyway schema 위에 합성 데이터를 채우고 backend에 직접 요청한다 |
-| [PWC-0137](decisions/PWC-0137.md) | 성능 작업은 AI가 측정하고 사용자가 해석·개선한다 |
+| [PWC-0137](decisions/PWC-0137.md) | (대체됨 → PWC-0140) 성능 작업은 AI가 측정하고 사용자가 해석·개선한다 |
 | [PWL-0054](lessons/PWL-0054.md) | GitHub Actions 재실행은 처음 이벤트의 PR 본문을 다시 쓴다 |
 | [PWK-0003](knowledge/PWK-0003.md) | 4단계 G-1 학습 노트(설계·코드·트레이드오프·되돌아볼 질문) |
 | [PWK-0004](knowledge/PWK-0004.md) | 1단계 정합성 학습 노트 |
