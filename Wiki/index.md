@@ -10,6 +10,8 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 4. Confirm runtime claims separately from merged source and green CI; cite linked evidence and mark unresolved conflicts explicitly.
 5. Only read needed records; do not load the entire Vault by default.Use the candidate inbox as an untrusted evidence queue, never as an accepted source of decisions.
 
+[검색·관계 분석 및 클라이언트 가이드](retrieval.md) · [Obsidian 결정 탐색 Base](decision-dashboard.base)
+
 ## Project index
 
 | Project | Snapshot | Last checked |
@@ -471,3 +473,17 @@ Architecture의 남은 경계와21Adapter KEEP, Cart version/F07/Category/Import
 독립 Issue **133개·댓글444개**를 본문과 함께 재검토했다. 댓글 링크444개는 기존 URL 인덱스에 이미 있었다. 이번에는 판단 전환의 설명과 승인 범위를 보완했으며 기존 분석에 같은 의미가 있으면 해당 기록을 갱신했다. Open Issue는 #399·#417·#460·#461·#470의5개다.
 
 UTC 승인/STOP/재승인, F07 query-only, lease 범위 종료, 최종 HEAD review 정정, 운영 추적 통합을 기존8개 기록에 보완했다. exact SHA 승인에 관한 PWL-0049만 신규 등록했다. 번호별503개 출처 판정은 별도 유지한다. [Issue 재검토 대장](history/pawcycle-issue-ledger/README.md).
+
+
+## 2026-11-19 — 미병합 Wiki PR의 결정 기록 통합
+
+| ID | 상태 | 기록 | 원본 PR |
+| --- | --- | --- | --- |
+| [CSF-0006](decisions/CSF-0006.md) | accepted | Network G1 의존성 선별 통합과 Import 회귀 교정 | [#56](https://github.com/guseoh/cs/pull/56) |
+| [BLR-0013](decisions/BLR-0013.md) | accepted | 예제 중심 아키텍처 학습 및 공개 8섹션 커리큘럼 | [#35](https://github.com/guseoh/cs/pull/35), [#36](https://github.com/guseoh/cs/pull/36) |
+| [PWC-0138](decisions/PWC-0138.md) | accepted | A1 확보와 로컬 개발 병렬 진행(당시 결정) | [#26](https://github.com/guseoh/cs/pull/26) |
+| [PWC-0139](decisions/PWC-0139.md) | accepted | OCI 호스팅과 AWS 운영 학습의 역할 분리 | [#26](https://github.com/guseoh/cs/pull/26) |
+| [PWC-0900](decisions/PWC-0900.md) | accepted | A1 보고·알림 및 수동 생성 경계(당시 기준) | [#20](https://github.com/guseoh/cs/pull/20) |
+| [PWC-0901](decisions/PWC-0901.md) | proposed | 5분 감시의 독립적인 장애 검출 설계 제안 | [#20](https://github.com/guseoh/cs/pull/20) |
+
+예전 PR의 `BLR-0007`, `PWC-0130`, `PWC-0131`은 이미 다른 현행 결정에 사용되고 있으므로 **기존 기록을 변경하지 않고** 위 새 ID로 보존했습니다. 오래된 실행·배포 상태는 현시점의 운영 검증이 아닙니다. [통합 이력](history/2026-11.md)과 [후보 수집함](inbox/merged-pr-candidates.md)을 함께 조회합니다.
