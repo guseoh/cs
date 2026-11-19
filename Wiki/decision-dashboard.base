@@ -1,0 +1,52 @@
+filters:
+  and:
+    - file.inFolder("Wiki/decisions") || file.inFolder("Wiki/projects")
+    - file.ext == "md"
+formulas:
+  record_id: id
+  project_name: project
+  decision_status: status
+  last_update: date(updated_at)
+  evidence: evidence_level
+  prerequisites: depends_on
+  replacements: supersedes
+  related: related_to
+properties:
+  formula.last_update:
+    displayName: 문서 갱신일
+  formula.decision_status:
+    displayName: 기록 상태
+  formula.evidence:
+    displayName: 근거 수준
+views:
+  - type: table
+    name: 프로젝트별 결정
+    filters:
+      and:
+        - type == "decision"
+    groupBy:
+      property: formula.project_name
+      direction: ASC
+    order: [file.name, formula.record_id, formula.decision_status, formula.last_update, formula.evidence]
+  - type: table
+    name: 결정 관계
+    filters:
+      and:
+        - type == "decision"
+    order: [file.name, formula.record_id, formula.prerequisites, formula.replacements, formula.related]
+  - type: table
+    name: 최근 변경
+    order: [file.name, formula.project_name, formula.decision_status, formula.last_update]
+    sort:
+      - property: formula.last_update
+        direction: DESC
+    limit: 20
+  - type: table
+    name: 재확인 후보
+    filters:
+      and:
+        - status == "proposed" || evidence_level == "unverified" || (type == "project" && date(updated_at) < today() - "14d")
+    order: [file.name, formula.record_id, formula.decision_status, formula.evidence, formula.last_update]
+    sort:
+      - property: formula.last_update
+        direction: ASC
