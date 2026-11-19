@@ -17,6 +17,6 @@ tags:
 | --- | --- | --- |
 | [[00. 목표와 학습 커리큘럼]] | 목표, 학습 깊이 기준, 단계 루프, 단계별 커리큘럼, 진입 게이트, 열린 결정 | 제안 |
 | [[0단계/README\|0단계 — 기반과 측정 환경]] | 코드 골격, Snowflake ID, 측정 환경, 데이터 생성과 적재, 운영과 장애 훈련 | 완료 |
-| 1단계 — 회원과 인증 | (구현 후 작성) | 예정 |
+| 1단계 — 회원과 인증 | (단계가 끝나면 작성) 진행 상황은 Board Wiki [Step-1-Plan §11](https://github.com/guseoh/large-scale-board/wiki/Step-1-Plan)이 정본: 1-A 완료, 1-B 진행 중(PR #5) | 진행중 |
 
 관련 학습 노트: [[../../Study/Performance/README\|Study/Performance]]
