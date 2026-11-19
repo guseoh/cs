@@ -17,7 +17,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | Project | Snapshot | Last checked |
 | --- | --- | --- |
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
-| 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [학습 운영 결정](decisions/BLR-0012.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-17 |
+| 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [학습 운영 결정](decisions/BLR-0012.md) · [AI 공동 개발 결정](decisions/BLR-0014.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-19 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
@@ -481,6 +481,7 @@ UTC 승인/STOP/재승인, F07 query-only, lease 범위 종료, 최종 HEAD revi
 | --- | --- | --- | --- |
 | [CSF-0006](decisions/CSF-0006.md) | accepted | Network G1 의존성 선별 통합과 Import 회귀 교정 | [#56](https://github.com/guseoh/cs/pull/56) |
 | [BLR-0013](decisions/BLR-0013.md) | accepted | 예제 중심 아키텍처 학습 및 공개 8섹션 커리큘럼 | [#35](https://github.com/guseoh/cs/pull/35), [#36](https://github.com/guseoh/cs/pull/36) |
+| [BLR-0014](decisions/BLR-0014.md) | accepted | 신규 프로젝트의 AI 공동 설계·구현과 사용자 최종 의사결정 | backend-learning |
 | [PWC-0138](decisions/PWC-0138.md) | accepted | A1 확보와 로컬 개발 병렬 진행(당시 결정) | [#26](https://github.com/guseoh/cs/pull/26) |
 | [PWC-0139](decisions/PWC-0139.md) | accepted | OCI 호스팅과 AWS 운영 학습의 역할 분리 | [#26](https://github.com/guseoh/cs/pull/26) |
 | [PWC-0900](decisions/PWC-0900.md) | accepted | A1 보고·알림 및 수동 생성 경계(당시 기준) | [#20](https://github.com/guseoh/cs/pull/20) |
