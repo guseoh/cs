@@ -7,6 +7,7 @@ This file defines **standing capture preferences**, not unrestricted access to c
 | Project | Mode | Always evaluate at task end | Background GitHub PR journal | Canonical decision and lesson |
 | --- | --- | --- | --- | --- |
 | `pawcycle` | `full` | Yes — design, implementation, minor UI edits, testing, failed attempts, CI and operational constraints | Yes — public merged PR metadata only | Confirmed decisions/constraints and reusable lessons |
+| `logistics-learning` | `full` | Yes — learning progress, requirements, domain/API/DB design, implementation reports, verified experiments, failures and next actions | **No — repository not yet created**; explicit chat-task handoff only until configured | Confirmed decisions, design alternatives, reproducible experiments and learning outcomes |
 | `csforge` | `full` | Yes — code, curriculum, Java diagrams, QA, refactor, CI and design exploration | Yes — public merged PR metadata only | Confirmed decisions/constraints and reusable lessons |
 | `devpedia` | `design-only` | Yes — assess design decisions and tradeoffs, **not** ordinary implementation activity | **No** | Requirements, domain/API/DB/architecture decisions, alternatives, rationale, constraints |
 | `dark-todo` | `manual` | Existing rules; not enrolled in the new always-on Journal | **No** new full Journal | Previously recorded decisions and snapshot retained |
@@ -25,7 +26,7 @@ See [WIKI-0003](decisions/WIKI-0003.md) and [the source ledger](history/pawcycle
 
 ## Two distinct capture mechanisms
 
-**(A) AI task-end handoff.** In an AI-assisted session, review the work completed even when nobody says "save this to Wiki". For `full` projects, every completed, meaningful work unit — including small code/layout adjustments and failed verification — becomes an appropriately brief Journal entry when public-safe; consequential design choices also become one decision per record. For `design-only` DevPedia, only *design decisions, considered alternatives, architectural rationale, requirements and unresolved design questions* qualify. Ignore ordinary commits, bug fixes, implementation diaries and routine test reports for DevPedia. Proposed designs must remain `proposed` until actually confirmed.
+**(A) AI task-end handoff.** In an AI-assisted session, review the work completed even when nobody says "save this to Wiki". For `full` projects, every completed, meaningful work unit — including small code/layout adjustments and failed verification — becomes an appropriately brief Journal entry when public-safe; for logistics-learning, record explicitly reported work and findings in the central Wiki now and in the project Wiki only after that repository/wiki actually exists and is writable; consequential design choices also become one decision per record. For `design-only` DevPedia, only *design decisions, considered alternatives, architectural rationale, requirements and unresolved design questions* qualify. Ignore ordinary commits, bug fixes, implementation diaries and routine test reports for DevPedia. Proposed designs must remain `proposed` until actually confirmed.
 
 **(B) Repository event collection.** The GitHub Actions workflow can check **public merged PRs from CSForge and PawCycle**, storing metadata-only Journal lines and a separate untrusted candidate queue through a reviewed PR. It does not read chat transcripts or detect unsaved local code edits, non-merged discussions or every independent test invocation. Journal merges are **source events**, not assertions that deployments or business logic are correct.
 
@@ -39,7 +40,7 @@ See [WIKI-0003](decisions/WIKI-0003.md) and [the source ledger](history/pawcycle
 
 ## Authorization, accuracy, and privacy
 
-- These rules are standing preferences to **evaluate and propose** Wiki deltas at the end of AI tasks. They are not authorization to override project AGENTS.md, existing review gates, or a current user instruction. A client may create a narrowly scoped **review PR** for sanitized records if it has authorized GitHub write access and the task’s authority permits this. If not, return a compact pending delta; do not claim it was saved.
+- These rules are standing preferences to **evaluate and propose** Wiki deltas at the end of AI tasks. The user explicitly selected logistics-learning for task-by-task capture on 2026-11-19, but no automatic GitHub Wiki write capability is assumed. They are not authorization to override project AGENTS.md, existing review gates, or a current user instruction. A client may create a narrowly scoped **review PR** for sanitized records if it has authorized GitHub write access and the task’s authority permits this. If not, return a compact pending delta; do not claim it was saved.
 - This Wiki repository is **public**. Never publish raw AI conversations, user identifiers, credentials, private repo details, production account details, unpublished design or sensitive implementation data. Heuristic secret scans do not guarantee privacy. Verify public-safe content *before* creating a GitHub Issue or PR.
 - A design discussion that has not reached a confirmed choice may appear in a Journal with `unverified/proposed` wording on full-mode projects; for DevPedia store only high-value open design questions with explicit status.
 - Do not duplicate source-project ADRs or README sections. Link them; the source repo wins when facts conflict. Re-verify links and timestamps whenever source changes.
@@ -50,6 +51,13 @@ See [WIKI-0003](decisions/WIKI-0003.md) and [the source ledger](history/pawcycle
 - PawCycle: a 2px checkout button tweak → one brief Journal line when the work is completed; a revised idempotency/transaction choice → Decision plus Journal source reference.
 - CSForge: Java diagram CSS correction → Journal; decision to restrict interactivity to meaningful state transitions → Decision, plus links to PR/QA.
 - DevPedia: the user chooses a domain aggregate boundary after comparing transaction consistency and coupling → Decision with alternatives and consequences; the user manually implements Article CRUD → **no routine Wiki entry**.
+
+## 신규 물류 학습 프로젝트의 이중 Wiki 기록 (2026-11-19 사용자 확정)
+
+- 신규 프로젝트는 처음에는 **학습용**이며, 현재 채팅에서 AI가 정답 코드를 제공하고 사용자가 로컬에서 작성·실행한다. Kafka·장애 복구·데이터 파이프라인·캐시·고급 최적화의 첫 구현은 개념과 힌트를 먼저 제공한다. [확정 협업 결정](decisions/BLR-0014.md).
+- 최초 확정 도메인은 물류이다. 프로젝트·Wiki 생성 전에는 `Wiki/projects/logistics-learning.md`, `Wiki/decisions/LGR-0001.md`, `Wiki/knowledge/LGK-0001.md`, `Wiki/journal/logistics-learning/YYYY-MM.md`를 실제 기록 장소로 사용한다.
+- 저장소를 생성한 뒤 GitHub Wiki의 존재·접근·쓰기 권한을 확인한다. **프로젝트 Wiki 상세 원본**과 **중앙 Wiki의 중요한 설계·결정·진척·근거 링크**를 두 곳에 반영한다. 양쪽 성공 여부를 각각 확인하고 부분 실패를 알린다. 자동 반영·GitHub Wiki 별도 이벤트 수집은 활성화되었다고 추정하지 않는다.
+- 제안/확정/작성/실행/성능 검증을 엄격히 구분하며 공개 Wiki에는 민감 정보나 채팅 원문을 싣지 않는다. 프로젝트 원본의 도메인 계약·코드·실험 증거가 중앙 기록보다 우선한다.
 
 ## Implementation boundary
 
