@@ -166,6 +166,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | --- | --- | --- | --- |
 | [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle 전체 시스템·아키텍처·설계 이력·운영 리버스 엔지니어링 가이드 (2026-11-05) | pawcycle |
 | [PWK-0003](knowledge/PWK-0003.md) | published | PawCycle 4단계 G-1 학습 노트 — 합성 데이터에 backend를 붙이는 규모 측정 환경(설계·코드·트레이드오프) | pawcycle |
+| [PWK-0004](knowledge/PWK-0004.md) | published | PawCycle 1단계 학습 노트 — 결제·재고·정기배송 정합성(동시성 특성 테스트, 고립 결제 성공 확정, Toss) | pawcycle |
+| [PWK-0005](knowledge/PWK-0005.md) | published | PawCycle 2단계 학습 노트 — 장애 관측과 로깅(실패 분류, 작업 지표, 요청 ID, 알림 규칙, 리허설) | pawcycle |
+| [PWK-0006](knowledge/PWK-0006.md) | published | PawCycle 3단계 학습 노트 — 배포·보안 기반(요청 제한, 로그인 제한, 세션 Redis, sibling 계약) | pawcycle |
 | [PWK-0002](knowledge/PWK-0002.md) | published | JVM JIT warmup and CRaC restoration: 330s to 2–3s case study | shared |
 | [AGK-0001](knowledge/AGK-0001.md) | published | Backend AI adoption, Agent roles and learning FAQ (2026-11-05) | agentlab |
 | [BLK-0001](knowledge/BLK-0001.md) | published | Ubuntu/Linux/web-server 0–7 stage roadmap with evidence-based exercise gates | backend-learning |
@@ -283,6 +286,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0137](decisions/PWC-0137.md) | 성능 작업은 AI가 측정하고 사용자가 해석·개선한다 |
 | [PWL-0054](lessons/PWL-0054.md) | GitHub Actions 재실행은 처음 이벤트의 PR 본문을 다시 쓴다 |
 | [PWK-0003](knowledge/PWK-0003.md) | 4단계 G-1 학습 노트(설계·코드·트레이드오프·되돌아볼 질문) |
+| [PWK-0004](knowledge/PWK-0004.md) | 1단계 정합성 학습 노트 |
+| [PWK-0005](knowledge/PWK-0005.md) | 2단계 장애 관측·로깅 학습 노트 |
+| [PWK-0006](knowledge/PWK-0006.md) | 3단계 배포·보안 기반 학습 노트 |
 
 ## Cross-project learning
 
