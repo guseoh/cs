@@ -7,7 +7,8 @@ This file defines **standing capture preferences**, not unrestricted access to c
 | Project | Mode | Always evaluate at task end | Background GitHub PR journal | Canonical decision and lesson |
 | --- | --- | --- | --- | --- |
 | `pawcycle` | `full` | Yes — design, implementation, minor UI edits, testing, failed attempts, CI and operational constraints | Yes — public merged PR metadata only | Confirmed decisions/constraints and reusable lessons |
-| `logistics-learning` | `full` | Yes — learning progress, requirements, domain/API/DB design, implementation reports, verified experiments, failures and next actions | **No — repository not yet created**; explicit chat-task handoff only until configured | Confirmed decisions, design alternatives, reproducible experiments and learning outcomes |
+| `backend-systems-lab` | `full` | Yes — common monorepo decisions, six independent learning apps, two-volume design studies, progress/verified results | **No — repository not yet created**; explicit chat-task handoff only until configured | Cross-domain architecture, decisions, book study progress, verified results and learning outcomes |
+| `logistics-learning` | `full` (child track) | Yes — logistics-specific design, implementation reports, experiments, failures and next actions | **No — repository not yet created** | Logistics-specific decisions and experiments; link parent records instead of duplicating |
 | `csforge` | `full` | Yes — code, curriculum, Java diagrams, QA, refactor, CI and design exploration | Yes — public merged PR metadata only | Confirmed decisions/constraints and reusable lessons |
 | `devpedia` | `design-only` | Yes — assess design decisions and tradeoffs, **not** ordinary implementation activity | **No** | Requirements, domain/API/DB/architecture decisions, alternatives, rationale, constraints |
 | `dark-todo` | `manual` | Existing rules; not enrolled in the new always-on Journal | **No** new full Journal | Previously recorded decisions and snapshot retained |
@@ -52,11 +53,11 @@ See [WIKI-0003](decisions/WIKI-0003.md) and [the source ledger](history/pawcycle
 - CSForge: Java diagram CSS correction → Journal; decision to restrict interactivity to meaningful state transitions → Decision, plus links to PR/QA.
 - DevPedia: the user chooses a domain aggregate boundary after comparing transaction consistency and coupling → Decision with alternatives and consequences; the user manually implements Article CRUD → **no routine Wiki entry**.
 
-## 신규 물류 학습 프로젝트의 이중 Wiki 기록 (2026-11-19 사용자 확정)
+## 통합 백엔드 시스템 연구실과 물류 하위 모듈의 이중 Wiki 기록 (2026-11-19 사용자 확정)
 
 - 신규 프로젝트는 처음에는 **학습용**이며, 현재 채팅에서 AI가 정답 코드를 제공하고 사용자가 로컬에서 작성·실행한다. Kafka·장애 복구·데이터 파이프라인·캐시·고급 최적화의 첫 구현은 개념과 힌트를 먼저 제공한다. [확정 협업 결정](decisions/BLR-0014.md).
-- 최초 확정 도메인은 물류이다. 프로젝트·Wiki 생성 전에는 `Wiki/projects/logistics-learning.md`, `Wiki/decisions/LGR-0001.md`, `Wiki/knowledge/LGK-0001.md`, `Wiki/journal/logistics-learning/YYYY-MM.md`를 실제 기록 장소로 사용한다.
-- 저장소를 생성한 뒤 GitHub Wiki의 존재·접근·쓰기 권한을 확인한다. **프로젝트 Wiki 상세 원본**과 **중앙 Wiki의 중요한 설계·결정·진척·근거 링크**를 두 곳에 반영한다. 양쪽 성공 여부를 각각 확인하고 부분 실패를 알린다. 자동 반영·GitHub Wiki 별도 이벤트 수집은 활성화되었다고 추정하지 않는다.
+- 최초 확정 도메인은 물류였으나 후속 확정으로 **여섯 독립 실행 Spring Boot 앱 + 교재 1·2권 설계 트랙**이 하나의 통합 저장소 안에 배치된다. 신규 저장소·Wiki 생성 전에는 `Wiki/projects/backend-systems-lab.md`, `Wiki/decisions/BLR-0015.md`·`BLR-0016.md`, `Wiki/journal/backend-systems-lab/YYYY-MM.md`를 공통 기록으로 유지하고, 물류 세부 내용은 기존 `Wiki/projects/logistics-learning.md`·`Wiki/journal/logistics-learning/YYYY-MM.md`·`Wiki/knowledge/LGK-0001.md`에 보존한다. 교재별 학습 매핑 초안은 `Wiki/knowledge/BSK-0001.md`를 따른다.
+- 통합 저장소를 생성한 뒤 GitHub Wiki의 존재·접근·쓰기 권한을 확인한다. **프로젝트 Wiki 상세 원본**에는 6개 앱·교재 1·2권을 별도 색인/설계/실험 페이지로 관리하고 **중앙 Wiki**에는 공통 결정·중요 진행/학습 결과·상세 원본 링크를 남긴다. 양쪽 성공 여부를 각각 확인하고 부분 실패를 알린다. 자동 반영·GitHub Wiki 별도 이벤트 수집은 활성화되었다고 추정하지 않는다.
 - 제안/확정/작성/실행/성능 검증을 엄격히 구분하며 공개 Wiki에는 민감 정보나 채팅 원문을 싣지 않는다. 프로젝트 원본의 도메인 계약·코드·실험 증거가 중앙 기록보다 우선한다.
 
 ## Implementation boundary
