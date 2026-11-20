@@ -4,7 +4,7 @@ type: project
 project: backend-learning
 status: active
 created_at: 2026-11-04
-updated_at: 2026-11-19
+updated_at: 2026-11-20
 evidence_level: user-confirmed
 capture_mode: manual
 sources:
@@ -13,10 +13,16 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, PRJ-BACKEND-SYSTEMS-LAB, BSL-0001, BSL-0002, BSL-0003, BSK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, BLR-0016, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, PRJ-BACKEND-SYSTEMS-LAB, BSL-0001, BSL-0002, BSL-0003, BSK-0001]
 ---
 
 # Backend learning — cross-project decision snapshot
+
+## 2026-11-20 — Spring 개념 학습 형식 개편 (사용자 확정)
+
+[BLR-0016](../decisions/BLR-0016.md): **장문의 설명글 중심에서 구조화된 개념 정리·문제 해결·점진적 코드 개선 중심으로 전환**한다. 문제 코드의 원인과 개선 이유를 먼저 보여주고, 불필요하게 오래된 코드를 반복하지 않으면서 이전 방식 → 개선된 방식 → 공식 문서로 검증한 현행 Spring 구현으로 연결한다. PDF 코드·도식을 적극 활용하고 한글 기술 블로그와 국내 IT 기업 기술 블로그를 참고하며, 버전 차이는 Spring 공식 문서로 검증한다. 글머리 기호·표·그림을 적극 사용하되 필수 동작 원리는 생략하지 않는다.
+
+[확정 7과정·34주제·17개 우선 심화](../knowledge/BLK-0002.md)는 변경하지 않는다. 이전 01·02번 설명은 학습 완료로 처리하지 않고 다시 01부터 진행한다. Obsidian 문서 완성, 일괄 심화, 자동 퀴즈·실습은 요구하지 않는다. 학습법만 확정했으며 개별 PDF의 모든 코드에 대한 현행 버전 호환성, 실제 예제 실행·학습 완료는 미검증이다. Java·JPA·Security의 별도 학습 방식과 다른 프로젝트의 작업 계약도 변경하지 않는다.
 
 ## Current plan (user-confirmed 2026-11-04)
 
