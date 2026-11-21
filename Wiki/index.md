@@ -17,6 +17,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | Project | Snapshot | Last checked |
 | --- | --- | --- |
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
+| 교양 읽기·자유로운 사유 | [PRJ-GENERAL-READING](projects/general-reading.md) · [확정 읽기 방식](decisions/GRD-0001.md) · [분야별 자료·도서 후보](knowledge/GRK-0001.md) | 2026-11-21 |
 | 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [학습 운영 결정](decisions/BLR-0012.md) · [AI 공동 개발 결정](decisions/BLR-0014.md) · [Board 1단계 작업 분담](decisions/BLR-0015.md) · [Spring 학습 형식](decisions/BLR-0016.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-20 |
 | 통합 백엔드 학습 연구실 (백엔드·시스템 설계·RAG) | [PRJ-BACKEND-SYSTEMS-LAB](projects/backend-systems-lab.md) · [6개 독립 앱](decisions/BSL-0001.md) · [학습 범위·교재 우선순위](decisions/BSL-0003.md) · [교재 장기 계획](decisions/BSL-0002.md) · [학습 맵](knowledge/BSK-0001.md) · [진행 기록](journal/backend-systems-lab/2026-11.md) | 2026-11-19 |
 | 물류 모듈 상세 학습 (통합 저장소의 첫 독립 앱) | [PRJ-LOGISTICS-LEARNING](projects/logistics-learning.md) · [도메인·기록 결정](decisions/LGR-0001.md) · [학습 로드맵 초안](knowledge/LGK-0001.md) · [진척 기록](journal/logistics-learning/2026-11.md) | 2026-11-19 |
@@ -34,6 +35,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [WIKI-0001](decisions/WIKI-0001.md) | accepted | Separate AI Wiki from Study | llm-wiki |
 | [WIKI-0002](decisions/WIKI-0002.md) | accepted | Existing GitHub Markdown as common source | llm-wiki |
 | [WIKI-0003](decisions/WIKI-0003.md) | accepted | PawCycle AI Project Memory: exhaustive source dispositions and continuous capture | llm-wiki |
+| [GRD-0001](decisions/GRD-0001.md) | accepted | 분야를 넘나드는 한국어 교양 칼럼 + 개인 블로그·전문 자료·도서 링크 + 사용자 직접 사색 | general-reading |
 | [CSF-0001](decisions/CSF-0001.md) | accepted | Guard canonical content sync to preserve history | csforge |
 | [CSF-0002](decisions/CSF-0002.md) | accepted | Java editorial diagram semantics | csforge |
 | [CSF-0003](decisions/CSF-0003.md) | accepted | Textbook-style static SVG first; three benchmark visuals before CSForge adoption | csforge |
@@ -180,6 +182,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [BLK-0002](knowledge/BLK-0002.md) | published | Approved Spring Core/Boot 7-course / 34-unit curriculum; 17 priority deep dives | backend-learning |
 | [BLK-0003](knowledge/BLK-0003.md) | published | Java·Spring·JPA·Security 학습 재시작과 핵심 이해 중심 운영 가이드 | backend-learning |
 | [SHK-0001](knowledge/SHK-0001.md) | published | AWS Emulator: API fidelity, security boundaries, AI-agent validation loops (2026-11-13) | shared |
+| [GRK-0001](knowledge/GRK-0001.md) | draft | 한국어 개인 블로그·공식 자료·교양서 분야별 읽을거리 후보(매회 검증 필요) | general-reading |
 
 ## Lesson index
 
