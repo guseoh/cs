@@ -4,7 +4,7 @@ type: project
 project: backend-learning
 status: active
 created_at: 2026-11-04
-updated_at: 2026-11-20
+updated_at: 2026-11-21
 evidence_level: user-confirmed
 capture_mode: manual
 sources:
@@ -13,10 +13,23 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, BLR-0016, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, PRJ-BACKEND-SYSTEMS-LAB, BSL-0001, BSL-0002, BSL-0003, BSK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, BLR-0016, BLR-0017, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, PRJ-BACKEND-SYSTEMS-LAB, BSL-0001, BSL-0002, BSL-0003, BSK-0001]
 ---
 
-# Backend learning — cross-project decision snapshot
+# 백엔드 학습 — 프로젝트 공통 현황
+
+## 2026-11-21 — Large-scale Board의 REST API 기본기 우선순위 확정
+
+사용자는 `large-scale-board`가 Spring REST API의 기본 구현 전에 Snowflake·대용량 데이터 생성·장애 훈련·정교한 예외 처리 및 인프라 구성을 먼저 진행해, 학습의 중심이 바뀌었다고 판단했습니다. **앞으로는 Article REST API의 HTTP 요청·응답, DTO/Validation, JPA CRUD, 트랜잭션, 목록·페이징, 최소 예외·테스트부터 학습**합니다. [최신 결정 BLR-0017](../decisions/BLR-0017.md)과 [소스 PR #7](https://github.com/guseoh/large-scale-board/pull/7)을 따릅니다.
+
+- **새 진행 원칙:** 먼저 작동하는 작은 API를 만들고, 실제 요구사항이나 관측된 실패가 생긴 뒤 고급 기술을 도입합니다. Pure Java J01~J05는 필요 시 복습하며 전체 설계 문서·미래 아키텍처를 선행 조건으로 두지 않습니다. S06 인증은 필요한 기능 단계에서 진행합니다.
+- **보존:** 기존 Phase 0~13의 로드맵과 완료된 DB 적재·장애 실험 및 Snowflake·`BaseEntity`·모니터링 관련 코드·ADR은 폐기하지 않습니다. 실패/성능 테스트의 확인된 근거를 무효화하거나 자동 재실행하지 않습니다.
+- **안전 경계:** 입력 검증, DB 무결성, 필요 인증·인가, 트랜잭션, 정보 노출 방지는 필수입니다. 대신 계약·문제 증거 없이 방어 코드·오류 분류·추상화를 늘리지 않습니다.
+- **역할 유지:** [BLR-0015](../decisions/BLR-0015.md)의 사용자 `src/main` 직접 구현과 AI의 테스트/도구 지원은 변경하지 않았습니다. 이번 작업은 문서만 수정하며 코드 완성이나 실행 결과를 주장하지 않습니다.
+- **원격 확인:** 2026-11-21 기준 `main`에는 Article CRUD가 확인되지 않았고, 2026-11-19 `main` CI가 성공했습니다. 별도 `phase/1b-signup` 작업과 미완료 테스트는 기본 REST API 완료로 간주하지 않습니다.
+- **다음:** 환경(S01) 간단 확인 후 **S02 Article Controller와 HTTP API**를 시작합니다. `guseoh/large-scale-board`의 최신 `README.md`/`AGENTS.md`/`docs/PROJECT_HANDOFF.md`를 진행 기준으로 사용합니다.
+
+기존 [BLR-0003](../decisions/BLR-0003.md)의 *초기 필수 순서*만 후속 결정으로 대체되고, 기존 Phase 로드맵 보존 및 실험 중심 학습의 근거는 역사적 기록으로 유지됩니다.
 
 ## 2026-11-20 — Spring 개념 학습 형식 개편 (사용자 확정)
 
