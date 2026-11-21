@@ -18,7 +18,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | --- | --- | --- |
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
 | 교양 읽기·자유로운 사유 | [PRJ-GENERAL-READING](projects/general-reading.md) · [확정 읽기 방식](decisions/GRD-0001.md) · [분야별 자료·도서 후보](knowledge/GRK-0001.md) | 2026-11-21 |
-| 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [학습 운영 결정](decisions/BLR-0012.md) · [AI 공동 개발 결정](decisions/BLR-0014.md) · [Board 1단계 작업 분담](decisions/BLR-0015.md) · [Spring 학습 형식](decisions/BLR-0016.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-20 |
+| 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [Board REST 기본기 우선](decisions/BLR-0017.md) · [Board 작업 분담](decisions/BLR-0015.md) · [Spring 학습 형식](decisions/BLR-0016.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-21 |
 | 통합 백엔드 학습 연구실 (백엔드·시스템 설계·RAG) | [PRJ-BACKEND-SYSTEMS-LAB](projects/backend-systems-lab.md) · [6개 독립 앱](decisions/BSL-0001.md) · [학습 범위·교재 우선순위](decisions/BSL-0003.md) · [교재 장기 계획](decisions/BSL-0002.md) · [학습 맵](knowledge/BSK-0001.md) · [진행 기록](journal/backend-systems-lab/2026-11.md) | 2026-11-19 |
 | 물류 모듈 상세 학습 (통합 저장소의 첫 독립 앱) | [PRJ-LOGISTICS-LEARNING](projects/logistics-learning.md) · [도메인·기록 결정](decisions/LGR-0001.md) · [학습 로드맵 초안](knowledge/LGK-0001.md) · [진척 기록](journal/logistics-learning/2026-11.md) | 2026-11-19 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
@@ -48,7 +48,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0002](decisions/PWC-0002.md) | accepted | Guard and time-bound OCI A1 acquisition | pawcycle |
 | [BLR-0001](decisions/BLR-0001.md) | accepted | CS: academic chapter study, revisit through projects | backend-learning |
 | [BLR-0002](decisions/BLR-0002.md) | accepted | Prioritize Java/Spring backend before dedicated AI/cloud study | backend-learning |
-| [BLR-0003](decisions/BLR-0003.md) | accepted | Preserve Large-scale Board roadmap and direct failure experiments | backend-learning |
+| [BLR-0003](decisions/BLR-0003.md) | superseded | 이전 Large-scale Board 필수 선행 순서(원본 Phase 로드맵과 근거 보존) | backend-learning |
 | [BLR-0004](decisions/BLR-0004.md) | accepted | Study both system design volumes chapter by chapter | backend-learning |
 | [BLR-0005](decisions/BLR-0005.md) | accepted | Separate domain architecture and AI-assisted implementation track | backend-learning |
 | [BLR-0006](decisions/BLR-0006.md) | accepted | Sentry learning in Board; portfolio requires trade-off review | backend-learning |
@@ -507,6 +507,7 @@ UTC 승인/STOP/재승인, F07 query-only, lease 범위 종료, 최종 HEAD revi
 | [BLR-0014](decisions/BLR-0014.md) | accepted | 채팅에 완성 코드 제공·사용자 로컬 작성, 어려운 기술은 힌트 우선, 사용자 최종 결정 | backend-learning |
 | [BLR-0015](decisions/BLR-0015.md) | accepted | Large-scale Board 1단계: 사용자는 main 코드, AI는 테스트·스크립트·측정 도구 작성 | backend-learning |
 | [BLR-0016](decisions/BLR-0016.md) | accepted | Spring 학습을 구조화된 정리·문제 해결·점진적 코드 개선 중심으로 전환 | backend-learning |
+| [BLR-0017](decisions/BLR-0017.md) | accepted | Large-scale Board는 REST API 기초 완성 후 필요성과 실험을 근거로 고급 설계 도입 | backend-learning |
 | [BSL-0001](decisions/BSL-0001.md) | accepted | 6개 도메인의 독립 실행 Spring Boot 앱을 단일 학습 저장소에 구성 | backend-systems-lab |
 | [BSL-0002](decisions/BSL-0002.md) | accepted | 시스템 설계 교재 1·2권을 같은 저장소의 별도 설계 트랙으로 운영 | backend-systems-lab |
 | [BSL-0003](decisions/BSL-0003.md) | accepted | 백엔드·시스템 설계·RAG 중심 학습 및 교재 1·2권 후순위 | backend-systems-lab |
