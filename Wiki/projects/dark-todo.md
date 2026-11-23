@@ -83,3 +83,9 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007]
 - [소스 PR #168](https://github.com/guseoh/dark-todo-planner/pull/168)은 2026-11-23 사용자의 명시적 승인 후 `main`에 [Squash 커밋 `d36611b`](https://github.com/guseoh/dark-todo-planner/commit/d36611b063c68adb8b5f7a4e98d48946885bee05)으로 병합됐다. 기존 Markdown 저장·색상·Todo/프로젝트 연결·명시적 저장을 유지하고 빠른 문서 전환 시 초안 손실을 줄이는 동작을 보완했다.
 - [자동 CI #45139937246](https://github.com/guseoh/dark-todo-planner/actions/runs/45139937246): 타입·단위·빌드·Worker/D1·Chromium 브라우저 스모크·반응형 검사 통과. 표·HTML·수식 문서는 기본 읽기 렌더링에서 원본 편집으로 전환할 수 있도록 보호했다.
 - [Production Actions #45140860278](https://github.com/guseoh/dark-todo-planner/actions/runs/45140860278)은 병합 커밋 `d36611b` 기준 모든 작업이 **성공**했다. Cloudflare Worker 배포와 운영 헬스 체크까지 성공했으므로 소스·서버 반영 완료로 기록한다. 실제 Windows 앱의 화면·데이터 조작 수동 확인과는 구분한다. **실제 Windows Tern 창**의 UI·한글 IME, 고급 Markdown 원본 보존, 초안 복구는 수동 검증 미완료 상태다. 장기 개선 제안으로 메모별 버전 충돌 감지와 검색/색상 필터를 평가할 수 있으나 이번 시안에는 포함하지 않는다.
+
+## 2026-11-23 Tern 메모 색상·전환 지연 후속 수정 (#169)
+- 원인: `MemoForm.color`의 저장 전 선택값이 메모 목록과 문서 헤더의 서버 저장 색상에 반영되지 않았다. 문서 전환 때 Tiptap 편집기 재초기화와 불필요한 카드 렌더링도 지연 가능 요인이었다.
+- [PR #169](https://github.com/guseoh/dark-todo-planner/pull/169)은 사용자에게 보고된 UI 결함의 수정으로 [Squash 커밋 `1ea3cb0`](https://github.com/guseoh/dark-todo-planner/commit/1ea3cb047225e6f3d788ba4d943f8c125e6ba07a)으로 `main` 병합됐다. 색상 변경이 목록·문서 표식에 즉시 나타나며, 기존 **명시적 서버 저장** 정책을 유지한다.
+- `memo(MemoCard)`, 안정적 콜백·검색 메모이제이션, `useDeferredValue`, Tiptap extension 설정 재사용으로 전환 시 반복 작업을 완화했다. [PR CI #45143506248](https://github.com/guseoh/dark-todo-planner/actions/runs/45143506248) 성공, [main CI #45144105661](https://github.com/guseoh/dark-todo-planner/actions/runs/45144105661)은 별도 운영 배포 검증 대상으로 기록한다.
+- 검증 한계: GitHub Actions Chromium 메모 전환 시간 66ms는 단일 테스트 환경 기록이며 실제 Windows Tern의 미세 지연과 데이터 동기화 충돌은 수동 확인이 필요하다.
