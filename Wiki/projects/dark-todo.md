@@ -13,6 +13,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/pull/166
   - https://github.com/guseoh/dark-todo-planner/pull/167
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45133232457
+  - https://github.com/guseoh/dark-todo-planner/actions/runs/45134811012
   - https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.1.2
   - https://github.com/guseoh/dark-todo-planner/commit/4692397c054e910f47d0749f8079ad8d2593e33f
   - https://github.com/guseoh/dark-todo-planner/blob/main/package.json
@@ -64,3 +65,9 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005]
 - [DTD-0005](../decisions/DTD-0005.md): 메모와 낙서장의 Tiptap 3 기반 작성 즉시 서식 적용, 중복 UI 정리, 기존 Markdown 저장 및 안전한 원본 편집 경로 유지를 결정했다.
 - [소스 PR #167](https://github.com/guseoh/dark-todo-planner/pull/167)은 초안 상태의 변경이다. 공통 편집기 분리, 메모 카드 요약, 낙서장 도구 정리가 제안됐으며, 운영 배포나 Windows 설치본의 시각 검증을 주장하지 않는다.
 - [CI #45133232457](https://github.com/guseoh/dark-todo-planner/actions/runs/45133232457)에서 타입·단위·빌드·의존성 감사와 로컬 Worker/D1·브라우저·반응형 검증이 통과했다. 후속으로 Windows 설치본의 한글 IME·Markdown 특수 구문 왕복·좁은 창 수동 시각 QA를 확인한 뒤 병합을 결정한다.
+
+## 2026-11-23 Preview 배포 검증
+- [PR #167의 개선 코드](https://github.com/guseoh/dark-todo-planner/pull/167)를 운영과 분리된 Cloudflare Worker `dark-todo-planner-preview`에 배포했다. [GitHub Actions #45134811012](https://github.com/guseoh/dark-todo-planner/actions/runs/45134811012)의 Preview-only 배포 작업이 성공했으며, 검증 시 제공된 URL은 https://dark-todo-planner-preview.guseoh.workers.dev 이다.
+- 배포 중 정적 자산 32개 업로드 및 `/api/health` 응답 `{"status":"ok","database":"connected"}`를 확인했다. 설정 검증에서 Preview와 Production이 별도의 D1 데이터베이스를 사용하는 것도 확인했다.
+- DB 마이그레이션과 Production Worker 배포는 수행하지 않았다. 임시 배포 workflow 파일은 성공 후 PR 브랜치에서 제거했으며, 배포된 Preview Worker는 유지된다.
+- 이 결과는 서버 배포·헬스 확인 근거이며 Preview 로그인, 실제 사용자 데이터 CRUD, Windows Tern 설치본 실행 및 수동 시각 QA 완료를 의미하지 않는다.
