@@ -12,6 +12,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/pull/165
   - https://github.com/guseoh/dark-todo-planner/pull/166
   - https://github.com/guseoh/dark-todo-planner/pull/167
+  - https://github.com/guseoh/dark-todo-planner/actions/runs/45133232457
   - https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.1.2
   - https://github.com/guseoh/dark-todo-planner/commit/4692397c054e910f47d0749f8079ad8d2593e33f
   - https://github.com/guseoh/dark-todo-planner/blob/main/package.json
@@ -62,4 +63,4 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005]
 ## 2026-11-23 메모·낙서장 통합 편집기 진행 (병합 전)
 - [DTD-0005](../decisions/DTD-0005.md): 메모와 낙서장의 Tiptap 3 기반 작성 즉시 서식 적용, 중복 UI 정리, 기존 Markdown 저장 및 안전한 원본 편집 경로 유지를 결정했다.
 - [소스 PR #167](https://github.com/guseoh/dark-todo-planner/pull/167)은 초안 상태의 변경이다. 공통 편집기 분리, 메모 카드 요약, 낙서장 도구 정리가 제안됐으며, 운영 배포나 Windows 설치본의 시각 검증을 주장하지 않는다.
-- 후속 확인: 타입·단위·빌드·브라우저 스모크 결과, 한국어 IME, Markdown 왕복 보존, 다크/라이트 및 좁은 창, 저장 실패·로컬 초안 복구를 확인한 뒤 병합을 결정한다.
+- [CI #45133232457](https://github.com/guseoh/dark-todo-planner/actions/runs/45133232457)에서 타입·단위·빌드·의존성 감사와 로컬 Worker/D1·브라우저·반응형 검증이 통과했다. 후속으로 Windows 설치본의 한글 IME·Markdown 특수 구문 왕복·좁은 창 수동 시각 QA를 확인한 뒤 병합을 결정한다.
