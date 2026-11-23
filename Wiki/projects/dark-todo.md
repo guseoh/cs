@@ -14,6 +14,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/pull/167
   - https://github.com/guseoh/dark-todo-planner/pull/168
   - https://github.com/guseoh/dark-todo-planner/pull/171
+  - https://github.com/guseoh/dark-todo-planner/actions/runs/45193432113
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45140860278
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45133232457
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45134811012
@@ -97,4 +98,4 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-000
 - 검증 중 발견한 UI 회귀: 기존 스모크가 요구한 빠른 입력의 헤더 근접성을 첫 시안이 벗어나 요약을 입력 아래로 옮겼다. 이후 기존 빈 화면 문구를 기다리는 구식 검증 문자열도 새 안내 문구에 맞춰 갱신했다.
 - 최신 PR 검증·운영 Worker 배포·Windows Tern에서의 수동 시각 확인은 **서로 별개**로 기록한다. 기존 스키마·API·실사용 데이터는 변경하지 않았다.
 
-- [main Production CI #45193432113](https://github.com/guseoh/dark-todo-planner/actions/runs/45193432113)은 병합 커밋 기준 배포·헬스 결과를 확인할 별도 실행이다.
+- [main Production CI #45193432113](https://github.com/guseoh/dark-todo-planner/actions/runs/45193432113)은 병합 커밋 `433eba5`의 타입·단위·빌드·Worker/D1·Chromium 회귀·Production Worker 배포 및 운영 헬스 체크가 **모두 성공**했다. 소스와 서버 반영 완료가 검증됐으며, Windows Tern 설치본 직접 사용·다기기 동기화 QA는 별도다.
