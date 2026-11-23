@@ -23,7 +23,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | 물류 모듈 상세 학습 (통합 저장소의 첫 독립 앱) | [PRJ-LOGISTICS-LEARNING](projects/logistics-learning.md) · [도메인·기록 결정](decisions/LGR-0001.md) · [학습 로드맵 초안](knowledge/LGK-0001.md) · [진척 기록](journal/logistics-learning/2026-11.md) | 2026-11-19 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
-| Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) · [Tauri 2 데스크톱 전환](decisions/DTD-0004.md) · [메모·낙서장 통합 편집기](decisions/DTD-0005.md) | 2026-11-23 |
+| Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) · [Tauri 2 데스크톱 전환](decisions/DTD-0004.md) · [메모·낙서장 통합 편집기](decisions/DTD-0005.md) · [오늘 작업 공간](decisions/DTD-0008.md) | 2026-11-23 |
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [세션 인수인계 11/18](journal/pawcycle/2026-11-18-session-handoff.md) · [3단계 저장소 범위 완료](journal/pawcycle/2026-11.md#2026-11-18-pawcycle-3단계-운영-배포-계약-확장과-저장소-범위-완료) · [2단계 종료·3단계 R3·R4·R11](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-종료와-3단계-r3r4r11-저장소-반영) · [병렬 트랙 3개 병합](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-병렬-트랙-3개-병합) · [결제 실패 복구와 SKU 재입고 알림 설계](journal/pawcycle/2026-11-17-design-queue.md) · [로컬 장애 리허설 결과](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과) · [리허설 착수 전 계획](journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증) · [2단계 장애 관측 구현](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-장애-관측-구현) · [1단계 정합성 착수](journal/pawcycle/2026-11.md#2026-11-15-pawcycle-1단계-정합성-착수) · [0단계 정리 마무리](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-0단계-정리-마무리) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) · [로컬 A1 감시 11/16](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-용량-감시-타임아웃-개선과-복구-관찰) · [A1 로그 잠금 종료 진단](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-감시-로그-파일-잠금으로-인한-종료-원인-확인) | 2026-11-18 |
 | DevPedia (설계 중심 기록·직접 구현/Codex 가이드 우선) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-21 |
 
@@ -47,6 +47,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [DTD-0004](decisions/DTD-0004.md) | accepted | Tauri 2 기반 Windows 데스크톱 앱 추가 | dark-todo |
 | [DTD-0005](decisions/DTD-0005.md) | accepted | 메모·낙서장 Tiptap 3 통합 편집 및 원본 보존 | dark-todo |
 | [DTD-0007](decisions/DTD-0007.md) | accepted | Tern 메모 인라인 편집·색상 강조 및 전환 성능 보완 | dark-todo |
+| [DTD-0008](decisions/DTD-0008.md) | accepted | Tern 오늘 계획·집중·실행·마무리 화면 개편 | dark-todo |
 | [PWC-0001](decisions/PWC-0001.md) | accepted | Separate CD readiness from production activation | pawcycle |
 | [PWC-0002](decisions/PWC-0002.md) | accepted | Guard and time-bound OCI A1 acquisition | pawcycle |
 | [BLR-0001](decisions/BLR-0001.md) | accepted | CS: academic chapter study, revisit through projects | backend-learning |
