@@ -12,6 +12,8 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/pull/165
   - https://github.com/guseoh/dark-todo-planner/pull/166
   - https://github.com/guseoh/dark-todo-planner/pull/167
+  - https://github.com/guseoh/dark-todo-planner/actions/runs/45135922038
+  - https://github.com/guseoh/dark-todo-planner/blob/tern-v0.2.0/src-tauri/src/main.rs
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45133232457
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45134811012
   - https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.1.2
@@ -23,7 +25,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45022062078
 depends_on: []
 supersedes: []
-related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005]
+related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0006]
 ---
 # Dark Todo Planner — 프로젝트 현황
 
@@ -75,3 +77,8 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005]
 ## 2026-11-23 PR #167 병합 이후 검증 경계
 - 병합 사실은 [소스 PR #167](https://github.com/guseoh/dark-todo-planner/pull/167)과 정확한 [병합 커밋](https://github.com/guseoh/dark-todo-planner/commit/e9c092f2128c1234026181435da9b24666243fb2)으로 확인했다. 배포 결과는 [main CI #45135922038](https://github.com/guseoh/dark-todo-planner/actions/runs/45135922038)을 별도 확인한다.
 - 별도 Preview 로그인 정보는 사용자에게 제공되지 않았으므로 Preview 사용자 인증·사용성 테스트는 수행되지 않았다. 실 운영 데이터와 로그인 정보는 Wiki에 기록하지 않는다.
+
+## 2026-11-23 Tern 중심 개발 전환 및 배포 확인
+- [DTD-0006](../decisions/DTD-0006.md): 사용자가 Windows Tern을 우선 개발·검토 대상으로 확정하고 브라우저 전용 웹 UI의 독립 개선은 우선순위에서 제외했다. 현재 Tern은 운영 HTTPS 화면을 직접 불러오는 구조이므로 공통 React·Workers/D1의 유지보수와 웹 배포는 계속 필요하다.
+- [Production CI #45135922038](https://github.com/guseoh/dark-todo-planner/actions/runs/45135922038)의 테스트/빌드·로컬 Worker+D1 브라우저 회귀·Production 배포 세 작업이 모두 성공했다. Tern `tern-v0.2.0`의 `main.rs`에서 `WebviewUrl::External`로 운영 HTTPS 출처를 로드하고 창 닫기가 트레이 숨김으로 동작함을 확인했다.
+- **검증 한계:** 설치된 Windows Tern에서 갱신 화면을 직접 확인하지 못했다. 트레이에서 **종료** 후 재실행하는 확인이 남았다. 별도 앱 설치본 업데이트 여부는 이번 React UI 병합과 구분한다.
