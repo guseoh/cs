@@ -4,13 +4,14 @@ type: project
 project: dark-todo
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-22
+updated_at: 2026-11-23
 evidence_level: source-verified
 capture_mode: manual
 sources:
   - https://github.com/guseoh/dark-todo-planner/pull/141
   - https://github.com/guseoh/dark-todo-planner/pull/165
   - https://github.com/guseoh/dark-todo-planner/pull/166
+  - https://github.com/guseoh/dark-todo-planner/pull/167
   - https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.1.2
   - https://github.com/guseoh/dark-todo-planner/commit/4692397c054e910f47d0749f8079ad8d2593e33f
   - https://github.com/guseoh/dark-todo-planner/blob/main/package.json
@@ -20,7 +21,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45022062078
 depends_on: []
 supersedes: []
-related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004]
+related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005]
 ---
 # Dark Todo Planner — 프로젝트 현황
 
@@ -57,3 +58,8 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004]
 
 ## 근거와 검증 범위
 이번 상태는 2026-11-22 GitHub `main`, 병합 PR #165/#166, Tern 0.1.2 릴리스 자산, 프런트엔드 파일과 main CI 실행 결과를 확인해 작성했다. CI 성공은 해당 웹/Worker 작업의 자동 검증·배포 근거이며, Tauri 네이티브 소스·빌드·설치·실행 성공을 의미하지 않는다. 이 검토에서 Windows 설치본을 실행하거나 실제 사용자 계정으로 운영 데이터 변경을 수행하지 않았다.
+
+## 2026-11-23 메모·낙서장 통합 편집기 진행 (병합 전)
+- [DTD-0005](../decisions/DTD-0005.md): 메모와 낙서장의 Tiptap 3 기반 작성 즉시 서식 적용, 중복 UI 정리, 기존 Markdown 저장 및 안전한 원본 편집 경로 유지를 결정했다.
+- [소스 PR #167](https://github.com/guseoh/dark-todo-planner/pull/167)은 초안 상태의 변경이다. 공통 편집기 분리, 메모 카드 요약, 낙서장 도구 정리가 제안됐으며, 운영 배포나 Windows 설치본의 시각 검증을 주장하지 않는다.
+- 후속 확인: 타입·단위·빌드·브라우저 스모크 결과, 한국어 IME, Markdown 왕복 보존, 다크/라이트 및 좁은 창, 저장 실패·로컬 초안 복구를 확인한 뒤 병합을 결정한다.
