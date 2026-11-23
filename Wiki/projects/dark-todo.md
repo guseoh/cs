@@ -4,13 +4,16 @@ type: project
 project: dark-todo
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-22
+updated_at: 2026-11-23
 evidence_level: source-verified
 capture_mode: manual
 sources:
   - https://github.com/guseoh/dark-todo-planner/pull/141
   - https://github.com/guseoh/dark-todo-planner/pull/165
   - https://github.com/guseoh/dark-todo-planner/pull/166
+  - https://github.com/guseoh/dark-todo-planner/pull/167
+  - https://github.com/guseoh/dark-todo-planner/actions/runs/45133232457
+  - https://github.com/guseoh/dark-todo-planner/actions/runs/45134811012
   - https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.1.2
   - https://github.com/guseoh/dark-todo-planner/commit/4692397c054e910f47d0749f8079ad8d2593e33f
   - https://github.com/guseoh/dark-todo-planner/blob/main/package.json
@@ -20,7 +23,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45022062078
 depends_on: []
 supersedes: []
-related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004]
+related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005]
 ---
 # Dark Todo Planner — 프로젝트 현황
 
@@ -57,3 +60,18 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004]
 
 ## 근거와 검증 범위
 이번 상태는 2026-11-22 GitHub `main`, 병합 PR #165/#166, Tern 0.1.2 릴리스 자산, 프런트엔드 파일과 main CI 실행 결과를 확인해 작성했다. CI 성공은 해당 웹/Worker 작업의 자동 검증·배포 근거이며, Tauri 네이티브 소스·빌드·설치·실행 성공을 의미하지 않는다. 이 검토에서 Windows 설치본을 실행하거나 실제 사용자 계정으로 운영 데이터 변경을 수행하지 않았다.
+
+## 2026-11-23 메모·낙서장 통합 편집기 병합
+- [DTD-0005](../decisions/DTD-0005.md): 메모와 낙서장의 Tiptap 3 기반 작성 즉시 서식 적용, 중복 UI 정리, 기존 Markdown 저장 및 안전한 원본 편집 경로 유지를 결정했다.
+- [소스 PR #167](https://github.com/guseoh/dark-todo-planner/pull/167)은 사용자의 요청으로 2026-11-23 `main`에 Squash 병합됐다([병합 커밋](https://github.com/guseoh/dark-todo-planner/commit/e9c092f2128c1234026181435da9b24666243fb2)). 공통 편집기 분리, 메모 카드 요약, 낙서장 도구 정리가 적용된 소스 상태다. 운영 배포나 Windows 설치본의 시각 검증 성공을 이 병합만으로 판단하지 않는다.
+- [PR CI #45135007610](https://github.com/guseoh/dark-todo-planner/actions/runs/45135007610)에서 타입·단위·빌드·의존성 감사와 로컬 Worker/D1·브라우저·반응형 검증이 통과했다. `main` 병합 후 [운영 배포 CI](https://github.com/guseoh/dark-todo-planner/actions/runs/45135922038)는 별도 확인 대상으로 남긴다. Windows 설치본의 한글 IME·Markdown 특수 구문 왕복·좁은 창 수동 시각 QA는 여전히 미완료다.
+
+## 2026-11-23 Preview 배포 검증
+- [PR #167의 개선 코드](https://github.com/guseoh/dark-todo-planner/pull/167)를 운영과 분리된 Cloudflare Worker `dark-todo-planner-preview`에 배포했다. [GitHub Actions #45134811012](https://github.com/guseoh/dark-todo-planner/actions/runs/45134811012)의 Preview-only 배포 작업이 성공했으며, 검증 시 제공된 URL은 https://dark-todo-planner-preview.guseoh.workers.dev 이다.
+- 배포 중 정적 자산 32개 업로드 및 `/api/health` 응답 `{"status":"ok","database":"connected"}`를 확인했다. 설정 검증에서 Preview와 Production이 별도의 D1 데이터베이스를 사용하는 것도 확인했다.
+- **이 Preview 전용 배포에서는** DB 마이그레이션과 Production Worker 배포를 수행하지 않았다. 임시 배포 workflow 파일은 성공 후 PR 브랜치에서 제거했으며, 배포된 Preview Worker는 유지된다.
+- 이 결과는 서버 배포·헬스 확인 근거이며 Preview 로그인, 실제 사용자 데이터 CRUD, Windows Tern 설치본 실행 및 수동 시각 QA 완료를 의미하지 않는다.
+
+## 2026-11-23 PR #167 병합 이후 검증 경계
+- 병합 사실은 [소스 PR #167](https://github.com/guseoh/dark-todo-planner/pull/167)과 정확한 [병합 커밋](https://github.com/guseoh/dark-todo-planner/commit/e9c092f2128c1234026181435da9b24666243fb2)으로 확인했다. 배포 결과는 [main CI #45135922038](https://github.com/guseoh/dark-todo-planner/actions/runs/45135922038)을 별도 확인한다.
+- 별도 Preview 로그인 정보는 사용자에게 제공되지 않았으므로 Preview 사용자 인증·사용성 테스트는 수행되지 않았다. 실 운영 데이터와 로그인 정보는 Wiki에 기록하지 않는다.
