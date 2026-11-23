@@ -93,6 +93,8 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-000
 
 ## 2026-11-23 — Tern 오늘 작업 공간 개편 (#171)
 - [DTD-0008](../decisions/DTD-0008.md): 기존 데이터·API를 유지하며 오늘 화면을 계획·집중·실행·마무리 중심으로 정리한다.
-- [소스 PR #171](https://github.com/guseoh/dark-todo-planner/pull/171)에서 지난 일정 이동 실패 피드백, Todo가 없는 날 회고 접근, 측정 기록 조회 실패 상태, 다음 작업 후보 직접 추가, 선택 우선 지난 일정 정리, 주간 마감 위험, 부가 위젯 펼치기 및 좁은 창 정보 접근을 구현했다.
+- [소스 PR #171](https://github.com/guseoh/dark-todo-planner/pull/171)은 [CI #45192538149](https://github.com/guseoh/dark-todo-planner/actions/runs/45192538149)의 타입·단위·빌드·Worker/D1·Chromium 회귀 전체 성공 후 [Squash 커밋 `433eba5`](https://github.com/guseoh/dark-todo-planner/commit/433eba5417ebfa00996f61552e60aabb3038e371)으로 `main` 병합됐다. 이 PR에서 지난 일정 이동 실패 피드백, Todo가 없는 날 회고 접근, 측정 기록 조회 실패 상태, 다음 작업 후보 직접 추가, 선택 우선 지난 일정 정리, 주간 마감 위험, 부가 위젯 펼치기 및 좁은 창 정보 접근을 구현했다.
 - 검증 중 발견한 UI 회귀: 기존 스모크가 요구한 빠른 입력의 헤더 근접성을 첫 시안이 벗어나 요약을 입력 아래로 옮겼다. 이후 기존 빈 화면 문구를 기다리는 구식 검증 문자열도 새 안내 문구에 맞춰 갱신했다.
 - 최신 PR 검증·운영 Worker 배포·Windows Tern에서의 수동 시각 확인은 **서로 별개**로 기록한다. 기존 스키마·API·실사용 데이터는 변경하지 않았다.
+
+- [main Production CI #45193432113](https://github.com/guseoh/dark-todo-planner/actions/runs/45193432113)은 병합 커밋 기준 배포·헬스 결과를 확인할 별도 실행이다.
