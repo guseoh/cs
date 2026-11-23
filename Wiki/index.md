@@ -46,6 +46,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [DTD-0003](decisions/DTD-0003.md) | accepted | Today reorder and compact Calendar detail | dark-todo |
 | [DTD-0004](decisions/DTD-0004.md) | accepted | Tauri 2 기반 Windows 데스크톱 앱 추가 | dark-todo |
 | [DTD-0005](decisions/DTD-0005.md) | accepted | 메모·낙서장 Tiptap 3 통합 편집 및 원본 보존 | dark-todo |
+| [DTD-0007](decisions/DTD-0007.md) | proposed | Tern 메모 한 열 목록·인라인 Tiptap 편집 및 색상 강조 시안 | dark-todo |
 | [PWC-0001](decisions/PWC-0001.md) | accepted | Separate CD readiness from production activation | pawcycle |
 | [PWC-0002](decisions/PWC-0002.md) | accepted | Guard and time-bound OCI A1 acquisition | pawcycle |
 | [BLR-0001](decisions/BLR-0001.md) | accepted | CS: academic chapter study, revisit through projects | backend-learning |
