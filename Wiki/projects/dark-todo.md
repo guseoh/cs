@@ -13,6 +13,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/pull/166
   - https://github.com/guseoh/dark-todo-planner/pull/167
   - https://github.com/guseoh/dark-todo-planner/pull/168
+  - https://github.com/guseoh/dark-todo-planner/pull/171
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45140860278
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45133232457
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45134811012
@@ -25,7 +26,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45022062078
 depends_on: []
 supersedes: []
-related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007]
+related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-0008]
 ---
 # Dark Todo Planner — 프로젝트 현황
 
@@ -89,3 +90,9 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007]
 - [PR #169](https://github.com/guseoh/dark-todo-planner/pull/169)은 사용자에게 보고된 UI 결함의 수정으로 [Squash 커밋 `1ea3cb0`](https://github.com/guseoh/dark-todo-planner/commit/1ea3cb047225e6f3d788ba4d943f8c125e6ba07a)으로 `main` 병합됐다. 색상 변경이 목록·문서 표식에 즉시 나타나며, 기존 **명시적 서버 저장** 정책을 유지한다.
 - `memo(MemoCard)`, 안정적 콜백·검색 메모이제이션, `useDeferredValue`, Tiptap extension 설정 재사용으로 전환 시 반복 작업을 완화했다. [PR CI #45143506248](https://github.com/guseoh/dark-todo-planner/actions/runs/45143506248) 성공, [main CI #45144105661](https://github.com/guseoh/dark-todo-planner/actions/runs/45144105661)은 대량 Todo 20건 생성 스모크의 HTTP 429 때문에 두 차례 실패했고 Production 배포는 건너뛰었다. [테스트 재시도 PR #170](https://github.com/guseoh/dark-todo-planner/pull/170)은 서버 제한을 건드리지 않고 해당 픽스처만 61초 대기 후 이어서 생성하도록 수정했고 [PR CI #45144934194](https://github.com/guseoh/dark-todo-planner/actions/runs/45144934194) 성공 후 [커밋 `9eba0ec`](https://github.com/guseoh/dark-todo-planner/commit/9eba0ec9494c5eccd0e978291ee8f2effee2462e)으로 병합했다. [최종 main CI #45145541206](https://github.com/guseoh/dark-todo-planner/actions/runs/45145541206)의 타입·단위·빌드·Worker/D1·Chromium 회귀·Production Worker 배포·운영 헬스 체크가 **모두 성공**했으며, 메모 개선 소스가 운영 서버에 반영됐다. Windows Tern 설치본에서 직접 확인하는 단계만 남겼다.
 - 검증 한계: GitHub Actions Chromium 메모 전환 시간 66ms는 단일 테스트 환경 기록이며 실제 Windows Tern의 미세 지연과 데이터 동기화 충돌은 수동 확인이 필요하다.
+
+## 2026-11-23 — Tern 오늘 작업 공간 개편 (#171)
+- [DTD-0008](../decisions/DTD-0008.md): 기존 데이터·API를 유지하며 오늘 화면을 계획·집중·실행·마무리 중심으로 정리한다.
+- [소스 PR #171](https://github.com/guseoh/dark-todo-planner/pull/171)에서 지난 일정 이동 실패 피드백, Todo가 없는 날 회고 접근, 측정 기록 조회 실패 상태, 다음 작업 후보 직접 추가, 선택 우선 지난 일정 정리, 주간 마감 위험, 부가 위젯 펼치기 및 좁은 창 정보 접근을 구현했다.
+- 검증 중 발견한 UI 회귀: 기존 스모크가 요구한 빠른 입력의 헤더 근접성을 첫 시안이 벗어나 요약을 입력 아래로 옮겼다. 이후 기존 빈 화면 문구를 기다리는 구식 검증 문자열도 새 안내 문구에 맞춰 갱신했다.
+- 최신 PR 검증·운영 Worker 배포·Windows Tern에서의 수동 시각 확인은 **서로 별개**로 기록한다. 기존 스키마·API·실사용 데이터는 변경하지 않았다.
