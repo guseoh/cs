@@ -101,7 +101,9 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-000
 
 - [main Production CI #45193432113](https://github.com/guseoh/dark-todo-planner/actions/runs/45193432113)은 병합 커밋 `433eba5`의 타입·단위·빌드·Worker/D1·Chromium 회귀·Production Worker 배포 및 운영 헬스 체크가 **모두 성공**했다. 소스와 서버 반영 완료가 검증됐으며, Windows Tern 설치본 직접 사용·다기기 동기화 QA는 별도다.
 
-## 2026-11-24 — Windows Tern 전용 배포 전환 결정 및 PR #174
-- [DTD-0009](../decisions/DTD-0009.md): 사용자가 웹 UI 배포 대신 Windows Tern을 주 릴리스 대상으로 변경했다. 이 결정은 기존 웹/PWA 병행 방식인 DTD-0004를 대체하지만, 기존 데이터를 D1에서 이동시키지 않는다.
-- [PR #174](https://github.com/guseoh/dark-todo-planner/pull/174)에 Tauri Rust 네이티브 소스, 번들 React UI, 고정 운영 Worker API 전송, 업데이트 확인·설치, Windows NSIS 자동 빌드/서명/Release, 백엔드 전용 Worker 배포 분리가 구현 중이다. 최초 native CI에서 serde_json 의존성 누락을 찾아 후속 커밋으로 수정했다.
-- **검증 경계:** 여기의 소스 변경은 PR 단계이며 `main` 병합, 기존 설치본 0.2.0의 서명 키와 설치 ID 호환, GitHub Actions Secret 등록, Windows 앱 실사용·자동 업데이트 성공은 아직 확인되지 않았다. 관련 근거는 PR과 릴리스 운영 가이드에 있다.
+## 2026-11-24 — Windows Tern 소스 main 병합 및 릴리스 서명 키 차단
+- [DTD-0009](../decisions/DTD-0009.md): Windows Tern을 유일한 프런트엔드 릴리스 기준으로 전환하고 웹/PWA 중심 결정 DTD-0004를 이력 보존 상태로 대체했다. Cloudflare Workers·D1 데이터는 유지한다.
+- [PR #174](https://github.com/guseoh/dark-todo-planner/pull/174)은 [Squash 커밋 `7f6a735`](https://github.com/guseoh/dark-todo-planner/commit/7f6a735b9ad847eff7493544a210cd75ea1e25de)으로 `main` 병합되었다. Tauri Rust 네이티브 소스·번들 React UI·고정 API 전송·트레이/빠른 입력·앱 자동 업데이트 확인·서명된 Windows 릴리스 워크플로 및 백엔드 전용 배포 파이프라인을 포함한다.
+- [PR Windows 빌드 #45210193873](https://github.com/guseoh/dark-todo-planner/actions/runs/45210193873) 및 [PR CI #45210193932](https://github.com/guseoh/dark-todo-planner/actions/runs/45210193932)는 성공했다. GitHub에 네이티브 소스가 반영된 사실과 실제 Windows 설치·실행 성공은 구분한다.
+- [main Windows 릴리스 #45211267185](https://github.com/guseoh/dark-todo-planner/actions/runs/45211267185)는 **서명 키가 없어 실패**했다. `TAURI_SIGNING_PRIVATE_KEY`와 `TERN_UPDATER_PUBLIC_KEY`가 비어 있었으며, Windows 서명 설치 파일 및 `latest.json`을 새로 게시하지 못했다. 최신 확인 공개 릴리스는 `tern-v0.2.0`이다.
+- **후속 조건:** 기존 0.2.0의 서명 키·설치 ID와 새 구성의 호환성을 확인하고, Actions Secrets에 키를 안전하게 등록한 뒤 릴리스 재실행 및 v0.2.0→새 버전 설치·자동 업데이트를 구분하여 검증해야 한다. 기존 개인키를 복구하지 못하면 기존 설치본에서의 인플레이스 자동 업데이트는 보장되지 않는다. 비밀키·계정 정보는 Wiki에 기록하지 않는다.
