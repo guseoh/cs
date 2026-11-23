@@ -13,6 +13,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/pull/166
   - https://github.com/guseoh/dark-todo-planner/pull/167
   - https://github.com/guseoh/dark-todo-planner/pull/168
+  - https://github.com/guseoh/dark-todo-planner/actions/runs/45140860278
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45133232457
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45134811012
   - https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.1.2
@@ -77,8 +78,8 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007]
 - 병합 사실은 [소스 PR #167](https://github.com/guseoh/dark-todo-planner/pull/167)과 정확한 [병합 커밋](https://github.com/guseoh/dark-todo-planner/commit/e9c092f2128c1234026181435da9b24666243fb2)으로 확인했다. 배포 결과는 [main CI #45135922038](https://github.com/guseoh/dark-todo-planner/actions/runs/45135922038)을 별도 확인한다.
 - 별도 Preview 로그인 정보는 사용자에게 제공되지 않았으므로 Preview 사용자 인증·사용성 테스트는 수행되지 않았다. 실 운영 데이터와 로그인 정보는 Wiki에 기록하지 않는다.
 
-## 2026-11-23 Tern 메모 인라인 편집 시안 (검토 중)
-- [DTD-0007](../decisions/DTD-0007.md): 기존 2열 메모 카드 + 수정 모달 대신 한 열 목록과 동일 화면의 Tiptap 편집기를 제안한다. 저장된 메모 색상은 전체 카드 도색이 아닌 얇은 강조선·선택 배경·문서 표식으로 표현한다.
-- [소스 PR #168](https://github.com/guseoh/dark-todo-planner/pull/168)은 **초안·미병합·운영 미배포**로 구현 중이다. 기존 Markdown 저장·색상·Todo/프로젝트 연결·명시적 저장을 유지하고 빠른 문서 전환 시 초안 손실을 줄이는 동작을 보완했다.
+## 2026-11-23 Tern 메모 인라인 편집 PR #168 병합
+- [DTD-0007](../decisions/DTD-0007.md): 기존 2열 메모 카드 + 수정 모달 대신 한 열 목록과 동일 화면의 Tiptap 편집기를 도입한다. 저장된 메모 색상은 전체 카드 도색이 아닌 얇은 강조선·선택 배경·문서 표식으로 표현한다.
+- [소스 PR #168](https://github.com/guseoh/dark-todo-planner/pull/168)은 2026-11-23 사용자의 명시적 승인 후 `main`에 [Squash 커밋 `d36611b`](https://github.com/guseoh/dark-todo-planner/commit/d36611b063c68adb8b5f7a4e98d48946885bee05)으로 병합됐다. 기존 Markdown 저장·색상·Todo/프로젝트 연결·명시적 저장을 유지하고 빠른 문서 전환 시 초안 손실을 줄이는 동작을 보완했다.
 - [자동 CI #45139937246](https://github.com/guseoh/dark-todo-planner/actions/runs/45139937246): 타입·단위·빌드·Worker/D1·Chromium 브라우저 스모크·반응형 검사 통과. 표·HTML·수식 문서는 기본 읽기 렌더링에서 원본 편집으로 전환할 수 있도록 보호했다.
-- 최종 승인 전 확인: **실제 Windows Tern 창**의 UI·한글 IME, 고급 Markdown 원본 보존, 초안 복구. 장기 개선 제안으로 메모별 버전 충돌 감지와 검색/색상 필터를 평가할 수 있으나 이번 시안에는 포함하지 않는다.
+- [Production Actions #45140860278](https://github.com/guseoh/dark-todo-planner/actions/runs/45140860278)은 병합 후 자동 실행됐으며 최종 배포 여부는 별도로 확인한다. **실제 Windows Tern 창**의 UI·한글 IME, 고급 Markdown 원본 보존, 초안 복구는 수동 검증 미완료 상태다. 장기 개선 제안으로 메모별 버전 충돌 감지와 검색/색상 필터를 평가할 수 있으나 이번 시안에는 포함하지 않는다.
