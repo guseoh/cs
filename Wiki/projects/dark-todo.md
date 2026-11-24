@@ -8,6 +8,9 @@ updated_at: 2026-11-24
 evidence_level: source-verified
 capture_mode: manual
 sources:
+  - https://github.com/guseoh/dark-todo-planner/pull/178
+  - https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.3.3
+  - https://github.com/guseoh/dark-todo-planner/actions/runs/45327878159
   - https://github.com/guseoh/dark-todo-planner/pull/174
   - https://github.com/guseoh/dark-todo-planner/pull/141
   - https://github.com/guseoh/dark-todo-planner/pull/165
@@ -28,7 +31,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45022062078
 depends_on: []
 supersedes: []
-related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-0008, DTD-0009]
+related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-0008, DTD-0009, DTD-0010]
 ---
 # Dark Todo Planner — 프로젝트 현황
 
@@ -107,3 +110,7 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-000
 - [PR Windows 빌드 #45210193873](https://github.com/guseoh/dark-todo-planner/actions/runs/45210193873) 및 [PR CI #45210193932](https://github.com/guseoh/dark-todo-planner/actions/runs/45210193932)는 성공했다. GitHub에 네이티브 소스가 반영된 사실과 실제 Windows 설치·실행 성공은 구분한다.
 - [main Windows 릴리스 #45211267185](https://github.com/guseoh/dark-todo-planner/actions/runs/45211267185)는 **서명 키가 없어 실패**했다. `TAURI_SIGNING_PRIVATE_KEY`와 `TERN_UPDATER_PUBLIC_KEY`가 비어 있었으며, Windows 서명 설치 파일 및 `latest.json`을 새로 게시하지 못했다. 최신 확인 공개 릴리스는 `tern-v0.2.0`이다.
 - **후속 조건:** 기존 0.2.0의 서명 키·설치 ID와 새 구성의 호환성을 확인하고, Actions Secrets에 키를 안전하게 등록한 뒤 릴리스 재실행 및 v0.2.0→새 버전 설치·자동 업데이트를 구분하여 검증해야 한다. 기존 개인키를 복구하지 못하면 기존 설치본에서의 인플레이스 자동 업데이트는 보장되지 않는다. 비밀키·계정 정보는 Wiki에 기록하지 않는다.
+
+## 2026-11-24 — Windows 릴리스 정상화 및 CI/CD 경량화 결정
+- [릴리스 v0.3.2](https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.3.2)와 [v0.3.3](https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.3.3)의 서명 설치 파일 및 manifest 게시를 확인했다. 위의 최초 서명 키 차단은 역사적 상태이며 현재 릴리스 발행 차단으로 해석하지 않는다. 실제 설치본의 후속 자동 업데이트 성공은 별도 검증 대상이다.
+- [DTD-0010](../decisions/DTD-0010.md): 변경 영역별 PR 검증, main의 Windows 패키징 1회 및 발행 전 검증, 데이터 관련 통합 테스트 유지, 주기적 회귀 분리를 확정했다. [소스 PR #178](https://github.com/guseoh/dark-todo-planner/pull/178)은 기록 시점에 검증 중이며 병합·실측 효과는 미확인이다.
