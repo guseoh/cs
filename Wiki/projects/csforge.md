@@ -4,10 +4,12 @@ type: project
 project: csforge
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-15
+updated_at: 2026-11-25
 evidence_level: source-verified
 capture_mode: full
 sources:
+  - https://github.com/guseoh/csforge/issues/300#issuecomment-7136341812
+  - https://github.com/guseoh/csforge/actions/runs/42495542007/job/128776967267
   - https://github.com/guseoh/csforge/pull/301
   - https://github.com/guseoh/csforge/pull/303
   - https://github.com/guseoh/csforge/actions/runs/43705932453
@@ -25,6 +27,8 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006]
 # CSForge — source-verified project snapshot
 
 ## Current state (latest merge checks 2026-11-09; earlier entries noted separately)
+- **2026-11-25 운영 동기화 재조사 — 원인 후보 확인, 복구 미완료:** 최신 main `425872f7`의 [원본 Job 로그](https://github.com/guseoh/csforge/actions/runs/42495542007/job/128776967267)에서 `JAVA_CONCEPTS` APPLY `s7dhd` 성공 → `ALL_TOPICS` APPLY `9ckzq` 성공 → `ALL_CONCEPTS` APPLY `8z57t` 실패 → `ALL_QUESTIONS` SKIPPED를 확인했습니다. [소스 비교](https://github.com/guseoh/csforge/compare/5a675754...425872f7)는 세 Cookie Concept의 동일 RFC 6265bis URL `recommendation` 변경과 TCP teardown RFC 9112 참조 추가를 보여 줍니다. 기존 DB 공유 메타데이터와 다르면 `ContentSyncPolicy.validate`가 예외를 던지므로 유력한 원인 후보입니다. 실제 운영 예외·DB 값·checkpoint는 미확인입니다. Neon 검색 결과 CSForge 프로젝트 0개, GCP 내부 로그 미확보. 보호 정책을 유지하고 로그 및 읽기 전용 정합성을 먼저 확인한 뒤 격리 재현·검증해야 합니다. [Issue #300 조사 기록](https://github.com/guseoh/csforge/issues/300#issuecomment-7136341812). 운영 쓰기·재실행·배포·병합 없음.
+
 - **2026-11-15 Database G1의 별도 검증 상태:** [Draft PR #301](https://github.com/guseoh/csforge/pull/301)은 Database 38개 Concept에서 17개 SVG를 작성했고 [격리 QA #43705932453](https://github.com/guseoh/csforge/actions/runs/43705932453)에서 PostgreSQL 16.4 Import/재import·Spring API·Frontend 테스트를 통과했습니다. Vercel Preview 배포 READY는 신규 canonical Markdown의 DB 동기화나 실제 Reader #122 화면을 증명하지 않습니다. 운영 DB·Neon 정합성·실배포 E2E는 그 시점 미확인입니다. [작업 기록](../journal/csforge/2026-11.md)을 참고합니다.
 - **2026-11-15 Network G1 refactor 선별 통합:** [PR #303](https://github.com/guseoh/csforge/pull/303)은 Network 53개 도식의 필수 연결만 옮기면서 Reference 메타데이터 충돌로 발생한 재import `UNCHANGED` 불일치를 교정했습니다. [CI #43706478668](https://github.com/guseoh/csforge/actions/runs/43706478668) PASS 및 `refactor` squash `8f01a8ba`는 해당 소스 브랜치 검증이며, G2 재개·운영 DB 동기화 및 Production 배포의 증거가 아닙니다. [CSF-0006](../decisions/CSF-0006.md)을 참고합니다.
 
