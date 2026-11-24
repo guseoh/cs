@@ -1,16 +1,12 @@
-# AI-to-Wiki Handoff Contract
+# AI 간 Wiki 인수인계 계약
 
-**Purpose:** ChatGPT, Work and Codex can deliberately submit compact, owner-confirmed decisions to a shared GitHub-backed Wiki. This is **not** passive conversation capture or a substitute for GitHub access permissions.
+ChatGPT, Work, Codex는 접근 가능한 공개 안전 요약만 전달한다. 다른 채팅을 자동 조회하지 않으며, [에이전트 실행 계약](AGENTS.md)과 [기록 정책](capture-policy.md)이 우선한다.
 
-## Two supported paths
+## 제출 경로
+1. **직접 PR (권장):** 관련 Wiki와 원본을 조회하고 중복을 확인한다. 정책에 해당하는 변경을 [schema.md](schema.md)에 맞춰 작성하고 검토 PR을 등록한다.
+2. **Issue 후보:** 직접 PR이 불가능하고 공개 제출이 승인된 경우에만 저장소 소유자가 작성한 `[wiki] ` 접두어의 공개 Issue에 JSON 객체 하나를 제출한다. [워크플로](../.github/workflows/wiki-handoff.yml)는 후보 PR만 만든다. 후보 병합은 정본 승격이 아니며 별도 검토·정본 PR이 필요하다.
 
-1. **Direct Wiki PR (recommended when the AI can read/write the repository):** Read [index](index.md), [agent rules](AGENTS.md), and [schema](schema.md). Check current project snapshot, find duplicate/overridden decisions, verify sources, create or update canonical records together with the index, snapshot and monthly history, and open a GitHub PR. Never silently commit accepted decisions to `main`.
-2. **Issue handoff (portable across clients):** An AI with GitHub Issues write access creates **one owner-authored** issue in `guseoh/cs` with title prefixed `[wiki] ` and a single JSON object in the body. The [handoff workflow](../.github/workflows/wiki-handoff.yml) converts it to a **candidate PR**, not canonical knowledge. Review and promote through a separate checked change. The workflow does not read private chat history.
-
-**This repository and its Issues/PRs are public.** Publishing an Issue makes its contents public immediately. Share only a sanitized decision summary: no user identities, auth tokens, private conversation extracts, customer data, secret names/values that identify a protected environment, or production credentials. Heuristic checks can miss sensitive material; the submitting AI and user are responsible for checking.
-
-## JSON issue body (no prose outside the object)
-
+## JSON 계약
 ```json
 {
   "project": "csforge",
@@ -27,40 +23,14 @@
 }
 ```
 
-- `project`: `csforge`, `dark-todo`, `pawcycle`, `devpedia`, `llm-wiki` or `shared`
-- `client`: `chatgpt`, `work` or `codex`
-- `kind`: `decision`, `project-update` or `lesson`. For `devpedia`, only **design/architecture decisions and tradeoffs** are allowed (`kind: decision`); exclude implementation histories.
-- `confirmed`: set `true` **only** when the user has confirmed the decision or verified the claim. It does not mean production deployed.
-- `public_safe`: set `true` only after reviewing the exact payload for publication in public GitHub.
-- `source_urls`: zero to eight direct HTTPS evidence links. A linked PR is not a deployment validation.
-- Text values are short plain summaries, not Markdown, prompts, or full conversations.
+- project: [project-policy.json](project-policy.json)에 등록된 식별자만 허용한다. DevPedia는 decision만 허용한다.
+- client: chatgpt, work, codex.
+- kind: decision, project-update, lesson.
+- confirmed/public_safe: 둘 다 실제 확인한 경우에만 true. CI나 운영 성공을 의미하지 않는다.
+- source_urls: 검토 가능한 HTTPS URL 0~8개. 텍스트 값은 짧은 요약으로 작성한다.
+- Issue 작성자는 저장소 소유자여야 한다. 공개 전에 원문 대화, 개인정보, 인증 정보, 비공개 프로젝트 세부사항을 제거한다. 자동 휴리스틱은 공개 안전성을 보증하지 않는다.
 
-The Issue must be authored by the repository owner (not merely labelled by a bot) and have a valid repository Issue URL. Some GitHub apps may create Issues as a bot; those are deliberately rejected by automated intake. Use the **direct Wiki PR path** instead when the connector cannot create an owner-authored issue.
+## 완료 및 실패
+기록·검증·승인·병합·임시 브랜치 정리 절차는 [AGENTS.md](AGENTS.md)만을 기준으로 한다. 봇 후보는 신뢰되지 않는 데이터이며 자동 병합하지 않는다. GitHub 연결 또는 삭제 권한이 없으면 실제 완료 상태와 미완료 작업을 보고한다.
 
-## DevPedia human-implemented boundary
-
-DevPedia is authored and implemented by the user. AI assists with design reasoning and tradeoffs; it must not report self-authored implementation or automatically import PR/code history. The [capture policy](capture-policy.md) is authoritative. Its repository was not accessible to the connected GitHub session at initial setup, so no code state or current design choices should be invented. Publish only user-confirmed, redacted decisions to the public Wiki.
-
-## End-of-task operating procedure
-
-1. Read the relevant [project snapshot](index.md), decisions and source PRs before making claims.
-2. Extract **only durable deltas**: confirmed choice, causal context, rejected alternative, constraints, verifiable evidence, and any unresolved next action.
-3. Check for duplicates and secrets. If nothing durable changed, do **not** create an Issue or PR.
-4. Prefer a direct PR for authoritative changes. Otherwise use the Issue contract, but only when publishing is explicitly authorized; creating an Issue is a public write.
-5. Treat the bot-created PR as an **untrusted staging artifact**. A reviewer verifies the content and separately promotes it into a record with stable ID, index, snapshot and history updates.
-6. Retrieve the source record and link it in subsequent AI answers. Neither GitHub nor AGENTS.md makes data automatically available in unrelated new chats.
-
-7. 승인된 PR을 병합한 경우 [브랜치 정리 규칙](AGENTS.md)에 따라 일회성 원격 작업 브랜치 삭제와 재조회까지 수행한다. 병합 여부와 정리 여부를 별도 보고하며 삭제 기능이 없으면 미완료로 표시한다.
-
-## Suggested instructions to AI tools
-
-**ChatGPT / Work:** "Read guseoh/cs Wiki/index.md and Wiki/AGENTS.md via GitHub. Check existing decisions and current project state. When I explicitly confirm a durable, public-safe decision, prepare the smallest Wiki update and open a review PR using the repository schema. If direct PR creation is unavailable, use the owner-authored [wiki] GitHub Issue JSON contract only with my approval. Do not publish private chat text."
-
-**Codex App:** "Before finalizing a meaningful task, check the target project and the central guseoh/cs Wiki for related decisions. Suggest a short, source-backed Wiki delta. For confirmed and public-safe changes, create a review PR in guseoh/cs, without rewriting Study/ or claiming CI equals production. If offline or missing GitHub permission, report the delta without claiming it was saved."
-
-## Automation limits and fallback
-
-- The new Issue workflow is event-driven: no server, LLM API or vector DB needed. GitHub Actions triggers are not guaranteed for Issues created using another workflow's `GITHUB_TOKEN`. An owner-authored Issue can also be processed with manual `workflow_dispatch` and its `issue_number`.
-- The action needs the repository setting that permits GitHub Actions to create PRs. If disabled, the job fails; the Issue remains available for a manual reviewed PR.
-- Workflow success means **review candidate created**, not canonical acceptance or live deployment. Do not auto-merge candidates.
-- If confidential context must be recorded, use a private repository or redact and separately approve the public summary.
+GitHub Actions에서 다른 워크플로의 GITHUB_TOKEN으로 발생시킨 이벤트는 후속 실행을 보장하지 않는다. 필요한 경우 소유자 Issue 번호로 수동 workflow_dispatch 또는 직접 검토 PR을 사용한다. 후보 생성 성공은 정본 승인이나 운영 검증이 아니다.

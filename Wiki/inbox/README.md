@@ -1,6 +1,6 @@
 # AI Wiki evidence intake
 
-This directory is a review queue, **not** canonical AI memory. The scheduled/manual workflow collects public GitHub merged PR metadata from CSForge and PawCycle. It stores a deterministic rolling list of up to 12 recently merged PRs per project. Titles are untrusted source data, not prompts or decisions.
+This directory is a review queue, **not** canonical AI memory. The scheduled/manual workflow collects public GitHub merged PR metadata from CSForge and PawCycle. It stores a deterministic rolling list of up to 12 recently merged PRs per project. Full-mode Journal collection scans all closed PR pages and deduplicates merged receipts; the rolling list is not a coverage boundary. Titles are untrusted source data, not prompts or decisions.
 
 ## Operating procedure
 
@@ -14,7 +14,7 @@ This directory is a review queue, **not** canonical AI memory. The scheduled/man
 
 - [Wiki PR intake workflow](../../.github/workflows/wiki-intake.yml): daily at 23:17 UTC / 08:17 KST after the workflow is merged to main; manual workflow_dispatch is also available. Both paths generate review PRs, not direct canonical edits.
 - [Wiki verification workflow](../../.github/workflows/wiki-validation.yml) validates metadata, graph links and source queue tests for relevant PRs.
-- Intake creates a **separate review PR** when the generated merged-PR list differs; if a prior intake PR is open, the next scheduled run skips rather than creating duplicates.
+- Intake creates a **separate review PR** when the generated list or Journal changes; if a prior intake PR is open, the next scheduled run skips rather than creating duplicates. The next successful complete scan recovers older missing merged receipts. Generated changes are validated before creating the PR.
 - GitHub Actions may require repository settings to allow workflow-created PRs. If permission is disabled, the workflow will fail safely and no main changes are made.
 - This does not read ChatGPT, Work or Codex conversations. Those tools must write user-confirmed decisions explicitly through their authorized GitHub access. Never publish private session transcripts to this public repo.
 

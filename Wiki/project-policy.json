@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "projects": {
+    "pawcycle": {
+      "mode": "full",
+      "repository": "guseoh/pawcycle-commerce",
+      "collect": true,
+      "label": "PawCycle Commerce"
+    },
+    "csforge": {
+      "mode": "full",
+      "repository": "guseoh/csforge",
+      "collect": true,
+      "label": "CSForge"
+    },
+    "backend-systems-lab": {
+      "mode": "full",
+      "collect": false
+    },
+    "logistics-learning": {
+      "mode": "full",
+      "collect": false,
+      "parent": "backend-systems-lab"
+    },
+    "devpedia": {
+      "mode": "design-only",
+      "collect": false
+    },
+    "dark-todo": {
+      "mode": "manual",
+      "collect": false
+    },
+    "llm-wiki": {
+      "mode": "manual",
+      "collect": false
+    },
+    "shared": {
+      "mode": "manual",
+      "collect": false
+    }
+  }
+}
