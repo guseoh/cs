@@ -78,3 +78,8 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006, CSF-000
 
 ## Evidence and verification limits
 GitHub PR HEAD/main and verification workflows for #297, #298 and agent-skills #3 rechecked 2026-11-08; older project context remains sourced to 2026-11-03. The #298 evidence now also covers Testcontainers isolated full-pack import/reimport and mocked-API Chromium actual React Reader routes, plus real Spring Concept GET with the isolated DB; it does not verify a single live frontend-to-DB environment, authenticated production Reader, actual production DB/digest or cloud-control-plane state. CI success does not prove production canonical DB alignment.
+
+
+### 2026-11-25 후속 소스 편집
+
+- Network #305 HEAD `7412ee6`: 도식 개선 후보 36/36 소스 반영, DNS 10/10을 포함한 Concept 20/127 개별 본문 편집, 고유 Question 75개 교정. 나머지 107개 Concept와 전 문항·Reference 최종 의미 검토 미완료. 실행 QA·병합·운영 반영 없음. [후속 기록](https://github.com/guseoh/csforge/pull/305#issuecomment-7137668292).
