@@ -17,12 +17,15 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | Project | Snapshot | Last checked |
 | --- | --- | --- |
 | LLM Wiki itself | [PRJ-LLM-WIKI](projects/llm-wiki.md) | 2026-11-03 |
-| 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [학습 운영 결정](decisions/BLR-0012.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-17 |
+| 교양 읽기·자유로운 사유 | [PRJ-GENERAL-READING](projects/general-reading.md) · [확정 읽기 방식](decisions/GRD-0001.md) · [분야별 자료·도서 후보](knowledge/GRK-0001.md) | 2026-11-21 |
+| 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [Board REST 기본기 우선](decisions/BLR-0017.md) · [Board 작업 분담](decisions/BLR-0015.md) · [Spring 학습 형식](decisions/BLR-0016.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-21 |
+| 통합 백엔드 학습 연구실 (백엔드·시스템 설계·RAG) | [PRJ-BACKEND-SYSTEMS-LAB](projects/backend-systems-lab.md) · [6개 독립 앱](decisions/BSL-0001.md) · [학습 범위·교재 우선순위](decisions/BSL-0003.md) · [교재 장기 계획](decisions/BSL-0002.md) · [학습 맵](knowledge/BSK-0001.md) · [진행 기록](journal/backend-systems-lab/2026-11.md) | 2026-11-19 |
+| 물류 모듈 상세 학습 (통합 저장소의 첫 독립 앱) | [PRJ-LOGISTICS-LEARNING](projects/logistics-learning.md) · [도메인·기록 결정](decisions/LGR-0001.md) · [학습 로드맵 초안](knowledge/LGK-0001.md) · [진척 기록](journal/logistics-learning/2026-11.md) | 2026-11-19 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
 | CSForge | [PRJ-CSFORGE](projects/csforge.md) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-09 |
-| Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) | 2026-11-03 |
+| Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) · [Windows 전용 배포·자동 업데이트](decisions/DTD-0009.md) · [CI/CD 경량화·배포 및 의존성 관리](decisions/DTD-0010.md) · [최신 확인 Windows 릴리스 v0.3.6](https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.3.6) · [운영 안정화 PR #180](https://github.com/guseoh/dark-todo-planner/pull/180) · [이전 웹/PWA 정책](decisions/DTD-0004.md) · [메모·낙서장 통합 편집기](decisions/DTD-0005.md) · [오늘 작업 공간](decisions/DTD-0008.md) | 2026-11-24 |
 | PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [세션 인수인계 11/18](journal/pawcycle/2026-11-18-session-handoff.md) · [3단계 저장소 범위 완료](journal/pawcycle/2026-11.md#2026-11-18-pawcycle-3단계-운영-배포-계약-확장과-저장소-범위-완료) · [2단계 종료·3단계 R3·R4·R11](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-종료와-3단계-r3r4r11-저장소-반영) · [병렬 트랙 3개 병합](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-병렬-트랙-3개-병합) · [결제 실패 복구와 SKU 재입고 알림 설계](journal/pawcycle/2026-11-17-design-queue.md) · [로컬 장애 리허설 결과](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과) · [리허설 착수 전 계획](journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증) · [2단계 장애 관측 구현](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-장애-관측-구현) · [1단계 정합성 착수](journal/pawcycle/2026-11.md#2026-11-15-pawcycle-1단계-정합성-착수) · [0단계 정리 마무리](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-0단계-정리-마무리) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) · [로컬 A1 감시 11/16](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-용량-감시-타임아웃-개선과-복구-관찰) · [A1 로그 잠금 종료 진단](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-감시-로그-파일-잠금으로-인한-종료-원인-확인) | 2026-11-18 |
-| DevPedia (design-only; repo access unverified) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-03 |
+| DevPedia (설계 중심 기록·직접 구현/Codex 가이드 우선) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-21 |
 
 ## Decision index
 
@@ -32,6 +35,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [WIKI-0001](decisions/WIKI-0001.md) | accepted | Separate AI Wiki from Study | llm-wiki |
 | [WIKI-0002](decisions/WIKI-0002.md) | accepted | Existing GitHub Markdown as common source | llm-wiki |
 | [WIKI-0003](decisions/WIKI-0003.md) | accepted | PawCycle AI Project Memory: exhaustive source dispositions and continuous capture | llm-wiki |
+| [GRD-0001](decisions/GRD-0001.md) | accepted | 분야를 넘나드는 한국어 교양 칼럼 + 개인 블로그·전문 자료·도서 링크 + 사용자 직접 사색 | general-reading |
 | [CSF-0001](decisions/CSF-0001.md) | accepted | Guard canonical content sync to preserve history | csforge |
 | [CSF-0002](decisions/CSF-0002.md) | accepted | Java editorial diagram semantics | csforge |
 | [CSF-0003](decisions/CSF-0003.md) | accepted | Textbook-style static SVG first; three benchmark visuals before CSForge adoption | csforge |
@@ -40,11 +44,17 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [DTD-0001](decisions/DTD-0001.md) | accepted | Neutral content-first UI | dark-todo |
 | [DTD-0002](decisions/DTD-0002.md) | accepted | Remove Inbox UI without deleting legacy data | dark-todo |
 | [DTD-0003](decisions/DTD-0003.md) | accepted | Today reorder and compact Calendar detail | dark-todo |
+| [DTD-0004](decisions/DTD-0004.md) | superseded | 이전 웹/PWA 병행 및 원격 Tauri 셸 결정 | dark-todo |
+| [DTD-0009](decisions/DTD-0009.md) | accepted | Windows Tern 전용 번들 UI·서명된 자동 릴리스 | dark-todo |
+| [DTD-0010](decisions/DTD-0010.md) | accepted | 개인용 Windows Tern 변경 영역별 CI/CD 경량화 | dark-todo |
+| [DTD-0005](decisions/DTD-0005.md) | accepted | 메모·낙서장 Tiptap 3 통합 편집 및 원본 보존 | dark-todo |
+| [DTD-0007](decisions/DTD-0007.md) | accepted | Tern 메모 인라인 편집·색상 강조 및 전환 성능 보완 | dark-todo |
+| [DTD-0008](decisions/DTD-0008.md) | accepted | Tern 오늘 계획·집중·실행·마무리 화면 개편 | dark-todo |
 | [PWC-0001](decisions/PWC-0001.md) | accepted | Separate CD readiness from production activation | pawcycle |
 | [PWC-0002](decisions/PWC-0002.md) | accepted | Guard and time-bound OCI A1 acquisition | pawcycle |
 | [BLR-0001](decisions/BLR-0001.md) | accepted | CS: academic chapter study, revisit through projects | backend-learning |
 | [BLR-0002](decisions/BLR-0002.md) | accepted | Prioritize Java/Spring backend before dedicated AI/cloud study | backend-learning |
-| [BLR-0003](decisions/BLR-0003.md) | accepted | Preserve Large-scale Board roadmap and direct failure experiments | backend-learning |
+| [BLR-0003](decisions/BLR-0003.md) | superseded | 이전 Large-scale Board 필수 선행 순서(원본 Phase 로드맵과 근거 보존) | backend-learning |
 | [BLR-0004](decisions/BLR-0004.md) | accepted | Study both system design volumes chapter by chapter | backend-learning |
 | [BLR-0005](decisions/BLR-0005.md) | accepted | Separate domain architecture and AI-assisted implementation track | backend-learning |
 | [BLR-0006](decisions/BLR-0006.md) | accepted | Sentry learning in Board; portfolio requires trade-off review | backend-learning |
@@ -167,6 +177,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | ID | Status | Knowledge | Project |
 | --- | --- | --- | --- |
 | [PWK-0001](knowledge/PWK-0001.md) | published | PawCycle 전체 시스템·아키텍처·설계 이력·운영 리버스 엔지니어링 가이드 (2026-11-05) | pawcycle |
+| [PWK-0007](knowledge/PWK-0007.md) | published | PawCycle 4단계 G-2 학습 노트 — 혼합 부하 측정 도구와 1만 기준선(설계·코드·리뷰 7건·질문) | pawcycle |
 | [PWK-0003](knowledge/PWK-0003.md) | published | PawCycle 4단계 G-1 학습 노트 — 합성 데이터에 backend를 붙이는 규모 측정 환경(설계·코드·트레이드오프) | pawcycle |
 | [PWK-0004](knowledge/PWK-0004.md) | published | PawCycle 1단계 학습 노트 — 결제·재고·정기배송 정합성(동시성 특성 테스트, 고립 결제 성공 확정, Toss) | pawcycle |
 | [PWK-0005](knowledge/PWK-0005.md) | published | PawCycle 2단계 학습 노트 — 장애 관측과 로깅(실패 분류, 작업 지표, 요청 ID, 알림 규칙, 리허설) | pawcycle |
@@ -177,6 +188,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [BLK-0002](knowledge/BLK-0002.md) | published | Approved Spring Core/Boot 7-course / 34-unit curriculum; 17 priority deep dives | backend-learning |
 | [BLK-0003](knowledge/BLK-0003.md) | published | Java·Spring·JPA·Security 학습 재시작과 핵심 이해 중심 운영 가이드 | backend-learning |
 | [SHK-0001](knowledge/SHK-0001.md) | published | AWS Emulator: API fidelity, security boundaries, AI-agent validation loops (2026-11-13) | shared |
+| [GRK-0001](knowledge/GRK-0001.md) | draft | 한국어 개인 블로그·공식 자료·교양서 분야별 읽을거리 후보(매회 검증 필요) | general-reading |
 
 ## Lesson index
 
@@ -280,12 +292,29 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWL-0052](lessons/PWL-0052.md) | 외부 연동 설정은 끝까지 한 번 실행해 봐야 키 종류 같은 전제 오류가 드러난다 |
 | [PWL-0053](lessons/PWL-0053.md) | 과거 문서 비소급 원칙은 지금도 유효한 계약 원본에는 적용하지 않는다 |
 
+## 2026-11-19 4단계 H(1) 신규 기록
+
+| ID | 내용 |
+| --- | --- |
+| [PWC-0141](decisions/PWC-0141.md) | AI가 구현하고 사용자는 완성된 코드를 검토하며 설계와 코드를 학습한다(PWC-0140 대체) |
+| [PWC-0142](decisions/PWC-0142.md) | 결제 뒤 멤버십 재평가는 결제 트랜잭션에 요청만 기록하고 정기 작업이 처리한다 |
+| [PWL-0057](lessons/PWL-0057.md) | "커밋 뒤에 별도 트랜잭션으로" 옮기는 것만으로는 부족했다 — 틀린 정답 코드와 그 리뷰 |
+
+## 2026-11-19 4단계 G-2 신규 기록
+
+| ID | 내용 |
+| --- | --- |
+| [PWC-0140](decisions/PWC-0140.md) | (대체됨 → PWC-0141) 백엔드·인프라 코드는 사용자가 직접 구현하고, 스크립트·문서는 AI가 작성한다(PWC-0137 대체) |
+| [PWL-0055](lessons/PWL-0055.md) | 측정 도구의 수정도 실제로 한 번 돌려 봐야 한다 — k6 `json(undefined)`는 `json()`과 다르다 |
+| [PWL-0056](lessons/PWL-0056.md) | 측정 보고서의 원인 서술은 수치 대조로 뒷받침될 때만 쓴다 |
+| [PWK-0007](knowledge/PWK-0007.md) | 4단계 G-2 학습 노트(혼합 부하 설계·코드·리뷰·질문) |
+
 ## 2026-11-19 4단계 G-1 신규 기록
 
 | ID | 내용 |
 | --- | --- |
 | [PWC-0136](decisions/PWC-0136.md) | 4단계 규모 측정은 Flyway schema 위에 합성 데이터를 채우고 backend에 직접 요청한다 |
-| [PWC-0137](decisions/PWC-0137.md) | 성능 작업은 AI가 측정하고 사용자가 해석·개선한다 |
+| [PWC-0137](decisions/PWC-0137.md) | (대체됨 → PWC-0140) 성능 작업은 AI가 측정하고 사용자가 해석·개선한다 |
 | [PWL-0054](lessons/PWL-0054.md) | GitHub Actions 재실행은 처음 이벤트의 PR 본문을 다시 쓴다 |
 | [PWK-0003](knowledge/PWK-0003.md) | 4단계 G-1 학습 노트(설계·코드·트레이드오프·되돌아볼 질문) |
 | [PWK-0004](knowledge/PWK-0004.md) | 1단계 정합성 학습 노트 |
@@ -481,6 +510,16 @@ UTC 승인/STOP/재승인, F07 query-only, lease 범위 종료, 최종 HEAD revi
 | --- | --- | --- | --- |
 | [CSF-0006](decisions/CSF-0006.md) | accepted | Network G1 의존성 선별 통합과 Import 회귀 교정 | [#56](https://github.com/guseoh/cs/pull/56) |
 | [BLR-0013](decisions/BLR-0013.md) | accepted | 예제 중심 아키텍처 학습 및 공개 8섹션 커리큘럼 | [#35](https://github.com/guseoh/cs/pull/35), [#36](https://github.com/guseoh/cs/pull/36) |
+| [BLR-0014](decisions/BLR-0014.md) | accepted | 채팅에 완성 코드 제공·사용자 로컬 작성, 어려운 기술은 힌트 우선, 사용자 최종 결정 | backend-learning |
+| [BLR-0015](decisions/BLR-0015.md) | accepted | Large-scale Board 1단계: 사용자는 main 코드, AI는 테스트·스크립트·측정 도구 작성 | backend-learning |
+| [BLR-0016](decisions/BLR-0016.md) | accepted | Spring 학습을 구조화된 정리·문제 해결·점진적 코드 개선 중심으로 전환 | backend-learning |
+| [BLR-0017](decisions/BLR-0017.md) | accepted | Large-scale Board는 REST API 기초 완성 후 필요성과 실험을 근거로 고급 설계 도입 | backend-learning |
+| [BSL-0001](decisions/BSL-0001.md) | accepted | 6개 도메인의 독립 실행 Spring Boot 앱을 단일 학습 저장소에 구성 | backend-systems-lab |
+| [BSL-0002](decisions/BSL-0002.md) | accepted | 시스템 설계 교재 1·2권을 같은 저장소의 별도 설계 트랙으로 운영 | backend-systems-lab |
+| [BSL-0003](decisions/BSL-0003.md) | accepted | 백엔드·시스템 설계·RAG 중심 학습 및 교재 1·2권 후순위 | backend-systems-lab |
+| [BSK-0001](knowledge/BSK-0001.md) | draft | 6개 도메인과 교재 1·2권의 학습 목표·연계·실험 가이드 초안 | backend-systems-lab |
+| [LGR-0001](decisions/LGR-0001.md) | accepted | 물류 학습 프로젝트 선택·현재 채팅 진행·중앙/프로젝트 Wiki 이중 기록 | logistics-learning |
+| [LGK-0001](knowledge/LGK-0001.md) | draft | 물류 시스템 요구사항·설계·구현·실험 로드맵 초안 | logistics-learning |
 | [PWC-0138](decisions/PWC-0138.md) | accepted | A1 확보와 로컬 개발 병렬 진행(당시 결정) | [#26](https://github.com/guseoh/cs/pull/26) |
 | [PWC-0139](decisions/PWC-0139.md) | accepted | OCI 호스팅과 AWS 운영 학습의 역할 분리 | [#26](https://github.com/guseoh/cs/pull/26) |
 | [PWC-0900](decisions/PWC-0900.md) | accepted | A1 보고·알림 및 수동 생성 경계(당시 기준) | [#20](https://github.com/guseoh/cs/pull/20) |

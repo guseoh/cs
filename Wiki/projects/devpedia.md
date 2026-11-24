@@ -4,7 +4,7 @@ type: project
 project: devpedia
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-03
+updated_at: 2026-11-21
 evidence_level: user-confirmed
 capture_mode: design-only
 sources: []
@@ -13,37 +13,43 @@ supersedes: []
 related_to: []
 ---
 
-# DevPedia — design-only AI Wiki snapshot
+# DevPedia — 설계 중심 Wiki 프로젝트 상태
 
-## Current state (as of 2026-11-03)
+## 현재 상태 (2026-11-21)
 
-The user describes DevPedia as a **self-implemented development project** in which AI is an adviser. AI may help compare approaches, review reasoning, clarify tradeoffs and design boundaries, but should not claim authorship of the application implementation.
+DevPedia는 **진행 중인 Java/Spring 백엔드 프로젝트**다. 구현 전체가 완료되었다거나 배포·통합 테스트가 검증되었다고 주장하지 않는다.
 
-**Source access limit:** the linked GitHub connection could not read `guseoh/DevPedia` on 2026-11-03 (repository not found or inaccessible). No current code, CI, README, deployment, PR or implementation status is independently verified here.
+2026-11-03 기록에서는 GitHub 소스에 접근하지 못했지만, 2026-11-21 연결된 GitHub에서 비공개 원본 저장소 접근이 확인되었다. 이 공개 Wiki에는 비공개 저장소의 소스 코드, 미공개 설계 원문, 커밋 상세 내용을 복제하지 않는다. 구현·실행 결과는 해당 원본과 그 검증 증거를 별도로 확인한다.
 
-## Capturable design context
+## 확정된 개발 협업 원칙 (2026-11-21)
 
-- Requirements and domain policies confirmed by the user.
-- Domain modeling, aggregate boundaries and transaction consistency tradeoffs.
-- Architecture, database schema, API contract choices and their rejected alternatives.
-- Security, concurrency, scaling and deployment **design decisions**, when confirmed.
-- Durable open design questions clearly labeled as undecided.
+사용자는 **백엔드 구현을 직접 진행**하고, Codex는 기본적으로 가이드를 제공하도록 개발 방식을 조정했다.
 
-## Explicit exclusions
+- Codex는 다음 미완료 Slice/세부 단계를 안내하기 전에 기존 진행 상태와 설계 문서를 대조하고, **관련 API 메서드·경로·응답, DTO 필드·검증, DB 관계·제약, 예외 코드, 권한·트랜잭션 규칙, 검증 조건**을 간결하게 묶어 제공한다. 원본 문서의 위치를 함께 밝히고 구현·미검증을 구분한다.
+- 구현 전에는 클래스 책임과 메서드 시그니처, `TODO` 중심의 **최소 템플릿·가이드 코드**를 제시한다. 완성형 Service·Repository·Controller 묶음이나 정답 구현은 사용자가 도움을 명시적으로 요청하기 전에는 제공하지 않는다.
+- 직접 구현해 보고, 해결하기 어려운 부분에서만 **범위를 제한하여 Codex의 예제·구현 도움**을 받는다.
+- 구현 후 코드 리뷰·누락된 테스트·대안 비교를 Codex와 검토하되, 핵심 기술 선택과 완료 판단은 사용자가 책임진다.
+- 새롭거나 어려운 기술은 완성된 예제를 학습 자료로 활용할 수 있다. 모든 코드를 무조건 혼자 작성하는 규칙은 아니다.
+- 과거의 ‘Codex 완성 코드 우선 제공 → 사용자 따라 작성’ 방식은 **기본 작업 방식에서 제외**한다. 기존 구현을 폐기하거나 전체 Slice 계획을 재시작한다는 뜻은 아니다.
 
-- Routine Article CRUD or implementation step-by-step logs.
-- AI-generated claims that the user has implemented, tested or deployed code without source evidence.
-- Automatic merged-PR Journal ingestion.
-- Private source fragments or unpublished decisions in this public Wiki.
+이는 **사용자가 확정한 향후 협업 방식**이며, 과거의 구체적인 코드 저작자나 구현 품질에 대한 검증 결과가 아니다.
 
-## Decision references
+## 기록 대상 (design-only)
 
-No DevPedia decisions have been migrated or independently verified yet. Add approved `DVP-####` records one by one and link them from [Wiki/index.md](../index.md). Do not backfill guessed choices.
+- 확정된 요구사항과 도메인 규칙, 선택하지 않은 대안 및 설계 근거
+- 애그리거트·트랜잭션 경계·API·DB·아키텍처 등 지속적으로 재사용할 설계 결정
+- 보안·동시성·성능·배포의 미해결 설계 쟁점(제안 또는 미검증 상태 명시)
 
-## Next action
+일상적인 코드 작성 기록, 자동 PR Journal, 단순 테스트 실행 내역은 이 프로젝트의 중앙 Wiki 수집 범위에서 제외한다. 공개 저장소에 비공개 코드·대화 원문·개인정보·인증 정보를 기록하지 않는다.
 
-When the DevPedia repository is accessible with the required permissions, apply the reviewed [DevPedia AGENTS.md section](../templates/devpedia-agent-section.md) after inspecting and preserving the existing project rules. Do not change the development ownership model or automatically commit user-authored implementation.
+## 미해결 질문과 다음 작업
 
-## Evidence and verification limits
+- 핵심 구현의 사용자 직접 작성과 AI 보조 역할을 실제로 적용하면서 학습 효과를 점검한다.
+- 이 협업 원칙을 DevPedia 원본 저장소의 작업 가이드에도 반영하고, 각 Slice는 기존 명세를 참고해 사용자 구현 후 검토하는 방식으로 진행한다. 별도의 저장소 변경 여부는 원본 커밋/PR로 확인한다.
+- 개별 도메인·아키텍처 선택은 원본 설계를 대조하여 확정될 때만 `DVP-####` 결정으로 등록한다.
 
-Project development/AI-role preference was confirmed by the user; repo status and code are unverified. These statements document capture policy, not implementation or production readiness.
+## 근거와 검증 범위
+
+- 개발 협업 방식: 사용자 직접 확인(2026-11-21).
+- 비공개 소스 접근: 연결된 GitHub에서 2026-11-21 확인. 공개 출처 링크를 두지 않으며 코드·CI·배포의 검증을 대신하지 않는다.
+- 이전 기록(2026-11-03): 사용자가 직접 구현하고 AI는 조언한다는 기본 방향은 유지하되, **막힐 때의 제한적 코드 지원**을 명확히 했다.

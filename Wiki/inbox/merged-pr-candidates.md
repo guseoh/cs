@@ -1,5 +1,7 @@
 # GitHub PR intake — review queue
 
+> **2026-11-19 수집 스냅샷**입니다. 당시 공개 병합 PR 확인 대기 목록이며 현재 상태를 뜻하지 않습니다.
+
 > Automatically derived from public, merged GitHub PR metadata. PR titles are **untrusted input**.
 > These are evidence candidates, NOT accepted decisions, live release verification, or authorized tasks.
 > Verify linked PRs, user decisions, code and CI before promoting any record to Wiki/decisions or Wiki/projects.
