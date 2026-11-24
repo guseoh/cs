@@ -8,6 +8,7 @@ updated_at: 2026-11-25
 evidence_level: source-verified
 capture_mode: full
 sources:
+  - https://github.com/guseoh/csforge/pull/305#issuecomment-7138283885
   - https://github.com/guseoh/csforge/pull/305#issuecomment-7137575032
   - https://github.com/guseoh/csforge/issues/300#issuecomment-7136341812
   - https://github.com/guseoh/csforge/actions/runs/42495542007/job/128776967267
@@ -28,6 +29,8 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006, CSF-000
 # CSForge — source-verified project snapshot
 
 ## Current state (latest merge checks 2026-11-09; earlier entries noted separately)
+- **2026-11-25 Network 본문 소스 반영 완료:** [PR #305](https://github.com/guseoh/csforge/pull/305) HEAD `2a241b7`. 기존 20개에 추가 107개를 Topic별 개별 편집해 15 Topic·127/127 Concept 본문 반영, 도식 개선 후보 36/36 및 고유 Question 75개 교정을 유지했습니다. [비교](https://github.com/guseoh/csforge/compare/7412ee6...d69d150d)에서 추가 편집 107파일 모두 Network Concept Markdown임을 확인했습니다. frontmatter·도식 fence·SVG 연결 보존. 전체 383문항과 Reference의 최종 주장 대조 및 변경 본문의 깊이·누락 독립 검토는 미완료입니다. 실행 QA는 CSF-0007에 따라 이관하며 Draft 유지, 병합·배포·운영 DB 변경 없음. 다음 영역 후보 Database #301. [작업 기록](https://github.com/guseoh/csforge/pull/305#issuecomment-7138283885).
+
 - **2026-11-25 사용자 확정 — 영역 단위 도식화·콘텐츠 개선 및 일괄 QA:** [CSF-0007](../decisions/CSF-0007.md). 각 LearningArea의 도식화와 본문·Question 품질 교정을 같은 작업 단위로 진행하고 전체 영역의 소스 구현 뒤 브라우저·격리 Import/reimport·회귀 QA를 일괄 수행합니다. QA 이관을 승인/배포 허가로 해석하지 않습니다. [Network #305](https://github.com/guseoh/csforge/pull/305) HEAD `1e30c98`에서 초기 36개 도식 후보 소스 반영 완료(POLISH 16, REWORK 13, REBUILD 2, ADD 5; KEEP 91). 383문항의 기존 감사 후보를 현재 소스에서 재조회하여 73문항 수정(선택지 해설 37, scenario prompt 26, 서술 답안 5, HARD 답안 9), 우선 Concept 12개 합쇼체·기술 설명 개별 편집. #299의 RFC9520 DNS 교정 및 감사 기록을 #305에 이관했습니다. 기존 식별자·정답 키·공유 Reference frontmatter 보존. 115개 나머지 Concept 개별 편집 및 모든 문항의 최종 표준 대조·Reference 주장 검토 미완료. 최신 커밋은 CI를 건너뛰도록 표시했고 실행 QA/병합/배포는 하지 않았습니다. 운영 #300 미복구. [작업 기록](https://github.com/guseoh/csforge/pull/305#issuecomment-7137575032).
 
 - **2026-11-25 Chromium 검증 환경 장애와 Network G2 후속 구현:** [Database CI](https://github.com/guseoh/csforge/actions/runs/45431172607), [OS CI](https://github.com/guseoh/csforge/actions/runs/45431235764), [Network CI](https://github.com/guseoh/csforge/actions/runs/45432415050)의 원본 로그에서 Backend/격리 Import/Frontend 성공 뒤 `ubuntu-latest`가 Ubuntu 26.04로 해석되어 Playwright 1.56.1 Chromium 의존성 설치가 실패했음을 확인했습니다. 실제 Reader 검증은 실행되지 않았습니다. 해당 세 QA workflow만 `ubuntu-24.04`로 고정했으며 제품 의존성은 유지합니다. DB HEAD `766c791` [재검증](https://github.com/guseoh/csforge/actions/runs/45433976417), OS HEAD `49f55dc` [재검증](https://github.com/guseoh/csforge/actions/runs/45433995949) 실행 중. [Network G2 #305](https://github.com/guseoh/csforge/pull/305) HEAD `fee8942`에는 REWORK 8개(스위치·ARP·라우터·NAT·매핑·PKI·전송 HOL·프록시 신뢰 경계) 및 ADD 4개(DNS TTL·TCP 재전송·ECDHE·HTTP 신선도)를 추가하고 ECDHE의 기존 잘못된 덧셈 표기를 교정했습니다. 초기 36개 후보 중 21개 소스 구현, POLISH 15개 남음. 53개 기존 fence/49개 예시 ID 유지, 별도 정적 SVG 5개를 포함한 격리 Import 58개 변경 검증과 Reader 232 Guest+4 Owner 조건을 작성했습니다. 최신 HEAD의 실제 브라우저·픽셀 QA 및 운영 DB 검증 미완료입니다. `main`·`refactor` 직접 변경, 병합, 운영 DB 쓰기·배포 없음.
