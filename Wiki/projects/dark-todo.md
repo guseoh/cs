@@ -8,6 +8,7 @@ updated_at: 2026-11-24
 evidence_level: source-verified
 capture_mode: manual
 sources:
+  - https://github.com/guseoh/dark-todo-planner/commit/f1b0fcf99ff298b067fd8a1df71e423039b3c116
   - https://github.com/guseoh/dark-todo-planner/pull/178
   - https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.3.3
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45327878159
@@ -116,3 +117,6 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-000
 - [DTD-0010](../decisions/DTD-0010.md): 변경 영역별 PR 검증, main의 Windows 패키징 1회 및 발행 전 검증, 데이터 관련 통합 테스트 유지, 주기적 회귀 분리를 확정했다. [소스 PR #178](https://github.com/guseoh/dark-todo-planner/pull/178)은 기록 시점에 검증 중이며 병합·실측 효과는 미확인이다.
 
 - 추가 확정: 운영 웹 UI/PWA는 제공하지 않는다. Worker API와 React/Tauri 번들을 독립적으로 빌드한다. 기존 최초 경량화 CI와 cargo check는 통과했지만 API 전용 전환 후 검증 및 배포 결과는 미확인이다. 소스 PR #178에서 진행한다.
+
+- 2026-11-24: [최종 CI](https://github.com/guseoh/dark-todo-planner/actions/runs/45330615667) 및 [Windows 검사](https://github.com/guseoh/dark-todo-planner/actions/runs/45330615591) 성공 후 [PR #178](https://github.com/guseoh/dark-todo-planner/pull/178)을 [커밋 `f1b0fcf`](https://github.com/guseoh/dark-todo-planner/commit/f1b0fcf99ff298b067fd8a1df71e423039b3c116)으로 병합했다. Cargo.lock 추적과 빌드 경계 분리를 포함한다. [Windows 릴리스](https://github.com/guseoh/dark-todo-planner/actions/runs/45330985143) 및 [Worker 배포](https://github.com/guseoh/dark-todo-planner/actions/runs/45330985210)는 확인 시 진행 중이며 운영 반영은 미검증이다.
+- 사용자가 기존 데스크톱 화면 개편을 종료하기로 결정하여 [#152](https://github.com/guseoh/dark-todo-planner/pull/152) 및 [#153](https://github.com/guseoh/dark-todo-planner/pull/153)을 미병합 종료했다. 기존 구현 이력을 보존한다.
