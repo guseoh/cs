@@ -40,3 +40,12 @@ For publication and cross-client submission, use [the explicit AI handoff contra
 
 ## Sync and privacy
 This is a public repository. Do not copy private chat transcripts or sensitive details. Follow [Obsidian multi-device sync rules](../.github/OBSIDIAN_SYNC.md) and use review PRs instead of force-pushing main.
+
+## Wiki PR 병합 후 브랜치 정리 (필수)
+
+- 검토·검증 및 병합 승인 절차는 그대로 유지한다. PR 생성만으로 병합 또는 브랜치 삭제가 승인된 것으로 간주하지 않는다.
+- 병합이 성공하면 해당 PR의 실제 merged 상태, 대상 브랜치, 병합 당시 head SHA와 현재 원격 head SHA를 확인한다. 동일 저장소의 일회성 작업 브랜치이고 모든 변경이 반영되었으며 다른 열린 PR의 head/base가 아니고 보호·장기 운영 브랜치가 아닌 경우 즉시 원격 브랜치를 삭제한다. squash/rebase 병합은 커밋 조상 여부만으로 판단하지 않는다.
+- `main`, `daily-tech`, `notion-import`, 기타 장기 운영·보호 브랜치, 미병합 종료 PR, 병합 뒤 추가 커밋이 있는 브랜치 및 미확인 브랜치는 보존한다. 일괄 정리에도 동일 기준을 적용하며 이름 패턴만으로 삭제하지 않는다.
+- 삭제 직전 SHA를 다시 확인하고 가능하면 SHA 조건부 삭제를 사용한다. 다른 작업의 로컬 브랜치·worktree는 임의 삭제하지 않는다. 원격 브랜치 목록을 재조회하여 실제 삭제 여부를 확인한다. 이미 자동 삭제된 브랜치는 성공으로 처리한다.
+- 저장소 Settings의 **Automatically delete head branches** 활성화를 권장한다. 단, 설정 활성화 여부를 실제 조회로 확인하고 장기 브랜치는 PR 작업 브랜치로 사용하지 않는다. 설정 변경 및 브랜치 삭제 API가 없는 클라이언트는 제한을 우회하지 않고 미완료 브랜치와 수동 정리 방법을 명시한다.
+- 완료 보고는 PR 병합·Wiki 검증·브랜치 정리 결과를 구분한다. 이 규칙은 직접 PR, Issue handoff 및 자동 intake로 생성되는 일회성 Wiki 작업 브랜치에 공통 적용한다. [WIKI-0004](decisions/WIKI-0004.md).

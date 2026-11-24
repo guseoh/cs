@@ -17,6 +17,8 @@ This is an Obsidian Vault synchronized through GitHub. The existing `Study/`, `P
 - This repository is public. Never store private chats, credentials, tokens, personal data, or sensitive operational details.
 - Respect the multi-device sync precautions in [.github/OBSIDIAN_SYNC.md](.github/OBSIDIAN_SYNC.md). Prefer a PR for reviewed Wiki changes; never force-push `main`.
 
+- Wiki PR 병합이 확인되면 [브랜치 정리 규칙](Wiki/AGENTS.md)에 따라 일회성 원격 작업 브랜치를 삭제하고 결과를 재확인한다. 삭제할 수 없으면 미완료를 보고한다. 장기 운영 브랜치는 보존한다.
+
 ## Cross-client AI handoff
 
 - For ChatGPT, Work, or Codex decision capture, follow [Wiki/handoff.md](Wiki/handoff.md). Prefer a reviewed direct Wiki PR; a public owner-authored `[wiki]` Issue is a portable **candidate** route only.
