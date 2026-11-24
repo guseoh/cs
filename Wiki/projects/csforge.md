@@ -8,6 +8,7 @@ updated_at: 2026-11-25
 evidence_level: source-verified
 capture_mode: full
 sources:
+  - https://github.com/guseoh/csforge/pull/306
   - https://github.com/guseoh/csforge/pull/302#issuecomment-7138980697
   - https://github.com/guseoh/csforge/pull/301#issuecomment-7138775972
   - https://github.com/guseoh/csforge/pull/305#issuecomment-7138283885
@@ -31,6 +32,8 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006, CSF-000
 # CSForge — source-verified project snapshot
 
 ## Current state (latest merge checks 2026-11-09; earlier entries noted separately)
+- **2026-11-25 Computer Architecture G1 도식·콘텐츠 개선:** [PR #306](https://github.com/guseoh/csforge/pull/306) Draft, HEAD [64d2bb7](https://github.com/guseoh/csforge/commit/64d2bb7d3e86544bdddf4d9dc42c516a46724ee8), refactor 기준 8f01a8b. CS Learning Visualization 기준과 이전 Wave 3 감사(10 Topic·61 Concept·183 Question)를 활용하여 20개 독립 SVG 신규 제작·본문 연결, 집합 연관 본문 추가 교정으로 총 21개 Concept Markdown 변경, 4문항 보강. 실제 주소/비트 폭, RV64 스택 프레임, 5-stage 타이밍, 캐시 매핑/쓰기 정책, Sv39·TLB, coherence·false sharing, DMA, 암달 비례 표현을 사용했다. 나머지 40개 본문 유지, 공통 UI 및 의존성 변경 없음. 기존 key·frontmatter·공유 Reference·문항 유형·객관식 정답 키 유지. 183문항 고유 키·필수 답안 구조 확인(수정 전), 수정 JSON 파싱 및 변경 일치 확인. 최신 전체 독립 본문/문항/Reference 검토, SVG 형식·실화면 80조건 계획, Pack Import/reimport와 이력 보존 검증은 미완료. CSF-0007 일정에 따라 실행 QA 이관, 병합·배포·운영 DB 쓰기 없음. [61개 선정 및 인수인계](https://github.com/guseoh/csforge/blob/64d2bb7d3e86544bdddf4d9dc42c516a46724ee8/docs/content-audit/learning-experience-2026/wave-3/computer-architecture-visualization-g1.md). 다음 영역 후보 Data Structures & Algorithms.
+
 - **2026-11-25 Operating Systems 통합 품질 개선:** [PR #302](https://github.com/guseoh/csforge/pull/302) HEAD [24064a0](https://github.com/guseoh/csforge/commit/24064a0ab786bfd9d894ce7896595f1d4869c082). 기존 Wave 3의 12 Topic·97 Concept·331 Question 감사와 주요 현재 지적 사항을 대조하여 10개 본문·5개 문항을 교정했다. COW와 FCFS/SJF 도식 2개 신규, page fault 1개 재구성(고유 SVG 48개, 예상 Reader 연결 49개). 기존 key·frontmatter·공유 Reference·문항 유형·객관식 정답 키 유지. [이전 HEAD Reader CI](https://github.com/guseoh/csforge/actions/runs/45433995949) SUCCESS는 이전 소스에 한정한다. 최신 테스트의 15개 합성 이전 이미지·49개 API fixture·196개 Reader 조건 조정, 실행하지 않음. 최신 97개 본문·331문항의 독립 전수 검토, 전체 링크 및 Reference 대조, Import/reimport와 이력 보존·실화면 QA는 미완료. CSF-0007 일정 유지. Draft 유지, 병합·배포·운영 DB 변경 없음. 다음 영역 후보 Computer Architecture. [PR 작업 기록](https://github.com/guseoh/csforge/pull/302#issuecomment-7138980697).
 
 - **2026-11-25 Database 통합 콘텐츠·도식 개선:** [PR #301](https://github.com/guseoh/csforge/pull/301), 최신 소스 HEAD [b8e3dcb](https://github.com/guseoh/csforge/commit/b8e3dcb6dcb1874838abe74111b33ee714067d71). 12 Topic·38 Concept 본문 전수 읽기 후 14개 교정, 24개 유지. 기존 SVG 17개 중 WAL·조건부 UPDATE 2개 재구성, Index-only scan·윈도 frame 2개 신규 추가(총 19개). 현재 Question 77개 구조 확인, 객관식 15개 선택지·해설 확인, 6개 문항 교정. 식별자와 문항 유형 및 객관식 정답 키 유지. 변경된 질문의 과거 답안 유효성을 보장하지 않음. 비객관식 62개 각각의 전체 답안·해설 최종 독립 검토 및 Reference 전수 대조는 미완료. [이전 HEAD 766c791 Reader QA](https://github.com/guseoh/csforge/actions/runs/45433976417) SUCCESS는 기존 17개 도식에 한정. 최신 19개 도식/76조건 격리 Reader 검증 코드 조정, 실행 QA는 CSF-0007에 따라 전체 영역 소스 개선 후 이관. 비도식 본문 및 변경 문항의 이전 버전 업데이트·이력 보존도 별도 통합 검증 필요. Draft 유지, 병합·배포·운영 DB 변경 없음. 다음 영역 후보 Operating Systems #302. [작업 기록](https://github.com/guseoh/csforge/pull/301#issuecomment-7138775972).
