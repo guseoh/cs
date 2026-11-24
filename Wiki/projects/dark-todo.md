@@ -114,3 +114,5 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-000
 ## 2026-11-24 — Windows 릴리스 정상화 및 CI/CD 경량화 결정
 - [릴리스 v0.3.2](https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.3.2)와 [v0.3.3](https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.3.3)의 서명 설치 파일 및 manifest 게시를 확인했다. 위의 최초 서명 키 차단은 역사적 상태이며 현재 릴리스 발행 차단으로 해석하지 않는다. 실제 설치본의 후속 자동 업데이트 성공은 별도 검증 대상이다.
 - [DTD-0010](../decisions/DTD-0010.md): 변경 영역별 PR 검증, main의 Windows 패키징 1회 및 발행 전 검증, 데이터 관련 통합 테스트 유지, 주기적 회귀 분리를 확정했다. [소스 PR #178](https://github.com/guseoh/dark-todo-planner/pull/178)은 기록 시점에 검증 중이며 병합·실측 효과는 미확인이다.
+
+- 추가 확정: 운영 웹 UI/PWA는 제공하지 않는다. Worker API와 React/Tauri 번들을 독립적으로 빌드한다. 기존 최초 경량화 CI와 cargo check는 통과했지만 API 전용 전환 후 검증 및 배포 결과는 미확인이다. 소스 PR #178에서 진행한다.
