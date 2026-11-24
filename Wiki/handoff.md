@@ -50,6 +50,8 @@ DevPedia is authored and implemented by the user. AI assists with design reasoni
 5. Treat the bot-created PR as an **untrusted staging artifact**. A reviewer verifies the content and separately promotes it into a record with stable ID, index, snapshot and history updates.
 6. Retrieve the source record and link it in subsequent AI answers. Neither GitHub nor AGENTS.md makes data automatically available in unrelated new chats.
 
+7. 승인된 PR을 병합한 경우 [브랜치 정리 규칙](AGENTS.md)에 따라 일회성 원격 작업 브랜치 삭제와 재조회까지 수행한다. 병합 여부와 정리 여부를 별도 보고하며 삭제 기능이 없으면 미완료로 표시한다.
+
 ## Suggested instructions to AI tools
 
 **ChatGPT / Work:** "Read guseoh/cs Wiki/index.md and Wiki/AGENTS.md via GitHub. Check existing decisions and current project state. When I explicitly confirm a durable, public-safe decision, prepare the smallest Wiki update and open a review PR using the repository schema. If direct PR creation is unavailable, use the owner-authored [wiki] GitHub Issue JSON contract only with my approval. Do not publish private chat text."

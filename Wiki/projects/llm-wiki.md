@@ -4,7 +4,7 @@ type: project
 project: llm-wiki
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-18
+updated_at: 2026-11-24
 evidence_level: source-verified
 sources:
   - https://github.com/guseoh/cs
@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/cs/pull/19
 depends_on: []
 supersedes: []
-related_to: [WIKI-0001, WIKI-0002]
+related_to: [WIKI-0001, WIKI-0002, WIKI-0004]
 ---
 
 # LLM Wiki 프로젝트 스냅샷
@@ -46,3 +46,7 @@ related_to: [WIKI-0001, WIKI-0002]
 
 - 2026-11-03의 스냅샷은 병합 전 상태를 기록했다. 확인 가능한 현재 근거를 2026-11-18에 대조했으며 [월별 이력](../history/2026-11.md)에 시점을 남겼다.
 - 확인 범위는 공개 GitHub의 PR 상태, 실행 단계, 대상 파일과 로컬 검증이다. 비공개 대화 접근이나 운영 런타임을 검증하지 않았다.
+
+## 2026-11-24 Wiki PR 브랜치 수명주기
+
+- [WIKI-0004](../decisions/WIKI-0004.md): 승인된 Wiki PR 병합 후 안전한 일회성 원격 브랜치 삭제 및 재확인을 완료 기준으로 확정했다. 최초 조회 당시 자동 head 브랜치 삭제 설정은 꺼져 있었다. 정책 문서의 반영과 설정 활성화·기존 브랜치 삭제 실행 여부는 별개이며, 후자는 실제 확인 전까지 완료로 간주하지 않는다.

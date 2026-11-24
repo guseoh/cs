@@ -63,3 +63,7 @@ See [WIKI-0003](decisions/WIKI-0003.md) and [the source ledger](history/pawcycle
 ## Implementation boundary
 
 The rules in this file are consumed by AI clients that explicitly retrieve them. GitHub Actions collects public repository events separately. Neither `AGENTS.md` nor a scheduled workflow can autonomously access all ChatGPT/Work/Codex session contents. The direct PR route and optional reviewed handoff format are documented in [handoff.md](handoff.md).
+
+## Wiki 기록 완료 기준 (2026-11-24 사용자 확정)
+
+검토 및 승인된 Wiki PR의 병합 후 [브랜치 정리 규칙](AGENTS.md)을 수행한다. 병합된 일회성 원격 브랜치의 실제 삭제까지 확인하며, 열린 PR·보호·장기 운영·미반영 브랜치는 보존한다. 권한 또는 기능 부족으로 삭제하지 못하면 별도 미완료 상태로 보고한다. 기존 프로젝트별 capture mode와 검토·병합 승인 절차는 변경하지 않는다.
