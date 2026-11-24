@@ -39,6 +39,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [WIKI-0003](decisions/WIKI-0003.md) | accepted | PawCycle AI Project Memory: exhaustive source dispositions and continuous capture | llm-wiki |
 | [WIKI-0004](decisions/WIKI-0004.md) | accepted | Wiki PR 병합 후 일회성 원격 브랜치 정리 | llm-wiki |
 | [WIKI-0005](decisions/WIKI-0005.md) | accepted | Wiki 및 에이전트 운영 규칙 V2 | llm-wiki |
+| [WIKI-0006](decisions/WIKI-0006.md) | accepted | 한국어 및 맥락 복원 중심 Wiki 작성 기준 | llm-wiki |
 | [GRD-0001](decisions/GRD-0001.md) | accepted | 분야를 넘나드는 한국어 교양 칼럼 + 개인 블로그·전문 자료·도서 링크 + 사용자 직접 사색 | general-reading |
 | [CSF-0001](decisions/CSF-0001.md) | accepted | Guard canonical content sync to preserve history | csforge |
 | [CSF-0002](decisions/CSF-0002.md) | accepted | Java editorial diagram semantics | csforge |

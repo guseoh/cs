@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/cs/pull/19
 depends_on: []
 supersedes: []
-related_to: [WIKI-0001, WIKI-0002, WIKI-0004, WIKI-0005]
+related_to: [WIKI-0001, WIKI-0002, WIKI-0004, WIKI-0005, WIKI-0006]
 ---
 
 # LLM Wiki 프로젝트 스냅샷
@@ -52,3 +52,5 @@ related_to: [WIKI-0001, WIKI-0002, WIKI-0004, WIKI-0005]
 - [WIKI-0004](../decisions/WIKI-0004.md): 승인된 Wiki PR 병합 후 안전한 일회성 원격 브랜치 삭제 및 재확인을 완료 기준으로 확정했다. 최초 조회 당시 자동 head 브랜치 삭제 설정은 꺼져 있었다. 후속 조회에서 자동 head 삭제 활성화, 원격 main 단독 유지, 열린 PR 0개를 확인했다. 이 상태는 V2 작업 시작 전 스냅샷이며 로컬 동기화는 별도다.
 
 - [WIKI-0005](../decisions/WIKI-0005.md): 공통 규칙과 프로젝트 정책 분리, main 중심 수명주기, 누락 방지 및 생성 후 검증으로 V2 개선을 진행한다. 구현·CI·병합·브랜치 정리는 PR 근거에서 각각 확인한다.
+
+- [WIKI-0006](../decisions/WIKI-0006.md): 한국어 및 문서 유형별 상세 작성 기준을 확정했다. 기존 프로젝트별 기록 범위는 유지하며 중요한 기록의 맥락 복원 가능성을 우선한다.
