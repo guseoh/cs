@@ -55,6 +55,13 @@ class JournalTests(unittest.TestCase):
             self.assertEqual(content.count("wiki-pr:guseoh/csforge#41"), 1)
             self.assertEqual(content.count("wiki-pr:guseoh/csforge#43"), 1)
 
+    def test_no_hundred_event_limit(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data = source_events()
+            data["guseoh/csforge"] = [sample("csforge", n, "2026-11-03T01:00:00Z") for n in range(1, 152)]
+            changes = build_changes(data, Path(tmp))
+            self.assertEqual(changes[Path(tmp) / "csforge" / "2026-11.md"].count("<!-- wiki-pr:"), 151)
+
     def test_preserves_manual_journal_lines(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

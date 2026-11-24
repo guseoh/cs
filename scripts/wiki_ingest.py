@@ -16,10 +16,9 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "Wiki" / "inbox" / "merged-pr-candidates.md"
-REPOSITORIES = (
-    ("CSForge", "guseoh/csforge"),
-    ("PawCycle", "guseoh/pawcycle-commerce"),
-)
+from wiki_policy import collectors
+
+REPOSITORIES = tuple((label, repo) for _, label, repo in collectors())
 RESULT_LIMIT = 12
 
 
@@ -39,13 +38,37 @@ def merged_candidates(response, limit=RESULT_LIMIT):
 
 
 def retrieve(repo, token=None, opener=urlopen):
-    url = "https://api.github.com/repos/" + repo + "/pulls?state=closed&sort=updated&direction=desc&per_page=100"
+    """Scan every closed PR page, fail on incomplete/invalid responses.
+
+    Re-scan on each run instead of relying on an advancing timestamp cursor.
+    The journal's stable identifiers recover gaps after skipped runs.
+    """
+    base = "https://api.github.com/repos/" + repo + "/pulls?state=closed&sort=created&direction=asc&per_page=100"
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "cs-llm-wiki-intake"}
     if token:
         headers["Authorization"] = "Bearer " + token
-    request = Request(url, headers=headers)
-    with opener(request, timeout=25) as response:
-        return json.load(response)
+    by_number = {}
+    seen_pages = set()
+    page = 1
+    while True:
+        request = Request(base + "&page=" + str(page), headers=headers)
+        with opener(request, timeout=25) as response:
+            rows = json.load(response)
+        if not isinstance(rows, list) or len(rows) > 100:
+            raise ValueError("invalid PR page for " + repo)
+        numbers = []
+        for row in rows:
+            if not isinstance(row, dict) or type(row.get("number")) is not int or row["number"] < 1:
+                raise ValueError("invalid PR row for " + repo)
+            numbers.append(row["number"])
+            by_number[row["number"]] = row
+        signature = tuple(numbers)
+        if signature in seen_pages:
+            raise ValueError("repeated PR page for " + repo)
+        seen_pages.add(signature)
+        if len(rows) < 100:
+            return list(by_number.values())
+        page += 1
 
 
 def render(results):

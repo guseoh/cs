@@ -34,6 +34,7 @@ jobs:
         if: steps.pending.outputs.skip != 'true'
         run: |
           python scripts/wiki_validate.py
+          python scripts/wiki_query.py evaluate
           python -m unittest discover -s scripts -p 'test_wiki_*.py' -v
       - name: Collect recent public merged PRs
         if: steps.pending.outputs.skip != 'true'
@@ -45,6 +46,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/wiki_journal.py
+      - name: Validate generated final changes before publishing
+        if: steps.pending.outputs.skip != 'true'
+        run: |
+          python scripts/wiki_validate.py
+          python scripts/wiki_query.py evaluate
+          python -m unittest discover -s scripts -p 'test_wiki_*.py' -v
       - name: Open review PR for source candidates only
         if: steps.pending.outputs.skip != 'true'
         env:
@@ -52,7 +59,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ -z "$(git status --porcelain -- Wiki/inbox/merged-pr-candidates.md Wiki/journal/csforge Wiki/journal/pawcycle)" ]]; then
+          if [[ -z "$(git status --porcelain -- Wiki/inbox/merged-pr-candidates.md Wiki/journal)" ]]; then
             echo 'No changed merged-PR evidence or journals; no PR needed'
             exit 0
           fi
@@ -60,7 +67,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -b "$branch"
-          git add Wiki/inbox/merged-pr-candidates.md Wiki/journal/csforge Wiki/journal/pawcycle
+          git add Wiki/inbox/merged-pr-candidates.md Wiki/journal
           git commit -m 'docs(wiki): refresh merged PR candidate evidence'
           git push origin "$branch"
           gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" --title 'docs(wiki): review CSForge and PawCycle activity journal' --body 'Automated, untrusted source events only. CSForge/PawCycle journal entries and PR candidate queue; no DevPedia implementation history. Review linked PRs; decisions are NOT auto-accepted. Do not merge without review.'

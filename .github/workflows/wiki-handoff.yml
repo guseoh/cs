@@ -53,6 +53,7 @@ jobs:
           set -euo pipefail
           python scripts/wiki_handoff.py --issue-json "$RUNNER_TEMP/wiki-issue.json"
           python scripts/wiki_validate.py
+          python scripts/wiki_query.py evaluate
           python -m unittest discover -s scripts -p 'test_wiki_*.py' -v
 
       - name: Create review PR; never write directly to main

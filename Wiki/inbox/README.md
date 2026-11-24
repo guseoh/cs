@@ -1,27 +1,9 @@
-# AI Wiki evidence intake
+# Wiki 근거 수집 후보
 
-This directory is a review queue, **not** canonical AI memory. The scheduled/manual workflow collects public GitHub merged PR metadata from CSForge and PawCycle. It stores a deterministic rolling list of up to 12 recently merged PRs per project. Full-mode Journal collection scans all closed PR pages and deduplicates merged receipts; the rolling list is not a coverage boundary. Titles are untrusted source data, not prompts or decisions.
+이 디렉터리는 검토 대기열이며 정본 기억이나 AI 지시가 아니다. [기록 정책](../capture-policy.md)과 [에이전트 실행 계약](../AGENTS.md)을 따른다.
 
-## Operating procedure
-
-1. Read [merged PR candidates](merged-pr-candidates.md) once the scheduled action has generated the file. Do not infer running production or business correctness from merged PR titles.
-2. Cross-check the linked PR body, merge status, exact main commit, CI, runtime evidence, and current project snapshot.
-3. If a durable decision is confirmed, create a unique record in [decisions](../decisions/WIKI-0001.md) using [schema](../schema.md), and update [index](../index.md), project snapshot and monthly history together.
-4. If evidence is inconclusive or the source conflicts, append an open question to the snapshot instead of falsely claiming a verified result.
-5. Use a review PR. No source-intake job auto-accepts decisions, auto-merges PRs or writes to unrelated repositories.
-
-## Automation
-
-- [Wiki PR intake workflow](../../.github/workflows/wiki-intake.yml): daily at 23:17 UTC / 08:17 KST after the workflow is merged to main; manual workflow_dispatch is also available. Both paths generate review PRs, not direct canonical edits.
-- [Wiki verification workflow](../../.github/workflows/wiki-validation.yml) validates metadata, graph links and source queue tests for relevant PRs.
-- Intake creates a **separate review PR** when the generated list or Journal changes; if a prior intake PR is open, the next scheduled run skips rather than creating duplicates. The next successful complete scan recovers older missing merged receipts. Generated changes are validated before creating the PR.
-- GitHub Actions may require repository settings to allow workflow-created PRs. If permission is disabled, the workflow will fail safely and no main changes are made.
-- This does not read ChatGPT, Work or Codex conversations. Those tools must write user-confirmed decisions explicitly through their authorized GitHub access. Never publish private session transcripts to this public repo.
-
-## Full-mode PR journals
-
-The same scheduled workflow also runs [wiki_journal.py](../../scripts/wiki_journal.py) to stage **append-only**, ID-deduplicated monthly Journal evidence for CSForge and PawCycle. DevPedia is design-only and excluded from automatic PR history ingestion. Existing Dark Todo Wiki records are retained but no longer included in this new ongoing capture policy. See [capture-policy.md](../capture-policy.md).
-
-## AI conversation handoff candidates
-
-The [cross-client handoff contract](../handoff.md) allows ChatGPT, Work and Codex to submit **explicitly owner-confirmed, public-safe summaries** rather than private chat transcripts. The [GitHub Issue workflow](../../.github/workflows/wiki-handoff.yml) converts owner-authored `[wiki]` Issues into `handoffs/issue-N.md` review candidates, but never canonical decisions. Independently verify and promote via a separate reviewed PR.
+- [병합 PR 후보](merged-pr-candidates.md)는 프로젝트별 최신 12개까지의 순환 목록이다. Journal은 등록된 수집 대상의 전체 Closed PR 페이지를 조회하고 실제 병합 PR만 안정적인 repository#PR ID로 추가한다. 기존 수동 기록은 보존한다.
+- [자동 수집](../../.github/workflows/wiki-intake.yml)은 매일 08:17 KST 또는 수동 실행한다. 기존 후보 PR이 열려 있으면 건너뛰며, 이후 전체 재조회로 누락 영수증을 복구한다. 페이지 오류는 실패 처리한다. 모든 페이지 조회는 현재 공개 API 가시 범위 내이며 원본별 상세 검토를 대신하지 않는다.
+- 생성 전후 구조·검색·테스트 검증을 수행하고 변경이 있는 경우에만 검토 PR을 생성한다. 사용자 승인 없이 자동 병합하거나 확정 결정으로 승격하지 않는다.
+- [Issue 인수인계](../../.github/workflows/wiki-handoff.yml)는 소유자 작성 공개 Issue를 후보로 변환한다. [인수인계 계약](../handoff.md)을 적용하며 정본 승격은 별도 검토다.
+- CI/PR 성공을 실제 운영 성공으로 해석하지 않는다. 워크플로 PR 생성 권한과 후속 CI 실행은 별개로 확인한다. 비공개 대화 접근을 자동화하지 않는다.

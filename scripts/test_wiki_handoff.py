@@ -85,6 +85,14 @@ class HandoffTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             parse_issue(issue, OWNER, REPO)
 
+    def test_accepts_approved_learning_projects(self):
+        for project in ("backend-systems-lab", "logistics-learning"):
+            issue = fixture()
+            data = json.loads(issue["body"])
+            data["project"] = project
+            issue["body"] = json.dumps(data)
+            self.assertEqual(parse_issue(issue, OWNER, REPO)[1]["project"], project)
+
     def test_rejects_unknown_project(self):
         issue = fixture()
         data = json.loads(issue["body"])
