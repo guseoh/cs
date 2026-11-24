@@ -8,6 +8,8 @@ updated_at: 2026-11-24
 evidence_level: source-verified
 capture_mode: manual
 sources:
+  - https://github.com/guseoh/dark-todo-planner/blob/tern-v0.2.0/src-tauri/src/main.rs
+  - https://github.com/guseoh/dark-todo-planner/actions/runs/45135922038
   - https://github.com/guseoh/dark-todo-planner/commit/f1b0fcf99ff298b067fd8a1df71e423039b3c116
   - https://github.com/guseoh/dark-todo-planner/pull/178
   - https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.3.3
@@ -32,7 +34,7 @@ sources:
   - https://github.com/guseoh/dark-todo-planner/actions/runs/45022062078
 depends_on: []
 supersedes: []
-related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-0008, DTD-0009, DTD-0010]
+related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0006, DTD-0007, DTD-0008, DTD-0009, DTD-0010]
 ---
 # Dark Todo Planner — 프로젝트 현황
 
@@ -131,3 +133,10 @@ related_to: [DTD-0001, DTD-0002, DTD-0003, DTD-0004, DTD-0005, DTD-0007, DTD-000
 - 후속 수정: [PR #180 최신 커밋 `2753768`](https://github.com/guseoh/dark-todo-planner/commit/2753768a1b809586ed5b9eb2906833bcafc7904a)은 Tauri/WebView2 초기화 전 Windows 로컬 앱 데이터의 OS 파일 잠금을 확보하도록 변경했다. 중복 실행 실패 원인이 초기화 순서였다는 가설을 실제 검증하기 위해 기존 프로세스 종료 후 재실행 스모크를 추가했고, Rust 단위 테스트 및 별도 시험용 Credential Manager 항목 저장·조회·교체·삭제를 동일 release 프로파일에서 실행하도록 했다. [일반 CI](https://github.com/guseoh/dark-todo-planner/actions/runs/45337970182), [Windows 검사](https://github.com/guseoh/dark-todo-planner/actions/runs/45337970333), [Windows 스모크 및 Rust 테스트](https://github.com/guseoh/dark-todo-planner/actions/runs/45337970171)는 기록 시점 실행 중이며 수정 효과 및 병합·운영 배포는 미확인이다.
 
 - 최종 자동 검증 및 병합(2026-11-24): [일반 CI](https://github.com/guseoh/dark-todo-planner/actions/runs/45337970182), [Windows 컴파일·glib 검사](https://github.com/guseoh/dark-todo-planner/actions/runs/45337970333), [Windows 시작 스모크·Rust 테스트](https://github.com/guseoh/dark-todo-planner/actions/runs/45337970171) 모두 성공. Rust 테스트 5개 성공(IPC URL, 세션 토큰 형식, updater 동시 실행, OS 파일 잠금, 시험용 Credential Manager 저장·조회·교체·삭제). 실제 runner에서 첫 창 생성, 두 번째 프로세스 종료, 첫 프로세스 종료 후 재실행 성공을 로그로 확인했다. 사용자 승인으로 [PR #180](https://github.com/guseoh/dark-todo-planner/pull/180)을 [main `64a276a`](https://github.com/guseoh/dark-todo-planner/commit/64a276abfff7b26abc252de0b4a336d3d89011bc)에 squash 병합했다. [서명 Windows 릴리스](https://github.com/guseoh/dark-todo-planner/actions/runs/45339156959)는 기록 시점 진행 중이다. 안정화 구현과 자동 검증은 완료, 신규 설치본의 세션 유지·초안 복원·트레이/단축키·재연결 및 신규 버전 설치 후 데이터 보존은 미확인 상태다.
+
+## 2026-11-23 Tern 중심 개발 전환 및 배포 확인
+- [DTD-0006](../decisions/DTD-0006.md): 사용자가 Windows Tern을 우선 개발·검토 대상으로 확정하고 브라우저 전용 웹 UI의 독립 개선은 우선순위에서 제외했다. 현재 Tern은 운영 HTTPS 화면을 직접 불러오는 구조이므로 공통 React·Workers/D1의 유지보수와 웹 배포는 계속 필요하다.
+- [Production CI #45135922038](https://github.com/guseoh/dark-todo-planner/actions/runs/45135922038)의 테스트/빌드·로컬 Worker+D1 브라우저 회귀·Production 배포 세 작업이 모두 성공했다. Tern `tern-v0.2.0`의 `main.rs`에서 `WebviewUrl::External`로 운영 HTTPS 출처를 로드하고 창 닫기가 트레이 숨김으로 동작함을 확인했다.
+- **검증 한계:** 설치된 Windows Tern에서 갱신 화면을 직접 확인하지 못했다. 트레이에서 **종료** 후 재실행하는 확인이 남았다. 별도 앱 설치본 업데이트 여부는 이번 React UI 병합과 구분한다.
+
+> 2026-11-24 후속 결정: [DTD-0009](../decisions/DTD-0009.md)에서 Windows 번들 앱 전용 배포로 전환했다. 아래는 2026-11-23 당시의 기록이며 현행 아키텍처를 뜻하지 않는다.
