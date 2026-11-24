@@ -1,33 +1,19 @@
-# Repository agent instructions
+# 저장소 에이전트 공통 규칙
 
-This is an Obsidian Vault synchronized through GitHub. The existing `Study/`, `Project/`, `Book/`, attachments, and Obsidian configuration are original materials. Do not restructure, delete, or bulk-rewrite them to manage the LLM Wiki.
+이 저장소는 Obsidian Vault와 AI 공통 장기 기억을 관리한다. `Study/`, `Project/`, `Book/`, 첨부 파일 및 Obsidian 설정은 원본이다. Wiki 작업을 위해 원본을 재구성·삭제·일괄 수정하지 않는다.
 
-## AI context retrieval
+## 작업 진입점
+- 이전 결정, 프로젝트 현황, 후속 작업, 설계 근거가 필요한 경우 [Wiki/index.md](Wiki/index.md)와 [Wiki/AGENTS.md](Wiki/AGENTS.md)를 먼저 읽고 관련 문서만 조회한다. 일반 문법 질문·인사에는 조회를 강제하지 않는다.
+- Wiki 작성은 [기록 정책](Wiki/capture-policy.md), [스키마](Wiki/schema.md), [인수인계 계약](Wiki/handoff.md)을 따른다. 프로젝트 원본과 현재 사용자 지시를 확인한다.
+- 공개 저장소에 비공개 대화, 개인정보, 인증 정보, 민감한 운영 세부사항을 기록하지 않는다. GitHub 접근이 없으면 기록 완료를 주장하지 않는다.
 
-- For questions about prior decisions, current project context, rejected alternatives, or follow-up work, start at [Wiki/index.md](Wiki/index.md).
-- Read only the relevant project snapshot and linked records, not the entire Vault.
-- Cite the underlying records and their evidence. Do not treat proposed decisions as accepted, or accepted decisions as verified deployments.
-- A repository file is not automatic model memory. Each AI client must have GitHub access and must retrieve the relevant files.
+## Git 및 동기화
+- 평상시 원격 브랜치는 `main`만 유지한다. 작업은 최신 main에서 분리하고, Wiki 변경은 검토 PR을 사용한다. 승인 없는 병합·강제 push·미반영 작업 삭제를 금지한다.
+- 병합 및 일회성 브랜치 정리의 상세 기준은 [Wiki/AGENTS.md](Wiki/AGENTS.md)를 따른다. Daily Tech의 PR 없는 반영은 아래의 별도 예외다.
+- [멀티기기 동기화](.github/OBSIDIAN_SYNC.md)를 준수한다. 원격 변경만으로 로컬 기기 동기화를 완료 판정하지 않는다.
 
-## Wiki writes
-
-- Follow [Wiki/AGENTS.md](Wiki/AGENTS.md) and [Wiki/schema.md](Wiki/schema.md).
-- Make durable updates only for confirmed decisions, verified state changes, or reusable lessons; do not copy full conversations.
-- Preserve existing records and refer to replacements using `supersedes`.
-- This repository is public. Never store private chats, credentials, tokens, personal data, or sensitive operational details.
-- Respect the multi-device sync precautions in [.github/OBSIDIAN_SYNC.md](.github/OBSIDIAN_SYNC.md). Prefer a PR for reviewed Wiki changes; never force-push `main`.
-
-- Wiki PR 병합이 확인되면 [브랜치 정리 규칙](Wiki/AGENTS.md)에 따라 일회성 원격 작업 브랜치를 삭제하고 결과를 재확인한다. 삭제할 수 없으면 미완료를 보고한다. 장기 운영 브랜치는 보존한다.
-
-## Cross-client AI handoff
-
-- For ChatGPT, Work, or Codex decision capture, follow [Wiki/handoff.md](Wiki/handoff.md). Prefer a reviewed direct Wiki PR; a public owner-authored `[wiki]` Issue is a portable **candidate** route only.
-- Never automatically publish private conversations. The assistant must determine whether the user confirmed a durable and publicly safe summary. Do not imply cross-client background capture.
-
-## Daily Tech auto capture
-
-- Daily technical article archiving uses `References/Tech Articles/README.md`, **not** the Wiki capture schema. Preserve handwritten Study, Project and Wiki notes.
-- The user elected a small reusable staging branch called `daily-tech`; no daily PR. Add new public articles only in `References/Tech Articles/Articles/YYYY/`, validate the exact staging SHA with Daily Tech validation CI, and advance `main` only by non-force fast-forward after confirming that main has not moved.
-- Refuse to overwrite existing notes, remove files, bypass a failing/unavailable CI check, auto-merge diverged histories, or publish secrets/private content. On conflicts, stop and report the blocker; do not silently fall back to writing directly on main.
-- The ChatGPT daily briefing scheduler now targets Obsidian instead of Notion. A delivered briefing does not prove its articles were committed; verify the exact CI SHA and main branch result before reporting a successful archive.
-- Let GitHub Actions validate duplicates against the full checked-out archive. Do not individually fetch every article through the ChatGPT GitHub connection. Missing code-search hits are not proof of uniqueness; any duplicate found in staging CI blocks main.
+## Daily Tech
+기술 아티클은 Wiki가 아니라 [전용 아카이브 계약](References/Tech%20Articles/README.md)을 따른다.
+- 매 실행 최신 main에서 `daily-tech` 임시 브랜치를 생성한다. 기존 브랜치가 남아 있으면 미반영 작업 여부를 확인하고 덮어쓰지 않는다.
+- 새 공개 아티클만 추가하고 전체 아카이브 중복 및 추가 전용 검증을 수행한다. 마지막 스테이징 SHA의 CI 성공과 main 불변을 확인한 경우에만 PR 없이 non-force fast-forward한다.
+- main의 반영과 임시 브랜치 삭제를 검증한다. 실패·권한 부족·CI 미완료면 중단하고 실제 상태를 보고한다. 브리핑 전달과 저장 성공은 별개다.

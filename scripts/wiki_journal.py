@@ -15,13 +15,11 @@ from wiki_ingest import merged_candidates, retrieve, safe_title
 
 ROOT = Path(__file__).resolve().parents[1]
 JOURNAL_ROOT = ROOT / "Wiki" / "journal"
-REPOSITORIES = (
-    ("csforge", "CSForge", "guseoh/csforge"),
-    ("pawcycle", "PawCycle Commerce", "guseoh/pawcycle-commerce"),
-)
+from wiki_policy import collectors
+
+REPOSITORIES = collectors()
 MERGED_AT = re.compile(r"\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\Z")
 SHA = re.compile(r"\A[a-f0-9]{40}\Z")
-MAX_EVENTS = 100
 
 
 def entry(repo, pr):
@@ -46,7 +44,7 @@ def build_changes(results, root=JOURNAL_ROOT):
     for slug, label, repository in REPOSITORIES:
         if repository not in results:
             raise ValueError("missing data for " + repository)
-        events = merged_candidates(results[repository], limit=MAX_EVENTS)
+        events = merged_candidates(results[repository], limit=None)
         by_month = {}
         for pr in reversed(events):
             month, marker, line = entry(repository, pr)

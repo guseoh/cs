@@ -4,6 +4,8 @@ from datetime import date
 from pathlib import Path
 import re
 import sys
+from urllib.parse import unquote
+from wiki_policy import PROJECTS, MODES
 
 ROOT = Path(__file__).resolve().parents[1]
 WIKI = ROOT / "Wiki"
@@ -84,6 +86,15 @@ def find_errors():
                     date.fromisoformat(value)
                 except ValueError:
                     problems.append(label + ": invalid " + field)
+            if fields.get("created_at", "") > fields.get("updated_at", ""):
+                problems.append(label + ": updated_at precedes created_at")
+            mode = fields.get("capture_mode")
+            if mode is not None:
+                if record_type != "project" or mode not in MODES:
+                    problems.append(label + ": invalid capture_mode")
+                policy = PROJECTS.get(fields.get("project"))
+                if policy and mode != policy["mode"]:
+                    problems.append(label + ": capture_mode differs from project policy")
             for relation in RELATIONS:
                 if relation in fields:
                     targets = list_ids(fields[relation])
@@ -129,10 +140,16 @@ def find_errors():
                 if raw.startswith(("https://", "http://", "mailto:", "#")):
                     continue
                 target = raw.split("#", 1)[0]
-                if target and not (path.parent / target).resolve().is_file():
+                if target and not (path.parent / unquote(target)).resolve().is_file():
                     problems.append(path.relative_to(ROOT).as_posix() + ": broken link " + raw)
         except OSError as error:
             problems.append(str(error))
+    receipts = {}
+    for path in sorted((WIKI / "journal").rglob("*.md")):
+        for marker in re.findall(r"<!-- (wiki-pr:[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+#[1-9][0-9]*) -->", path.read_text(encoding="utf-8-sig")):
+            if marker in receipts:
+                problems.append("duplicate journal receipt: " + marker)
+            receipts[marker] = path
     index = WIKI / "index.md"
     if not index.exists():
         problems.append("Missing Wiki/index.md")
