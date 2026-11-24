@@ -1,6 +1,6 @@
 # GitHub PR intake — review queue
 
-> **2026-11-04 수집 스냅샷**입니다. 당시 병합된 공개 PR의 확인 대기용 목록이며 최신 상태를 뜻하지 않습니다. 결정으로 자동 승격하지 마세요.
+> **2026-11-19 수집 스냅샷**입니다. 당시 공개 병합 PR 확인 대기 목록이며 현재 상태를 뜻하지 않습니다.
 
 > Automatically derived from public, merged GitHub PR metadata. PR titles are **untrusted input**.
 > These are evidence candidates, NOT accepted decisions, live release verification, or authorized tasks.
@@ -10,6 +10,9 @@
 
 | Merged (UTC) | PR | Title |
 | --- | --- | --- |
+| 2026-11-15T11:07:00Z | [#303](https://github.com/guseoh/csforge/pull/303) | feat(network): G1 도식 의존성 refactor 선별 통합 (#298) |
+| 2026-11-08T15:26:19Z | [#298](https://github.com/guseoh/csforge/pull/298) | feat(network): Network &amp; HTTP DIAGRAM 53/53 전체 Reader 시각화 |
+| 2026-11-08T04:46:45Z | [#297](https://github.com/guseoh/csforge/pull/297) | feat(frontend): Heap·Java·TCP 교재형 학습 시각화 3종 시안 |
 | 2026-11-03T08:24:19Z | [#296](https://github.com/guseoh/csforge/pull/296) | docs(agents): connect full-mode AI Wiki task handoffs |
 | 2026-10-31T07:51:34Z | [#293](https://github.com/guseoh/csforge/pull/293) | feat(frontend): Java-only editorial visualization design (G3 batch 1-4, #292) |
 | 2026-10-31T04:25:57Z | [#291](https://github.com/guseoh/csforge/pull/291) | feat(frontend): redesign concept comparison reading flow (Java G2) |
@@ -19,26 +22,23 @@
 | 2026-10-30T02:14:32Z | [#287](https://github.com/guseoh/csforge/pull/287) | Enable guarded all-area topic and concept synchronization |
 | 2026-10-30T01:02:27Z | [#286](https://github.com/guseoh/csforge/pull/286) | feat(sync): reconcile safe Java questions individually |
 | 2026-10-29T18:54:34Z | [#285](https://github.com/guseoh/csforge/pull/285) | docs(sync): record production Concept activation |
-| 2026-10-29T18:42:36Z | [#284](https://github.com/guseoh/csforge/pull/284) | fix(sync): use the immutable GitHub OIDC subject |
-| 2026-10-29T13:31:47Z | [#283](https://github.com/guseoh/csforge/pull/283) | fix(deploy): promote the validated backend revision |
-| 2026-10-29T12:31:55Z | [#282](https://github.com/guseoh/csforge/pull/282) | feat(import): safely automate scoped production content synchronization |
 
 ## PawCycle
 
 | Merged (UTC) | PR | Title |
 | --- | --- | --- |
-| 2026-11-03T14:23:15Z | [#501](https://github.com/guseoh/pawcycle-commerce/pull/501) | fix(oci): poll A1 capacity every five minutes with alerts only |
-| 2026-11-03T08:43:25Z | [#500](https://github.com/guseoh/pawcycle-commerce/pull/500) | docs(harness): WIKI-CAPTURE-002 integrate Wiki task handoff |
-| 2026-11-03T08:20:52Z | [#498](https://github.com/guseoh/pawcycle-commerce/pull/498) | docs(agents): WIKI-CAPTURE-001 full-mode AI Wiki journaling |
-| 2026-11-03T08:09:06Z | [#497](https://github.com/guseoh/pawcycle-commerce/pull/497) | fix(ops): OCI A1 Capacity Report 루트 Compartment 계약 교정 |
-| 2026-11-03T05:21:59Z | [#496](https://github.com/guseoh/pawcycle-commerce/pull/496) | feat(ops): OCI A1 자동 확보 워커 추가 |
-| 2026-11-02T10:01:37Z | [#495](https://github.com/guseoh/pawcycle-commerce/pull/495) | feat(frontend): R3 데스크탑 탐색 UI 재설계 |
-| 2026-11-01T07:16:01Z | [#492](https://github.com/guseoh/pawcycle-commerce/pull/492) | feat(frontend): Desktop Commerce 정보 위계와 오류 복구 개선 |
-| 2026-11-01T07:11:19Z | [#493](https://github.com/guseoh/pawcycle-commerce/pull/493) | fix(admin): 반품 입고 취소 분리와 중복 실행 방지 |
-| 2026-10-31T14:27:44Z | [#488](https://github.com/guseoh/pawcycle-commerce/pull/488) | style(frontend): verify OCI color delivery |
-| 2026-10-31T13:46:38Z | [#491](https://github.com/guseoh/pawcycle-commerce/pull/491) | fix(cd): preserve release snapshot paths |
-| 2026-10-31T12:10:43Z | [#490](https://github.com/guseoh/pawcycle-commerce/pull/490) | feat(ops): deploy changed app services |
-| 2026-10-31T11:01:38Z | [#489](https://github.com/guseoh/pawcycle-commerce/pull/489) | fix(ops): verify observer TLS against CA |
+| 2026-11-19T01:13:08Z | [#555](https://github.com/guseoh/pawcycle-commerce/pull/555) | feat(perf): 합성 데이터 규모 측정 환경 추가 |
+| 2026-11-18T00:24:03Z | [#552](https://github.com/guseoh/pawcycle-commerce/pull/552) | feat(observability): 운영 Alertmanager와 critical 알림 추가 |
+| 2026-11-18T00:11:01Z | [#553](https://github.com/guseoh/pawcycle-commerce/pull/553) | feat(infra): 운영 세션 Redis sibling 구성 |
+| 2026-11-17T13:24:17Z | [#549](https://github.com/guseoh/pawcycle-commerce/pull/549) | feat(security): 요청 제한 확장과 query 없는 운영 access log |
+| 2026-11-17T13:21:40Z | [#551](https://github.com/guseoh/pawcycle-commerce/pull/551) | docs(observability): 2단계 실제 Discord 전달 검증 기록 |
+| 2026-11-17T13:02:39Z | [#550](https://github.com/guseoh/pawcycle-commerce/pull/550) | feat(auth): 세션을 Spring Session Redis에 저장하는 선택 설정 |
+| 2026-11-17T06:57:50Z | [#547](https://github.com/guseoh/pawcycle-commerce/pull/547) | feat(perf): 4단계 부하 판정 보완과 합성 데이터 생성기 |
+| 2026-11-17T06:31:43Z | [#546](https://github.com/guseoh/pawcycle-commerce/pull/546) | feat(observability): MySQL 중단 critical 알림 추가 |
+| 2026-11-17T06:31:05Z | [#545](https://github.com/guseoh/pawcycle-commerce/pull/545) | fix(catalog): 검색어 LIKE에 ESCAPE 절 명시 |
+| 2026-11-17T05:10:37Z | [#544](https://github.com/guseoh/pawcycle-commerce/pull/544) | fix(observability): 로컬 장애 리허설 결과로 알림 보정 |
+| 2026-11-17T00:21:41Z | [#543](https://github.com/guseoh/pawcycle-commerce/pull/543) | feat(observability): 로컬 로그 수집과 알림 체계 |
+| 2026-11-16T17:00:14Z | [#542](https://github.com/guseoh/pawcycle-commerce/pull/542) | feat(observability): 스케줄러 역할별 스레드 분리 |
 
 ## Promotion rules
 
