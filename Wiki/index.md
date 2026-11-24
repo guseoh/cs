@@ -515,6 +515,7 @@ UTC 승인/STOP/재승인, F07 query-only, lease 범위 종료, 최종 HEAD revi
 | ID | 상태 | 기록 | 원본 PR |
 | --- | --- | --- | --- |
 | [CSF-0006](decisions/CSF-0006.md) | accepted | Network G1 의존성 선별 통합과 Import 회귀 교정 | [#56](https://github.com/guseoh/cs/pull/56) |
+| [CSF-0007](decisions/CSF-0007.md) | accepted | 학습 영역 단위 도식·콘텐츠 개선 및 전체 영역 통합 QA | [CSForge #305](https://github.com/guseoh/csforge/pull/305#issuecomment-7137575032) |
 | [BLR-0013](decisions/BLR-0013.md) | accepted | 예제 중심 아키텍처 학습 및 공개 8섹션 커리큘럼 | [#35](https://github.com/guseoh/cs/pull/35), [#36](https://github.com/guseoh/cs/pull/36) |
 | [BLR-0014](decisions/BLR-0014.md) | accepted | 채팅에 완성 코드 제공·사용자 로컬 작성, 어려운 기술은 힌트 우선, 사용자 최종 결정 | backend-learning |
 | [BLR-0015](decisions/BLR-0015.md) | accepted | Large-scale Board 1단계: 사용자는 main 코드, AI는 테스트·스크립트·측정 도구 작성 | backend-learning |
