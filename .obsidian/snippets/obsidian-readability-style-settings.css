@@ -900,61 +900,63 @@ pre > code[class*="language-"]::before {
    Prism과 토큰 분류는 다르지만 팔레트는 동일하다.
    ========================================= */
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-keyword, .cm-bool, .cm-atom, .cm-builtin) {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-keyword, .cm-bool, .cm-atom, .cm-builtin, .tok-keyword, .tok-bool, .tok-atom, .tok-builtin) {
     color: var(--readability-syntax-keyword) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-type, .cm-def) {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-type, .cm-def, .cm-typeName, .tok-typeName, .tok-className, .tok-def) {
     color: var(--readability-syntax-type) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-function {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-function, .tok-function) {
     color: var(--readability-syntax-function) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-variable {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-variable, .cm-variableName, .tok-variableName, .tok-variable) {
     color: var(--readability-syntax-variable) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-variable-2, .cm-variable-3, .cm-property) {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-variable-2, .cm-variable-3, .cm-property, .cm-propertyName, .tok-propertyName, .tok-property) {
     color: var(--readability-syntax-property) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-number {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-number, .tok-number) {
     color: var(--readability-syntax-number) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-string, .cm-string-2, .cm-regexp) {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-string, .cm-string-2, .cm-regexp, .tok-string, .tok-regexp) {
     color: var(--readability-syntax-string) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-operator {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-operator, .tok-operator) {
     color: var(--readability-syntax-operator) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-punctuation, .cm-bracket) {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-punctuation, .cm-bracket, .tok-punctuation, .tok-bracket) {
     color: var(--readability-syntax-punctuation) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-meta, .cm-annotation) {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-meta, .cm-annotation, .tok-meta, .tok-annotation) {
     color: var(--readability-syntax-annotation) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-tag, .cm-selector) {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-tag, .cm-selector, .cm-tagName, .tok-tagName, .tok-selector) {
     color: var(--readability-syntax-tag) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-attribute {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-attribute, .cm-attributeName, .tok-attributeName) {
     color: var(--readability-syntax-attribute) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-comment {
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-comment, .tok-comment) {
     color: var(--readability-syntax-comment) !important;
     font-style: italic;
 }
 
+/* cm-hmd-codeblock는 코드 본문 토큰에도 공통 적용되므로 색상을 지정하지 않는다. */
 .theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock :is(.cm-formatting-code-block, .cm-hmd-codeblock, .code-block-flair) {
+:is(.HyperMD-codeblock-begin, .HyperMD-codeblock-end) .cm-formatting-code-block,
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .code-block-flair {
     color: var(--readability-code-label) !important;
 }
 
