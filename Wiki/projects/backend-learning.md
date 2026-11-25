@@ -32,6 +32,10 @@ PR #104 후 사용자 QA에서 PNG 및 나머지 개선은 정상으로 보고�
 
 읽기 모드의 IntelliJ Dark 팔레트와 CSS는 그대로 유지한다. 쓰기 모드는 공식 Obsidian `loadPrism` 및 CodeMirror 편집기 확장 API로 지원되는 가시 영역의 일반 fenced code에만 읽기와 같은 Prism 토큰 분류를 적용한다. 기존 Editing Toolbar의 로컬 수정에 포함하며 새 플러그인/외부 의존성은 추가하지 않는다. 레이아웃 준비 후 등록, 180ms 디바운스, 문서 256,000자·블록 12,000자·회당 24,000자/10,000범위 제한, 불지원/실패 시 기본 CodeMirror와 공통 CSS 변수 유지. 중첩 Markdown·미등록 언어·대형 블록에서 완전 일치는 보장하지 않는다. 이전 1.5초 툴바 가드는 실제 플러그인 CSS 준비 표시를 사용하도록 교정하고 상단·팝오버 양쪽에 적용한다. CSS 미로드 상태에서 시간만으로 깨진 화면을 노출하지 않으며 100ms 검사/최대 10초 이후 CSS 변수 fallback을 사용한다. 이전 중복 툴바 레이아웃 CSS는 제거한다. 플러그인 업데이트가 로컬 패치를 덮어쓸 수 있다. 펜스/토큰 매핑 및 가드 모의 테스트, JSON/변경 범위 정적 검사와 실제 Obsidian 화면/성능 QA는 구분한다. 근거: [PR #104](https://github.com/guseoh/cs/pull/104), [Obsidian API](https://github.com/obsidianmd/obsidian-api/blob/master/obsidian.d.ts).
 
+### 전체 성능 최적화 1단계 및 자동 Pull 복원 (2026-11-25)
+
+사용자는 PR #105의 로컬 QA 체크리스트 전부 통과를 보고했다. 따라서 기존 SVG, PNG, H6, 콜아웃, 표, 카드 링크, 코드 색상 및 초기 툴바 개선은 보존한다. 두 기기 학습 편의성을 위해 시작 자동 Pull을 복원하는 방향을 선택했다. 원격 Obsidian Git 2.43.0 코드에서 기존 레이아웃 준비 후 작업 큐로 Pull을 등록하는 경로를 확인했다. 번들 수정 없이 `autoPullOnBoot=true`, 기존 15분 백업/Push 전 Pull/30초 상태 갱신 디바운스 및 별도 주기 Pull 미설정을 유지한다. Dataview 자동 화면 갱신 디바운스는 2.5초에서 5초로 변경한다. 원격 기준 활성 플러그인 23개와 추적 파일 1,371개가 확인되었으나 파일 수나 번들 크기는 로컬 시작 시간 측정값이 아니다. 플러그인 삭제·일괄 지연 로딩·Git 전역 설정 변경은 수행하지 않는다. [성능 측정 가이드](../../.github/OBSIDIAN_PERFORMANCE.md)와 [로컬 측정 스크립트](../../scripts/Measure-ObsidianVault.ps1)를 추가하여 후속 실측의 근거를 마련한다. 신규 설정 적용 후 자동 Pull·시작 시간·Dataview 및 Windows 스크립트 실행은 미검증이다. 기존 [PR #105](https://github.com/guseoh/cs/pull/105)의 사용자 확인과 후속 작업 검증을 구분한다.
+
 ## 2026-11-21 — Large-scale Board의 REST API 기본기 우선순위 확정
 
 사용자는 `large-scale-board`가 Spring REST API의 기본 구현 전에 Snowflake·대용량 데이터 생성·장애 훈련·정교한 예외 처리 및 인프라 구성을 먼저 진행해, 학습의 중심이 바뀌었다고 판단했습니다. **앞으로는 Article REST API의 HTTP 요청·응답, DTO/Validation, JPA CRUD, 트랜잭션, 목록·페이징, 최소 예외·테스트부터 학습**합니다. [최신 결정 BLR-0017](../decisions/BLR-0017.md)과 [소스 PR #7](https://github.com/guseoh/large-scale-board/pull/7)을 따릅니다.
