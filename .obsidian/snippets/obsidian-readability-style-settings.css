@@ -7,7 +7,7 @@
    - Minimal Dark
    - Reading / Live Preview
    - Strong / Inline Code
-   - Language-specific Code Colors
+   - IntelliJ Dark-inspired Shared Code Colors
    - Image Grid / Image Captions
    - Mermaid / PDF Plus
    - Auto Card Link / Link Mention
@@ -26,9 +26,9 @@ settings:
     collapsed: false
   -
     id: code-block-bg-alpha
-    title: 배경 강도
+    title: 코드 배경 밝기 보정
     type: variable-number
-    default: 0.035
+    default: 0
     min: 0
     max: 0.12
     step: 0.005
@@ -309,7 +309,7 @@ settings:
    ========================================= */
 
 body {
-    --code-block-bg-alpha: 0.035;
+    --code-block-bg-alpha: 0;
     --code-block-border-alpha: 0.055;
     --code-block-radius: 6px;
     --code-block-padding-y: 9px;
@@ -352,19 +352,23 @@ body {
 
     --readability-bold-color: #f0f2f6;
     --readability-inline-color: #cad8ea;
-    --readability-code-color: #d4d4d4;
-    /* Java/편집 모드 공통 저채도 팔레트 */
-    --readability-syntax-keyword: #cfa47f;
-    --readability-syntax-type: #b3c5d5;
-    --readability-syntax-function: #d4bd8d;
-    --readability-syntax-variable: #d4d4d4;
-    --readability-syntax-property: #b3c5d5;
-    --readability-syntax-number: #91baca;
-    --readability-syntax-string: #a2bf96;
-    --readability-syntax-operator: #c9c9c9;
-    --readability-syntax-punctuation: #b7b7b7;
-    --readability-syntax-comment: #92999e;
-    --readability-syntax-annotation: #cbb68b;
+    /* IntelliJ New UI Dark 기반 공통 팔레트 (IDE 의미 분석과는 별개). */
+    --readability-code-color: #bcbec4;
+    --readability-code-background: #1e1f22;
+    --readability-code-label: #858990;
+    --readability-syntax-keyword: #cf8e6d;
+    --readability-syntax-type: #bcbec4;
+    --readability-syntax-function: #56a8f5;
+    --readability-syntax-variable: #bcbec4;
+    --readability-syntax-property: #c77dbb;
+    --readability-syntax-number: #2aacb8;
+    --readability-syntax-string: #6aab73;
+    --readability-syntax-operator: #bcbec4;
+    --readability-syntax-punctuation: #bcbec4;
+    --readability-syntax-comment: #7a7e85;
+    --readability-syntax-annotation: #b3ae60;
+    --readability-syntax-tag: #d5b778;
+    --readability-syntax-attribute: #bcbec4;
     --readability-code-font: "JetBrains Mono",
         var(--font-monospace), monospace;
 }
@@ -512,10 +516,7 @@ body {
 .theme-dark .markdown-rendered pre {
     position: relative;
 
-    background: rgba(
-        255, 255, 255,
-        var(--code-block-bg-alpha)
-    ) !important;
+    background: color-mix(in srgb, var(--readability-code-background), white calc(var(--code-block-bg-alpha) * 100%)) !important;
 
     border: 1px solid rgba(
         255, 255, 255,
@@ -534,8 +535,6 @@ body {
         var(--code-block-margin-bottom);
 
     box-shadow: none !important;
-
-    --code-accent: #87919d;
 }
 
 /* 언어가 있는 코드 블록 */
@@ -544,7 +543,7 @@ body {
     > code[class*="language-"]
 ) {
     padding-top: 28px;
-    /* 언어별 강조는 라벨만 사용하고 블록 테두리는 중립색으로 통일한다. */
+    /* 모든 언어에 동일한 중립 테두리를 적용한다. */
     border-left-width: 1px !important;
 }
 
@@ -556,7 +555,7 @@ pre > code[class*="language-"]::before {
     top: 9px;
     right: 40px;
 
-    color: var(--text-muted);
+    color: var(--readability-code-label);
     font-family: var(--font-interface);
     font-size: 11px;
     font-weight: 600;
@@ -588,172 +587,6 @@ pre > code[class*="language-"]::before {
 /* =========================================
    05. 언어별 코드 블록 표시
    ========================================= */
-
-/* Java 계열 */
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-java) {
-    --code-accent: #d18d70;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-kotlin) {
-    --code-accent: #ac91d0;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-groovy) {
-    --code-accent: #83b9a7;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-gradle) {
-    --code-accent: #8fb7a2;
-}
-
-/* 데이터베이스 */
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-sql) {
-    --code-accent: #d6a174;
-}
-
-/* 웹과 네트워크 */
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-http) {
-    --code-accent: #83b3d5;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-nginx) {
-    --code-accent: #82b99b;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-html) {
-    --code-accent: #cc8e79;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-xml) {
-    --code-accent: #b78fb5;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-css) {
-    --code-accent: #a395d1;
-}
-
-/* 컨테이너와 설정 */
-
-.theme-dark .markdown-rendered
-pre:has(> code:is(
-    .language-docker,
-    .language-dockerfile
-)) {
-    --code-accent: #83b8c9;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-json) {
-    --code-accent: #c2a0c8;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code:is(
-    .language-yaml,
-    .language-yml
-)) {
-    --code-accent: #c4a479;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-properties) {
-    --code-accent: #a4b09c;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-toml) {
-    --code-accent: #b4a083;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-ini) {
-    --code-accent: #a4a3ba;
-}
-
-/* 스크립트 */
-
-.theme-dark .markdown-rendered
-pre:has(> code:is(
-    .language-javascript,
-    .language-js
-)) {
-    --code-accent: #d0b465;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code:is(
-    .language-typescript,
-    .language-ts
-)) {
-    --code-accent: #85a9d6;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code:is(
-    .language-python,
-    .language-py
-)) {
-    --code-accent: #9db8d2;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code:is(
-    .language-bash,
-    .language-shell,
-    .language-sh
-)) {
-    --code-accent: #95b88c;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-powershell) {
-    --code-accent: #84a9d4;
-}
-
-/* 시스템 언어 */
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-c) {
-    --code-accent: #a5abc9;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-cpp) {
-    --code-accent: #a4a5d7;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-go) {
-    --code-accent: #7cbdc8;
-}
-
-.theme-dark .markdown-rendered
-pre:has(> code.language-rust) {
-    --code-accent: #ca997f;
-}
-
-/* 문서 */
-
-.theme-dark .markdown-rendered
-pre:has(> code:is(
-    .language-markdown,
-    .language-md
-)) {
-    --code-accent: #a6b7d1;
-}
 
 /* 언어명 */
 
@@ -897,8 +730,6 @@ pre:has(> code:is(
         .language-txt
     )
 ) {
-    --code-accent: #89919a;
-
     background: rgba(
         255, 255, 255,
         var(--text-block-bg-alpha)
@@ -935,11 +766,9 @@ pre:has(> code:is(
 
 .theme-dark .markdown-source-view.mod-cm6
 .cm-line.HyperMD-codeblock {
-    background: rgba(
-        255, 255, 255,
-        var(--code-block-bg-alpha)
-    );
+    background: color-mix(in srgb, var(--readability-code-background), white calc(var(--code-block-bg-alpha) * 100%)) !important;
 
+    color: var(--readability-code-color);
     font-family: var(--readability-code-font);
     font-size: 0.92em;
     line-height: 1.55;
@@ -986,513 +815,147 @@ pre:has(> code:is(
 }
 
 /* =========================================
-   08. 공통 코드 구문 색상
-   Reading Mode / Prism
+   08. 공통 코드 구문 색상 — Reading / Prism
+   IntelliJ Dark 기반 토큰 팔레트
    ========================================= */
 
-.theme-dark .markdown-rendered pre code
-.token:is(
-    .keyword,
-    .atrule,
-    .directive,
-    .important
-) {
-    color: var(--syntax-keyword, #d19a78) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token:is(
-    .class-name,
-    .builtin,
-    .type
-) {
-    color: var(--syntax-type, #a4c4e4) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token:is(
-    .function,
-    .method
-) {
-    color: var(--syntax-function, #af9acb) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token.variable {
-    color: var(--syntax-variable, #d5d9df) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token:is(
-    .property,
-    .constant,
-    .key,
-    .attr-name
-) {
-    color: var(--syntax-property, #b9a0ca) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token:is(
-    .number,
-    .boolean
-) {
-    color: var(--syntax-number, #c7a3d1) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token:is(
-    .string,
-    .char,
-    .template-string,
-    .attr-value
-) {
-    color: var(--syntax-string, #96bb8e) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token.operator {
-    color: var(--syntax-operator, #c7ccd3) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token.punctuation {
-    color: var(--syntax-punctuation, #bac2cc) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token.annotation {
-    color: var(--syntax-annotation, #d4b574) !important;
-}
-
-.theme-dark .markdown-rendered pre code
-.token:is(
-    .comment,
-    .prolog,
-    .doctype,
-    .cdata
-) {
-    color: var(--syntax-comment, #858e99) !important;
-    font-style: italic;
-}
-
-/* =========================================
-   09. Java / Kotlin / Groovy / Gradle
-   ========================================= */
-
-.theme-dark .markdown-rendered pre > code:is(
-    .language-java,
-    .language-kotlin,
-    .language-groovy,
-    .language-gradle
-) {
-    --syntax-keyword: var(--readability-syntax-keyword);
-    --syntax-type: var(--readability-syntax-type);
-    --syntax-function: var(--readability-syntax-function);
-    --syntax-variable: var(--readability-syntax-variable);
-    --syntax-property: var(--readability-syntax-property);
-    --syntax-number: var(--readability-syntax-number);
-    --syntax-string: var(--readability-syntax-string);
-    --syntax-operator: var(--readability-syntax-operator);
-    --syntax-punctuation: var(--readability-syntax-punctuation);
-    --syntax-comment: var(--readability-syntax-comment);
-    --syntax-annotation: var(--readability-syntax-annotation);
-}
-
-/* Java Annotation */
-
-.theme-dark .markdown-rendered
-code.language-java .token.annotation {
-    color: var(--readability-syntax-annotation) !important;
-}
-
-/* =========================================
-   10. SQL
-   ========================================= */
-
-.theme-dark .markdown-rendered
-pre > code.language-sql {
-    --syntax-keyword: #d8a078;
-    --syntax-type: #d1ba79;
-    --syntax-function: #97bddd;
-    --syntax-variable: #d7dbe1;
-    --syntax-property: #a9c3e5;
-    --syntax-number: #c5a2d0;
-    --syntax-string: #95b98d;
-    --syntax-operator: #c8cbd1;
-    --syntax-punctuation: #bac2cb;
-    --syntax-comment: #818c97;
-}
-
-/* SQL 테이블 및 컬럼 관련 */
-
-.theme-dark .markdown-rendered
-code.language-sql .token:is(
-    .entity,
-    .symbol
-) {
-    color: #a9c3e5 !important;
-}
-
-/* =========================================
-   11. HTTP
-   ========================================= */
-
-.theme-dark .markdown-rendered
-pre > code.language-http {
-    --syntax-keyword: #8bb7da;
-    --syntax-type: #a8c9e5;
-    --syntax-function: #8bb7da;
-    --syntax-variable: #d8dce3;
-    --syntax-property: #a3c2df;
-    --syntax-number: #c8a4d0;
-    --syntax-string: #9bbd94;
-    --syntax-operator: #c5cbd2;
-    --syntax-punctuation: #b8c0cb;
-    --syntax-comment: #858f99;
-}
-
-.theme-dark .markdown-rendered
-code.language-http .token:is(
-    .method,
-    .request-line,
-    .status-code
-) {
-    color: #8bb7da !important;
-}
-
-.theme-dark .markdown-rendered
-code.language-http .token:is(
-    .url,
-    .header-name,
-    .property
-) {
-    color: #a8c9e5 !important;
-}
-
-.theme-dark .markdown-rendered
-code.language-http .token.header-value {
-    color: #9bbd94 !important;
-}
-
-/* =========================================
-   12. Nginx
-   ========================================= */
-
-.theme-dark .markdown-rendered
-pre > code.language-nginx {
-    --syntax-keyword: #91c09d;
-    --syntax-type: #9ec6e0;
-    --syntax-function: #96bca4;
-    --syntax-variable: #b6a5d1;
-    --syntax-property: #a7c7dc;
-    --syntax-number: #c5a4ce;
-    --syntax-string: #a2bf90;
-    --syntax-operator: #c5cbd2;
-    --syntax-punctuation: #b9c1ca;
-    --syntax-comment: #858f98;
-}
-
-.theme-dark .markdown-rendered
-code.language-nginx .token.directive {
-    color: #91c09d !important;
-}
-
-/* =========================================
-   13. Docker / Dockerfile
-   ========================================= */
-
-.theme-dark .markdown-rendered pre > code:is(
-    .language-dockerfile,
-    .language-docker
-) {
-    --syntax-keyword: #89bbcc;
-    --syntax-type: #9fc7e4;
-    --syntax-function: #89bbcc;
-    --syntax-variable: #c8a7d3;
-    --syntax-property: #a3bfdc;
-    --syntax-number: #c7a4d0;
-    --syntax-string: #a4c092;
-    --syntax-operator: #c6cbd1;
-    --syntax-punctuation: #bac1ca;
-    --syntax-comment: #828e98;
-}
-
-.theme-dark .markdown-rendered
-code:is(.language-dockerfile, .language-docker)
-.token:is(
-    .instruction,
-    .keyword
-) {
-    color: #89bbcc !important;
-}
-
-/* =========================================
-   14. JavaScript / TypeScript
-   ========================================= */
-
-.theme-dark .markdown-rendered pre > code:is(
-    .language-javascript,
-    .language-js,
-    .language-typescript,
-    .language-ts
-) {
-    --syntax-keyword: #d0b465;
-    --syntax-type: #b4a2d5;
-    --syntax-function: #8bbbd5;
-    --syntax-variable: #d7d9df;
-    --syntax-property: #a0c1e1;
-    --syntax-number: #c5a4d2;
-    --syntax-string: #96ba8e;
-    --syntax-operator: #c8ccd2;
-    --syntax-punctuation: #bac2cb;
-    --syntax-comment: #858f98;
-}
-
-/* =========================================
-   15. Python
-   ========================================= */
-
-.theme-dark .markdown-rendered pre > code:is(
-    .language-python,
-    .language-py
-) {
-    --syntax-keyword: #87afe0;
-    --syntax-type: #8dc4bc;
-    --syntax-function: #d4b478;
-    --syntax-variable: #d6d9df;
-    --syntax-property: #a0c1df;
-    --syntax-number: #c7a5d2;
-    --syntax-string: #9abc90;
-    --syntax-operator: #c7ccd2;
-    --syntax-punctuation: #bac2cc;
-    --syntax-comment: #828e98;
-}
-
-/* =========================================
-   16. JSON / YAML
-   ========================================= */
-
-.theme-dark .markdown-rendered pre > code:is(
-    .language-json,
-    .language-yaml,
-    .language-yml
-) {
-    --syntax-keyword: #c1a7d3;
-    --syntax-type: #a5c3e0;
-    --syntax-function: #a5c3e0;
-    --syntax-variable: #d6d9df;
-    --syntax-property: #a6c5e5;
-    --syntax-number: #c9a4d2;
-    --syntax-string: #9abc90;
-    --syntax-operator: #c6cbd1;
-    --syntax-punctuation: #b7c0cb;
-    --syntax-comment: #858e98;
-}
-
-/* JSON 속성명 */
-
-.theme-dark .markdown-rendered
-code.language-json .token.property {
-    color: #a6c5e5 !important;
-}
-
-/* =========================================
-   17. HTML / XML
-   ========================================= */
-
-.theme-dark .markdown-rendered pre > code:is(
-    .language-html,
-    .language-xml
-) {
-    --syntax-keyword: #d49b8e;
-    --syntax-type: #a2c3e4;
-    --syntax-function: #a2c3e4;
-    --syntax-variable: #d5d9e0;
-    --syntax-property: #d0b17e;
-    --syntax-number: #c6a4d2;
-    --syntax-string: #9abc90;
-    --syntax-operator: #c7ccd2;
-    --syntax-punctuation: #bac2cc;
-    --syntax-comment: #858e98;
-}
-
-.theme-dark .markdown-rendered
-code:is(.language-html, .language-xml)
-.token.tag {
-    color: #d49b8e !important;
-}
-
-.theme-dark .markdown-rendered
-code:is(.language-html, .language-xml)
-.token.attr-name {
-    color: #d0b17e !important;
-}
-
-/* =========================================
-   18. CSS
-   ========================================= */
-
-.theme-dark .markdown-rendered
-pre > code.language-css {
-    --syntax-keyword: #b6a1d8;
-    --syntax-type: #9ebfe0;
-    --syntax-function: #d0b17c;
-    --syntax-variable: #d6d9df;
-    --syntax-property: #a4c3e6;
-    --syntax-number: #c6a4d2;
-    --syntax-string: #99bc90;
-    --syntax-operator: #c8ccd2;
-    --syntax-punctuation: #b9c2cc;
-    --syntax-comment: #858f99;
-}
-
-.theme-dark .markdown-rendered
-code.language-css .token.selector {
-    color: #b6a1d8 !important;
-}
-
-/* =========================================
-   19. Shell / Bash / PowerShell
-   ========================================= */
-
-.theme-dark .markdown-rendered pre > code:is(
-    .language-bash,
-    .language-shell,
-    .language-sh,
-    .language-powershell
-) {
-    --syntax-keyword: #95bc96;
-    --syntax-type: #a0c2e0;
-    --syntax-function: #d0b27b;
-    --syntax-variable: #baa4d4;
-    --syntax-property: #9fc0dd;
-    --syntax-number: #c6a4d1;
-    --syntax-string: #a1c093;
-    --syntax-operator: #c7ccd2;
-    --syntax-punctuation: #bac2cb;
-    --syntax-comment: #858f99;
-}
-
-/* =========================================
-   20. C / C++ / Go / Rust
-   ========================================= */
-
-.theme-dark .markdown-rendered pre > code:is(
-    .language-c,
-    .language-cpp,
-    .language-go,
-    .language-rust
-) {
-    --syntax-keyword: #b5a2d1;
-    --syntax-type: #9fc3e4;
-    --syntax-function: #d0b27a;
-    --syntax-variable: #d6d9df;
-    --syntax-property: #a2c2e0;
-    --syntax-number: #c5a2d0;
-    --syntax-string: #9abc90;
-    --syntax-operator: #c7ccd2;
-    --syntax-punctuation: #bac2cc;
-    --syntax-comment: #858f98;
-}
-
-/* =========================================
-   21. Properties / TOML / INI
-   ========================================= */
-
-.theme-dark .markdown-rendered pre > code:is(
-    .language-properties,
-    .language-toml,
-    .language-ini
-) {
-    --syntax-keyword: #a2b9a0;
-    --syntax-type: #a5c1dd;
-    --syntax-function: #d0b17c;
-    --syntax-variable: #d6d9df;
-    --syntax-property: #a2c2df;
-    --syntax-number: #c8a4d1;
-    --syntax-string: #9abc90;
-    --syntax-operator: #c7ccd2;
-    --syntax-punctuation: #bac1ca;
-    --syntax-comment: #858f98;
-}
-
-/* =========================================
-   22. Live Preview 구문 색상
-   CodeMirror 공통 팔레트
-   ========================================= */
-
-/*
-   Obsidian Live Preview는 Prism의
-   language-* 클래스 구조와 다르므로
-   CodeMirror 토큰에 공통 팔레트를 적용한다.
-*/
-
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock .cm-keyword {
+.theme-dark .markdown-rendered pre code .token:is(.keyword, .atrule, .directive, .important, .boolean, .instruction) {
     color: var(--readability-syntax-keyword) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock :is(.cm-type, .cm-def) {
+.theme-dark .markdown-rendered pre code .token:is(.class-name, .builtin, .type) {
     color: var(--readability-syntax-type) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock .cm-variable {
+.theme-dark .markdown-rendered pre code .token:is(.function, .method, .function-name) {
+    color: var(--readability-syntax-function) !important;
+}
+
+.theme-dark .markdown-rendered pre code .token:is(.variable, .parameter) {
     color: var(--readability-syntax-variable) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock :is(
-    .cm-variable-2,
-    .cm-variable-3,
-    .cm-property
-) {
+.theme-dark .markdown-rendered pre code .token:is(.property, .constant, .key, .symbol, .entity) {
     color: var(--readability-syntax-property) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock :is(
-    .cm-number,
-    .cm-bool,
-    .cm-atom
-) {
+.theme-dark .markdown-rendered pre code .token.number {
     color: var(--readability-syntax-number) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock :is(
-    .cm-string,
-    .cm-string-2
-) {
+.theme-dark .markdown-rendered pre code .token:is(.string, .char, .template-string, .attr-value, .regex) {
     color: var(--readability-syntax-string) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock .cm-operator {
+.theme-dark .markdown-rendered pre code .token.operator {
     color: var(--readability-syntax-operator) !important;
 }
 
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock .cm-comment {
+.theme-dark .markdown-rendered pre code .token.punctuation {
+    color: var(--readability-syntax-punctuation) !important;
+}
+
+.theme-dark .markdown-rendered pre code .token:is(.annotation, .decorator) {
+    color: var(--readability-syntax-annotation) !important;
+}
+
+.theme-dark .markdown-rendered pre code .token:is(.tag, .selector) {
+    color: var(--readability-syntax-tag) !important;
+}
+
+.theme-dark .markdown-rendered pre code .token.attr-name {
+    color: var(--readability-syntax-attribute) !important;
+}
+
+.theme-dark .markdown-rendered pre code .token:is(.comment, .prolog, .doctype, .cdata) {
+    color: var(--readability-syntax-comment) !important;
+    font-style: italic;
+}
+
+/* Prism 언어별 토큰 별칭: 색상 자체는 공통 변수를 사용한다. */
+.theme-dark .markdown-rendered pre code:is(.language-json, .language-yaml, .language-yml)
+.token:is(.property, .key, .atrule) {
+    color: var(--readability-syntax-property) !important;
+}
+
+.theme-dark .markdown-rendered pre code.language-http .token:is(.method, .request-line) {
+    color: var(--readability-syntax-keyword) !important;
+}
+
+.theme-dark .markdown-rendered pre code.language-http .token.status-code {
+    color: var(--readability-syntax-number) !important;
+}
+
+.theme-dark .markdown-rendered pre code.language-http .token:is(.url, .header-value) {
+    color: var(--readability-syntax-string) !important;
+}
+
+.theme-dark .markdown-rendered pre code.language-http .token.header-name {
+    color: var(--readability-syntax-property) !important;
+}
+
+/* =========================================
+   22. 쓰기 모드 구문 색상 — CodeMirror 6
+   Live Preview 및 Source Mode 모두 적용
+   Prism과 토큰 분류는 다르지만 팔레트는 동일하다.
+   ========================================= */
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-keyword, .cm-bool, .cm-atom, .cm-builtin) {
+    color: var(--readability-syntax-keyword) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-type, .cm-def) {
+    color: var(--readability-syntax-type) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-function {
+    color: var(--readability-syntax-function) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-variable {
+    color: var(--readability-syntax-variable) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-variable-2, .cm-variable-3, .cm-property) {
+    color: var(--readability-syntax-property) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-number {
+    color: var(--readability-syntax-number) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-string, .cm-string-2, .cm-regexp) {
+    color: var(--readability-syntax-string) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-operator {
+    color: var(--readability-syntax-operator) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-punctuation, .cm-bracket) {
+    color: var(--readability-syntax-punctuation) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-meta, .cm-annotation) {
+    color: var(--readability-syntax-annotation) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-tag, .cm-selector) {
+    color: var(--readability-syntax-tag) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-attribute {
+    color: var(--readability-syntax-attribute) !important;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-comment {
     color: var(--readability-syntax-comment) !important;
     font-style: italic;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock .cm-meta {
-    color: var(--readability-syntax-annotation) !important;
-}
-
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock .cm-tag {
-    color: var(--readability-syntax-keyword) !important;
-}
-
-.theme-dark .markdown-source-view.mod-cm6
-.HyperMD-codeblock .cm-attribute {
-    color: var(--readability-syntax-type) !important;
+.HyperMD-codeblock :is(.cm-formatting-code-block, .cm-hmd-codeblock, .code-block-flair) {
+    color: var(--readability-code-label) !important;
 }
 
 /* =========================================
