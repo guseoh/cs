@@ -960,6 +960,87 @@ pre > code[class*="language-"]::before {
     color: var(--readability-code-label) !important;
 }
 
+/* Obsidian 기본 구문 변수도 읽기 모드 팔레트와 연결한다. */
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock {
+    --code-normal: var(--readability-code-color);
+    --code-keyword: var(--readability-syntax-keyword);
+    --code-function: var(--readability-syntax-function);
+    --code-string: var(--readability-syntax-string);
+    --code-value: var(--readability-syntax-number);
+    --code-property: var(--readability-syntax-property);
+    --code-operator: var(--readability-syntax-operator);
+    --code-punctuation: var(--readability-syntax-punctuation);
+    --code-comment: var(--readability-syntax-comment);
+    --code-tag: var(--readability-syntax-tag);
+    --code-important: var(--readability-syntax-annotation);
+}
+
+/* 읽기 모드와 동일한 Prism 토큰을 편집기에서 지원하는 코드에만 사용한다. */
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-keyword, .cs-prism-token.cs-prism-keyword *) {
+    color: var(--readability-syntax-keyword) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-type, .cs-prism-token.cs-prism-type *) {
+    color: var(--readability-syntax-type) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-function, .cs-prism-token.cs-prism-function *) {
+    color: var(--readability-syntax-function) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-variable, .cs-prism-token.cs-prism-variable *) {
+    color: var(--readability-syntax-variable) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-property, .cs-prism-token.cs-prism-property *) {
+    color: var(--readability-syntax-property) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-number, .cs-prism-token.cs-prism-number *) {
+    color: var(--readability-syntax-number) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-string, .cs-prism-token.cs-prism-string *) {
+    color: var(--readability-syntax-string) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-operator, .cs-prism-token.cs-prism-operator *) {
+    color: var(--readability-syntax-operator) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-punctuation, .cs-prism-token.cs-prism-punctuation *) {
+    color: var(--readability-syntax-punctuation) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-annotation, .cs-prism-token.cs-prism-annotation *) {
+    color: var(--readability-syntax-annotation) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-tag, .cs-prism-token.cs-prism-tag *) {
+    color: var(--readability-syntax-tag) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-attribute, .cs-prism-token.cs-prism-attribute *) {
+    color: var(--readability-syntax-attribute) !important;
+    font-style: normal;
+}
+
+.theme-dark .markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cs-prism-token.cs-prism-comment, .cs-prism-token.cs-prism-comment *) {
+    color: var(--readability-syntax-comment) !important;
+    font-style: italic;
+}
+
 /* =========================================
    23. Mermaid
    ========================================= */
@@ -1590,40 +1671,6 @@ body {
     box-shadow: none !important;
 }
 
-
-/* =========================================
-   Editing Toolbar 초기 렌더링 보호
-   플러그인 CSS가 준비되기 전에도 상단 메뉴가 본문을 덮지 않도록
-   최소 배치만 제공한다. 플러그인의 표시/숨김 상태는 강제하지 않는다.
-   ========================================= */
-
-.editingToolbarModalBar[data-toolbar-style="top"] {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
-    height: calc(var(--toolbar-icon-size, 12px) + 18px);
-    flex: 0 0 auto;
-}
-
-.editingToolbarModalBar[data-toolbar-style="top"] > button {
-    flex: 0 0 auto;
-    min-width: 0;
-    width: auto;
-    max-height: 28px;
-}
-
-:is(.editingToolbarModalBar, .editingToolbarPopoverBar)
-button[class^="editingToolbarCommandsubItem"] > .subitem {
-    position: absolute;
-    visibility: hidden;
-}
-
-:is(.editingToolbarModalBar, .editingToolbarPopoverBar)
-button[class^="editingToolbarCommandsubItem"]:is(:hover, :focus-within) > .subitem {
-    visibility: visible;
-}
 
 /* =========================================
    End of Obsidian Readability v2

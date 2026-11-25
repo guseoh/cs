@@ -26,6 +26,12 @@ Java 학습 노트에서 인라인 SVG 6개의 편집 모드 잔상·색상·크
 
 PR #103 병합 후 사용자 QA에서 읽기 모드의 IntelliJ 팔레트는 정상이나 쓰기 모드 코드가 회색으로 표시되었고 초기 툴바 깨짐은 지속 시간이 줄었지만 재현되었다. CSS의 `.cm-hmd-codeblock` 공통 선택자가 후행 회색 규칙에 포함되어 있었으므로 코드 본문에서 제거하고 펜스/언어 표시만 별도로 지정한다. CodeMirror 토큰 별칭도 보완한다. 초기 툴바는 Editing Toolbar 4.1.12의 로컬 번들에 작은 생성 시점 가드를 추가하여 스타일 적용 확인 전 화면 표시를 제한하고, 연속 두 프레임 준비 확인 또는 1.5초 제한 후 원래 스타일을 복원한다. 타이밍이 유일한 원인인지는 미확정이며 플러그인 업데이트 시 이 로컬 패치가 덮어써질 수 있다. 사용자에게 보고된 누락 PNG는 기존 정상 화면의 객체 생성 도식 영역을 추출한 437×120px 회색조 복원본으로 동일 첨부 경로에 등록한다. 원본 바이너리 복구가 아니며 노트 참조는 변경하지 않는다. 정적 CSS 범위 검사, 가드 모의 테스트, PNG Git blob SHA 일치를 확인하였고 실제 Obsidian 화면 및 콜드 스타트는 재검증 필요하다. 근거: [PR #103](https://github.com/guseoh/cs/pull/103), [교정 전 main](https://github.com/guseoh/cs/tree/dd785e6545853d7bb64b43de588d225a07abf774).
 
+### 시작 성능 및 읽기·쓰기 코드 색상 일치 교정 (2026-11-25)
+
+PR #104 후 사용자 QA에서 PNG 및 나머지 개선은 정상으로 보고되었으나, 초기 화면 깨짐과 시작 지연 및 `int`·`println` 등의 편집기/읽기 구문 색상 차이는 남았다. 경고는 Linter가 아니라 Obsidian Git이며, 원격 설정에서 시작 Pull과 7초 상태 갱신 설정을 확인했다. 시작 Pull을 비활성화하고 30초로 조정하며 15분 자동 백업/수동 Commit-and-sync/Push 전 Pull은 유지한다. 기기 전환 시 작업 전 수동 Pull은 필수다. Linter의 자동 저장/변경 검사는 이미 꺼져 있으며 제거하지 않는다. 시작 지연의 원인·개선 시간은 미측정이다.
+
+읽기 모드의 IntelliJ Dark 팔레트와 CSS는 그대로 유지한다. 쓰기 모드는 공식 Obsidian `loadPrism` 및 CodeMirror 편집기 확장 API로 지원되는 가시 영역의 일반 fenced code에만 읽기와 같은 Prism 토큰 분류를 적용한다. 기존 Editing Toolbar의 로컬 수정에 포함하며 새 플러그인/외부 의존성은 추가하지 않는다. 레이아웃 준비 후 등록, 180ms 디바운스, 문서 256,000자·블록 12,000자·회당 24,000자/10,000범위 제한, 불지원/실패 시 기본 CodeMirror와 공통 CSS 변수 유지. 중첩 Markdown·미등록 언어·대형 블록에서 완전 일치는 보장하지 않는다. 이전 1.5초 툴바 가드는 실제 플러그인 CSS 준비 표시를 사용하도록 교정하고 상단·팝오버 양쪽에 적용한다. CSS 미로드 상태에서 시간만으로 깨진 화면을 노출하지 않으며 100ms 검사/최대 10초 이후 CSS 변수 fallback을 사용한다. 이전 중복 툴바 레이아웃 CSS는 제거한다. 플러그인 업데이트가 로컬 패치를 덮어쓸 수 있다. 펜스/토큰 매핑 및 가드 모의 테스트, JSON/변경 범위 정적 검사와 실제 Obsidian 화면/성능 QA는 구분한다. 근거: [PR #104](https://github.com/guseoh/cs/pull/104), [Obsidian API](https://github.com/obsidianmd/obsidian-api/blob/master/obsidian.d.ts).
+
 ## 2026-11-21 — Large-scale Board의 REST API 기본기 우선순위 확정
 
 사용자는 `large-scale-board`가 Spring REST API의 기본 구현 전에 Snowflake·대용량 데이터 생성·장애 훈련·정교한 예외 처리 및 인프라 구성을 먼저 진행해, 학습의 중심이 바뀌었다고 판단했습니다. **앞으로는 Article REST API의 HTTP 요청·응답, DTO/Validation, JPA CRUD, 트랜잭션, 목록·페이징, 최소 예외·테스트부터 학습**합니다. [최신 결정 BLR-0017](../decisions/BLR-0017.md)과 [소스 PR #7](https://github.com/guseoh/large-scale-board/pull/7)을 따릅니다.
