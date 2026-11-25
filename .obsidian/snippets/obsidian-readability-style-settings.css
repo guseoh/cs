@@ -231,7 +231,7 @@ settings:
     id: h6-top-gap
     title: H6 위쪽 간격
     type: variable-number
-    default: 8
+    default: 4
     min: 0
     max: 24
     step: 1
@@ -240,7 +240,7 @@ settings:
     id: h6-bottom-gap
     title: H6 아래쪽 간격
     type: variable-number
-    default: 4
+    default: 2
     min: 0
     max: 16
     step: 1
@@ -334,8 +334,8 @@ body {
     --h2-bottom-gap: 14px;
     --h3-top-gap: 28px;
     --h3-bottom-gap: 10px;
-    --h6-top-gap: 8px;
-    --h6-bottom-gap: 4px;
+    --h6-top-gap: 4px;
+    --h6-bottom-gap: 2px;
     --nested-list-marker-opacity: 0.65;
 
     --text-block-bg-alpha: 0.018;
@@ -352,7 +352,19 @@ body {
 
     --readability-bold-color: #f0f2f6;
     --readability-inline-color: #cad8ea;
-    --readability-code-color: #d8dce3;
+    --readability-code-color: #d4d4d4;
+    /* Java/편집 모드 공통 저채도 팔레트 */
+    --readability-syntax-keyword: #cfa47f;
+    --readability-syntax-type: #b3c5d5;
+    --readability-syntax-function: #d4bd8d;
+    --readability-syntax-variable: #d4d4d4;
+    --readability-syntax-property: #b3c5d5;
+    --readability-syntax-number: #91baca;
+    --readability-syntax-string: #a2bf96;
+    --readability-syntax-operator: #c9c9c9;
+    --readability-syntax-punctuation: #b7b7b7;
+    --readability-syntax-comment: #92999e;
+    --readability-syntax-annotation: #cbb68b;
     --readability-code-font: "JetBrains Mono",
         var(--font-monospace), monospace;
 }
@@ -407,13 +419,28 @@ body {
 }
 
 /* H6는 본문 안의 작은 단계 제목으로 사용한다. */
-.markdown-rendered h6 {
-    margin-block: var(--h6-top-gap) var(--h6-bottom-gap);
+.markdown-rendered .el-h6 {
+    margin-block: 0;
+    padding-block: 0;
 }
 
-.markdown-source-view.mod-cm6.is-live-preview .HyperMD-header-6 {
-    margin-block: 0;
-    padding-block: var(--h6-top-gap) var(--h6-bottom-gap);
+.markdown-rendered h6 {
+    margin-block: var(--h6-top-gap) var(--h6-bottom-gap) !important;
+}
+
+.markdown-rendered .el-h6 + .el-h6 > h6,
+.markdown-rendered h6 + h6 {
+    margin-top: min(var(--h6-top-gap), 2px) !important;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-header-6 {
+    margin-block: 0 !important;
+    padding-block: var(--h6-top-gap) var(--h6-bottom-gap) !important;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview
+.cm-line.HyperMD-header-6 + .cm-line.HyperMD-header-6 {
+    padding-top: min(var(--h6-top-gap), 2px) !important;
 }
 
 .markdown-rendered li {
@@ -517,12 +544,8 @@ body {
     > code[class*="language-"]
 ) {
     padding-top: 28px;
-    border-left: 2px solid
-        color-mix(
-            in srgb,
-            var(--code-accent) 55%,
-            transparent
-        ) !important;
+    /* 언어별 강조는 라벨만 사용하고 블록 테두리는 중립색으로 통일한다. */
+    border-left-width: 1px !important;
 }
 
 /* 언어명 표시 */
@@ -531,9 +554,9 @@ body {
 pre > code[class*="language-"]::before {
     position: absolute;
     top: 9px;
-    right: 12px;
+    right: 40px;
 
-    color: var(--code-accent);
+    color: var(--text-muted);
     font-family: var(--font-interface);
     font-size: 11px;
     font-weight: 600;
@@ -1063,24 +1086,24 @@ pre:has(> code:is(
     .language-groovy,
     .language-gradle
 ) {
-    --syntax-keyword: #d89a76;
-    --syntax-type: #a9c7e6;
-    --syntax-function: #c3a2cf;
-    --syntax-variable: #d6d9e0;
-    --syntax-property: #c39ebd;
-    --syntax-number: #c6a4d6;
-    --syntax-string: #93b88b;
-    --syntax-operator: #c6ccd2;
-    --syntax-punctuation: #bac2cc;
-    --syntax-comment: #828d97;
-    --syntax-annotation: #d0b46f;
+    --syntax-keyword: var(--readability-syntax-keyword);
+    --syntax-type: var(--readability-syntax-type);
+    --syntax-function: var(--readability-syntax-function);
+    --syntax-variable: var(--readability-syntax-variable);
+    --syntax-property: var(--readability-syntax-property);
+    --syntax-number: var(--readability-syntax-number);
+    --syntax-string: var(--readability-syntax-string);
+    --syntax-operator: var(--readability-syntax-operator);
+    --syntax-punctuation: var(--readability-syntax-punctuation);
+    --syntax-comment: var(--readability-syntax-comment);
+    --syntax-annotation: var(--readability-syntax-annotation);
 }
 
 /* Java Annotation */
 
 .theme-dark .markdown-rendered
 code.language-java .token.annotation {
-    color: #d0b46f !important;
+    color: var(--readability-syntax-annotation) !important;
 }
 
 /* =========================================
@@ -1407,17 +1430,17 @@ code.language-css .token.selector {
 
 .theme-dark .markdown-source-view.mod-cm6
 .HyperMD-codeblock .cm-keyword {
-    color: #d89a76 !important;
+    color: var(--readability-syntax-keyword) !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
 .HyperMD-codeblock :is(.cm-type, .cm-def) {
-    color: #a9c7e6 !important;
+    color: var(--readability-syntax-type) !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
 .HyperMD-codeblock .cm-variable {
-    color: #d6d9df !important;
+    color: var(--readability-syntax-variable) !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
@@ -1426,7 +1449,7 @@ code.language-css .token.selector {
     .cm-variable-3,
     .cm-property
 ) {
-    color: #c3a2cf !important;
+    color: var(--readability-syntax-property) !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
@@ -1435,7 +1458,7 @@ code.language-css .token.selector {
     .cm-bool,
     .cm-atom
 ) {
-    color: #c6a4d6 !important;
+    color: var(--readability-syntax-number) !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
@@ -1443,33 +1466,33 @@ code.language-css .token.selector {
     .cm-string,
     .cm-string-2
 ) {
-    color: #93b88b !important;
+    color: var(--readability-syntax-string) !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
 .HyperMD-codeblock .cm-operator {
-    color: #c8ccd2 !important;
+    color: var(--readability-syntax-operator) !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
 .HyperMD-codeblock .cm-comment {
-    color: #858e98 !important;
+    color: var(--readability-syntax-comment) !important;
     font-style: italic;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
 .HyperMD-codeblock .cm-meta {
-    color: #d0b46f !important;
+    color: var(--readability-syntax-annotation) !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
 .HyperMD-codeblock .cm-tag {
-    color: #d89a76 !important;
+    color: var(--readability-syntax-keyword) !important;
 }
 
 .theme-dark .markdown-source-view.mod-cm6
 .HyperMD-codeblock .cm-attribute {
-    color: #a9c7e6 !important;
+    color: var(--readability-syntax-type) !important;
 }
 
 /* =========================================
@@ -2102,6 +2125,40 @@ body {
     box-shadow: none !important;
 }
 
+
+/* =========================================
+   Editing Toolbar 초기 렌더링 보호
+   플러그인 CSS가 준비되기 전에도 상단 메뉴가 본문을 덮지 않도록
+   최소 배치만 제공한다. 플러그인의 표시/숨김 상태는 강제하지 않는다.
+   ========================================= */
+
+.editingToolbarModalBar[data-toolbar-style="top"] {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    height: calc(var(--toolbar-icon-size, 12px) + 18px);
+    flex: 0 0 auto;
+}
+
+.editingToolbarModalBar[data-toolbar-style="top"] > button {
+    flex: 0 0 auto;
+    min-width: 0;
+    width: auto;
+    max-height: 28px;
+}
+
+:is(.editingToolbarModalBar, .editingToolbarPopoverBar)
+button[class^="editingToolbarCommandsubItem"] > .subitem {
+    position: absolute;
+    visibility: hidden;
+}
+
+:is(.editingToolbarModalBar, .editingToolbarPopoverBar)
+button[class^="editingToolbarCommandsubItem"]:is(:hover, :focus-within) > .subitem {
+    visibility: visible;
+}
 
 /* =========================================
    End of Obsidian Readability v2
