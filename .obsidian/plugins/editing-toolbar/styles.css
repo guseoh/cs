@@ -2833,3 +2833,13 @@ body.auto-hide-header .workspace-tab-header-container + .workspace-tab-container
 .editing-toolbar-update-modal .changelog-content a {
   text-decoration: underline;
 }
+
+/* Vault startup guard: marker exists only when the actual toolbar CSS is loaded. */
+:is(#editingToolbarModalBar, #editingToolbarPopoverBar)[data-toolbar-style="top"],
+:is(.editingToolbarModalBar, .editingToolbarPopoverBar)[data-toolbar-style="top"] {
+  --cs-toolbar-css-ready: 1;
+  --cs-toolbar-boot-clip: none;
+  --cs-toolbar-boot-height: none;
+  --cs-toolbar-boot-overflow: visible;
+  --cs-toolbar-boot-pointer: auto;
+}
