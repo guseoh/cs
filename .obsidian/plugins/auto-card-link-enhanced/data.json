@@ -12,7 +12,7 @@
   "cardStyle": "classic",
   "thumbnailQuality": "better-preview",
   "useExternalFallback": false,
-  "thumbnailFit": "cover",
+  "thumbnailFit": "contain",
   "notFoundMarker": "strikethrough",
   "notFoundPrefix": "Not found:"
 }

@@ -1,0 +1,9 @@
+{
+  "id": "auto-svg-attachments",
+  "name": "Auto SVG Attachments",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Convert pasted inline SVG data URIs into local attachments with editable width.",
+  "author": "Vault local",
+  "isDesktopOnly": true
+}
