@@ -228,6 +228,24 @@ settings:
     step: 2
     format: px
   -
+    id: h6-top-gap
+    title: H6 위쪽 간격
+    type: variable-number
+    default: 8
+    min: 0
+    max: 24
+    step: 1
+    format: px
+  -
+    id: h6-bottom-gap
+    title: H6 아래쪽 간격
+    type: variable-number
+    default: 4
+    min: 0
+    max: 16
+    step: 1
+    format: px
+  -
     id: nested-list-marker-opacity
     title: 중첩 리스트 글머리표 강도
     type: variable-number
@@ -316,6 +334,8 @@ body {
     --h2-bottom-gap: 14px;
     --h3-top-gap: 28px;
     --h3-bottom-gap: 10px;
+    --h6-top-gap: 8px;
+    --h6-bottom-gap: 4px;
     --nested-list-marker-opacity: 0.65;
 
     --text-block-bg-alpha: 0.018;
@@ -384,6 +404,16 @@ body {
 .markdown-rendered h3 {
     margin-top: var(--h3-top-gap);
     margin-bottom: var(--h3-bottom-gap);
+}
+
+/* H6는 본문 안의 작은 단계 제목으로 사용한다. */
+.markdown-rendered h6 {
+    margin-block: var(--h6-top-gap) var(--h6-bottom-gap);
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-header-6 {
+    margin-block: 0;
+    padding-block: var(--h6-top-gap) var(--h6-bottom-gap);
 }
 
 .markdown-rendered li {
@@ -1791,6 +1821,13 @@ figcaption.image-captions-caption {
     line-height: var(--body-line-height);
 }
 
+/* 콜아웃은 일반 본문의 .el-p 래퍼 없이 p가 연속될 수 있다. */
+.callout:not([data-callout="more"]):not(
+    [data-callout="image-grid"]
+) > .callout-content > p + p {
+    margin-top: 0.8em;
+}
+
 /* =========================================
    27. 외부 링크
    ========================================= */
@@ -2029,15 +2066,18 @@ body {
 
 /* 썸네일이 있을 때만 이미지 영역 사용 */
 
-.auto-card-link-thumbnail {
-    width: 156px !important;
-    max-width: 32% !important;
-    height: auto !important;
+/* 폭 제한은 카드 기준의 부모에만 적용한다. object-fit은 플러그인 설정을 따른다. */
+.auto-card-link-container .auto-card-link-thumbnail-wrap {
+    width: min(156px, 32%) !important;
+    align-items: center;
+}
 
-    align-self: stretch;
-    object-fit: cover !important;
-
-    border-radius: 0 !important;
+.auto-card-link-container .auto-card-link-thumbnail-wrap img.auto-card-link-thumbnail {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 144px;
+    border-radius: 0;
 }
 
 

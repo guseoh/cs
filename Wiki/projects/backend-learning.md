@@ -4,7 +4,7 @@ type: project
 project: backend-learning
 status: active
 created_at: 2026-11-04
-updated_at: 2026-11-21
+updated_at: 2026-11-25
 evidence_level: user-confirmed
 capture_mode: manual
 sources:
@@ -17,6 +17,10 @@ related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-000
 ---
 
 # 백엔드 학습 — 프로젝트 공통 현황
+
+## 2026-11-25 — Obsidian 학습 도식화 저장 방식 개선
+
+Java 학습 노트에서 인라인 SVG 6개의 편집 모드 잔상·색상·크기 조절 문제를 확인 대상으로 삼고, 독립 SVG 첨부와 폭 지정 링크로 전환하는 방향을 적용한다. 원격 원본에서 인라인 데이터와 관련 CSS는 확인했으나 실제 로컬 렌더링 검증은 미완료다. [학습 운영 가이드](../knowledge/BLK-0003.md#학습-도식화의-저장-방식-2026-11-25)를 따른다. 기존 학습 범위와 진도 판정은 바꾸지 않는다.
 
 ## 2026-11-21 — Large-scale Board의 REST API 기본기 우선순위 확정
 
