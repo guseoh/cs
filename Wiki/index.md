@@ -327,6 +327,10 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWK-0005](knowledge/PWK-0005.md) | 2단계 장애 관측·로깅 학습 노트 |
 | [PWK-0006](knowledge/PWK-0006.md) | 3단계 배포·보안 기반 학습 노트 |
 
+## CSForge 통합 검증 기록
+
+- [15개 학습 영역 도식 QA와 격리 PostgreSQL 검증](journal/csforge/2026-11-25-visual-qa.md) · 2026-11-25
+
 ## Cross-project learning
 
 - [Backend learning snapshot](projects/backend-learning.md): current Java/Spring priority, academic CS curriculum, Large-scale Board contract, system-design reading, separate domain/AI practice, and Sentry adoption boundary.
