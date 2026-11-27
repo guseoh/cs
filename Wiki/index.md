@@ -88,7 +88,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0143](decisions/PWC-0143.md) | accepted | AWS·RDS 시간제 운영·월 15,000원 상한·설계 학습 | pawcycle |
 | [PWC-0144](decisions/PWC-0144.md) | accepted | 중앙 Wiki review PR 생성·병합 기본 위임 및 에이전트·하네스 규칙 정비 | pawcycle |
 | [PWC-0145](decisions/PWC-0145.md) | accepted | 프로젝트 교재화·세 병렬 트랙·구현 전 설계 토론 | pawcycle |
-| [PWC-0146](decisions/PWC-0146.md) | accepted | V11 학습 집중·Top-down 해체 분석·경량 Working Roadmap | pawcycle |
+| [PWC-0146](decisions/PWC-0146.md) | accepted | V11 학습 집중·네 가지 지도와 기능별 분석 깊이·Working Roadmap | pawcycle |
 | [PWC-0014](decisions/PWC-0014.md) | accepted | Preserve Subscription locks, version CAS and unique constraints | pawcycle |
 | [PWC-0015](decisions/PWC-0015.md) | accepted | Historical AWS vs OCI same-host Observability | pawcycle |
 | [PWC-0016](decisions/PWC-0016.md) | accepted | Payment PROCESSING query-only manual recovery policy | pawcycle |
