@@ -1673,5 +1673,43 @@ body {
 
 
 /* =========================================
+   30. Editing Toolbar 시작 화면 저장본 보정
+   ========================================= */
+
+/* Obsidian은 시작 직후 이전 화면을 HTML 저장본(workspace snapshot)으로 먼저 그린다.
+   Editing Toolbar는 <button> 안에 하위 메뉴 <button>을 넣는데, HTML을 다시 파싱하면
+   중첩 버튼과 그 아이콘이 툴바 밖으로 빠져나와 스타일 없이 편집 영역을 덮는다.
+   1) 툴바·팝오버·메뉴·모달·설정 밖으로 빠져나온 툴바 요소를 숨긴다(실제 화면에는 일치 요소 없음).
+   2) 저장본 iframe에서만 붙는 .app-container.mod-starting 아래에서, 레이아웃 컨테이너에
+      직접 붙은 버튼·SVG(빠져나온 버튼 조각)를 숨긴다. */
+:is(
+    button.editingToolbarCommandItem,
+    button[class*="editingToolbarCommandsubItem"],
+    button.menu-item,
+    .x-color-picker-wrapper
+):not(
+    #editingToolbarModalBar *,
+    .editingToolbarModalBar *,
+    .editingToolbarPopoverBar *,
+    .menu *,
+    .modal-container *,
+    .vertical-tab-content *
+),
+.app-container.mod-starting > :is(button, svg),
+.app-container.mod-starting :is(
+    .horizontal-main-container,
+    .workspace,
+    .workspace-split,
+    .workspace-tabs,
+    .workspace-tab-container,
+    .workspace-leaf,
+    .workspace-leaf-content,
+    .view-content,
+    .markdown-source-view
+) > :is(button, svg) {
+    display: none !important;
+}
+
+/* =========================================
    End of Obsidian Readability v2
    ========================================= */
