@@ -18,6 +18,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | --- | --- | --- |
 | LLM Wiki 자체 | [PRJ-LLM-WIKI](projects/llm-wiki.md) · [PR 병합 후 브랜치 정리](decisions/WIKI-0004.md) · [Obsidian 연동](decisions/WIKI-0007.md) | 2026-11-27 |
 | 공통 개발 환경 (Orca) | [PRJ-DEVELOPMENT-TOOLING](projects/development-tooling.md) · [Orca 공통 도구 결정](decisions/SHD-0001.md) | 2026-11-21 |
+| Hermit (Windows 에이전트 IDE) | [PRJ-HERMIT](projects/hermit.md) · [심층 코드 분석 및 개선·확장 마스터 플랜](knowledge/SHK-0003.md) | 2026-11-27 |
 | 교양 읽기·자유로운 사유 | [PRJ-GENERAL-READING](projects/general-reading.md) · [확정 읽기 방식](decisions/GRD-0001.md) · [분야별 자료·도서 후보](knowledge/GRK-0001.md) | 2026-11-21 |
 | 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [Board REST 기본기 우선](decisions/BLR-0017.md) · [Board 작업 분담](decisions/BLR-0015.md) · [Spring 학습 형식](decisions/BLR-0016.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-25 |
 | 통합 백엔드 학습 연구실 (백엔드·시스템 설계·RAG) | [PRJ-BACKEND-SYSTEMS-LAB](projects/backend-systems-lab.md) · [6개 독립 앱](decisions/BSL-0001.md) · [학습 범위·교재 우선순위](decisions/BSL-0003.md) · [교재 장기 계획](decisions/BSL-0002.md) · [학습 맵](knowledge/BSK-0001.md) · [진행 기록](journal/backend-systems-lab/2026-11.md) | 2026-11-19 |
@@ -201,6 +202,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [BLK-0003](knowledge/BLK-0003.md) | published | Java·Spring·JPA·Security 학습 재시작과 핵심 이해 중심 운영 가이드 | backend-learning |
 | [SHK-0001](knowledge/SHK-0001.md) | published | AWS Emulator: API fidelity, security boundaries, AI-agent validation loops (2026-11-13) | shared |
 | [SHK-0002](knowledge/SHK-0002.md) | published | Obsidian Vault 안정화·성능 실측, 설정 정리·플러그인 업데이트, 시작 화면 저장본 깨짐 원인과 CSS 보정 (2026-11-27) | shared |
+| [SHK-0003](knowledge/SHK-0003.md) | published | Hermit 에이전트 IDE 심층 코드 분석 및 개선·확장 마스터 플랜 (2026-11-27) | shared |
 | [GRK-0001](knowledge/GRK-0001.md) | draft | 한국어 개인 블로그·공식 자료·교양서 분야별 읽을거리 후보(매회 검증 필요) | general-reading |
 
 ## Lesson index
