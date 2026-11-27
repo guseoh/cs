@@ -39,14 +39,14 @@ function isFenceLine(line) {
 }
 var TAG_START = /^<\/?[A-Za-z][A-Za-z0-9-]*(?=[\s/>]|$)/;
 var URL_START = /^<?https?:\/\//;
-function protectedRegionAt(text) {
-  const lineStart = text.lastIndexOf("\n") + 1;
-  const block = blockStateAt(text, lineStart);
+function protectedRegionAt(text2) {
+  const lineStart = text2.lastIndexOf("\n") + 1;
+  const block = blockStateAt(text2, lineStart);
   if (block.region)
     return block.region;
-  if (block.openSpan === null && isFenceLine(text.slice(lineStart)))
+  if (block.openSpan === null && isFenceLine(text2.slice(lineStart)))
     return "code-block";
-  let line = text.slice(lineStart);
+  let line = text2.slice(lineStart);
   if (block.openSpan !== null) {
     const end = line.indexOf(block.openSpan);
     if (end === -1)
@@ -55,8 +55,8 @@ function protectedRegionAt(text) {
   }
   return inlineRegionAt(line);
 }
-function blockStateAt(text, lineStart) {
-  const lines = text.slice(0, lineStart).split("\n");
+function blockStateAt(text2, lineStart) {
+  const lines = text2.slice(0, lineStart).split("\n");
   lines.pop();
   let inFrontmatter = lines.length > 0 && lines[0] === "---";
   let fence = null;
@@ -283,6 +283,10 @@ var de = {
   "setting.wrapSelection.desc": "Wenn Text ausgew\xE4hlt ist, setzt das Tippen eines Anf\xFChrungszeichens typografische Anf\xFChrungszeichen darum, statt den Text zu ersetzen.",
   "setting.dashes.name": "Striche",
   "setting.dashes.desc": "-- wird zu \u2013 und --- wird zu \u2014.",
+  "setting.dashesInQuotes.name": "Striche in einer eigenen Zitatzeile",
+  "setting.dashesInQuotes.desc": "Macht aus einem alleinstehenden -- oder --- in einer Zitat- oder Callout-Zeile (>--) ein \u2013 oder \u2014, f\xFCr einen Strich am Ende eines Zitats. Standardm\xE4\xDFig aus, weil eine Zeile aus Bindestrichen dort eine horizontale Linie oder die Unterstreichung einer \xDCberschrift sein kann. Zeilen au\xDFerhalb von Zitaten, Tabellenzeilen und Eigenschaften bleiben immer unver\xE4ndert, und R\xFCcktaste direkt danach stellt die Bindestriche wieder her.",
+  "setting.statusBar.name": "In der Statusleiste anzeigen",
+  "setting.statusBar.desc": "Zeigt die Anf\xFChrungszeichen der aktuellen Notiz, mit \u201Eoff\u201C, wenn die Ersetzungen dort aus sind. Ein Klick darauf schaltet die Notiz ein oder aus, w\xE4hlt ihre Anf\xFChrungszeichen oder wendet die Typografie an. Auf dem Smartphone gibt es keine Statusleiste; die Befehle tun dasselbe.",
   "setting.ellipsis.name": "Auslassungspunkte",
   "setting.ellipsis.desc": "... wird zu \u2026.",
   "setting.arrows.name": "Pfeile",
@@ -328,6 +332,22 @@ var de = {
   "reason.folderFormat": 'Erst den Ordner schreiben, dann " -> ", dann die Konvention',
   "reason.noFolder": 'Kein Ordner vor "->"',
   "reason.unknownConvention": "Unbekannte Konvention",
+  // Status bar and menus
+  "statusBar.off": "{marks} off",
+  "statusBar.on": "Die Typografie ist in dieser Notiz an.",
+  "statusBar.offProperty": "Die Typografie ist in dieser Notiz aus (typography: off).",
+  "statusBar.offFolder": "Die Typografie ist aus: Diese Notiz liegt in einem ausgeschlossenen Ordner.",
+  "statusBar.quotes.property": "Anf\xFChrungszeichen: {style}, aus der Eigenschaft typography-quotes dieser Notiz.",
+  "statusBar.quotes.plugin": "Anf\xFChrungszeichen: {style}, von einem anderen Plugin gew\xE4hlt.",
+  "statusBar.quotes.lang": "Anf\xFChrungszeichen: {style}, aus der Eigenschaft lang dieser Notiz.",
+  "statusBar.quotes.folder": "Anf\xFChrungszeichen: {style}, aus \u201EAnf\xFChrungszeichen pro Ordner\u201C.",
+  "statusBar.quotes.default": "Anf\xFChrungszeichen: {style}, aus den Plugin-Einstellungen.",
+  "statusBar.click": "Klicken f\xFCr Optionen.",
+  "menu.turnOff": "Ersetzungen in dieser Notiz ausschalten",
+  "menu.turnOn": "Ersetzungen in dieser Notiz einschalten",
+  "menu.excluded": "Aus: Diese Notiz liegt in einem ausgeschlossenen Ordner",
+  "menu.applySelection": "Typografie auf die Auswahl anwenden",
+  "menu.applyNote": "Typografie auf die ganze Notiz anwenden",
   // Modals
   "modal.preset.title": "Typografie-Stil w\xE4hlen",
   "modal.preset.intro": "W\xE4hle einen Ausgangspunkt. Jeden Schalter kannst du sp\xE4ter in den Einstellungen der Erweiterung \xE4ndern; dort sind diese Voreinstellungen ebenfalls aufgef\xFChrt.",
@@ -395,6 +415,10 @@ var en = {
   "setting.wrapSelection.desc": "With text selected, typing a quote puts curly quotes around it instead of replacing it.",
   "setting.dashes.name": "Dashes",
   "setting.dashes.desc": "Turns -- into \u2013 and --- into \u2014.",
+  "setting.dashesInQuotes.name": "Lone dashes in quotes and callouts",
+  "setting.dashesInQuotes.desc": "Turns a lone -- or --- on a quote or callout line (>--) into \u2013 or \u2014, for a dash that ends a quotation. Off by default, because there a line of hyphens can be a horizontal rule or a heading underline. Lines outside quotes, table rows and front matter are never changed, and pressing backspace right after puts the hyphens back.",
+  "setting.statusBar.name": "Show in the status bar",
+  "setting.statusBar.desc": 'Shows the quotation marks of the current note, with "off" when substitutions are off there. Click it to turn the note on or off, choose its quotation marks or apply typography. Phones have no status bar; the commands do the same.',
   "setting.ellipsis.name": "Ellipsis",
   "setting.ellipsis.desc": "Turns three dots into \u2026.",
   "setting.arrows.name": "Arrows",
@@ -440,6 +464,22 @@ var en = {
   "reason.folderFormat": 'Write the folder, then " -> ", then the convention',
   "reason.noFolder": 'No folder before "->"',
   "reason.unknownConvention": "Unknown convention",
+  // Status bar and menus
+  "statusBar.off": "{marks} off",
+  "statusBar.on": "Typography is on in this note.",
+  "statusBar.offProperty": "Typography is off in this note (typography: off).",
+  "statusBar.offFolder": "Typography is off: this note is in an excluded folder.",
+  "statusBar.quotes.property": "Quotation marks: {style}, from the typography-quotes property of this note.",
+  "statusBar.quotes.plugin": "Quotation marks: {style}, chosen by another plugin.",
+  "statusBar.quotes.lang": "Quotation marks: {style}, from the lang property of this note.",
+  "statusBar.quotes.folder": "Quotation marks: {style}, from Quotes per folder.",
+  "statusBar.quotes.default": "Quotation marks: {style}, from the plugin settings.",
+  "statusBar.click": "Click for options.",
+  "menu.turnOff": "Turn substitutions off in this note",
+  "menu.turnOn": "Turn substitutions on in this note",
+  "menu.excluded": "Off: this note is in an excluded folder",
+  "menu.applySelection": "Apply typography to the selection",
+  "menu.applyNote": "Apply typography to the whole note",
   // Modals
   "modal.preset.title": "Choose a typography style",
   "modal.preset.intro": "Pick a starting point. You can change every switch later in the plugin settings, where these presets are also listed.",
@@ -507,6 +547,10 @@ var es = {
   "setting.wrapSelection.desc": "Con texto seleccionado, escribir una comilla pone comillas tipogr\xE1ficas alrededor en lugar de reemplazarlo.",
   "setting.dashes.name": "Rayas",
   "setting.dashes.desc": "-- se convierte en \u2013 y --- en \u2014.",
+  "setting.dashesInQuotes.name": "Rayas en una l\xEDnea de cita sola",
+  "setting.dashesInQuotes.desc": "Convierte un -- o --- solo en una l\xEDnea de cita o callout (>--) en \u2013 o \u2014, para cerrar una cita con una raya. Desactivado de f\xE1brica, porque ah\xED una l\xEDnea de guiones puede ser una l\xEDnea horizontal o el subrayado de un t\xEDtulo. Las l\xEDneas fuera de citas, las filas de tabla y las propiedades nunca cambian, y Retroceso justo despu\xE9s devuelve los guiones.",
+  "setting.statusBar.name": "Mostrar en la barra de estado",
+  "setting.statusBar.desc": "Muestra las comillas de la nota actual, con \xABoff\xBB si en ella las sustituciones est\xE1n desactivadas. Al pulsarlo puedes activar o desactivar la nota, elegir sus comillas o aplicar la tipograf\xEDa. En el tel\xE9fono no hay barra de estado; los comandos hacen lo mismo.",
   "setting.ellipsis.name": "Puntos suspensivos",
   "setting.ellipsis.desc": "... se convierte en \u2026.",
   "setting.arrows.name": "Flechas",
@@ -552,6 +596,22 @@ var es = {
   "reason.folderFormat": 'escribe la carpeta, luego " -> " y luego la convenci\xF3n',
   "reason.noFolder": 'no hay carpeta antes de "->"',
   "reason.unknownConvention": "convenci\xF3n desconocida",
+  // Status bar and menus
+  "statusBar.off": "{marks} off",
+  "statusBar.on": "La tipograf\xEDa est\xE1 activada en esta nota.",
+  "statusBar.offProperty": "La tipograf\xEDa est\xE1 desactivada en esta nota (typography: off).",
+  "statusBar.offFolder": "La tipograf\xEDa est\xE1 desactivada: esta nota est\xE1 en una carpeta excluida.",
+  "statusBar.quotes.property": "Comillas: {style}, seg\xFAn la propiedad typography-quotes de esta nota.",
+  "statusBar.quotes.plugin": "Comillas: {style}, elegidas por otro plugin.",
+  "statusBar.quotes.lang": "Comillas: {style}, seg\xFAn la propiedad lang de esta nota.",
+  "statusBar.quotes.folder": "Comillas: {style}, seg\xFAn Comillas por carpeta.",
+  "statusBar.quotes.default": "Comillas: {style}, seg\xFAn los ajustes del plugin.",
+  "statusBar.click": "Pulsa para ver opciones.",
+  "menu.turnOff": "Desactivar las sustituciones en esta nota",
+  "menu.turnOn": "Activar las sustituciones en esta nota",
+  "menu.excluded": "Desactivado: esta nota est\xE1 en una carpeta excluida",
+  "menu.applySelection": "Aplicar la tipograf\xEDa a la selecci\xF3n",
+  "menu.applyNote": "Aplicar la tipograf\xEDa a toda la nota",
   // Modals
   "modal.preset.title": "Elige un estilo tipogr\xE1fico",
   "modal.preset.intro": "Elige un punto de partida. Podr\xE1s cambiar cada interruptor m\xE1s adelante en los ajustes del complemento, donde tambi\xE9n aparecen estos estilos predefinidos.",
@@ -619,6 +679,10 @@ var fr = {
   "setting.wrapSelection.desc": "Avec du texte s\xE9lectionn\xE9, saisir un guillemet place des guillemets typographiques autour au lieu de remplacer le texte.",
   "setting.dashes.name": "Tirets",
   "setting.dashes.desc": "-- devient \u2013 et --- devient \u2014.",
+  "setting.dashesInQuotes.name": "Tirets sur une ligne de citation seule",
+  "setting.dashesInQuotes.desc": "Transforme un -- ou --- seul sur une ligne de citation ou de callout (>--) en \u2013 ou \u2014, pour terminer une citation par un tiret. D\xE9sactiv\xE9 par d\xE9faut, car \xE0 cet endroit une ligne de traits d\u2019union peut \xEAtre une ligne horizontale ou le soulignement d\u2019un titre. Les lignes hors citation, les lignes de tableau et les propri\xE9t\xE9s ne changent jamais, et Retour arri\xE8re juste apr\xE8s rend les traits d\u2019union.",
+  "setting.statusBar.name": "Afficher dans la barre d\u2019\xE9tat",
+  "setting.statusBar.desc": "Affiche les guillemets de la note courante, avec \xAB off \xBB quand les substitutions y sont d\xE9sactiv\xE9es. Un clic permet d\u2019activer ou de d\xE9sactiver la note, de choisir ses guillemets ou d\u2019appliquer la typographie. Le t\xE9l\xE9phone n\u2019a pas de barre d\u2019\xE9tat ; les commandes font la m\xEAme chose.",
   "setting.ellipsis.name": "Points de suspension",
   "setting.ellipsis.desc": "... devient \u2026.",
   "setting.arrows.name": "Fl\xE8ches",
@@ -664,6 +728,22 @@ var fr = {
   "reason.folderFormat": '\xE9crivez le dossier, puis " -> ", puis la convention',
   "reason.noFolder": 'aucun dossier avant "->"',
   "reason.unknownConvention": "convention inconnue",
+  // Status bar and menus
+  "statusBar.off": "{marks} off",
+  "statusBar.on": "La typographie est activ\xE9e dans cette note.",
+  "statusBar.offProperty": "La typographie est d\xE9sactiv\xE9e dans cette note (typography: off).",
+  "statusBar.offFolder": "La typographie est d\xE9sactiv\xE9e : cette note est dans un dossier exclu.",
+  "statusBar.quotes.property": "Guillemets : {style}, d\u2019apr\xE8s la propri\xE9t\xE9 typography-quotes de cette note.",
+  "statusBar.quotes.plugin": "Guillemets : {style}, choisis par un autre plugin.",
+  "statusBar.quotes.lang": "Guillemets : {style}, d\u2019apr\xE8s la propri\xE9t\xE9 lang de cette note.",
+  "statusBar.quotes.folder": "Guillemets : {style}, d\u2019apr\xE8s Guillemets par dossier.",
+  "statusBar.quotes.default": "Guillemets : {style}, d\u2019apr\xE8s les r\xE9glages du plugin.",
+  "statusBar.click": "Cliquez pour les options.",
+  "menu.turnOff": "D\xE9sactiver les substitutions dans cette note",
+  "menu.turnOn": "Activer les substitutions dans cette note",
+  "menu.excluded": "D\xE9sactiv\xE9 : cette note est dans un dossier exclu",
+  "menu.applySelection": "Appliquer la typographie \xE0 la s\xE9lection",
+  "menu.applyNote": "Appliquer la typographie \xE0 toute la note",
   // Modals
   "modal.preset.title": "Choisir un style typographique",
   "modal.preset.intro": "Choisissez un point de d\xE9part. Vous pourrez modifier chaque interrupteur plus tard dans les r\xE9glages du module, o\xF9 ces pr\xE9r\xE9glages sont aussi list\xE9s.",
@@ -731,6 +811,10 @@ var ja = {
   "setting.wrapSelection.desc": "\u30C6\u30AD\u30B9\u30C8\u3092\u9078\u629E\u3057\u3066\u5F15\u7528\u7B26\u3092\u5165\u529B\u3059\u308B\u3068\u3001\u7F6E\u304D\u63DB\u3048\u305A\u306B\u30B9\u30DE\u30FC\u30C8\u5F15\u7528\u7B26\u3067\u56F2\u307F\u307E\u3059\u3002",
   "setting.dashes.name": "\u30C0\u30C3\u30B7\u30E5",
   "setting.dashes.desc": "-- \u3092 \u2013 \u306B\u3001--- \u3092 \u2014 \u306B\u3057\u307E\u3059\u3002",
+  "setting.dashesInQuotes.name": "\u5F15\u7528\u3060\u3051\u306E\u884C\u306E\u30C0\u30C3\u30B7\u30E5",
+  "setting.dashesInQuotes.desc": "\u5F15\u7528\u3084\u30B3\u30FC\u30EB\u30A2\u30A6\u30C8\u306E\u884C\u306B -- \u3084 --- \u3060\u3051\u3092\u66F8\u3044\u305F\u3068\u304D\uFF08>--\uFF09\u3001\u2013 \u3084 \u2014 \u306B\u3057\u307E\u3059\u3002\u5F15\u7528\u3092\u30C0\u30C3\u30B7\u30E5\u3067\u7DE0\u3081\u305F\u3044\u3068\u304D\u306B\u4F7F\u3044\u307E\u3059\u3002\u305D\u3053\u3067\u306E\u30CF\u30A4\u30D5\u30F3\u3060\u3051\u306E\u884C\u306F\u6C34\u5E73\u7DDA\u3084\u898B\u51FA\u3057\u306E\u4E0B\u7DDA\u306B\u3082\u306A\u308B\u305F\u3081\u3001\u65E2\u5B9A\u3067\u306F\u30AA\u30D5\u3067\u3059\u3002\u5F15\u7528\u306E\u5916\u306E\u884C\u3001\u8868\u306E\u884C\u3001\u30D7\u30ED\u30D1\u30C6\u30A3\u306F\u5909\u66F4\u3055\u308C\u305A\u3001\u76F4\u5F8C\u306E Backspace \u3067\u30CF\u30A4\u30D5\u30F3\u306B\u623B\u308A\u307E\u3059\u3002",
+  "setting.statusBar.name": "\u30B9\u30C6\u30FC\u30BF\u30B9\u30D0\u30FC\u306B\u8868\u793A",
+  "setting.statusBar.desc": "\u73FE\u5728\u306E\u30CE\u30FC\u30C8\u306E\u5F15\u7528\u7B26\u3092\u8868\u793A\u3057\u3001\u305D\u306E\u30CE\u30FC\u30C8\u3067\u7F6E\u63DB\u304C\u30AA\u30D5\u306A\u3089\u300Coff\u300D\u3092\u4ED8\u3051\u307E\u3059\u3002\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\u3001\u30CE\u30FC\u30C8\u306E\u30AA\u30F3\uFF0F\u30AA\u30D5\u5207\u308A\u66FF\u3048\u3001\u5F15\u7528\u7B26\u306E\u9078\u629E\u3001\u30BF\u30A4\u30DD\u30B0\u30E9\u30D5\u30A3\u306E\u9069\u7528\u304C\u3067\u304D\u307E\u3059\u3002\u30B9\u30DE\u30FC\u30C8\u30D5\u30A9\u30F3\u306B\u306F\u30B9\u30C6\u30FC\u30BF\u30B9\u30D0\u30FC\u304C\u306A\u3044\u306E\u3067\u3001\u30B3\u30DE\u30F3\u30C9\u3092\u4F7F\u3063\u3066\u304F\u3060\u3055\u3044\u3002",
   "setting.ellipsis.name": "\u4E09\u70B9\u30EA\u30FC\u30C0\u30FC",
   "setting.ellipsis.desc": "... \u3092 \u2026 \u306B\u3057\u307E\u3059\u3002",
   "setting.arrows.name": "\u77E2\u5370",
@@ -776,6 +860,22 @@ var ja = {
   "reason.folderFormat": '\u30D5\u30A9\u30EB\u30C0\u3001" -> "\u3001\u8868\u8A18\u898F\u5247\u306E\u9806\u306B\u66F8\u3044\u3066\u304F\u3060\u3055\u3044',
   "reason.noFolder": '"->" \u306E\u524D\u306B\u30D5\u30A9\u30EB\u30C0\u304C\u3042\u308A\u307E\u305B\u3093',
   "reason.unknownConvention": "\u4E0D\u660E\u306A\u8868\u8A18\u898F\u5247\u3067\u3059",
+  // Status bar and menus
+  "statusBar.off": "{marks} off",
+  "statusBar.on": "\u3053\u306E\u30CE\u30FC\u30C8\u3067\u306F\u30BF\u30A4\u30DD\u30B0\u30E9\u30D5\u30A3\u304C\u30AA\u30F3\u3067\u3059\u3002",
+  "statusBar.offProperty": "\u3053\u306E\u30CE\u30FC\u30C8\u3067\u306F\u30BF\u30A4\u30DD\u30B0\u30E9\u30D5\u30A3\u304C\u30AA\u30D5\u3067\u3059\uFF08typography: off\uFF09\u3002",
+  "statusBar.offFolder": "\u30BF\u30A4\u30DD\u30B0\u30E9\u30D5\u30A3\u306F\u30AA\u30D5\u3067\u3059\uFF1A\u3053\u306E\u30CE\u30FC\u30C8\u306F\u9664\u5916\u30D5\u30A9\u30EB\u30C0\u30FC\u306B\u3042\u308A\u307E\u3059\u3002",
+  "statusBar.quotes.property": "\u5F15\u7528\u7B26\uFF1A{style}\uFF08\u3053\u306E\u30CE\u30FC\u30C8\u306E typography-quotes \u30D7\u30ED\u30D1\u30C6\u30A3\uFF09\u3002",
+  "statusBar.quotes.plugin": "\u5F15\u7528\u7B26\uFF1A{style}\uFF08\u5225\u306E\u30D7\u30E9\u30B0\u30A4\u30F3\u304C\u6307\u5B9A\uFF09\u3002",
+  "statusBar.quotes.lang": "\u5F15\u7528\u7B26\uFF1A{style}\uFF08\u3053\u306E\u30CE\u30FC\u30C8\u306E lang \u30D7\u30ED\u30D1\u30C6\u30A3\uFF09\u3002",
+  "statusBar.quotes.folder": "\u5F15\u7528\u7B26\uFF1A{style}\uFF08\u30D5\u30A9\u30EB\u30C0\u3054\u3068\u306E\u5F15\u7528\u7B26\uFF09\u3002",
+  "statusBar.quotes.default": "\u5F15\u7528\u7B26\uFF1A{style}\uFF08\u30D7\u30E9\u30B0\u30A4\u30F3\u306E\u8A2D\u5B9A\uFF09\u3002",
+  "statusBar.click": "\u30AF\u30EA\u30C3\u30AF\u3067\u30AA\u30D7\u30B7\u30E7\u30F3\u3092\u8868\u793A\u3002",
+  "menu.turnOff": "\u3053\u306E\u30CE\u30FC\u30C8\u306E\u81EA\u52D5\u7F6E\u63DB\u3092\u30AA\u30D5\u306B\u3059\u308B",
+  "menu.turnOn": "\u3053\u306E\u30CE\u30FC\u30C8\u306E\u81EA\u52D5\u7F6E\u63DB\u3092\u30AA\u30F3\u306B\u3059\u308B",
+  "menu.excluded": "\u30AA\u30D5\uFF1A\u3053\u306E\u30CE\u30FC\u30C8\u306F\u9664\u5916\u30D5\u30A9\u30EB\u30C0\u30FC\u306B\u3042\u308A\u307E\u3059",
+  "menu.applySelection": "\u9078\u629E\u7BC4\u56F2\u306B\u30BF\u30A4\u30DD\u30B0\u30E9\u30D5\u30A3\u3092\u9069\u7528",
+  "menu.applyNote": "\u30CE\u30FC\u30C8\u5168\u4F53\u306B\u30BF\u30A4\u30DD\u30B0\u30E9\u30D5\u30A3\u3092\u9069\u7528",
   // Modals
   "modal.preset.title": "\u7D44\u7248\u30B9\u30BF\u30A4\u30EB\u3092\u9078\u629E",
   "modal.preset.intro": "\u51FA\u767A\u70B9\u3092\u9078\u3093\u3067\u304F\u3060\u3055\u3044\u3002\u30B9\u30A4\u30C3\u30C1\u306F\u3042\u3068\u304B\u3089\u30D7\u30E9\u30B0\u30A4\u30F3\u306E\u8A2D\u5B9A\u3067\u3059\u3079\u3066\u5909\u66F4\u3067\u304D\u3001\u3053\u308C\u3089\u306E\u30D7\u30EA\u30BB\u30C3\u30C8\u3082\u305D\u3053\u306B\u4E26\u3093\u3067\u3044\u307E\u3059\u3002",
@@ -843,6 +943,10 @@ var ko = {
   "setting.wrapSelection.desc": "\uD14D\uC2A4\uD2B8\uB97C \uC120\uD0DD\uD558\uACE0 \uB530\uC634\uD45C\uB97C \uC785\uB825\uD558\uBA74, \uD14D\uC2A4\uD2B8\uB97C \uBC14\uAFB8\uB294 \uB300\uC2E0 \uB465\uADFC \uB530\uC634\uD45C\uB85C \uAC10\uC309\uB2C8\uB2E4.",
   "setting.dashes.name": "\uB300\uC2DC",
   "setting.dashes.desc": "--\uB294 \u2013\uB85C, ---\uB294 \u2014\uB85C \uBC14\uB01D\uB2C8\uB2E4.",
+  "setting.dashesInQuotes.name": "\uC778\uC6A9\uBB38 \uB2E8\uB3C5 \uC904\uC758 \uB300\uC2DC",
+  "setting.dashesInQuotes.desc": "\uC778\uC6A9\uBB38\uC774\uB098 \uCF5C\uC544\uC6C3 \uC904\uC5D0 -- \uB610\uB294 ---\uB9CC \uC788\uC73C\uBA74(>--) \u2013 \uB610\uB294 \u2014\uB85C \uBC14\uAFC9\uB2C8\uB2E4. \uC778\uC6A9\uBB38\uC744 \uB300\uC2DC\uB85C \uB05D\uB0BC \uB54C \uC501\uB2C8\uB2E4. \uADF8 \uC790\uB9AC\uC758 \uD558\uC774\uD508 \uC904\uC740 \uAC00\uB85C\uC904\uC774\uB098 \uC81C\uBAA9 \uBC11\uC904\uC77C \uC218 \uC788\uC5B4\uC11C \uAE30\uBCF8\uAC12\uC740 \uAEBC\uC9D0\uC785\uB2C8\uB2E4. \uC778\uC6A9\uBB38 \uBC16\uC758 \uC904, \uD45C\uC758 \uD589, \uC18D\uC131\uC740 \uBC14\uB00C\uC9C0 \uC54A\uC73C\uBA70, \uBC14\uB85C \uB2E4\uC74C\uC5D0 \uBC31\uC2A4\uD398\uC774\uC2A4\uB97C \uB204\uB974\uBA74 \uD558\uC774\uD508\uC73C\uB85C \uB3CC\uC544\uAC11\uB2C8\uB2E4.",
+  "setting.statusBar.name": "\uC0C1\uD0DC \uD45C\uC2DC\uC904\uC5D0 \uD45C\uC2DC",
+  "setting.statusBar.desc": '\uD604\uC7AC \uB178\uD2B8\uC758 \uB530\uC634\uD45C\uB97C \uBCF4\uC5EC \uC8FC\uACE0, \uADF8 \uB178\uD2B8\uC5D0\uC11C \uCE58\uD658\uC774 \uAEBC\uC838 \uC788\uC73C\uBA74 "off"\uB97C \uBD99\uC785\uB2C8\uB2E4. \uD074\uB9AD\uD558\uBA74 \uB178\uD2B8 \uCE58\uD658\uC744 \uCF1C\uAC70\uB098 \uB044\uACE0, \uB530\uC634\uD45C\uB97C \uACE0\uB974\uAC70\uB098, \uD0C0\uC774\uD3EC\uADF8\uB798\uD53C\uB97C \uC801\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uD734\uB300\uD3F0\uC5D0\uB294 \uC0C1\uD0DC \uD45C\uC2DC\uC904\uC774 \uC5C6\uC73C\uB2C8 \uBA85\uB839\uC744 \uC4F0\uC138\uC694.',
   "setting.ellipsis.name": "\uB9D0\uC904\uC784\uD45C",
   "setting.ellipsis.desc": "...\uB294 \u2026\uB85C \uBC14\uB01D\uB2C8\uB2E4.",
   "setting.arrows.name": "\uD654\uC0B4\uD45C",
@@ -888,6 +992,22 @@ var ko = {
   "reason.folderFormat": '\uD3F4\uB354, " -> ", \uD45C\uAE30 \uADDC\uCE59 \uC21C\uC73C\uB85C \uC801\uC73C\uC138\uC694',
   "reason.noFolder": '"->" \uC55E\uC5D0 \uD3F4\uB354\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4',
   "reason.unknownConvention": "\uC54C \uC218 \uC5C6\uB294 \uD45C\uAE30 \uADDC\uCE59\uC785\uB2C8\uB2E4",
+  // Status bar and menus
+  "statusBar.off": "{marks} off",
+  "statusBar.on": "\uC774 \uB178\uD2B8\uC5D0\uC11C \uD0C0\uC774\uD3EC\uADF8\uB798\uD53C\uAC00 \uCF1C\uC838 \uC788\uC2B5\uB2C8\uB2E4.",
+  "statusBar.offProperty": "\uC774 \uB178\uD2B8\uC5D0\uC11C \uD0C0\uC774\uD3EC\uADF8\uB798\uD53C\uAC00 \uAEBC\uC838 \uC788\uC2B5\uB2C8\uB2E4(typography: off).",
+  "statusBar.offFolder": "\uD0C0\uC774\uD3EC\uADF8\uB798\uD53C\uAC00 \uAEBC\uC838 \uC788\uC2B5\uB2C8\uB2E4: \uC774 \uB178\uD2B8\uB294 \uC81C\uC678\uB41C \uD3F4\uB354\uC5D0 \uC788\uC2B5\uB2C8\uB2E4.",
+  "statusBar.quotes.property": "\uB530\uC634\uD45C: {style}, \uC774 \uB178\uD2B8\uC758 typography-quotes \uC18D\uC131\uC5D0 \uB530\uB984.",
+  "statusBar.quotes.plugin": "\uB530\uC634\uD45C: {style}, \uB2E4\uB978 \uD50C\uB7EC\uADF8\uC778\uC774 \uC120\uD0DD\uD568.",
+  "statusBar.quotes.lang": "\uB530\uC634\uD45C: {style}, \uC774 \uB178\uD2B8\uC758 lang \uC18D\uC131\uC5D0 \uB530\uB984.",
+  "statusBar.quotes.folder": "\uB530\uC634\uD45C: {style}, \uD3F4\uB354\uBCC4 \uB530\uC634\uD45C\uC5D0 \uB530\uB984.",
+  "statusBar.quotes.default": "\uB530\uC634\uD45C: {style}, \uD50C\uB7EC\uADF8\uC778 \uC124\uC815\uC5D0 \uB530\uB984.",
+  "statusBar.click": "\uD074\uB9AD\uD558\uBA74 \uC635\uC158\uC774 \uC5F4\uB9BD\uB2C8\uB2E4.",
+  "menu.turnOff": "\uC774 \uB178\uD2B8\uC5D0\uC11C \uCE58\uD658 \uB044\uAE30",
+  "menu.turnOn": "\uC774 \uB178\uD2B8\uC5D0\uC11C \uCE58\uD658 \uCF1C\uAE30",
+  "menu.excluded": "\uAEBC\uC9D0: \uC774 \uB178\uD2B8\uB294 \uC81C\uC678\uB41C \uD3F4\uB354\uC5D0 \uC788\uC2B5\uB2C8\uB2E4",
+  "menu.applySelection": "\uC120\uD0DD \uC601\uC5ED\uC5D0 \uD0C0\uC774\uD3EC\uADF8\uB798\uD53C \uC801\uC6A9",
+  "menu.applyNote": "\uB178\uD2B8 \uC804\uCCB4\uC5D0 \uD0C0\uC774\uD3EC\uADF8\uB798\uD53C \uC801\uC6A9",
   // Modals
   "modal.preset.title": "\uC870\uD310 \uC2A4\uD0C0\uC77C \uC120\uD0DD",
   "modal.preset.intro": "\uC2DC\uC791\uC810\uC744 \uACE0\uB974\uC138\uC694. \uBAA8\uB4E0 \uC2A4\uC704\uCE58\uB294 \uB098\uC911\uC5D0 \uD50C\uB7EC\uADF8\uC778 \uC124\uC815\uC5D0\uC11C \uBC14\uAFC0 \uC218 \uC788\uC73C\uBA70, \uC774 \uD504\uB9AC\uC14B\uB3C4 \uAC70\uAE30\uC5D0 \uC788\uC2B5\uB2C8\uB2E4.",
@@ -955,6 +1075,10 @@ var ptBR = {
   "setting.wrapSelection.desc": "Com texto selecionado, digitar uma aspa coloca aspas tipogr\xE1ficas ao redor em vez de substitu\xED-lo.",
   "setting.dashes.name": "Travess\xF5es",
   "setting.dashes.desc": "-- vira \u2013 e --- vira \u2014.",
+  "setting.dashesInQuotes.name": "Travess\xF5es numa linha de cita\xE7\xE3o sozinha",
+  "setting.dashesInQuotes.desc": "Transforma um -- ou --- sozinho numa linha de cita\xE7\xE3o ou callout (>--) em \u2013 ou \u2014, para fechar uma cita\xE7\xE3o com um travess\xE3o. Desativado por padr\xE3o, porque ali uma linha de hifens pode ser uma linha horizontal ou o sublinhado de um t\xEDtulo. Linhas fora de cita\xE7\xF5es, linhas de tabela e propriedades nunca mudam, e Backspace logo depois devolve os hifens.",
+  "setting.statusBar.name": "Mostrar na barra de status",
+  "setting.statusBar.desc": 'Mostra as aspas da nota atual, com "off" quando as substitui\xE7\xF5es est\xE3o desativadas nela. Clique para ativar ou desativar a nota, escolher as aspas ou aplicar a tipografia. No celular n\xE3o h\xE1 barra de status; os comandos fazem o mesmo.',
   "setting.ellipsis.name": "Retic\xEAncias",
   "setting.ellipsis.desc": "... vira \u2026.",
   "setting.arrows.name": "Setas",
@@ -1000,6 +1124,22 @@ var ptBR = {
   "reason.folderFormat": 'escreva a pasta, depois " -> " e depois a conven\xE7\xE3o',
   "reason.noFolder": 'nenhuma pasta antes de "->"',
   "reason.unknownConvention": "conven\xE7\xE3o desconhecida",
+  // Status bar and menus
+  "statusBar.off": "{marks} off",
+  "statusBar.on": "A tipografia est\xE1 ativada nesta nota.",
+  "statusBar.offProperty": "A tipografia est\xE1 desativada nesta nota (typography: off).",
+  "statusBar.offFolder": "A tipografia est\xE1 desativada: esta nota est\xE1 numa pasta exclu\xEDda.",
+  "statusBar.quotes.property": "Aspas: {style}, pela propriedade typography-quotes desta nota.",
+  "statusBar.quotes.plugin": "Aspas: {style}, escolhidas por outro plugin.",
+  "statusBar.quotes.lang": "Aspas: {style}, pela propriedade lang desta nota.",
+  "statusBar.quotes.folder": "Aspas: {style}, por Aspas por pasta.",
+  "statusBar.quotes.default": "Aspas: {style}, pelas configura\xE7\xF5es do plugin.",
+  "statusBar.click": "Clique para ver as op\xE7\xF5es.",
+  "menu.turnOff": "Desativar as substitui\xE7\xF5es nesta nota",
+  "menu.turnOn": "Ativar as substitui\xE7\xF5es nesta nota",
+  "menu.excluded": "Desativado: esta nota est\xE1 numa pasta exclu\xEDda",
+  "menu.applySelection": "Aplicar a tipografia \xE0 sele\xE7\xE3o",
+  "menu.applyNote": "Aplicar a tipografia \xE0 nota inteira",
   // Modals
   "modal.preset.title": "Escolha um estilo tipogr\xE1fico",
   "modal.preset.intro": "Escolha um ponto de partida. Voc\xEA pode alterar cada chave depois, nas configura\xE7\xF5es do plugin, onde essas predefini\xE7\xF5es tamb\xE9m aparecem.",
@@ -1067,6 +1207,10 @@ var ru = {
   "setting.wrapSelection.desc": "\u0415\u0441\u043B\u0438 \u0432\u044B\u0434\u0435\u043B\u0435\u043D \u0442\u0435\u043A\u0441\u0442, \u043D\u0430\u0431\u0440\u0430\u043D\u043D\u0430\u044F \u043A\u0430\u0432\u044B\u0447\u043A\u0430 \u0441\u0442\u0430\u0432\u0438\u0442 \u0442\u0438\u043F\u043E\u0433\u0440\u0430\u0444\u0441\u043A\u0438\u0435 \u043A\u0430\u0432\u044B\u0447\u043A\u0438 \u0432\u043E\u043A\u0440\u0443\u0433 \u043D\u0435\u0433\u043E, \u0430 \u043D\u0435 \u0437\u0430\u043C\u0435\u043D\u044F\u0435\u0442 \u0435\u0433\u043E.",
   "setting.dashes.name": "\u0422\u0438\u0440\u0435",
   "setting.dashes.desc": "-- \u043F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0441\u044F \u0432 \u2013, \u0430 --- \u0432 \u2014.",
+  "setting.dashesInQuotes.name": "\u0422\u0438\u0440\u0435 \u0432 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u043E\u0439 \u0441\u0442\u0440\u043E\u043A\u0435 \u0446\u0438\u0442\u0430\u0442\u044B",
+  "setting.dashesInQuotes.desc": "\u041F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u043E\u0434\u0438\u043D\u043E\u0447\u043D\u044B\u0435 -- \u0438\u043B\u0438 --- \u0432 \u0441\u0442\u0440\u043E\u043A\u0435 \u0446\u0438\u0442\u0430\u0442\u044B \u0438\u043B\u0438 \u0432\u044B\u043D\u043E\u0441\u043A\u0438 (>--) \u0432 \u2013 \u0438\u043B\u0438 \u2014, \u0447\u0442\u043E\u0431\u044B \u0437\u0430\u043A\u043E\u043D\u0447\u0438\u0442\u044C \u0446\u0438\u0442\u0430\u0442\u0443 \u0442\u0438\u0440\u0435. \u041F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0432\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u043E, \u043F\u043E\u0442\u043E\u043C\u0443 \u0447\u0442\u043E \u0442\u0430\u043C \u0441\u0442\u0440\u043E\u043A\u0430 \u0438\u0437 \u0434\u0435\u0444\u0438\u0441\u043E\u0432 \u043C\u043E\u0436\u0435\u0442 \u0431\u044B\u0442\u044C \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u0439 \u043B\u0438\u043D\u0438\u0435\u0439 \u0438\u043B\u0438 \u043F\u043E\u0434\u0447\u0451\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u0435\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0430. \u0421\u0442\u0440\u043E\u043A\u0438 \u0432\u043D\u0435 \u0446\u0438\u0442\u0430\u0442, \u0441\u0442\u0440\u043E\u043A\u0438 \u0442\u0430\u0431\u043B\u0438\u0446 \u0438 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430 \u043D\u0438\u043A\u043E\u0433\u0434\u0430 \u043D\u0435 \u043C\u0435\u043D\u044F\u044E\u0442\u0441\u044F, \u0430 Backspace \u0441\u0440\u0430\u0437\u0443 \u043F\u043E\u0441\u043B\u0435 \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0434\u0435\u0444\u0438\u0441\u044B.",
+  "setting.statusBar.name": "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C \u0432 \u0441\u0442\u0440\u043E\u043A\u0435 \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u044F",
+  "setting.statusBar.desc": "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442 \u043A\u0430\u0432\u044B\u0447\u043A\u0438 \u0442\u0435\u043A\u0443\u0449\u0435\u0439 \u0437\u0430\u043C\u0435\u0442\u043A\u0438 \u0438 \xABoff\xBB, \u0435\u0441\u043B\u0438 \u0437\u0430\u043C\u0435\u043D\u044B \u0432 \u043D\u0435\u0439 \u0432\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u044B. \u041F\u043E \u0449\u0435\u043B\u0447\u043A\u0443 \u043C\u043E\u0436\u043D\u043E \u0432\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0438\u043B\u0438 \u0432\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0430\u043C\u0435\u0442\u043A\u0443, \u0432\u044B\u0431\u0440\u0430\u0442\u044C \u0435\u0451 \u043A\u0430\u0432\u044B\u0447\u043A\u0438 \u0438\u043B\u0438 \u043F\u0440\u0438\u043C\u0435\u043D\u0438\u0442\u044C \u0442\u0438\u043F\u043E\u0433\u0440\u0430\u0444\u0438\u043A\u0443. \u041D\u0430 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0435 \u0441\u0442\u0440\u043E\u043A\u0438 \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u044F \u043D\u0435\u0442; \u043A\u043E\u043C\u0430\u043D\u0434\u044B \u0434\u0435\u043B\u0430\u044E\u0442 \u0442\u043E \u0436\u0435 \u0441\u0430\u043C\u043E\u0435.",
   "setting.ellipsis.name": "\u041C\u043D\u043E\u0433\u043E\u0442\u043E\u0447\u0438\u0435",
   "setting.ellipsis.desc": "... \u043F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0441\u044F \u0432 \u2026.",
   "setting.arrows.name": "\u0421\u0442\u0440\u0435\u043B\u043A\u0438",
@@ -1112,6 +1256,22 @@ var ru = {
   "reason.folderFormat": '\u043D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043F\u0430\u043F\u043A\u0443, \u0437\u0430\u0442\u0435\u043C " -> ", \u0437\u0430\u0442\u0435\u043C \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442',
   "reason.noFolder": '\u043F\u0435\u0440\u0435\u0434 "->" \u043D\u0435\u0442 \u043F\u0430\u043F\u043A\u0438',
   "reason.unknownConvention": "\u043D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439 \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442",
+  // Status bar and menus
+  "statusBar.off": "{marks} off",
+  "statusBar.on": "\u0422\u0438\u043F\u043E\u0433\u0440\u0430\u0444\u0438\u043A\u0430 \u0432 \u044D\u0442\u043E\u0439 \u0437\u0430\u043C\u0435\u0442\u043A\u0435 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u0430.",
+  "statusBar.offProperty": "\u0422\u0438\u043F\u043E\u0433\u0440\u0430\u0444\u0438\u043A\u0430 \u0432 \u044D\u0442\u043E\u0439 \u0437\u0430\u043C\u0435\u0442\u043A\u0435 \u0432\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u0430 (typography: off).",
+  "statusBar.offFolder": "\u0422\u0438\u043F\u043E\u0433\u0440\u0430\u0444\u0438\u043A\u0430 \u0432\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u0430: \u0437\u0430\u043C\u0435\u0442\u043A\u0430 \u043B\u0435\u0436\u0438\u0442 \u0432 \u0438\u0441\u043A\u043B\u044E\u0447\u0451\u043D\u043D\u043E\u0439 \u043F\u0430\u043F\u043A\u0435.",
+  "statusBar.quotes.property": "\u041A\u0430\u0432\u044B\u0447\u043A\u0438: {style}, \u0438\u0437 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430 typography-quotes \u044D\u0442\u043E\u0439 \u0437\u0430\u043C\u0435\u0442\u043A\u0438.",
+  "statusBar.quotes.plugin": "\u041A\u0430\u0432\u044B\u0447\u043A\u0438: {style}, \u0432\u044B\u0431\u0440\u0430\u043D\u044B \u0434\u0440\u0443\u0433\u0438\u043C \u043F\u043B\u0430\u0433\u0438\u043D\u043E\u043C.",
+  "statusBar.quotes.lang": "\u041A\u0430\u0432\u044B\u0447\u043A\u0438: {style}, \u0438\u0437 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430 lang \u044D\u0442\u043E\u0439 \u0437\u0430\u043C\u0435\u0442\u043A\u0438.",
+  "statusBar.quotes.folder": "\u041A\u0430\u0432\u044B\u0447\u043A\u0438: {style}, \u0438\u0437 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \xAB\u041A\u0430\u0432\u044B\u0447\u043A\u0438 \u043F\u043E \u043F\u0430\u043F\u043A\u0430\u043C\xBB.",
+  "statusBar.quotes.default": "\u041A\u0430\u0432\u044B\u0447\u043A\u0438: {style}, \u0438\u0437 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043A \u043F\u043B\u0430\u0433\u0438\u043D\u0430.",
+  "statusBar.click": "\u0429\u0451\u043B\u043A\u043D\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u043C\u0435\u043D\u044E.",
+  "menu.turnOff": "\u0412\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0430\u043C\u0435\u043D\u044B \u0432 \u044D\u0442\u043E\u0439 \u0437\u0430\u043C\u0435\u0442\u043A\u0435",
+  "menu.turnOn": "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0430\u043C\u0435\u043D\u044B \u0432 \u044D\u0442\u043E\u0439 \u0437\u0430\u043C\u0435\u0442\u043A\u0435",
+  "menu.excluded": "\u0412\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u043E: \u0437\u0430\u043C\u0435\u0442\u043A\u0430 \u043B\u0435\u0436\u0438\u0442 \u0432 \u0438\u0441\u043A\u043B\u044E\u0447\u0451\u043D\u043D\u043E\u0439 \u043F\u0430\u043F\u043A\u0435",
+  "menu.applySelection": "\u041F\u0440\u0438\u043C\u0435\u043D\u0438\u0442\u044C \u0442\u0438\u043F\u043E\u0433\u0440\u0430\u0444\u0438\u043A\u0443 \u043A \u0432\u044B\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u043C\u0443",
+  "menu.applyNote": "\u041F\u0440\u0438\u043C\u0435\u043D\u0438\u0442\u044C \u0442\u0438\u043F\u043E\u0433\u0440\u0430\u0444\u0438\u043A\u0443 \u043A\u043E \u0432\u0441\u0435\u0439 \u0437\u0430\u043C\u0435\u0442\u043A\u0435",
   // Modals
   "modal.preset.title": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0442\u0438\u043F\u043E\u0433\u0440\u0430\u0444\u0441\u043A\u0438\u0439 \u0441\u0442\u0438\u043B\u044C",
   "modal.preset.intro": "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043E\u0442\u043F\u0440\u0430\u0432\u043D\u0443\u044E \u0442\u043E\u0447\u043A\u0443. \u041A\u0430\u0436\u0434\u044B\u0439 \u043F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0430\u0442\u0435\u043B\u044C \u043F\u043E\u0442\u043E\u043C \u043C\u043E\u0436\u043D\u043E \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0432 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430\u0445 \u043F\u043B\u0430\u0433\u0438\u043D\u0430, \u0433\u0434\u0435 \u044D\u0442\u0438 \u043D\u0430\u0431\u043E\u0440\u044B \u0442\u043E\u0436\u0435 \u043F\u0435\u0440\u0435\u0447\u0438\u0441\u043B\u0435\u043D\u044B.",
@@ -1179,6 +1339,10 @@ var zh = {
   "setting.wrapSelection.desc": "\u9009\u4E2D\u6587\u672C\u540E\u8F93\u5165\u5F15\u53F7\uFF0C\u4F1A\u5728\u6587\u672C\u4E24\u4FA7\u52A0\u4E0A\u5F2F\u5F15\u53F7\uFF0C\u800C\u4E0D\u662F\u66FF\u6362\u8BE5\u6587\u672C\u3002",
   "setting.dashes.name": "\u7834\u6298\u53F7",
   "setting.dashes.desc": "-- \u53D8\u4E3A \u2013\uFF0C--- \u53D8\u4E3A \u2014\u3002",
+  "setting.dashesInQuotes.name": "\u5F15\u7528\u4E2D\u5355\u72EC\u4E00\u884C\u7684\u7834\u6298\u53F7",
+  "setting.dashesInQuotes.desc": "\u5F15\u7528\u6216\u6807\u6CE8\u5757\u4E2D\u53EA\u6709 -- \u6216 --- \u7684\u4E00\u884C\uFF08>--\uFF09\u4F1A\u53D8\u6210 \u2013 \u6216 \u2014\uFF0C\u7528\u6765\u4EE5\u7834\u6298\u53F7\u7ED3\u675F\u5F15\u6587\u3002\u9ED8\u8BA4\u5173\u95ED\uFF0C\u56E0\u4E3A\u90A3\u91CC\u7684\u4E00\u884C\u8FDE\u5B57\u7B26\u53EF\u80FD\u662F\u6C34\u5E73\u7EBF\u6216\u6807\u9898\u4E0B\u5212\u7EBF\u3002\u5F15\u7528\u4EE5\u5916\u7684\u884C\u3001\u8868\u683C\u884C\u548C\u5C5E\u6027\u6C38\u8FDC\u4E0D\u4F1A\u6539\u52A8\uFF0C\u7D27\u63A5\u7740\u6309\u9000\u683C\u952E\u4F1A\u6062\u590D\u8FDE\u5B57\u7B26\u3002",
+  "setting.statusBar.name": "\u5728\u72B6\u6001\u680F\u4E2D\u663E\u793A",
+  "setting.statusBar.desc": "\u663E\u793A\u5F53\u524D\u7B14\u8BB0\u4F7F\u7528\u7684\u5F15\u53F7\uFF0C\u82E5\u8BE5\u7B14\u8BB0\u5173\u95ED\u4E86\u66FF\u6362\u5219\u52A0\u4E0A\u201Coff\u201D\u3002\u70B9\u51FB\u540E\u53EF\u4EE5\u5F00\u5173\u6B64\u7B14\u8BB0\u7684\u66FF\u6362\u3001\u9009\u62E9\u5F15\u53F7\u6216\u5E94\u7528\u6392\u7248\u3002\u624B\u673A\u4E0A\u6CA1\u6709\u72B6\u6001\u680F\uFF0C\u53EF\u4F7F\u7528\u76F8\u5E94\u547D\u4EE4\u3002",
   "setting.ellipsis.name": "\u7701\u7565\u53F7",
   "setting.ellipsis.desc": "... \u53D8\u4E3A \u2026\u3002",
   "setting.arrows.name": "\u7BAD\u5934",
@@ -1224,6 +1388,22 @@ var zh = {
   "reason.folderFormat": '\u5148\u5199\u6587\u4EF6\u5939\uFF0C\u7136\u540E\u662F " -> "\uFF0C\u7136\u540E\u662F\u89C4\u8303',
   "reason.noFolder": '"->" \u4E4B\u524D\u6CA1\u6709\u6587\u4EF6\u5939',
   "reason.unknownConvention": "\u672A\u77E5\u7684\u89C4\u8303",
+  // Status bar and menus
+  "statusBar.off": "{marks} off",
+  "statusBar.on": "\u6B64\u7B14\u8BB0\u7684\u6392\u7248\u5DF2\u5F00\u542F\u3002",
+  "statusBar.offProperty": "\u6B64\u7B14\u8BB0\u7684\u6392\u7248\u5DF2\u5173\u95ED\uFF08typography: off\uFF09\u3002",
+  "statusBar.offFolder": "\u6392\u7248\u5DF2\u5173\u95ED\uFF1A\u6B64\u7B14\u8BB0\u4F4D\u4E8E\u6392\u9664\u7684\u6587\u4EF6\u5939\u4E2D\u3002",
+  "statusBar.quotes.property": "\u5F15\u53F7\uFF1A{style}\uFF0C\u6765\u81EA\u6B64\u7B14\u8BB0\u7684 typography-quotes \u5C5E\u6027\u3002",
+  "statusBar.quotes.plugin": "\u5F15\u53F7\uFF1A{style}\uFF0C\u7531\u5176\u4ED6\u63D2\u4EF6\u9009\u62E9\u3002",
+  "statusBar.quotes.lang": "\u5F15\u53F7\uFF1A{style}\uFF0C\u6765\u81EA\u6B64\u7B14\u8BB0\u7684 lang \u5C5E\u6027\u3002",
+  "statusBar.quotes.folder": "\u5F15\u53F7\uFF1A{style}\uFF0C\u6765\u81EA\u201C\u6309\u6587\u4EF6\u5939\u8BBE\u7F6E\u5F15\u53F7\u201D\u3002",
+  "statusBar.quotes.default": "\u5F15\u53F7\uFF1A{style}\uFF0C\u6765\u81EA\u63D2\u4EF6\u8BBE\u7F6E\u3002",
+  "statusBar.click": "\u70B9\u51FB\u67E5\u770B\u9009\u9879\u3002",
+  "menu.turnOff": "\u5173\u95ED\u6B64\u7B14\u8BB0\u4E2D\u7684\u66FF\u6362",
+  "menu.turnOn": "\u5F00\u542F\u6B64\u7B14\u8BB0\u4E2D\u7684\u66FF\u6362",
+  "menu.excluded": "\u5DF2\u5173\u95ED\uFF1A\u6B64\u7B14\u8BB0\u4F4D\u4E8E\u6392\u9664\u7684\u6587\u4EF6\u5939\u4E2D",
+  "menu.applySelection": "\u5BF9\u6240\u9009\u5185\u5BB9\u5E94\u7528\u6392\u7248",
+  "menu.applyNote": "\u5BF9\u6574\u7BC7\u7B14\u8BB0\u5E94\u7528\u6392\u7248",
   // Modals
   "modal.preset.title": "\u9009\u62E9\u6392\u7248\u98CE\u683C",
   "modal.preset.intro": "\u9009\u4E00\u4E2A\u8D77\u70B9\u3002\u4E4B\u540E\u4F60\u53EF\u4EE5\u5728\u63D2\u4EF6\u8BBE\u7F6E\u4E2D\u4FEE\u6539\u6BCF\u4E2A\u5F00\u5173\uFF0C\u8FD9\u4E9B\u9884\u8BBE\u4E5F\u5217\u5728\u90A3\u91CC\u3002",
@@ -1254,13 +1434,10 @@ function detectLocale(getLanguage) {
   }
 }
 var current = detectLocale();
-function getLocale() {
-  return current;
-}
-function format(text, vars) {
+function format(text2, vars) {
   if (!vars)
-    return text;
-  return text.replace(/\{(\w+)\}/g, (whole, name) => name in vars ? String(vars[name]) : whole);
+    return text2;
+  return text2.replace(/\{(\w+)\}/g, (whole, name) => name in vars ? String(vars[name]) : whole);
 }
 function t(key, ...args) {
   const vars = args[0];
@@ -1294,24 +1471,24 @@ function compileCustomRules(setting) {
   const seen = /* @__PURE__ */ new Map();
   setting.split("\n").forEach((raw, index) => {
     const line = index + 1;
-    const text = raw.replace(/\r$/, "");
-    if (text.trim().length === 0)
+    const text2 = raw.replace(/\r$/, "");
+    if (text2.trim().length === 0)
       return;
-    const at = text.indexOf(SEPARATOR);
+    const at = text2.indexOf(SEPARATOR);
     if (at === -1) {
-      ignored.push({ line, text, reason: t("reason.noSeparator", { separator: SEPARATOR.trim() }) });
+      ignored.push({ line, text: text2, reason: t("reason.noSeparator", { separator: SEPARATOR.trim() }) });
       return;
     }
-    const sequence = text.slice(0, at).trim() || text.slice(0, at);
-    const replacement = text.slice(at + SEPARATOR.length).trim();
+    const sequence = text2.slice(0, at).trim() || text2.slice(0, at);
+    const replacement = text2.slice(at + SEPARATOR.length).trim();
     const problem = problemWith(sequence, replacement);
     if (problem !== null) {
-      ignored.push({ line, text, reason: problem });
+      ignored.push({ line, text: text2, reason: problem });
       return;
     }
     const earlier = seen.get(sequence);
     if (earlier !== void 0) {
-      ignored.push({ line, text, reason: t("reason.duplicate", { line: earlier }) });
+      ignored.push({ line, text: text2, reason: t("reason.duplicate", { line: earlier }) });
       return;
     }
     seen.set(sequence, line);
@@ -1672,6 +1849,18 @@ function matchRule(before, lineBefore, typed, enabled) {
   return null;
 }
 
+// src/quote-dashes.ts
+var QUOTE_THEN_ONE_HYPHEN = /^[ \t]*>(?:[ \t]*>)*[ \t]*-$/;
+function loneHyphenInQuote(lineBefore) {
+  return QUOTE_THEN_ONE_HYPHEN.test(lineBefore);
+}
+var EN_DASH_RULE = RULES.find((rule) => rule.literal === "--" && rule.group === "dashes");
+function quoteDashRule(lineBefore, typed, settings) {
+  if (typed !== "-" || !settings.dashes || !settings.dashesInQuotes)
+    return null;
+  return loneHyphenInQuote(lineBefore) ? EN_DASH_RULE : null;
+}
+
 // src/settings.ts
 var APOSTROPHE = "\u2019";
 var QUOTE_CONVENTIONS = [
@@ -1760,6 +1949,7 @@ var DEFAULT_SETTINGS = {
   quoteStyle: "english",
   smartApostrophes: true,
   dashes: true,
+  dashesInQuotes: false,
   ellipsis: true,
   arrows: true,
   mathSymbols: true,
@@ -1771,6 +1961,7 @@ var DEFAULT_SETTINGS = {
   wrapSelection: true,
   quotesByFolder: "",
   useLangProperty: false,
+  statusBar: true,
   presetPrompted: false
 };
 function conventionFor(id) {
@@ -1812,7 +2003,7 @@ function candidateFor(before, after, typed, settings) {
   return capitalizeAction(before, after, lineBefore, typed);
 }
 function ruleCandidateFor(before, after, typed, settings) {
-  var _a;
+  var _a, _b;
   const pos = before.length;
   const convention = conventionFor(settings.quoteStyle);
   const lineBefore = before.slice(before.lastIndexOf("\n") + 1);
@@ -1824,7 +2015,7 @@ function ruleCandidateFor(before, after, typed, settings) {
     if (decade)
       return decade;
   }
-  const rule = matchRule(before, lineBefore, typed, (group) => groupEnabled(group, settings));
+  const rule = (_b = matchRule(before, lineBefore, typed, (group) => groupEnabled(group, settings))) != null ? _b : quoteDashRule(lineBefore, typed, settings);
   if (!rule)
     return customAction(before, after, lineBefore, typed, settings);
   return {
@@ -1954,9 +2145,9 @@ function singleQuoteIsOpen(before, convention) {
   const line = before.slice(before.lastIndexOf("\n") + 1);
   return count(line, convention.singleOpen) > count(line, convention.singleClose);
 }
-function count(text, character) {
+function count(text2, character) {
   let total = 0;
-  for (const c of text)
+  for (const c of text2)
     if (c === character)
       total++;
   return total;
@@ -1979,11 +2170,11 @@ function decadeAction(before, typed, convention) {
 }
 
 // src/apply.ts
-function typographize(text, settings, before = "") {
-  const replay2 = { ...settings, skipClosingQuote: false };
+function typographize(text2, settings, before = "") {
+  const replay2 = { ...settings, skipClosingQuote: false, dashesInQuotes: false };
   let out = before;
-  for (let i = 0; i < text.length; i++) {
-    const typed = text[i];
+  for (let i = 0; i < text2.length; i++) {
+    const typed = text2[i];
     const action = substitutionFor(out, "", typed, replay2);
     if ((action == null ? void 0 : action.kind) === "replace" && action.from >= before.length) {
       out = out.slice(0, action.from) + action.insert;
@@ -2073,14 +2264,14 @@ function isOff(value) {
   return typeof value === "string" && /^(off|false|no)$/i.test(value.trim());
 }
 var PROPERTY_LINE = new RegExp(`^${NOTE_PROPERTY}[ \\t]*:.*$`);
-function frontMatter(text) {
-  const open = /^---[ \t]*\r?\n/.exec(text);
+function frontMatter(text2) {
+  const open = /^---[ \t]*\r?\n/.exec(text2);
   if (!open)
     return null;
   let at = open[0].length;
-  while (at <= text.length) {
-    const end = text.indexOf("\n", at);
-    const line = text.slice(at, end === -1 ? text.length : end).replace(/\r$/, "");
+  while (at <= text2.length) {
+    const end = text2.indexOf("\n", at);
+    const line = text2.slice(at, end === -1 ? text2.length : end).replace(/\r$/, "");
     if (/^(---|\.\.\.)[ \t]*$/.test(line))
       return { bodyFrom: open[0].length, closeFrom: at };
     if (end === -1)
@@ -2089,18 +2280,18 @@ function frontMatter(text) {
   }
   return null;
 }
-function noteIsOff(text) {
-  const fm = frontMatter(text);
+function noteIsOff(text2) {
+  const fm = frontMatter(text2);
   if (!fm)
     return false;
-  for (const line of text.slice(fm.bodyFrom, fm.closeFrom).split(/\r?\n/)) {
+  for (const line of text2.slice(fm.bodyFrom, fm.closeFrom).split(/\r?\n/)) {
     if (PROPERTY_LINE.test(line))
       return isOff(line.slice(line.indexOf(":") + 1).replace(/^\s*(["']?)(.*?)\1\s*$/, "$2"));
   }
   return false;
 }
-function setNoteOff(text, off) {
-  const fm = frontMatter(text);
+function setNoteOff(text2, off) {
+  const fm = frontMatter(text2);
   if (off) {
     if (!fm)
       return { from: 0, to: 0, insert: `---
@@ -2109,8 +2300,8 @@ ${NOTE_PROPERTY}: off
 ` };
     let at2 = fm.bodyFrom;
     while (at2 < fm.closeFrom) {
-      const end = text.indexOf("\n", at2);
-      const line = text.slice(at2, end).replace(/\r$/, "");
+      const end = text2.indexOf("\n", at2);
+      const line = text2.slice(at2, end).replace(/\r$/, "");
       if (PROPERTY_LINE.test(line)) {
         return isOff(line.slice(line.indexOf(":") + 1).trim()) ? null : { from: at2, to: at2 + line.length, insert: `${NOTE_PROPERTY}: off` };
       }
@@ -2123,13 +2314,13 @@ ${NOTE_PROPERTY}: off
     return null;
   let at = fm.bodyFrom;
   while (at < fm.closeFrom) {
-    const end = text.indexOf("\n", at);
-    const line = text.slice(at, end).replace(/\r$/, "");
+    const end = text2.indexOf("\n", at);
+    const line = text2.slice(at, end).replace(/\r$/, "");
     if (PROPERTY_LINE.test(line)) {
-      const others = text.slice(fm.bodyFrom, at) + text.slice(end + 1, fm.closeFrom);
+      const others = text2.slice(fm.bodyFrom, at) + text2.slice(end + 1, fm.closeFrom);
       if (others.trim() === "") {
-        const close = text.indexOf("\n", fm.closeFrom);
-        return { from: 0, to: close === -1 ? text.length : close + 1, insert: "" };
+        const close = text2.indexOf("\n", fm.closeFrom);
+        return { from: 0, to: close === -1 ? text2.length : close + 1, insert: "" };
       }
       return { from: at, to: end + 1, insert: "" };
     }
@@ -2137,8 +2328,8 @@ ${NOTE_PROPERTY}: off
   }
   return null;
 }
-function setNoteProperty(text, name, value) {
-  const fm = frontMatter(text);
+function setNoteProperty(text2, name, value) {
+  const fm = frontMatter(text2);
   const wanted = `${name}: ${value}`;
   const own = new RegExp(`^${name}[ \\t]*:.*$`);
   if (value !== null) {
@@ -2149,8 +2340,8 @@ ${wanted}
 ` };
     let at2 = fm.bodyFrom;
     while (at2 < fm.closeFrom) {
-      const end = text.indexOf("\n", at2);
-      const line = text.slice(at2, end).replace(/\r$/, "");
+      const end = text2.indexOf("\n", at2);
+      const line = text2.slice(at2, end).replace(/\r$/, "");
       if (own.test(line))
         return line === wanted ? null : { from: at2, to: at2 + line.length, insert: wanted };
       at2 = end + 1;
@@ -2162,13 +2353,13 @@ ${wanted}
     return null;
   let at = fm.bodyFrom;
   while (at < fm.closeFrom) {
-    const end = text.indexOf("\n", at);
-    const line = text.slice(at, end).replace(/\r$/, "");
+    const end = text2.indexOf("\n", at);
+    const line = text2.slice(at, end).replace(/\r$/, "");
     if (own.test(line)) {
-      const others = text.slice(fm.bodyFrom, at) + text.slice(end + 1, fm.closeFrom);
+      const others = text2.slice(fm.bodyFrom, at) + text2.slice(end + 1, fm.closeFrom);
       if (others.trim() === "") {
-        const close = text.indexOf("\n", fm.closeFrom);
-        return { from: 0, to: close === -1 ? text.length : close + 1, insert: "" };
+        const close = text2.indexOf("\n", fm.closeFrom);
+        return { from: 0, to: close === -1 ? text2.length : close + 1, insert: "" };
       }
       return { from: at, to: end + 1, insert: "" };
     }
@@ -2228,23 +2419,23 @@ function languageConvention(value) {
 function folderQuotesFor(setting) {
   const folders = [];
   const ignored = [];
-  setting.split(/\r?\n/).forEach((text, index) => {
-    if (text.trim() === "")
+  setting.split(/\r?\n/).forEach((text2, index) => {
+    if (text2.trim() === "")
       return;
     const line = index + 1;
-    const at = text.lastIndexOf("->");
+    const at = text2.lastIndexOf("->");
     if (at === -1) {
-      ignored.push({ line, text, reason: t("reason.folderFormat") });
+      ignored.push({ line, text: text2, reason: t("reason.folderFormat") });
       return;
     }
-    const folder = folderList(text.slice(0, at))[0];
+    const folder = folderList(text2.slice(0, at))[0];
     if (folder === void 0) {
-      ignored.push({ line, text, reason: t("reason.noFolder") });
+      ignored.push({ line, text: text2, reason: t("reason.noFolder") });
       return;
     }
-    const style = parseConvention(text.slice(at + 2));
+    const style = parseConvention(text2.slice(at + 2));
     if (style === null) {
-      ignored.push({ line, text, reason: t("reason.unknownConvention") });
+      ignored.push({ line, text: text2, reason: t("reason.unknownConvention") });
       return;
     }
     folders.push({ folder, style });
@@ -2377,21 +2568,21 @@ function shouldPromptForPreset(stored) {
 
 // src/tabout.ts
 var BRACKET_CLOSERS = [")", "]", "}", "\xBB"];
-function quoteCount(text, ch) {
+function quoteCount(text2, ch) {
   let n = 0;
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] !== ch)
+  for (let i = 0; i < text2.length; i++) {
+    if (text2[i] !== ch)
       continue;
-    const between = i > 0 && i < text.length - 1 && /\p{L}/u.test(text[i - 1]) && /\p{L}/u.test(text[i + 1]);
+    const between = i > 0 && i < text2.length - 1 && /\p{L}/u.test(text2[i - 1]) && /\p{L}/u.test(text2[i + 1]);
     if (ch === "'" && between)
       continue;
     n++;
   }
   return n;
 }
-function count2(text, ch) {
+function count2(text2, ch) {
   let n = 0;
-  for (const c of text)
+  for (const c of text2)
     if (c === ch)
       n++;
   return n;
@@ -2473,25 +2664,206 @@ function wrapFor(typed, settings) {
   return { open: typed + pad, close: pad + close };
 }
 
-// src/more-link.ts
-var MORE_URL = "https://perezamadorluisenrique-gif.github.io/pro/";
-var TEXT = {
-  en: { name: "More plugins and Pro", desc: "Other plugins by Siulved54, the optional Pro versions and template vaults. Opens a web page.", button: "Open" },
-  zh: { name: "\u66F4\u591A\u63D2\u4EF6\u548C Pro \u7248", desc: "Siulved54 \u7684\u5176\u4ED6\u63D2\u4EF6\u3001\u53EF\u9009\u7684 Pro \u7248\u672C\u548C\u6A21\u677F\u5E93\u3002\u5C06\u6253\u5F00\u4E00\u4E2A\u7F51\u9875\u3002", button: "\u6253\u5F00" },
-  ja: { name: "\u305D\u306E\u4ED6\u306E\u30D7\u30E9\u30B0\u30A4\u30F3\u3068 Pro", desc: "Siulved54 \u306E\u4ED6\u306E\u30D7\u30E9\u30B0\u30A4\u30F3\u3001\u4EFB\u610F\u306E Pro \u7248\u3001\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8 Vault\u3002Web \u30DA\u30FC\u30B8\u3092\u958B\u304D\u307E\u3059\u3002", button: "\u958B\u304F" },
-  ko: { name: "\uB354 \uB9CE\uC740 \uD50C\uB7EC\uADF8\uC778\uACFC Pro", desc: "Siulved54\uC758 \uB2E4\uB978 \uD50C\uB7EC\uADF8\uC778, \uC120\uD0DD\uD615 Pro \uBC84\uC804\uACFC \uD15C\uD50C\uB9BF \uBCF4\uAD00\uD568\uC785\uB2C8\uB2E4. \uC6F9 \uD398\uC774\uC9C0\uAC00 \uC5F4\uB9BD\uB2C8\uB2E4.", button: "\uC5F4\uAE30" },
-  es: { name: "M\xE1s plugins y Pro", desc: "Otros plugins de Siulved54, las versiones Pro opcionales y los vaults de plantillas. Abre una p\xE1gina web.", button: "Abrir" },
-  de: { name: "Weitere Plugins und Pro", desc: "Weitere Plugins von Siulved54, die optionalen Pro-Versionen und Vorlagen-Vaults. \xD6ffnet eine Webseite.", button: "\xD6ffnen" },
-  fr: { name: "Plus de plugins et Pro", desc: "Les autres plugins de Siulved54, les versions Pro facultatives et les coffres de mod\xE8les. Ouvre une page web.", button: "Ouvrir" },
-  "pt-BR": { name: "Mais plugins e Pro", desc: "Outros plugins do Siulved54, as vers\xF5es Pro opcionais e os vaults de modelos. Abre uma p\xE1gina da web.", button: "Abrir" },
-  ru: { name: "\u0414\u0440\u0443\u0433\u0438\u0435 \u043F\u043B\u0430\u0433\u0438\u043D\u044B \u0438 Pro", desc: "\u0414\u0440\u0443\u0433\u0438\u0435 \u043F\u043B\u0430\u0433\u0438\u043D\u044B Siulved54, \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0432\u0435\u0440\u0441\u0438\u0438 Pro \u0438 \u043D\u0430\u0431\u043E\u0440\u044B \u0448\u0430\u0431\u043B\u043E\u043D\u043E\u0432. \u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0432\u0435\u0431-\u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443.", button: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C" }
+// src/api.ts
+var API_VERSION = 1;
+var text = (v, min, max) => typeof v === "string" && v.length >= min && v.length <= max;
+var validQuotes = (m) => {
+  const x = m;
+  return !!x && text(x.doubleOpen, 1, 2) && text(x.doubleClose, 1, 2) && text(x.singleOpen, 1, 2) && text(x.singleClose, 1, 2) && text(x.padding, 0, 1);
 };
-function moreText(locale = getLocale()) {
-  var _a;
-  return (_a = TEXT[locale]) != null ? _a : TEXT.en;
+var validDashes = (m) => {
+  const x = m;
+  return !!x && text(x.en, 1, 3) && text(x.em, 1, 3);
+};
+var ExtensionRegistry = class {
+  constructor() {
+    this.version = API_VERSION;
+    this.quotes = [];
+    this.dashes = [];
+  }
+  registerQuoteResolver(resolver) {
+    this.quotes.push(resolver);
+    return () => {
+      const i = this.quotes.indexOf(resolver);
+      if (i >= 0)
+        this.quotes.splice(i, 1);
+    };
+  }
+  registerDashResolver(resolver) {
+    this.dashes.push(resolver);
+    return () => {
+      const i = this.dashes.indexOf(resolver);
+      if (i >= 0)
+        this.dashes.splice(i, 1);
+    };
+  }
+  /** The quote convention the newest resolver that has an answer asks for, or null. */
+  quoteStyleFor(note) {
+    for (let i = this.quotes.length - 1; i >= 0; i--) {
+      let marks;
+      try {
+        marks = this.quotes[i](note);
+      } catch (e) {
+        continue;
+      }
+      if (validQuotes(marks))
+        return conventionIdFor(marks);
+    }
+    return null;
+  }
+  /** The dash characters the newest resolver that has an answer asks for, or null. */
+  dashesFor(note) {
+    for (let i = this.dashes.length - 1; i >= 0; i--) {
+      let marks;
+      try {
+        marks = this.dashes[i](note);
+      } catch (e) {
+        continue;
+      }
+      if (validDashes(marks))
+        return marks;
+    }
+    return null;
+  }
+};
+function conventionIdFor(m) {
+  const id = `ext:${m.doubleOpen}${m.doubleClose}${m.singleOpen}${m.singleClose}${m.padding}`;
+  if (!QUOTE_CONVENTIONS.some((c) => c.id === id)) {
+    const conv = { id, label: id, doubleOpen: m.doubleOpen, doubleClose: m.doubleClose, singleOpen: m.singleOpen, singleClose: m.singleClose, padding: m.padding };
+    QUOTE_CONVENTIONS.push(conv);
+  }
+  return id;
 }
-function openMore() {
-  window.open(MORE_URL, "_blank", "noopener");
+function withResolvedQuotes(settings, registry, note, hasOwnQuotes) {
+  if (hasOwnQuotes)
+    return settings;
+  const id = registry.quoteStyleFor(note);
+  return id === null ? settings : { ...settings, quoteStyle: id };
+}
+function resolvedDash(literal, insert, marks) {
+  if (!marks)
+    return insert;
+  if (literal === "--")
+    return marks.en;
+  if (literal === "---")
+    return marks.em;
+  return insert;
+}
+
+// src/more-list.ts
+var PICKS = [
+  { id: "book-studio", name: "Book Studio", desc: "Turn notes into a print-ready PDF and EPUB." },
+  { id: "section-numbering", name: "Section Numbering", desc: "Number headings as an outline, links stay intact." },
+  { id: "list-item-callouts", name: "List Item Callouts", desc: "Colour a list item as a callout." }
+];
+
+// src/more-link.ts
+var ENGLISH = { heading: "More plugins by Siulved54", button: "View" };
+var TEXT = {
+  en: ENGLISH,
+  zh: { heading: "Siulved54 \u7684\u66F4\u591A\u63D2\u4EF6", button: "\u67E5\u770B" },
+  ja: { heading: "Siulved54 \u306E\u305D\u306E\u4ED6\u306E\u30D7\u30E9\u30B0\u30A4\u30F3", button: "\u8868\u793A" },
+  ko: { heading: "Siulved54\uC758 \uB2E4\uB978 \uD50C\uB7EC\uADF8\uC778", button: "\uBCF4\uAE30" },
+  es: { heading: "M\xE1s plugins de Siulved54", button: "Ver" },
+  de: { heading: "Weitere Plugins von Siulved54", button: "Ansehen" },
+  fr: { heading: "Autres plugins de Siulved54", button: "Voir" },
+  "pt-BR": { heading: "Mais plugins do Siulved54", button: "Ver" },
+  ru: { heading: "\u0414\u0440\u0443\u0433\u0438\u0435 \u043F\u043B\u0430\u0433\u0438\u043D\u044B Siulved54", button: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C" }
+};
+function moreText(lang = defaultLang()) {
+  var _a, _b, _c;
+  return (_c = (_b = TEXT[lang]) != null ? _b : TEXT[(_a = lang.split("-")[0]) != null ? _a : ""]) != null ? _c : ENGLISH;
+}
+function defaultLang() {
+  return typeof document !== "undefined" && document.documentElement.lang || "en";
+}
+function moreUrl(id) {
+  return `obsidian://show-plugin?id=${encodeURIComponent(id)}`;
+}
+function openMore(id) {
+  if (PICKS.some((p) => p.id === id))
+    window.open(moreUrl(id));
+}
+function renderMore(containerEl, make, lang) {
+  if (!PICKS.length)
+    return;
+  const text2 = moreText(lang);
+  make(containerEl).setName(text2.heading).setHeading();
+  for (const pick of PICKS) {
+    make(containerEl).setName(pick.name).setDesc(pick.desc).addButton((b) => b.setButtonText(text2.button).onClick(() => openMore(pick.id)));
+  }
+}
+function moreDefinitions(lang) {
+  if (!PICKS.length)
+    return [];
+  const text2 = moreText(lang);
+  return [
+    {
+      type: "group",
+      heading: text2.heading,
+      items: PICKS.map((pick) => ({
+        name: pick.name,
+        desc: pick.desc,
+        searchable: false,
+        render: (setting) => {
+          setting.addButton((b) => b.setButtonText(text2.button).onClick(() => openMore(pick.id)));
+        }
+      }))
+    }
+  ];
+}
+
+// src/note-status.ts
+function noteStatus(note, settings, fromPlugin = null) {
+  const off = settings.excludedFolders && inFolder(note.path, folderList(settings.excludedFolders)) ? "folder" : isOff(note.typography) ? "property" : null;
+  return { off, ...quoteSource(note, settings, fromPlugin) };
+}
+function quoteSource(note, settings, fromPlugin) {
+  const own = parseConvention(note.quotes);
+  if (own !== null)
+    return { quoteStyle: own, source: "property" };
+  if (fromPlugin !== null)
+    return { quoteStyle: fromPlugin, source: "plugin" };
+  if (settings.useLangProperty) {
+    const lang = languageConvention(note.lang);
+    if (lang !== null)
+      return { quoteStyle: lang, source: "lang" };
+  }
+  if (settings.quotesByFolder) {
+    const folder = folderQuoteStyle(note.path, settings.quotesByFolder);
+    if (folder !== null)
+      return { quoteStyle: folder, source: "folder" };
+  }
+  return { quoteStyle: settings.quoteStyle, source: "default" };
+}
+function marksOf(style) {
+  const convention = conventionFor(style);
+  return convention ? `${convention.doubleOpen} ${convention.doubleClose}` : '" "';
+}
+function styleName(style) {
+  const convention = conventionFor(style);
+  if (!convention)
+    return t("modal.quotes.straight");
+  if (style.startsWith("ext:")) {
+    return [convention.doubleOpen, convention.doubleClose, convention.singleOpen, convention.singleClose].join(" ");
+  }
+  return convention.label;
+}
+function statusText(status) {
+  const marks = marksOf(status.quoteStyle);
+  return status.off ? t("statusBar.off", { marks }) : marks;
+}
+function statusTooltip(status) {
+  const state = status.off === "folder" ? t("statusBar.offFolder") : status.off === "property" ? t("statusBar.offProperty") : t("statusBar.on");
+  const style = styleName(status.quoteStyle);
+  const quotes = {
+    property: () => t("statusBar.quotes.property", { style }),
+    plugin: () => t("statusBar.quotes.plugin", { style }),
+    lang: () => t("statusBar.quotes.lang", { style }),
+    folder: () => t("statusBar.quotes.folder", { style }),
+    default: () => t("statusBar.quotes.default", { style })
+  }[status.source]();
+  return [state, quotes, t("statusBar.click")].join("\n");
 }
 
 // main.ts
@@ -2513,11 +2885,16 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
     super(...arguments);
     this.settings = { ...DEFAULT_SETTINGS };
     this.showPresetPrompt = false;
+    /** The extension API: other plugins may register quote and dash resolvers here. See `src/api.ts`. */
+    this.api = new ExtensionRegistry();
+    /** The status bar item: the note's quotation marks, "off" when it is left alone, and a menu on click. */
+    this.statusBarEl = null;
   }
   async onload() {
     await this.loadSettings();
     this.addSettingTab(new SmartTypographySettingTab(this.app, this));
     this.registerEditorExtension(this.editorExtension());
+    this.app.workspace.trigger("typography-as-you-type:api-ready", this.api);
     if (this.showPresetPrompt) {
       this.showPresetPrompt = false;
       this.settings.presetPrompted = true;
@@ -2530,30 +2907,7 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
       id: "toggle-note",
       name: t("command.toggleNote"),
       icon: "toggle-right",
-      editorCallback: async (editor, ctx) => {
-        const text = editor.getValue();
-        const off = !noteIsOff(text);
-        const fileManager = this.app.fileManager;
-        if (ctx.file && typeof fileManager.processFrontMatter === "function") {
-          await fileManager.processFrontMatter(ctx.file, (frontmatter) => {
-            if (off)
-              frontmatter[NOTE_PROPERTY] = "off";
-            else
-              delete frontmatter[NOTE_PROPERTY];
-          });
-        } else {
-          const edit = setNoteOff(text, off);
-          if (edit) {
-            editor.transaction({
-              changes: [{ from: editor.offsetToPos(edit.from), to: editor.offsetToPos(edit.to), text: edit.insert }]
-            });
-          }
-        }
-        const folder = ctx.file && inFolder(ctx.file.path, folderList(this.settings.excludedFolders));
-        new import_obsidian.Notice(
-          off ? t("notice.substitutionsOff") : folder ? t("notice.removedButExcluded") : t("notice.substitutionsOn")
-        );
-      }
+      editorCallback: (editor, ctx) => this.toggleNote(editor, ctx.file)
     });
     this.addCommand({
       id: "set-quotes",
@@ -2570,30 +2924,136 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
       id: "apply-to-text",
       name: t("command.applyToText"),
       icon: iconOr("wand-sparkles", "wand-2"),
-      editorCallback: (editor, ctx) => {
-        const text = editor.getValue();
-        const ranges = editor.somethingSelected() ? editor.listSelections().map((s) => {
-          const a = editor.posToOffset(s.anchor);
-          const b = editor.posToOffset(s.head);
-          return [Math.min(a, b), Math.max(a, b)];
-        }) : [[0, text.length]];
-        const changes = [];
-        const settings = this.settingsFor(ctx.file);
-        for (const [from, to] of ranges) {
-          const original = text.slice(from, to);
-          const result = typographize(original, settings, text.slice(0, from));
-          changes.push(...changesBetween(original, result, from));
-        }
-        if (changes.length === 0) {
-          new import_obsidian.Notice(t("notice.nothingToChange"));
-          return;
-        }
-        editor.transaction({
-          changes: changes.map((c) => ({ from: editor.offsetToPos(c.from), to: editor.offsetToPos(c.to), text: c.insert }))
-        });
-        new import_obsidian.Notice(changes.length === 1 ? t("notice.changedLines.one") : t("notice.changedLines.other", { count: changes.length }));
-      }
+      editorCallback: (editor, ctx) => this.applyToText(editor, ctx.file)
     });
+    this.registerEvent(
+      this.app.workspace.on("editor-menu", (menu, editor, info) => {
+        if (!editor.somethingSelected())
+          return;
+        menu.addItem(
+          (item) => item.setTitle(t("menu.applySelection")).setIcon(iconOr("wand-sparkles", "wand-2")).onClick(() => this.applyToText(editor, info.file))
+        );
+      })
+    );
+    this.setUpStatusBar();
+  }
+  setUpStatusBar() {
+    const el = this.addStatusBarItem();
+    el.addClass("mod-clickable", "typography-as-you-type-status");
+    el.setAttribute("data-tooltip-position", "top");
+    this.statusBarEl = el;
+    this.registerDomEvent(el, "click", (event) => this.showStatusMenu(event));
+    const refresh = () => this.refreshStatusBar();
+    this.registerEvent(this.app.workspace.on("active-leaf-change", refresh));
+    this.registerEvent(this.app.workspace.on("file-open", refresh));
+    this.registerEvent(this.app.workspace.on("layout-change", refresh));
+    this.registerEvent(
+      this.app.metadataCache.on("changed", (file) => {
+        var _a;
+        if (file === ((_a = this.app.workspace.activeEditor) == null ? void 0 : _a.file))
+          refresh();
+      })
+    );
+    this.app.workspace.onLayoutReady(refresh);
+  }
+  /** The status of the note in the active editor, or null when there is none. */
+  activeStatus() {
+    var _a;
+    const active = this.app.workspace.activeEditor;
+    const file = active == null ? void 0 : active.file;
+    if (!file)
+      return null;
+    const frontmatter = (_a = this.app.metadataCache.getFileCache(file)) == null ? void 0 : _a.frontmatter;
+    const status = noteStatus(
+      { path: file.path, typography: frontmatter == null ? void 0 : frontmatter[NOTE_PROPERTY], quotes: frontmatter == null ? void 0 : frontmatter[QUOTES_PROPERTY], lang: frontmatter == null ? void 0 : frontmatter[LANG_PROPERTY] },
+      this.settings,
+      this.api.quoteStyleFor({ path: file.path })
+    );
+    return { status, file, editor: active.editor };
+  }
+  /** Redraws the status bar item; hidden when the setting is off or no note is open. */
+  refreshStatusBar() {
+    const el = this.statusBarEl;
+    if (!el)
+      return;
+    const active = this.settings.statusBar ? this.activeStatus() : null;
+    el.toggle(active !== null);
+    if (!active)
+      return;
+    el.setText(statusText(active.status));
+    el.setAttribute("aria-label", statusTooltip(active.status));
+  }
+  showStatusMenu(event) {
+    const active = this.activeStatus();
+    if (!active)
+      return;
+    const { status, file, editor } = active;
+    const menu = new import_obsidian.Menu();
+    menu.addItem((item) => {
+      if (status.off === "folder") {
+        item.setTitle(t("menu.excluded")).setIcon("folder-x").setDisabled(true);
+        return;
+      }
+      item.setTitle(status.off ? t("menu.turnOn") : t("menu.turnOff")).setIcon(status.off ? "toggle-left" : "toggle-right").onClick(() => void this.toggleNote(editor, file));
+    });
+    menu.addItem(
+      (item) => item.setTitle(t("command.setQuotes")).setIcon("quote").onClick(() => new QuotesModal(this.app, (choice) => void this.writeNoteQuotes(editor, file, choice)).open())
+    );
+    if (editor) {
+      menu.addItem(
+        (item) => item.setTitle(editor.somethingSelected() ? t("menu.applySelection") : t("menu.applyNote")).setIcon(iconOr("wand-sparkles", "wand-2")).onClick(() => this.applyToText(editor, file))
+      );
+    }
+    menu.showAtMouseEvent(event);
+  }
+  /** Turns the note's `typography: off` property on or off. */
+  async toggleNote(editor, file) {
+    const text2 = editor ? editor.getValue() : file ? await this.app.vault.cachedRead(file) : "";
+    const off = !noteIsOff(text2);
+    const fileManager = this.app.fileManager;
+    if (file && typeof fileManager.processFrontMatter === "function") {
+      await fileManager.processFrontMatter(file, (frontmatter) => {
+        if (off)
+          frontmatter[NOTE_PROPERTY] = "off";
+        else
+          delete frontmatter[NOTE_PROPERTY];
+      });
+    } else if (editor) {
+      const edit = setNoteOff(text2, off);
+      if (edit) {
+        editor.transaction({
+          changes: [{ from: editor.offsetToPos(edit.from), to: editor.offsetToPos(edit.to), text: edit.insert }]
+        });
+      }
+    }
+    const folder = file && inFolder(file.path, folderList(this.settings.excludedFolders));
+    new import_obsidian.Notice(
+      off ? t("notice.substitutionsOff") : folder ? t("notice.removedButExcluded") : t("notice.substitutionsOn")
+    );
+  }
+  /** Typography for the selection, or the whole note when nothing is selected, as one undo step. */
+  applyToText(editor, file) {
+    const text2 = editor.getValue();
+    const ranges = editor.somethingSelected() ? editor.listSelections().map((s) => {
+      const a = editor.posToOffset(s.anchor);
+      const b = editor.posToOffset(s.head);
+      return [Math.min(a, b), Math.max(a, b)];
+    }) : [[0, text2.length]];
+    const changes = [];
+    const settings = this.settingsFor(file);
+    for (const [from, to] of ranges) {
+      const original = text2.slice(from, to);
+      const result = typographize(original, settings, text2.slice(0, from));
+      changes.push(...changesBetween(original, result, from));
+    }
+    if (changes.length === 0) {
+      new import_obsidian.Notice(t("notice.nothingToChange"));
+      return;
+    }
+    editor.transaction({
+      changes: changes.map((c) => ({ from: editor.offsetToPos(c.from), to: editor.offsetToPos(c.to), text: c.insert }))
+    });
+    new import_obsidian.Notice(changes.length === 1 ? t("notice.changedLines.one") : t("notice.changedLines.other", { count: changes.length }));
   }
   /** Writes (or, for null, removes) the note's `typography-quotes` property. */
   async writeNoteQuotes(editor, file, choice) {
@@ -2605,7 +3065,7 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
         else
           frontmatter[QUOTES_PROPERTY] = choice;
       });
-    } else {
+    } else if (editor) {
       const edit = setNoteProperty(editor.getValue(), QUOTES_PROPERTY, choice);
       if (edit) {
         editor.transaction({
@@ -2630,9 +3090,12 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
     if (!file)
       return settings;
     const frontmatter = (_a = this.app.metadataCache.getFileCache(file)) == null ? void 0 : _a.frontmatter;
-    return settingsForNote(
-      { path: file.path, quotes: frontmatter == null ? void 0 : frontmatter[QUOTES_PROPERTY], lang: frontmatter == null ? void 0 : frontmatter[LANG_PROPERTY] },
-      settings
+    const own = frontmatter == null ? void 0 : frontmatter[QUOTES_PROPERTY];
+    return withResolvedQuotes(
+      settingsForNote({ path: file.path, quotes: own, lang: frontmatter == null ? void 0 : frontmatter[LANG_PROPERTY] }, settings),
+      this.api,
+      { path: file.path },
+      parseConvention(own) !== null
     );
   }
   /** `settingsFor` for the note in an editor. */
@@ -2672,6 +3135,7 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
   }
   async saveSettings() {
     await this.saveData(this.settings);
+    this.refreshStatusBar();
   }
   /**
    * The settings are read at keystroke time rather than baked into the
@@ -2686,7 +3150,7 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
       // pair, so no quotation mark is ever curled. Where this handler
       // declines, in code or a link target, auto-pairing still runs.
       import_state.Prec.highest(
-        import_view.EditorView.inputHandler.of((view, from, to, text) => this.handleInput(view, from, to, text))
+        import_view.EditorView.inputHandler.of((view, from, to, text2) => this.handleInput(view, from, to, text2))
       ),
       import_state.Prec.highest(
         import_view.keymap.of([
@@ -2769,20 +3233,21 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
       }
     );
   }
-  handleInput(view, from, to, text) {
+  handleInput(view, from, to, text2) {
+    var _a;
     if (view.composing || view.compositionStarted)
       return false;
     if (view.state.readOnly)
       return false;
-    if (from !== to && text.length === 1)
-      return this.handleWrap(view, from, to, text);
-    if (from !== to || text.length !== 1)
+    if (from !== to && text2.length === 1)
+      return this.handleWrap(view, from, to, text2);
+    if (from !== to || text2.length !== 1)
       return false;
-    if (!mightSubstitute(text, this.settings))
+    if (!mightSubstitute(text2, this.settings))
       return false;
     if (this.settings.capitalizeSentences) {
       const line = view.state.doc.lineAt(from);
-      if (cannotCapitalize(text, line.text.slice(0, from - line.from), this.settings))
+      if (cannotCapitalize(text2, line.text.slice(0, from - line.from), this.settings))
         return false;
     }
     if (this.leftAlone(view.state))
@@ -2791,7 +3256,7 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
     const action = substitutionFor(
       state.doc.sliceString(0, from),
       state.doc.sliceString(from, Math.min(from + LOOKAHEAD2, state.doc.length)),
-      text,
+      text2,
       this.settingsForState(state)
     );
     if (action === null)
@@ -2803,21 +3268,23 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
       });
       return true;
     }
-    const cursor = action.from + action.insert.length;
+    const file = (_a = state.field(import_obsidian.editorInfoField, false)) == null ? void 0 : _a.file;
+    const insert = file ? resolvedDash(action.literal, action.insert, this.api.dashesFor({ path: file.path })) : action.insert;
+    const cursor = action.from + insert.length;
     view.dispatch({
-      changes: { from: action.from, to: action.to, insert: action.insert },
+      changes: { from: action.from, to: action.to, insert },
       selection: { anchor: cursor },
       userEvent: "input.type",
       effects: rememberSubstitution.of({
         from: action.from,
         to: cursor,
-        inserted: action.insert,
+        inserted: insert,
         literal: action.literal
       })
     });
     return true;
   }
-  handleWrap(view, from, to, text) {
+  handleWrap(view, from, to, text2) {
     const { state } = view;
     const main = state.selection.main;
     if (state.selection.ranges.length !== 1 || main.from !== from || main.to !== to)
@@ -2826,7 +3293,7 @@ var SmartTypographyPlugin = class extends import_obsidian.Plugin {
       return false;
     if (!this.settings.wrapSelection || this.leftAlone(state))
       return false;
-    const wrap = wrapFor(text, this.settingsForState(state));
+    const wrap = wrapFor(text2, this.settingsForState(state));
     if (wrap === null)
       return false;
     if (protectedRegionAt(state.doc.sliceString(0, from)) !== null)
@@ -2899,13 +3366,15 @@ var TOGGLE_KEYS = [
   "smartApostrophes",
   "skipClosingQuote",
   "dashes",
+  "dashesInQuotes",
   "ellipsis",
   "arrows",
   "mathSymbols",
   "capitalizeSentences",
   "tabOut",
   "wrapSelection",
-  "useLangProperty"
+  "useLangProperty",
+  "statusBar"
 ];
 var stylePresetText = () => ({ name: t("setting.stylePreset.name"), desc: t("setting.stylePreset.desc") });
 var SmartTypographySettingTab = class extends import_obsidian.PluginSettingTab {
@@ -3008,7 +3477,7 @@ var SmartTypographySettingTab = class extends import_obsidian.PluginSettingTab {
       // No control: a row that is only an explanation, which also puts the
       // sentence in the settings search.
       keepsOutNote(),
-      { name: moreText().name, desc: moreText().desc, action: () => openMore() }
+      ...moreDefinitions()
     ];
   }
   /** Says how many folder lines are in use and which are ignored, and why. */
@@ -3159,7 +3628,7 @@ var SmartTypographySettingTab = class extends import_obsidian.PluginSettingTab {
       text: `${keepsOutNote().name}. ${keepsOutNote().desc}`,
       cls: "setting-item-description"
     });
-    new import_obsidian.Setting(containerEl).setName(moreText().name).setDesc(moreText().desc).addButton((button) => button.setButtonText(moreText().button).onClick(() => openMore()));
+    renderMore(this.containerEl, (el) => new import_obsidian.Setting(el));
   }
   addToggle(key) {
     new import_obsidian.Setting(this.containerEl).setName(settingText(key).name).setDesc(settingText(key).desc).addToggle((toggle) => {
