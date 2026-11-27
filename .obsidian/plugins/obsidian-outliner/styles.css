@@ -3,10 +3,7 @@
   /* padding-top: 0.4em; */
 }
 
-.outliner-plugin-better-lists .cm-formatting-list-ul {
-  margin-right: 0.3em;
-}
-
+/* Keep Obsidian's marker spacing so the native caret meets the content. */
 .outliner-plugin-better-lists .list-bullet::after {
   width: 0.4em;
   height: 0.4em;
@@ -93,10 +90,7 @@
   height: 4px;
 }
 
-body.outliner-plugin-dnd:not(.outliner-plugin-dragging) .cm-formatting-list,
-body.outliner-plugin-dnd:not(.outliner-plugin-dragging)
-  .cm-fold-indicator
-  .collapse-indicator {
+body.outliner-plugin-dnd:not(.outliner-plugin-dragging) .cm-formatting-list {
   cursor: grab !important;
 }
 
