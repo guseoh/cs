@@ -19,6 +19,7 @@ sources:
   - https://github.com/guseoh/agent-skills/pull/3
   - https://github.com/guseoh/csforge/pull/293
   - https://github.com/guseoh/csforge/pull/295
+  - https://github.com/guseoh/csforge/pull/295#issuecomment-7195510720
   - https://github.com/guseoh/csforge/pull/288
   - https://github.com/guseoh/csforge/blob/main/.github/workflows/content-sync.yml
 depends_on: []
@@ -36,7 +37,7 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006, CSF-000
 - **2026-11-09 최신 source-verified main:** [`425872f7`](https://github.com/guseoh/csforge/commit/425872f7c64cbddf214954e102f2e419adab229f) — [Network DIAGRAM 53/53 및 15개 문항 교정 PR #298](https://github.com/guseoh/csforge/pull/298) **squash 병합 완료**. 병합 직전 HEAD `0275ff1f`에서 [Repository Validation #42493209664](https://github.com/guseoh/csforge/actions/runs/42493209664), [Reader #42493209538](https://github.com/guseoh/csforge/actions/runs/42493209538), TCP/Heap 모두 PASS. **Issue #278은 OPEN**: Java·Network 전체 Concept 문체/깊이, 254개 모범답안의 주장별 공식 규격 대조 및 Reference 링크↔주장 전수 검토는 미완료이다. [병합 후 main Validation](https://github.com/guseoh/csforge/actions/runs/42494810524)은 확인 당시 in_progress. main Push는 Cloud Run deploy와 Production content-sync를 **조건부 트리거**하므로 실제 실행·완료·DB 동기화 결과는 따로 확인해야 한다. *병합 성공은 운영 배포·동기화 성공의 증거가 아니다.*
 - Previously verified main (before #298): [5a675754](https://github.com/guseoh/csforge/commit/5a6757545a0ee16b845c5a83924e4b1b9e7840e9) (squash merge of pilot PR #297 on 2026-11-08). Previously observed main 5f7f5593 was 2026-10-31.
 - Java G3 editorial diagrams: [PR #293](https://github.com/guseoh/csforge/pull/293) merged into main on 2026-10-31.
-- Follow-up Java G3 P2 quality polish: [PR #295](https://github.com/guseoh/csforge/pull/295) remains **OPEN/unmerged**, even though isolated Chromium QA and PR validation passed for head 997393f.
+- Java G3 P2 후속 [PR #295](https://github.com/guseoh/csforge/pull/295)는 2026-11-26 사용자 승인으로 **CLOSED / 미병합** 처리했다. 기존 격리 QA 기록과 refactor 변경사항은 보존했다. 아래 최신 기록 참조.
 - Cross-area Topic/Concept/Question guarded canonical sync implementation: [PR #288](https://github.com/guseoh/csforge/pull/288) merged; actual runtime sync is gated by role and repository variables in the content-sync workflow.
 - Source evidence does not prove current production canonical DB alignment, active sync flags, Vercel deployment SHA, authenticated Reader usage or latest production data state.
 
@@ -50,6 +51,13 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006, CSF-000
 
 - [최종 refactor eccdd24](https://github.com/guseoh/csforge/commit/eccdd24bf56a50d0239ee1fcc720dc07e8cc6aee)의 15개 영역에서 SVG 290개, Reader 1,644조건, 격리 PostgreSQL 3,410항목의 재가져오기와 개인 이력 보존을 확인했습니다. [통합 QA 기록](../journal/csforge/2026-11-25-visual-qa.md)
 - [최종 저장소 CI](https://github.com/guseoh/csforge/actions/runs/45567289167)와 [Java Chromium](https://github.com/guseoh/csforge/actions/runs/45567289161)은 통과했습니다. [PR #295](https://github.com/guseoh/csforge/pull/295)의 main 충돌, 콘텐츠 의미 전수 검수와 [운영 동기화 #300](https://github.com/guseoh/csforge/issues/300)의 실제 예외 확인이 남았습니다.
+
+## 2026-11-26 — PR #295 종료 및 통합 작업 보존
+
+- 사용자 승인에 따라 [PR #295](https://github.com/guseoh/csforge/pull/295#issuecomment-7195510720)를 병합 없이 종료했다. 기존 Java G3 P2 도식 개선 PR이 전체 영역 작업을 포함하는 24개 커밋, 729개 파일로 확장되었고 main과 분기(24 ahead / 3 behind)하여 병합 불가 상태였다.
+- 종료 후 GitHub에서 Closed / merged=false와 `refactor` HEAD `eccdd24bf56a50d0239ee1fcc720dc07e8cc6aee` 보존을 재확인했다. 기준 main은 `425872f7c64cbddf214954e102f2e419adab229f`. 브랜치 삭제·코드 변경·배포 없음.
+- 기존 HEAD의 [저장소 CI](https://github.com/guseoh/csforge/actions/runs/45567289167) 및 [Java Chromium QA](https://github.com/guseoh/csforge/actions/runs/45567289161)는 동일 SHA에서 SUCCESS임을 재확인했다. 충돌 해결 이후 통합 SHA의 검증, 실제 운영 동기화와 인증 Reader 검증은 별도다.
+- 후속 권장 순서: 기존 refactor 보존 → 별도 통합 브랜치에서 main 충돌 해결 및 #304 회귀 테스트 검토 → 최종 SHA의 전체 QA·격리 Import → 새 통합 PR. #292·#278·#300은 미완료 유지. 새 PR 생성, 병합, 운영 APPLY는 이번 작업에 포함하지 않았다.
 
 ## Accepted decisions
 - [CSF-0007](../decisions/CSF-0007.md): 콘텐츠 개수 테스트는 고정값 대신 콘텐츠 선언에서 기대값을 계산하고, 정본 근거가 없는 값은 하한선으로 둔다.
@@ -67,7 +75,7 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006, CSF-000
 ## Open questions and next actions
 - [agent-skills PR #3](https://github.com/guseoh/agent-skills/pull/3) merged after explicit security hardening and [final Skill validation #42448379475](https://github.com/guseoh/agent-skills/actions/runs/42448379475). ChatGPT plugin installation/usage and separate plugin SVG fixture browser QA remain **unverified**.
 - [CSForge PR #297](https://github.com/guseoh/csforge/pull/297) merged into main as [5a675754](https://github.com/guseoh/csforge/commit/5a6757545a0ee16b845c5a83924e4b1b9e7840e9). The user confirmed the Heap preview's design direction; Java/TCP before/after views and the standalone three-example preview were added. Final branch [Chromium QA #42447737670](https://github.com/guseoh/csforge/actions/runs/42447737670) and Repository Validation passed. **Actual Reader integration/deployment and user acceptance of the final Java revision remain pending.**
-- Review PR #295; actual authenticated Reader/PWA checks remain unverified by its PR description.
+- #295 종료 후 별도 통합 PR로 대체하는 방향을 검토한다. 실제 인증 Reader/PWA 검증은 미완료다.
 - Inspect current production content-sync runs and data audit before claiming alignment.
 - Confirm live backend/frontend revisions when a production-specific question arises.
 
