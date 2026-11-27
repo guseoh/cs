@@ -16,16 +16,16 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 
 | Project | Snapshot | Last checked |
 | --- | --- | --- |
-| LLM Wiki 자체 | [PRJ-LLM-WIKI](projects/llm-wiki.md) · [PR 병합 후 브랜치 정리](decisions/WIKI-0004.md) | 2026-11-24 |
+| LLM Wiki 자체 | [PRJ-LLM-WIKI](projects/llm-wiki.md) · [PR 병합 후 브랜치 정리](decisions/WIKI-0004.md) · [Obsidian 연동](decisions/WIKI-0007.md) | 2026-11-27 |
 | 공통 개발 환경 (Orca) | [PRJ-DEVELOPMENT-TOOLING](projects/development-tooling.md) · [Orca 공통 도구 결정](decisions/SHD-0001.md) | 2026-11-21 |
 | 교양 읽기·자유로운 사유 | [PRJ-GENERAL-READING](projects/general-reading.md) · [확정 읽기 방식](decisions/GRD-0001.md) · [분야별 자료·도서 후보](knowledge/GRK-0001.md) | 2026-11-21 |
 | 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [Board REST 기본기 우선](decisions/BLR-0017.md) · [Board 작업 분담](decisions/BLR-0015.md) · [Spring 학습 형식](decisions/BLR-0016.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-25 |
 | 통합 백엔드 학습 연구실 (백엔드·시스템 설계·RAG) | [PRJ-BACKEND-SYSTEMS-LAB](projects/backend-systems-lab.md) · [6개 독립 앱](decisions/BSL-0001.md) · [학습 범위·교재 우선순위](decisions/BSL-0003.md) · [교재 장기 계획](decisions/BSL-0002.md) · [학습 맵](knowledge/BSK-0001.md) · [진행 기록](journal/backend-systems-lab/2026-11.md) | 2026-11-19 |
 | 물류 모듈 상세 학습 (통합 저장소의 첫 독립 앱) | [PRJ-LOGISTICS-LEARNING](projects/logistics-learning.md) · [도메인·기록 결정](decisions/LGR-0001.md) · [학습 로드맵 초안](knowledge/LGK-0001.md) · [진척 기록](journal/logistics-learning/2026-11.md) | 2026-11-19 |
 | AgentLab (Spring AI / Agent study) | [PRJ-AGENTLAB](projects/agentlab.md) | 2026-11-05 |
-| CSForge | [PRJ-CSFORGE](projects/csforge.md) · [#295 종료 및 통합 작업 보존](journal/csforge/2026-11.md#2026-11-26--pr-295-종료-및-통합-작업-보존) · [운영 동기화 문제 #300](https://github.com/guseoh/csforge/issues/300) | 2026-11-26 |
+| CSForge | [PRJ-CSFORGE](projects/csforge.md) · [#295 종료 및 통합 작업 보존](journal/csforge/2026-11.md#2026-11-26--pr-295-종료-및-통합-작업-보존) · [콘텐츠 일괄 release·배포·동기화 (#344)](https://github.com/guseoh/csforge/pull/344) · [Network audit blocked (#299)](https://github.com/guseoh/csforge/pull/299) · [Production sync failure (#300)](https://github.com/guseoh/csforge/issues/300) | 2026-11-27 |
 | Dark Todo Planner | [PRJ-DARK-TODO](projects/dark-todo.md) · [Windows 전용 배포·자동 업데이트](decisions/DTD-0009.md) · [CI/CD 경량화·배포 및 의존성 관리](decisions/DTD-0010.md) · [최신 확인 Windows 릴리스 v0.3.6](https://github.com/guseoh/dark-todo-planner/releases/tag/tern-v0.3.6) · [운영 안정화 PR #180](https://github.com/guseoh/dark-todo-planner/pull/180) · [이전 데스크톱 우선 결정](decisions/DTD-0006.md) · [이전 웹/PWA 정책](decisions/DTD-0004.md) · [메모·낙서장 통합 편집기](decisions/DTD-0005.md) · [오늘 작업 공간](decisions/DTD-0008.md) | 2026-11-24 |
-| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [세션 인수인계 11/18](journal/pawcycle/2026-11-18-session-handoff.md) · [3단계 저장소 범위 완료](journal/pawcycle/2026-11.md#2026-11-18-pawcycle-3단계-운영-배포-계약-확장과-저장소-범위-완료) · [2단계 종료·3단계 R3·R4·R11](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-종료와-3단계-r3r4r11-저장소-반영) · [병렬 트랙 3개 병합](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-병렬-트랙-3개-병합) · [결제 실패 복구와 SKU 재입고 알림 설계](journal/pawcycle/2026-11-17-design-queue.md) · [로컬 장애 리허설 결과](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과) · [리허설 착수 전 계획](journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증) · [2단계 장애 관측 구현](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-장애-관측-구현) · [1단계 정합성 착수](journal/pawcycle/2026-11.md#2026-11-15-pawcycle-1단계-정합성-착수) · [0단계 정리 마무리](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-0단계-정리-마무리) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) · [로컬 A1 감시 11/16](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-용량-감시-타임아웃-개선과-복구-관찰) · [A1 로그 잠금 종료 진단](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-감시-로그-파일-잠금으로-인한-종료-원인-확인) | 2026-11-18 |
+| PawCycle Commerce | [PRJ-PAWCYCLE](projects/pawcycle.md) · [로드맵 개편 전 남은 작업](journal/pawcycle/2026-11.md#2026-11-27-pawcycle-로드맵-개편-전-남은-작업) · [Wiki 기본 위임·하네스 정비](decisions/PWC-0144.md) · [AWS·RDS 시간제 운영 결정](decisions/PWC-0143.md) · [세션 인수인계 11/18](journal/pawcycle/2026-11-18-session-handoff.md) · [3단계 저장소 범위 완료](journal/pawcycle/2026-11.md#2026-11-18-pawcycle-3단계-운영-배포-계약-확장과-저장소-범위-완료) · [2단계 종료·3단계 R3·R4·R11](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-종료와-3단계-r3r4r11-저장소-반영) · [병렬 트랙 3개 병합](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-병렬-트랙-3개-병합) · [결제 실패 복구와 SKU 재입고 알림 설계](journal/pawcycle/2026-11-17-design-queue.md) · [로컬 장애 리허설 결과](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-로컬-장애-리허설-결과) · [리허설 착수 전 계획](journal/pawcycle/2026-11.md#2026-11-17-다음-작업-계획-2단계-로컬-장애-리허설과-알림-전달-검증) · [2단계 장애 관측 구현](journal/pawcycle/2026-11.md#2026-11-17-pawcycle-2단계-장애-관측-구현) · [1단계 정합성 착수](journal/pawcycle/2026-11.md#2026-11-15-pawcycle-1단계-정합성-착수) · [0단계 정리 마무리](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-0단계-정리-마무리) · [문서 분류·학습 노트 이동](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-문서-분류와-pr-학습-노트-이동) · [고도화 설계 검토](journal/pawcycle/2026-11.md#2026-11-14-pawcycle-고도화-설계-구체화) · [AI 도입·운영·성능 검토](journal/pawcycle/2026-11.md#2026-11-13-pawcycle-ai-도입과-시스템-고도화-검토) · [로컬 A1 감시 11/16](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-용량-감시-타임아웃-개선과-복구-관찰) · [A1 로그 잠금 종료 진단](journal/pawcycle/2026-11.md#2026-11-16-oci-a1-로컬-감시-로그-파일-잠금으로-인한-종료-원인-확인) | 2026-11-27 |
 | DevPedia (설계 중심 기록·직접 구현/Codex 가이드 우선) | [PRJ-DEVPEDIA](projects/devpedia.md) | 2026-11-21 |
 
 ## Decision index
@@ -40,12 +40,14 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [WIKI-0004](decisions/WIKI-0004.md) | accepted | Wiki PR 병합 후 일회성 원격 브랜치 정리 | llm-wiki |
 | [WIKI-0005](decisions/WIKI-0005.md) | accepted | Wiki 및 에이전트 운영 규칙 V2 | llm-wiki |
 | [WIKI-0006](decisions/WIKI-0006.md) | accepted | 한국어 및 맥락 복원 중심 Wiki 작성 기준 | llm-wiki |
+| [WIKI-0007](decisions/WIKI-0007.md) | accepted | 프로젝트 공통 규칙을 통한 Obsidian 연동 | llm-wiki |
 | [GRD-0001](decisions/GRD-0001.md) | accepted | 분야를 넘나드는 한국어 교양 칼럼 + 개인 블로그·전문 자료·도서 링크 + 사용자 직접 사색 | general-reading |
 | [CSF-0001](decisions/CSF-0001.md) | accepted | Guard canonical content sync to preserve history | csforge |
 | [CSF-0002](decisions/CSF-0002.md) | accepted | Java editorial diagram semantics | csforge |
 | [CSF-0003](decisions/CSF-0003.md) | accepted | Textbook-style static SVG first; three benchmark visuals before CSForge adoption | csforge |
 | [CSF-0004](decisions/CSF-0004.md) | accepted | Network Pilot Pack: five concept-sized diagram units beginning with TCP handshake | csforge |
 | [CSF-0005](decisions/CSF-0005.md) | accepted | Complete Network N-01–N-05 together, then consolidate QA without per-diagram approvals | csforge |
+| [CSF-0007](decisions/CSF-0007.md) | accepted | 콘텐츠 개수 테스트는 고정값 대신 콘텐츠 선언에서 계산 | csforge |
 | [DTD-0001](decisions/DTD-0001.md) | accepted | Neutral content-first UI | dark-todo |
 | [DTD-0002](decisions/DTD-0002.md) | accepted | Remove Inbox UI without deleting legacy data | dark-todo |
 | [DTD-0003](decisions/DTD-0003.md) | accepted | Today reorder and compact Calendar detail | dark-todo |
@@ -82,7 +84,9 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [PWC-0010](decisions/PWC-0010.md) | accepted | Server-owned AI recommendation safety boundary | pawcycle |
 | [PWC-0011](decisions/PWC-0011.md) | superseded | Historical AWS private RDS Single-AZ choice | pawcycle |
 | [PWC-0012](decisions/PWC-0012.md) | accepted | Phase 10 scheduler tuning KEEP; Queue/Kafka not selected | pawcycle |
-| [PWC-0013](decisions/PWC-0013.md) | accepted | Transition long-running operations from AWS to OCI Always Free | pawcycle |
+| [PWC-0013](decisions/PWC-0013.md) | superseded | Transition long-running operations from AWS to OCI Always Free | pawcycle |
+| [PWC-0143](decisions/PWC-0143.md) | accepted | AWS·RDS 시간제 운영·월 15,000원 상한·설계 학습 | pawcycle |
+| [PWC-0144](decisions/PWC-0144.md) | accepted | 중앙 Wiki review PR 생성·병합 기본 위임 및 에이전트·하네스 규칙 정비 | pawcycle |
 | [PWC-0014](decisions/PWC-0014.md) | accepted | Preserve Subscription locks, version CAS and unique constraints | pawcycle |
 | [PWC-0015](decisions/PWC-0015.md) | accepted | Historical AWS vs OCI same-host Observability | pawcycle |
 | [PWC-0016](decisions/PWC-0016.md) | accepted | Payment PROCESSING query-only manual recovery policy | pawcycle |
@@ -194,6 +198,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [BLK-0002](knowledge/BLK-0002.md) | published | Approved Spring Core/Boot 7-course / 34-unit curriculum; 17 priority deep dives | backend-learning |
 | [BLK-0003](knowledge/BLK-0003.md) | published | Java·Spring·JPA·Security 학습 재시작과 핵심 이해 중심 운영 가이드 | backend-learning |
 | [SHK-0001](knowledge/SHK-0001.md) | published | AWS Emulator: API fidelity, security boundaries, AI-agent validation loops (2026-11-13) | shared |
+| [SHK-0002](knowledge/SHK-0002.md) | published | Obsidian Vault 안정화·성능 실측, 설정 정리·플러그인 업데이트, 시작 화면 저장본 깨짐 원인과 CSS 보정 (2026-11-27) | shared |
 | [GRK-0001](knowledge/GRK-0001.md) | draft | 한국어 개인 블로그·공식 자료·교양서 분야별 읽을거리 후보(매회 검증 필요) | general-reading |
 
 ## Lesson index
@@ -530,8 +535,8 @@ UTC 승인/STOP/재승인, F07 query-only, lease 범위 종료, 최종 HEAD revi
 | [BSK-0001](knowledge/BSK-0001.md) | draft | 6개 도메인과 교재 1·2권의 학습 목표·연계·실험 가이드 초안 | backend-systems-lab |
 | [LGR-0001](decisions/LGR-0001.md) | accepted | 물류 학습 프로젝트 선택·현재 채팅 진행·중앙/프로젝트 Wiki 이중 기록 | logistics-learning |
 | [LGK-0001](knowledge/LGK-0001.md) | draft | 물류 시스템 요구사항·설계·구현·실험 로드맵 초안 | logistics-learning |
-| [PWC-0138](decisions/PWC-0138.md) | accepted | A1 확보와 로컬 개발 병렬 진행(당시 결정) | [#26](https://github.com/guseoh/cs/pull/26) |
-| [PWC-0139](decisions/PWC-0139.md) | accepted | OCI 호스팅과 AWS 운영 학습의 역할 분리 | [#26](https://github.com/guseoh/cs/pull/26) |
+| [PWC-0138](decisions/PWC-0138.md) | superseded | A1 확보와 로컬 개발 병렬 진행(당시 결정) | [#26](https://github.com/guseoh/cs/pull/26) |
+| [PWC-0139](decisions/PWC-0139.md) | superseded | OCI 호스팅과 AWS 운영 학습의 역할 분리 | [#26](https://github.com/guseoh/cs/pull/26) |
 | [PWC-0900](decisions/PWC-0900.md) | accepted | A1 보고·알림 및 수동 생성 경계(당시 기준) | [#20](https://github.com/guseoh/cs/pull/20) |
 | [PWC-0901](decisions/PWC-0901.md) | proposed | 5분 감시의 독립적인 장애 검출 설계 제안 | [#20](https://github.com/guseoh/cs/pull/20) |
 

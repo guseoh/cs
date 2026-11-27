@@ -4,10 +4,13 @@ type: project
 project: csforge
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-26
+updated_at: 2026-11-27
 evidence_level: source-verified
 capture_mode: full
 sources:
+  - https://github.com/guseoh/csforge/pull/344
+  - https://github.com/guseoh/csforge/actions/runs/45946929715
+  - https://github.com/guseoh/csforge/actions/runs/45947830785
   - https://github.com/guseoh/csforge/pull/301
   - https://github.com/guseoh/csforge/pull/303
   - https://github.com/guseoh/csforge/actions/runs/43705932453
@@ -21,11 +24,12 @@ sources:
   - https://github.com/guseoh/csforge/blob/main/.github/workflows/content-sync.yml
 depends_on: []
 supersedes: []
-related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006]
+related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006, CSF-0007]
 ---
 # CSForge — source-verified project snapshot
 
 ## Current state (latest merge checks 2026-11-09; earlier entries noted separately)
+- **2026-11-27 최신 source-verified main:** [`0be6da81`](https://github.com/guseoh/csforge/commit/0be6da81037c123844ecea46b0025f811e0c9c55) — release [#344](https://github.com/guseoh/csforge/pull/344)로 퀴즈·복습 루프(#320)와 15개 영역 콘텐츠 확충(#321~#340, canonical 문항 2,549 → 3,176), 기준 개수 테스트 교정(#343·#346, [CSF-0007](../decisions/CSF-0007.md))을 반영했다. main push [Validation·Cloud Run 배포](https://github.com/guseoh/csforge/actions/runs/45946929715) 성공(리비전 `csforge-00132-zus` 100%), [운영 content-sync](https://github.com/guseoh/csforge/actions/runs/45947830785)의 4개 Job 실행 성공. **Job 내부 건수·운영 DB 실제 문항 수·배포 화면 사용 확인은 미확인**이다. 11-08 [#300](https://github.com/guseoh/csforge/issues/300) 실패 이후 자동 동기화는 3회 연속 성공했지만 #300의 원인 확정과는 별개다. [작업 기록](../journal/csforge/2026-11.md)
 - **2026-11-15 Database G1의 별도 검증 상태:** [Draft PR #301](https://github.com/guseoh/csforge/pull/301)은 Database 38개 Concept에서 17개 SVG를 작성했고 [격리 QA #43705932453](https://github.com/guseoh/csforge/actions/runs/43705932453)에서 PostgreSQL 16.4 Import/재import·Spring API·Frontend 테스트를 통과했습니다. Vercel Preview 배포 READY는 신규 canonical Markdown의 DB 동기화나 실제 Reader #122 화면을 증명하지 않습니다. 운영 DB·Neon 정합성·실배포 E2E는 그 시점 미확인입니다. [작업 기록](../journal/csforge/2026-11.md)을 참고합니다.
 - **2026-11-15 Network G1 refactor 선별 통합:** [PR #303](https://github.com/guseoh/csforge/pull/303)은 Network 53개 도식의 필수 연결만 옮기면서 Reference 메타데이터 충돌로 발생한 재import `UNCHANGED` 불일치를 교정했습니다. [CI #43706478668](https://github.com/guseoh/csforge/actions/runs/43706478668) PASS 및 `refactor` squash `8f01a8ba`는 해당 소스 브랜치 검증이며, G2 재개·운영 DB 동기화 및 Production 배포의 증거가 아닙니다. [CSF-0006](../decisions/CSF-0006.md)을 참고합니다.
 
@@ -56,6 +60,7 @@ related_to: [CSF-0001, CSF-0002, CSF-0003, CSF-0004, CSF-0005, CSF-0006]
 - 후속 권장 순서: 기존 refactor 보존 → 별도 통합 브랜치에서 main 충돌 해결 및 #304 회귀 테스트 검토 → 최종 SHA의 전체 QA·격리 Import → 새 통합 PR. #292·#278·#300은 미완료 유지. 새 PR 생성, 병합, 운영 APPLY는 이번 작업에 포함하지 않았다.
 
 ## Accepted decisions
+- [CSF-0007](../decisions/CSF-0007.md): 콘텐츠 개수 테스트는 고정값 대신 콘텐츠 선언에서 기대값을 계산하고, 정본 근거가 없는 값은 하한선으로 둔다.
 - [CSF-0005](../decisions/CSF-0005.md): build and review N-01–N-05 together without serial user approval checkpoints.
 - [CSF-0004](../decisions/CSF-0004.md): prioritize five compact Network diagram units beginning with N-01.
 - [CSF-0003](../decisions/CSF-0003.md): user-approved textbook-style SVG-first visualization approach and three pilot quality gates, separate from Reader deployment.

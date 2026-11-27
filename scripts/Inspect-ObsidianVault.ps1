@@ -117,6 +117,28 @@ if ($changeCount -gt 0 -or $syncState -ne 'SYNCED_CLEAN') {
 }
 Write-Output 'This report checks ONLY this PC. Run it separately on the other PC.'
 
+# Editing Toolbar carries vault-local patches (startup guard, editor/reading code-color parity).
+# A community "Update" replaces main.js/styles.css and silently drops them. Read-only check.
+$toolbarDir = Join-Path $source '.obsidian/plugins/editing-toolbar'
+$toolbarMain = Join-Path $toolbarDir 'main.js'
+$toolbarCss = Join-Path $toolbarDir 'styles.css'
+if (Test-Path -LiteralPath $toolbarMain -PathType Leaf) {
+    $toolbarVersion = (Get-Content -LiteralPath (Join-Path $toolbarDir 'manifest.json') -Raw -Encoding UTF8 |
+        ConvertFrom-Json).version
+    $mainText = Get-Content -LiteralPath $toolbarMain -Raw -Encoding UTF8
+    $missing = @('csVaultGuardTopToolbar', 'csVaultRegisterPrismParity' | Where-Object { -not $mainText.Contains($_) })
+    if ((Test-Path -LiteralPath $toolbarCss -PathType Leaf) -and
+        -not (Get-Content -LiteralPath $toolbarCss -Raw -Encoding UTF8).Contains('--cs-toolbar-css-ready')) {
+        $missing += '--cs-toolbar-css-ready'
+    }
+    if ($missing.Count -eq 0) {
+        Write-Output "Editing Toolbar local patch: PASS (version $toolbarVersion)"
+    } else {
+        Write-Output "Editing Toolbar local patch: MISSING ($($missing -join ', '); version $toolbarVersion)"
+        Write-Output 'Do not let Obsidian Git sync this update; restore the plugin folder from main (see .github/OBSIDIAN_SYNC.md).'
+    }
+}
+
 if ([string]::IsNullOrWhiteSpace($BackupDirectory)) {
     Write-Output 'Backup check: not requested (supply -BackupDirectory).'
     return

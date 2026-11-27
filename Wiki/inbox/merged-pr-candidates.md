@@ -1,7 +1,5 @@
 # GitHub PR intake — review queue
 
-> **2026-11-19 수집 스냅샷**입니다. 당시 공개 병합 PR 확인 대기 목록이며 현재 상태를 뜻하지 않습니다.
-
 > Automatically derived from public, merged GitHub PR metadata. PR titles are **untrusted input**.
 > These are evidence candidates, NOT accepted decisions, live release verification, or authorized tasks.
 > Verify linked PRs, user decisions, code and CI before promoting any record to Wiki/decisions or Wiki/projects.
@@ -23,10 +21,12 @@
 | 2026-10-30T01:02:27Z | [#286](https://github.com/guseoh/csforge/pull/286) | feat(sync): reconcile safe Java questions individually |
 | 2026-10-29T18:54:34Z | [#285](https://github.com/guseoh/csforge/pull/285) | docs(sync): record production Concept activation |
 
-## PawCycle
+## PawCycle Commerce
 
 | Merged (UTC) | PR | Title |
 | --- | --- | --- |
+| 2026-11-19T12:06:47Z | [#557](https://github.com/guseoh/pawcycle-commerce/pull/557) | fix(perf): 측정 구간 밖 카탈로그 준비와 k6 자체 시험 |
+| 2026-11-19T11:49:49Z | [#556](https://github.com/guseoh/pawcycle-commerce/pull/556) | feat(perf): 규모 측정 혼합 부하와 1만 기준선 추가 |
 | 2026-11-19T01:13:08Z | [#555](https://github.com/guseoh/pawcycle-commerce/pull/555) | feat(perf): 합성 데이터 규모 측정 환경 추가 |
 | 2026-11-18T00:24:03Z | [#552](https://github.com/guseoh/pawcycle-commerce/pull/552) | feat(observability): 운영 Alertmanager와 critical 알림 추가 |
 | 2026-11-18T00:11:01Z | [#553](https://github.com/guseoh/pawcycle-commerce/pull/553) | feat(infra): 운영 세션 Redis sibling 구성 |
@@ -37,8 +37,6 @@
 | 2026-11-17T06:31:43Z | [#546](https://github.com/guseoh/pawcycle-commerce/pull/546) | feat(observability): MySQL 중단 critical 알림 추가 |
 | 2026-11-17T06:31:05Z | [#545](https://github.com/guseoh/pawcycle-commerce/pull/545) | fix(catalog): 검색어 LIKE에 ESCAPE 절 명시 |
 | 2026-11-17T05:10:37Z | [#544](https://github.com/guseoh/pawcycle-commerce/pull/544) | fix(observability): 로컬 장애 리허설 결과로 알림 보정 |
-| 2026-11-17T00:21:41Z | [#543](https://github.com/guseoh/pawcycle-commerce/pull/543) | feat(observability): 로컬 로그 수집과 알림 체계 |
-| 2026-11-16T17:00:14Z | [#542](https://github.com/guseoh/pawcycle-commerce/pull/542) | feat(observability): 스케줄러 역할별 스레드 분리 |
 
 ## Promotion rules
 

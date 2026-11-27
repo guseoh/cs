@@ -1599,16 +1599,20 @@ function getEditorViewFromHTMLElement(e) {
 }
 function isClickOnBullet(e) {
     let el = e.target;
+    let onHandle = false;
     while (el) {
+        // Native folding is a separate action, including its SVG children.
+        if (el.classList.contains("cm-fold-indicator")) {
+            return false;
+        }
         if (el.classList.contains("cm-formatting-list") ||
-            el.classList.contains("cm-fold-indicator") ||
             el.classList.contains("task-list-item-checkbox") ||
             el.hasAttribute("data-outliner-drag-handle")) {
-            return true;
+            onHandle = true;
         }
         el = el.parentElement;
     }
-    return false;
+    return onHandle;
 }
 function getEventDocument(e) {
     const target = e.target;
@@ -1825,12 +1829,16 @@ class CreateNewItem {
         this.shouldOutdentEmptyLines = shouldOutdentEmptyLines;
         this.stopPropagation = false;
         this.updated = false;
+        this.skippedInsideCodeblock = false;
     }
     shouldStopPropagation() {
         return this.stopPropagation;
     }
     shouldUpdate() {
         return this.updated;
+    }
+    wasSkippedInsideCodeblock() {
+        return this.skippedInsideCodeblock;
     }
     perform() {
         const { root } = this;
@@ -1876,6 +1884,7 @@ class CreateNewItem {
         const codeBlockBacticks = oldLines.join("\n").split("```").length - 1;
         const isInsideCodeblock = codeBlockBacticks > 0 && codeBlockBacticks % 2 !== 0;
         if (isInsideCodeblock) {
+            this.skippedInsideCodeblock = true;
             return;
         }
         this.stopPropagation = true;
@@ -3083,8 +3092,15 @@ class VimOBehaviourOverride {
                 const getZoomRange = {
                     getZoomRange: () => zoomRange,
                 };
-                const res = operationPerformer.eval(root, new CreateNewItem(root, defaultIndentChars, getZoomRange, operatorArgs.after, true), editor);
-                if (res.shouldUpdate && zoomRange) {
+                const op = new CreateNewItem(root, defaultIndentChars, getZoomRange, operatorArgs.after, true);
+                const res = operationPerformer.eval(root, op, editor);
+                if (op.wasSkippedInsideCodeblock()) {
+                    // Code blocks inside list items get no new bullet; open a plain
+                    // line instead, as Vim would. Other no-op cases (e.g. an empty
+                    // item) intentionally leave the text unchanged.
+                    this.openPlainLine(obsidianEditor, operatorArgs.after);
+                }
+                else if (res.shouldUpdate && zoomRange) {
                     editor.tryRefreshZoom(zoomRange.from.line);
                 }
                 // Ensure the editor is always left in insert mode

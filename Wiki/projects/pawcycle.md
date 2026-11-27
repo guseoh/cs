@@ -4,7 +4,7 @@ type: project
 project: pawcycle
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-19
+updated_at: 2026-11-27
 evidence_level: source-verified
 capture_mode: full
 sources:
@@ -36,11 +36,29 @@ sources:
   - https://github.com/guseoh/pawcycle-commerce/pull/555
   - https://github.com/guseoh/pawcycle-commerce/pull/556
   - https://github.com/guseoh/pawcycle-commerce/pull/557
+  - https://github.com/guseoh/pawcycle-commerce/pull/559
+  - https://github.com/guseoh/pawcycle-commerce/pull/560
+  - https://github.com/guseoh/pawcycle-commerce/pull/561
 depends_on: []
 supersedes: []
-related_to: [PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034, PWC-0078, PWC-0079, PWC-0080, PWC-0081, PWC-0082, PWC-0083, PWC-0084, PWC-0085, PWC-0086, PWC-0087, PWC-0088, PWC-0089, PWC-0090, PWC-0091, PWC-0092, PWC-0093, PWC-0094, PWC-0095, PWC-0096, PWC-0097, PWC-0098, PWC-0099, PWL-0035, PWL-0036, PWL-0037, PWL-0038, PWL-0039, PWL-0040, PWC-0108, PWC-0109, PWC-0110, PWC-0111, PWC-0112, PWC-0113, PWC-0114, PWC-0115, PWC-0116, PWC-0117, PWC-0118, PWC-0119, PWC-0120, PWC-0121, PWL-0043, PWL-0044, PWL-0045, PWL-0046, PWL-0047, PWC-0122, PWC-0123, PWC-0124, PWC-0125, PWC-0126, PWC-0127, PWC-0128, PWC-0129, PWL-0048, PWC-0130, PWC-0131, PWC-0132, PWL-0050, PWC-0133, PWL-0051, PWL-0052, PWL-0053, PWC-0134, PWC-0135, PWC-0136, PWC-0137, PWL-0054, PWK-0003, PWK-0004, PWK-0005, PWK-0006, PWC-0138, PWC-0139, PWC-0900, PWC-0901, PWC-0140, PWK-0007, PWL-0055, PWL-0056, PWC-0141, PWC-0142, PWL-0057]
+related_to: [PWC-0144, PWC-0143, PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-0004, PWC-0005, PWC-0006, PWC-0007, PWC-0008, PWC-0009, PWC-0010, PWC-0011, PWC-0012, PWC-0013, PWC-0014, PWC-0015, PWL-0001, PWL-0002, PWC-0016, PWC-0017, PWC-0018, PWC-0019, PWC-0020, PWC-0021, PWL-0003, PWL-0004, PWL-0005, PWL-0006, PWL-0007, PWC-0022, PWC-0023, PWC-0024, PWC-0025, PWC-0026, PWL-0008, PWC-0027, PWC-0028, PWC-0029, PWC-0030, PWC-0031, PWC-0032, PWC-0033, PWC-0034, PWC-0035, PWC-0036, PWC-0037, PWC-0038, PWL-0011, PWK-0001, PWC-0039, PWC-0040, PWL-0012, PWC-0044, PWC-0045, PWC-0046, PWC-0047, PWC-0048, PWC-0049, PWC-0050, PWC-0051, PWC-0052, PWC-0053, PWC-0054, PWC-0055, PWC-0056, PWC-0057, PWC-0058, PWC-0059, PWC-0060, PWC-0061, PWL-0016, PWL-0017, PWL-0018, PWL-0019, PWL-0020, PWL-0021, PWL-0022, PWL-0023, PWL-0024, PWL-0025, PWC-0062, PWC-0063, PWC-0064, PWC-0065, PWC-0066, PWC-0067, PWC-0068, PWC-0069, PWC-0070, PWC-0071, PWC-0072, PWC-0073, PWC-0074, PWC-0075, PWC-0076, PWL-0026, PWL-0027, PWL-0028, PWL-0029, PWL-0030, PWL-0031, PWL-0032, PWL-0033, PWL-0034, PWC-0078, PWC-0079, PWC-0080, PWC-0081, PWC-0082, PWC-0083, PWC-0084, PWC-0085, PWC-0086, PWC-0087, PWC-0088, PWC-0089, PWC-0090, PWC-0091, PWC-0092, PWC-0093, PWC-0094, PWC-0095, PWC-0096, PWC-0097, PWC-0098, PWC-0099, PWL-0035, PWL-0036, PWL-0037, PWL-0038, PWL-0039, PWL-0040, PWC-0108, PWC-0109, PWC-0110, PWC-0111, PWC-0112, PWC-0113, PWC-0114, PWC-0115, PWC-0116, PWC-0117, PWC-0118, PWC-0119, PWC-0120, PWC-0121, PWL-0043, PWL-0044, PWL-0045, PWL-0046, PWL-0047, PWC-0122, PWC-0123, PWC-0124, PWC-0125, PWC-0126, PWC-0127, PWC-0128, PWC-0129, PWL-0048, PWC-0130, PWC-0131, PWC-0132, PWL-0050, PWC-0133, PWL-0051, PWL-0052, PWL-0053, PWC-0134, PWC-0135, PWC-0136, PWC-0137, PWL-0054, PWK-0003, PWK-0004, PWK-0005, PWK-0006, PWC-0138, PWC-0139, PWC-0900, PWC-0901, PWC-0140, PWK-0007, PWL-0055, PWL-0056, PWC-0141, PWC-0142, PWL-0057]
 ---
 # PawCycle Commerce — source-verified project snapshot
+
+## 2026-11-27 PawCycle 로드맵 개편 전 남은 작업
+
+- 결제·멤버십 교착 수정 #558과 결제 복구 롤백 회귀 테스트 #564가 병합됐고 #562는 닫혔다. Draft #554와 성능 측정·알림·AWS 전환·제품 기능의 잔여 항목은 [개편 전 현황](../journal/pawcycle/2026-11.md#2026-11-27-pawcycle-로드맵-개편-전-남은-작업)에 기록했다.
+
+## 2026-11-27 에이전트·하네스 규칙 정비 및 중앙 Wiki PR 병합 기본 위임
+
+- **사용자 확정·저장소 병합:** `main` [`d79c6755`](https://github.com/guseoh/pawcycle-commerce/commit/d79c6755b1bf7e77076a1801c04025ed07d1b434) 기준. [#559](https://github.com/guseoh/pawcycle-commerce/pull/559)(`WIKI-CAPTURE-003`)로 완료 작업(`Repository Change`, 설계 확정, `Operations Execution`)의 `guseoh/cs` review PR 생성·검증·병합·임시 브랜치 정리를 기본 위임하고, [#560](https://github.com/guseoh/pawcycle-commerce/pull/560)(`HARNESS-CLEANUP-001`)로 Role/Skill 중복 제거, 중립 용어 정리, `docs/design/**`·CI 분류 동기화 및 `scripts/AGENTS.md` 신설을, [#561](https://github.com/guseoh/pawcycle-commerce/pull/561)(`HARNESS-REVIEW-002`)로 위임된 구현 에이전트의 리뷰 명령 발행 완화를 완료했다. [PWC-0144](../decisions/PWC-0144.md) · [11월 작업 기록](../journal/pawcycle/2026-11.md#2026-11-27-중앙-wiki-기본-위임-및-에이전트하네스-규칙-정비).
+
+## 2026-11-27 최우선 운영 방향 — AWS·RDS 시간제 운영 확정
+
+- **사용자 확정:** AWS + RDS MySQL, 24시간 공개 운영 불필요, 월 최대 15,000원·최소 지출, OCI 전용 활성 코드 정리 후 구축, 저가 독립 도메인 구매 검토, AI 구현과 사용자 설계·원리·보안·트레이드오프 학습 병행. [PWC-0143](../decisions/PWC-0143.md)는 OCI 우선 방향 [PWC-0013](../decisions/PWC-0013.md)·[PWC-0138](../decisions/PWC-0138.md)·[PWC-0139](../decisions/PWC-0139.md)를 대체한다.
+- **다음 작업:** OCI 실제 자원·Billing·데이터/백업 복원 및 모니터 상태 읽기 전용 점검 → 활성 코드 의존성 분석·안전한 정리 → AWS 최소 운영 설계 및 별도 승인 후 구축. 기존 운영 기록·공통 CI/CD/Compose·관측·k6·Dataset은 보존/재사용한다. 아래 과거 OCI 로드맵과 측정 기록은 당시 상태이며 현재 운영 계획으로 사용하지 않는다.
+- **설계 후보(미확정):** 서울, EC2 4GB, private RDS MySQL 8.4 Single-AZ 2GB, EBS 30GB/RDS 20GB, SSM·최소 권한·TLS 서버 신원 검증, Cloudflare 무료 DNS 및 저가 도메인. 비용·실행 시간은 계정별 재계산; NAT/ALB/Multi-AZ/EKS 등 초기 제외 후보.
+- **검증 범위:** PawCycle main [318dfab4](https://github.com/guseoh/pawcycle-commerce/commit/318dfab4fb1a40fb69236cbec4f7c6a080ab8325) 및 관련 파일 조회만 완료. 실제 AWS/OCI 자원·청구·복구·도메인 구매·코드 정리·배포는 미실행/미검증. 기존 백엔드·정합성·성능 트랙의 실제 완료 여부를 변경하지 않는다. [11월 작업 기록](../journal/pawcycle/2026-11.md#2026-11-27-awsrds-시간제-운영-전환-결정).
 
 ## 2026-11-19 4단계 H 진행 중 — 결제·멤버십 교착 결함 발견, 1만 용량 측정
 

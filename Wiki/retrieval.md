@@ -32,8 +32,11 @@ python scripts/wiki_query.py evaluate
 | 클라이언트 | 접근 경로 |
 | --- | --- |
 | ChatGPT | GitHub 연결 또는 접근 가능한 공개 [Wiki 인덱스](https://github.com/guseoh/cs/blob/main/Wiki/index.md) |
-| Codex | 최신 Git 작업 복사본에서 `Wiki/index.md`와 관련 원문, 필요 시 위 CLI |
-| Claude | 허용된 GitHub 연결 또는 로컬 클론에서 같은 인덱스·기록·출처 |
+| Codex | 로컬 Vault 및 공식 Obsidian CLI(허용 시), 최신 Git 작업 복사본 또는 GitHub 원문 |
+| Claude | Claude Code/Cowork에서 허용된 로컬 Vault 또는 GitHub 원문; 일반 채팅은 허용된 연결 |
+| Antigravity | 프로젝트 규칙과 설치된 공식 Obsidian 스킬, 허용된 로컬 CLI 또는 GitHub 원문 |
+
+CLI 사용 전 앱 실행·권한·Vault 이름 및 최신성 확인이 필요하다. 접근 방법과 안전 경계는 [실행 계약](AGENTS.md#obsidian-및-클라이언트-접근)을 따른다. 프로젝트 지침을 사용하면 매번 동일 프롬프트를 입력할 필요가 없지만 실제 지침 로드와 권한은 별도로 검증한다.
 
 공통 요청 예시: “최신 `main`의 Wiki 인덱스에서 프로젝트와 관련 ID를 찾고 근거를 읽어줘. 대체 관계, 결정 상태, 확인 날짜를 명시하고 실제 운영 확인 여부를 구분해줘.” 권한이나 연결이 없는 클라이언트는 접근 가능한 원문을 명시하고 이전 대화에서 검색 결과를 추정하지 않는다.
 

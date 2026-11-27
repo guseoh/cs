@@ -34,14 +34,24 @@
     "source_url": "https://github.com/guseoh/pawcycle-commerce/pull/9"
   },
   {
-    "intent": "대체 결정",
-    "question": "PWC-0011 AWS RDS 선택을 대체한 결정은?",
+    "intent": "과거 대체 결정",
+    "question": "PWC-0011 AWS RDS 선택을 2026년 9월 당시 대체한 결정은?",
     "project": "pawcycle",
     "expected_id": "PWC-0013",
-    "status": "accepted",
+    "status": "superseded",
     "evidence": "supersedes: [PWC-0011]",
     "source_url": "https://github.com/guseoh/pawcycle-commerce/issues/276",
     "supersedes": "PWC-0011"
+  },
+  {
+    "intent": "현재 대체 결정",
+    "question": "PWC-0013 OCI 장기 운영을 대체한 AWS RDS 시간제 운영 결정과 월 비용 상한은?",
+    "project": "pawcycle",
+    "expected_id": "PWC-0143",
+    "status": "accepted",
+    "evidence": "월 AWS 비용은 최대 15,000원",
+    "source_url": "https://github.com/guseoh/pawcycle-commerce/commit/318dfab4fb1a40fb69236cbec4f7c6a080ab8325",
+    "supersedes": "PWC-0013"
   },
   {
     "intent": "검증된 상태",
