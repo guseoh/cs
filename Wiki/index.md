@@ -16,7 +16,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 
 | Project | Snapshot | Last checked |
 | --- | --- | --- |
-| LLM Wiki 자체 | [PRJ-LLM-WIKI](projects/llm-wiki.md) · [PR 병합 후 브랜치 정리](decisions/WIKI-0004.md) | 2026-11-24 |
+| LLM Wiki 자체 | [PRJ-LLM-WIKI](projects/llm-wiki.md) · [PR 병합 후 브랜치 정리](decisions/WIKI-0004.md) · [Obsidian 연동](decisions/WIKI-0007.md) | 2026-11-27 |
 | 공통 개발 환경 (Orca) | [PRJ-DEVELOPMENT-TOOLING](projects/development-tooling.md) · [Orca 공통 도구 결정](decisions/SHD-0001.md) | 2026-11-21 |
 | 교양 읽기·자유로운 사유 | [PRJ-GENERAL-READING](projects/general-reading.md) · [확정 읽기 방식](decisions/GRD-0001.md) · [분야별 자료·도서 후보](knowledge/GRK-0001.md) | 2026-11-21 |
 | 백엔드 학습 (Java·Spring·JPA·Security) | [PRJ-BACKEND-LEARNING](projects/backend-learning.md) · [Board REST 기본기 우선](decisions/BLR-0017.md) · [Board 작업 분담](decisions/BLR-0015.md) · [Spring 학습 형식](decisions/BLR-0016.md) · [운영 가이드](knowledge/BLK-0003.md) | 2026-11-25 |
@@ -40,6 +40,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [WIKI-0004](decisions/WIKI-0004.md) | accepted | Wiki PR 병합 후 일회성 원격 브랜치 정리 | llm-wiki |
 | [WIKI-0005](decisions/WIKI-0005.md) | accepted | Wiki 및 에이전트 운영 규칙 V2 | llm-wiki |
 | [WIKI-0006](decisions/WIKI-0006.md) | accepted | 한국어 및 맥락 복원 중심 Wiki 작성 기준 | llm-wiki |
+| [WIKI-0007](decisions/WIKI-0007.md) | accepted | 프로젝트 공통 규칙을 통한 Obsidian 연동 | llm-wiki |
 | [GRD-0001](decisions/GRD-0001.md) | accepted | 분야를 넘나드는 한국어 교양 칼럼 + 개인 블로그·전문 자료·도서 링크 + 사용자 직접 사색 | general-reading |
 | [CSF-0001](decisions/CSF-0001.md) | accepted | Guard canonical content sync to preserve history | csforge |
 | [CSF-0002](decisions/CSF-0002.md) | accepted | Java editorial diagram semantics | csforge |
