@@ -45,6 +45,10 @@ related_to: [PWC-0144, PWC-0143, PWC-0077, PWC-0001, PWC-0002, PWC-0003, PWC-000
 ---
 # PawCycle Commerce — source-verified project snapshot
 
+## 2026-11-27 PawCycle 로드맵 개편 전 남은 작업
+
+- 결제·멤버십 교착 수정 #558과 결제 복구 롤백 회귀 테스트 #564가 병합됐고 #562는 닫혔다. Draft #554와 성능 측정·알림·AWS 전환·제품 기능의 잔여 항목은 [개편 전 현황](../journal/pawcycle/2026-11.md#2026-11-27-pawcycle-로드맵-개편-전-남은-작업)에 기록했다.
+
 ## 2026-11-27 에이전트·하네스 규칙 정비 및 중앙 Wiki PR 병합 기본 위임
 
 - **사용자 확정·저장소 병합:** `main` [`d79c6755`](https://github.com/guseoh/pawcycle-commerce/commit/d79c6755b1bf7e77076a1801c04025ed07d1b434) 기준. [#559](https://github.com/guseoh/pawcycle-commerce/pull/559)(`WIKI-CAPTURE-003`)로 완료 작업(`Repository Change`, 설계 확정, `Operations Execution`)의 `guseoh/cs` review PR 생성·검증·병합·임시 브랜치 정리를 기본 위임하고, [#560](https://github.com/guseoh/pawcycle-commerce/pull/560)(`HARNESS-CLEANUP-001`)로 Role/Skill 중복 제거, 중립 용어 정리, `docs/design/**`·CI 분류 동기화 및 `scripts/AGENTS.md` 신설을, [#561](https://github.com/guseoh/pawcycle-commerce/pull/561)(`HARNESS-REVIEW-002`)로 위임된 구현 에이전트의 리뷰 명령 발행 완화를 완료했다. [PWC-0144](../decisions/PWC-0144.md) · [11월 작업 기록](../journal/pawcycle/2026-11.md#2026-11-27-중앙-wiki-기본-위임-및-에이전트하네스-규칙-정비).
