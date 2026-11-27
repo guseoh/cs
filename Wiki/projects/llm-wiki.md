@@ -4,7 +4,7 @@ type: project
 project: llm-wiki
 status: active
 created_at: 2026-11-03
-updated_at: 2026-11-24
+updated_at: 2026-11-27
 evidence_level: source-verified
 sources:
   - https://github.com/guseoh/cs
@@ -14,7 +14,7 @@ sources:
   - https://github.com/guseoh/cs/pull/19
 depends_on: []
 supersedes: []
-related_to: [WIKI-0001, WIKI-0002, WIKI-0004, WIKI-0005, WIKI-0006]
+related_to: [WIKI-0001, WIKI-0002, WIKI-0004, WIKI-0005, WIKI-0006, WIKI-0007]
 ---
 
 # LLM Wiki 프로젝트 스냅샷
@@ -54,3 +54,7 @@ related_to: [WIKI-0001, WIKI-0002, WIKI-0004, WIKI-0005, WIKI-0006]
 - [WIKI-0005](../decisions/WIKI-0005.md): 공통 규칙과 프로젝트 정책 분리, main 중심 수명주기, 누락 방지 및 생성 후 검증으로 V2 개선을 진행한다. 구현·CI·병합·브랜치 정리는 PR 근거에서 각각 확인한다.
 
 - [WIKI-0006](../decisions/WIKI-0006.md): 한국어 및 문서 유형별 상세 작성 기준을 확정했다. 기존 프로젝트별 기록 범위는 유지하며 중요한 기록의 맥락 복원 가능성을 우선한다.
+
+## 2026-11-27 프로젝트 공통 Obsidian 접근
+
+- [WIKI-0007](../decisions/WIKI-0007.md): 프로젝트 AGENTS.md를 진입점으로 활용하고 공식 스킬·CLI 또는 GitHub 원문으로 접근한다. 기존 정책과 검증 경계는 유지한다. 사용자 보고상 로컬 CLI와 Claude Code·Antigravity 플러그인 활성화가 성공했으나 Codex 실제 활성화, 각 앱의 종단간 연결, 규칙 변경의 CI·병합·로컬 반영은 미확인이다.
