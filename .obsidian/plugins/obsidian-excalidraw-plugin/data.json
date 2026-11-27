@@ -526,7 +526,7 @@
   "markdownNodeOneClickEditing": false,
   "canvasImmersiveEmbed": true,
   "startupScriptPath": "",
-  "aiEnabled": true,
+  "aiEnabled": false,
   "aiVerboseLogging": false,
   "aiProviderProfiles": {
     "Anthropic": {
