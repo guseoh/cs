@@ -41,6 +41,20 @@
 3. 변경 내용을 Push하고 다른 기기에서 Pull한 후 작동을 확인한다.
 4. 기기마다 다른 UI 배치나 비밀키, 인증 파일, 절대경로가 포함된 설정은 공용 Git 이력에 올리지 않는다.
 
+### 로컬 패치 플러그인 — Editing Toolbar 업데이트 금지 (2026-11-27)
+
+`editing-toolbar` 4.1.12의 `main.js`·`styles.css`에는 Vault 전용 수정이 포함되어 있다([#104](https://github.com/guseoh/cs/pull/104), [#105](https://github.com/guseoh/cs/pull/105)).
+
+- `csVaultGuardTopToolbar`와 `--cs-toolbar-css-ready`: 시작 시 스타일 없는 툴바가 노출되는 초기 화면 깨짐을 막는다.
+- `csVaultRegisterPrismParity`: 편집 화면 코드 블록에 `.cs-prism-*` 토큰을 부여한다. `obsidian-readability-style-settings.css`의 편집 화면 코드 색상이 이 토큰에 의존한다.
+
+커뮤니티 플러그인 업데이트는 위 파일을 원본으로 교체하므로 수정이 조용히 사라진다. 2026-11-27 업데이트 확인 결과 4.1.14가 대기 중이다.
+
+1. 설정 → 커뮤니티 플러그인에서 **모두 업데이트**를 사용하지 않는다. 다른 플러그인은 개별 업데이트하고 Editing Toolbar는 건너뛴다.
+2. `.\scripts\Inspect-ObsidianVault.ps1` 결과의 `Editing Toolbar local patch`가 `PASS`인지 확인한다.
+3. `MISSING`이면 15분 자동 동기화가 업데이트 파일을 커밋하기 전에 `obsidian-git:pause-automatic-routines`로 자동 루틴을 멈추고, `git restore --source=origin/main -- .obsidian/plugins/editing-toolbar`로 복구한 뒤 Obsidian을 재시작한다. 이미 Push되었다면 다른 기기에서 Pull하지 말고 되돌리기 커밋을 검토 PR로 만든다.
+4. 업데이트가 필요하면 새 버전에 패치를 다시 적용하고, 편집·읽기 코드 색상과 콜드 스타트 화면을 두 기기에서 확인한 다음 별도 PR로 반영한다.
+
 ## 2차 파일·플러그인 정리 점검 (2026-10-25)
 
 - GitHub 추적 노트 83개(Markdown·Canvas)를 조사했고, 2바이트 `{}`만 포함한 미사용 `무제.canvas`를 제거했다. `테스트3.md`는 학습 상태·태그가 기록되어 있어 유지한다.
