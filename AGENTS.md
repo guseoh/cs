@@ -7,6 +7,9 @@
 - Wiki 작성은 [기록 정책](Wiki/capture-policy.md), [스키마](Wiki/schema.md), [인수인계 계약](Wiki/handoff.md)을 따른다. 프로젝트 원본과 현재 사용자 지시를 확인한다.
 - 공개 저장소에 비공개 대화, 개인정보, 인증 정보, 민감한 운영 세부사항을 기록하지 않는다. GitHub 접근이 없으면 기록 완료를 주장하지 않는다.
 
+## Obsidian 에이전트 연동
+- 프로젝트 루트 `AGENTS.md`를 공통 진입점으로 사용한다. 공식 Obsidian Agent Skills 및 CLI 활용과 접근 제한은 [Wiki 실행 계약](Wiki/AGENTS.md#obsidian-및-클라이언트-접근)을 따른다. 프로젝트별 규칙이나 사용자 전역 지침을 중복 생성하지 않는다.
+
 ## Git 및 동기화
 - 평상시 원격 브랜치는 `main`만 유지한다. 작업은 최신 main에서 분리하고, Wiki 변경은 검토 PR을 사용한다. 승인 없는 병합·강제 push·미반영 작업 삭제를 금지한다.
 - 병합 및 일회성 브랜치 정리의 상세 기준은 [Wiki/AGENTS.md](Wiki/AGENTS.md)를 따른다. Daily Tech의 PR 없는 반영은 아래의 별도 예외다.
