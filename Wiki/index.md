@@ -198,6 +198,7 @@ This directory holds **retrievable context for AI tools**, not a duplicate of ex
 | [BLK-0002](knowledge/BLK-0002.md) | published | Approved Spring Core/Boot 7-course / 34-unit curriculum; 17 priority deep dives | backend-learning |
 | [BLK-0003](knowledge/BLK-0003.md) | published | Java·Spring·JPA·Security 학습 재시작과 핵심 이해 중심 운영 가이드 | backend-learning |
 | [SHK-0001](knowledge/SHK-0001.md) | published | AWS Emulator: API fidelity, security boundaries, AI-agent validation loops (2026-11-13) | shared |
+| [SHK-0002](knowledge/SHK-0002.md) | published | Obsidian Vault 안정화·성능 실측, Dataview·Sync·AI 설정 정리와 시작 자동 Pull 재활성화 (2026-11-27) | shared |
 | [GRK-0001](knowledge/GRK-0001.md) | draft | 한국어 개인 블로그·공식 자료·교양서 분야별 읽을거리 후보(매회 검증 필요) | general-reading |
 
 ## Lesson index

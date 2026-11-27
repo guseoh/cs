@@ -4,7 +4,7 @@ type: project
 project: backend-learning
 status: active
 created_at: 2026-11-04
-updated_at: 2026-11-25
+updated_at: 2026-11-27
 evidence_level: user-confirmed
 capture_mode: manual
 sources:
@@ -13,7 +13,7 @@ sources:
   - https://github.com/guseoh/large-scale-board/blob/main/docs/PROJECT_HANDOFF.md
 depends_on: []
 supersedes: []
-related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, BLR-0016, BLR-0017, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, PRJ-BACKEND-SYSTEMS-LAB, BSL-0001, BSL-0002, BSL-0003, BSK-0001]
+related_to: [BLR-0001, BLR-0002, BLR-0003, BLR-0004, BLR-0005, BLR-0006, BLR-0007, BLR-0008, BLR-0009, BLR-0010, BLR-0011, BLR-0012, BLK-0001, BLK-0002, BLK-0003, AGT-0001, AGK-0001, BLR-0013, BLR-0014, BLR-0015, BLR-0016, BLR-0017, PRJ-LOGISTICS-LEARNING, LGR-0001, LGK-0001, PRJ-BACKEND-SYSTEMS-LAB, BSL-0001, BSL-0002, BSL-0003, BSK-0001, SHK-0002]
 ---
 
 # 백엔드 학습 — 프로젝트 공통 현황
@@ -31,6 +31,10 @@ PR #103 병합 후 사용자 QA에서 읽기 모드의 IntelliJ 팔레트는 정
 PR #104 후 사용자 QA에서 PNG 및 나머지 개선은 정상으로 보고되었으나, 초기 화면 깨짐과 시작 지연 및 `int`·`println` 등의 편집기/읽기 구문 색상 차이는 남았다. 경고는 Linter가 아니라 Obsidian Git이며, 원격 설정에서 시작 Pull과 7초 상태 갱신 설정을 확인했다. 시작 Pull을 비활성화하고 30초로 조정하며 15분 자동 백업/수동 Commit-and-sync/Push 전 Pull은 유지한다. 기기 전환 시 작업 전 수동 Pull은 필수다. Linter의 자동 저장/변경 검사는 이미 꺼져 있으며 제거하지 않는다. 시작 지연의 원인·개선 시간은 미측정이다.
 
 읽기 모드의 IntelliJ Dark 팔레트와 CSS는 그대로 유지한다. 쓰기 모드는 공식 Obsidian `loadPrism` 및 CodeMirror 편집기 확장 API로 지원되는 가시 영역의 일반 fenced code에만 읽기와 같은 Prism 토큰 분류를 적용한다. 기존 Editing Toolbar의 로컬 수정에 포함하며 새 플러그인/외부 의존성은 추가하지 않는다. 레이아웃 준비 후 등록, 180ms 디바운스, 문서 256,000자·블록 12,000자·회당 24,000자/10,000범위 제한, 불지원/실패 시 기본 CodeMirror와 공통 CSS 변수 유지. 중첩 Markdown·미등록 언어·대형 블록에서 완전 일치는 보장하지 않는다. 이전 1.5초 툴바 가드는 실제 플러그인 CSS 준비 표시를 사용하도록 교정하고 상단·팝오버 양쪽에 적용한다. CSS 미로드 상태에서 시간만으로 깨진 화면을 노출하지 않으며 100ms 검사/최대 10초 이후 CSS 변수 fallback을 사용한다. 이전 중복 툴바 레이아웃 CSS는 제거한다. 플러그인 업데이트가 로컬 패치를 덮어쓸 수 있다. 펜스/토큰 매핑 및 가드 모의 테스트, JSON/변경 범위 정적 검사와 실제 Obsidian 화면/성능 QA는 구분한다. 근거: [PR #104](https://github.com/guseoh/cs/pull/104), [Obsidian API](https://github.com/obsidianmd/obsidian-api/blob/master/obsidian.d.ts).
+
+### 안정화·성능 진단과 설정 정리 (2026-11-27)
+
+공식 Obsidian CLI로 실측한 결과 시작 시간은 2.1~4.8초(11-25 단일 측정 7,655ms), 콘솔 오류는 0건이었다. Dataview는 Daily Tech 대시보드가 사용하므로 유지하고 사용하지 않는 인라인 기능만 껐다. Excalidraw AI와 미설정 코어 Sync를 끄고, 사용자 요청으로 시작 자동 Pull을 다시 켰다. 설정 정리의 시작 시간 효과는 측정 편차 안이었다. Editing Toolbar 로컬 패치는 대기 중인 4.1.14 업데이트로 사라질 수 있어 업데이트를 보류한다. 측정 방법·수치·채택하지 않은 대안은 [SHK-0002](../knowledge/SHK-0002.md)를 따른다.
 
 ## 2026-11-21 — Large-scale Board의 REST API 기본기 우선순위 확정
 
