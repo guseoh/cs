@@ -12,6 +12,8 @@ sources:
   - https://github.com/guseoh/cs/actions/runs/44237946734
   - https://github.com/guseoh/cs/actions/runs/41600021909
   - https://github.com/guseoh/cs/pull/19
+  - https://github.com/guseoh/cs/pull/112
+  - https://github.com/guseoh/cs/actions/runs/45943919468
 depends_on: []
 supersedes: []
 related_to: [WIKI-0001, WIKI-0002, WIKI-0004, WIKI-0005, WIKI-0006, WIKI-0007]
@@ -57,4 +59,5 @@ related_to: [WIKI-0001, WIKI-0002, WIKI-0004, WIKI-0005, WIKI-0006, WIKI-0007]
 
 ## 2026-11-27 프로젝트 공통 Obsidian 접근
 
-- [WIKI-0007](../decisions/WIKI-0007.md): 프로젝트 AGENTS.md를 진입점으로 활용하고 공식 스킬·CLI 또는 GitHub 원문으로 접근한다. 기존 정책과 검증 경계는 유지한다. 사용자 보고상 로컬 CLI와 Claude Code·Antigravity 플러그인 활성화가 성공했으나 Codex 실제 활성화, 각 앱의 종단간 연결, 규칙 변경의 CI·병합·로컬 반영은 미확인이다.
+- [WIKI-0007](../decisions/WIKI-0007.md): 프로젝트 AGENTS.md를 진입점으로 활용하고 공식 스킬·CLI 또는 GitHub 원문으로 접근한다. 기존 정책과 검증 경계는 유지한다. 사용자 보고상 로컬 CLI와 Claude Code·Antigravity 플러그인 활성화가 성공했으나 Codex 실제 활성화, 각 앱의 종단간 연결은 미확인이다. 최초 기록 당시 규칙 변경의 CI·병합·로컬 반영도 미확인이었다.
+- 후속 확인: [PR #112](https://github.com/guseoh/cs/pull/112) 검증·병합 및 임시 브랜치 자동 삭제 완료. 사용자가 제공한 실행 결과에서 현재 기기 Git 동기화와 Obsidian CLI를 통한 WIKI-0007 읽기 성공을 확인했다. ChatGPT의 GitHub 경유 접근 및 기록은 검증되었으며 다른 기기와 각 로컬 에이전트의 규칙 로드는 미검증이다.
